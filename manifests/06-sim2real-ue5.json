@@ -1,0 +1,86 @@
+{
+  "module": "06-sim2real-ue5",
+  "title": "Sim2Real & UE5 对照",
+  "description": "数字孪生、Sim2Real 概念框架 + Isaac Sim ↔ UE5 概念映射",
+  "output": "output/06_Sim2Real_and_UE5.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {
+      "url": "/digital_twin/index.html",
+      "title": "Digital Twin Index",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/ext_isaacsim_asset_generator_occupancy_map.html",
+      "title": "Occupancy Map Generator",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/warehouse_logistics/tutorial_static_assets.html",
+      "title": "Static Assets",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/warehouse_logistics/logistics_tutorial_cuopt.html",
+      "title": "cuOpt Logistics Tutorial",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/warehouse_logistics/ext_omni_warehouse_creator.html",
+      "title": "Warehouse Creator",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/warehouse_logistics/ext_isaacsim_asset_gen_conveyor.html",
+      "title": "Conveyor Extension",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/rtsp_camera_streaming.html",
+      "title": "RTSP Camera Streaming",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/digital_twin/troubleshooting.html",
+      "title": "Digital Twin Troubleshooting",
+      "section": "数字孪生"
+    },
+    {
+      "url": "/isaac_lab_tutorials/index.html",
+      "title": "Isaac Lab Index",
+      "section": "Isaac Lab (RL)"
+    },
+    {
+      "url": "/isaac_lab_tutorials/tutorial_cloner.html",
+      "title": "Tutorial Cloner",
+      "section": "Isaac Lab (RL)"
+    },
+    {
+      "url": "/isaac_lab_tutorials/tutorial_instanceable_assets.html",
+      "title": "Instanceable Assets",
+      "section": "Isaac Lab (RL)"
+    },
+    {
+      "url": "/isaac_lab_tutorials/tutorial_policy_deployment.html",
+      "title": "Policy Deployment",
+      "section": "Isaac Lab (RL)",
+      "full_url": "https://docs.isaacsim.omniverse.nvidia.com/latest/isaac_lab_tutorials/tutorial_policy_deployment.html"
+    },
+    {
+      "url": "/isaac_lab_tutorials/troubleshooting.html",
+      "title": "Isaac Lab Troubleshooting",
+      "section": "Isaac Lab (RL)"
+    },
+    {
+      "url": "/introduction/reference_architecture.html",
+      "title": "Reference Architecture (re-fetch for Sim2Real context)",
+      "section": "架构参考"
+    },
+    {
+      "url": "/robot_simulation/robot_simulation_core_concepts.html",
+      "title": "Robot Simulation Core Concepts",
+      "section": "架构参考"
+    }
+  ]
+}

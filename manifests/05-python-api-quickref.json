@@ -1,0 +1,37 @@
+{
+  "module": "05-python-api-quickref",
+  "title": "Python API 速查 (Sphinx 索引)",
+  "description": "Isaac Sim Python Extension API 签名与模块索引 — 开发时速查用",
+  "output": "output/05_Python_API_Quickref.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {"url": "/py/index.html", "title": "Extensions API Home", "section": "总览"},
+    {"url": "/py/docs/overview/experimental.html", "title": "Experimental API Overview", "section": "总览"},
+    {"url": "/py/docs/overview/guidelines.html", "title": "API Guidelines", "section": "总览"},
+
+    {"url": "/py/source/extensions/isaacsim.core.experimental.prims/config/python_api.html", "title": "core.experimental.prims API", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.core.experimental.objects/config/python_api.html", "title": "core.experimental.objects API", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.core.experimental.materials/config/python_api.html", "title": "core.experimental.materials API", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.core.experimental.utils/docs/index.html", "title": "core.experimental.utils Docs", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.core.simulation_manager/config/python_api.html", "title": "core.simulation_manager API", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.core.rendering_manager/config/python_api.html", "title": "core.rendering_manager API", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.core.cloner/config/python_api.html", "title": "core.cloner API", "section": "Core"},
+    {"url": "/py/source/extensions/isaacsim.simulation_app/config/python_api.html", "title": "simulation_app API", "section": "Core"},
+
+    {"url": "/py/source/extensions/isaacsim.replicator.experimental.domain_randomization/docs/index.html", "title": "replicator.experimental.domain_randomization Docs", "section": "Replicator"},
+    {"url": "/py/source/extensions/isaacsim.replicator.writers/config/python_api.html", "title": "replicator.writers API", "section": "Replicator"},
+    {"url": "/py/source/extensions/isaacsim.replicator.examples/docs/index.html", "title": "replicator.examples Docs", "section": "Replicator"},
+    {"url": "/py/source/extensions/isaacsim.replicator.synthetic_recorder/config/python_api.html", "title": "replicator.synthetic_recorder API", "section": "Replicator"},
+    {"url": "/py/source/extensions/isaacsim.replicator.grasping/config/python_api.html", "title": "replicator.grasping API", "section": "Replicator"},
+    {"url": "/py/source/extensions/isaacsim.replicator.mobility_gen.examples/config/python_api.html", "title": "replicator.mobility_gen.examples API", "section": "Replicator"},
+
+    {"url": "/py/source/extensions/isaacsim.sensors.experimental.rtx/docs/index.html", "title": "sensors.experimental.rtx Docs", "section": "Sensors"},
+    {"url": "/py/source/extensions/isaacsim.sensors.camera.ui/docs/index.html", "title": "sensors.camera.ui Docs", "section": "Sensors"},
+
+    {"url": "/py/source/extensions/isaacsim.robot.experimental.manipulators.examples/docs/index.html", "title": "robot.experimental.manipulators.examples Docs", "section": "Robot"},
+    {"url": "/py/source/extensions/isaacsim.robot.surface_gripper/config/python_api.html", "title": "robot.surface_gripper API", "section": "Robot"},
+    {"url": "/py/source/extensions/isaacsim.storage.native/config/python_api.html", "title": "storage.native API", "section": "Storage"},
+    {"url": "/py/source/extensions/isaacsim.app.setup/config/python_api.html", "title": "app.setup API", "section": "App"}
+  ]
+}

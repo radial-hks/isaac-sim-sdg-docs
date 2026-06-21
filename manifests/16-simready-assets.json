@@ -1,0 +1,68 @@
+{
+  "module": "06-simready-assets",
+  "title": "SimReady Assets",
+  "description": "SimReady 物理资产库 + USD 资产总览 + 物理引擎基础",
+  "output": "output/16_SimReady_Assets.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "external_urls": [
+    "https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_browser-extensions/simready-explorer.html"
+  ],
+  "pages": [
+    {
+      "url": "/assets/usd_assets_overview.html",
+      "title": "USD Assets Overview",
+      "section": "资产库"
+    },
+    {
+      "url": "/assets/usd_assets_props.html",
+      "title": "Props",
+      "section": "资产库"
+    },
+    {
+      "url": "/assets/usd_assets_environments.html",
+      "title": "Environments",
+      "section": "资产库"
+    },
+    {
+      "url": "/assets/usd_assets_robots.html",
+      "title": "Robots",
+      "section": "资产库"
+    },
+    {
+      "url": "/assets/usd_assets_sensors.html",
+      "title": "Sensors",
+      "section": "资产库"
+    },
+    {
+      "url": "/assets/usd_assets_featured.html",
+      "title": "Featured",
+      "section": "资产库"
+    },
+    {
+      "url": "/assets/usd_assets_third_party.html",
+      "title": "Third Party",
+      "section": "资产库"
+    },
+    {
+      "url": "/physics/simulation_fundamentals.html",
+      "title": "Simulation Fundamentals",
+      "section": "物理"
+    },
+    {
+      "url": "/physics/physics_static_collision.html",
+      "title": "Static Collision",
+      "section": "物理"
+    },
+    {
+      "url": "/physics/ext_isaacsim_inspect_physics.html",
+      "title": "Inspect Physics",
+      "section": "物理"
+    },
+    {
+      "url": "/physics/index.html",
+      "title": "Physics Index",
+      "section": "物理"
+    }
+  ]
+}

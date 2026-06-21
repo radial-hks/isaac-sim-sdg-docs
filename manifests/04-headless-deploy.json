@@ -1,0 +1,18 @@
+{
+  "module": "04-headless-deploy",
+  "title": "Headless & 部署",
+  "description": "无头模式运行、容器化、云端部署、远程可视化",
+  "output": "output/04_Headless_and_Deploy.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {"url": "/installation/install_container.html", "title": "Container Install", "section": "容器化"},
+    {"url": "/installation/install_cloud.html", "title": "Cloud Install", "section": "云端"},
+    {"url": "/installation/install_advanced_remote_setup.html", "title": "Advanced Remote Setup", "section": "远程"},
+    {"url": "/installation/manual_livestream_clients.html", "title": "Livestream Clients", "section": "远程可视化"},
+    {"url": "/installation/install_advanced_cloud_setup_alibaba.html", "title": "Cloud: Alibaba", "section": "云厂商"},
+    {"url": "/installation/install_advanced_cloud_setup_aws.html", "title": "Cloud: AWS", "section": "云厂商"},
+    {"url": "/installation/install_advanced_cloud_setup_tencent.html", "title": "Cloud: Tencent", "section": "云厂商"},
+    {"url": "/reference_material/sim_performance_optimization_handbook.html", "title": "Performance Optimization", "section": "性能优化"}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "module": "03-extension-dev",
+  "title": "Extension 开发",
+  "description": "Omniverse Kit Extension 从零搭建：模板、搜索、更新、调试",
+  "output": "output/03_Extension_Development.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {"url": "/utilities/templates_index.html", "title": "Templates Index", "section": "Extension 模板"},
+    {"url": "/utilities/extension_templates_tutorial.html", "title": "Extension Templates Tutorial", "section": "Extension 模板"},
+    {"url": "/utilities/cli_extension_templates.html", "title": "CLI Extension Templates", "section": "Extension 模板"},
+    {"url": "/utilities/vscode_extension_template_generator.html", "title": "VSCode Extension Template Generator", "section": "Extension 模板"},
+    {"url": "/utilities/tutorial_search_extension.html", "title": "Search Extension Tutorial", "section": "Extension 管理"},
+    {"url": "/utilities/updating_extensions.html", "title": "Updating Extensions", "section": "Extension 管理"},
+    {"url": "/utilities/content_browser.html", "title": "Content Browser", "section": "工具"},
+    {"url": "/utilities/browsers.html", "title": "Browsers", "section": "工具"},
+    {"url": "/omniverse_usd/building_cpp_usd_plugins.html", "title": "Building C++ USD Plugins", "section": "高级"},
+    {"url": "/app_template/index.html", "title": "Application Template", "section": "高级"}
+  ]
+}

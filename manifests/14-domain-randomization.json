@@ -1,0 +1,85 @@
+{
+  "module": "04-domain-randomization",
+  "title": "Domain Randomization",
+  "description": "Replicator Object API 随机化器 + Domain Randomization OGN 节点",
+  "output": "output/14_Domain_Randomization.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/camera.html",
+      "title": "Camera Randomizer",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/force.html",
+      "title": "Force",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/geometry.html",
+      "title": "Geometry",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/harmonizer.html",
+      "title": "Harmonizer",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/light.html",
+      "title": "Light",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/macro.html",
+      "title": "Macro",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/mutable.html",
+      "title": "Mutable",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/mutable_attribute.html",
+      "title": "Mutable Attribute",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/randomization_dependency.html",
+      "title": "Randomization Dependency",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/setting.html",
+      "title": "Setting",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/transformation.html",
+      "title": "Transformation",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/distribution_visualizer.html",
+      "title": "Distribution Visualizer",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/empty_space_detection.html",
+      "title": "Empty Space Detection",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/ext_replicator-object/ext_chat_iro.html",
+      "title": "Chat IRO",
+      "section": "Replicator Object"
+    },
+    {
+      "url": "/action_and_event_data_generation/tutorial_replicator_object.html",
+      "title": "Replicator Object Tutorial",
+      "section": "教程"
+    }
+  ]
+}

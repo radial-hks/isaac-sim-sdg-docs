@@ -1,0 +1,33 @@
+{
+  "module": "02-fundamentals-dev",
+  "title": "开发基础 (Development Fundamentals)",
+  "description": "开发工具、Python 脚本、Core API 教程 — 日常开发必备",
+  "output": "output/02_Development_Fundamentals.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {"url": "/development_tools/index.html", "title": "Development Tools Index", "section": "开发工具"},
+    {"url": "/development_tools/vscode.html", "title": "VS Code", "section": "开发工具"},
+    {"url": "/development_tools/python_server.html", "title": "Python Server", "section": "开发工具"},
+    {"url": "/development_tools/jupyter_notebook.html", "title": "Jupyter Notebook", "section": "开发工具"},
+    {"url": "/development_tools/omniverse_script_editor.html", "title": "Script Editor", "section": "开发工具"},
+    {"url": "/development_tools/isaac_sim_mcp.html", "title": "Isaac Sim MCP Server", "section": "开发工具"},
+    {"url": "/development_tools/carb_settings.html", "title": "Carb Settings", "section": "开发工具"},
+
+    {"url": "/python_scripting/index.html", "title": "Python Scripting Index", "section": "Python 脚本"},
+    {"url": "/python_scripting/python_scripting_concepts.html", "title": "Scripting Concepts", "section": "Python 脚本"},
+    {"url": "/python_scripting/core_api_overview.html", "title": "Core API Overview", "section": "Python 脚本"},
+    {"url": "/python_scripting/environment_setup.html", "title": "Environment Setup", "section": "Python 脚本"},
+    {"url": "/python_scripting/manual_standalone_python.html", "title": "Standalone Python", "section": "Python 脚本"},
+    {"url": "/python_scripting/robots_simulation.html", "title": "Robots Simulation", "section": "Python 脚本"},
+    {"url": "/python_scripting/util_snippets.html", "title": "Util Snippets", "section": "Python 脚本"},
+
+    {"url": "/core_api_tutorials/index.html", "title": "Core API Tutorials Index", "section": "Core API"},
+    {"url": "/core_api_tutorials/tutorial_core_hello_world.html", "title": "Hello World", "section": "Core API"},
+    {"url": "/core_api_tutorials/tutorial_core_hello_robot.html", "title": "Hello Robot", "section": "Core API"},
+    {"url": "/core_api_tutorials/tutorial_core_adding_manipulator.html", "title": "Adding Manipulator", "section": "Core API"},
+    {"url": "/core_api_tutorials/tutorial_core_adding_multiple_robots.html", "title": "Adding Multiple Robots", "section": "Core API"},
+    {"url": "/core_api_tutorials/tutorial_core_multiple_tasks.html", "title": "Multiple Tasks", "section": "Core API"},
+    {"url": "/core_api_tutorials/tutorial_core_adding_props.html", "title": "Adding Props", "section": "Core API"}
+  ]
+}
