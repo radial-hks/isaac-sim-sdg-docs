@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/py/docs/overview/guidelin
 title: "API Guidelines"
 section: "总览"
 module: "05-python-api-quickref"
-checksum: "aa5ade0e9e6864ba"
-fetched: "2026-06-21T12:48:15"
+checksum: "decd365840f26cc1"
+fetched: "2026-06-21T13:39:59"
 ---
 
 * Coding Style Guidelines
@@ -65,7 +65,7 @@ struct UiElement; // not UIElement
 #### Naming Guidelines
 
 * All names must be written in *US English*.
-* Use full English names. Donât cut the words and avoid using colloquial names.
+* Use full English names. Don’t cut the words and avoid using colloquial names.
 
   ```python
   float robotVelocity; // not robotVel, or robotVelo
@@ -183,7 +183,7 @@ struct UiElement; // not UIElement
   namespace isaacsim
   {
   ```
-* We donât add indentation for code inside namespaces (this conserves maximum space for indentation inside code).
+* We don’t add indentation for code inside namespaces (this conserves maximum space for indentation inside code).
 
   ```python
   namespace isaacsim
@@ -194,7 +194,7 @@ struct UiElement; // not UIElement
   struct Ros2Bridge
   {
   ```
-* We donât add comments for documenting closing of structs or definitions, but itâs OK for namespaces because
+* We don’t add comments for documenting closing of structs or definitions, but it’s OK for namespaces because
   they often span many pages and there is no indentation to help:
 
   ```python
@@ -250,12 +250,12 @@ struct UiElement; // not UIElement
 
 * We make a clear distinction between structs and classes.
 * We do not permit any member functions on structs. Those we make classes.
-* If you must initialize a member of the struct then use C++14 static initializers for this, but donât do this for
+* If you must initialize a member of the struct then use C++14 static initializers for this, but don’t do this for
   basic types like a Float3 struct because default construction/initialization is not free.
 * No additional scoping is needed on struct variables.
 * Not everything needs to be a class object with logic.
 
-  + Sometimes itâs better to separate the data type from the functionality and structs are a great vehicle for this.
+  + Sometimes it’s better to separate the data type from the functionality and structs are a great vehicle for this.
 
   ```python
   struct Float3
@@ -347,7 +347,7 @@ struct UiElement; // not UIElement
 
 #### Pre-processors and Macros
 
-* Itâs recommended to place preprocessor definitions in the source files instead of makefiles/compiler/project files.
+* It’s recommended to place preprocessor definitions in the source files instead of makefiles/compiler/project files.
 * Try to reduce the use of `#define` (e.g. for constants and small macro functions), and prefer `constexpr` values
   or functions when possible.
 * Definitions in the public global namespace must be prefixed with the namespace in uppercase:
@@ -360,7 +360,7 @@ struct UiElement; // not UIElement
 * When adding `#if` pre-processor blocks to support multiple platforms, the block must end with an `#else` clause
   containing the `CARB_UNSUPPORTED_PLATFORM()` macro. An exception to this is when the `#else` block
   uses entirely C++ standard code; this sometimes happens in the case of platform-specific optimizations.
-  You may not make assumptions about what features future platforms may have, aside from whatâs in the C++ standard;
+  You may not make assumptions about what features future platforms may have, aside from what’s in the C++ standard;
   all platform-specific code must have the associated platform specifically stated.
 
   ```python
@@ -383,7 +383,7 @@ struct UiElement; // not UIElement
   #endif
   ```
 * Macros that do not have universal appeal (i.e. are only intended to be used within a single header file) shall be
-  prefixed with `ISAACSIMLOCAL_` and `#undef`âd at the end of the file.
+  prefixed with `ISAACSIMLOCAL_` and `#undef`’d at the end of the file.
 
 ### Commenting and documenting
 
@@ -455,7 +455,7 @@ struct UiElement; // not UIElement
 * Only use `//` line comments on the line above the code you plan to comment.
 * Avoid `/* */` block comments inside implementation code (.cpp). This prevents others from easily doing their own
   block comments when testing, debugging, etc.
-* Avoid explicitly referring to identifiers in comments, since thatâs an easy way to make your comment outdated when
+* Avoid explicitly referring to identifiers in comments, since that’s an easy way to make your comment outdated when
   an identifier is renamed.
 
 ### Formatting Code
@@ -527,7 +527,7 @@ so there is no need to memorize them.
               return "eManipulator";
           ...
   ```
-* Donât align blocks of variables or trailing comments to match spacing causing unnecessary code changes when new
+* Don’t align blocks of variables or trailing comments to match spacing causing unnecessary code changes when new
   variables are introduced:
 
   ```python

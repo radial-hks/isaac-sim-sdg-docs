@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Agent Configuration"
 section: "Agent配置"
 module: "03-replicator-agent"
-checksum: "20f62634254d2232"
-fetched: "2026-06-21T11:55:26"
+checksum: "a889f88a3c863fb0"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -36,7 +36,7 @@ Before diving into detailed configuration, review the general workflow and key c
 * **Behaviors**: Atomic actions an actor can perform, such as `wander`, `patrol`, or `idle`.
 * **Routines**: A collection of behaviors assigned to an actor group. Actors randomly select behaviors from this pool based on assigned weights.
 * **Triggers**: Conditional logic that interrupts normal routines. When a condition is met (for example, a specific time or event), the trigger executes its defined list of behaviors in sequence. Once the trigger sequence is complete, the agent resumes its standard routine until another trigger activates.
-* **Behavior Tree (experimental)**: An alternative to the routine-trigger system. A character or robot group may specify a `behavior_tree` JSON asset instead of `routines` / `triggers`; all of the groupâs logic is then authored inside the tree. See [Behavior Tree Character Group (Experimental)](#ira-bt-character-group) and [Behavior Tree Robot Group (Experimental)](#ira-bt-robot-group).
+* **Behavior Tree (experimental)**: An alternative to the routine-trigger system. A character or robot group may specify a `behavior_tree` JSON asset instead of `routines` / `triggers`; all of the group’s logic is then authored inside the tree. See [Behavior Tree Character Group (Experimental)](#ira-bt-character-group) and [Behavior Tree Robot Group (Experimental)](#ira-bt-robot-group).
 * **Sensors**: Cameras placed in the scene to observe the simulation.
 * **Replicator**: The system responsible for rendering frames and writing annotated data (ground truth) to disk or cloud storage.
 
@@ -58,13 +58,13 @@ isaacsim.replicator.agent:
 
 ### Root Parameters
 
-* **version** (required): Semantic version of the configuration schema (for example, â1.0.0â).
+* **version** (required): Semantic version of the configuration schema (for example, “1.0.0”).
 * **environment** (required): Defines the simulation world.
 * **seed** (optional): A 32-bit unsigned integer (0..4,294,967,295).
   - Used to initialize random number generators for deterministic simulations (for example, character spawn locations, routine variations).
   - If omitted, a seed is generated based on the current system time.
 * **simulation\_duration** (optional): The total run time of the simulation in seconds (must be >= 0).
-  - The simulation runs with the timelineâs per-tick `dt` set to `1/30 s` and the applicationâs loop rate-limited to 30 Hz, giving an effective 30 FPS playback rate.
+  - The simulation runs with the timeline’s per-tick `dt` set to `1/30 s` and the application’s loop rate-limited to 30 Hz, giving an effective 30 FPS playback rate.
   - Defaults to `60.0` seconds.
 * **character** (optional): Configures human agents (appearance, behaviors like wander/patrol, and triggers).
 * **robot** (optional): Configures robot agents (config path, behaviors/commands, data collection).
@@ -221,7 +221,7 @@ Tip
 
 **Authoring a specific sequence of actions**
 
-Routines select behaviors randomly based on weights, so they are not suited for deterministic sequences. If you need actors to perform actions in a specific order (for example, walk to point A, idle for five seconds, then walk to point B), use a **trigger** instead. A triggerâs `behavior` list is always executed in order, making it the right tool for scripted sequences. Use a `time_trigger` with `time: 0` to start the sequence immediately when the simulation begins.
+Routines select behaviors randomly based on weights, so they are not suited for deterministic sequences. If you need actors to perform actions in a specific order (for example, walk to point A, idle for five seconds, then walk to point B), use a **trigger** instead. A trigger’s `behavior` list is always executed in order, making it the right tool for scripted sequences. Use a `time_trigger` with `time: 0` to start the sequence immediately when the simulation begins.
 
 **Trigger Types:**
 
@@ -320,7 +320,7 @@ Note
 **Behavior-Tree-Specific Parameters:**
 
 * `behavior_tree` (required): Path or URL to a JSON behavior tree asset. Supports Isaac asset-root-relative paths (for example, `Isaac/...`), absolute filesystem paths, and paths relative to the config file directory. The tree must reference node libraries such as `omni.behavior.tree.core` and `omni.anim.behavior.tree`.
-* `overrides` (optional): A YAML multi-line string containing JSON that overrides node port values at runtime without modifying the original tree file. The JSON follows the `omni.behavior.tree` override schema with `schemaVersion` and `instanceOverrides` keys. Refer to the [Behavior Treeâs User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html#instance-overrides) for more details on instance overrides.
+* `overrides` (optional): A YAML multi-line string containing JSON that overrides node port values at runtime without modifying the original tree file. The JSON follows the `omni.behavior.tree` override schema with `schemaVersion` and `instanceOverrides` keys. Refer to the [Behavior Tree’s User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html#instance-overrides) for more details on instance overrides.
 
 **Shared Parameters (same as IRA character groups):**
 
@@ -402,7 +402,7 @@ Defines robot agents.
 * `config_file_path` (required): Path to the robot agent YAML configuration file for this robot type. Supports absolute paths or paths relative to the built-in sample config folder (`data/sample_configs/` within the `isaacsim.anim.robot.core` extension).
 * `spawn_areas` (optional): NavMesh areas for spawning.
 * `agent_radius` (optional): Radius in meters used for NavMesh queries. Must be > 0 when set. If omitted, defaults to `0.5` at runtime.
-* `write_data` (optional): If `true`, enables data collection from the robotâs onboard cameras.
+* `write_data` (optional): If `true`, enables data collection from the robot’s onboard cameras.
 * `camera_prim_paths` (optional): List of specific camera prims on the robot to use. If empty and `write_data` is true, *all* cameras on the robot are used. Requires `write_data` to be `true`.
 * `semantic_labels` (optional): Default `[["class", "robot"]]`.
 * `semantic_label_path` (optional): Relative path under the robot prim to apply semantics.
@@ -483,7 +483,7 @@ Places cameras to look at specific targets.
 
 * `targets` (optional): List of target prim paths (for example, `/World/Characters`) or identifiers.
 * `raycast_density` (optional): Density of rays used to find valid camera positions. Higher values are more precise but slower.
-* `yaw_range` (optional): [min, max] degrees (0..360) for the cameraâs rotation around the target.
+* `yaw_range` (optional): [min, max] degrees (0..360) for the camera’s rotation around the target.
 * `occlusion_threshold` (optional): Threshold for filtering occluded views (-1 to disable).
 
 **2. Placement Strategy: maximum\_coverage**
@@ -567,11 +567,11 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
 
 1. **IRABasicWriter**:
 
-   The foundational writer for Agent simulations, derived from Replicatorâs `BasicWriter`. It organizes output into separate folders per annotator and consolidates object and agent metadata into `object_detection.json`.
+   The foundational writer for Agent simulations, derived from Replicator’s `BasicWriter`. It organizes output into separate folders per annotator and consolidates object and agent metadata into `object_detection.json`.
 
    * **Key Features**:
 
-     + **Folder Structure**: Outputs each annotatorâs data into separate folders for better readability.
+     + **Folder Structure**: Outputs each annotator’s data into separate folders for better readability.
      + **Object Detection**: Consolidates bounding box and skeleton data into a single file named `object_detection.json`.
      + **Default Semantic Filter**: `class:character|robot;id:*` (captures characters and robots).
      + **Action data output**: When object detection is enabled (object\_info or agent\_info annotators are on), the action data for each IRA actor will be included as well.
@@ -604,7 +604,7 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
      + `world_moving_direction`: Actor moving direction (vec3) in world space. `null` means actor is not moving.
      + `world_facing_direction`: Actor facing direction (vec3) in world space.
      + `speed`: The actor moving speed.
-     + `current_task_name`: Actorâs current action name (not behavior name).
+     + `current_task_name`: Actor’s current action name (not behavior name).
      + `asset_url`: The asset URL of the actor.
 
    **IRABasicWriter example:**
@@ -625,7 +625,7 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
    ```
 2. **CosmosIRAWriter**:
 
-   * Adds âCosmosâ Specific post-processing.
+   * Adds “Cosmos” Specific post-processing.
    * `shaded_seg`: Shaded segmentation visualization.
    * `canny_edge`: Canny edge detection filter (with `canny_threshold_low/high`).
 3. **SceneGraphWriter**:
@@ -647,20 +647,20 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
        - **Filesystem path** to a `.py` file (for example, `"<path/to/your_writers.py>"`): loads the file and registers all `Writer` subclasses defined in it.
 
        Use `writer_name` to select the specific writer from the discovered set.
-   * **Additional parameters**: All other key-value pairs in the YAML block are passed directly to the target writerâs `initialize(**kwargs)` call. Only parameters you explicitly list override the writerâs built-in defaults; unlisted parameters keep the writerâs own default values.
+   * **Additional parameters**: All other key-value pairs in the YAML block are passed directly to the target writer’s `initialize(**kwargs)` call. Only parameters you explicitly list override the writer’s built-in defaults; unlisted parameters keep the writer’s own default values.
 
    How parameter discovery works
 
-   When a `CustomWriter` entry is loaded, the system introspects the target writerâs `__init__` signature to discover all accepted parameters along with their types and default values. A typed Pydantic model is dynamically generated from this signature, which enables:
+   When a `CustomWriter` entry is loaded, the system introspects the target writer’s `__init__` signature to discover all accepted parameters along with their types and default values. A typed Pydantic model is dynamically generated from this signature, which enables:
 
-   * **Type validation**: Supplied parameter values are checked against the writerâs expected types before the simulation starts.
-   * **UI integration**: In the Configuration Editor UI, each discoverable parameter appears as an addable field with the correct widget type. Click **Add Parameter** to override a default, or remove a parameter to revert to the writerâs own default.
+   * **Type validation**: Supplied parameter values are checked against the writer’s expected types before the simulation starts.
+   * **UI integration**: In the Configuration Editor UI, each discoverable parameter appears as an addable field with the correct widget type. Click **Add Parameter** to override a default, or remove a parameter to revert to the writer’s own default.
 
    Parameters whose types cannot be represented in JSON (for example, custom backend objects) are excluded from the dynamic model and the UI but can still be passed in YAML.
 
    Note
 
-   Some writers accept `width` and `height` parameters that configure the writerâs output dimensions but do **not** modify the underlying RenderProduct resolution. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writerâs `width` and `height` parameters to match.
+   Some writers accept `width` and `height` parameters that configure the writer’s output dimensions but do **not** modify the underlying RenderProduct resolution. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writer’s `width` and `height` parameters to match.
 
    Auto-registration using writer scope
 
@@ -683,8 +683,8 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
 
       * **Writer Name**: A dropdown listing all writers currently in the `WriterRegistry`. Select the target writer.
       * **Writer Scope**: An optional text field that accepts a package path, a dotted class path, or a filesystem path to a `.py` file. Click **Register** to discover, validate, and register writers from the scope, which also refreshes the **Writer Name** dropdown.
-   3. Click **OK** to confirm. The editor displays the writerâs name as a read-only label and lists all currently set parameters with their values.
-   4. Use the **Add Parameter** dropdown at the bottom to override additional defaults from the writerâs `__init__` signature.
+   3. Click **OK** to confirm. The editor displays the writer’s name as a read-only label and lists all currently set parameters with their values.
+   4. Use the **Add Parameter** dropdown at the bottom to override additional defaults from the writer’s `__init__` signature.
 
    Important
 
@@ -696,7 +696,7 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
 
    Note
 
-   Parameter names displayed in the UI are derived automatically from the writerâs `__init__` signature (for example, `sensorSetName` in `RTSPStreamWriter`). Because users can import custom or third-party writers, no specific naming format is enforced. The UI capitalizes the first letter of each name for readability (for example, `sensorSetName` appears as **SensorSetName**), but the original name is used when passing values to the writer.
+   Parameter names displayed in the UI are derived automatically from the writer’s `__init__` signature (for example, `sensorSetName` in `RTSPStreamWriter`). Because users can import custom or third-party writers, no specific naming format is enforced. The UI capitalizes the first letter of each name for readability (for example, `sensorSetName` appears as **SensorSetName**), but the original name is used when passing values to the writer.
 
    Multiple CustomWriter instances
 

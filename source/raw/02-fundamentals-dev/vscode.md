@@ -4,7 +4,7 @@ title: "VS Code"
 section: "开发工具"
 module: "02-fundamentals-dev"
 checksum: "d2c6927fa757d3f2"
-fetched: "2026-06-21T12:48:07"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Development Tools](index.html)

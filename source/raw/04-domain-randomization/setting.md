@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Setting"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "afa5adf8852a1414"
-fetched: "2026-06-21T11:55:29"
+checksum: "08210804a40437fb"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T11:55:29"
 
 # Setting
 
-If the key-value pair in the description file is neither a [Mutable](mutable.html#mutable) nor a [Harmonizer](harmonizer.html#harmonizer), itâs a setting. You can define a description with only settings.
+If the key-value pair in the description file is neither a [Mutable](mutable.html#mutable) nor a [Harmonizer](harmonizer.html#harmonizer), it’s a setting. You can define a description with only settings.
 
 ## Required Keys
 
@@ -47,7 +47,7 @@ The setting output\_path controls what is output to disk per frame. It has these
 
 Setting a switch to True or not setting the switch creates the corresponding folder under `output_path` and writes corresponding data into it.
 
-`usd_base_name` is the mutable name or the USD file base name of USD file when a geometry `mesh` is loaded, which means itâs not allowed to load different USD files with the same base name. Using `${resource_root_1}/apple.usd` and `${resource_root_1}/inner/apple.usd` in the same simulation causes unexpected behavior.
+`usd_base_name` is the mutable name or the USD file base name of USD file when a geometry `mesh` is loaded, which means it’s not allowed to load different USD files with the same base name. Using `${resource_root_1}/apple.usd` and `${resource_root_1}/inner/apple.usd` in the same simulation causes unexpected behavior.
 
 For example, an output switch could be:
 
@@ -61,7 +61,7 @@ output_switches:
   depth: False
 ```
 
-To also write per-frame scene captions alongside this output, the `Isaacsim.Replicator.Caption` extensionâs `CombinedIROSceneGraphWriter` can replace the default writer, refer to [Use Isaacsim.Replicator.Caption in Isaacsim.Replicator.Object](../tutorial_replicator_caption.html#using-iro-extension).
+To also write per-frame scene captions alongside this output, the `Isaacsim.Replicator.Caption` extension’s `CombinedIROSceneGraphWriter` can replace the default writer, refer to [Use Isaacsim.Replicator.Caption in Isaacsim.Replicator.Object](../tutorial_replicator_caption.html#using-iro-extension).
 
 ## Optional Keys
 
@@ -109,7 +109,7 @@ Each frame is randomized with its own seed, which equals the global seed plus th
 
 When objects are randomized in the scene for each frame, they can start at an overlapping position. Resolution of physics de-penetrates these objects. The de-penetration accelerates the objects, such that they can start off with a high speed. Increase linear/angular damping to keep object movement contained.
 
-However, if linear or angular damping is set too high, objects get lazy and they donât move much. This can be bad in a gravity enabled setting, where we want objects to be in close contact with a surface. Because different objects have different sizes and shapes, itâs good to tune these physics properties to reach a good appearance.
+However, if linear or angular damping is set too high, objects get lazy and they don’t move much. This can be bad in a gravity enabled setting, where we want objects to be in close contact with a surface. Because different objects have different sizes and shapes, it’s good to tune these physics properties to reach a good appearance.
 
 Similarly, too high of a value for friction makes objects cluster if they are in close contact; while too low of a value for friction makes them slippery and glide off surfaces.
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/utilities/vscode_extensio
 title: "VSCode Extension Template Generator"
 section: "Extension 模板"
 module: "03-extension-dev"
-checksum: "08f58fcd68c6b8d5"
-fetched: "2026-06-21T12:48:11"
+checksum: "1f26ba6b97877a99"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * [Templates](templates_index.html)
@@ -17,7 +17,7 @@ fetched: "2026-06-21T12:48:11"
 The [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) is a Visual Studio Code extension that provides development support for NVIDIA Omniverse in general and Isaac Sim in particular.
 One of its features is the generation of advanced extension templates.
 
-Isaac Sim VS Code Editionâs Extension template generator wizard
+Isaac Sim VS Code Edition’s Extension template generator wizard
 
 Extension templates can be generated in the following forms:
 
@@ -51,14 +51,14 @@ Note
 
 The folder containing the extension to be created had to be listed in the Isaac Sim extension search path in order to be discoverable.
 
-If this is not the case, you can use the Isaac Simâs Extensions Manager (*Window > Extensions* menu) to add it.
+If this is not the case, you can use the Isaac Sim’s Extensions Manager (*Window > Extensions* menu) to add it.
 Click on the hamburger icon in the Extensions Manager, and then *Settings* in the sub-menu, to add the path to the folder containing your extensions.
 
 Hint
 
 For convenience, the `extsUser` folder at the root of the Isaac Sim installation is listed in the extension search path, so it is recommended to create the extension in that folder.
 
-Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*âs extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
+Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*’s extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
 
 * **Ext. name**: Given extension name. E.g. `my.custom.extension`.
 * **Ext. path**: Folder path that will contain the extension. E.g.: `PATH_TO_ISAAC_SIM/extsUser`.
@@ -106,10 +106,10 @@ Get the [Isaac Sim Open-Source Application](https://github.com/isaac-sim/IsaacSi
 
 Hint
 
-For convenience, the `source/extensions` folder at the root of the Isaac Sim Open-Source Application is configured, in the build system, as a place to search for the extensionsâ source code.
-Therefore, it is recommended to create the extension there. **Create it if the folder doesnât exist**.
+For convenience, the `source/extensions` folder at the root of the Isaac Sim Open-Source Application is configured, in the build system, as a place to search for the extensions’ source code.
+Therefore, it is recommended to create the extension there. **Create it if the folder doesn’t exist**.
 
-Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*âs extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
+Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*’s extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
 
 * **Ext. name**: Given extension name. E.g. `my.custom.extension`.
 * **Ext. path**: Folder path that will contain the extension source code. E.g.: `PATH_TO_ISAAC_SIM_APPLICATION/source/extensions`.

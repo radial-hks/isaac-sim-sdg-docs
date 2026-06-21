@@ -36,6 +36,7 @@ CACHE_DIR = BASE_DIR / "source" / "cache"
 OUTPUT_DIR = BASE_DIR / "output"
 LOGS_DIR = BASE_DIR / "logs"
 
+REF_URLS_FILE = BASE_DIR / "source" / "reference_urls.txt"
 CACHE_FILE = CACHE_DIR / ".collect_cache.json"
 PROXY = os.environ.get("https_proxy", os.environ.get("HTTP_PROXY", ""))
 MAX_WORKERS = 8  # 并发数
@@ -78,6 +79,38 @@ def url_to_filepath(url: str) -> str:
 def compute_checksum(text: str) -> str:
     """计算文本内容的 SHA256"""
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+
+# ── Mojibake 修复 ─────────────────────────────────────────────────────────────
+# defuddle 对某些页面的 UTF-8 处理有 bug，导致 smart quotes / em-dash
+# 被 double-encode（UTF-8 bytes 被当作 Latin-1 解码再重新编码为 UTF-8）
+
+_MOJIBAKE_MAP = {
+    # UTF-8 double-encoding: em dash (U+2014 = E2 80 94 -> â€" in CP1252)
+    "\u00e2\u0080\u0094": "\u2014",   # —
+    # en dash (U+2013 = E2 80 93 -> â€" in CP1252)
+    "\u00e2\u0080\u0093": "\u2013",   # –
+    # left single quote (U+2018 = E2 80 98 -> â€˜ in CP1252)
+    "\u00e2\u0080\u0098": "\u2018",   # '
+    # right single quote (U+2019 = E2 80 99 -> â€™ in CP1252)
+    "\u00e2\u0080\u0099": "\u2019",   # '
+    # left double quote (U+201C = E2 80 9C -> â€œ in CP1252)
+    "\u00e2\u0080\u009c": "\u201c",   # "
+    # right double quote (U+201D = E2 80 9D -> â€ in CP1252)
+    "\u00e2\u0080\u009d": "\u201d",   # "
+    # ellipsis (U+2026 = E2 80 A6 -> â€¦ in CP1252)
+    "\u00e2\u0080\u00a6": "\u2026",   # …
+    # per mille (U+2030 = E2 80 B0 -> â€° in CP1252)
+    "\u00e2\u0080\u00b0": "\u2030",   # ‰
+}
+
+
+def fix_mojibake(text: str) -> str:
+    """修复 defuddle 产生的 UTF-8 double-encoding mojibake"""
+    # 按长度从长到短替换，避免子串重叠问题
+    for bad, good in sorted(_MOJIBAKE_MAP.items(), key=lambda x: -len(x[0])):
+        text = text.replace(bad, good)
+    return text
 
 
 def load_cache() -> dict:
@@ -193,7 +226,6 @@ def extract_markdown_bs4(html: str) -> str:
 
 def fetch_and_extract(url: str, module_name: str, session=None) -> dict:
     """抓取单个页面并提取 Markdown"""
-    from requests import Session as _S
     s = session or get_session()
 
     try:
@@ -201,22 +233,51 @@ def fetch_and_extract(url: str, module_name: str, session=None) -> dict:
         resp.raise_for_status()
         html = resp.text
     except Exception as e:
-        return {"url": url, "error": f"HTTP {e}", "content": "", "checksum": ""}
+        return {"url": url, "error": f"HTTP {e}", "content": "", "checksum": "", "last_modified": ""}
 
     # 先用 defuddle，失败回退 bs4
     md_content = extract_markdown_defuddle(html)
     if not md_content or len(md_content) < 100:
         md_content = extract_markdown_bs4(html)
 
+    # 修复 defuddle 编码问题
+    if md_content:
+        md_content = fix_mojibake(md_content)
+
     checksum = compute_checksum(md_content) if md_content else ""
-    return {"url": url, "error": None, "content": md_content, "checksum": checksum}
+    last_modified = resp.headers.get("Last-Modified", "")
+    return {"url": url, "error": None, "content": md_content, "checksum": checksum,
+            "last_modified": last_modified}
 
 
 # ── 采集阶段 ──────────────────────────────────────────────────────────────────
 
+def _check_remote_changed(session, url: str, cached_last_modified: str) -> bool:
+    """用 HEAD 请求检查远端页面是否变化
+
+    返回 True = 内容已变化或无法确认（应重抓）
+    返回 False = 内容未变化（可跳过）
+    """
+    if not cached_last_modified:
+        return True  # 无缓存的 Last-Modified，无法判断，保险起见重抓
+    try:
+        resp = session.head(url, timeout=10, allow_redirects=True)
+        if resp.status_code != 200:
+            return True  # HEAD 失败，保险起见重抓
+        remote_lm = resp.headers.get("Last-Modified", "")
+        if not remote_lm:
+            return True  # 远端无 Last-Modified，无法判断
+        return remote_lm != cached_last_modified
+    except Exception:
+        return True  # 网络错误，保险起见重抓
+
 def collect_module(manifest: dict, cache: dict, incremental: bool = False,
-                   dry_run: bool = False) -> dict:
-    """采集一个模块的所有页面"""
+                   dry_run: bool = False, force: bool = False) -> dict:
+    """采集一个模块的所有页面
+
+    incremental: 先用 HEAD 检查远端 Last-Modified/ETag，未变化则跳过
+    force: 忽略所有缓存，强制全量重抓
+    """
     module_name = manifest["module"]
     pages = manifest.get("pages", [])
     module_dir = RAW_DIR / module_name
@@ -226,34 +287,55 @@ def collect_module(manifest: dict, cache: dict, incremental: bool = False,
     print(f"模块: {manifest['title']} ({len(pages)} 页)")
     print(f"{'='*60}")
 
-    results = {"total": len(pages), "fetched": 0, "skipped": 0, "errors": 0}
+    results = {"total": len(pages), "fetched": 0, "skipped": 0, "unchanged": 0,
+               "changed": 0, "errors": 0}
 
     # 确定需要抓取的页面
     to_fetch = []
+    session = get_session()
+
     for page in pages:
         url = page["full_url"]
         slug = url_to_filepath(url)
         raw_path = module_dir / f"{slug}.md"
         cache_key = url
 
-        if incremental and cache_key in cache["pages"]:
-            old_checksum = cache["pages"][cache_key].get("checksum", "")
-            if old_checksum and raw_path.exists():
+        # --force: 忽略缓存，全部重抓
+        if force:
+            to_fetch.append((page, slug, raw_path, cache_key))
+            continue
+
+        # 不在缓存或 raw 文件丢失：必须抓
+        if cache_key not in cache["pages"] or not raw_path.exists():
+            to_fetch.append((page, slug, raw_path, cache_key))
+            continue
+
+        # --incremental: 用 HEAD 请求检查远端是否变化
+        if incremental:
+            cached_lm = cache["pages"][cache_key].get("last_modified", "")
+            changed = _check_remote_changed(session, url, cached_lm)
+            if not changed:
+                results["unchanged"] += 1
                 results["skipped"] += 1
-                print(f"  ⏭️  跳过 (缓存命中): {page['title']}")
+                continue
+            else:
+                results["changed"] += 1
+                to_fetch.append((page, slug, raw_path, cache_key))
                 continue
 
-        if dry_run:
-            print(f"  🔍 [dry-run] 将抓取: {page['title']}")
+        # 非 incremental 模式的默认行为：本地缓存存在就跳过（向后兼容）
+        old_checksum = cache["pages"][cache_key].get("checksum", "")
+        if old_checksum:
+            results["skipped"] += 1
             continue
 
         to_fetch.append((page, slug, raw_path, cache_key))
 
     if dry_run:
+        print(f"  🔍 [dry-run] 将抓取 {len(to_fetch)} 页")
         return results
 
-    # 并发抓取
-    session = get_session()
+    # 并发抓取（复用之前的 session）
 
     def _fetch_worker(item):
         page, slug, raw_path, cache_key = item
@@ -292,6 +374,7 @@ def collect_module(manifest: dict, cache: dict, incremental: bool = False,
             # 更新缓存
             cache["pages"][cache_key] = {
                 "checksum": result["checksum"],
+                "last_modified": result.get("last_modified", ""),
                 "title": page["title"],
                 "module": module_name,
                 "raw_path": str(raw_path.relative_to(BASE_DIR)),
@@ -300,7 +383,18 @@ def collect_module(manifest: dict, cache: dict, incremental: bool = False,
             results["fetched"] += 1
             print(f"  ✅ {page['title']} ({len(content)} chars)")
 
-    print(f"\n  结果: {results['fetched']} 新抓 / {results['skipped']} 跳过 / {results['errors']} 错误")
+    unchanged = results.get("unchanged", 0)
+    changed = results.get("changed", 0)
+    parts = [f"{results['fetched']} 新抓"]
+    if unchanged:
+        parts.append(f"{unchanged} 未变(HEAD检查)")
+    if changed:
+        parts.append(f"{changed} 已变(需重抓)")
+    if results["skipped"] - unchanged:
+        parts.append(f"{results['skipped'] - unchanged} 本地跳过")
+    if results["errors"]:
+        parts.append(f"{results['errors']} 错误")
+    print(f"\n  结果: {' / '.join(parts)}")
     return results
 
 
@@ -467,10 +561,11 @@ Isaac_Sim_SDG_Component/
 
 def main():
     parser = argparse.ArgumentParser(description="Isaac Sim SDG 文档采集 Pipeline")
-    parser.add_argument("--incremental", action="store_true", help="增量更新（只抓 checksum 变化的）")
+    parser.add_argument("--incremental", action="store_true", help="增量更新（用 HEAD 请求检查远端 Last-Modified）")
     parser.add_argument("--module", type=str, help="只处理指定模块")
     parser.add_argument("--dry-run", action="store_true", help="试运行，不执行采集")
     parser.add_argument("--assemble-only", action="store_true", help="跳过采集，只组装")
+    parser.add_argument("--force", action="store_true", help="忽略缓存，强制全量重抓")
     args = parser.parse_args()
 
     manifests = load_manifests(args.module)
@@ -481,7 +576,8 @@ def main():
     total_pages = sum(len(m.get("pages", [])) for m in manifests)
     print(f"Isaac Sim SDG 文档 Pipeline")
     print(f"模块数: {len(manifests)}, 总页数: {total_pages}")
-    print(f"模式: {'增量' if args.incremental else '全量'} | {'dry-run' if args.dry_run else '生产'}")
+    print(f"模式: {'增量' if args.incremental else '全量'} | {'dry-run' if args.dry_run else '生产'}"
+          f" | {'强制' if args.force else ''}")
     if PROXY:
         print(f"代理: {PROXY}")
     print()
@@ -491,11 +587,13 @@ def main():
 
     # 采集阶段
     if not args.assemble_only:
-        total_results = {"fetched": 0, "skipped": 0, "errors": 0}
+        total_results = {"fetched": 0, "skipped": 0, "unchanged": 0,
+                         "changed": 0, "errors": 0}
         start_time = time.time()
 
         for manifest in manifests:
-            results = collect_module(manifest, cache, args.incremental, args.dry_run)
+            results = collect_module(manifest, cache, args.incremental,
+                                     args.dry_run, args.force)
             for k in total_results:
                 total_results[k] += results.get(k, 0)
 
@@ -505,6 +603,9 @@ def main():
         print(f"\n{'='*60}")
         print(f"采集完成 ({elapsed:.1f}s)")
         print(f"  新增: {total_results['fetched']}")
+        unchanged = total_results.get("unchanged", 0)
+        if unchanged:
+            print(f"  远端未变: {unchanged} (HEAD 检查)")
         print(f"  跳过: {total_results['skipped']}")
         print(f"  错误: {total_results['errors']}")
         print(f"{'='*60}")

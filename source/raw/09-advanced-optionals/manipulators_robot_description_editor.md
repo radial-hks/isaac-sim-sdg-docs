@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators
 title: "Robot Description Editor"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "9735c6ad920565ec"
-fetched: "2026-06-21T13:05:42"
+checksum: "2de6a54fd1e27eeb"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)
@@ -49,7 +49,7 @@ A robot description file must distinguish each joint as:
 * Active Joint
 * Fixed Joint
 
-Anything marked as an Active Joint will be directly controlled, while anything marked as a Fixed Joint will be assumed to be fixed from the perspective of Lula algorithms. In the case of using `RmpFlow` on the Franka robot, the seven joints in the Frankaâs arm are marked as Active Joints, and the gripper joints are marked as Fixed Joints.
+Anything marked as an Active Joint will be directly controlled, while anything marked as a Fixed Joint will be assumed to be fixed from the perspective of Lula algorithms. In the case of using `RmpFlow` on the Franka robot, the seven joints in the Franka’s arm are marked as Active Joints, and the gripper joints are marked as Fixed Joints.
 
 In the **Robot Description Editor**, positions must be selected for both active and fixed joints. The positions of Fixed Joints are taken to be default positions. When RmpFlow is not given any target, it will move the robot towards the default position. And when it is given a target, it will use the default positions of the Fixed Joints to resolve null-space behavior; that is, there are many ways for a seven DOF robot to reach a single target, and RmpFlow will be biased towards a c-space position that is close to the default position.
 
@@ -87,7 +87,7 @@ Note
 The **Robot Description Editor** is not compatible with [Instanceable Assets](../isaac_lab_tutorials/tutorial_instanceable_assets.html#isaac-sim-app-tutorial-instanceable-assets), but a robot description file generated
 for an asset that was later converted to an instanceable asset will still work on the instanceable asset.
 
-To use the **Robot Description Editor**, ensure that the `Instanceable` checkbox is unchecked for all geometry prims in the robotâs hierarchy. This setting can be found in the **Property** panel when a geometry prim is selected.
+To use the **Robot Description Editor**, ensure that the `Instanceable` checkbox is unchecked for all geometry prims in the robot’s hierarchy. This setting can be found in the **Property** panel when a geometry prim is selected.
 
 The `Instanceable` checkbox (highlighted in red) should be unchecked for all geometry prims when using the Robot Description Editor.
 
@@ -113,7 +113,7 @@ In the **Set Joint Properties** select a **Joint Position** and a **Joint Status
 
 ### Adding Collision Spheres
 
-Collision spheres are added to the robot one link at a time. You can select the link of interest from the âSelect Linkâ field of the **Selection Panel**. The **Link Sphere Editor** panel contains functions that are within the scope of the selected link such as adding spheres, scaling spheres, and clearing spheres only within the link. The **Editor Tools** panel contains functions that are outside the scope of the selected link such as **Undo** and **Redo** buttons, changing the color of collision spheres, and toggling the visibility of the robot.
+Collision spheres are added to the robot one link at a time. You can select the link of interest from the “Select Link” field of the **Selection Panel**. The **Link Sphere Editor** panel contains functions that are within the scope of the selected link such as adding spheres, scaling spheres, and clearing spheres only within the link. The **Editor Tools** panel contains functions that are outside the scope of the selected link such as **Undo** and **Redo** buttons, changing the color of collision spheres, and toggling the visibility of the robot.
 
 When spheres are added to a link, they are added to the USD stage as a prim that is nested under the selected link. You can click on and modify any sphere by moving it around on the stage or changing its radius. The position of a sphere relative to the origin of the link that contains it is written as a fixed value into the robot description file.
 
@@ -121,7 +121,7 @@ There are three main ways to add a sphere to a link:
 
 > * **Add Sphere:** Add a single sphere with a specified relative translation from the origin of the link. This translation can be easily changed after creation by modifying the sphere prim.
 > * **Connect Spheres:** Select two spheres that have already been created under a link and connect them with a specified number of spheres in between. The locations and sizes of the connecting spheres are interpolated to best fill the volume of the cone-section defined by the two spheres being connected.
-> * **Generate Spheres:** Select a mesh that defines the volume of the link, and automatically generate a set of N spheres that best fill the volume of the mesh. When a number of generated spheres is specified, a preview of the generated spheres will automatically appear, which can be finalized by clicking the âGenerate Spheresâ button. Any visible robot must will at least one mesh defining its link. When there are more than one mesh, it is best to try each of them to figure out the minimal set of spheres that can be generated for good coverage. It is typically better to âConnect Spheresâ by hand for links with simple cylindrical shapes. This utility is not guaranteed to work for all meshes. It only works for water-tight triangle meshes. If the automatic generator doesnât work for a link, add the spheres and connect them to the links by hand.
+> * **Generate Spheres:** Select a mesh that defines the volume of the link, and automatically generate a set of N spheres that best fill the volume of the mesh. When a number of generated spheres is specified, a preview of the generated spheres will automatically appear, which can be finalized by clicking the “Generate Spheres” button. Any visible robot must will at least one mesh defining its link. When there are more than one mesh, it is best to try each of them to figure out the minimal set of spheres that can be generated for good coverage. It is typically better to “Connect Spheres” by hand for links with simple cylindrical shapes. This utility is not guaranteed to work for all meshes. It only works for water-tight triangle meshes. If the automatic generator doesn’t work for a link, add the spheres and connect them to the links by hand.
 
 ### Exporting Configuration Files
 

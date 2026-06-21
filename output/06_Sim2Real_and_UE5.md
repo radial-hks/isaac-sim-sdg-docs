@@ -2,7 +2,7 @@
 
 > 数字孪生、Sim2Real 概念框架 + Isaac Sim ↔ UE5 概念映射
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 15
 
 ---
@@ -292,7 +292,7 @@ Next, open the Script Editor window from the UI by navigating to Window > Script
 
 Please make sure isaacsim.core.cloner is enabled from the Extensions window before running the snippets.
 
-Letâs first start with a simple use case of the Cloner interface. In this example, we will create a scene with 4 cubes.
+Let’s first start with a simple use case of the Cloner interface. In this example, we will create a scene with 4 cubes.
 
 ```python
 from isaacsim.core.cloner import Cloner  # import Cloner interface
@@ -313,7 +313,7 @@ target_paths = cloner.generate_paths("/World/Cube", 4)
 cloner.clone(source_prim_path="/World/Cube_0", prim_paths=target_paths)
 ```
 
-We should now have 4 cubes in our stage: â/World/Cube\_0â, â/World/Cube\_1â, â/World/Cube\_2â, â/World/Cube\_3â. But you may have noticed that the cubes have all been created at the same position.
+We should now have 4 cubes in our stage: “/World/Cube\_0”, “/World/Cube\_1”, “/World/Cube\_2”, “/World/Cube\_3”. But you may have noticed that the cubes have all been created at the same position.
 
 We can add a transform to each cube, simply replace the last line of the previous code with the following:
 
@@ -459,7 +459,7 @@ On this page
 
 # Instanceable Assets
 
-Reinforcement learning often requires training in large simulation scenes with multiple clones of the same robots. As we add more and more robots into the simulation environment, the memory consumption also increases for each additional set of robot and mesh assets added. To reduce memory consumption, we can take advantage of USDâs [Scenegraph Instancing](https://graphics.pixar.com/usd/dev/api/_usd__page__scenegraph_instancing.html) functionality to mark common meshes shared by different copies of the same robots as instanceable.
+Reinforcement learning often requires training in large simulation scenes with multiple clones of the same robots. As we add more and more robots into the simulation environment, the memory consumption also increases for each additional set of robot and mesh assets added. To reduce memory consumption, we can take advantage of USD’s [Scenegraph Instancing](https://graphics.pixar.com/usd/dev/api/_usd__page__scenegraph_instancing.html) functionality to mark common meshes shared by different copies of the same robots as instanceable.
 
 By doing so, each copy of the robot will reference a single copy of meshes, avoiding the need to create multiple copies of the same meshes in the scene, thus reducing memory usage in the overall simulation environment.
 
@@ -575,7 +575,7 @@ This method can be run on an existing non-instanced USD file for an asset from t
 create_parent_xforms(asset_usd_path=ASSET_USD_PATH, source_prim_path=SOURCE_PRIM_PATH, save_as_path=SAVE_AS_PATH)
 ```
 
-It is worth noting that any [USD Relationships](https://graphics.pixar.com/usd/dev/api/class_usd_relationship.html) on the referenced meshes will be removed. This is because those USD Relationships originally have targets set to prims in the original prim that may no longer be valid and hence cannot be accessed from the new stage. Common examples of USD Relationships that could exist on the meshes are visual materials, physics materials, and filtered collision pairs. Therefore, it is recommended to set these USD Relationships on the meshesâ parent Xforms instead of the meshes themselves.
+It is worth noting that any [USD Relationships](https://graphics.pixar.com/usd/dev/api/class_usd_relationship.html) on the referenced meshes will be removed. This is because those USD Relationships originally have targets set to prims in the original prim that may no longer be valid and hence cannot be accessed from the new stage. Common examples of USD Relationships that could exist on the meshes are visual materials, physics materials, and filtered collision pairs. Therefore, it is recommended to set these USD Relationships on the meshes’ parent Xforms instead of the meshes themselves.
 
 The above method can also be run as part of an overall conversion process, which is defined in the utility below. This utility will first insert new parent prims if create\_xforms=True is specified, and generate a new USD file that is used for referencing. It will then traverse through the asset tree and mark the parent prim of any mesh or primitive type prims as instanceable, along with inserting a reference to the mesh USD stage.
 
@@ -680,7 +680,7 @@ First activate **Windows** > **Examples** > **Robotics Examples** which will ope
 2. Open the example using **Robotics Examples** > **POLICY** > **Humanoid**.
 3. Press **LOAD** to open the scene.
 
-This example uses the H1 Flat Terrain Policy trained in Isaac Lab to control the humanoidâs locomotion.
+This example uses the H1 Flat Terrain Policy trained in Isaac Lab to control the humanoid’s locomotion.
 
 Controls:
 
@@ -694,7 +694,7 @@ Controls:
 2. Open the example using **Robotics Examples** > **POLICY** > **Quadruped**.
 3. Press **LOAD** to open the scene.
 
-This example uses the Spot Flat Terrain Policy trained in Isaac Lab to control the quadrupedâs locomotion.
+This example uses the Spot Flat Terrain Policy trained in Isaac Lab to control the quadruped’s locomotion.
 
 Controls:
 
@@ -776,7 +776,7 @@ The first snippet describes the simulation environment, the simulation physics i
 
 ### Robot Setup
 
-The `scene:robot:init_state` section describes the robotâs initial position, orientation, velocity, as well as default joint position and velocity.
+The `scene:robot:init_state` section describes the robot’s initial position, orientation, velocity, as well as default joint position and velocity.
 
 ```python
 init_state:
@@ -1032,7 +1032,7 @@ self.set_joint_efforts(joint_torques)
 
 ## Debugging Tips
 
-If your robot doesnât work right away, you can use the following tips to start debugging:
+If your robot doesn’t work right away, you can use the following tips to start debugging:
 
 ### Verify Your Policy
 
@@ -1063,7 +1063,7 @@ The ANYmal robot below has control commands in the wrong order, as a result the 
 
 After you have the joint positions, verify that your default joint positions are inserted correctly. If the joint positions are incorrect, the robot joints will not go to the correct position.
 
-For example, in the video below, the ankle joint was set incorrectly and the H1 humanoid was tip toeing, doing a âmoonwalkâ.
+For example, in the video below, the ankle joint was set incorrectly and the H1 humanoid was tip toeing, doing a “moonwalk”.
 
 #### Robot Joint Properties
 
@@ -1086,13 +1086,13 @@ print("DOF armatures:", prim.get_dof_armatures())
 
 Then, you can compare the joint properties with the env YAML file generated by Isaac Lab. Check the articulation API documentation for the properties for the DOFs.
 
-For example, in the video below, the spot robotâs stiffness and dampening are set too high, resulting in underactuated movement.
+For example, in the video below, the spot robot’s stiffness and dampening are set too high, resulting in underactuated movement.
 
-For example, in the video below, the H1 robotâs arm stiffness and dampening are set too low, resulting in over movement.
+For example, in the video below, the H1 robot’s arm stiffness and dampening are set too low, resulting in over movement.
 
 ### Verify the Simulation Environment
 
-If the robot matches exactly and the inference examples are still not working, then itâs time to check the simulation parameters.
+If the robot matches exactly and the inference examples are still not working, then it’s time to check the simulation parameters.
 
 #### Physics Scene
 
@@ -1109,7 +1109,7 @@ Also, make sure the actions output from the policy matches the expected type of 
 
 ## Sim To Real Deployment
 
-Congratulations, your robot and policy are working correctly in Isaac Sim now and you have tested it with the rest of your stack. Now itâs time to deploy it on a real robot.
+Congratulations, your robot and policy are working correctly in Isaac Sim now and you have tested it with the rest of your stack. Now it’s time to deploy it on a real robot.
 
 Please read this [article](https://developer.nvidia.com/blog/closing-the-sim-to-real-gap-training-spot-quadruped-locomotion-with-nvidia-isaac-lab/) on deploying an reinforcement learning policy to a spot robot.
 
@@ -1266,17 +1266,17 @@ The following steps show how to create and visualize an occupancy map of a certa
 > 1. Create a new Cone shape (**Create > Shape > Cone** menu) and add the physics Collision property to it (right click and **Add > Physics > Collider Preset**, or in the *Property* panel).
 > 2. Translate the shape 0.3 meters in the X-axis and orient it 90Âº in the X-axis Euler angles by modifying its *Transform* in the *Property* panel.
 > 3. Click on the **Tools > Robotics > Occupancy Map** menu to open the *Occupancy Map* window docked to the *Property* panel.
-> 4. Set the Occupancy Mapâs Origin Z-axis value to 0.1 meters to map the area at that height
+> 4. Set the Occupancy Map’s Origin Z-axis value to 0.1 meters to map the area at that height
 > 5. Click on **CALCULATE** followed by **VISUALIZE IMAGE**. The *Occupancy Map Visualization* window will appear as shown in the image in the next subsection.
 > 6. Finally, click **Save Image** to save the map to an easily accessible location. You will need it for later steps in this guide!
 
 #### Occupancy Map Visualization window
 
-* **Occupied Color**: The color chosen to represent space that is âoccupiedâ.
-* **Freespace Color**: The color chosen to represent space that is âfreeâ.
-* **Unknown Color**: The color chosen to represent space that is interstitial or âunknownâ.
+* **Occupied Color**: The color chosen to represent space that is “occupied”.
+* **Freespace Color**: The color chosen to represent space that is “free”.
+* **Unknown Color**: The color chosen to represent space that is interstitial or “unknown”.
 * **Rotate Image**: Rotates the coordinates of the image space. A rotation of \(\text{180}^{\circ}\) will result in a Heightmap orientation that matches that of the original source stage of the occupancy map.
-* **Coordinate Type**: Determines the format of the output in the information window. Stage Space coordinates reports values in the space of the stage, while the âROS Occupancy Map Parameters Fileâ returns the needed parameters for the ROS Occupancy Map.
+* **Coordinate Type**: Determines the format of the output in the information window. Stage Space coordinates reports values in the space of the stage, while the “ROS Occupancy Map Parameters File” returns the needed parameters for the ROS Occupancy Map.
 * **Filename**: Base name used when saving the PNG image or YAML file, and written into the YAML `image` field. Defaults to the stage name.
 * **RE-GENERATE IMAGE**: This will regenerate the image and information window if you changed the stage.
 * **Save Image**: Opens a file dialog pre-filled with the Filename to save the occupancy map as a `.png` file.
@@ -1333,13 +1333,13 @@ On this page
 
 Isaac Sim comes with a multitude of assets for you to build your own application. Additionally, there are extra asset libraries provided by NVIDIA that you can use. Open **Window** > **Browsers** > **NVIDIA Assets**, and the window **NVIDIA Assets** will show, where you can browse for all content to build your environment.
 
-Letâs start by setting up the warehouse building. click on the **+** Icon next to **Industrial**, then on **Buildings**, and select **Warehouse**. By dragging **Warehouse01** to the scene, youâll load a reference to the asset on your stage. Alternatively, you can also [build a custom warehouse](ext_omni_warehouse_creator.html).
+Let’s start by setting up the warehouse building. click on the **+** Icon next to **Industrial**, then on **Buildings**, and select **Warehouse**. By dragging **Warehouse01** to the scene, you’ll load a reference to the asset on your stage. Alternatively, you can also [build a custom warehouse](ext_omni_warehouse_creator.html).
 
 Note
 
 If you drag on the viewport window, it will let you place it at an arbitrary position, If instead you want it placed at the origin or on a given xform, drag it into the Stage window on top of the desired Prim.
 
-Depending on which assets you goals, you may find **NVIDIA Assets** that are currently on a centimeter scale. This is because **NVIDIA Assets** are created by our art team, while **Isaac Sim Assets** have been curated with intent. Be mindful of the units! When importing certain assets, you may need to manually scale them down to units of 0.01. To do this, select the asset prim, click on âAdd Transformâ on the Properties pane, and set the scale to 0.01 on all directions.
+Depending on which assets you goals, you may find **NVIDIA Assets** that are currently on a centimeter scale. This is because **NVIDIA Assets** are created by our art team, while **Isaac Sim Assets** have been curated with intent. Be mindful of the units! When importing certain assets, you may need to manually scale them down to units of 0.01. To do this, select the asset prim, click on “Add Transform” on the Properties pane, and set the scale to 0.01 on all directions.
 
 Note
 
@@ -1359,9 +1359,9 @@ Omniverse also contains a suite of [SimReady Assets](https://docs.omniverse.nvid
 
 ### Example
 
-Letâs make a variation of WarehousePile\_A04 that contains physics properties, with boxes being individual rigid bodies.
+Let’s make a variation of WarehousePile\_A04 that contains physics properties, with boxes being individual rigid bodies.
 
-We start with a brand new Stage, and create an Xform under World with the name âImportâ, and set its scale to 0.01
+We start with a brand new Stage, and create an Xform under World with the name “Import”, and set its scale to 0.01
 
 Then we drag the WarehousePile\_A04 into it.
 
@@ -1369,7 +1369,7 @@ To simplify the tree, we can bring the imported prim at the root. Click on the O
 
 You can now go back to the previously saved asset to customize it to contain physics material properties, different mass properties, and so on. All changes will be stored locally and be applied on top of the original asset. To see the local changes, you can go to the Layer tab, right click the Root layer, and click on Edit.
 
-You will see that the USD file opens in edit mode on your text editor, containing the reference to the original asset, and all âdeltasâ that are being applied to it.
+You will see that the USD file opens in edit mode on your text editor, containing the reference to the original asset, and all “deltas” that are being applied to it.
 
 On this page
 
@@ -1565,9 +1565,9 @@ block library, and generate the corresponding USD prims on the active stage.
 
 The feature ships as two extensions:
 
-* `omni.warehouse.creator.api` â headless logic (grid engine, auto-tiling, plan-to-stage sync, and the
+* `omni.warehouse.creator.api` — headless logic (grid engine, auto-tiling, plan-to-stage sync, and the
   column editing controller). Use it from scripts and tests with no UI dependency.
-* `omni.warehouse.creator.ui` â the **Warehouse Builder** window, toolbar, block library palette,
+* `omni.warehouse.creator.ui` — the **Warehouse Builder** window, toolbar, block library palette,
   variant property widget, and column placement workflow.
 
 ## Installing and enabling the extension
@@ -1625,7 +1625,7 @@ occupied cells.
 
 The toolbar uses three categories of buttons:
 
-* **Modal tools** â mutually exclusive. Activating one deactivates the previously active modal tool.
+* **Modal tools** — mutually exclusive. Activating one deactivates the previously active modal tool.
 
   + **Select**
   + **Move**
@@ -1634,12 +1634,12 @@ The toolbar uses three categories of buttons:
   + **Line**
   + **Box**
   + **Erase**
-* **Toggles** â coexist with any modal tool. Activating symmetry mirrors every drawing or erasing
+* **Toggles** — coexist with any modal tool. Activating symmetry mirrors every drawing or erasing
   action across the chosen axis.
 
   + **Symmetry Horizontal**
   + **Symmetry Vertical**
-* **Immediate actions** â one-shot operations. They execute on click without becoming the active tool.
+* **Immediate actions** — one-shot operations. They execute on click without becoming the active tool.
 
   + **Flip Horizontal**
   + **Flip Vertical**
@@ -1672,12 +1672,12 @@ drawing tool.
 
 ### Selecting and editing
 
-* **Select** â click a cell to select it. Click and drag to draw a selection box.
+* **Select** — click a cell to select it. Click and drag to draw a selection box.
   Selecting a grouped cell selects the entire group.
-* **Move** â drag selected cells or groups to a new grid location.
-* **Rotate** â click to rotate the selection 90 degrees clockwise. Use the keyboard
+* **Move** — drag selected cells or groups to a new grid location.
+* **Rotate** — click to rotate the selection 90 degrees clockwise. Use the keyboard
   shortcuts below for finer control.
-* **Flip Horizontal** /  **Flip Vertical** â mirror the selection across the
+* **Flip Horizontal** /  **Flip Vertical** — mirror the selection across the
   corresponding axis in place.
 
 ### Hotkeys
@@ -1698,11 +1698,11 @@ The window owns its hotkey scope, so the shortcuts only fire while the cursor is
 A group treats a set of cells as a single floating object. You can move, rotate, and flip a group as a
 unit, and the generator emits each group as a separate warehouse root prim.
 
-* **Group** â combine the selection into a new group. Requires at least two ungrouped cells
+* **Group** — combine the selection into a new group. Requires at least two ungrouped cells
   or existing groups.
-* **Ungroup** â stamp a selected groupâs cells back onto the grid as ungrouped cells.
-* **Merge** â combine two or more selected groups into one.
-* **Subtract** â remove the cells of later-selected groups from the first-selected
+* **Ungroup** — stamp a selected group’s cells back onto the grid as ungrouped cells.
+* **Merge** — combine two or more selected groups into one.
+* **Subtract** — remove the cells of later-selected groups from the first-selected
   group.
 
 At generation time, each group becomes its own `/Warehouse_group_<id>` root prim with walls derived
@@ -1710,7 +1710,7 @@ from its boundary. Adjacent groups can sit next to ungrouped cells without shari
 
 ### Variant property widget
 
-The generator emits two tile types â **Wall** and **Center** â and each tile ships with a set of
+The generator emits two tile types — **Wall** and **Center** — and each tile ships with a set of
 visual variants such as a loading dock, an access panel, or a window. After generation, select one or
 more tile prims in the stage and use the **Warehouse Tiles** section of the **Property** panel to switch
 the variant on every selected tile of that type.
@@ -1839,7 +1839,7 @@ To create a conveyor:
    * **Enabled**: Enables or disables the conveyor.
    * **Velocity**: Conveyor velocity.
 
-The generated Omniverse OmniGraph is preconfigured with a velocity variable that you can edit by selecting the Omniverse OmniGraph prim. To synchronize multiple conveyors in a scene, point each conveyorâs read-variable node (`read_speed`) at the same Omniverse OmniGraph variable.
+The generated Omniverse OmniGraph is preconfigured with a velocity variable that you can edit by selecting the Omniverse OmniGraph prim. To synchronize multiple conveyors in a scene, point each conveyor’s read-variable node (`read_speed`) at the same Omniverse OmniGraph variable.
 
 To emulate belt motion visually, apply a tiled texture and set the **Animate** properties so the texture translates along the same direction as the conveyor and at a matching speed.
 
@@ -1868,7 +1868,7 @@ The builder integrates loosely with the assets to keep system creation flexible 
 | 5 | Selected Track | Shows the currently selected track, its endpoints, and a Delete button that removes the track from the system. |
 | 6 | New Track | Shows the piece queued for insertion. Lets you choose the input endpoint and the track variant, and, when applicable, mirror the piece. |
 | 7 | Track Variants | Shows additional variants matching the current filter selection. |
-| 8 | Selected Endpoint | Each option corresponds to one of the trackâs endpoints. Endpoints that are already in use are hidden unless all endpoints are connected. |
+| 8 | Selected Endpoint | Each option corresponds to one of the track’s endpoints. Endpoints that are already in use are hidden unless all endpoints are connected. |
 | 9 | Mirror | Mirrors the selected piece along the primary belt direction. |
 
 ### Dataset
@@ -1878,7 +1878,7 @@ The dataset is a collection of USD files used to assemble conveyor systems. Each
 * Define a default prim. That prim and all of its children load when the asset is referenced.
 * Use an identity transform on the default prim (translate and rotate components set to zero).
 * Define each conveyor track as an `Xform` prim, with all visual and collision meshes parented under it.
-* Place the trackâs entry point at the origin, aligned with the X axis, centered on the Y axis.
+* Place the track’s entry point at the origin, aligned with the X axis, centered on the Y axis.
 * Place anchor points at the end of the track at `Z = 0`, centered on the Y axis. The X axis must be aligned with the base direction of the track.
 * Assign individual materials per track. Meshes that share the same conveyor base prim may share materials.
 * Live under a single base folder. Assets may still reference files outside that folder.
@@ -1921,7 +1921,7 @@ A JSON file accompanies the asset dataset. It provides the metadata required by 
 Note
 
 Strict JSON does not allow comments. The snippet above includes inline comments only to explain each field. Remove the comments before using the file, otherwise the extension will fail to load it.
-For a complete reference, see the JSON file in the extensionâs `data` folder.
+For a complete reference, see the JSON file in the extension’s `data` folder.
 
 ### Changing the configuration and dataset source
 
@@ -1978,7 +1978,7 @@ body_manager.add_body(
 )
 ```
 
-The method takes the rigid bodyâs USD prim path and a material index. Material indices come from another helper class, `MaterialPairManager`. Because the sample computes friction forces itself, the physics materials used by the built-in simulation must use a friction coefficient of zero. Otherwise, the built-in friction forces would compound with the custom forces. The sample sidesteps this by defining its own material system and assigning friction coefficients to material pairs:
+The method takes the rigid body’s USD prim path and a material index. Material indices come from another helper class, `MaterialPairManager`. Because the sample computes friction forces itself, the physics materials used by the built-in simulation must use a friction coefficient of zero. Otherwise, the built-in friction forces would compound with the custom forces. The sample sidesteps this by defining its own material system and assigning friction coefficients to material pairs:
 
 ```python
 body_material0_index = material_pair_manager.add_transported_body_material_index()
@@ -2047,7 +2047,7 @@ On this page
 
 NVIDIA Isaac Sim can publish a live video feed of a camera in the scene over the
 Real Time Streaming Protocol (RTSP). Frames captured from a render product are
-encoded with NVIDIAâs hardware video encoder (NVENC) and pushed to an in-process
+encoded with NVIDIA’s hardware video encoder (NVENC) and pushed to an in-process
 RTSP server, which any standard client (VLC, `ffplay`, GStreamer, OpenCV) can
 connect to. This is the recommended path for piping simulated camera output
 into perception stacks, recording rigs, broadcast pipelines, or downstream
@@ -2070,15 +2070,15 @@ Ensure you have the following:
 ## Streaming a Camera
 
 The `isaacsim.streaming.rtsp.RTSPCameraHelper` OmniGraph node
-publishes a cameraâs render product over RTSP. A complete pipeline consists
+publishes a camera’s render product over RTSP. A complete pipeline consists
 of this node and two supporting nodes wired in a single execution chain:
 
-* `OnPlaybackTick` â runs the graph once per timeline frame while
+* `OnPlaybackTick` — runs the graph once per timeline frame while
   playback is running.
-* `IsaacCreateRenderProduct` â creates (or reuses) a render product
+* `IsaacCreateRenderProduct` — creates (or reuses) a render product
   for the target camera at the requested resolution and emits its USD
   path on `renderProductPath`.
-* `RTSPCameraHelper` â attaches the streaming writer to that render
+* `RTSPCameraHelper` — attaches the streaming writer to that render
   product and brings up the RTSP server on the configured port and mount
   path.
 
@@ -2161,7 +2161,7 @@ Any standard RTSP client (such as VLC, `ffplay`, or GStreamer) can
 subscribe to the stream at `rtsp://<host>:<port><mountPath>`.
 
 When connecting from another machine, replace `localhost` with the
-simulator hostâs IP and make sure the port is reachable through any
+simulator host’s IP and make sure the port is reachable through any
 firewalls.
 
 ## Stream Parameters
@@ -2170,8 +2170,8 @@ The `RTSPCameraHelper` node exposes the following inputs:
 
 | Input | Default | Description |
 | --- | --- | --- |
-| `renderProductPath` | â | Path of the render product whose `LdrColor` Arbitrary Output Variable (AOV) is streamed. Wire it to the `renderProductPath` output of `IsaacCreateRenderProduct` or set it to a pre-authored render product prim. |
-| `port` | `8554` | TCP port the RTSP server listens on. Must be in `1`â`65535`. Each simultaneous stream needs a unique port. |
+| `renderProductPath` | — | Path of the render product whose `LdrColor` Arbitrary Output Variable (AOV) is streamed. Wire it to the `renderProductPath` output of `IsaacCreateRenderProduct` or set it to a pre-authored render product prim. |
+| `port` | `8554` | TCP port the RTSP server listens on. Must be in `1`–`65535`. Each simultaneous stream needs a unique port. |
 | `mountPath` | `/stream` | Path appended to the server URL (for example `/front`, `/cam_1`). Must start with `/`. |
 | `useRawEncoding` | `false` | When `false`, frames are pre-encoded as H.264 in the render pipeline (NVENC) and Supplemental Enhancement Information (SEI) metadata is injected per frame. When `true`, raw RGBA CUDA buffers are streamed and the RTSP server encodes them. Refer to [Encoding Modes](#isaac-sim-rtsp-encoding-modes). |
 | `enabled` | `true` | Toggle the stream at runtime. Setting it to `false` after attachment tears down the server and releases the port. |
@@ -2197,7 +2197,7 @@ Use this mode unless you have a specific reason to bypass NVENC.
 The writer streams uncompressed RGBA CUDA buffers and lets the RTSP server
 encode them internally.
 
-The render productâs resolution is read from the CUDA buffer shape on the
+The render product’s resolution is read from the CUDA buffer shape on the
 first frame. SEI metadata injection is **not** supported in raw mode.
 
 ## Streaming Multiple Cameras
@@ -2276,26 +2276,26 @@ the metadata stream. The schema is:
 }
 ```
 
-* `publish_sim_time_ns` â simulation time at frame capture, in
+* `publish_sim_time_ns` — simulation time at frame capture, in
   nanoseconds. Reset to zero when the timeline stops and restarts.
-* `timestamp_iso8601` â wall-clock timestamp anchored to the moment the
+* `timestamp_iso8601` — wall-clock timestamp anchored to the moment the
   RTSP server started, advanced by `publish_sim_time_ns`. Useful for
   correlating with logs and other wall-clock-stamped streams.
-* `timestamp` â the same instant as `timestamp_iso8601`, expressed as
+* `timestamp` — the same instant as `timestamp_iso8601`, expressed as
   nanoseconds since the Unix epoch.
-* `frame_num` â monotonically increasing frame counter, starting at `1`
+* `frame_num` — monotonically increasing frame counter, starting at `1`
   and reset on detach.
 
 Downstream tools that parse SEI NAL units (for example a custom
-`rtspsrc` callback in GStreamer, or NVIDIA DeepStreamâs metadata API) can
+`rtspsrc` callback in GStreamer, or NVIDIA DeepStream’s metadata API) can
 recover the payload by matching the UUID and decoding the JSON bytes.
 
 ## Attaching the Writer Directly
 
-For workflows that already drive Replicator from Python and donât need the
+For workflows that already drive Replicator from Python and don’t need the
 OmniGraph layer (custom SDG scripts, batch jobs, headless services),
 `isaacsim.streaming.rtsp.RTSPStreamWriter` can be attached to a
-render product directly. The writer is registered with Replicatorâs
+render product directly. The writer is registered with Replicator’s
 `WriterRegistry` on extension startup and accepts `port`, `mountPath`,
 `encoding`, `width`, and `height` parameters. Author the SRTX
 `LdrColor` `RenderVar` on the render product first via
@@ -2344,11 +2344,11 @@ The RTSP server starts the first time the writer receives a frame and stops
 when the writer detaches. `RTSPCameraHelper` ties this lifecycle to the
 timeline:
 
-* **Play** â the action graph runs, the writer attaches to the render
+* **Play** — the action graph runs, the writer attaches to the render
   product, and the server starts on the first frame.
-* **Stop** â the writer detaches, the server is torn down, and the port
+* **Stop** — the writer detaches, the server is torn down, and the port
   is released.
-* **Setting** `enabled` **to** `false` â same effect as **Stop** for
+* **Setting** `enabled` **to** `false` — same effect as **Stop** for
   that helper.
 
 If the RTSP server encounters an unrecoverable error during streaming (for
@@ -2362,7 +2362,7 @@ blocking the simulation loop.
 The stream URL refuses connections
 :   The RTSP server starts only after the first rendered frame. Press
     **Play** and confirm the timeline is advancing. If the writer logged a
-    setup error (for example ârender product has no resolution attributeâ),
+    setup error (for example “render product has no resolution attribute”),
     the server never started. Check the carb log for details.
 
 Port already in use
@@ -2371,7 +2371,7 @@ Port already in use
     nothing else is listening with `ss -ltnp | grep 8554`.
 
 Stream stops mid-run and never recovers
-:   The writer enters a âfailedâ state on the first encoder or transport
+:   The writer enters a “failed” state on the first encoder or transport
     error, drops further frames silently, and waits for the timeline to
     restart. Stop and restart the timeline (or toggle `enabled`) to retry it.
 
@@ -2460,7 +2460,7 @@ Description (OpenUSD)](https://www.nvidia.com/en-us/omniverse/usd/).
 
 All assets need to be converted to OpenUSD before they can be used with Isaac Sim, and the default unit for Isaac Sim is meters.
 
-NVIDIA provides a vast collection of OpenUSD âSimReadyâ assets. [SimReady](https://developer.nvidia.com/omniverse/simready-assets), or
+NVIDIA provides a vast collection of OpenUSD ‘SimReady’ assets. [SimReady](https://developer.nvidia.com/omniverse/simready-assets), or
 simulation-ready, assets are physically accurate 3D objects that have accurate
 physical properties, behavior, and connected data streams that are used to represent the real world in
 simulated digital worlds. Developers can use these building blocks to construct scenes and
@@ -2544,7 +2544,7 @@ specific use cases. PhysX supports exact representations for Cube, Capsule, and
 Sphere shapes. Cones and Cylinders are supported through the custom geometry
 flag and are particularly useful when setting collision approximations for wheels of
 robots. [Rigid-body physics materials](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/rigid_bodies.html#configure-rigid-body-s-material-properties)
-provide friction, restitution (a.k.a. âbouncinessâ), and material density properties
+provide friction, restitution (a.k.a. ‘bounciness’), and material density properties
 
 #### Adding Joints and Drives
 
@@ -2577,7 +2577,7 @@ materials by specifying their physical properties, surface characteristics, and 
 interact with light. Omniverse comes with several template materials, including a physically
 based glass; several general purpose multi-lobed materials useful for dielectric and
 non-dielectric materials, skin, hair, liquids and other materials requiring subsurface
-scattering or transmissive effects; and USDâs UsdPreviewSurface.
+scattering or transmissive effects; and USD’s UsdPreviewSurface.
 
 ## Interaction with Digital Twin
 
@@ -2643,7 +2643,7 @@ enables developers to seamlessly integrate the generated data with their trainin
 To get started, developers can leverage the Python API provided by Omniverse Replicator
 for generating synthetic data. The same scripts can be used to generate data headlessly in
 the cloud through the Isaac Sim docker container (instructions [Container Installation](../installation/install_container.html#isaac-sim-app-install-container))
-on a developerâs preferred CSP (AWS, Alibaba, Azure, GCP) with the [Cloud Deployment](../installation/install_cloud.html#isaac-sim-app-install-cloud) guide.
+on a developer’s preferred CSP (AWS, Alibaba, Azure, GCP) with the [Cloud Deployment](../installation/install_cloud.html#isaac-sim-app-install-cloud) guide.
 [Replicator YAML](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/yaml_workflow.html#replicator-yaml)
 can be used for low-code situations where scripts can easily be edited by non-technical experts.
 They offer a high level of portability and care suitable for cloud use cases.
@@ -2716,7 +2716,7 @@ software stack needed before physically setting up the robot.
 
 [OSMO](https://developer.nvidia.com/osmo)
 is a cloud-native workow orchestration platform that lets you easily scale your
-workloads across distributed environments â from on-premises to private and public
+workloads across distributed environments — from on-premises to private and public
 cloud. You can now apply for early access.
 
 #### Sizing Calculator

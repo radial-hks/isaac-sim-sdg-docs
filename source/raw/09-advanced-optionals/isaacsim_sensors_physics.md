@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Physics Sensors Index"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "d91bd2b96b9198ed"
-fetched: "2026-06-21T13:05:42"
+checksum: "c762c76977508592"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Sensors](index.html)
@@ -14,7 +14,7 @@ fetched: "2026-06-21T13:05:42"
 
 # Physics-based sensors
 
-Isaac Simâs physics-based sensors use CPU physics simulations and run after rendering finishes. They have access to a primâs physics properties, like mass and velocity.
+Isaac Sim’s physics-based sensors use CPU physics simulations and run after rendering finishes. They have access to a prim’s physics properties, like mass and velocity.
 
 These sensors output the exact measurements from the physics engine, and you can augment the sensor readings in post-processing.
 By default, sensors output data at the physics rate. To generate data beyond this rate, provide additional interpolation options. Ground truth readings from the simulator might

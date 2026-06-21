@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transfo
 title: "Asset Transformer"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "b17b82cc1f007b18"
-fetched: "2026-06-21T13:05:33"
+checksum: "eb666ca16514913a"
+fetched: "2026-06-21T13:40:05"
 ---
 
 * [Robot Setup](index.html)
@@ -78,7 +78,7 @@ When an action is expanded, the following configuration options appear:
 
 * **Rule Type**: Searchable dropdown to select the rule implementation. The dropdown lists each rule by its short class name in the **Rule Name** column and bundles rules by scope in the **Package** column.
 * **Destination**: Output path for the rule (relative to package root).
-* **Parameters**: Dynamic parameter editors generated from the ruleâs configuration parameters.
+* **Parameters**: Dynamic parameter editors generated from the rule’s configuration parameters.
 
 Note
 
@@ -174,7 +174,7 @@ A rule profile defines a complete transformation pipeline. Profiles are stored a
 **Loading a Profile**:
 
 1. Click the **Load Preset** button in the Actions section.
-2. Select a preset from the recent presets menu, or choose **Browseâ¦** to open a file picker.
+2. Select a preset from the recent presets menu, or choose **Browse…** to open a file picker.
 3. The profile loads and populates the action list.
 
 **Saving a Profile**:
@@ -214,7 +214,7 @@ The execution report contains the following information:
 
 **Per-Rule Results**:
 
-Each ruleâs execution result includes:
+Each rule’s execution result includes:
 
 | Field | Description |
 | --- | --- |

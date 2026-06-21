@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/reference_material/refere
 title: "Isaac Sim Conventions"
 section: "参考"
 module: "01-concepts"
-checksum: "4fc7533b4346ae75"
-fetched: "2026-06-21T12:48:04"
+checksum: "fb054a89b781ebbc"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * Isaac Sim Conventions
@@ -90,7 +90,7 @@ Note
 
 ## Sensor Axes Representation (LiDAR, Cameras)
 
-Cameras in Isaac Sim are subject to three different types of axes definition, depending on the context of use. Here, we introduce the three conventions and how itâs used in different contexts.
+Cameras in Isaac Sim are subject to three different types of axes definition, depending on the context of use. Here, we introduce the three conventions and how it’s used in different contexts.
 
 ### World Axes
 

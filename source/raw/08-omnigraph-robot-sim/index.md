@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/index.ht
 title: "Robot Simulation Index"
 section: "Robot Simulation"
 module: "08-omnigraph-robot-sim"
-checksum: "538df2794ea071d1"
-fetched: "2026-06-21T13:05:38"
+checksum: "fc4bf872383db237"
+fetched: "2026-06-21T13:40:09"
 ---
 
 * Robot Simulation
@@ -24,7 +24,7 @@ The Robot Simulation section provides information on tools that you will need to
 
 * **Wheeled Robots**: use controllers that are based on universal formulas and require very few robot-specific parameters as inputs.
 * **Manipulators**: use controllers that are based on complex optimization, therefore the same robot performing the same task could use many variety of controllers, each with a different optimization method. They often require the robot models in the optimization process.
-* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition âcontrollersâ, for they can have task and path planners embedded as well.
+* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition “controllers”, for they can have task and path planners embedded as well.
 
 ## Joint Level Control
 

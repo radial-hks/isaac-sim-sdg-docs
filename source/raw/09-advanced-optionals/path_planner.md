@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/pat
 title: "Path Planner"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "f54dbafbe02afc21"
-fetched: "2026-06-21T13:05:41"
+checksum: "be3e481a3f89a25d"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -55,7 +55,7 @@ For example, the Franka robot has nine degrees of freedom (DOFs):
 The robot Articulation exposes all nine degrees of
 freedom, but [Lula RRT](lula_rrt.html#isaac-sim-motion-generation-rrt) only cares about the seven revolute joints when navigating the robot to a position target. It is not appropriate for RRT to take
 control of the gripper DOFs, because those DOFs can be controlled separately when performing a task such as pick-and-place. `RRT.get_active_joints()` returns the names of the seven revolute joints
-in the Franka robot. `RRT.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Frankaâs hand to a target position.
+in the Franka robot. `RRT.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Franka’s hand to a target position.
 Every time RRT returns joint targets for the Franka, it is returning arrays of length seven. When RRT is passed an argument such as `active_joint_positions`,
 it is expecting a vector of seven numbers that describe the joint positions of the Franka robot in the order specified by `RRT.get_active_joints()`.
 

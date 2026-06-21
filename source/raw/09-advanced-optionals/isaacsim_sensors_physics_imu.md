@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "IMU"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "bcce0ea357aa41bf"
-fetched: "2026-06-21T13:05:43"
+checksum: "97dd79b76a663e8f"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -27,7 +27,7 @@ See the [Isaac Sim Conventions](../reference_material/reference_conventions.html
 **IMU sensor properties**
 
 1. `enabled` parameter determines if the sensor is running or not.
-2. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 â only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
+2. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 — only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
 3. `angularVelocityFilterWidth` parameter specifies the size of the angular velocity rolling average. Increasing this parameter smooths angular velocity output.
 4. `linearAccelerationFilterWidth` parameter specifies the size of the linear acceleration rolling average. Increasing this parameter smooths linear acceleration output.
 5. `orientationFilterWidth` parameter specifies the size of the orientation rolling average. Increasing this parameter smooths orientation output.
@@ -96,7 +96,7 @@ To set up the OmniGraph to collect readings from this sensor:
 > * **Print Text**: Prints the string readings to console. In the **Property** tab, set **Log Level** to **Warning** so that messages are visible in the terminal/console by default.
 
 1. Connect the above nodes as follows to print out the IMU sensor reading:
-2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the IMU sensorâs angular velocity.
+2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the IMU sensor’s angular velocity.
 
 ## Standalone Python
 
@@ -178,10 +178,10 @@ IMUSensor(
 
 Note
 
-`translations` and `positions` cannot both be provided as input arguments â they are mutually exclusive (local-frame vs world-frame).
+`translations` and `positions` cannot both be provided as input arguments — they are mutually exclusive (local-frame vs world-frame).
 The `IMUSensor` Python API documentation specifies the usage of each input argument.
 
-To set filter widths at construction time, pass them to `IMU.create()` (or `IMU(path, ...)`) â see the snippet above. To modify them after construction, set the underlying USD attributes (`linearAccelerationFilterWidth`, `angularVelocityFilterWidth`, `orientationFilterWidth`) on the sensor prim â the prim is reachable as `sensor.imu.prims[0]`. Filter widths are captured by the C++ runtime when the sensor is created at simulation start; stop and restart the simulation to pick up changes. The `IMUSensor` reads every physics step.
+To set filter widths at construction time, pass them to `IMU.create()` (or `IMU(path, ...)`) — see the snippet above. To modify them after construction, set the underlying USD attributes (`linearAccelerationFilterWidth`, `angularVelocityFilterWidth`, `orientationFilterWidth`) on the sensor prim — the prim is reachable as `sensor.imu.prims[0]`. Filter widths are captured by the C++ runtime when the sensor is created at simulation start; stop and restart the simulation to pick up changes. The `IMUSensor` reads every physics step.
 
 ### Reading sensor output
 
@@ -189,8 +189,8 @@ The sensors are created dynamically on **Play**. Moving the sensor prim while th
 
 There are three methods for reading the sensor output:
 
-* `IMUSensor.get_sensor_reading(read_gravity=True)` â returns the raw C++ struct directly
-* `IMUSensor.get_data(read_gravity=True)` â returns a structured dictionary
+* `IMUSensor.get_sensor_reading(read_gravity=True)` — returns the raw C++ struct directly
+* `IMUSensor.get_data(read_gravity=True)` — returns a structured dictionary
 * OmniGraph node `Isaac Read IMU Node`
 
 The following snippets assume you have created a `/World/Cube` prim and IMU sensor prim using one of the two snippets [above](#isaacsim-sensors-physics-imu-standalone-python-create-modify).

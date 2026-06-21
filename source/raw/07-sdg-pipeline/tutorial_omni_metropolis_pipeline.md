@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Metropolis Pipeline"
 section: "Pipeline"
 module: "07-sdg-pipeline"
-checksum: "e8f1ba9dead6b4da"
-fetched: "2026-06-21T11:55:37"
+checksum: "b8552c256251aa46"
+fetched: "2026-06-21T13:40:31"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -23,17 +23,17 @@ It also supplies the **AgentManager** and base agent interface so that agents (s
 
 ## Overview
 
-* **Configuration** â YAML-driven application setup
+* **Configuration** – YAML-driven application setup
 
-  + **ConfigurationManager** â Singleton that loads a config file and dispatches sections to registered extensions. Extensions register a section parser and async setup function that are used when the config file is loaded and the simulation is set up.
-* **Triggers** â event objects that run callbacks when they fire
+  + **ConfigurationManager** – Singleton that loads a config file and dispatches sections to registered extensions. Extensions register a section parser and async setup function that are used when the config file is loaded and the simulation is set up.
+* **Triggers** – event objects that run callbacks when they fire
 
-  + **TriggersManager** â Singleton that creates and manages trigger instances from a dictionary description. Use it to create triggers in script and pass them into incident (fire, topple, spill) and other event APIs.
-  + **Trigger types** â Time-based, carb-event-based, and collision-based triggers are registered by the extension at startup. Each trigger can have callbacks added using `add_callback`; when the trigger fires, all callbacks are invoked.
-* **Agents** â runtime representations of entities that can perform routines and respond to triggers
+  + **TriggersManager** – Singleton that creates and manages trigger instances from a dictionary description. Use it to create triggers in script and pass them into incident (fire, topple, spill) and other event APIs.
+  + **Trigger types** – Time-based, carb-event-based, and collision-based triggers are registered by the extension at startup. Each trigger can have callbacks added using `add_callback`; when the trigger fires, all callbacks are invoked.
+* **Agents** – runtime representations of entities that can perform routines and respond to triggers
 
-  + **AgentManager** â Singleton that creates and manages agent instances from a dictionary description. Use it to create agents in script and pass them into agent APIs.
-  + **Base agent interface** â The base agent interface is a USD Prim that defines the agentâs behavior and trigger. It is used to create and manage agents.
+  + **AgentManager** – Singleton that creates and manages agent instances from a dictionary description. Use it to create agents in script and pass them into agent APIs.
+  + **Base agent interface** – The base agent interface is a USD Prim that defines the agent’s behavior and trigger. It is used to create and manage agents.
 
 ## Configuration
 
@@ -41,23 +41,23 @@ The **ConfigurationManager** loads a YAML config file and routes sections to ext
 
 ### Using ConfigurationManager in Script
 
-Access the singleton using `ConfigurationManager.get_instance()` or use the module-level functions from `omni.metropolis.pipeline.configuration`. Register your extensionâs section before loading a config file; then call `load_config_file(path)` and `await setup_simulation()`.
+Access the singleton using `ConfigurationManager.get_instance()` or use the module-level functions from `omni.metropolis.pipeline.configuration`. Register your extension’s section before loading a config file; then call `load_config_file(path)` and `await setup_simulation()`.
 
 **Registration**
 
-* **register\_config\_section(extension\_name, section\_header, section\_name, section\_parser, section\_setup)** â Register a config section. `section_header` is the YAML top-level key (for example, `"omni.metropolis.pipeline"` or `"isaacsim.replicator.agent.core"`). `section_name` is the key under the orchestrator header (for example, `"agent"`). `section_parser` is a callable that accepts the raw dict for that section and returns parsed data. `section_setup` is an async callable that receives the parsed payload and runs when `setup_simulation()` is called.
-* **is\_section\_registered(extension\_name)** â Return whether that extension has registered a section.
-* **unregister\_config\_section(extension\_name)** â Remove the registration.
+* **register\_config\_section(extension\_name, section\_header, section\_name, section\_parser, section\_setup)** – Register a config section. `section_header` is the YAML top-level key (for example, `"omni.metropolis.pipeline"` or `"isaacsim.replicator.agent.core"`). `section_name` is the key under the orchestrator header (for example, `"agent"`). `section_parser` is a callable that accepts the raw dict for that section and returns parsed data. `section_setup` is an async callable that receives the parsed payload and runs when `setup_simulation()` is called.
+* **is\_section\_registered(extension\_name)** – Return whether that extension has registered a section.
+* **unregister\_config\_section(extension\_name)** – Remove the registration.
 
 **Loading and access**
 
-* **load\_config\_file(file\_path)** â Load and parse the YAML file. Returns `True` on success. Use `get_load_error_message()` if it returns `False`.
-* **get\_config(extension\_name)** â Return the parsed configuration for that extension, or `None` if not present or not loaded.
-* **get\_config\_file\_path()** â Return the path of the currently loaded config file, or `None`.
+* **load\_config\_file(file\_path)** – Load and parse the YAML file. Returns `True` on success. Use `get_load_error_message()` if it returns `False`.
+* **get\_config(extension\_name)** – Return the parsed configuration for that extension, or `None` if not present or not loaded.
+* **get\_config\_file\_path()** – Return the path of the currently loaded config file, or `None`.
 
 **Setup**
 
-* **setup\_simulation()** â Async. Run each registered extensionâs setup function with its parsed config. Returns `True` if all succeeded. Use `get_setup_error_message()` on failure.
+* **setup\_simulation()** – Async. Run each registered extension’s setup function with its parsed config. Returns `True` if all succeeded. Use `get_setup_error_message()` on failure.
 
 ### Example Usage
 
@@ -129,10 +129,10 @@ Fires on physics trigger enter/exit for a collider prim. The collider must have 
 
 ### Trigger API Summary
 
-* **TriggersManager.get\_instance()** â Return the singleton TriggersManager.
-* **create\_trigger\_by\_dict(dict\_data)** â Build a trigger from `{"trigger": {"type": "...", ...}}`. Returns a trigger instance or `None` if no registered type matches.
-* **TriggerBase.add\_callback(callback\_fn)** â Add a callable that takes the trigger instance as an argument; it is invoked when the trigger fires.
-* **TriggerBase.destroy()** â Unsubscribe from timeline/events and clear callbacks. Call when the trigger is no longer needed.
+* **TriggersManager.get\_instance()** – Return the singleton TriggersManager.
+* **create\_trigger\_by\_dict(dict\_data)** – Build a trigger from `{"trigger": {"type": "...", ...}}`. Returns a trigger instance or `None` if no registered type matches.
+* **TriggerBase.add\_callback(callback\_fn)** – Add a callable that takes the trigger instance as an argument; it is invoked when the trigger fires.
+* **TriggerBase.destroy()** – Unsubscribe from timeline/events and clear callbacks. Call when the trigger is no longer needed.
 
 ### Example Usage
 
@@ -157,7 +157,7 @@ For creating and configuring agents in the Action and Event Data Generation appl
 
 ### Example Usage
 
-The following pattern registers a custom agent class and creates a prim with the agentâs API. When the timeline plays, AgentsManager discovers the prim and instantiates the agent; when the timeline stops, runtime instances are cleared.
+The following pattern registers a custom agent class and creates a prim with the agent’s API. When the timeline plays, AgentsManager discovers the prim and instantiates the agent; when the timeline stops, runtime instances are cleared.
 
 ```python
 from typing import ClassVar

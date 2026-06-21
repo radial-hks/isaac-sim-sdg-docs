@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/digital_twin/rtsp_camera_
 title: "RTSP Camera Streaming"
 section: "数字孪生"
 module: "06-sim2real-ue5"
-checksum: "0472fae3f1690c20"
-fetched: "2026-06-21T12:48:19"
+checksum: "a9620838e4290834"
+fetched: "2026-06-21T13:40:03"
 ---
 
 * [Digital Twin](index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T12:48:19"
 
 NVIDIA Isaac Sim can publish a live video feed of a camera in the scene over the
 Real Time Streaming Protocol (RTSP). Frames captured from a render product are
-encoded with NVIDIAâs hardware video encoder (NVENC) and pushed to an in-process
+encoded with NVIDIA’s hardware video encoder (NVENC) and pushed to an in-process
 RTSP server, which any standard client (VLC, `ffplay`, GStreamer, OpenCV) can
 connect to. This is the recommended path for piping simulated camera output
 into perception stacks, recording rigs, broadcast pipelines, or downstream
@@ -39,15 +39,15 @@ Ensure you have the following:
 ## Streaming a Camera
 
 The `isaacsim.streaming.rtsp.RTSPCameraHelper` OmniGraph node
-publishes a cameraâs render product over RTSP. A complete pipeline consists
+publishes a camera’s render product over RTSP. A complete pipeline consists
 of this node and two supporting nodes wired in a single execution chain:
 
-* `OnPlaybackTick` â runs the graph once per timeline frame while
+* `OnPlaybackTick` — runs the graph once per timeline frame while
   playback is running.
-* `IsaacCreateRenderProduct` â creates (or reuses) a render product
+* `IsaacCreateRenderProduct` — creates (or reuses) a render product
   for the target camera at the requested resolution and emits its USD
   path on `renderProductPath`.
-* `RTSPCameraHelper` â attaches the streaming writer to that render
+* `RTSPCameraHelper` — attaches the streaming writer to that render
   product and brings up the RTSP server on the configured port and mount
   path.
 
@@ -130,7 +130,7 @@ Any standard RTSP client (such as VLC, `ffplay`, or GStreamer) can
 subscribe to the stream at `rtsp://<host>:<port><mountPath>`.
 
 When connecting from another machine, replace `localhost` with the
-simulator hostâs IP and make sure the port is reachable through any
+simulator host’s IP and make sure the port is reachable through any
 firewalls.
 
 ## Stream Parameters
@@ -139,8 +139,8 @@ The `RTSPCameraHelper` node exposes the following inputs:
 
 | Input | Default | Description |
 | --- | --- | --- |
-| `renderProductPath` | â | Path of the render product whose `LdrColor` Arbitrary Output Variable (AOV) is streamed. Wire it to the `renderProductPath` output of `IsaacCreateRenderProduct` or set it to a pre-authored render product prim. |
-| `port` | `8554` | TCP port the RTSP server listens on. Must be in `1`â`65535`. Each simultaneous stream needs a unique port. |
+| `renderProductPath` | — | Path of the render product whose `LdrColor` Arbitrary Output Variable (AOV) is streamed. Wire it to the `renderProductPath` output of `IsaacCreateRenderProduct` or set it to a pre-authored render product prim. |
+| `port` | `8554` | TCP port the RTSP server listens on. Must be in `1`–`65535`. Each simultaneous stream needs a unique port. |
 | `mountPath` | `/stream` | Path appended to the server URL (for example `/front`, `/cam_1`). Must start with `/`. |
 | `useRawEncoding` | `false` | When `false`, frames are pre-encoded as H.264 in the render pipeline (NVENC) and Supplemental Enhancement Information (SEI) metadata is injected per frame. When `true`, raw RGBA CUDA buffers are streamed and the RTSP server encodes them. Refer to [Encoding Modes](#isaac-sim-rtsp-encoding-modes). |
 | `enabled` | `true` | Toggle the stream at runtime. Setting it to `false` after attachment tears down the server and releases the port. |
@@ -166,7 +166,7 @@ Use this mode unless you have a specific reason to bypass NVENC.
 The writer streams uncompressed RGBA CUDA buffers and lets the RTSP server
 encode them internally.
 
-The render productâs resolution is read from the CUDA buffer shape on the
+The render product’s resolution is read from the CUDA buffer shape on the
 first frame. SEI metadata injection is **not** supported in raw mode.
 
 ## Streaming Multiple Cameras
@@ -245,26 +245,26 @@ the metadata stream. The schema is:
 }
 ```
 
-* `publish_sim_time_ns` â simulation time at frame capture, in
+* `publish_sim_time_ns` — simulation time at frame capture, in
   nanoseconds. Reset to zero when the timeline stops and restarts.
-* `timestamp_iso8601` â wall-clock timestamp anchored to the moment the
+* `timestamp_iso8601` — wall-clock timestamp anchored to the moment the
   RTSP server started, advanced by `publish_sim_time_ns`. Useful for
   correlating with logs and other wall-clock-stamped streams.
-* `timestamp` â the same instant as `timestamp_iso8601`, expressed as
+* `timestamp` — the same instant as `timestamp_iso8601`, expressed as
   nanoseconds since the Unix epoch.
-* `frame_num` â monotonically increasing frame counter, starting at `1`
+* `frame_num` — monotonically increasing frame counter, starting at `1`
   and reset on detach.
 
 Downstream tools that parse SEI NAL units (for example a custom
-`rtspsrc` callback in GStreamer, or NVIDIA DeepStreamâs metadata API) can
+`rtspsrc` callback in GStreamer, or NVIDIA DeepStream’s metadata API) can
 recover the payload by matching the UUID and decoding the JSON bytes.
 
 ## Attaching the Writer Directly
 
-For workflows that already drive Replicator from Python and donât need the
+For workflows that already drive Replicator from Python and don’t need the
 OmniGraph layer (custom SDG scripts, batch jobs, headless services),
 `isaacsim.streaming.rtsp.RTSPStreamWriter` can be attached to a
-render product directly. The writer is registered with Replicatorâs
+render product directly. The writer is registered with Replicator’s
 `WriterRegistry` on extension startup and accepts `port`, `mountPath`,
 `encoding`, `width`, and `height` parameters. Author the SRTX
 `LdrColor` `RenderVar` on the render product first via
@@ -313,11 +313,11 @@ The RTSP server starts the first time the writer receives a frame and stops
 when the writer detaches. `RTSPCameraHelper` ties this lifecycle to the
 timeline:
 
-* **Play** â the action graph runs, the writer attaches to the render
+* **Play** — the action graph runs, the writer attaches to the render
   product, and the server starts on the first frame.
-* **Stop** â the writer detaches, the server is torn down, and the port
+* **Stop** — the writer detaches, the server is torn down, and the port
   is released.
-* **Setting** `enabled` **to** `false` â same effect as **Stop** for
+* **Setting** `enabled` **to** `false` — same effect as **Stop** for
   that helper.
 
 If the RTSP server encounters an unrecoverable error during streaming (for
@@ -331,7 +331,7 @@ blocking the simulation loop.
 The stream URL refuses connections
 :   The RTSP server starts only after the first rendered frame. Press
     **Play** and confirm the timeline is advancing. If the writer logged a
-    setup error (for example ârender product has no resolution attributeâ),
+    setup error (for example “render product has no resolution attribute”),
     the server never started. Check the carb log for details.
 
 Port already in use
@@ -340,7 +340,7 @@ Port already in use
     nothing else is listening with `ss -ltnp | grep 8554`.
 
 Stream stops mid-run and never recovers
-:   The writer enters a âfailedâ state on the first encoder or transport
+:   The writer enters a “failed” state on the first encoder or transport
     error, drops further frames silently, and waits for the timeline to
     restart. Stop and restart the timeline (or toggle `enabled`) to retry it.
 

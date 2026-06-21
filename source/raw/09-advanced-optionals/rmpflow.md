@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/rmp
 title: "RMPflow"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "49a4a645afea6edb"
-fetched: "2026-06-21T13:05:41"
+checksum: "0c333604f026cbdf"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -66,12 +66,12 @@ avoid hitting obstacles in the world. These spheres can be visualized over time 
 `RmpFlow.stop_visualizing_collision_spheres()` is called. The nominal end effector position can likewise be visualized with
 `RmpFlow.visualize_end_effector_position()` and `RmpFlow.stop_visualizing_end_effector()`.
 
-On their own, the visualization functions can be used to make sure that RMPflowâs internal representation of the robot is reasonable, but it does not help to decouple the
+On their own, the visualization functions can be used to make sure that RMPflow’s internal representation of the robot is reasonable, but it does not help to decouple the
 simulated robot from the RmpFlow internal representation of the robot.
 
 On each frame when `RmpFlow.compute_joint_targets(active_joint_positions,...)` is called,
 the visualization is updated to use the `active_joint_positions`. This behavior can be turned off using `RmpFlow.set_ignore_state_updates(True)`. When RmpFlow
-is âignoring state updatesâ, it starts ignoring the `active_joint_positions` argument, and instead begins internally tracking the believed state of the robot by assuming
+is “ignoring state updates”, it starts ignoring the `active_joint_positions` argument, and instead begins internally tracking the believed state of the robot by assuming
 that is completely independent of the physical simulation of the robot. When RmpFlow is set to ignore state updates from the simulator, and the visualization functions are used,
 it becomes simple to determine if an undesirable robot behavior
 comes from RmpFlow or from the robot Articulation and its PD gains.
@@ -107,7 +107,7 @@ from the target. Defining \(q\) to be the full configuration vector:
 
 \[\ddot q = k\_p r(q\_0 - q) - k\_d \dot q\,,\]
 
-where the ârobust capping functionâ \(r(p)\) is given by:
+where the “robust capping function” \(r(p)\) is given by:
 
 \[\begin{split}r(p) = \left \{ \begin{array}{cl}
 p, & ||p|| < \theta \\
@@ -132,7 +132,7 @@ robust\_position\_term\_thresh will have units of meters.
 | --- | --- | --- | --- |
 | metric\_scalar | \(\mu\) | - | Priority weight relative to other RMPs |
 | position\_gain | \(k\_p\) | s-2 | Position gain, determining how strongly configuration is pulled toward target |
-| damping\_gain | \(k\_d\) | s-1 | Damping gain, determining amount of âdragâ |
+| damping\_gain | \(k\_d\) | s-1 | Damping gain, determining amount of “drag” |
 | robust\_position\_term\_thresh | \(\theta\) | rad | Distance in c-space at which the position correction vector is capped |
 | inertia | \(m\) | - | Additional c-space inertia |
 
@@ -163,7 +163,7 @@ Blending is
 controlled by a radial basis function, specifically a Gaussian, that transitions from a minimum
 constant value far from the target to 1 near the target.
 
-Near the target, an additional nonlinear âproximity boostâ multiplier turns on. This
+Near the target, an additional nonlinear “proximity boost” multiplier turns on. This
 factor takes the form of a Gaussian:
 
 \[M = \left[\beta(x) b + (1-\beta(x))\right] \left[\alpha(x) M\_\textrm{near} + (1-\alpha(x)) M\_\textrm{far} \right]\]
@@ -196,7 +196,7 @@ M\_\textrm{far} = \mu\_\textrm{far} S = \frac{\mu\_\textrm{far}}{||x\_0-x||^2} (
 
 **Purpose:** Drives x-, y-, or z-axis of end effector frame toward target orientation. This
 RMP is used for general orientation targets (where an axis target RMP is added for each of the
-three axes) as well as for âpartial poseâ targets where only alignment of a single axis is
+three axes) as well as for “partial pose” targets where only alignment of a single axis is
 desired.
 
 Note
@@ -205,8 +205,8 @@ Partial pose targets are not supported by the Motion Generation extension.
 
 **Definition:**
 
-Similar to the (position) target RMP, the axis target RMP supports âproximity boosting,â
-but only when a target RMP is active at the same time. In this case, itâs the distance to
+Similar to the (position) target RMP, the axis target RMP supports “proximity boosting,”
+but only when a target RMP is active at the same time. In this case, it’s the distance to
 the position target (\(||x\_0-x||\)) that controls the strength of boosting.
 
 The current and desired axis orientations are represented by unit vectors, denoted
@@ -339,7 +339,7 @@ x^2/r^2 -2s/r + 1, & x\le r \\
 | damping\_gain | \(k\_d\) | s-1 | Damping gain |
 | damping\_std\_dev | \(\ell\_d\) | m | Length scale controlling increase in acceleration as obstacle is approached |
 | damping\_robustness\_eps | \(\epsilon\_d\) | - | Offset determining \(x\) value at which acceleration diverges (before clipping) |
-| damping\_velocity\_gate\_length\_scale | \(v\_d\) | m/s | Scale determining velocity dependence of âvelocity gatingâ function |
+| damping\_velocity\_gate\_length\_scale | \(v\_d\) | m/s | Scale determining velocity dependence of “velocity gating” function |
 | repulsion\_gain | \(k\_p\) | m/s2 | Gain for position repulsion term |
 | repulsion\_std\_dev | \(\ell\_p\) | m | Length scale controlling distance dependence of repulsion |
 | metric\_modulation\_radius | \(r\) | m | Length scale determining distance from obstacle at which RMP is disabled completely |

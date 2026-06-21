@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "RTX Sensors Index"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "37ad142046b8a834"
-fetched: "2026-06-21T13:05:44"
+checksum: "c7089b9b269ce7d6"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -14,7 +14,7 @@ fetched: "2026-06-21T13:05:44"
 
 # RTX Sensors
 
-RTX sensors in Isaac Sim use the Omniverse RTX Rendererâs RTX Sensor SDK to sense the environment, enabling interaction with materials in visual and non-visual spectra.
+RTX sensors in Isaac Sim use the Omniverse RTX Renderer’s RTX Sensor SDK to sense the environment, enabling interaction with materials in visual and non-visual spectra.
 This means an RTX-based Lidar can model returns from light interaction with transparent or reflective surfaces, and an RTX-based Radar can model returns accounting for
 material emissivity and reflectivity in the radio spectrum.
 
@@ -138,7 +138,7 @@ the Isaac Sim UI:
 When `omni.replicator.core` adds a `GenericModelOutput` RenderVar to a render product
 that is attached to an RTX sensor prim, it reads
 `_replicator:rendervar:GenericModelOutput:channels` from the sensor prim and copies the
-value onto the RenderVarâs `channels` attribute. The RTX Sensor SDK then uses that
+value onto the RenderVar’s `channels` attribute. The RTX Sensor SDK then uses that
 value to decide which auxiliary fields to populate.
 
 The `aux_output_level` constructor parameter on
@@ -187,8 +187,8 @@ Warning
 The `_replicator:rendervar:GenericModelOutput:channels` attribute is currently
 **effectively global per render-product-attach event**. When two RTX sensors on the
 same stage author different values, only the **last** sensor to have a render product
-attached âwinsâ - every subsequent `GenericModelOutput` RenderVar uses that
-sensorâs channels value, regardless of which sensor prim it was created from.
+attached “wins” - every subsequent `GenericModelOutput` RenderVar uses that
+sensor’s channels value, regardless of which sensor prim it was created from.
 
 Concrete example. Suppose you have one `Lidar` with `aux_output_level="FULL"` and
 one `Radar` with `aux_output_level="BASIC"` on the same stage:
@@ -217,9 +217,9 @@ Camera prims do not emit GMO AOVs.
 
 **Annotators return empty data**
 :   Ensure the simulation timeline is playing. RTX Sensor Annotators rely on the timeline to collect data.
-    Also verify that `--/app/sensors/nv/lidar/outputBufferOnGPU` or `--/app/sensors/nv/radar/outputBufferOnGPU` is left at its default value of `false` â annotators read return data from host buffers, so forcing the GPU-resident path will leave the annotator outputs empty.
+    Also verify that `--/app/sensors/nv/lidar/outputBufferOnGPU` or `--/app/sensors/nv/radar/outputBufferOnGPU` is left at its default value of `false` — annotators read return data from host buffers, so forcing the GPU-resident path will leave the annotator outputs empty.
 
-**Point cloud appears to âdragâ behind moving objects**
+**Point cloud appears to “drag” behind moving objects**
 :   If the Lidar rotation rate is slower than the frame rate, accumulated scan data may contain returns from multiple frames.
     This is expected behavior for rotating Lidars. Consider using per-frame output instead of accumulated scans.
 
@@ -233,7 +233,7 @@ Camera prims do not emit GMO AOVs.
 **Timestamps are discontinuous after pause/resume**
 :   This should not occur if multi-tick rendering is enabled. If multi-tick rendering is disabled, the `GenericModelOutput` AOV timestamp is independent of the animation timeline and continues to increase even when paused.
 
-**One sensorâs auxiliary output level overrides anotherâs**
+**One sensor’s auxiliary output level overrides another’s**
 :   The `_replicator:rendervar:GenericModelOutput:channels` attribute is currently global
     per render-product-attach event. See [Known issue: last-attach-wins propagation of GMO channels](#isaacsim-sensors-rtx-known-issue-gmo-channels).
 

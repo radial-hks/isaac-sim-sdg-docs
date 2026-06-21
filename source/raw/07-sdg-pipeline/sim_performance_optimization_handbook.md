@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/reference_material/sim_pe
 title: "Performance Optimization"
 section: "性能"
 module: "07-sdg-pipeline"
-checksum: "64ce5f3c3b641dbc"
-fetched: "2026-06-21T11:55:37"
+checksum: "90a816d1282accb1"
+fetched: "2026-06-21T13:40:31"
 ---
 
 * Isaac Sim Performance Optimization Handbook
@@ -41,7 +41,7 @@ Adjust the physics step size in your script using the `SimulationManager.set_phy
 * **Raising the clamp** (for example to `60`) keeps the app frame rate up under load at the cost of physics-time accuracy: when an app update is slow, PhysX truncates the substep budget, so simulated time falls behind wall-clock and the simulation appears to run in slow motion (or, equivalently, some physics work is effectively dropped). Use this when responsiveness / rendering throughput matters more than 1:1 sim-time-to-wall-time playback.
 * **Lowering the clamp** (for example to `15`) lets PhysX run more catch-up substeps after a slow frame, keeping simulated time closer to wall-clock at the cost of further reducing the visible frame rate. Use this when sim-time accuracy or determinism matters more than smoothness.
 
-This setting is **not** the same as the timelineâs `targetFrameRate` (set via `isaacsim.core.rendering_manager.RenderingManager.set_dt()`) or the loop runnerâs `/app/runLoops/main/rateLimitFrequency`. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the three-clock architecture.
+This setting is **not** the same as the timeline’s `targetFrameRate` (set via `isaacsim.core.rendering_manager.RenderingManager.set_dt()`) or the loop runner’s `/app/runLoops/main/rateLimitFrequency`. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the three-clock architecture.
 
 Note
 
@@ -92,7 +92,7 @@ Instancing inherently carries some limitations related to attributes as children
 
 3. **Simplify Colliders**: Colliders have high computational costs. The simpler, the collision shape, the more performant the simulation behaves.
 
-   * A reduction in contact points brings substantial performance improvements. For wheel colliders, itâs recommended to use a simple cylinder or sphere collider instead of a mesh collider. This greatly simplifies contact with the ground plane, increasing performance and allows the robot to drive smoothly over terrain.
+   * A reduction in contact points brings substantial performance improvements. For wheel colliders, it’s recommended to use a simple cylinder or sphere collider instead of a mesh collider. This greatly simplifies contact with the ground plane, increasing performance and allows the robot to drive smoothly over terrain.
    * For a robot, use the simplest approximations possible that provide the needed level of precision. For example, for a mobile robot, a cube approximation is often sufficient for the body.
    * Reducing the total number of colliders is also beneficial. Consider whether every collider added to the asset needs to be enabled. Selectively disabling/enabling colliders can greatly reduce computational cost.
 
@@ -186,7 +186,7 @@ Setting `disable_viewport_updates` in SimulationApp is only supported if running
 
 6. **Disabling texture streaming**: Texture streaming is a feature that helps minimize GPU memory consumption, particularly in large scenes.
 
-   > * Disabling texture streaming can have positive performance benefits but will result in increased GPU memory consumption. Thereâs also possible negative UX impacts if memory is running low - leading to crashes or missing some textures.
+   > * Disabling texture streaming can have positive performance benefits but will result in increased GPU memory consumption. There’s also possible negative UX impacts if memory is running low - leading to crashes or missing some textures.
    > * To disable texture streaming, modify the value of the `/rtx-transient/resourcemanager/texturestreaming/enabled` setting.
    >
    >   > ```python
@@ -201,9 +201,9 @@ This is not recommended for all use cases. It should be used on a case-by-case b
 
 Three settings control the number of CPU threads used by Isaac Sim. When left unset (the default behavior), Isaac Sim will use all available threads on the system. Standalone Python workflows are limited to 32 threads by default and can be modified by changing the `limit_cpu_threads` argument in the `SimulationApp` constructor.
 
-1. `--/plugins/carb.tasking.plugin/threadCount`: Sets Carboniteâs maximum worker thread count.
+1. `--/plugins/carb.tasking.plugin/threadCount`: Sets Carbonite’s maximum worker thread count.
 2. `--/persistent/physics/numThreads`: Sets how many Carbonite worker threads to use for physics simulation.
-3. `--/plugins/omni.tbb.globalcontrol/maxThreadCount`: Sets Omniverse TBB schedulerâs maximmum worker thread count.
+3. `--/plugins/omni.tbb.globalcontrol/maxThreadCount`: Sets Omniverse TBB scheduler’s maximmum worker thread count.
 
 Spawning too many worker threads may lead to CPU bottlenecking. Consider limiting the number of CPU threads used by Isaac Sim to fewer than the number of virtual cores on the system. Current testing indicates that 32 threads is optimal for most use cases.
 
@@ -275,7 +275,7 @@ Note
 Exact Isaac Sim performance metrics when using multiple data-center-grade GPUs can be found [here](benchmarks.html#isaac-sim-benchmarks-gpu-dependent).
 
 1. **Add as many GPUs as cameras being rendered - but no more.** When rendering 2 720p cameras with 2 GPUs, we saw a speed up of 72% to 89% compared to single GPU performance, but using 4 GPUs yielded only 61 - 81% improvement.
-2. **Performance scales better the more cameras youâre rendering.** Our 4 camera with 4x GPUs test scaled well with an overall speed up of about 213% - 233%, but our 8 camera with 4 GPUs test scaled even better with an overall speedup of 271% - 281%.
+2. **Performance scales better the more cameras you’re rendering.** Our 4 camera with 4x GPUs test scaled well with an overall speed up of about 213% - 233%, but our 8 camera with 4 GPUs test scaled even better with an overall speedup of 271% - 281%.
 3. **Single high-resolution cameras render faster on multiple GPUs.** An exception to our earlier rules - if you are rendering a single high-resolution (4K or higher) camera, multiple GPUs can help accelerate rendering.
 4. **Increasing GPU count does not improve scene load time.** GPU count does not influence the amount of time it takes to load a USD, or the maximum USD scene size that can be loaded.
 5. **GPU Physics simulation only utilizes 1 GPU.** Increasing GPU count will not improve GPU physics simulation performance.
@@ -323,8 +323,8 @@ Experimental suggestion to help reduce Isaac Sim RAM consumption in the event of
 Task Manager is a great resource for giving nice clean graphs and can show peak usage on a variety of system information regarding performance.
 
 1. Click on the Start icon
-2. Type âTask Managerâ
-3. In Task Manager, Select the âPerformanceâ Tab
+2. Type “Task Manager”
+3. In Task Manager, Select the “Performance” Tab
 
 On the left side of this pane you will see various graphs like CPU, Memory and GPU. Select any of these to get a more detailed view of the data. Generally speaking if any of these are spiking and peaking out, you should look into its cause and begin to troubleshoot.
 

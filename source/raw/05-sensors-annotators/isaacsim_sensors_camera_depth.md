@@ -4,7 +4,7 @@ title: "Camera Depth"
 section: "相机"
 module: "05-sensors-annotators"
 checksum: "46712908259facb2"
-fetched: "2026-06-21T11:55:32"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [Sensors](index.html)

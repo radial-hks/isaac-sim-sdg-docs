@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custo
 title: "Custom IPC Nodes"
 section: "OmniGraph"
 module: "08-omnigraph-robot-sim"
-checksum: "7764326d2f7a19bf"
-fetched: "2026-06-21T13:05:38"
+checksum: "6f58adf7a6528737"
+fetched: "2026-06-21T13:40:09"
 ---
 
 * [OmniGraph](index.html)
@@ -28,9 +28,9 @@ All commands in this tutorial are run from the **Isaac Sim repository root** (th
 
 **Prerequisites**:
 
-* **Custom C++ extensions** â [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html).
-* **OmniGraph** â [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)") and [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)").
-* **Custom nodes** â [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes) and [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html#isaac-sim-app-tutorial-advanced-omnigraph-custom-cpp-nodes).
+* **Custom C++ extensions** — [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html).
+* **OmniGraph** — [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)") and [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)").
+* **Custom nodes** — [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes) and [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html#isaac-sim-app-tutorial-advanced-omnigraph-custom-cpp-nodes).
 
 Optional: [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph), if you are new to the Action Graph editor.
 
@@ -87,7 +87,7 @@ source/extensions/<extension_name>/
 âââ premake5.lua                   â build configuration
 ```
 
-The build step is required before the extension loads in Isaac Sim â it compiles the C++ plugin and generates the OmniGraph database files that register your nodes. Run it now:
+The build step is required before the extension loads in Isaac Sim — it compiles the C++ plugin and generates the OmniGraph database files that register your nodes. Run it now:
 
 Linux
 
@@ -101,13 +101,13 @@ Windows
 .\build.bat
 ```
 
-The generated nodes â **Example C++ Node** (`OgnExampleCpp`) and **Example Python Node** (`OgnExamplePython`) â are placeholder stubs that double an input value. The display names in the Action Graph library come from the `uiName` field in each `.ogn` file, not the file name. Rename or replace them with your actual IPC node(s) as you work through the sections below.
+The generated nodes — **Example C++ Node** (`OgnExampleCpp`) and **Example Python Node** (`OgnExamplePython`) — are placeholder stubs that double an input value. The display names in the Action Graph library come from the `uiName` field in each `.ogn` file, not the file name. Rename or replace them with your actual IPC node(s) as you work through the sections below.
 
 Try it: verify your scaffold
 
 After the build completes above, confirm the scaffold registers its placeholder nodes:
 
-1. Launch the repo-built Isaac Sim â not a separately installed Isaac Sim:
+1. Launch the repo-built Isaac Sim — not a separately installed Isaac Sim:
 
    Linux
 
@@ -121,7 +121,7 @@ After the build completes above, confirm the scaffold registers its placeholder 
    .\_build\windows-x86_64\release\isaac-sim.bat
    ```
 2. Open **Window â Extensions**, search for your extension name (for example `isaacsim.my.ipc.nodes`), and enable it.
-3. Open **Window â Graph Editors â Action Graph** and search for `Example C++ Node` and `Example Python Node` in the node library. These names match the `uiName` fields in the scaffoldâs `.ogn` files.
+3. Open **Window â Graph Editors â Action Graph** and search for `Example C++ Node` and `Example Python Node` in the node library. These names match the `uiName` fields in the scaffold’s `.ogn` files.
 
 If both nodes appear, the scaffold is wired correctly. Proceed to [Design and Implement Your Nodes](#design-and-implement-your-nodes) to replace the placeholders.
 
@@ -170,7 +170,7 @@ Prebuilt native libraries go through packman. These steps follow the same patter
    libdirs     { "%{target_deps}/mylib/lib/%{platform}" }
    links       { "mylib" }
    ```
-3. **Shared libraries at runtime.** If the library ships as a `.so` / `.dll`, either bundle it beside the extension plugin or list it under `[native.library]` in `extension.toml` so Kitâs loader finds it.
+3. **Shared libraries at runtime.** If the library ships as a `.so` / `.dll`, either bundle it beside the extension plugin or list it under `[native.library]` in `extension.toml` so Kit’s loader finds it.
 
 The sample extension uses only standard BSD socket APIs and has no additional native library entries beyond the plugin itself.
 
@@ -184,21 +184,21 @@ Keep IPC nodes thin. They should only handle **serialization and transport**. Si
 
 Every custom IPC node requires the same six things, regardless of transport:
 
-* **Node schema** (`.ogn` file) â declare inputs (URI, config), outputs (data, `execOut`), and state. Refer to the sample `.ogn` files under `nodes/` in `isaacsim.examples.ipc` as a reference.
-* `BaseResetNode` subclass â holds per-instance state (sockets, buffers, handles). Implement `reset()` (C++) or `custom_reset()` (Python) to tear down the transport when the timeline stops or inputs change.
+* **Node schema** (`.ogn` file) — declare inputs (URI, config), outputs (data, `execOut`), and state. Refer to the sample `.ogn` files under `nodes/` in `isaacsim.examples.ipc` as a reference.
+* `BaseResetNode` subclass — holds per-instance state (sockets, buffers, handles). Implement `reset()` (C++) or `custom_reset()` (Python) to tear down the transport when the timeline stops or inputs change.
 * `compute(db)` with a lifecycle split:
 
   > + Detect input changes (URI, config) â call reset and teardown
   > + Try to open the transport if not ready â return early on failure (retry next evaluation)
   > + Do non-blocking I/O (send or try-receive)
   > + Write `db.outputs` and fire `execOut`
-* **Non-blocking I/O** â never block indefinitely in `compute`. Use try-receive, timeouts, or offload slow paths to a worker thread (refer to [Performance Considerations](#performance-considerations)).
+* **Non-blocking I/O** — never block indefinitely in `compute`. Use try-receive, timeouts, or offload slow paths to a worker thread (refer to [Performance Considerations](#performance-considerations)).
 * **Fire** `execOut` at the end of `compute` to signal downstream nodes that the transport operation is complete and/or new data is ready. You control when to fire it. For example, fire on every evaluation, only on successful send, or only when a full message has been received.
-* **Your transport library** â add it as a dependency (refer to [Add Your Transport Library](#add-your-transport-library) above) and replace the TCP helpers with your stackâs API.
+* **Your transport library** — add it as a dependency (refer to [Add Your Transport Library](#add-your-transport-library) above) and replace the TCP helpers with your stack’s API.
 
 ### OGN Schema Quick Reference
 
-Each `.ogn` file is a single JSON object keyed by the nodeâs registered type
+Each `.ogn` file is a single JSON object keyed by the node’s registered type
 name. The minimum schema for a Python IPC node looks like this:
 
 ```python
@@ -464,7 +464,7 @@ Source: `source/extensions/isaacsim.examples.ipc/`.
 | `SimpleSendSimulationClockCpp` / `SimpleSendSimulationClockPy` | C++ / Python | Forwards the simulation clock to an external process on each evaluation. Connects as a TCP client to `uri` (`host:port`). Input: `simulationTime` (`double`, seconds; connect from `IsaacReadSimulationTime`). Encodes the value as nanoseconds in an 8-byte signed int64 (little-endian) and sends it. Fires `execOut` on every evaluation. |
 | `SimpleReceiveExternalStepCpp` / `SimpleReceiveExternalStepPy` | C++ / Python | Receives a step counter from an external process and exposes it to downstream nodes. Binds as a TCP server on `uri` and accepts one client. Outputs a `step` (uint32). Fires `execOut` only when a complete 4-byte message arrives. Partial reads are buffered across evaluations. |
 
-In graphs, the full path is typically `isaacsim.examples.ipc.<TypeName>` (refer to the extensionâs `config/extension.toml`).
+In graphs, the full path is typically `isaacsim.examples.ipc.<TypeName>` (refer to the extension’s `config/extension.toml`).
 
 C++ and Python follow the same sequence in `compute`. They only differ by name and state wiring. For example, `reset()` compared to `custom_reset()`, and C++ `state` from the OGN database compared to Python `internal_state()`.
 
@@ -496,13 +496,13 @@ return true/false  (per node type / sample rules)
 
 Note
 
-If you have not yet replaced the scaffold placeholders, you can follow the steps below using `isaacsim.examples.ipc` as a stand-in â it ships with Isaac Sim and has fully working nodes ready to enable and find. Repeat the steps with your own extension name once you have implemented and built your nodes.
+If you have not yet replaced the scaffold placeholders, you can follow the steps below using `isaacsim.examples.ipc` as a stand-in — it ships with Isaac Sim and has fully working nodes ready to enable and find. Repeat the steps with your own extension name once you have implemented and built your nodes.
 
 The build (`./build.sh` on Linux, `.\build.bat` on Windows) compiles your extension and places the output under `_build/<platform>/release/exts/<extension_name>/` (`linux-x86_64` or `windows-x86_64` depending on host). Isaac Sim launched from the same repo automatically searches that directory, so no additional path configuration is needed.
 
 Note
 
-Always launch Isaac Sim from the repo build. A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension. After each build run, restart Isaac Sim â a loaded C++ plugin cannot be hot-swapped.
+Always launch Isaac Sim from the repo build. A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension. After each build run, restart Isaac Sim — a loaded C++ plugin cannot be hot-swapped.
 
 Launch (or restart) Isaac Sim from the repo build:
 
@@ -557,12 +557,12 @@ Once the reference graph works end-to-end with `isaacsim.examples.ipc` nodes, su
 1. In the graph, delete the `SimpleSendSimulationClock` node.
 2. Add your renamed node from the exercise above.
 3. Wire it the same way: Receive External Step `execOut` â your node `execIn`, and Isaac Read Simulation Time `simulationTime` â your node `simulationTime`.
-4. Run the bridge script. Because `transfer()` is still a stub that returns `true` without sending data, the script will connect but receive no clock output â that is expected. This confirms that your extension loads, enables, and participates in the graph.
+4. Run the bridge script. Because `transfer()` is still a stub that returns `true` without sending data, the script will connect but receive no clock output — that is expected. This confirms that your extension loads, enables, and participates in the graph.
 5. To complete the implementation, add the actual send logic to `transfer()`. Use `OgnSimpleSendSimulationClockCpp.cpp` (or the Python equivalent) in `source/extensions/isaacsim.examples.ipc/` as a reference.
 
 ### External Python Playback Bridge
 
-The `tcp_tutorial_playback_bridge.py` script demonstrates a complete roundtrip. It listens for the eight-byte clock that the Send node emits, connects to the Receive nodeâs listen port, primes one step, then for each frame reads the clock and sends back the next step so the next `OnPlaybackTick` can fire.
+The `tcp_tutorial_playback_bridge.py` script demonstrates a complete roundtrip. It listens for the eight-byte clock that the Send node emits, connects to the Receive node’s listen port, primes one step, then for each frame reads the clock and sends back the next step so the next `OnPlaybackTick` can fire.
 
 The script only uses the Python standard library (`socket`, `struct`, `argparse`) and has no Isaac Sim or third-party dependencies. Run it from the repo root with any system `python3`:
 
@@ -580,22 +580,22 @@ The script binds a TCP listener on `127.0.0.1`. For real deployments, bind only 
 
 **Stay within your frame budget.**
 
-> OmniGraph evaluates `compute` on paths that must stay responsive relative to simulation, UI, and other graphs. The usual failure mode is unpredictably long work and is not âsynchronousâ I/O by itself. Waiting on a slow peer, large copies, contended locks, or RPC that can stall for many milliseconds may cause performance issues.
+> OmniGraph evaluates `compute` on paths that must stay responsive relative to simulation, UI, and other graphs. The usual failure mode is unpredictably long work and is not “synchronous” I/O by itself. Waiting on a slow peer, large copies, contended locks, or RPC that can stall for many milliseconds may cause performance issues.
 
 **Small, fast paths are often fine.**
 
-> A tiny, fixed-size, fire-and-forget operation in `compute` (the tutorialâs eight byte clock send once the socket is connected) can stay on the graph thread if it consistently completes within your per-node budget at the target frame rate. The same applies to other stacks when you have measured the path and it does not wait on back-pressure from the remote side.
+> A tiny, fixed-size, fire-and-forget operation in `compute` (the tutorial’s eight byte clock send once the socket is connected) can stay on the graph thread if it consistently completes within your per-node budget at the target frame rate. The same applies to other stacks when you have measured the path and it does not wait on back-pressure from the remote side.
 
 **When to use workers, queues, or async APIs.**
 
 > * If a call can block for an unknown duration (request/response, readiness waits, large payloads, or anything that can exceed your per-node budget), run that IPC on a worker thread. Use callbacks that enqueue results, and keep `compute` to non-blocking dequeue and writing `db.outputs`.
-> * For inbound data, try-receive (as in the tutorialâs step node) avoids waiting indefinitely when the external process does not send on your schedule.
+> * For inbound data, try-receive (as in the tutorial’s step node) avoids waiting indefinitely when the external process does not send on your schedule.
 > * **Async or callback-based I/O:** Drive network or IPC on a worker thread, push decoded messages into a thread-safe queue, and let `compute` only dequeue (non-blocking) and write `db.outputs`.
 > * **Deferred completion:** Post work from `compute` without waiting for the reply. A background thread enqueues results for a later evaluation.
 
 **Structured messages vs fixed bytes.**
 
-> The fixed-size framing in the tutorial is for clarity. A production bridge typically uses your libraryâs message format (IDL-generated types, JSON, or another schema). You still decide when to send, how to parse inbound data, and how to keep each `compute` within budget.
+> The fixed-size framing in the tutorial is for clarity. A production bridge typically uses your library’s message format (IDL-generated types, JSON, or another schema). You still decide when to send, how to parse inbound data, and how to keep each `compute` within budget.
 
 **Large messages (camera frames, point clouds).**
 
@@ -605,7 +605,7 @@ The script binds a TCP listener on `127.0.0.1`. For real deployments, bind only 
 
 Besides `isaacsim.examples.ipc`, several extensions register OmniGraph nodes that read simulation state or drive simulation inside Isaac Sim, without acting as a general-purpose bridge to another process. The table highlights types that often sit next to custom IPC nodes in a bridge graph.
 
-Before designing your custom nodeâs inputs and outputs, check the `.ogn` of the built-in nodes you plan to connect toâtheir output attribute names and types determine what your node needs to consume or produce.
+Before designing your custom node’s inputs and outputs, check the `.ogn` of the built-in nodes you plan to connect to—their output attribute names and types determine what your node needs to consume or produce.
 
 Common built-in OmniGraph nodes for bridge-style graphs
 
@@ -614,14 +614,14 @@ Common built-in OmniGraph nodes for bridge-style graphs
 | Read joint positions / velocities (and efforts) for publishing | `IsaacArticulationState` | `isaacsim.core.nodes` | In: `robotPath` or `targetPrim`, optional `jointNames` / `jointIndices`. Out: `jointPositions`, `jointVelocities` (`double[]`), `jointNames` (`token[]`), plus measured effort arrays. |
 | Alternative joint state (physics sensor path) | `isaacsim.sensors.physics.IsaacReadJointState` | `isaacsim.sensors.physics.nodes` | In: `prim` (articulation root). Out: `jointPositions`, `jointVelocities`, `jointEfforts`, `jointNames`, `execOut`, etc. |
 | Apply joint position / velocity / effort commands | `IsaacArticulationController` | `isaacsim.core.nodes` | In: same robot targeting as above; `positionCommand`, `velocityCommand`, `effortCommand` (`double[]`). Angular units are radians at the controller API. |
-| Simulation tick / gating | `OnPhysicsStep`, `IsaacSimulationGate`, `IsaacReadSimulationTime`, â¦ | `isaacsim.core.nodes` | Use to pace state reads and command writes consistently (exact attributes vary by node). |
+| Simulation tick / gating | `OnPhysicsStep`, `IsaacSimulationGate`, `IsaacReadSimulationTime`, … | `isaacsim.core.nodes` | Use to pace state reads and command writes consistently (exact attributes vary by node). |
 | Camera / viewport render product path (setup only) | `IsaacGetViewportRenderProduct`, `IsaacCreateRenderProduct`, `IsaacAttachHydraTexture`, `IsaacSetCameraOnRenderProduct` | `isaacsim.core.nodes` | Mostly paths and targets (`renderProductPath`, `renderProductPrim`). Pixels require a separate readback step. Refer to [Camera and Render Products](#camera-and-render-products). |
 
 Other read extensions you can chain before a custom sender:
 
-* `isaacsim.sensors.physics.nodes` â IMU, contact, effort, etc., backed by `isaacsim.sensors.experimental.physics`.
-* `isaacsim.sensors.physx` â for example Isaac Read Lidar Beams, Isaac Read Lidar Point Cloud, Isaac Read Light Beam Sensor.
-* `isaacsim.sensors.rtx.nodes` â for example Isaac Extract RTX Sensor Point Cloud.
+* `isaacsim.sensors.physics.nodes` — IMU, contact, effort, etc., backed by `isaacsim.sensors.experimental.physics`.
+* `isaacsim.sensors.physx` — for example Isaac Read Lidar Beams, Isaac Read Lidar Point Cloud, Isaac Read Light Beam Sensor.
+* `isaacsim.sensors.rtx.nodes` — for example Isaac Extract RTX Sensor Point Cloud.
 
 For IPC with external applications (topics, services, or other runtimes), use dedicated bridge extensions rather than treating the nodes in the table above as a transport layer. Examples include `isaacsim.ros2.nodes` (ROS 2) or `isaacsim.ucx.nodes` (UCX). Those extensions play the same role as the TCP tutorial nodes, not the sensor-read nodes in the table.
 
@@ -652,7 +652,7 @@ Getting raw RGB pixels into a custom IPC node requires more than a plain `uchar[
 >    * Hydra texture chain (GPU handles through `IsaacAttachHydraTexture`)
 > 3. Pass the resulting CPU-addressable bytes or arrays into your IPC encoder node.
 
-The `isaacsim.ros2.bridge` extensionâs camera helper node is a concrete reference for how this pipeline is assembled. The ROS 2 camera publisher wires a render product to host readback and then to IPC. Browsing that source is the fastest way to understand the pattern before building your own.
+The `isaacsim.ros2.bridge` extension’s camera helper node is a concrete reference for how this pipeline is assembled. The ROS 2 camera publisher wires a render product to host readback and then to IPC. Browsing that source is the fastest way to understand the pattern before building your own.
 
 Refer to [Performance Considerations](#performance-considerations) before passing large buffers through `compute`. Camera frames are a common source of frame-budget overruns.
 

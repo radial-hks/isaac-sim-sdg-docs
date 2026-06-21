@@ -2,7 +2,7 @@
 
 > Replicator 引擎核心概念、入门教程、模块化脚本
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 10
 
 ---
@@ -50,8 +50,8 @@ Isaac Sim Replicator offers various tools and workflows for synthetic data gener
 * [Scene Based Synthetic Dataset Generation](tutorial_replicator_scene_based_sdg.html)
 * [Object Based Synthetic Dataset Generation](tutorial_replicator_object_based_sdg.html)
 * [Environment Based Synthetic Dataset Generation with Infinigen](tutorial_replicator_infinigen_sdg.html)
-* [Randomization in Simulation â AMR Navigation](tutorial_replicator_amr_navigation.html)
-* [Randomization in Simulation â UR10 Palletizing](tutorial_replicator_ur10_palletizing.html)
+* [Randomization in Simulation – AMR Navigation](tutorial_replicator_amr_navigation.html)
+* [Randomization in Simulation – UR10 Palletizing](tutorial_replicator_ur10_palletizing.html)
 * [Cosmos Synthetic Data Generation](tutorial_replicator_cosmos.html)
 
 ## Customization Tools and Techniques
@@ -135,7 +135,7 @@ On this page
 
 # Getting Started Scripts
 
-This guide outlines a series of example scripts designed to facilitate typical Isaac Sim Replicator workflows. The examples include both âasynchronousâ usage through the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor) and âsynchronousâ usage through the [Standalone Application](../introduction/workflows.html#standalone-application). These scripts cover simulation-based scenarios and configurations for synthetic data generation (SDG).
+This guide outlines a series of example scripts designed to facilitate typical Isaac Sim Replicator workflows. The examples include both “asynchronous” usage through the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor) and “synchronous” usage through the [Standalone Application](../introduction/workflows.html#standalone-application). These scripts cover simulation-based scenarios and configurations for synthetic data generation (SDG).
 
 ## Prerequisites
 
@@ -165,7 +165,7 @@ Where:
 
 * `rt_subframes`: Specifies the number of subframes to render. A value greater than 0 enables subframe generation, reducing rendering artifacts or allowing materials to load fully.
 * `pause_timeline`: Pauses the timeline (if currently playing) after the step if set to `True`.
-* `delta_time`: Specifies the time to advance the timeline during a step. Defaults to the timelineâs rate if `None`.
+* `delta_time`: Specifies the time to advance the timeline during a step. Defaults to the timeline’s rate if `None`.
 * `wait_for_render`: If `True`, the function blocks until the renderer completes the current frame before returning. Defaults to `True`.
 
 More details on graph-based replicator randomizers can be found in the [Randomizer Details](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)"), and for custom Isaac Sim or USD API-based randomizations, refer to the [Isaac Sim Randomizers Guide](tutorial_replicator_isaac_randomizers.html#isaac-sim-app-tutorial-replicator-isaac-randomizers).
@@ -606,7 +606,7 @@ The output directory will contain the captured data, including RGB with the 3D b
 
 ### Custom Randomizations: Replicator Graph and USD API
 
-This example demonstrates creating a custom randomization using Replicatorâs graph-based randomizers triggered by custom events and a custom USD API-based randomization. A dome lightâs color is randomized through custom events, while a cubeâs location is randomized through USD API. Data is captured using the `BasicWriter` with semantic segmentation. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
+This example demonstrates creating a custom randomization using Replicator’s graph-based randomizers triggered by custom events and a custom USD API-based randomization. A dome light’s color is randomized through custom events, while a cube’s location is randomized through USD API. Data is captured using the `BasicWriter` with semantic segmentation. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
 
 ```python
 ./python.sh standalone_examples/api/isaacsim.replicator.examples/sdg_getting_started_03.py
@@ -762,7 +762,7 @@ The output directory will contain the RGB and semantic segmentation images with 
 
 ### Event-Triggered Data Capture: Timeline and Simulation
 
-This example shows how to capture simulation data when specific conditions are met. A cube and sphere are dropped in a physics simulation, and data is captured at specific intervals based on the cubeâs height. The timeline is paused during capture to ensure data consistency. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
+This example shows how to capture simulation data when specific conditions are met. A cube and sphere are dropped in a physics simulation, and data is captured at specific intervals based on the cube’s height. The timeline is paused during capture to ensure data consistency. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
 
 ```python
 ./python.sh standalone_examples/api/isaacsim.replicator.examples/sdg_getting_started_04.py
@@ -1260,8 +1260,8 @@ This tutorial introduces the `isaacsim.replicator.behavior` extension and walks 
 
 The behavior functionality ships as two extensions:
 
-* `isaacsim.replicator.behavior` â the core extension containing the behavior scripts. It has no UI dependency and runs in headless mode.
-* `isaacsim.replicator.behavior.ui` â the UI extension that renders exposed variables in the **Property** panel.
+* `isaacsim.replicator.behavior` — the core extension containing the behavior scripts. It has no UI dependency and runs in headless mode.
+* `isaacsim.replicator.behavior.ui` — the UI extension that renders exposed variables in the **Property** panel.
 
 The two extensions communicate through a carb event, so the core can run without the UI loaded. See [Core and UI extension split](#core-and-ui-extension-split) for details.
 
@@ -1307,7 +1307,7 @@ The [example section](#isaac-sim-app-tutorial-replicator-modular-scripting-examp
 
 ### Behavior scripts
 
-**Behavior scripts** are modular Python scripts attached to prims in a USD stage. By default, they respond to timeline events â start, pause, stop, and update â and define the randomization or custom logic applied to the prim during simulation or data generation.
+**Behavior scripts** are modular Python scripts attached to prims in a USD stage. By default, they respond to timeline events — start, pause, stop, and update — and define the randomization or custom logic applied to the prim during simulation or data generation.
 
 Attaching scripts directly to prims embeds the behavior in the USD itself and gives you:
 
@@ -1319,7 +1319,7 @@ Attaching scripts directly to prims embeds the behavior in the USD itself and gi
 
 ### Exposing variables through USD attributes
 
-Each behavior script exposes its input parameters as namespaced USD attributes on the prim that carries the script. This lets you edit behavior parameters directly from the **Property** panel â or programmatically through the USD API â without modifying the script source.
+Each behavior script exposes its input parameters as namespaced USD attributes on the prim that carries the script. This lets you edit behavior parameters directly from the **Property** panel — or programmatically through the USD API — without modifying the script source.
 
 Exposing variables as USD attributes provides three benefits:
 
@@ -1333,8 +1333,8 @@ The scripts use the USD API to create custom attributes under a shared namespace
 
 The behavior functionality is split across two extensions:
 
-* `isaacsim.replicator.behavior` â the **core** extension. It defines the behavior scripts, creates and removes the exposed USD attributes, and has no UI dependency. This lets you run the behaviors in headless mode (for example, during automated SDG pipelines).
-* `isaacsim.replicator.behavior.ui` â the **UI** extension. It registers an `ExposedVariablesPropertyWidget` with the **Property** panel that automatically renders the exposed variables as editable fields.
+* `isaacsim.replicator.behavior` — the **core** extension. It defines the behavior scripts, creates and removes the exposed USD attributes, and has no UI dependency. This lets you run the behaviors in headless mode (for example, during automated SDG pipelines).
+* `isaacsim.replicator.behavior.ui` — the **UI** extension. It registers an `ExposedVariablesPropertyWidget` with the **Property** panel that automatically renders the exposed variables as editable fields.
 
 The two extensions communicate through a single carb event, `isaacsim.replicator.behavior.EXPOSED_VARS_CHANGED`:
 
@@ -1365,7 +1365,7 @@ VARIABLES_TO_EXPOSE = [
 
 ### Custom event-based behavior scripts
 
-Timeline-driven behaviors are convenient, but some workflows need to run independently of the simulation clock â for example, pre-simulation setup, one-shot scene preparation, or sequences that must complete before data capture begins.
+Timeline-driven behaviors are convenient, but some workflows need to run independently of the simulation clock — for example, pre-simulation setup, one-shot scene preparation, or sequences that must complete before data capture begins.
 
 **Event-based scripting** lets a behavior skip the default timeline hooks and instead publish and subscribe to [custom events](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/guide/events.html) on the Omniverse event bus. This gives you:
 
@@ -1404,8 +1404,8 @@ Configuration Parameters
 
 * **range:minPosition** (Vector3d): Minimum bounds of the random offset.
 * **range:maxPosition** (Vector3d): Maximum bounds of the random offset.
-* **frame:useRelativeFrame** (Bool): If True, preserve the primâs initial offset (from the target prim if set, otherwise from its own starting position) and add the random offset on top. If False, the random offset is applied as an absolute position (relative to the target prim if set, otherwise to the world origin).
-* **frame:targetPrimPath** (String): Optional path to a reference prim. When set, all randomization is anchored to this primâs world location; leave empty to randomize independently of any other prim.
+* **frame:useRelativeFrame** (Bool): If True, preserve the prim’s initial offset (from the target prim if set, otherwise from its own starting position) and add the random offset on top. If False, the random offset is applied as an absolute position (relative to the target prim if set, otherwise to the world origin).
+* **frame:targetPrimPath** (String): Optional path to a reference prim. When set, all randomization is anchored to this prim’s world location; leave empty to randomize independently of any other prim.
 * **includeChildren** (Bool): Include child prims in randomization.
 * **interval** (UInt): Update frequency (0 = every frame).
 
@@ -1416,11 +1416,11 @@ The combination of `frame:targetPrimPath` and `frame:useRelativeFrame` determine
 | `targetPrimPath` | `useRelativeFrame` | Resulting location |
 | --- | --- | --- |
 | empty | False | `random_offset` (treated as absolute world coordinates). |
-| empty | True | `initial_location + random_offset` (jitter around the primâs starting position). |
+| empty | True | `initial_location + random_offset` (jitter around the prim’s starting position). |
 | set | False | `target_location + random_offset` (prim is placed near the target, ignoring its original position). |
 | set | True | `target_location + initial_offset_from_target + random_offset` (prim follows the target while preserving its original relative offset). |
 
-To make the primâs randomization fully independent of any other prim, leave `frame:targetPrimPath` empty. Toggling `frame:useRelativeFrame` alone does not decouple the prim from the target.
+To make the prim’s randomization fully independent of any other prim, leave `frame:targetPrimPath` empty. Toggling `frame:useRelativeFrame` alone does not decouple the prim from the target.
 
 Implementation Details
 
@@ -1441,7 +1441,7 @@ def _setup(self):
 ```
 
 * When **includeChildren** is True: Uses Usd.PrimRange to select all transformable descendant prims
-* When **includeChildren** is False: Only includes the assigned prim if itâs transformable
+* When **includeChildren** is False: Only includes the assigned prim if it’s transformable
 * Logs warning if no valid prims are found
 
 **Randomization Logic:**
@@ -1472,8 +1472,8 @@ def _randomize_location(self, prim):
 ```
 
 * Generates a random offset within the configured `range:minPosition` / `range:maxPosition` bounds.
-* If `frame:targetPrimPath` is set, anchors the result to the target primâs current world location.
-* If `frame:useRelativeFrame` is True, preserves the primâs initial offset (from the target prim if set, otherwise from its own starting position) so the random offset acts as jitter rather than an absolute placement.
+* If `frame:targetPrimPath` is set, anchors the result to the target prim’s current world location.
+* If `frame:useRelativeFrame` is True, preserves the prim’s initial offset (from the target prim if set, otherwise from its own starting position) so the random offset acts as jitter rather than an absolute placement.
 * Writes the final location to the prim using the existing translate or transform xformOp.
 
 Usage Example
@@ -1497,7 +1497,7 @@ Step-by-Step Configuration
 **Use Cases:**
 
 * **Background Objects**: Randomize prop positions for scene variety. Leave `frame:targetPrimPath` empty and set `frame:useRelativeFrame` to True to jitter each prop around its authored location.
-* **Follow a Moving Target**: Keep an objectâs relative offset to a moving prim. Set `frame:targetPrimPath` to the target and `frame:useRelativeFrame` to True.
+* **Follow a Moving Target**: Keep an object’s relative offset to a moving prim. Set `frame:targetPrimPath` to the target and `frame:useRelativeFrame` to True.
 * **Snap Near a Target**: Place an object at randomized positions around a target, ignoring its original location. Set `frame:targetPrimPath` to the target and `frame:useRelativeFrame` to False.
 * **Hierarchical Randomization**: Apply randomization to object groups by enabling `includeChildren`.
 
@@ -1866,7 +1866,7 @@ Step-by-Step Configuration
 
 **Example Configuration:**
 
-* **textures:csv**: âtexture1.jpg,texture2.png,texture3.exrâ
+* **textures:csv**: “texture1.jpg,texture2.png,texture3.exr”
 * **textureScaleRange**: (0.5, 2.0) (scale variation)
 * **textureRotateRange**: (0.0, 360.0) (full rotation)
 * **projectUvwProbability**: 0.3 (30% chance of UV projection)
@@ -2012,7 +2012,7 @@ Step-by-Step Configuration
 
 **Example Configuration:**
 
-* **assets:csv**: âbox1.usd,box2.usd,cylinder.usdâ
+* **assets:csv**: “box1.usd,box2.usd,cylinder.usd”
 * **assets:numRange**: (5, 20) (spawn 5-20 objects)
 * **dropHeight**: 2.0 (drop from 2 units above surface)
 * **renderSimulation**: True (show simulation steps)
@@ -2987,7 +2987,7 @@ run_example()
 
 ## Motion Blur
 
-This example demonstrates how to capture motion blur data using [RTX Real-Time](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_rt.html) and [RTX Interactive (Path Tracing)](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_pt.html) rendering modes. For the RTX - Real-Time mode, refer to [motion blur parameters](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html#motion-blur). For the RTX â Interactive (Path Tracing) mode, motion blur is achieved by rendering multiple subframes (`/omni/replicator/pathTracedMotionBlurSubSamples`) and combining them to create the effect.
+This example demonstrates how to capture motion blur data using [RTX Real-Time](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_rt.html) and [RTX Interactive (Path Tracing)](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_pt.html) rendering modes. For the RTX - Real-Time mode, refer to [motion blur parameters](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html#motion-blur). For the RTX – Interactive (Path Tracing) mode, motion blur is achieved by rendering multiple subframes (`/omni/replicator/pathTracedMotionBlurSubSamples`) and combining them to create the effect.
 
 The example uses animated and physics-enabled assets with synchronized motion. Keyframe animated assets can be advanced at any custom delta time due to their interpolated motion, whereas physics-enabled assets require a custom physics FPS to ensure motion samples at any custom delta time. The example showcases how to compute the target physics FPS, change it if needed, and restore the original physics FPS after capturing the motion blur.
 
@@ -4400,7 +4400,7 @@ run_cosmos_example(num_frames=NUM_FRAMES, segmentation_mapping=SEGMENTATION_MAPP
 
 ## Synthetic Data Generation with Deformables
 
-This example demonstrates synthetic data generation (SDG) with deformable physics: deformable assets (e.g., bananas and markers) are dropped into a crate, and RGB plus semantic segmentation frames are captured when each assetâs lowest vertex crosses a trigger height. It uses `VolumeDeformableMaterial`, `DeformablePrim`, and the deformable tensor API (e.g., `get_nodal_positions`) for trigger detection, with optional material color randomization per capture.
+This example demonstrates synthetic data generation (SDG) with deformable physics: deformable assets (e.g., bananas and markers) are dropped into a crate, and RGB plus semantic segmentation frames are captured when each asset’s lowest vertex crosses a trigger height. It uses `VolumeDeformableMaterial`, `DeformablePrim`, and the deformable tensor API (e.g., `get_nodal_positions`) for trigger detection, with optional material color randomization per capture.
 
 The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
 
@@ -6194,7 +6194,7 @@ This tutorial will showcase how to:
 
 * Create custom scene randomization Python scripts.
 * Wrap the scripts as OmniGraph nodes and manually add them to an existing SDG pipeline graph.
-* Encapsulate the OmniGraph nodes as **ReplicatorItems** to be automatically added to the SDG pipeline graph using Replicatorâs API.
+* Encapsulate the OmniGraph nodes as **ReplicatorItems** to be automatically added to the SDG pipeline graph using Replicator’s API.
 
 ## Prerequisites
 
@@ -7191,7 +7191,7 @@ with rep.trigger.on_frame():
 
 ## Recording Loop Overview
 
-The **Synthetic Data Recorder** is a GUI extension for Isaac Sim that uses the `BasicWriter` or custom Replicator writers for capturing data. Its implementation is located in `/isaacsim.replicator.synthetic_recorder/isaacsim/replicator/synthetic_recorder/synthetic_recorder.py` and utilizes the `orchestrator.step(rt_subframes, pause_timeline, delta_time)` function to manage the recording process. This function ensures that recorded frames remain synchronized with the stage by waiting for any âframes in flightâ from the renderer. For integration with the UI, the recorder uses the asynchronous version of this function: `step_async`.
+The **Synthetic Data Recorder** is a GUI extension for Isaac Sim that uses the `BasicWriter` or custom Replicator writers for capturing data. Its implementation is located in `/isaacsim.replicator.synthetic_recorder/isaacsim/replicator/synthetic_recorder/synthetic_recorder.py` and utilizes the `orchestrator.step(rt_subframes, pause_timeline, delta_time)` function to manage the recording process. This function ensures that recorded frames remain synchronized with the stage by waiting for any “frames in flight” from the renderer. For integration with the UI, the recorder uses the asynchronous version of this function: `step_async`.
 
 ```python
 while self._current_frame < num_frames:
@@ -7265,9 +7265,9 @@ The example can be run as a standalone application using the following commands 
 
 Optionally the following arguments can be used to change the default behavior:
 
-* `--env_url` â USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
-* `--use_warp` â flag to use warp (GPU) instead of numpy (CPU) for the augmentation functions (default: False)
-* `--num_frames` â the number of frames to be captured (default: 25)
+* `--env_url` – USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
+* `--use_warp` – flag to use warp (GPU) instead of numpy (CPU) for the augmentation functions (default: False)
+* `--num_frames` – the number of frames to be captured (default: 25)
 
 ```python
 ./python.sh standalone_examples/replicator/augmentation/annotator_augmentation.py --use_warp --num_frames 25 --env_url /Isaac/Environments/Grid/default_environment.usd
@@ -7771,9 +7771,9 @@ The example can be run as a standalone application using the following commands 
 >
 > Optionally the following arguments can be used to change the default behavior:
 >
-> * `--env_url` â USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
-> * `--use_warp` â flag to use warp (GPU) instead of NumPy (CPU) for the augmentation functions (default: False)
-> * `--num_frames` â the number of frames to be captured (default: 25)
+> * `--env_url` – USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
+> * `--use_warp` – flag to use warp (GPU) instead of NumPy (CPU) for the augmentation functions (default: False)
+> * `--num_frames` – the number of frames to be captured (default: 25)
 >
 > ```python
 > ./python.sh standalone_examples/replicator/augmentation/writer_augmentation.py --use_warp --num_frames 25 --env_url /Isaac/Environments/Grid/default_environment.usd
@@ -8348,7 +8348,7 @@ When working with large datasets or high-resolution images, you may experience s
 
 ## Replicator Layers and Randomization
 
-Using [replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/basic_functionalities.html "(in Omniverse Extensions)")âs `rep.new_layer()` functionality, which creates a new layer in which to place and randomize assets, may lead to issues in simulation scenarios where these assets are used. In such cases the use of `rep.new_layer()` can be omitted.
+Using [replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/basic_functionalities.html "(in Omniverse Extensions)")’s `rep.new_layer()` functionality, which creates a new layer in which to place and randomize assets, may lead to issues in simulation scenarios where these assets are used. In such cases the use of `rep.new_layer()` can be omitted.
 
 When using multiple randomizers, be aware that they may conflict with each other. Test your randomization settings carefully to ensure they produce the expected results.
 
@@ -8391,7 +8391,7 @@ On Windows, when running SDG pipelines with Replicator in standalone mode, the f
 
 ### Workaround
 
-Call a few âwarmupâ steps to advance the simulation before the first capture to avoid missing the initial frame. For example:
+Call a few “warmup” steps to advance the simulation before the first capture to avoid missing the initial frame. For example:
 
 ```python
 # Warmup the simulation

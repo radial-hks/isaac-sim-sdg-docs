@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "PhysX Lidar"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "e3b7d23fda843464"
-fetched: "2026-06-21T13:05:44"
+checksum: "33bcfb083899bb7f"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -108,7 +108,7 @@ You can attach a LIDAR prim to a robot. You can use the Carter V1 robot as an ex
 ### Script Editor
 
 Use the Lidar Python API to create, control, and query the sensor through scripts and extensions.
-Use the **Script Editor** and Python API to retrieve data from the Lidarâs last sweep:
+Use the **Script Editor** and Python API to retrieve data from the Lidar’s last sweep:
 
 1. Go to the top menu bar and click **Window > Script Editor** to open the **Script Editor** window.
 2. Add the necessary imports:
@@ -326,7 +326,7 @@ asyncio.ensure_future(get_lidar_param())  # Only ask for data after sweep is com
 
 The main differences between this example and the previous are as follows:
 
-1. The LIDARâs `enable_semantics` flag is set to `True` on creation.
+1. The LIDAR’s `enable_semantics` flag is set to `True` on creation.
 2. The Cube and Sphere prims have different `semantic labels`.
 3. Use `get_point_cloud_data` and `get_prim_data` to retrieve the point cloud data and semantic IDs.
 

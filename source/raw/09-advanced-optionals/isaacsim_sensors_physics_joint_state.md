@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Joint State"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "9952081d55c2007e"
-fetched: "2026-06-21T13:05:43"
+checksum: "41e7f8722b49b1d7"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -42,7 +42,7 @@ sensor = JointStateSensor(path="/World/simple_articulation", enabled=True)
 
 Note
 
-The articulation root prim you pass in **is** the sensorâs prim â `JointStateSensor` does not author a separate USD prim in the **Stage** panel on construction. DOF readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
+The articulation root prim you pass in **is** the sensor’s prim — `JointStateSensor` does not author a separate USD prim in the **Stage** panel on construction. DOF readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
 
 ### Reading sensor output
 
@@ -50,8 +50,8 @@ The sensor is created dynamically on **Play**. Moving or replacing the articulat
 
 There are two methods for reading the sensor output:
 
-* `JointStateSensor.get_sensor_reading()` â returns a `JointStateSensorReading` object with the per-DOF arrays as attributes.
-* `JointStateSensor.get_data()` â returns a structured dictionary with the same data plus `physics_step`, suitable for direct serialization.
+* `JointStateSensor.get_sensor_reading()` — returns a `JointStateSensorReading` object with the per-DOF arrays as attributes.
+* `JointStateSensor.get_data()` — returns a structured dictionary with the same data plus `physics_step`, suitable for direct serialization.
 
 **JointStateSensor.get\_sensor\_reading()**
 

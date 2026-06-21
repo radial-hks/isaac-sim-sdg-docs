@@ -2,7 +2,7 @@
 
 > Manipulators motion planning + Physics/RTX sensors + OpenUSD tuning (按需采集)
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:06 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 44
 
 ---
@@ -70,11 +70,11 @@
 
 # OpenUSD and Tuning Best Practices Tutorial Series
 
-This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assetsâsuch as a dexterous handâis foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
+This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assets—such as a dexterous hand—is foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
 
 Over this series, you work hands-on with the Inspire Hand asset in Isaac Sim to inspect the robot USD and asset structure, apply OpenUSD best practices for performance and stability, and tune joint parameters and control gains for stable, critically damped motion.
 
-This series takes approximately 60â90 minutes to complete as a hands-on lab.
+This series takes approximately 60–90 minutes to complete as a hands-on lab.
 
 ## Learning Objectives
 
@@ -116,11 +116,11 @@ On this page
 
 # OpenUSD and Tuning Best Practices Tutorial Series
 
-This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assetsâsuch as a dexterous handâis foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
+This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assets—such as a dexterous hand—is foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
 
 Over this series, you work hands-on with the Inspire Hand asset in Isaac Sim to inspect the robot USD and asset structure, apply OpenUSD best practices for performance and stability, and tune joint parameters and control gains for stable, critically damped motion.
 
-This series takes approximately 60â90 minutes to complete as a hands-on lab.
+This series takes approximately 60–90 minutes to complete as a hands-on lab.
 
 ## Learning Objectives
 
@@ -183,16 +183,16 @@ In this tutorial, you will:
 In the file paths used in this tutorial series, replace `/path/to` with the directory that contains your copied `Inspire` folder.
 
 1. In the **Content** browser, go to `IsaacSim/Samples/Rigging/Inspire/`.
-2. In the **Content** browser, right-click on the `Inspire` folder and select âDownloadâ to save it to your local machine. Place the downloaded folder so that its path is `/path/to/Inspire/`, replacing `/path/to` with your chosen directory.
+2. In the **Content** browser, right-click on the `Inspire` folder and select “Download” to save it to your local machine. Place the downloaded folder so that its path is `/path/to/Inspire/`, replacing `/path/to` with your chosen directory.
 
-In the Content browser, right-click the `Inspire` folder and select âDownloadâ to save the course files locally.
+In the Content browser, right-click the `Inspire` folder and select “Download” to save the course files locally.
 
 Within `/path/to/Inspire/`, the course files are organized into multiple checkpoint folders:
 
-* `/path/to/Inspire/module_1_start` â Initial Inspire Hand USD `inspire_hand.usda`.
-* `/path/to/Inspire/module_3_end-checkpoint_1` â Checkpoint with collision filters configured.
-* `/path/to/Inspire/module_4_end-checkpoint_2` â Checkpoint with mimic joints, joint drive maximums, and tuned gains for the finger joints configured.
-* `/path/to/Inspire/module_5_end-checkpoint_3` â Checkpoint with all finger and thumb joint gains tuned and authored.
+* `/path/to/Inspire/module_1_start` — Initial Inspire Hand USD `inspire_hand.usda`.
+* `/path/to/Inspire/module_3_end-checkpoint_1` — Checkpoint with collision filters configured.
+* `/path/to/Inspire/module_4_end-checkpoint_2` — Checkpoint with mimic joints, joint drive maximums, and tuned gains for the finger joints configured.
+* `/path/to/Inspire/module_5_end-checkpoint_3` — Checkpoint with all finger and thumb joint gains tuned and authored.
 
 ## Open the Starting Scene
 
@@ -278,25 +278,25 @@ Below we see how this robot is represented in USD using the Asset Structure 3.0 
 
 ### File Hierarchy and Stacks
 
-* **Inspire Hand File Hierarchy** â The asset is split into multiple USD files (geometry, materials, robot metadata, instances, base scene, physics, and PhysX overrides), each with a clear role.
-* **Inspire Hand Asset Stack** â Layers and references compose the visual and structural representation (meshes, materials, transforms, robot API).
-* **Inspire Hand Physics Stack** â Payloads and variants add physics (rigid bodies, joints, drives) and engine-specific tuning (e.g., PhysX) without modifying the base asset.
+* **Inspire Hand File Hierarchy** — The asset is split into multiple USD files (geometry, materials, robot metadata, instances, base scene, physics, and PhysX overrides), each with a clear role.
+* **Inspire Hand Asset Stack** — Layers and references compose the visual and structural representation (meshes, materials, transforms, robot API).
+* **Inspire Hand Physics Stack** — Payloads and variants add physics (rigid bodies, joints, drives) and engine-specific tuning (e.g., PhysX) without modifying the base asset.
 
 Together, the **combined** stack gives a single `inspire_hand` prim that is simulation-ready and can switch between no physics, generic USD physics, or PhysX via a variant.
 
 ## Module 1.3: Asset Structure Walkthrough
 
-Here we walk through each file in the Inspire Hand and how it contributes to the final asset. Knowing each fileâs **role** and **format** (e.g. binary for geometry, ASCII for readability) will help you know where to author changes in later modules.
+Here we walk through each file in the Inspire Hand and how it contributes to the final asset. Knowing each file’s **role** and **format** (e.g. binary for geometry, ASCII for readability) will help you know where to author changes in later modules.
 
-geometries.usd â Mesh file
-geometries.usd â Mesh file
-âââââââââ
+geometries.usd — Mesh file
+geometries.usd — Mesh file
+————————–
 
 * **Role:** Stores all the **meshes** used by the robot.
 * **Format:** Binary (`.usd` or `.usdc`) for efficiency.
 * Contains only geometry (mesh data); no materials or physics.
 
-### materials.usda â Material file
+### materials.usda — Material file
 
 * **Role:** Stores all **materials** used by the robot (e.g., Plastic\_ABS).
 * **Format:** ASCII (`.usda`) for readability.
@@ -332,7 +332,7 @@ def Shader "Shader" (
 }
 ```
 
-### robot.usda â Robot metadata
+### robot.usda — Robot metadata
 
 * **Role:** Contains **robot metadata** and the Isaac Robot API.
 * Applied as an overlay over the `inspire_hand` prim with `apiSchemas = ["IsaacRobotAPI"]`.
@@ -366,13 +366,13 @@ over "inspire_hand" (
 }
 ```
 
-### instances.usda â Mesh + materials + colliders
+### instances.usda — Mesh + materials + colliders
 
 * **Role:** Builds **visual and collision** meshes by combining `materials.usda` and `geometries.usd`.
 * References geometry from the mesh file and applies materials; adds collision by applying `PhysicsCollisionAPI` and `PhysicsMeshCollisionAPI` (or other collider APIs) on the same or child prims.
 * Example pattern for a link (e.g., `r_base_link_1`): an `Xform` references the geometry prim, and a child over adds `physics:approximation` (e.g., `"convexHull"`) and `purpose = "guide"` for collision.
 
-So this file is where âmesh + materials + collidersâ are assembled per link.
+So this file is where “mesh + materials + colliders” are assembled per link.
 
 ```python
 r_base_link_1 collision definition:
@@ -391,7 +391,7 @@ r_base_link_1 collision definition:
     }
 ```
 
-### base.usda â Animation-ready scene
+### base.usda — Animation-ready scene
 
 * **Role:** **Animation-ready** scene: loads visual/collision meshes as **instanceable** references and applies **transforms** (translate, orient, scale) for each link.
 * References `instances.usda` (e.g., `@instances.usda@</Instances/right_thumb_1>`) and uses `instanceable = true` for efficiency.
@@ -415,7 +415,7 @@ Right thumb transform and mesh definition:
 }
 ```
 
-### physics.usda â USD physics file
+### physics.usda — USD physics file
 
 * **Role:** Stores **USD physics attributes**: rigid bodies, mass, and **joints** (with drive and state APIs).
 * Links prims to: **PhysicsRigidBodyAPI**, **PhysicsMassAPI**, etc., for bodies; **PhysicsRevoluteJoint** (or other joint types) with **PhysicsDriveAPI** and **PhysicsJointStateAPI** for actuated joints.
@@ -447,7 +447,7 @@ def PhysicsRevoluteJoint "right_thumb_1_joint" (
 }
 ```
 
-### physx.usda â PhysX file
+### physx.usda — PhysX file
 
 * **Role:** Stores **PhysX-specific** attributes so the same asset can be tuned for PhysX without changing the generic physics file.
 * Adds APIs such as **PhysxJointAPI** and **PhysxMimicJointAPI** on top of the joints defined in `physics.usda`.
@@ -479,7 +479,7 @@ over "right_thumb_4_joint" (
 }
 ```
 
-### inspire\_hand.usda â The interface
+### inspire\_hand.usda — The interface
 
 * **Role:** **The interface** that ties everything together: references the base scene and selects physics via **variants**.
 * Root prim references the base (e.g., `prepend references = @payloads/base.usda@`) and declares `variantSet "Physics"` with options such as: `"none"` (no physics payload), `"physics"` (payload `payloads/Physics/physics.usda`), `"physx"` (payload `payloads/Physics/physx.usda`).
@@ -516,7 +516,7 @@ This tutorial covered:
 
 * **USD Asset Structure 3.0**: geometry, materials, metadata, instances, base scene, and physics live in dedicated files so you can find and edit the right layer without clashing with others.
 * How **layers, payloads, and variants** compose the Inspire Hand and let you switch between no physics, generic physics, or PhysX from a single asset.
-* The role of each fileâfrom **geometries.usd** and **materials.usda** through **physics.usda** and **physx.usda**âso you know where to author collision filters and joint parameters in later tutorials.
+* The role of each file—from **geometries.usd** and **materials.usda** through **physics.usda** and **physx.usda**—so you know where to author collision filters and joint parameters in later tutorials.
 
 ## Next Steps
 
@@ -530,13 +530,13 @@ On this page
 * [Module 1.2: Inspire Hand Overview](#module-1-2-inspire-hand-overview)
   + [File Hierarchy and Stacks](#file-hierarchy-and-stacks)
 * [Module 1.3: Asset Structure Walkthrough](#module-1-3-asset-structure-walkthrough)
-  + [materials.usda â Material file](#materials-usda-material-file)
-  + [robot.usda â Robot metadata](#robot-usda-robot-metadata)
-  + [instances.usda â Mesh + materials + colliders](#instances-usda-mesh-materials-colliders)
-  + [base.usda â Animation-ready scene](#base-usda-animation-ready-scene)
-  + [physics.usda â USD physics file](#physics-usda-usd-physics-file)
-  + [physx.usda â PhysX file](#physx-usda-physx-file)
-  + [inspire\_hand.usda â The interface](#inspire-hand-usda-the-interface)
+  + [materials.usda — Material file](#materials-usda-material-file)
+  + [robot.usda — Robot metadata](#robot-usda-robot-metadata)
+  + [instances.usda — Mesh + materials + colliders](#instances-usda-mesh-materials-colliders)
+  + [base.usda — Animation-ready scene](#base-usda-animation-ready-scene)
+  + [physics.usda — USD physics file](#physics-usda-usd-physics-file)
+  + [physx.usda — PhysX file](#physx-usda-physx-file)
+  + [inspire\_hand.usda — The interface](#inspire-hand-usda-the-interface)
 * [Summary](#summary)
 * [Next Steps](#next-steps)
 
@@ -554,7 +554,7 @@ On this page
 
 # Tutorial 3: Inspect Asset
 
-Youâve seen how the Inspire Hand is built from multiple USD files (Tutorial 2). Next we **inspect and validate** that asset: joints, mass and inertia, and collision meshes. Skipping this step means youâre tuning in the darkâwrong masses or misaligned inertia can cause unstable or unrealistic motion even when joint parameters look correct, and the wrong collider type can slow the simulation or produce confusing contact behavior. Isaac Simâs **joint visualizer**, **Robot Inspector**, **Physics Debugger**, and **collider visualization** give you a clear picture of the asset before you filter collision pairs or tune drives.
+You’ve seen how the Inspire Hand is built from multiple USD files (Tutorial 2). Next we **inspect and validate** that asset: joints, mass and inertia, and collision meshes. Skipping this step means you’re tuning in the dark—wrong masses or misaligned inertia can cause unstable or unrealistic motion even when joint parameters look correct, and the wrong collider type can slow the simulation or produce confusing contact behavior. Isaac Sim’s **joint visualizer**, **Robot Inspector**, **Physics Debugger**, and **collider visualization** give you a clear picture of the asset before you filter collision pairs or tune drives.
 
 ## Learning Objectives
 
@@ -571,7 +571,7 @@ In this tutorial, you will:
 
 ## Module 2.1: Enable Joint Visualizer
 
-Because weâre tuning for the PhysX backend, load the hand with the PhysX variant. Then enable joint visualization to see joint locations and types at a glance.
+Because we’re tuning for the PhysX backend, load the hand with the PhysX variant. Then enable joint visualization to see joint locations and types at a glance.
 
 **Viewport Navigation in Isaac Sim**
 
@@ -591,18 +591,18 @@ Use these controls to efficiently explore and inspect the Inspire Hand model as 
 
 In the viewport, the Inspire Hand should now have gizmos identifying the locations and types of each joint.
 
-**Examine the joints** â In the *Stage* panel, under the `/Physics` scope, find `right_index_1_joint`âa **Revolute** joint responsible for the base motion of the index finger, represented by a circular icon in the viewport. Also locate `right_index_rubber_1_joint`, which is a **Fixed** joint attaching the lower index rubber pad to its link, shown as a rectangular icon in the visualization. The `right_index_2_joint` is a mimic joint that references the movement of `right_index_1_joint` (weâll cover mimic joints in more detail in Tutorial 5). Understanding how these joints function and their naming conventions will be valuable when tuning the drives in Tutorials 5 and 6.
+**Examine the joints** — In the *Stage* panel, under the `/Physics` scope, find `right_index_1_joint`—a **Revolute** joint responsible for the base motion of the index finger, represented by a circular icon in the viewport. Also locate `right_index_rubber_1_joint`, which is a **Fixed** joint attaching the lower index rubber pad to its link, shown as a rectangular icon in the visualization. The `right_index_2_joint` is a mimic joint that references the movement of `right_index_1_joint` (we’ll cover mimic joints in more detail in Tutorial 5). Understanding how these joints function and their naming conventions will be valuable when tuning the drives in Tutorials 5 and 6.
 
 ## Module 2.2: Robot Inspector (hierarchy and session masking)
 
-With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link â joint** treeâoften easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
+With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link â joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
 
 1. Open **Window > Robot Inspector**. The window docks next to *Stage* by default.
 2. In the robot list, select the entry for the **Inspire Hand**.
 3. Set the hierarchy mode to **Tree** (default): parent link â joint â child link.
 4. Optionally switch to **Flat** (all links, then all joints) or **MuJoCo** (base-rooted body tree) to compare layouts; the same underlying articulation can be shown in three different ways.
 
-The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayerâthey are **not** saved to your USD files. That is useful for quick isolation during debugging.
+The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayer—they are **not** saved to your USD files. That is useful for quick isolation during debugging.
 
 See also
 
@@ -650,7 +650,7 @@ This method lets you quickly inspect and debug mass distribution for any body in
 
 ## Module 2.4: Verify Collision Meshes
 
-The shapes you see in the viewport arenât necessarily what the physics engine uses for contactâthatâs determined by the **collision meshes** (colliders). Before we filter collision pairs in Tutorial 4, we inspect and verify the colliders: colliders are color-coded **green** for rigid bodies and **magenta** for static bodies.
+The shapes you see in the viewport aren’t necessarily what the physics engine uses for contact—that’s determined by the **collision meshes** (colliders). Before we filter collision pairs in Tutorial 4, we inspect and verify the colliders: colliders are color-coded **green** for rigid bodies and **magenta** for static bodies.
 
 1. Go to **Eye > Show by Type > Physics > Colliders > All** to visualize all collision shapes.
 
@@ -660,8 +660,8 @@ Setting collider types affects performance and fidelity. You can mix types on on
 
 This tutorial covered:
 
-* Enabling the **joint visualizer** and identifying joint types (Fixed, Revolute, Mimic) in the Stageâthe same structure youâll tune in Tutorials 5 and 6.
-* Opening **Robot Inspector** to review the handâs kinematic hierarchy (Flat / Tree / MuJoCo modes) and understanding **session masking**.
+* Enabling the **joint visualizer** and identifying joint types (Fixed, Revolute, Mimic) in the Stage—the same structure you’ll tune in Tutorials 5 and 6.
+* Opening **Robot Inspector** to review the hand’s kinematic hierarchy (Flat / Tree / MuJoCo modes) and understanding **session masking**.
 * Using the **Physics Debugger** to visualize body axes and principal inertia and verifying that mass centers and inertia alignment look correct for each link.
 * Turning on **collider visualization** and confirming the collider strategy (Convex Hull for this series), so you know what shapes will collide when self-collisions are enabled in Tutorial 4.
 
@@ -695,7 +695,7 @@ On this page
 
 # Tutorial 4: Collider Pairs
 
-We inspected the asset structure and collision meshes. Now we tackle a question that makes or breaks this dexterous hand simulation: **which parts of the hand are allowed to collide with each other?** In the real world, a finger canât pass through the palm, but in simulation, overlapping collision geometry between links can create phantom contacts, jitter, and forces that blow the hand apart. **Filtered Pairs** in Isaac Sim let you turn off collision between specific rigid bodies so you keep the contacts that matter (finger on object, intentional finger-to-finger) and remove the ones that cause instability.
+We inspected the asset structure and collision meshes. Now we tackle a question that makes or breaks this dexterous hand simulation: **which parts of the hand are allowed to collide with each other?** In the real world, a finger can’t pass through the palm, but in simulation, overlapping collision geometry between links can create phantom contacts, jitter, and forces that blow the hand apart. **Filtered Pairs** in Isaac Sim let you turn off collision between specific rigid bodies so you keep the contacts that matter (finger on object, intentional finger-to-finger) and remove the ones that cause instability.
 
 ## Learning Objectives
 
@@ -712,13 +712,13 @@ In this tutorial, you will:
 
 ## Module 3.1: Understanding Filtered Pairs
 
-**Filtered Pairs** explicitly tell the physics engine: âDo not detect collision between these two rigid bodies.â In Isaac Sim, adjacent links (two links connected by a joint) in an articulation donât self-collide by default, but **non-adjacent** links do. As you will see, many of those non-adjacent links can have overlapping or very close collision geometry. In these scenarios, you can get:
+**Filtered Pairs** explicitly tell the physics engine: “Do not detect collision between these two rigid bodies.” In Isaac Sim, adjacent links (two links connected by a joint) in an articulation don’t self-collide by default, but **non-adjacent** links do. As you will see, many of those non-adjacent links can have overlapping or very close collision geometry. In these scenarios, you can get:
 
-* **Unrealistic forces** â The solver tries to resolve interpenetration between links that would never actually touch in the real mechanism.
-* **Instability** â The hand can jitter, jump, or blow apart as conflicting contacts fight each other.
-* **Wasted compute** â Simulating every anatomically possible self-contact is rarely necessary for grasping or manipulation.
+* **Unrealistic forces** — The solver tries to resolve interpenetration between links that would never actually touch in the real mechanism.
+* **Instability** — The hand can jitter, jump, or blow apart as conflicting contacts fight each other.
+* **Wasted compute** — Simulating every anatomically possible self-contact is rarely necessary for grasping or manipulation.
 
-So the goal is to **filter the problematic pairs** while keeping contacts that you care about (e.g. fingerâobject, or specific fingerâfinger contacts). Use filtered pairs judiciously: over-filtering can allow unrealistic interpenetration; under-filtering can cause instability. Weâll turn on self-collisions, run the [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector) to see which links overlap at rest, then author filters on **physics.usda**. The Physics Debugger is also available to view solid collision meshes in the viewport while you reason about a pair.
+So the goal is to **filter the problematic pairs** while keeping contacts that you care about (e.g. finger–object, or specific finger–finger contacts). Use filtered pairs judiciously: over-filtering can allow unrealistic interpenetration; under-filtering can cause instability. We’ll turn on self-collisions, run the [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector) to see which links overlap at rest, then author filters on **physics.usda**. The Physics Debugger is also available to view solid collision meshes in the viewport while you reason about a pair.
 
 ## Module 3.2: Enable self-collision and inspect pairs
 
@@ -742,15 +742,15 @@ You should now see the **physx.usda** layer highlighted green, indicating it is 
 
 1. In the *Stage* panel, select `r_base_link`. In the *Property* panel, scroll to **Articulation Root** and check **Self Collisions Enabled**.
 
-1. Press **Play** again. Links move erratically as overlapping collision geometry between non-adjacent links is now colliding, and the solver canât resolve it cleanly.
+1. Press **Play** again. Links move erratically as overlapping collision geometry between non-adjacent links is now colliding, and the solver can’t resolve it cleanly.
 
 ### Step 2: Run the Robot Self-Collision Detector
 
-With **Self Collisions Enabled** on the articulation root, the physics engine can evaluate which collider pairs overlap in the handâs current configuration. The detector surfaces those pairs in a docked panel so you can inspect them and conveniently toggle **Filtered Pair**.
+With **Self Collisions Enabled** on the articulation root, the physics engine can evaluate which collider pairs overlap in the hand’s current configuration. The detector surfaces those pairs in a docked panel so you can inspect them and conveniently toggle **Filtered Pair**.
 
 Note
 
-If **Self Collisions** on the articulation root are **disabled**, the tool reports no overlapping pairs from the collision engineâsee [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui). Keep self-collisions **on** for this tutorial.
+If **Self Collisions** on the articulation root are **disabled**, the tool reports no overlapping pairs from the collision engine—see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui). Keep self-collisions **on** for this tutorial.
 
 1. Press **Stop** if the simulation is still running so the hand returns to a stable pose for analysis.
 2. Open **Tools > Robotics > Asset Editors > Robot Self-Collision Detector**.
@@ -758,10 +758,10 @@ If **Self Collisions** on the articulation root are **disabled**, the tool repor
 4. Leave **Include environment collisions** off unless you have added props; we only need self-pairs for this exercise.
 5. Click **Check Collisions**. The table fills with **Rigid Body A** and **Rigid Body B** for each overlapping pair.
 
-1. Use the **search** field or column sort to find rows that involve the pinky and palmâfor example pairs that include `r_base_link` with `right_little_rubber_1`, and `right_little_1` with `right_little_rubber_2`. You will enable **Filtered Pair** on those rows in the next module.
+1. Use the **search** field or column sort to find rows that involve the pinky and palm—for example pairs that include `r_base_link` with `right_little_rubber_1`, and `right_little_1` with `right_little_rubber_2`. You will enable **Filtered Pair** on those rows in the next module.
 2. Click a row to **highlight both bodies** in the viewport with distinct outline colors so you can confirm which links the table refers to.
 
-1. Use the **focal** (crosshair) icons next to a body name to select that bodyâs collision prims in the *Stage* when you need a closer look.
+1. Use the **focal** (crosshair) icons next to a body name to select that body’s collision prims in the *Stage* when you need a closer look.
 
 Sorting, batch checkbox toggles, multi-row selection, and keyboard navigation are described in [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector).
 
@@ -781,9 +781,9 @@ Tip
 
 1. Open **Eye > Show by Type > Meshes** and turn **Meshes** off so the solid collision meshes are easier to see.
 
-1. In the *Stage* panel, deactivate the `right_little_1` link (lower pinky) to expose the overlapping collision shapes underneathâthe rubber pad and surrounding links.
+1. In the *Stage* panel, deactivate the `right_little_1` link (lower pinky) to expose the overlapping collision shapes underneath—the rubber pad and surrounding links.
 
-1. Identify where `right_little_rubber_1` (lower pinky rubber pad) overlaps with `r_base_link` (palm)âthat is where a problematic self-collision is likely to occur.
+1. Identify where `right_little_rubber_1` (lower pinky rubber pad) overlaps with `r_base_link` (palm)—that is where a problematic self-collision is likely to occur.
 
 In the image above, with the lower pinky link hidden, the lower pinky rubber pad (tan/sand color) overlaps and collides with the palm (yellow). This is an example of a pair we will filter out to ensure stable simulation.
 
@@ -793,13 +793,13 @@ The schematic below shows which rigid body pairs of the pinky we will filter in 
 
 ## Module 3.3: Adding Filtered Pairs
 
-Next, we filter two specific self-collision pairs that drive pinky instability: (1) the palm `r_base_link` and the pinkyâs lower rubber pad `right_little_rubber_1`, and (2) the lower pinky link `right_little_1` and the upper rubber pad `right_little_rubber_2`.
+Next, we filter two specific self-collision pairs that drive pinky instability: (1) the palm `r_base_link` and the pinky’s lower rubber pad `right_little_rubber_1`, and (2) the lower pinky link `right_little_1` and the upper rubber pad `right_little_rubber_2`.
 
 Note
 
-It doesnât matter whether the filtered pair is a parent or child link; USDâs Physics Filtered Pairs block collisions between the specified pairs in both directions.
+It doesn’t matter whether the filtered pair is a parent or child link; USD’s Physics Filtered Pairs block collisions between the specified pairs in both directions.
 
-To follow Asset Structure 3.0, filtered pairs use the neutral Physics APIâauthor on **physics.usda**.
+To follow Asset Structure 3.0, filtered pairs use the neutral Physics API—author on **physics.usda**.
 
 ### Set **physics.usda** as the authoring layer
 
@@ -820,7 +820,7 @@ Tip
 
 Multi-select rows and toggle one **Filtered Pair** checkbox to apply the same state to every selected row; see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui).
 
-Toggling **Filtered Pair** authors `UsdPhysics.FilteredPairsAPI` on the active layerâthe **physics.usda** authoring layer you set above.
+Toggling **Filtered Pair** authors `UsdPhysics.FilteredPairsAPI` on the active layer—the **physics.usda** authoring layer you set above.
 
 Note
 
@@ -848,7 +848,7 @@ The following steps add the same two relationships by editing **Filtered Pairs**
 
 1. In the pop-up that appears, browse or type to select `right_little_rubber_1`.
 
-After these steps, collisions between the palm (`r_base_link`) and the pinkyâs lower rubber pad (`right_little_rubber_1`) are filtered out.
+After these steps, collisions between the palm (`r_base_link`) and the pinky’s lower rubber pad (`right_little_rubber_1`) are filtered out.
 
 #### Lower pinky link and upper rubber pad
 
@@ -865,7 +865,7 @@ This tutorial covered:
 
 * How **Filtered Pairs** work and when to use them to prevent invalid self-collisions.
 * Enabling self-collisions, running the **Robot Self-Collision Detector** to list overlapping pairs and mark **Filtered Pair**, and using the **Physics Debugger** for solid collision mesh visualization when helpful.
-* Authoring the pinkyâs two filters on **physics.usda** via the detector or the *Property* panel on `r_base_link` and `right_little_1`.
+* Authoring the pinky’s two filters on **physics.usda** via the detector or the *Property* panel on `r_base_link` and `right_little_1`.
 
 ## Next Steps
 
@@ -904,7 +904,7 @@ On this page
 
 # Tutorial 5: Joint Drive Tuning
 
-Collision pairs are filtered (Tutorial 4). The next question: **with how much torque and velocity can each joint move?** If the simulated hand can apply more torque than the real hardware, or spin faster than the real motors, your grasps and controllers will behave differently in sim than on the robot. Conversely, limits that are too low make the hand feel weak or sluggish. In this tutorial we set the **drive limits**âmax torque and max velocityâfrom the Inspire Hand specs. Stiffness and damping (how the joint *responds* to position commands) are tuned in Tutorial 6.
+Collision pairs are filtered (Tutorial 4). The next question: **with how much torque and velocity can each joint move?** If the simulated hand can apply more torque than the real hardware, or spin faster than the real motors, your grasps and controllers will behave differently in sim than on the robot. Conversely, limits that are too low make the hand feel weak or sluggish. In this tutorial we set the **drive limits**—max torque and max velocity—from the Inspire Hand specs. Stiffness and damping (how the joint *responds* to position commands) are tuned in Tutorial 6.
 
 ## Learning Objectives
 
@@ -925,11 +925,11 @@ Inspire Hand specs used in this tutorial (palm fingers): Max palm finger grip fo
 
 In the Inspire Hand model, the fingers use PhysX **mimic joints** to replicate the underactuated mechanism found in the real robotic hand. In this approach, a single motor drives multiple joints using a fixed gear ratio, allowing for coordinated finger movement and more realistic simulation of the physical hand.
 
-A mimic joint links two degrees of freedom, establishing a relationship (via gear ratio and offset) so that when one joint moves, the other follows accordingly. These mimic joints can be either **compliant** (allowing some âsoftnessâ or flexibility, like a spring) or **non-compliant** (rigidly enforcing the kinematic constraint). For this tutorial, weâll configure **non-compliant** mimic joints to initially tune the driven joints. (You can add compliance for âsofterâ mimic behavior later, if needed.)
+A mimic joint links two degrees of freedom, establishing a relationship (via gear ratio and offset) so that when one joint moves, the other follows accordingly. These mimic joints can be either **compliant** (allowing some “softness” or flexibility, like a spring) or **non-compliant** (rigidly enforcing the kinematic constraint). For this tutorial, we’ll configure **non-compliant** mimic joints to initially tune the driven joints. (You can add compliance for “softer” mimic behavior later, if needed.)
 
 Follow these steps to configure the mimic joints:
 
-1. Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim if you havenât already.
+1. Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim if you haven’t already.
 2. Mimic joints are a PhysX-specific feature, so set your authoring layer to **physx.usda**. In the **Layer** tab, click the **Insert Sublayer** icon if the sublayer is not already there.
 
 1. In the file dialog, navigate to `/path/to/Inspire/module_3_end-checkpoint_1/payloads/Physics/`, select `physx.usda`, and click **Open**.
@@ -959,7 +959,7 @@ After these steps, the mimic joints in your Inspire Hand model will behave as a 
 
 ## Module 4.2: Configure Max Joint Torque
 
-The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturerâs grip force and the distance from joint to fingertip so the sim matches the real handâs capability.
+The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturer’s grip force and the distance from joint to fingertip so the sim matches the real hand’s capability.
 
 **Torque = Force Ã Distance**
 
@@ -984,10 +984,10 @@ You should now see the **physics.usda** layer highlighted green, indicating it i
 
 ## Module 4.3: Apply Max Velocity
 
-Maximum joint velocity limits how fast the joint can move. Without a cap, the solver can command velocities that no real motor could achieve, leading to unrealistic motion or numerical instability. We set the limit from the Inspire Handâs palm finger bend speed (260 deg/s) so the simulated hand moves within the same envelope as the hardware.
+Maximum joint velocity limits how fast the joint can move. Without a cap, the solver can command velocities that no real motor could achieve, leading to unrealistic motion or numerical instability. We set the limit from the Inspire Hand’s palm finger bend speed (260 deg/s) so the simulated hand moves within the same envelope as the hardware.
 
-* **Realism** â Simulated motion matches real hardware.
-* **Stability** â Avoids velocity spikes that cause instability.
+* **Realism** — Simulated motion matches real hardware.
+* **Stability** — Avoids velocity spikes that cause instability.
 
 1. Maximum joint velocity is a PhysX-specific attribute, so author on the **physx.usda** layer. In the **Layer** tab, **Right-click on physx.usda** and select **Set Authoring Layer**.
 
@@ -1006,8 +1006,8 @@ A checkpoint file with drive limits for all 6 joints derived using the same proc
 
 This tutorial covered:
 
-* Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding complianceâsetting you up for clean gain tuning in Tutorial 6.
-* **Computing and setting max joint torque** from Inspire Hand specs (force Ã distance, then Ã 2 for the mimic chain) so the handâs grip capability matches the real robot.
+* Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding compliance—setting you up for clean gain tuning in Tutorial 6.
+* **Computing and setting max joint torque** from Inspire Hand specs (force Ã distance, then Ã 2 for the mimic chain) so the hand’s grip capability matches the real robot.
 * Setting **max joint velocity** from specs (260 deg/s) so motion is realistic and the simulation stays stable.
 
 ### Next Steps
@@ -1038,7 +1038,7 @@ On this page
 
 # Tutorial 6: Joint Gains Tuning
 
-Max torque and max velocity are set (Tutorial 5). The remaining question: **how does each joint respond when you command a new position?** Too stiff and the hand can jitter or overshoot; too soft and it lags or never reaches the target. Stiffness and damping form a PD (Proportional-Derivative) controller: stiffness pulls the joint toward the target, damping resists velocity and reduces oscillation. This tutorial uses the **Gain Tuner** in Isaac Sim to tune these gains for the thumb, run step and sinewave tests, and analyze position and velocity with the built-in chartsâso you can see underdamped, critically damped, and overdamped behavior and aim for responsive, stable motion.
+Max torque and max velocity are set (Tutorial 5). The remaining question: **how does each joint respond when you command a new position?** Too stiff and the hand can jitter or overshoot; too soft and it lags or never reaches the target. Stiffness and damping form a PD (Proportional-Derivative) controller: stiffness pulls the joint toward the target, damping resists velocity and reduces oscillation. This tutorial uses the **Gain Tuner** in Isaac Sim to tune these gains for the thumb, run step and sinewave tests, and analyze position and velocity with the built-in charts—so you can see underdamped, critically damped, and overdamped behavior and aim for responsive, stable motion.
 
 ## Learning Objectives
 
@@ -1059,8 +1059,8 @@ Position control in Isaac Sim uses stiffness and damping:
 
 **Force = (Stiffness Ã delta\_position) + (Damping Ã delta\_velocity)**
 
-* **Stiffness** â Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
-* **Damping** â Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
+* **Stiffness** — Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
+* **Damping** — Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
 
 Together they form a PD (Proportional-Derivative) controller.
 
@@ -1068,19 +1068,19 @@ Together they form a PD (Proportional-Derivative) controller.
 
 Stiffness and damping directly determine how the joint responds to position commands and how it behaves in contact. Poor tuning leads to:
 
-* **Unrealistic motion** â Too stiff can look robotic or cause jitter; too soft makes the hand feel sluggish or weak.
-* **Instability** â High stiffness with low damping causes oscillation and overshoot; in contact, this can produce chatter or unstable grasps.
-* **Poor tracking** â If gains are too low, the joint never reaches the target in time or drifts under load.
+* **Unrealistic motion** — Too stiff can look robotic or cause jitter; too soft makes the hand feel sluggish or weak.
+* **Instability** — High stiffness with low damping causes oscillation and overshoot; in contact, this can produce chatter or unstable grasps.
+* **Poor tracking** — If gains are too low, the joint never reaches the target in time or drifts under load.
 
 The ratio of stiffness to damping defines the **damping regime** of the response. For a step to a target position, you will see one of three behaviors:
 
 | Regime | What it looks like | Cause |
 | --- | --- | --- |
-| **Underdamped** | The joint overshoots the target, then oscillates (rings) before settling. You may see multiple overshoots. | Stiffness is high relative to damping; the âspringâ dominates and there isnât enough âshock absorberâ to dissipate energy. |
+| **Underdamped** | The joint overshoots the target, then oscillates (rings) before settling. You may see multiple overshoots. | Stiffness is high relative to damping; the “spring” dominates and there isn’t enough “shock absorber” to dissipate energy. |
 | **Critically damped** | The joint approaches the target smoothly and reaches it in the shortest time **without** overshooting. | Stiffness and damping are balanced so that the system neither rings nor moves slowly. Often the goal for responsive, stable motion. |
 | **Overdamped** | The joint approaches the target slowly and never overshoots. Response is sluggish; it may take a long time to settle. | Damping is high relative to stiffness; motion is heavily resisted. |
 
-In the Gain Tuner, if you see **oscillation or overshoot** in the position chart, you are underdampedâincrease damping (or reduce stiffness). If the joint **barely moves or creeps** toward the target, you are overdampedâincrease stiffness or reduce damping. Aim for a response that reaches the target quickly with little or no overshoot (near critically damped).
+In the Gain Tuner, if you see **oscillation or overshoot** in the position chart, you are underdamped—increase damping (or reduce stiffness). If the joint **barely moves or creeps** toward the target, you are overdamped—increase stiffness or reduce damping. Aim for a response that reaches the target quickly with little or no overshoot (near critically damped).
 
 ## Module 5.2: Using Gain Tuner to Tune Joint Drive Stiffness and Damping
 
@@ -1118,7 +1118,7 @@ If you want to precisely inspect and interactively move any joint through its fu
 2. In the Inspector window, select `r_base_link` as the **Articulation** in the dropdown.
 3. Use the interface to directly set drive target positions for any joint and observe their behavior in the viewport.
 
-Before commanding targets, make sure the jointâs stiffness is set to a nonzero valueâotherwise the joint may not respond to target changes.
+Before commanding targets, make sure the joint’s stiffness is set to a nonzero value—otherwise the joint may not respond to target changes.
 
 1. Press **Play**, then **Run Test** to apply the gains and run the evaluation.
 
@@ -1128,7 +1128,7 @@ If you see instabilities at higher stiffness values, open the *Property* panel, 
 
 ## Module 5.3: Analyze Tuning Results
 
-The Gain Tunerâs **Charts** let you compare actual position and velocity to the commanded values. Use them to spot overshoot, lag, or coupling: for example, `right_thumb_2_joint` tested alone can behave differently than when both thumb joints move together. Weâll adjust gains, run parallel tests for both thumb joints, then run all fingers in parallel to confirm the full hand tracks commands before saving to the physics layer.
+The Gain Tuner’s **Charts** let you compare actual position and velocity to the commanded values. Use them to spot overshoot, lag, or coupling: for example, `right_thumb_2_joint` tested alone can behave differently than when both thumb joints move together. We’ll adjust gains, run parallel tests for both thumb joints, then run all fingers in parallel to confirm the full hand tracks commands before saving to the physics layer.
 
 1. Once the tests from *Run a Test* are completed, expand the **Charts** section and multi-select (**CTRL** + left-click) `right_thumb_1_joint` and `right_thumb_2_joint`.
 
@@ -1136,7 +1136,7 @@ You should see that `right_thumb_1_joint` is oscillating around the target and `
 
 1. To improve tracking, increase stiffness to **0.07** for `right_thumb_2_joint`.
 
-1. Add damping **0.0001** to reduce oscillation. Set **Sequence** to **1** for both `right_thumb_1_joint` and `right_thumb_2_joint` so they run at the same time (parallel tests let the thumbâs lateral motion create space for the curling motion). Set **Step Min** to **0.0** and **Step Max** to **15** for `right_thumb_2_joint` to observe the effect of the range change.
+1. Add damping **0.0001** to reduce oscillation. Set **Sequence** to **1** for both `right_thumb_1_joint` and `right_thumb_2_joint` so they run at the same time (parallel tests let the thumb’s lateral motion create space for the curling motion). Set **Step Min** to **0.0** and **Step Max** to **15** for `right_thumb_2_joint` to observe the effect of the range change.
 
 1. Press **Play** if the simulation is not already playing. Click **Run Test**.
 
@@ -1151,7 +1151,7 @@ You should see that `right_thumb_1_joint` is oscillating around the target and `
 
 If velocities approach or exceed the maximums, reduce gain values or adjust test parameters.
 
-1. To evaluate the **entire handâs coordinated tracking**, run a parallel step function test:
+1. To evaluate the **entire hand’s coordinated tracking**, run a parallel step function test:
 
    * Enable **Test** for all joints in the Gain Tuner.
    * Set **Sequence** to **1** for each joint (this runs tests in parallel for all fingers).
@@ -1176,7 +1176,7 @@ In the Gain Tuner, open `/path/to/Inspire/module_5_end-checkpoint_3/inspire_hand
 
 This tutorial covered:
 
-* Using the **Gain Tuner** to tune stiffness and damping (Position, Force) for the thumb joints and saving gains to the **physics.usda** layer so the hand responds to position commands with stable, nearâcritically damped motion.
+* Using the **Gain Tuner** to tune stiffness and damping (Position, Force) for the thumb joints and saving gains to the **physics.usda** layer so the hand responds to position commands with stable, near–critically damped motion.
 * Running **step** and **sinewave** tests and interpreting damping regimes (underdamped, critically damped, overdamped) in the Charts to diagnose overshoot or sluggishness.
 * Verifying **parallel tests** for all joints; the same workflow applies to other digits or custom hands. The **module\_5\_end-checkpoint\_3** checkpoint contains the final tuned values.
 
@@ -1232,25 +1232,25 @@ In this tutorial, you will:
 
 ## What You Accomplished
 
-* **Tutorial 2** â You inspected the multi-physics asset structure.
-* **Tutorial 3** â You enabled joint and mass/inertia visualization, and verified collision meshes.
-* **Tutorial 4** â You identified problematic self-collisions and added filtered pairs so the hand simulates without artifacts.
-* **Tutorial 5** â You set mimic joints, max joint torque, and max velocity from specs.
-* **Tutorial 6** â You tuned drive stiffness and damping with the Gain Tuner and analyzed results with the built-in charts.
+* **Tutorial 2** — You inspected the multi-physics asset structure.
+* **Tutorial 3** — You enabled joint and mass/inertia visualization, and verified collision meshes.
+* **Tutorial 4** — You identified problematic self-collisions and added filtered pairs so the hand simulates without artifacts.
+* **Tutorial 5** — You set mimic joints, max joint torque, and max velocity from specs.
+* **Tutorial 6** — You tuned drive stiffness and damping with the Gain Tuner and analyzed results with the built-in charts.
 
 You now have a tuned, stable robotic hand USD that can be attached to an arm and used with a grasping controller in Isaac Sim or Isaac Lab.
 
 ## Next Steps
 
-* **Attach to an arm** â Use the hand as an end effector on a manipulator (e.g. Kuka) in Isaac Sim or Isaac Lab and run grasping or manipulation tasks.
-* **Watch applied demos** â Look for Isaac Lab Kuka + Inspire Hand demos (e.g. from GTC) to see the same hand used in full workflows.
-* **Fine Tune in Simple Scene Setups** â Bring the hand into simple scenes involving contact. Tune mimic joint compliance as needed for realistic and stable behavior in contact scenarios.
-* **Extend tuning** â Apply the same process (collision filters, max force/velocity, stiffness/damping) to other digits or to custom dexterous hands.
+* **Attach to an arm** — Use the hand as an end effector on a manipulator (e.g. Kuka) in Isaac Sim or Isaac Lab and run grasping or manipulation tasks.
+* **Watch applied demos** — Look for Isaac Lab Kuka + Inspire Hand demos (e.g. from GTC) to see the same hand used in full workflows.
+* **Fine Tune in Simple Scene Setups** — Bring the hand into simple scenes involving contact. Tune mimic joint compliance as needed for realistic and stable behavior in contact scenarios.
+* **Extend tuning** — Apply the same process (collision filters, max force/velocity, stiffness/damping) to other digits or to custom dexterous hands.
 
 ## Additional Resources
 
 * [NVIDIA Isaac Sim Documentation](https://docs.omniverse.nvidia.com/isaacsim/latest/)
-* [Physics and Rigid Body Dynamics](https://docs.omniverse.nvidia.com/isaacsim/latest/core/physics_tutorials/tutorial_rigid_body_dynamics.html) â For deeper coverage of PhysX and articulation.
+* [Physics and Rigid Body Dynamics](https://docs.omniverse.nvidia.com/isaacsim/latest/core/physics_tutorials/tutorial_rigid_body_dynamics.html) — For deeper coverage of PhysX and articulation.
 
 ## Summary
 
@@ -1315,9 +1315,9 @@ inverse kinematics will have the same shape as KinematicsSolver.get\_joint\_name
 
 ### Frame Names
 
-An instance of the KinematicsSolver class must fulfill a function KinematicsSolver.get\_all\_frame\_names() to provide a list of frames in the robotâs kinematics chain that can have their positions
+An instance of the KinematicsSolver class must fulfill a function KinematicsSolver.get\_all\_frame\_names() to provide a list of frames in the robot’s kinematics chain that can have their positions
 referenced by name when solving either forward or inverse kinematics. The frame names returned by a KinematicsSolver do not have to match the frames present in the robot Articulation. Like joint names,
-the frame names come from the individual solverâs config file structure.
+the frame names come from the individual solver’s config file structure.
 
 ### Robot Base Pose
 
@@ -1407,12 +1407,12 @@ Three files are necessary to configure Lula RRT for use with a new robot:
 
 [[2](#id1)]
 
-J. J. Kuffner and S. M. LaValle, âRRT-connect: An efficient approach to single-query path planning,â Proceedings 2000 ICRA. Millennium Conference. IEEE International
+J. J. Kuffner and S. M. LaValle, “RRT-connect: An efficient approach to single-query path planning,” Proceedings 2000 ICRA. Millennium Conference. IEEE International
 Conference on Robotics and Automation. Symposia Proceedings (Cat. No.00CH37065), 2000, pp. 995-1001 vol.2, doi: 10.1109/ROBOT.2000.844730.
 
 [[3](#id2)]
 
-M. Vande Weghe, D. Ferguson and S. S. Srinivasa, âRandomized path planning for redundant manipulators without inverse kinematics,â 2007 7th IEEE-RAS International Conference
+M. Vande Weghe, D. Ferguson and S. S. Srinivasa, “Randomized path planning for redundant manipulators without inverse kinematics,” 2007 7th IEEE-RAS International Conference
 on Humanoid Robots, 2007, pp. 477-482, doi: 10.1109/ICHR.2007.4813913.
 
 On this page
@@ -1496,7 +1496,7 @@ For example, the Franka robot has nine degrees of freedom (DOFs):
 * two prismatic joints for controlling its gripper
 
 The robot Articulation exposes all nine degrees of freedom, but [RMPflow](rmpflow.html#isaac-sim-motion-generation-rmpflow) only cares about the seven revolute joints when navigating the robot to a position target. It is not appropriate for RMPflow to take control of the gripper DOFs, because those DOFs can be controlled separately when performing a task such as pick-and-place. `RmpFlow.get_active_joints()` returns the names of the seven revolute joints
-in the Franka robot. `RmpFlow.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Frankaâs hand to a target position.
+in the Franka robot. `RmpFlow.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Franka’s hand to a target position.
 
 Every time RmpFlow returns joint targets for the Franka, it is returning arrays of length seven. When RmpFlow is passed an argument such as active\_joint\_positions, it is expecting a vector of seven numbers that describe the joint positions of the Franka robot in the order specified by `RmpFlow.get_active_joints()`.
 
@@ -1612,7 +1612,7 @@ For example, the Franka robot has nine degrees of freedom (DOFs):
 The robot Articulation exposes all nine degrees of
 freedom, but [Lula RRT](lula_rrt.html#isaac-sim-motion-generation-rrt) only cares about the seven revolute joints when navigating the robot to a position target. It is not appropriate for RRT to take
 control of the gripper DOFs, because those DOFs can be controlled separately when performing a task such as pick-and-place. `RRT.get_active_joints()` returns the names of the seven revolute joints
-in the Franka robot. `RRT.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Frankaâs hand to a target position.
+in the Franka robot. `RRT.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Franka’s hand to a target position.
 Every time RRT returns joint targets for the Franka, it is returning arrays of length seven. When RRT is passed an argument such as `active_joint_positions`,
 it is expecting a vector of seven numbers that describe the joint positions of the Franka robot in the order specified by `RRT.get_active_joints()`.
 
@@ -1727,12 +1727,12 @@ avoid hitting obstacles in the world. These spheres can be visualized over time 
 `RmpFlow.stop_visualizing_collision_spheres()` is called. The nominal end effector position can likewise be visualized with
 `RmpFlow.visualize_end_effector_position()` and `RmpFlow.stop_visualizing_end_effector()`.
 
-On their own, the visualization functions can be used to make sure that RMPflowâs internal representation of the robot is reasonable, but it does not help to decouple the
+On their own, the visualization functions can be used to make sure that RMPflow’s internal representation of the robot is reasonable, but it does not help to decouple the
 simulated robot from the RmpFlow internal representation of the robot.
 
 On each frame when `RmpFlow.compute_joint_targets(active_joint_positions,...)` is called,
 the visualization is updated to use the `active_joint_positions`. This behavior can be turned off using `RmpFlow.set_ignore_state_updates(True)`. When RmpFlow
-is âignoring state updatesâ, it starts ignoring the `active_joint_positions` argument, and instead begins internally tracking the believed state of the robot by assuming
+is “ignoring state updates”, it starts ignoring the `active_joint_positions` argument, and instead begins internally tracking the believed state of the robot by assuming
 that is completely independent of the physical simulation of the robot. When RmpFlow is set to ignore state updates from the simulator, and the visualization functions are used,
 it becomes simple to determine if an undesirable robot behavior
 comes from RmpFlow or from the robot Articulation and its PD gains.
@@ -1768,7 +1768,7 @@ from the target. Defining \(q\) to be the full configuration vector:
 
 \[\ddot q = k\_p r(q\_0 - q) - k\_d \dot q\,,\]
 
-where the ârobust capping functionâ \(r(p)\) is given by:
+where the “robust capping function” \(r(p)\) is given by:
 
 \[\begin{split}r(p) = \left \{ \begin{array}{cl}
 p, & ||p|| < \theta \\
@@ -1793,7 +1793,7 @@ robust\_position\_term\_thresh will have units of meters.
 | --- | --- | --- | --- |
 | metric\_scalar | \(\mu\) | - | Priority weight relative to other RMPs |
 | position\_gain | \(k\_p\) | s-2 | Position gain, determining how strongly configuration is pulled toward target |
-| damping\_gain | \(k\_d\) | s-1 | Damping gain, determining amount of âdragâ |
+| damping\_gain | \(k\_d\) | s-1 | Damping gain, determining amount of “drag” |
 | robust\_position\_term\_thresh | \(\theta\) | rad | Distance in c-space at which the position correction vector is capped |
 | inertia | \(m\) | - | Additional c-space inertia |
 
@@ -1824,7 +1824,7 @@ Blending is
 controlled by a radial basis function, specifically a Gaussian, that transitions from a minimum
 constant value far from the target to 1 near the target.
 
-Near the target, an additional nonlinear âproximity boostâ multiplier turns on. This
+Near the target, an additional nonlinear “proximity boost” multiplier turns on. This
 factor takes the form of a Gaussian:
 
 \[M = \left[\beta(x) b + (1-\beta(x))\right] \left[\alpha(x) M\_\textrm{near} + (1-\alpha(x)) M\_\textrm{far} \right]\]
@@ -1857,7 +1857,7 @@ M\_\textrm{far} = \mu\_\textrm{far} S = \frac{\mu\_\textrm{far}}{||x\_0-x||^2} (
 
 **Purpose:** Drives x-, y-, or z-axis of end effector frame toward target orientation. This
 RMP is used for general orientation targets (where an axis target RMP is added for each of the
-three axes) as well as for âpartial poseâ targets where only alignment of a single axis is
+three axes) as well as for “partial pose” targets where only alignment of a single axis is
 desired.
 
 Note
@@ -1866,8 +1866,8 @@ Partial pose targets are not supported by the Motion Generation extension.
 
 **Definition:**
 
-Similar to the (position) target RMP, the axis target RMP supports âproximity boosting,â
-but only when a target RMP is active at the same time. In this case, itâs the distance to
+Similar to the (position) target RMP, the axis target RMP supports “proximity boosting,”
+but only when a target RMP is active at the same time. In this case, it’s the distance to
 the position target (\(||x\_0-x||\)) that controls the strength of boosting.
 
 The current and desired axis orientations are represented by unit vectors, denoted
@@ -2000,7 +2000,7 @@ x^2/r^2 -2s/r + 1, & x\le r \\
 | damping\_gain | \(k\_d\) | s-1 | Damping gain |
 | damping\_std\_dev | \(\ell\_d\) | m | Length scale controlling increase in acceleration as obstacle is approached |
 | damping\_robustness\_eps | \(\epsilon\_d\) | - | Offset determining \(x\) value at which acceleration diverges (before clipping) |
-| damping\_velocity\_gate\_length\_scale | \(v\_d\) | m/s | Scale determining velocity dependence of âvelocity gatingâ function |
+| damping\_velocity\_gate\_length\_scale | \(v\_d\) | m/s | Scale determining velocity dependence of “velocity gating” function |
 | repulsion\_gain | \(k\_p\) | m/s2 | Gain for position repulsion term |
 | repulsion\_std\_dev | \(\ell\_p\) | m | Length scale controlling distance dependence of repulsion |
 | metric\_modulation\_radius | \(r\) | m | Length scale determining distance from obstacle at which RMP is disabled completely |
@@ -2084,7 +2084,7 @@ To review RMPflow and its features see, [RMPflow](rmpflow.html).
 
 NVIDIA Isaac Sim includes example RMPflow configuration files for multiple robot arms, including
 the 7-DOF Franka Emika Panda and the 6-DOF Universal Robots UR10. When tuning RMPflow for a
-new manipulator, itâs usually best to start with one of these two files. If the new robot
+new manipulator, it’s usually best to start with one of these two files. If the new robot
 is significantly larger or smaller than the one used as a reference, it might be necessary
 to rescale any parameters that have units of length. If the number of joints differ, the
 c-space\_target\_rmp/robust\_position\_term\_thresh parameter might also have to be adjusted.
@@ -2106,7 +2106,7 @@ It can helpful to play with parameter values for an existing robot (for example,
       The magnitude of the metric scalar should be kept relatively small (for example, in the range 1 to 100), because
       this sets the global scale of all RMPs.
       Remember to set the default configuration in the robot description file (YAML) to a reasonable natural
-      âreadyâ posture. This will be the default posture that the robot will favor while moving from place to place.
+      “ready” posture. This will be the default posture that the robot will favor while moving from place to place.
    2. **target\_rmp:** To get the end effector moving to a target robustly while continuing
       to use the c-space target RMP for redundancy resolution.
 
@@ -2119,7 +2119,7 @@ It can helpful to play with parameter values for an existing robot (for example,
          nullspace of the target RMP.
       4. Tune target\_rmp/accel\_p\_gain, target\_rmp/accel\_d\_gain, and target\_rmp/accel\_norm\_eps until
          good attractor behavior for the end effector has been achieved.
-      5. Experiment with reducing target\_rmp/max\_metric\_scalar to ensure that itâs not too large. As
+      5. Experiment with reducing target\_rmp/max\_metric\_scalar to ensure that it’s not too large. As
          max\_metric\_scalar is increased toward a suitable value, convergence accuracy should progressively
          improve. If convergence accuracy saturates at small constant error before the chosen max\_metric\_scalar
          value is reached, then it is probably set too high. This will be relevant when re-enabling the directional
@@ -2138,7 +2138,7 @@ It can helpful to play with parameter values for an existing robot (for example,
          target\_rmp/metric\_alpha\_length\_scale until good behavior is achieved.
    5. **axis\_target\_rmp:** If an orientation target is set, the axis target RMP will be used to bring
       the orientation of the control frame (for example, end effector) into alignment with the target orientation.
-      This RMP includes a âpriority boostingâ factor that depends on distance to the current
+      This RMP includes a “priority boosting” factor that depends on distance to the current
       position target, if one is set. This allows the robot to make progress toward the position
       target before zeroing in on the desired orientation.
    6. **joint\_limit\_rmp:** When properly tuned, behavior should be unchanged, except that joint
@@ -2212,7 +2212,7 @@ To configure Lula Trajectory Generators for a specific robot you must have the f
 
 The `LulaCSpaceTrajectoryGenerator` class takes in a series of c-space waypoints that correspond to the c-space coordinates listed in the required robot description YAML file.
 The generator will use spline-based interpolation to connect the waypoints with an initial and final velocity of 0.
-The trajectory is time-optimal â that is, either the velocity, acceleration, or jerk limits are saturated at any given time to produce a trajectory with as short a duration as possible.
+The trajectory is time-optimal – that is, either the velocity, acceleration, or jerk limits are saturated at any given time to produce a trajectory with as short a duration as possible.
 The generator will return an instance of the Trajectory interface.
 
 ### Lula Task-Space Trajectory Generator
@@ -2394,7 +2394,7 @@ This tutorial focuses on three fields in this file:
 
 * `joint_limit_buffers` introduces artificial joint limits around the joint limits stated in the robot URDF. The shape of the provided `joint_limit_buffers` must match the c-space given in the `robot_description.yaml` file. Imagining that the template robot has seven revolute joints, the given buffers of .01 on the seven c-space joints mean that RMPflow will drive the robot up to .01 radians from the joint limits given in the robot URDF. If the robot has prismatic joints, a value of .01 would be expressed implicitly in meters.
 * `body_cylinders` and `body_collision_controllers` help RMPflow to avoid self-collision between the end effector and the robot base. `body_cylinders` define an imagined robot base using a set of capsules.
-* `body_collision_controllers` define collision spheres placed on different frames of the robot URDF. The template code above defines an unmoving capsule in absolute coordinates and a sphere centered around the âend\_effectorâ frame in the robot URDF. RMPflow will not allow a collision between the sphere and capsule.
+* `body_collision_controllers` define collision spheres placed on different frames of the robot URDF. The template code above defines an unmoving capsule in absolute coordinates and a sphere centered around the “end\_effector” frame in the robot URDF. RMPflow will not allow a collision between the sphere and capsule.
 
 Apart from preventing the end effector from colliding with the base, RMPflow does not directly avoid self-collisions based on collision geometry.
 
@@ -2471,8 +2471,8 @@ You would not allow the gripper to move close to the base at all. Choosing the b
 There is no reason to take away maneuverability around the robot base unless you observe that the robot is self-colliding.
 
 One potential configuration in this tutorial covers the other frames in the gripper and exaggerates the size of the robot base to make it
-harder for the gripper to intersect with the robotâs second link. The sizes and locations for the capsule and spheres are based on the collision spheres that
-youâve already added.
+harder for the gripper to intersect with the robot’s second link. The sizes and locations for the capsule and spheres are based on the collision spheres that
+you’ve already added.
 
 ```python
  1# body_cylinders are used to promote self-collision avoidance between the robot and its base
@@ -2508,25 +2508,25 @@ youâve already added.
 31       radius: .02
 ```
 
-You represent the robot base link âJ1â with a capsule of radius .08 m, which matches the size of the collision spheres in near the base of the robot.
-You represent the robotâs second link with a large sphere of radius .12.
+You represent the robot base link “J1” with a capsule of radius .08 m, which matches the size of the collision spheres in near the base of the robot.
+You represent the robot’s second link with a large sphere of radius .12.
 In the Lula Test Widget, you observe the robot does a much better job avoiding collisions with the first and second link.
 As expected, it is still possible to cause a self-collision, but the cases are much more limited.
 
 ### Creating an End Effector Frame
 
 Observe that the chosen end effector frame `right_inner_finger` does not directly
-represent the position of the robotâs gripper. The frame that RMPflow considers to be the end effector must be present in the robot URDF.
+represent the position of the robot’s gripper. The frame that RMPflow considers to be the end effector must be present in the robot URDF.
 In this tutorial, you selected a frame near the end of the robot as the best option. To directly control where the center of the gripper is, you have two options:
 
 * Manually compute transforms between the desired target and the target you send to RMPflow at runtime.
-* Add a frame to the robotâs URDF.
+* Add a frame to the robot’s URDF.
 
 This tutorial covers the second option by adding a frame to the **Cobotta Pro 900** URDF. Typically, the end effector position is in
 the center of the gripper, with two principal axes aligned with the gripper fingers.
 
-Investigating the **Cobotta Pro 900** URDF, you observe how the âright\_inner\_fingerâ frame is connected to the robot arm.
-In the URDF, you observe that the âright\_inner\_fingerâ joint is a grandchild of the âonrobot\_rg6\_base\_linkâ frame, which is at the gripper base.
+Investigating the **Cobotta Pro 900** URDF, you observe how the “right\_inner\_finger” frame is connected to the robot arm.
+In the URDF, you observe that the “right\_inner\_finger” joint is a grandchild of the “onrobot\_rg6\_base\_link” frame, which is at the gripper base.
 
 ```python
  1<joint name="right_inner_finger_joint" type="revolute">
@@ -2548,10 +2548,10 @@ In the URDF, you observe that the âright\_inner\_fingerâ joint is a gr
 17  </joint>
 ```
 
-This tells us that you can create a frame that is offset from the â`onrobot_rg6_base_link`â frame by a pure Z offset of `.064495+.136813=.2013` to represent a point in the center of the gripper, aligned with the â`right_inner_finger_joint`â and â`left_inner_finger_joint`â. To get closer with the tips of the fingers, increase the Z offset to .24.
+This tells us that you can create a frame that is offset from the “`onrobot_rg6_base_link`” frame by a pure Z offset of `.064495+.136813=.2013` to represent a point in the center of the gripper, aligned with the “`right_inner_finger_joint`” and “`left_inner_finger_joint`”. To get closer with the tips of the fingers, increase the Z offset to .24.
 
-Add a link to the URDF called âgripper\_centerâ, whose offset from the parent link â`onrobot_rg6_base_link`â is defined by the connection
-â`gripper_center_joint`â. In the tutorial file, the modified URDF is saved as `./cobotta_pro_900_gripper_frame.urdf`.
+Add a link to the URDF called “gripper\_center”, whose offset from the parent link “`onrobot_rg6_base_link`” is defined by the connection
+“`gripper_center_joint`”. In the tutorial file, the modified URDF is saved as `./cobotta_pro_900_gripper_frame.urdf`.
 
 ```python
 1<link name="gripper_center"/>
@@ -2694,14 +2694,14 @@ installing cuRobo and required libraries. cuRobo supports NVIDIA Isaac Sim 2022.
 ### Using Isaac Sim with cuRobo
 
 In the cuRobo documentation, refer to the
-[âUsing Isaac Simâ section](https://curobo.org/get_started/2b_isaacsim_examples.html) for an overview of how cuRobo
+[“Using Isaac Sim” section](https://curobo.org/get_started/2b_isaacsim_examples.html) for an overview of how cuRobo
 is interfaced to Isaac Sim, along with a series of standalone examples demonstrating collision checking, motion
 generation, inverse kinematics, model-predictive control, and multi-arm reaching.
 
 ### Using Isaac Sim with cuRobo and nvblox
 
 In the cuRobo documentation, refer to the
-[âUsing with Depth Cameraâ section](https://curobo.org/get_started/2d_nvblox_demo.html) for examples of
+[“Using with Depth Camera” section](https://curobo.org/get_started/2d_nvblox_demo.html) for examples of
 obstacle-aware motion generation in NVIDIA Isaac Sim, both with pre-generated signed distance fields (SDFs)
 from [nvblox](https://github.com/nvidia-isaac/nvblox) and with online mapping leveraging nvblox with a
 physical RealSense depth camera.
@@ -3186,7 +3186,7 @@ robot.
 
 ### Following a Plan with Exactness
 
-The `PathPlannerVisualizer` class is called a âVisualizerâ because it is only meant to give a visualization of an output plan, but it is not likely to be useful
+The `PathPlannerVisualizer` class is called a “Visualizer” because it is only meant to give a visualization of an output plan, but it is not likely to be useful
 beyond this. By densely linearly interpolating an `RRT` plan, the resulting trajectory is far from time-optimal or smooth. To follow a plan in a
 more theoretically sound way, the output of `RRT` can be combined with the `LulaTrajectoryGenerator`. This is demonstrated in the NVIDIA Isaac Sim Path Planning Example
 in the **Robotics Examples** tab. You can activate **Robotics Examples** tab from **Windows** > **Examples** > **Robotics Examples**.
@@ -4214,7 +4214,7 @@ class FrankaRmpFlowExample:
 A supported set of robots can have their RMPflow configs loaded by name.
 Line 34 prints the names of every supported robot with a provided RMPflow config (at the time of writing this tutorial):
 
-> [âFrankaâ, âUR3â, âUR3eâ, âUR5â, âUR5eâ, âUR10â, âUR10eâ, âUR16eâ, âRizon4â, âCobotta\_Pro\_900â, âCobotta\_Pro\_1300â, âRS007Lâ, âRS007Nâ, âRS013Nâ, âRS025Nâ, âRS080Nâ, âTechman\_TM12â, âKuka\_KR210â, âFanuc\_CRX10IALâ]
+> [‘Franka’, ‘UR3’, ‘UR3e’, ‘UR5’, ‘UR5e’, ‘UR10’, ‘UR10e’, ‘UR16e’, ‘Rizon4’, ‘Cobotta\_Pro\_900’, ‘Cobotta\_Pro\_1300’, ‘RS007L’, ‘RS007N’, ‘RS013N’, ‘RS025N’, ‘RS080N’, ‘Techman\_TM12’, ‘Kuka\_KR210’, ‘Fanuc\_CRX10IAL’]
 
 On lines 35,38, the RmpFlow class initializer is simplified to unpacking a dictionary of loaded keyword arguments.
 The `load_supported_motion_policy_config()` function is the simplest way to load supported robots.
@@ -4343,7 +4343,7 @@ This tutorial reviewed four of the main features of `RmpFlow`:
 
 > 1. Navigating the robot through an environment to a target position and orientation.
 > 2. Adapting to a dynamic world on every frame.
-> 3. Adapting to a change in the robotâs position on the USD stage.
+> 3. Adapting to a change in the robot’s position on the USD stage.
 > 4. Using visualization to decouple the simulated robot `Articulation` from the RMPflow algorithm for quick and easy debugging.
 
 ### Further Learning
@@ -4413,7 +4413,7 @@ A robot description file must distinguish each joint as:
 * Active Joint
 * Fixed Joint
 
-Anything marked as an Active Joint will be directly controlled, while anything marked as a Fixed Joint will be assumed to be fixed from the perspective of Lula algorithms. In the case of using `RmpFlow` on the Franka robot, the seven joints in the Frankaâs arm are marked as Active Joints, and the gripper joints are marked as Fixed Joints.
+Anything marked as an Active Joint will be directly controlled, while anything marked as a Fixed Joint will be assumed to be fixed from the perspective of Lula algorithms. In the case of using `RmpFlow` on the Franka robot, the seven joints in the Franka’s arm are marked as Active Joints, and the gripper joints are marked as Fixed Joints.
 
 In the **Robot Description Editor**, positions must be selected for both active and fixed joints. The positions of Fixed Joints are taken to be default positions. When RmpFlow is not given any target, it will move the robot towards the default position. And when it is given a target, it will use the default positions of the Fixed Joints to resolve null-space behavior; that is, there are many ways for a seven DOF robot to reach a single target, and RmpFlow will be biased towards a c-space position that is close to the default position.
 
@@ -4451,7 +4451,7 @@ Note
 The **Robot Description Editor** is not compatible with [Instanceable Assets](../isaac_lab_tutorials/tutorial_instanceable_assets.html#isaac-sim-app-tutorial-instanceable-assets), but a robot description file generated
 for an asset that was later converted to an instanceable asset will still work on the instanceable asset.
 
-To use the **Robot Description Editor**, ensure that the `Instanceable` checkbox is unchecked for all geometry prims in the robotâs hierarchy. This setting can be found in the **Property** panel when a geometry prim is selected.
+To use the **Robot Description Editor**, ensure that the `Instanceable` checkbox is unchecked for all geometry prims in the robot’s hierarchy. This setting can be found in the **Property** panel when a geometry prim is selected.
 
 The `Instanceable` checkbox (highlighted in red) should be unchecked for all geometry prims when using the Robot Description Editor.
 
@@ -4477,7 +4477,7 @@ In the **Set Joint Properties** select a **Joint Position** and a **Joint Status
 
 ### Adding Collision Spheres
 
-Collision spheres are added to the robot one link at a time. You can select the link of interest from the âSelect Linkâ field of the **Selection Panel**. The **Link Sphere Editor** panel contains functions that are within the scope of the selected link such as adding spheres, scaling spheres, and clearing spheres only within the link. The **Editor Tools** panel contains functions that are outside the scope of the selected link such as **Undo** and **Redo** buttons, changing the color of collision spheres, and toggling the visibility of the robot.
+Collision spheres are added to the robot one link at a time. You can select the link of interest from the “Select Link” field of the **Selection Panel**. The **Link Sphere Editor** panel contains functions that are within the scope of the selected link such as adding spheres, scaling spheres, and clearing spheres only within the link. The **Editor Tools** panel contains functions that are outside the scope of the selected link such as **Undo** and **Redo** buttons, changing the color of collision spheres, and toggling the visibility of the robot.
 
 When spheres are added to a link, they are added to the USD stage as a prim that is nested under the selected link. You can click on and modify any sphere by moving it around on the stage or changing its radius. The position of a sphere relative to the origin of the link that contains it is written as a fixed value into the robot description file.
 
@@ -4485,7 +4485,7 @@ There are three main ways to add a sphere to a link:
 
 > * **Add Sphere:** Add a single sphere with a specified relative translation from the origin of the link. This translation can be easily changed after creation by modifying the sphere prim.
 > * **Connect Spheres:** Select two spheres that have already been created under a link and connect them with a specified number of spheres in between. The locations and sizes of the connecting spheres are interpolated to best fill the volume of the cone-section defined by the two spheres being connected.
-> * **Generate Spheres:** Select a mesh that defines the volume of the link, and automatically generate a set of N spheres that best fill the volume of the mesh. When a number of generated spheres is specified, a preview of the generated spheres will automatically appear, which can be finalized by clicking the âGenerate Spheresâ button. Any visible robot must will at least one mesh defining its link. When there are more than one mesh, it is best to try each of them to figure out the minimal set of spheres that can be generated for good coverage. It is typically better to âConnect Spheresâ by hand for links with simple cylindrical shapes. This utility is not guaranteed to work for all meshes. It only works for water-tight triangle meshes. If the automatic generator doesnât work for a link, add the spheres and connect them to the links by hand.
+> * **Generate Spheres:** Select a mesh that defines the volume of the link, and automatically generate a set of N spheres that best fill the volume of the mesh. When a number of generated spheres is specified, a preview of the generated spheres will automatically appear, which can be finalized by clicking the “Generate Spheres” button. Any visible robot must will at least one mesh defining its link. When there are more than one mesh, it is best to try each of them to figure out the minimal set of spheres that can be generated for good coverage. It is typically better to “Connect Spheres” by hand for links with simple cylindrical shapes. This utility is not guaranteed to work for all meshes. It only works for water-tight triangle meshes. If the automatic generator doesn’t work for a link, add the spheres and connect them to the links by hand.
 
 ### Exporting Configuration Files
 
@@ -4619,7 +4619,7 @@ For more information, see the [cuRobo tutorial](manipulators_curobo.html#isaac-s
 
 **Interactive Examples**
 
-To locate the interactive examples, go to **Windows** > **Examples** > **Robotics Examples** and open the **Robotics Examples** tab if itâs not already. Select one of the following examples from the browser, read the **Information** tab on the right hand side of the browser window for instructions on how to run it.
+To locate the interactive examples, go to **Windows** > **Examples** > **Robotics Examples** and open the **Robotics Examples** tab if it’s not already. Select one of the following examples from the browser, read the **Information** tab on the right hand side of the browser window for instructions on how to run it.
 
 * Follow Target Example: **Manipulation > Follow Target**
 * RoboFactory Example: **Multi-Robot > RoboFactory**
@@ -4684,7 +4684,7 @@ patterns (including the wrap-around from the last pattern back to the first), an
 
 ## Data acquisition
 
-`StructuredLightCamera` is an authoring class â it creates and manages USD prims but does not retrieve image data on its own. To capture frames, wrap an instance in
+`StructuredLightCamera` is an authoring class — it creates and manages USD prims but does not retrieve image data on its own. To capture frames, wrap an instance in
 `isaacsim.sensors.experimental.rtx.CameraSensor`:
 
 ```python
@@ -4733,8 +4733,8 @@ sensor = CameraSensor(cam, resolution=(720, 1280), annotators=["rgb"])
 
 The `CameraSensor` owns a Replicator render product against the same Camera prim, and there are two complementary ways to get image data out of it:
 
-* **Manual annotator pull** â construct the sensor with the desired annotators (`annotators=["rgb"]` above) and call `sensor.get_data("rgb")` from your own loop. The snippet above uses this pattern.
-* **Replicator writer** â leave `annotators=[]` and call `sensor.attach_writer("BasicWriter", output_dir=..., rgb=True)` (or any other Replicator writer). Each `rep.orchestrator.step` then automatically
+* **Manual annotator pull** — construct the sensor with the desired annotators (`annotators=["rgb"]` above) and call `sensor.get_data("rgb")` from your own loop. The snippet above uses this pattern.
+* **Replicator writer** — leave `annotators=[]` and call `sensor.attach_writer("BasicWriter", output_dir=..., rgb=True)` (or any other Replicator writer). Each `rep.orchestrator.step` then automatically
   dispatches a write to disk without any custom plumbing in your loop. See the [Standalone Python](#isaacsim-sensors-camera-structured-light-standalone) section for an end-to-end example of this pattern.
 
 ## Standalone Python
@@ -4742,15 +4742,15 @@ The `CameraSensor` owns a Replicator render product against the same Camera prim
 The standalone example at `standalone_examples/api/isaacsim.sensors.experimental.rtx/camera_structured_light.py` demonstrates capturing a 10-pattern sequence using the Replicator Orchestrator and a
 `BasicWriter`. The example:
 
-* Loads the bundled structured-light patterns and projector direction texture from the extensionâs `tests/data/structured_light_camera/` directory.
+* Loads the bundled structured-light patterns and projector direction texture from the extension’s `tests/data/structured_light_camera/` directory.
 * Builds a 1000-unit white PBR cube as an enclosure, with the camera and coincident projector at the origin.
 * Drives `rep.orchestrator.step(rt_subframes=32, delta_time=<interval>)` once per pattern, where `<interval>` is the difference between consecutive timestamps. Because `timestamps[0]` is always zero,
-  the first stepâs `delta_time` is also zero, so the orchestrator captures pattern 0 at \(t = 0\) before advancing.
-* Attaches a `BasicWriter` to the sensor so each step writes one `rgb_NNNN.png` to the exampleâs output directory.
+  the first step’s `delta_time` is also zero, so the orchestrator captures pattern 0 at \(t = 0\) before advancing.
+* Attaches a `BasicWriter` to the sensor so each step writes one `rgb_NNNN.png` to the example’s output directory.
 
 Note
 
-This example demonstrates the API plumbing â pattern cycling, RectLight cluster authoring, calibrated camera intrinsics, and Orchestrator capture. The camera and projector share an origin and so it
+This example demonstrates the API plumbing — pattern cycling, RectLight cluster authoring, calibrated camera intrinsics, and Orchestrator capture. The camera and projector share an origin and so it
 does **not** model a real depth-recovery rig (which would have a non-zero baseline between camera and projector). For a depth-recovery workflow, position the projector with `projector_position` /
 `projector_orientation` offset from the camera and adjust the captured-pattern triangulation accordingly.
 
@@ -4806,7 +4806,7 @@ On this page
 
 # Physics-based sensors
 
-Isaac Simâs physics-based sensors use CPU physics simulations and run after rendering finishes. They have access to a primâs physics properties, like mass and velocity.
+Isaac Sim’s physics-based sensors use CPU physics simulations and run after rendering finishes. They have access to a prim’s physics properties, like mass and velocity.
 
 These sensors output the exact measurements from the physics engine, and you can augment the sensor readings in post-processing.
 By default, sensors output data at the physics rate. To generate data beyond this rate, provide additional interpolation options. Ground truth readings from the simulator might
@@ -4846,7 +4846,7 @@ Articulation sensors allow reading the active and passive components of the join
 from the `isaacsim.core.experimental.prims` extension.
 See [Robot Simulation Snippets](../python_scripting/robots_simulation.html#isaac-robot-simulation-how-to) for more details about the Articulation class. Specifically,
 
-* `get_link_incoming_joint_force()` returns the 6D force and torque (shape `(N, L, 3)` each) for each linkâs incoming joint.
+* `get_link_incoming_joint_force()` returns the 6D force and torque (shape `(N, L, 3)` each) for each link’s incoming joint.
   This provides the total spatial force at each joint and can be used to mimic force-torque sensors by reading forces from a fixed joint.
 * `get_dof_projected_joint_forces()` returns the active component of the joint forces projected onto the motion direction for each DOF.
   This is useful for reading the measured effort at each actuated joint.
@@ -4964,11 +4964,11 @@ See the [Isaac Sim Conventions](../reference_material/reference_conventions.html
 
 **Contact sensor properties**
 
-1. `radius` parameter specifies the distance of the contact force that it would detect. A value of `-1` uses the primâs collision geometry.
+1. `radius` parameter specifies the distance of the contact force that it would detect. A value of `-1` uses the prim’s collision geometry.
 2. `enabled` parameter determines if the sensor is running or not.
 3. `min threshold` parameter specifies the minimum amount of force to trigger a contact.
 4. `max threshold` parameter specifies the maximum amount of force the sensor outputs.
-5. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 â only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
+5. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 — only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
 
 For the full USD attribute definitions, see the [Contact Sensor schema reference](../omniverse_usd/sensor_schema.html#isaac-sim-sensor-schema-contact).
 
@@ -4989,7 +4989,7 @@ To run the Contact Sensor Example:
 
 1. Activate **Robotics Examples** tab from **Windows** > **Examples** > **Robotics Examples**.
 2. Click **Robotics Examples** > **Sensors** > **Contact Sensor**.
-3. Verify that you see a window containing the sensorâs force readings color coded by each antâs arm.
+3. Verify that you see a window containing the sensor’s force readings color coded by each ant’s arm.
 4. Press the **Open Source Code** button to view the source code. The source code illustrates how to load an Ant body into the scene and then add sensors to it using the Python API.
 5. Press the **Play** button to begin simulating.
 6. Press `SHIFT + LEFT_CLICK` to drag the ant around and see changes in the readings.
@@ -5018,7 +5018,7 @@ To set up the OmniGraph to collect readings from this sensor:
 > * *Print Text*: Prints the string readings to console. In the **Property** tab, set Log Level to *Warning* so that messages are visible in the terminal or console by default.
 
 1. Connect the above nodes as follows to print out the contact sensor reading:
-2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the contact sensorâs force output.
+2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the contact sensor’s force output.
 
 **Contact sensor visualization**
 
@@ -5098,7 +5098,7 @@ sensor = ContactSensor(
 
 Note
 
-`translations` (local-frame) and `positions` (world-frame) cannot both be defined â they are mutually exclusive.
+`translations` (local-frame) and `positions` (world-frame) cannot both be defined — they are mutually exclusive.
 
 Creating a contact sensor requires an enabled rigid-body ancestor, and the body depends on a Contact Report API. Contact-producing geometry still needs collision APIs. `Contact.create()` applies the Contact Report API on the rigid-body ancestor when it creates the sensor prim; when wrapping an existing sensor prim with `Contact(path)` the API is not applied by Python, but the C++ runtime ensures contact reporting is enabled when the sensor goes live on **Play**. You can also manually add a Contact Report API to a prim through:
 
@@ -5110,7 +5110,7 @@ contact_report = PhysxSchema.PhysxContactReportAPI.Apply(parent_prim)
 contact_report.CreateThresholdAttr(0.0)
 ```
 
-To modify sensor parameters at runtime, use the authoring object exposed via `sensor.contact`: `sensor.contact.set_min_threshold(value)`, `sensor.contact.set_max_threshold(value)`, `sensor.contact.set_radius(value)`. The previous shorthand methods on `ContactSensor` itself were removed in 3.0.0 â call them on `sensor.contact`.
+To modify sensor parameters at runtime, use the authoring object exposed via `sensor.contact`: `sensor.contact.set_min_threshold(value)`, `sensor.contact.set_max_threshold(value)`, `sensor.contact.set_radius(value)`. The previous shorthand methods on `ContactSensor` itself were removed in 3.0.0 — call them on `sensor.contact`.
 
 ### Reading sensor output
 
@@ -5118,8 +5118,8 @@ The contact sensors are created dynamically on **Play**. Moving the sensor prim 
 
 There are three methods for reading the sensor output:
 
-* `ContactSensor.get_sensor_reading()` â returns the cached `ContactSensorReading`
-* `ContactSensor.get_data()` â returns a structured dictionary
+* `ContactSensor.get_sensor_reading()` — returns the cached `ContactSensorReading`
+* `ContactSensor.get_data()` — returns a structured dictionary
 * OmniGraph node `Isaac Read Contact Sensor`
 
 The following snippets assume you have created a `/World/Cube` prim and contact sensor prim using one of the two snippets [above](#isaacsim-sensors-physics-contact-standalone-python-create-modify).
@@ -5160,7 +5160,7 @@ print(value)
 
 **ContactSensor.get\_raw\_data()**
 
-Returns a list of raw contact records (one per contact event in the current physics step). Each record contains `time`, `dt`, `body0`, `body1`, `position`, `normal`, and `impulse`. Raw data disregards the sensorâs `min_threshold`/`max_threshold` filtering: contacts that fall below the threshold are still reported here, even though they would be discarded by the filtered `ContactSensorReading`. To pass through to a frame call instead, enable the `contacts` list with `ContactSensor.add_raw_contact_data_to_frame()`.
+Returns a list of raw contact records (one per contact event in the current physics step). Each record contains `time`, `dt`, `body0`, `body1`, `position`, `normal`, and `impulse`. Raw data disregards the sensor’s `min_threshold`/`max_threshold` filtering: contacts that fall below the threshold are still reported here, even though they would be discarded by the filtered `ContactSensorReading`. To pass through to a frame call instead, enable the `contacts` list with `ContactSensor.add_raw_contact_data_to_frame()`.
 
 ```python
 from isaacsim.sensors.experimental.physics import ContactSensor
@@ -5236,7 +5236,7 @@ sensor = EffortSensor(path="/World/simple_articulation/Arm/RevoluteJoint", enabl
 
 Note
 
-The joint prim you pass in **is** the sensorâs prim â `EffortSensor` does not author a separate USD prim in the **Stage** panel on construction. Effort readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
+The joint prim you pass in **is** the sensor’s prim — `EffortSensor` does not author a separate USD prim in the **Stage** panel on construction. Effort readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
 
 To modify sensor parameters, change class member variables such as `enabled` directly. To change the `dof_name` and `buffer_size` for readings, use the corresponding member functions, `update_dof_name` and `change_buffer_size`.
 
@@ -5244,8 +5244,8 @@ To modify sensor parameters, change class member variables such as `enabled` dir
 
 There are two methods for reading the sensor output:
 
-* `EffortSensor.get_sensor_reading()` â returns an `EffortSensorReading` object with `is_valid`, `time`, and `value`.
-* `EffortSensor.get_data()` â returns a structured dictionary with `value`, `is_valid`, `time`, and `physics_step`.
+* `EffortSensor.get_sensor_reading()` — returns an `EffortSensorReading` object with `is_valid`, `time`, and `value`.
+* `EffortSensor.get_data()` — returns a structured dictionary with `value`, `is_valid`, `time`, and `physics_step`.
 
 After you create the effort sensor, press **Play** to start the simulation and call the function below to get the sensor reading for the current frame:
 
@@ -5321,7 +5321,7 @@ See the [Isaac Sim Conventions](../reference_material/reference_conventions.html
 **IMU sensor properties**
 
 1. `enabled` parameter determines if the sensor is running or not.
-2. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 â only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
+2. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 — only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
 3. `angularVelocityFilterWidth` parameter specifies the size of the angular velocity rolling average. Increasing this parameter smooths angular velocity output.
 4. `linearAccelerationFilterWidth` parameter specifies the size of the linear acceleration rolling average. Increasing this parameter smooths linear acceleration output.
 5. `orientationFilterWidth` parameter specifies the size of the orientation rolling average. Increasing this parameter smooths orientation output.
@@ -5390,7 +5390,7 @@ To set up the OmniGraph to collect readings from this sensor:
 > * **Print Text**: Prints the string readings to console. In the **Property** tab, set **Log Level** to **Warning** so that messages are visible in the terminal/console by default.
 
 1. Connect the above nodes as follows to print out the IMU sensor reading:
-2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the IMU sensorâs angular velocity.
+2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the IMU sensor’s angular velocity.
 
 ## Standalone Python
 
@@ -5472,10 +5472,10 @@ IMUSensor(
 
 Note
 
-`translations` and `positions` cannot both be provided as input arguments â they are mutually exclusive (local-frame vs world-frame).
+`translations` and `positions` cannot both be provided as input arguments — they are mutually exclusive (local-frame vs world-frame).
 The `IMUSensor` Python API documentation specifies the usage of each input argument.
 
-To set filter widths at construction time, pass them to `IMU.create()` (or `IMU(path, ...)`) â see the snippet above. To modify them after construction, set the underlying USD attributes (`linearAccelerationFilterWidth`, `angularVelocityFilterWidth`, `orientationFilterWidth`) on the sensor prim â the prim is reachable as `sensor.imu.prims[0]`. Filter widths are captured by the C++ runtime when the sensor is created at simulation start; stop and restart the simulation to pick up changes. The `IMUSensor` reads every physics step.
+To set filter widths at construction time, pass them to `IMU.create()` (or `IMU(path, ...)`) — see the snippet above. To modify them after construction, set the underlying USD attributes (`linearAccelerationFilterWidth`, `angularVelocityFilterWidth`, `orientationFilterWidth`) on the sensor prim — the prim is reachable as `sensor.imu.prims[0]`. Filter widths are captured by the C++ runtime when the sensor is created at simulation start; stop and restart the simulation to pick up changes. The `IMUSensor` reads every physics step.
 
 ### Reading sensor output
 
@@ -5483,8 +5483,8 @@ The sensors are created dynamically on **Play**. Moving the sensor prim while th
 
 There are three methods for reading the sensor output:
 
-* `IMUSensor.get_sensor_reading(read_gravity=True)` â returns the raw C++ struct directly
-* `IMUSensor.get_data(read_gravity=True)` â returns a structured dictionary
+* `IMUSensor.get_sensor_reading(read_gravity=True)` — returns the raw C++ struct directly
+* `IMUSensor.get_data(read_gravity=True)` — returns a structured dictionary
 * OmniGraph node `Isaac Read IMU Node`
 
 The following snippets assume you have created a `/World/Cube` prim and IMU sensor prim using one of the two snippets [above](#isaacsim-sensors-physics-imu-standalone-python-create-modify).
@@ -5598,7 +5598,7 @@ sensor = JointStateSensor(path="/World/simple_articulation", enabled=True)
 
 Note
 
-The articulation root prim you pass in **is** the sensorâs prim â `JointStateSensor` does not author a separate USD prim in the **Stage** panel on construction. DOF readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
+The articulation root prim you pass in **is** the sensor’s prim — `JointStateSensor` does not author a separate USD prim in the **Stage** panel on construction. DOF readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
 
 ### Reading sensor output
 
@@ -5606,8 +5606,8 @@ The sensor is created dynamically on **Play**. Moving or replacing the articulat
 
 There are two methods for reading the sensor output:
 
-* `JointStateSensor.get_sensor_reading()` â returns a `JointStateSensorReading` object with the per-DOF arrays as attributes.
-* `JointStateSensor.get_data()` â returns a structured dictionary with the same data plus `physics_step`, suitable for direct serialization.
+* `JointStateSensor.get_sensor_reading()` — returns a `JointStateSensorReading` object with the per-DOF arrays as attributes.
+* `JointStateSensor.get_data()` — returns a structured dictionary with the same data plus `physics_step`, suitable for direct serialization.
 
 **JointStateSensor.get\_sensor\_reading()**
 
@@ -5662,8 +5662,8 @@ On this page
 The physics raycast sensor uses physics raycasts to measure distances between a sensor prim and surrounding geometry.
 Unlike the fixed-pattern sensors in Isaac Sim, the physics raycast sensor accepts explicit per-ray origin offsets, direction vectors, and optional time offsets, making it suitable for a wide range of configurations, including solid-state sensors, rotating sensors, and beam curtains.
 
-Each physics step, the sensor casts rays from the primâs world-space position (plus per-ray origin offsets) along the specified directions.
-When `rayTimeOffsets` are provided, only the subset of rays whose time offsets fall within the current physics stepâs time window are fired, producing a sweeping pattern over multiple steps.
+Each physics step, the sensor casts rays from the prim’s world-space position (plus per-ray origin offsets) along the specified directions.
+When `rayTimeOffsets` are provided, only the subset of rays whose time offsets fall within the current physics step’s time window are fired, producing a sweeping pattern over multiple steps.
 
 See the [Isaac Sim Conventions](../reference_material/reference_conventions.html#isaac-sim-conventions) documentation for a complete list of Isaac Sim conventions.
 
@@ -5673,10 +5673,10 @@ See the [Isaac Sim Conventions](../reference_material/reference_conventions.html
 2. `numRays` (unsigned int) parameter specifies the authoritative ray count. `rayOrigins` and `rayDirections` must each have exactly this many elements. This is set automatically when using `Raycast.create()` or the `Raycast` authoring constructor.
 3. `minRange` parameter specifies the minimum detection range in stage length units. Rays start at `origin + direction * minRange`.
 4. `maxRange` parameter specifies the maximum detection range in stage length units.
-5. `rayOrigins` parameter specifies per-ray origin translations in the sensorâs local coordinate frame.
-6. `rayDirections` parameter specifies per-ray cast direction vectors in the sensorâs local coordinate frame. Vectors are normalized before use.
+5. `rayOrigins` parameter specifies per-ray origin translations in the sensor’s local coordinate frame.
+6. `rayDirections` parameter specifies per-ray cast direction vectors in the sensor’s local coordinate frame. Vectors are normalized before use.
 7. `rayTimeOffsets` parameter specifies per-ray time offsets in seconds. When provided, the sensor fires only rays whose offsets fall within the current physics step, enabling sweeping patterns. The sweep period is `max(rayTimeOffsets)`.
-8. `outputFrameOfReference` parameter selects the coordinate frame for hit positions and normals. `SENSOR` returns results in the sensorâs local coordinate frame; `WORLD` returns results in world coordinates.
+8. `outputFrameOfReference` parameter selects the coordinate frame for hit positions and normals. `SENSOR` returns results in the sensor’s local coordinate frame; `WORLD` returns results in world coordinates.
 9. `reportHitPrimPaths` parameter enables resolving the USD prim path of each hit surface.
 
 For the full USD attribute definitions, see the [Raycast Sensor schema reference](../omniverse_usd/sensor_schema.html#isaac-sim-sensor-schema-raycast).
@@ -5785,8 +5785,8 @@ Note
 
 Key differences from a naive setup that may cause visualization to fail:
 
-* **``doTransform`` must be False**: The read node outputs world-space coordinates. The Debug Draw nodeâs `doTransform` input applies an additional matrix transform by default, which displaces the rays to incorrect positions.
-* **``numRays`` must be connected**: Without this, the draw node doesnât know how many rays to render and defaults to zero.
+* **``doTransform`` must be False**: The read node outputs world-space coordinates. The Debug Draw node’s `doTransform` input applies an additional matrix transform by default, which displaces the rays to incorrect positions.
+* **``numRays`` must be connected**: Without this, the draw node doesn’t know how many rays to render and defaults to zero.
 * **Execution chain must be complete**: `execIn` â `execOut` â `exec` ensures the draw node fires after the read node has populated its outputs.
 
 ## Standalone Python
@@ -5860,7 +5860,7 @@ sensor = RaycastSensor(
 
 #### Using time offsets
 
-To create a sensor with a sweeping pattern, provide `ray_time_offsets`. Rays are only fired when their time offset falls within the current physics stepâs time window. The sweep period equals `max(ray_time_offsets)`.
+To create a sensor with a sweeping pattern, provide `ray_time_offsets`. Rays are only fired when their time offset falls within the current physics step’s time window. The sweep period equals `max(ray_time_offsets)`.
 
 ```python
 import math
@@ -6002,7 +6002,7 @@ On this page
 
 # PhysX SDK sensors
 
-Isaac Simâs PhysX SDK sensors use raycasts provided by the [PhysX SDK](https://nvidia-omniverse.github.io/PhysX/physx/5.3.0/) to measure the range between
+Isaac Sim’s PhysX SDK sensors use raycasts provided by the [PhysX SDK](https://nvidia-omniverse.github.io/PhysX/physx/5.3.0/) to measure the range between
 objects in the simulation.
 
 These sensors output the exact measurements from PhysX SDK. By default, the highest rate that the sensors can output data is the render rate.
@@ -6071,8 +6071,8 @@ To customize scanning patterns, fill or modify these parameters:
 * **streaming:** Set to `True` if streaming data continuously, `False` if sending a batch of data once in the beginning and repeating it.
 * **sampling\_rate:** Number of scans per second.
 * **batch\_size:** The number of scans each batch of data contains. The size must be large enough to run a few rendering frames without running out. For example, if you scan at 2400 scans per second and render at 120 fps, each frame renders 20 scans. If you send a batch size of 12000, you can render 600 frames, or five seconds at 120 fps, before you run out of data. If `batch_size` is less than `sampling_rate/fps`, the sensor scans at a rate that equals `batch_size` per frame, which likely means you scan slower than desired.
-* **sensor\_pattern:** An Nx2 NumPy array. N is `batch_size`, and the columns are [azimuth, zenith] angles of each scanning ray. Azimuth is the rayâs horizontal angle measured from the x-axis, and zenith angle is the vertical angle measured from the z-axis.
-* **origin\_offsets:** Optional Nx3 NumPy array. N is the batch size, and each row is the individual rayâs offset from origin in [x, y, z] coordinates.
+* **sensor\_pattern:** An Nx2 NumPy array. N is `batch_size`, and the columns are [azimuth, zenith] angles of each scanning ray. Azimuth is the ray’s horizontal angle measured from the x-axis, and zenith angle is the vertical angle measured from the z-axis.
+* **origin\_offsets:** Optional Nx3 NumPy array. N is the batch size, and each row is the individual ray’s offset from origin in [x, y, z] coordinates.
 
 **Example scanning patterns**
 
@@ -6280,7 +6280,7 @@ You can attach a LIDAR prim to a robot. You can use the Carter V1 robot as an ex
 ### Script Editor
 
 Use the Lidar Python API to create, control, and query the sensor through scripts and extensions.
-Use the **Script Editor** and Python API to retrieve data from the Lidarâs last sweep:
+Use the **Script Editor** and Python API to retrieve data from the Lidar’s last sweep:
 
 1. Go to the top menu bar and click **Window > Script Editor** to open the **Script Editor** window.
 2. Add the necessary imports:
@@ -6498,7 +6498,7 @@ asyncio.ensure_future(get_lidar_param())  # Only ask for data after sweep is com
 
 The main differences between this example and the previous are as follows:
 
-1. The LIDARâs `enable_semantics` flag is set to `True` on creation.
+1. The LIDAR’s `enable_semantics` flag is set to `True` on creation.
 2. The Cube and Sphere prims have different `semantic labels`.
 3. Use `get_point_cloud_data` and `get_prim_data` to retrieve the point cloud data and semantic IDs.
 
@@ -6537,7 +6537,7 @@ appropriate configuration.
 See [Migrating to the physics raycast sensor](#isaacsim-sensors-physx-lightbeam-migration) for step-by-step migration instructions, or the [isaacsim.sensors.experimental.physics API Documentation](../py/source/extensions/isaacsim.sensors.experimental.physics/docs/index.html) for the replacement APIs.
 
 The PhysX SDK lightbeam sensor in Isaac Sim uses PhysX SDK raycasts to determine if an object has intersected a light beam.
-You can specify the number of rays and height to create a safety light âcurtainâ of lightbeam sensors.
+You can specify the number of rays and height to create a safety light “curtain” of lightbeam sensors.
 
 See the [Isaac Sim Conventions](../reference_material/reference_conventions.html#isaac-sim-conventions) documentation for a complete list of Isaac Sim conventions.
 
@@ -6612,7 +6612,7 @@ The code below uses the deprecated `isaacsim.sensors.physx` extension. See the d
 
 Execute the following script using `python.sh`. This creates a scene with two cubes and attaches a proximity sensor to one of the cubes.
 At the start of the simulation, the two cubes overlap and then move apart; the callback function in the script prints the proximity
-sensorâs output to the screen.
+sensor’s output to the screen.
 
 ```python
 import numpy as np
@@ -6706,7 +6706,7 @@ On this page
 
 # RTX Sensors
 
-RTX sensors in Isaac Sim use the Omniverse RTX Rendererâs RTX Sensor SDK to sense the environment, enabling interaction with materials in visual and non-visual spectra.
+RTX sensors in Isaac Sim use the Omniverse RTX Renderer’s RTX Sensor SDK to sense the environment, enabling interaction with materials in visual and non-visual spectra.
 This means an RTX-based Lidar can model returns from light interaction with transparent or reflective surfaces, and an RTX-based Radar can model returns accounting for
 material emissivity and reflectivity in the radio spectrum.
 
@@ -6830,7 +6830,7 @@ the Isaac Sim UI:
 When `omni.replicator.core` adds a `GenericModelOutput` RenderVar to a render product
 that is attached to an RTX sensor prim, it reads
 `_replicator:rendervar:GenericModelOutput:channels` from the sensor prim and copies the
-value onto the RenderVarâs `channels` attribute. The RTX Sensor SDK then uses that
+value onto the RenderVar’s `channels` attribute. The RTX Sensor SDK then uses that
 value to decide which auxiliary fields to populate.
 
 The `aux_output_level` constructor parameter on
@@ -6879,8 +6879,8 @@ Warning
 The `_replicator:rendervar:GenericModelOutput:channels` attribute is currently
 **effectively global per render-product-attach event**. When two RTX sensors on the
 same stage author different values, only the **last** sensor to have a render product
-attached âwinsâ - every subsequent `GenericModelOutput` RenderVar uses that
-sensorâs channels value, regardless of which sensor prim it was created from.
+attached “wins” - every subsequent `GenericModelOutput` RenderVar uses that
+sensor’s channels value, regardless of which sensor prim it was created from.
 
 Concrete example. Suppose you have one `Lidar` with `aux_output_level="FULL"` and
 one `Radar` with `aux_output_level="BASIC"` on the same stage:
@@ -6909,9 +6909,9 @@ Camera prims do not emit GMO AOVs.
 
 **Annotators return empty data**
 :   Ensure the simulation timeline is playing. RTX Sensor Annotators rely on the timeline to collect data.
-    Also verify that `--/app/sensors/nv/lidar/outputBufferOnGPU` or `--/app/sensors/nv/radar/outputBufferOnGPU` is left at its default value of `false` â annotators read return data from host buffers, so forcing the GPU-resident path will leave the annotator outputs empty.
+    Also verify that `--/app/sensors/nv/lidar/outputBufferOnGPU` or `--/app/sensors/nv/radar/outputBufferOnGPU` is left at its default value of `false` — annotators read return data from host buffers, so forcing the GPU-resident path will leave the annotator outputs empty.
 
-**Point cloud appears to âdragâ behind moving objects**
+**Point cloud appears to “drag” behind moving objects**
 :   If the Lidar rotation rate is slower than the frame rate, accumulated scan data may contain returns from multiple frames.
     This is expected behavior for rotating Lidars. Consider using per-frame output instead of accumulated scans.
 
@@ -6925,7 +6925,7 @@ Camera prims do not emit GMO AOVs.
 **Timestamps are discontinuous after pause/resume**
 :   This should not occur if multi-tick rendering is enabled. If multi-tick rendering is disabled, the `GenericModelOutput` AOV timestamp is independent of the animation timeline and continues to increase even when paused.
 
-**One sensorâs auxiliary output level overrides anotherâs**
+**One sensor’s auxiliary output level overrides another’s**
 :   The `_replicator:rendervar:GenericModelOutput:channels` attribute is currently global
     per render-product-attach event. See [Known issue: last-attach-wins propagation of GMO channels](#isaacsim-sensors-rtx-known-issue-gmo-channels).
 
@@ -7001,13 +7001,13 @@ see the [Omniverse Acoustic Extension documentation](https://docs.omniverse.nvid
 
 Note
 
-Earlier releases referred to this sensor as the âUltrasonicâ sensor (or âUSSâ). The Omniverse plugin
-has been renamed to âAcousticâ; if you previously used `omni.kit.commands.execute("IsaacSensorCreateRtxUltrasonic", ...)`
+Earlier releases referred to this sensor as the “Ultrasonic” sensor (or “USS”). The Omniverse plugin
+has been renamed to “Acoustic”; if you previously used `omni.kit.commands.execute("IsaacSensorCreateRtxUltrasonic", ...)`
 in `isaacsim.sensors.rtx`, see [RTX Sensors](../migration_guides/isaac_sim_6_0/sensors_rtx_to_experimental_rtx.html#isaacsim-sensors-rtx-migration) for the migration to
 `Acoustic` / `AcousticSensor`.
 
 Unlike Lidar and Radar sensors, acoustic sensors do not produce a 3D point cloud. Instead, they produce
-**signal ways** â amplitude samples for each transmitterâreceiver pair on each channel. The
+**signal ways** — amplitude samples for each transmitter–receiver pair on each channel. The
 `GenericModelOutput` element fields have the following meaning for acoustic sensors:
 
 | Field | Meaning |
@@ -7093,12 +7093,12 @@ Note
 
 `Acoustic.create()` accepts `config` (from
 `isaacsim.sensors.experimental.rtx.SUPPORTED_ACOUSTIC_CONFIGS`) or `usd_path` (mutually
-exclusive), plus `attributes` for prim-attribute overrides â including the multi-apply
+exclusive), plus `attributes` for prim-attribute overrides — including the multi-apply
 `OmniSensorWpmAcousticSensorMountAPI` / `OmniSensorWpmAcousticRxGroupAPI` /
-`OmniSensorWpmAcousticFiringSeqAPI` schema attributes â and the plural transform arrays
+`OmniSensorWpmAcousticFiringSeqAPI` schema attributes — and the plural transform arrays
 (`positions=[[...]]` / `translations=[[...]]` / `orientations=[[...]]` / `scales=[[...]]`;
 `N=1`). Additional USD schemas via `schemas=[...]` are accepted by the `Acoustic(...)`
-constructor â pass them through `Acoustic(...)` directly if you need them, since
+constructor — pass them through `Acoustic(...)` directly if you need them, since
 `Acoustic.create()` does not currently forward `schemas`.
 
 ### Tick Rate
@@ -7337,7 +7337,7 @@ lidar = Lidar.create(
 
 The snippet above creates a reference to `Example_Rotary.usda` as an `OmniLidar` prim in the stage at the
 specified `translations` with the specified `orientations`, at path `/World/lidar`. The `Example_Rotary`
-config does not support variant sets, so `variant` is unused. The primâs `omni:sensor:Core:scanRateBaseHz`
+config does not support variant sets, so `variant` is unused. The prim’s `omni:sensor:Core:scanRateBaseHz`
 attribute is set from 10 Hz (default) to 20 Hz via the `attributes` dictionary.
 
 Review the [OmniSensorGenericLidarCoreAPI](https://docs.omniverse.nvidia.com/kit/docs/omni.usd.schema.omni_sensors/107.3.1/omni_sensors_schema.html#omnisensorgenericlidarcoreapi)
@@ -7348,7 +7348,7 @@ Note
 
 `Lidar.create()` accepts either `config` (a registered configuration name from
 `isaacsim.sensors.experimental.rtx.SUPPORTED_LIDAR_CONFIGS`) **or** `usd_path` (a direct path
-to an `OmniLidar` USD asset) â the two are mutually exclusive. Both `Lidar.create()` and
+to an `OmniLidar` USD asset) — the two are mutually exclusive. Both `Lidar.create()` and
 `Lidar(...)` accept `schemas` (a list of additional USD schemas to apply) and `attributes`
 (a dict of prim attributes to author). Transforms are passed as plural arrays
 (`positions=[[...]]` / `translations=[[...]]` / `orientations=[[...]]` / `scales=[[...]]`);
@@ -7621,7 +7621,7 @@ On this page
 # RTX Sensor Non-Visual Materials
 
 The `omni.sensors.nv.materials` extension, documented [here](http://omniverse-docs.s3-website-us-east-1.amazonaws.com/omni.sensors.nv.materials/1.6.0-coreapi/materials_extension.html), provides support for rendering materials, which are visible in non-visual spectra for RTX sensors. These materials
-are referred to as ânon-visual materialsâ.
+are referred to as “non-visual materials”.
 
 As described in the extension documentation, non-visual materials are rendered using USD attributes, and can be specified in the USD file. Isaac Sim includes the `isaacsim.core.experimental.materials.NonVisualMaterial` class to simplify setting these attributes on `Material` prims. The renderer
 will compute a material ID for each non-visual material, based on the combination of provided attributes. This material ID is provided by the `GenericModelOutput` AOV, and is exposed by multiple Annotators. Refer to [RTX Sensor Annotators](isaacsim_sensors_rtx_annotators.html#rtx-sensor-annotator-descriptions) for more details.
@@ -7635,7 +7635,7 @@ Valid non-visual material attribute names and values are specified [in Omniverse
 Attributes may be added to materials from the UI by right-clicking the material in the **Stage** window, then selecting **Add** > **Attribute**.
 This will open a new window like the one below, enabling you to specify custom non-visual attributes.
 
-After adding the new attribute, it will appear in the materialâs properties, at which point it can be populated:
+After adding the new attribute, it will appear in the material’s properties, at which point it can be populated:
 
 ### Python
 
@@ -7654,7 +7654,7 @@ shows the menu selection:
 After selecting the Debug View, verify that you receive the following:
 
 The `Non-Visual Material ID` Debug View shows the material ID for each non-visual material as a color, which can be used to identify the material in the scene.
-Observe each cubeâs color changes compared to the default view to reflect the material ID, which is computed from the combination of non-visual material attributes applied to the visual material
+Observe each cube’s color changes compared to the default view to reflect the material ID, which is computed from the combination of non-visual material attributes applied to the visual material
 applied to the cube.
 
 Note
@@ -7665,9 +7665,9 @@ If you modify non-visual material attributes on a material prim, you must save a
 
 Deprecated since version 5.1: Mapping visual materials to RTX Sensor non-visual materials via a CSV specification (the
 `RtxSensorMaterialMap.csv` workflow paired with the `rtx.materialDb.rtSensorNameToIdMap`
-and `rtx.materialDb.rtSensorMaterialLogs` carb settings) is no longer supported â those
+and `rtx.materialDb.rtSensorMaterialLogs` carb settings) is no longer supported — those
 settings and the CSV file are now ignored. Specify non-visual materials via USD attributes
-instead â see [Specifying Non-Visual Material Attributes](#specifying-non-visual-material-attributes) above.
+instead — see [Specifying Non-Visual Material Attributes](#specifying-non-visual-material-attributes) above.
 
 On this page
 
@@ -7697,7 +7697,7 @@ Warning
 
 **Motion BVH Must Be Enabled for RTX Radar**
 
-RTX Radar requires Motion BVH to be enabled for the Doppler effectâand therefore RTX Radar entirelyâto be modeled correctly.
+RTX Radar requires Motion BVH to be enabled for the Doppler effect—and therefore RTX Radar entirely—to be modeled correctly.
 **Without Motion BVH enabled, RTX Radar will not produce accurate results.**
 
 Motion BVH is disabled by default in Isaac Sim for performance reasons. You must explicitly enable it before using RTX Radar.
@@ -7768,7 +7768,7 @@ Note
 exclusive), plus `attributes` for prim-attribute overrides and the plural transform arrays
 (`positions=[[...]]` / `translations=[[...]]` / `orientations=[[...]]` / `scales=[[...]]`;
 `N=1`). Additional USD schemas via `schemas=[...]` are accepted by the `Radar(...)`
-constructor â pass them through `Radar(...)` directly if you need them, since
+constructor — pass them through `Radar(...)` directly if you need them, since
 `Radar.create()` does not currently forward `schemas`.
 
 Annotators can then be attached to the `OmniRadar` prim to collect and visualize the Radar results.

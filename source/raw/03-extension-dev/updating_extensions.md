@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/utilities/updating_extens
 title: "Updating Extensions"
 section: "Extension 管理"
 module: "03-extension-dev"
-checksum: "215cc751194192f8"
-fetched: "2026-06-21T12:48:10"
+checksum: "78a7550cac45609e"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * Adding and Updating Extensions Guide
@@ -28,7 +28,7 @@ Follow these steps to add an extension from a local folder path or a new extensi
 
    Click the dropdown in the top right and select the settings option.
 
-   * If you have the extension in a local folder, you can add the path to the extension by clicking the green **+** button in the **Extension Search Paths** section at the top and then typing the full path to the parent folder containing the extensionâs folder. This path can contain multiple extensions.
+   * If you have the extension in a local folder, you can add the path to the extension by clicking the green **+** button in the **Extension Search Paths** section at the top and then typing the full path to the parent folder containing the extension’s folder. This path can contain multiple extensions.
    * If you want to add a new extension registry, click the green **+** button in the **Extension Registries** section at the bottom and type in the full URL of the extension registry.
 3. **Search for the Extension**
 

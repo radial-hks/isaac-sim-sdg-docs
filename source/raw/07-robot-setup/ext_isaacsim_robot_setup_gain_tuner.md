@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/ext_isaacsim_
 title: "Gain Tuner"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "371db5d86cc44750"
-fetched: "2026-06-21T13:05:34"
+checksum: "51134090d33a71f4"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](index.html)
@@ -23,17 +23,17 @@ For a hands-on walkthrough that uses the UR10 manipulator, see the [Tutorial 11:
 
 ## Overview
 
-The purpose of the Gain Tuner is to find a pair of stiffness and damping gains for each robot joint so that the robot is able to follow commanded trajectories according to the robotâs expected behavior.
+The purpose of the Gain Tuner is to find a pair of stiffness and damping gains for each robot joint so that the robot is able to follow commanded trajectories according to the robot’s expected behavior.
 
 The Gain Tuner offers a set of tests that allow you to quickly assess the quality of the current set of gains and a utility for tuning gains manually.
 
 * **Tuning Gains**: A utility for tuning the gains for the robot.
 * **Gains Tests**: A suite of tests for evaluating joint behavior:
 
-  + *Snap-to-Limits* â commands joints to their lower and upper limits to verify they can reach their full range of motion.
-  + *Sinusoidal* â drives joints with continuous sinusoidal trajectories.
-  + *Step Function* â drives joints with step-function trajectories.
-  + *Stress Test* â drives joints with extreme random commands to surface instabilities that can appear during reinforcement learning training.
+  + *Snap-to-Limits* — commands joints to their lower and upper limits to verify they can reach their full range of motion.
+  + *Sinusoidal* — drives joints with continuous sinusoidal trajectories.
+  + *Step Function* — drives joints with step-function trajectories.
+  + *Stress Test* — drives joints with extreme random commands to surface instabilities that can appear during reinforcement learning training.
 * **Test Results**: A plot of the results of the gains tests on the tracked joint positions and velocities, compared against the commanded trajectory.
 
 ### Understanding Joint Drives
@@ -79,7 +79,7 @@ From this formula, you can describe the different modes of the joint drive:
 * Position Drive: When the joint drive is in position mode, the desired position is the target position. This requires the stiffness to be greater than `0`, and the damping to be any value.
 * Velocity Drive: When the joint drive is in velocity mode, the desired position is the current position, and the desired velocity is the target velocity. This requires the stiffness to be `0` and the damping to be any value.
 * None: When the joint drive is in none mode, the joint drive is not active. The joint can still be controlled by applying a direct effort. This requires the stiffness to be `0` and the damping to be `0`.
-* Mimic: When the joint drive is in mimic mode, the joint drive is driven by the mimic joint. This means that the joint drive will not be active, but the mimic jointâs attributes of Natural Frequency and Damping Ratio can still be configured through the Tuner.
+* Mimic: When the joint drive is in mimic mode, the joint drive is driven by the mimic joint. This means that the joint drive will not be active, but the mimic joint’s attributes of Natural Frequency and Damping Ratio can still be configured through the Tuner.
 
 This Dampener-Spring model can also be described in terms of the natural frequency and damping ratio:
 
@@ -94,20 +94,20 @@ From the above formula, observe that there are two ways to Tune Gains:
 
 Note
 
-Because the robot is a structure that is made of multiple links and moving joints, the natural frequency of each joint is dependent on the robotâs configuration. To establish a standard, the natural frequency of the robot at its home configuration is used.
+Because the robot is a structure that is made of multiple links and moving joints, the natural frequency of each joint is dependent on the robot’s configuration. To establish a standard, the natural frequency of the robot at its home configuration is used.
 
 #### Tuning Options
 
 In the Tuning Options, you can select the tuning mode between Stiffness and Natural Frequency. On the joints table, observe the following options:
 
 * **Mode**: The mode of the joint drive (Position, Velocity, None, Mimic)
-* **Type**: The type of the joint drive (Force, Acceleration). In Force, the effort is applied directly to the joint. In Acceleration, the effort is Normalized by the jointâs mass, and is thus invariant to the robotâs configuration, behaving as an ideal actuator.
+* **Type**: The type of the joint drive (Force, Acceleration). In Force, the effort is applied directly to the joint. In Acceleration, the effort is Normalized by the joint’s mass, and is thus invariant to the robot’s configuration, behaving as an ideal actuator.
 * **Stiffness** (Stiffness Mode): The stiffness of the joint drive. Changing this will lead to a change in the natural frequency of the joint.
 * **Damping** (Stiffness Mode): The damping of the joint drive. Changing this will lead to a change in the damping ratio of the joint.
 * **Natural Frequency** (Natural Frequency Mode): The natural frequency of the joint drive.
 * **Damping Ratio** (Natural Frequency Mode): The damping ratio of the joint drive.
 
-The configurable Degrees of Freedom (DOF) of the robot are displayed in accordance with what is defined in the Robotâs Joints list.
+The configurable Degrees of Freedom (DOF) of the robot are displayed in accordance with what is defined in the Robot’s Joints list.
 
 ## Tuning Workflow
 
@@ -116,9 +116,9 @@ Gain tuning is an iterative process. The recommended workflow moves through two 
 1. **Set initial gains** using the position or velocity drive heuristics below.
 2. **Tune and evaluate** using the built-in test modes, each targeting a different aspect of joint behavior:
 
-   * **Snap-to-Limits** *(default)* â commands joints to their lower and upper limits. Use this to verify that gains are strong enough to reach the full range of motion and that limits, gains, and collision geometry are mutually consistent.
-   * **Sinusoidal** â drives joints with a continuous repeating waveform. Use this to evaluate how well gains track smooth motion and to identify underdamping or overdamping from the shape of the tracking curve.
-   * **Step Function** â drives joints with sudden position changes. Use this to evaluate how quickly and accurately gains respond to discrete commands, as a closer approximation of how a policy issues targets during training.
+   * **Snap-to-Limits** *(default)* — commands joints to their lower and upper limits. Use this to verify that gains are strong enough to reach the full range of motion and that limits, gains, and collision geometry are mutually consistent.
+   * **Sinusoidal** — drives joints with a continuous repeating waveform. Use this to evaluate how well gains track smooth motion and to identify underdamping or overdamping from the shape of the tracking curve.
+   * **Step Function** — drives joints with sudden position changes. Use this to evaluate how quickly and accurately gains respond to discrete commands, as a closer approximation of how a policy issues targets during training.
 
 Once gains are satisfactory across all three test modes, run the **Stress Test** to confirm they are robust under the extreme commands typical of reinforcement learning training before moving to Isaac Lab.
 
@@ -139,7 +139,7 @@ For each joint of the robot:
 
 #### Velocity Limit and Industrial Robots
 
-Many robots, including the majority of industrial robots, come with pre-tuned PD control for their joint drives and can be set up to have a perfect position control response, always driving at the given joint velocity limit. To reproduce this behavior, increase the joint stiffness from the previous tuning heuristic by a factor of two and define the maximum joint velocity in **Joint** > **Advanced** > **Maximum Joint Velocity** in the **Properties** panel. Run the simulation to verify the joint velocity is meeting the specification and fine-tune the stiffness until the joint max velocity limit is within tolerance. If stiffness is too high, the max velocity may still be violated, so it is not advised to add infinite stiffness to the joint â instead operate with stiffness similar to the values calibrated without a max joint velocity.
+Many robots, including the majority of industrial robots, come with pre-tuned PD control for their joint drives and can be set up to have a perfect position control response, always driving at the given joint velocity limit. To reproduce this behavior, increase the joint stiffness from the previous tuning heuristic by a factor of two and define the maximum joint velocity in **Joint** > **Advanced** > **Maximum Joint Velocity** in the **Properties** panel. Run the simulation to verify the joint velocity is meeting the specification and fine-tune the stiffness until the joint max velocity limit is within tolerance. If stiffness is too high, the max velocity may still be violated, so it is not advised to add infinite stiffness to the joint — instead operate with stiffness similar to the values calibrated without a max joint velocity.
 
 ### Velocity Drive
 
@@ -148,11 +148,11 @@ For each joint of the robot:
 1. Start by setting the **Stiffness** to zero and only tuning the damping.
 2. Increase the damping until the joint is able to converge near the target velocity.
 3. If the robot may carry additional load, slightly increase the damping (for example, add 10% extra) to account for the extra load.
-4. You can limit the jointâs output by either setting the max joint velocity, or restricting the max joint force to impose a maximum joint load effort.
+4. You can limit the joint’s output by either setting the max joint velocity, or restricting the max joint force to impose a maximum joint load effort.
 
 ### Saving Gains to the Asset
 
-Following the NVIDIA Isaac Sim [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure), joint gains are a physics configuration and ideally should be saved on the physics layer. To facilitate this, the **Save Gains to Physics Layer** button on the UI searches for the assetâs physics layer where the joint is defined and applies the updated gains to that layer.
+Following the NVIDIA Isaac Sim [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure), joint gains are a physics configuration and ideally should be saved on the physics layer. To facilitate this, the **Save Gains to Physics Layer** button on the UI searches for the asset’s physics layer where the joint is defined and applies the updated gains to that layer.
 
 ### Gains Tests
 
@@ -166,7 +166,7 @@ The three tuning test modes share the same setup steps:
 2. Assign joints to sequences. Joints in the same sequence are tested simultaneously; joints in different sequences are tested one group at a time, with the robot resetting to its home configuration between sequences. Group joints that are expected to move together.
 3. Select the desired test mode in the test mode selector, configure parameters, and press **Play**, then **Run Test**.
 
-Repeat â adjust gains, re-run, observe â until results are satisfactory. Each test mode surfaces different information, so it is useful to work across all three rather than treating any one as definitive.
+Repeat — adjust gains, re-run, observe — until results are satisfactory. Each test mode surfaces different information, so it is useful to work across all three rather than treating any one as definitive.
 
 Note
 
@@ -202,9 +202,9 @@ Per-joint results include settling time (reported separately for the lower and u
 Each classification points to a different part of the system and suggests a different remedy.
 
 * **Pass with long settling time**: The joint reaches its target but slowly, indicating the system is overdamped. Try increasing stiffness or reducing damping, then re-run to confirm settling time improves without introducing oscillation. Residual oscillation will appear as elevated mean hold error even on a passing joint.
-* **Pass with high hold error**: The joint reached the limit closely enough to pass the tolerance check but is not holding cleanly â likely underdamped with residual oscillation. Try increasing damping.
+* **Pass with high hold error**: The joint reached the limit closely enough to pass the tolerance check but is not holding cleanly — likely underdamped with residual oscillation. Try increasing damping.
 * **Fail**: The joint did not reach its target and was still moving at the end of the timeout. First re-run with **Disable Velocity Limits** enabled. If the joint passes, the velocity limit is preventing the joint from reaching its target in time and the remedy is raising the velocity limit rather than adjusting gains. If the joint still fails, stiffness is insufficient and should be increased.
-* **Blocked**: The joint stalled before reaching its limit. Re-run with **Disable Self-Collisions** enabled. If the joint passes, the limit is set beyond what the collision geometry allows â tighten the joint limit in USD rather than adjusting gains. If the joint remains blocked with collisions disabled, examine whether a mimic joint coupling, another joint in the same sequence, or an incorrectly authored limit is constraining motion.
+* **Blocked**: The joint stalled before reaching its limit. Re-run with **Disable Self-Collisions** enabled. If the joint passes, the limit is set beyond what the collision geometry allows — tighten the joint limit in USD rather than adjusting gains. If the joint remains blocked with collisions disabled, examine whether a mimic joint coupling, another joint in the same sequence, or an incorrectly authored limit is constraining motion.
 
 Note
 
@@ -212,7 +212,7 @@ These tests identify that something is wrong and roughly where, but the magnitud
 
 #### Sinusoidal
 
-Drives joints with a continuous sinusoidal trajectory for the test duration. Useful for evaluating how well gains track smooth, repeating motion across a jointâs range.
+Drives joints with a continuous sinusoidal trajectory for the test duration. Useful for evaluating how well gains track smooth, repeating motion across a joint’s range.
 
 **Parameters:**
 
@@ -249,7 +249,7 @@ Use the result plots to guide adjustments:
 
 * **Measured position reaches the step target and holds cleanly**: gains are well-tuned for this step size and period.
 * **Measured position overshoots and oscillates before settling**: damping is too low. Increase damping.
-* **Measured position approaches the target slowly or does not reach it within the period**: stiffness is too low, or the period is shorter than the jointâs velocity limit allows. Try increasing stiffness or lengthening the period.
+* **Measured position approaches the target slowly or does not reach it within the period**: stiffness is too low, or the period is shorter than the joint’s velocity limit allows. Try increasing stiffness or lengthening the period.
 * **Measured position reaches the step target but with a consistent steady-state offset**: the joint drive may be saturating. Check the joint max force setting.
 
 Note
@@ -258,13 +258,13 @@ A reasonable goal across all three test modes is to find gains that reach the co
 
 #### Stress Test
 
-The stress test subjects joints to extreme random commands to surface PhysX solver instabilities that may appear during reinforcement learning training but are invisible during normal GUI testing. When training a policy with many parallel environments, the exploration space is large and joints may receive rapid, unconstrained commands across their full range. Finding these instabilities in the GUI â where iteration time is fast and the robot inspector is available â is significantly easier than diagnosing them during a training run.
+The stress test subjects joints to extreme random commands to surface PhysX solver instabilities that may appear during reinforcement learning training but are invisible during normal GUI testing. When training a policy with many parallel environments, the exploration space is large and joints may receive rapid, unconstrained commands across their full range. Finding these instabilities in the GUI — where iteration time is fast and the robot inspector is available — is significantly easier than diagnosing them during a training run.
 
 Two sub-modes are available:
 
-**Random Walk** â Every physics step, a Gaussian-distributed delta is added to each jointâs current position target. Commands are clamped to joint limits. This simulates unconstrained neural-net exploration during early policy training. The standard deviation (sigma) is expressed as a percentage of each jointâs range, so wider joints receive proportionally larger perturbations.
+**Random Walk** — Every physics step, a Gaussian-distributed delta is added to each joint’s current position target. Commands are clamped to joint limits. This simulates unconstrained neural-net exploration during early policy training. The standard deviation (sigma) is expressed as a percentage of each joint’s range, so wider joints receive proportionally larger perturbations.
 
-**Adversarial** â Every *N* physics steps, all active joints are simultaneously snapped to randomly chosen lower or upper limits (50/50 per joint). This maximizes worst-case solver load by driving extreme correlated configurations that the random walk would only hit rarely, targeting the same failure modes that arise when many parallel training environments simultaneously drive a robot to opposing extremes.
+**Adversarial** — Every *N* physics steps, all active joints are simultaneously snapped to randomly chosen lower or upper limits (50/50 per joint). This maximizes worst-case solver load by driving extreme correlated configurations that the random walk would only hit rarely, targeting the same failure modes that arise when many parallel training environments simultaneously drive a robot to opposing extremes.
 
 Per-joint instability detection runs every step:
 
@@ -281,7 +281,7 @@ The RNG seed is logged so destabilizing runs can be reproduced exactly.
 | **Sub-mode** | Random Walk or Adversarial. | Random Walk |
 | **Duration** | Simulation-time seconds to run. | 10.0 |
 | **Velocity Threshold** | Absolute velocity (rad/s or m/s) above which a joint is flagged as Unstable. | 100.0 |
-| **Sigma (% range)** | Standard deviation of the per-step Gaussian delta in Random Walk mode, expressed as a percentage of each jointâs range. | 1.0 |
+| **Sigma (% range)** | Standard deviation of the per-step Gaussian delta in Random Walk mode, expressed as a percentage of each joint’s range. | 1.0 |
 | **Snap Interval** | Physics steps between random snaps in Adversarial mode. | 10 |
 | **Seed** | RNG seed for reproducibility. Logged in results so a destabilizing run can be reproduced exactly. | 42 |
 | **Disable Self-Collisions** | Temporarily disable self-collisions on the articulation during the test. Useful for distinguishing instabilities caused by contact events from those caused by gains. | Off |
@@ -289,7 +289,7 @@ The RNG seed is logged so destabilizing runs can be reproduced exactly.
 
 **Interpreting Results:**
 
-* **Stable across both modes**: Positive evidence that the gains are unlikely to cause solver instabilities during Isaac Lab training at the configured sigma and snap interval. Document the test parameters alongside the result â a robot that is stable at 1% sigma may not be stable at 5% sigma, and this distinction matters when estimating safety margins for policy training.
+* **Stable across both modes**: Positive evidence that the gains are unlikely to cause solver instabilities during Isaac Lab training at the configured sigma and snap interval. Document the test parameters alongside the result — a robot that is stable at 1% sigma may not be stable at 5% sigma, and this distinction matters when estimating safety margins for policy training.
 * **Unstable with self-collisions enabled, Stable with them disabled**: The instability is contact-driven rather than gains-driven. Do not adjust gains in response to this result. Instead, examine whether the joint limits allow configurations where self-contact occurs and tighten limits or adjust collision geometry accordingly.
 * **Unstable with self-collisions disabled**: Gains are implicated. Examine the logged time-to-instability and triggering command. A very short time-to-instability at low sigma indicates the gains are marginal even under mild perturbation and significant adjustment is needed. A long time-to-instability at high sigma indicates the gains are robust under realistic conditions and the instability is only reachable at perturbation levels a trained policy would rarely produce.
 * **Unstable in Random Walk but Stable in Adversarial (or vice versa)**: The failure mode differs between the two sub-modes and the results can help narrow the diagnosis. Random Walk instabilities tend to arise from the target drifting into a problematic region incrementally. Adversarial instabilities tend to arise from the solver struggling with simultaneous extreme configurations across coupled joints.
@@ -304,7 +304,7 @@ A Stable result is meaningful only at the sigma and snap interval values used. R
 
 ## Visualizing Results
 
-The results of the tests are visualized as plots, where tracked joint positions and velocities are compared against the commanded trajectory. Select the desired joint in the left panel to display its results in the plots. Results are color-coded by joint, with measured values shown as a faded version of the commanded trajectoryâs color.
+The results of the tests are visualized as plots, where tracked joint positions and velocities are compared against the commanded trajectory. Select the desired joint in the left panel to display its results in the plots. Results are color-coded by joint, with measured values shown as a faded version of the commanded trajectory’s color.
 
 Even if a joint is not listed in the Robot Schema, it is still visualized in the plots if it is part of the physical robot.
 
@@ -319,7 +319,7 @@ Visualization results are only available after tests have finished running. Depe
 * Disable gravity if your robot has built-in gravity compensation or a separate gravity compensation controller.
 * Group joints that are expected to move together and tune each group individually first, then combine them for a final test. For a humanoid robot, for example, you may want to separate the legs and arms.
 * Reduce the maximum speed of a joint that you are tuning if it is not expected to be commanded to move that fast in practice. Most default maximum velocities in USD are likely impractically high.
-* When running the Stress Test, document the highest sigma at which all joints are Stable â this is a practical safety margin for your Isaac Lab training configuration.
+* When running the Stress Test, document the highest sigma at which all joints are Stable — this is a practical safety margin for your Isaac Lab training configuration.
 * If a joint is Blocked in Snap-to-Limits, use **Disable Self-Collisions** to confirm the cause before adjusting gains.
 
 ## Further Learning

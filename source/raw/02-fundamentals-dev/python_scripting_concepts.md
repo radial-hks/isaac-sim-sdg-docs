@@ -4,7 +4,7 @@ title: "Scripting Concepts"
 section: "Python 脚本"
 module: "02-fundamentals-dev"
 checksum: "1e7185aa21d3b2de"
-fetched: "2026-06-21T12:48:07"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Python Scripting and Tutorials](index.html)

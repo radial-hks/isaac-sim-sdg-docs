@@ -4,7 +4,7 @@ title: "Templates Index"
 section: "Extension 模板"
 module: "03-extension-dev"
 checksum: "c8c924516d79b709"
-fetched: "2026-06-21T12:48:10"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * Templates

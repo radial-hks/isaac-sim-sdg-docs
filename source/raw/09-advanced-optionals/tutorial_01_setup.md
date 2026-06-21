@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "Tutorial 01: Setup"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "84ea2f5cf4be0743"
-fetched: "2026-06-21T13:05:45"
+checksum: "1249980d5345fc0a"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -35,16 +35,16 @@ In this tutorial, you will:
 In the file paths used in this tutorial series, replace `/path/to` with the directory that contains your copied `Inspire` folder.
 
 1. In the **Content** browser, go to `IsaacSim/Samples/Rigging/Inspire/`.
-2. In the **Content** browser, right-click on the `Inspire` folder and select âDownloadâ to save it to your local machine. Place the downloaded folder so that its path is `/path/to/Inspire/`, replacing `/path/to` with your chosen directory.
+2. In the **Content** browser, right-click on the `Inspire` folder and select “Download” to save it to your local machine. Place the downloaded folder so that its path is `/path/to/Inspire/`, replacing `/path/to` with your chosen directory.
 
-In the Content browser, right-click the `Inspire` folder and select âDownloadâ to save the course files locally.
+In the Content browser, right-click the `Inspire` folder and select “Download” to save the course files locally.
 
 Within `/path/to/Inspire/`, the course files are organized into multiple checkpoint folders:
 
-* `/path/to/Inspire/module_1_start` â Initial Inspire Hand USD `inspire_hand.usda`.
-* `/path/to/Inspire/module_3_end-checkpoint_1` â Checkpoint with collision filters configured.
-* `/path/to/Inspire/module_4_end-checkpoint_2` â Checkpoint with mimic joints, joint drive maximums, and tuned gains for the finger joints configured.
-* `/path/to/Inspire/module_5_end-checkpoint_3` â Checkpoint with all finger and thumb joint gains tuned and authored.
+* `/path/to/Inspire/module_1_start` — Initial Inspire Hand USD `inspire_hand.usda`.
+* `/path/to/Inspire/module_3_end-checkpoint_1` — Checkpoint with collision filters configured.
+* `/path/to/Inspire/module_4_end-checkpoint_2` — Checkpoint with mimic joints, joint drive maximums, and tuned gains for the finger joints configured.
+* `/path/to/Inspire/module_5_end-checkpoint_3` — Checkpoint with all finger and thumb joint gains tuned and authored.
 
 ## Open the Starting Scene
 

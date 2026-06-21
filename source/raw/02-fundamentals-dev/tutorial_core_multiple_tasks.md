@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/core_api_tutorials/tutori
 title: "Multiple Tasks"
 section: "Core API"
 module: "02-fundamentals-dev"
-checksum: "a9df5c37dfee8e6c"
-fetched: "2026-06-21T12:48:08"
+checksum: "020ac7bebd1e9231"
+fetched: "2026-06-21T13:39:55"
 ---
 
 * [Python Scripting and Tutorials](../python_scripting/index.html)
@@ -39,7 +39,7 @@ the **RESET** button instead.
 
 ## Organizing Robot Scenarios with Classes
 
-When working with multiple robots performing similar tasks, itâs helpful to encapsulate the
+When working with multiple robots performing similar tasks, it’s helpful to encapsulate the
 robot setup and control logic into reusable classes. This approach allows you to easily
 create multiple instances with different parameters (like position offsets).
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/mobile_r
 title: "Mobile Robot Controllers"
 section: "Robot Simulation"
 module: "08-omnigraph-robot-sim"
-checksum: "5a7879fbb36211c5"
-fetched: "2026-06-21T13:05:39"
+checksum: "808afca32e0dd0e2"
+fetched: "2026-06-21T13:40:09"
 ---
 
 * [Robot Simulation](index.html)
@@ -20,7 +20,7 @@ For new controller development, consider using the newer experimental motion gen
 
 ## Differential controller
 
-The differential controller uses the speed differential between the left and right wheels to control the robotâs linear and angular velocity. The differential robot enables the robot to turn in place and is used in the NVIDIA Nova Carter robot.
+The differential controller uses the speed differential between the left and right wheels to control the robot’s linear and angular velocity. The differential robot enables the robot to turn in place and is used in the NVIDIA Nova Carter robot.
 
 ### The Math
 
@@ -136,7 +136,7 @@ simulation_app.close()
 ## Holonomic Controller
 
 The holonomic controller computes the joint drive commands required on omni-directional robots to produce the commanded forward, lateral, and yaw speeds of the robot. An example of a holonomic robot is the NVIDIA Kaya robot.
-The problem is framed as a quadratic program to minimize the residual ânet forceâ acting on the center of mass.
+The problem is framed as a quadratic program to minimize the residual “net force” acting on the center of mass.
 
 Note
 
@@ -168,9 +168,9 @@ Holonomic Controller OmniGraph Inputs
 | --- | --- |
 | execIn | Input execution |
 | wheelRadius | Array of wheel radius in meters |
-| wheelPositions | Position of the wheel with respect to chassisâ center of mass in meters |
-| wheelOrientations | Orientation of the wheel with respect to chassisâ center of mass frame |
-| mecanumAngles | Angles of the mecanum wheels with respect to wheelâs rotation axis in radians |
+| wheelPositions | Position of the wheel with respect to chassis’ center of mass in meters |
+| wheelOrientations | Orientation of the wheel with respect to chassis’ center of mass frame |
+| mecanumAngles | Angles of the mecanum wheels with respect to wheel’s rotation axis in radians |
 | wheelAxis | The rotation axis of the wheels |
 | upAxis | The up axis (default to z axis) |
 | Velocity Commands for the vehicle | Velocity in x and y (m/s) and rotation (rad/s) |

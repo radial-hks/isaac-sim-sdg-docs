@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Replicator Caption"
 section: "Agent"
 module: "03-replicator-agent"
-checksum: "ac167210a7726bfb"
-fetched: "2026-06-21T11:55:26"
+checksum: "d87b80dfeb5bcbcd"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -111,8 +111,8 @@ where nodes represent objects and edges denote spatial relationships
 between them. It captures how elements are arranged in space,
 such as relative positions and orientations. For example, in
 an image of a person sitting on a bench under a tree, the graph
-would include nodes for âperson,â âbench,â and âtree,â with edges
-like âsitting onâ and âunder.â This spatial focus makes scene graphs
+would include nodes for “person,” “bench,” and “tree,” with edges
+like “sitting on” and “under.” This spatial focus makes scene graphs
 valuable for tasks requiring detailed spatial reasoning and scene analysis.
 
 You can export scene graphs alongside caption outputs to
@@ -152,7 +152,7 @@ To launch scene caption generation with the UI panel:
 
    The stage will be loaded in the stage view. If prompted to enable script execution, click **Yes**.
 5. Enter the LLM model credentials in the [API key](https://docs.nvidia.com/nim/large-language-models/latest/getting-started.html#generate-an-api-key) field of the **Model Settings** panel; click **Accept** to continue.
-6. Under the **Caption Settings** panel, enter the desired caption level â **Brief Caption** for short and **Full Caption** for a more elaborate description. Enter the camera prim path in the **Input Camera Prim Path** field.
+6. Under the **Caption Settings** panel, enter the desired caption level – **Brief Caption** for short and **Full Caption** for a more elaborate description. Enter the camera prim path in the **Input Camera Prim Path** field.
    Input the **Output Path** to specify where to save the generated captions, the associated scene graphs, and metadata. Ensure the output path is a valid directory. Click **Generate Scene Graph**.
 
    Note
@@ -161,8 +161,8 @@ To launch scene caption generation with the UI panel:
    If the service associated with the default model is not reachable, a different model can be selected from the models available on
    the [NVIDIA NIM API reference page](https://docs.api.nvidia.com/nim/reference/llm-apis). Enter the model identifier in the **Model Name** field of the **Model Settings** panel.
 
-   Itâs also possible to obtain NVIDIA NIMs and host them locally.
-   Visit [NVIDIAâs NIM page](https://build.nvidia.com) for more details.
+   It’s also possible to obtain NVIDIA NIMs and host them locally.
+   Visit [NVIDIA’s NIM page](https://build.nvidia.com) for more details.
 7. The scene graph, the caption, and the corresponding images are generated and saved in the output directory.
 
 Note
@@ -342,7 +342,7 @@ scene content and context. This will be saved in the output file
 qa\_caption
 
 If True, the extension will generate QA captions for the scene. The QA captions are questions and answers
-that test the modelâs understanding of the scene.
+that test the model’s understanding of the scene.
 
 This will be saved in the output file
 `<output_path>/<Camera Prim Name>/Captions/scene_graph_caption.json`.
@@ -371,7 +371,7 @@ in IRA, you can generate captions for each frame at the same time.
 
 To enable IRC in IRA:
 
-1. In the IRA configuration file, use IRCâs `SceneGraphWriter` to write the captions to the output directory.
+1. In the IRA configuration file, use IRC’s `SceneGraphWriter` to write the captions to the output directory.
 
    Example:
 
@@ -484,7 +484,7 @@ uniquely domain randomized. With the IRC extension enabled in IRC, you can gener
 
 To enable IRC in IRO:
 
-1. In the IRO configuration file, use IRCâs `CombinedIROSceneGraphWriter` to write the IRO output together with captions
+1. In the IRO configuration file, use IRC’s `CombinedIROSceneGraphWriter` to write the IRO output together with captions
    to the output directory.
 
    Example:

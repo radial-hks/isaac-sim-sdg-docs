@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "Tutorial 05: Joint Drive Tuning"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "6d53378dec1c1376"
-fetched: "2026-06-21T13:05:45"
+checksum: "ff0c977488bbdc22"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:05:45"
 
 # Tutorial 5: Joint Drive Tuning
 
-Collision pairs are filtered (Tutorial 4). The next question: **with how much torque and velocity can each joint move?** If the simulated hand can apply more torque than the real hardware, or spin faster than the real motors, your grasps and controllers will behave differently in sim than on the robot. Conversely, limits that are too low make the hand feel weak or sluggish. In this tutorial we set the **drive limits**âmax torque and max velocityâfrom the Inspire Hand specs. Stiffness and damping (how the joint *responds* to position commands) are tuned in Tutorial 6.
+Collision pairs are filtered (Tutorial 4). The next question: **with how much torque and velocity can each joint move?** If the simulated hand can apply more torque than the real hardware, or spin faster than the real motors, your grasps and controllers will behave differently in sim than on the robot. Conversely, limits that are too low make the hand feel weak or sluggish. In this tutorial we set the **drive limits**—max torque and max velocity—from the Inspire Hand specs. Stiffness and damping (how the joint *responds* to position commands) are tuned in Tutorial 6.
 
 ## Learning Objectives
 
@@ -36,11 +36,11 @@ Inspire Hand specs used in this tutorial (palm fingers): Max palm finger grip fo
 
 In the Inspire Hand model, the fingers use PhysX **mimic joints** to replicate the underactuated mechanism found in the real robotic hand. In this approach, a single motor drives multiple joints using a fixed gear ratio, allowing for coordinated finger movement and more realistic simulation of the physical hand.
 
-A mimic joint links two degrees of freedom, establishing a relationship (via gear ratio and offset) so that when one joint moves, the other follows accordingly. These mimic joints can be either **compliant** (allowing some âsoftnessâ or flexibility, like a spring) or **non-compliant** (rigidly enforcing the kinematic constraint). For this tutorial, weâll configure **non-compliant** mimic joints to initially tune the driven joints. (You can add compliance for âsofterâ mimic behavior later, if needed.)
+A mimic joint links two degrees of freedom, establishing a relationship (via gear ratio and offset) so that when one joint moves, the other follows accordingly. These mimic joints can be either **compliant** (allowing some “softness” or flexibility, like a spring) or **non-compliant** (rigidly enforcing the kinematic constraint). For this tutorial, we’ll configure **non-compliant** mimic joints to initially tune the driven joints. (You can add compliance for “softer” mimic behavior later, if needed.)
 
 Follow these steps to configure the mimic joints:
 
-1. Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim if you havenât already.
+1. Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim if you haven’t already.
 2. Mimic joints are a PhysX-specific feature, so set your authoring layer to **physx.usda**. In the **Layer** tab, click the **Insert Sublayer** icon if the sublayer is not already there.
 
 1. In the file dialog, navigate to `/path/to/Inspire/module_3_end-checkpoint_1/payloads/Physics/`, select `physx.usda`, and click **Open**.
@@ -70,7 +70,7 @@ After these steps, the mimic joints in your Inspire Hand model will behave as a 
 
 ## Module 4.2: Configure Max Joint Torque
 
-The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturerâs grip force and the distance from joint to fingertip so the sim matches the real handâs capability.
+The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturer’s grip force and the distance from joint to fingertip so the sim matches the real hand’s capability.
 
 **Torque = Force Ã Distance**
 
@@ -95,10 +95,10 @@ You should now see the **physics.usda** layer highlighted green, indicating it i
 
 ## Module 4.3: Apply Max Velocity
 
-Maximum joint velocity limits how fast the joint can move. Without a cap, the solver can command velocities that no real motor could achieve, leading to unrealistic motion or numerical instability. We set the limit from the Inspire Handâs palm finger bend speed (260 deg/s) so the simulated hand moves within the same envelope as the hardware.
+Maximum joint velocity limits how fast the joint can move. Without a cap, the solver can command velocities that no real motor could achieve, leading to unrealistic motion or numerical instability. We set the limit from the Inspire Hand’s palm finger bend speed (260 deg/s) so the simulated hand moves within the same envelope as the hardware.
 
-* **Realism** â Simulated motion matches real hardware.
-* **Stability** â Avoids velocity spikes that cause instability.
+* **Realism** — Simulated motion matches real hardware.
+* **Stability** — Avoids velocity spikes that cause instability.
 
 1. Maximum joint velocity is a PhysX-specific attribute, so author on the **physx.usda** layer. In the **Layer** tab, **Right-click on physx.usda** and select **Set Authoring Layer**.
 
@@ -117,8 +117,8 @@ A checkpoint file with drive limits for all 6 joints derived using the same proc
 
 This tutorial covered:
 
-* Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding complianceâsetting you up for clean gain tuning in Tutorial 6.
-* **Computing and setting max joint torque** from Inspire Hand specs (force Ã distance, then Ã 2 for the mimic chain) so the handâs grip capability matches the real robot.
+* Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding compliance—setting you up for clean gain tuning in Tutorial 6.
+* **Computing and setting max joint torque** from Inspire Hand specs (force Ã distance, then Ã 2 for the mimic chain) so the hand’s grip capability matches the real robot.
 * Setting **max joint velocity** from specs (260 deg/s) so motion is realistic and the simulation stays stable.
 
 ### Next Steps

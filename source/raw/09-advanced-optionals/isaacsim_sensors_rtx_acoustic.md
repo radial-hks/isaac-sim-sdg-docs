@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "RTX Acoustic"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "47a62ef0f4f74b39"
-fetched: "2026-06-21T13:05:44"
+checksum: "fd96103f122ddf41"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -30,13 +30,13 @@ see the [Omniverse Acoustic Extension documentation](https://docs.omniverse.nvid
 
 Note
 
-Earlier releases referred to this sensor as the âUltrasonicâ sensor (or âUSSâ). The Omniverse plugin
-has been renamed to âAcousticâ; if you previously used `omni.kit.commands.execute("IsaacSensorCreateRtxUltrasonic", ...)`
+Earlier releases referred to this sensor as the “Ultrasonic” sensor (or “USS”). The Omniverse plugin
+has been renamed to “Acoustic”; if you previously used `omni.kit.commands.execute("IsaacSensorCreateRtxUltrasonic", ...)`
 in `isaacsim.sensors.rtx`, see [RTX Sensors](../migration_guides/isaac_sim_6_0/sensors_rtx_to_experimental_rtx.html#isaacsim-sensors-rtx-migration) for the migration to
 `Acoustic` / `AcousticSensor`.
 
 Unlike Lidar and Radar sensors, acoustic sensors do not produce a 3D point cloud. Instead, they produce
-**signal ways** â amplitude samples for each transmitterâreceiver pair on each channel. The
+**signal ways** — amplitude samples for each transmitter–receiver pair on each channel. The
 `GenericModelOutput` element fields have the following meaning for acoustic sensors:
 
 | Field | Meaning |
@@ -122,12 +122,12 @@ Note
 
 `Acoustic.create()` accepts `config` (from
 `isaacsim.sensors.experimental.rtx.SUPPORTED_ACOUSTIC_CONFIGS`) or `usd_path` (mutually
-exclusive), plus `attributes` for prim-attribute overrides â including the multi-apply
+exclusive), plus `attributes` for prim-attribute overrides — including the multi-apply
 `OmniSensorWpmAcousticSensorMountAPI` / `OmniSensorWpmAcousticRxGroupAPI` /
-`OmniSensorWpmAcousticFiringSeqAPI` schema attributes â and the plural transform arrays
+`OmniSensorWpmAcousticFiringSeqAPI` schema attributes — and the plural transform arrays
 (`positions=[[...]]` / `translations=[[...]]` / `orientations=[[...]]` / `scales=[[...]]`;
 `N=1`). Additional USD schemas via `schemas=[...]` are accepted by the `Acoustic(...)`
-constructor â pass them through `Acoustic(...)` directly if you need them, since
+constructor — pass them through `Acoustic(...)` directly if you need them, since
 `Acoustic.create()` does not currently forward `schemas`.
 
 ### Tick Rate

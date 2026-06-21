@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_structu
 title: "Asset Structure"
 section: "概念"
 module: "01-concepts"
-checksum: "cb6c88a26bf8cfe1"
-fetched: "2026-06-21T12:48:03"
+checksum: "fd73980bc4721556"
+fetched: "2026-06-21T13:39:50"
 ---
 
 * Asset Structure
@@ -54,7 +54,7 @@ Examples of such features are:
 ## Transformation
 
 This stage prepares the asset for simulation by reorganizing and optimizing it. This transformation is necessary when the
-source asset contains nested rigid bodies or a complex structure that doesnât meet the requirements of simulation.
+source asset contains nested rigid bodies or a complex structure that doesn’t meet the requirements of simulation.
 The structure must be flattened with rigid bodies organized into a basic list, and meshes must be simplified to minimize their total count.
 The transformation process includes:
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Chat IRO"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "c940f6899c91a863"
-fetched: "2026-06-21T11:55:30"
+checksum: "6daa069295f0cf18"
+fetched: "2026-06-21T13:40:26"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -510,7 +510,7 @@ When enabled, RAG allows Chat IRO to:
 Note
 
 Enabling crossâencoder reranking typically improves retrieval accuracy by
-10â30% at the cost of additional latency (around 100â200 ms per request).
+10–30% at the cost of additional latency (around 100–200 ms per request).
 For simple prompts or lowâlatency environments, keep
 `enable_rag_reranking = false`.
 

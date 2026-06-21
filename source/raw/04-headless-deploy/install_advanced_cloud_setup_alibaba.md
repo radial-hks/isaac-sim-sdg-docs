@@ -4,7 +4,7 @@ title: "Cloud: Alibaba"
 section: "云厂商"
 module: "04-headless-deploy"
 checksum: "b1e8e8a7f33ca657"
-fetched: "2026-06-21T12:48:13"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)

@@ -4,7 +4,7 @@ title: "Cloud Install"
 section: "云端"
 module: "04-headless-deploy"
 checksum: "55345a2afa51104d"
-fetched: "2026-06-21T12:48:13"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)

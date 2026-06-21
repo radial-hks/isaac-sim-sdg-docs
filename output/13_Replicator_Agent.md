@@ -2,7 +2,7 @@
 
 > Replicator Agent 配置 + Behavior Tree Gen + 自定义 Writer
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 14
 
 ---
@@ -82,7 +82,7 @@ The core functionality is provided by a set of application-level extensions and 
 | Object Simulation and SDG | `isaacsim.replicator.object.core` | The **Isaac Sim Replicator Object (IRO)** extension allows you to programmatically create and place objects at scale. It can procedurally generate unique shapes, automatically stack racks, and pack boxes before applying physics to settle the scene realistically. |
 | Physical Space Event Generation | `isaacsim.replicator.incident.core` | The **Isaac Sim Replicator Incident (IRI)** extension generates realistic, configurable physical events. It orchestrates simulations using Omniverse Flow and PhysX to create scenarios ranging from spills and toppling boxes to complex fires with smoke, all with rich annotation and event metadata. |
 | VLM Scene Captioning | `isaacsim.replicator.caption.core` | The **Isaac Sim Replicator Caption (IRC)** extension bridges the gap between vision and language. It analyzes the scene to build a scene graph (objects and spatial relationships) and uses an LLM to generate rich, human-readable descriptions (global and brief captions) and visualized scene graphs. |
-| RTX Sensor Placement | `isaacsim.sensors.rtx.placement` | The **RTX Sensor Placement (ISP)** extension automates camera positioning. It algorithmically places sensors to maximize visual coverage, focus on points of interest, control occlusion, or create Birdâs-Eye-View groups, while extracting intrinsic and extrinsic calibration data. |
+| RTX Sensor Placement | `isaacsim.sensors.rtx.placement` | The **RTX Sensor Placement (ISP)** extension automates camera positioning. It algorithmically places sensors to maximize visual coverage, focus on points of interest, control occlusion, or create Bird’s-Eye-View groups, while extracting intrinsic and extrinsic calibration data. |
 | RTX Sensor Calibration | `isaacsim.sensors.rtx.calibration` | The **RTX Sensor Calibration (ISC)** extension generates camera calibration data for deployed cameras in the scene. |
 | Behavior Tree Generation | `omni.ai.behavior_tree_gen.core` and `omni.ai.behavior_tree_gen.bridge` | The **Behavior Tree Generation** workflow converts natural-language scenarios into behavior tree outputs. `omni.ai.behavior_tree_gen.core` provides the reusable pipeline and scripted API, while `omni.ai.behavior_tree_gen.bridge` provides the Kit UI, example loaders, and interactive workflow orchestration. |
 | Animated Robot Controller | `isaacsim.anim.robot.core` | The **Animated Robot Controller (IAR)** extension enables realistic robot animation by playing back captured simulation motion data. It bridges physics-based simulation and animation, allowing for precise robot movements without the overhead of real-time physics. |
@@ -146,7 +146,7 @@ This framework simplifies simulation customization with features like:
 
 * **Codeless Interaction**: Configurations are expressed in a YAML file. No code is needed to get synthetic data.
 * **Simplified Setup**: Included in Isaac Sim, it offers both GUI and scripting interfaces for interactive and headless workflows.
-* **High-Fidelity Data**: Leverages Omniverseâs SimReady assets, physics, and rendering to produce realistic imagery and accurate annotations essential for AI training.
+* **High-Fidelity Data**: Leverages Omniverse’s SimReady assets, physics, and rendering to produce realistic imagery and accurate annotations essential for AI training.
 * **Seamless Integration**: As part of Kit extensions, it works natively with `omni.anim.behavior`, `omni.anim.navigation`, and `omni.replicator.core`.
 
 Before enabling this extension, read [What Is Isaac Sim?](../index.html#isaac-sim-app-overview) to learn about Isaac Sim and follow [Installation](../installation/index.html) to install Isaac Sim.
@@ -366,16 +366,16 @@ Existing 0.x config files and scripts will not work without modification.
 
 Key reasons for the redesign:
 
-* **Simpler workflow** â The multi-step process of generating, saving, and
+* **Simpler workflow** – The multi-step process of generating, saving, and
   loading external command files is gone. Behaviors are now defined inline in
   the YAML config, reducing setup to two clicks in the UI.
-* **Greater flexibility** â Named groups let you define multiple character,
+* **Greater flexibility** – Named groups let you define multiple character,
   robot, and sensor populations with independent settings in a single config.
   Multiple data writers can run concurrently with per-writer timing and sensor
   selection.
-* **Stronger validation** â Pydantic v2 models validate configs on load and
+* **Stronger validation** – Pydantic v2 models validate configs on load and
   surface clear error messages, catching mistakes before the simulation starts.
-* **USD-native architecture** â Actor configurations are persisted as USD
+* **USD-native architecture** – Actor configurations are persisted as USD
   schemas and prims, making them inspectable and editable directly in the
   stage.
 
@@ -394,7 +394,7 @@ For a practical walkthrough of using the CustomWriter to stream RTSP video from 
 
 Actor behaviors are achieved by OMP, IRA, and IAR together.
 
-Actors perform a âroutine-triggerâ behavior loop at play. This pattern is configurable by the behaviors and triggers assigned to the actor.
+Actors perform a “routine-trigger” behavior loop at play. This pattern is configurable by the behaviors and triggers assigned to the actor.
 
 ### The Routine Trigger Loop
 
@@ -417,7 +417,7 @@ The actor USD API schema defines basic information of the actor:
 * seed
 * a routine reference slot and a trigger reference slot
 
-At play, the name, group, and seed will be combined and hashed into a single seed as `actor global seed`. This seed will be used for all the ârandomnessâ of the actor, including random routine picking for the actor itself and the picking within each behavior such as picking a speed from speed range.
+At play, the name, group, and seed will be combined and hashed into a single seed as `actor global seed`. This seed will be used for all the “randomness” of the actor, including random routine picking for the actor itself and the picking within each behavior such as picking a speed from speed range.
 This also means the same `actor global seed` displays the same result if other settings and the environment do not change.
 
 Each type of actor behavior is represented by a USD Prim type. It defines the configuration of the behavior:
@@ -464,7 +464,7 @@ Behavior tree mode is an alternative to the routine-trigger system. Each charact
 
 **Workflow**
 
-1. Author a behavior tree using `omni.behavior.tree.ui` and save it as a JSON file. The tree references node libraries `omni.behavior.tree.core` and `omni.anim.behavior.tree` for its action, composite, and modifier nodes. Refer to the [Behavior Treeâs User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html) for how to author a behavior tree.
+1. Author a behavior tree using `omni.behavior.tree.ui` and save it as a JSON file. The tree references node libraries `omni.behavior.tree.core` and `omni.anim.behavior.tree` for its action, composite, and modifier nodes. Refer to the [Behavior Tree’s User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html) for how to author a behavior tree.
 2. In the IRA configuration YAML, create a character group with a `behavior_tree` field pointing to the JSON file. Optionally provide an `overrides` field to assign node parameters for different character groups without modifying the tree file.
 
    Warning
@@ -476,7 +476,7 @@ Some sample config files with behavior tree character groups are provided in the
 
 Warning
 
-Behavior tree characters set up by IRA still have the `IRACharacterAPI` schema applied, but this is only used for data-generation identification (name, group, semantic labels, and related fields). The characterâs behavior is entirely controlled by the behavior tree through `omni.behavior.tree.core` (OBT). IRA-level settings such as `seed` have no effect on behavior-tree characters.
+Behavior tree characters set up by IRA still have the `IRACharacterAPI` schema applied, but this is only used for data-generation identification (name, group, semantic labels, and related fields). The character’s behavior is entirely controlled by the behavior tree through `omni.behavior.tree.core` (OBT). IRA-level settings such as `seed` have no effect on behavior-tree characters.
 
 ## Terminology
 
@@ -494,7 +494,7 @@ A `.yaml` file that contains configuration data that defines the key components 
 
 Actor
 
-Actors are controlled by the respective controllers (`omni.behavior.tree` and `isaacsim.anim.robot`) and perform actions in the simulation. The extension supports human characters and robots (Nova Carter, iw.hub) as actors. The terms âactorâ and âagentâ are used interchangeably in this documentation.
+Actors are controlled by the respective controllers (`omni.behavior.tree` and `isaacsim.anim.robot`) and perform actions in the simulation. The extension supports human characters and robots (Nova Carter, iw.hub) as actors. The terms “actor” and “agent” are used interchangeably in this documentation.
 
 Seed
 
@@ -634,8 +634,8 @@ where nodes represent objects and edges denote spatial relationships
 between them. It captures how elements are arranged in space,
 such as relative positions and orientations. For example, in
 an image of a person sitting on a bench under a tree, the graph
-would include nodes for âperson,â âbench,â and âtree,â with edges
-like âsitting onâ and âunder.â This spatial focus makes scene graphs
+would include nodes for “person,” “bench,” and “tree,” with edges
+like “sitting on” and “under.” This spatial focus makes scene graphs
 valuable for tasks requiring detailed spatial reasoning and scene analysis.
 
 You can export scene graphs alongside caption outputs to
@@ -675,7 +675,7 @@ To launch scene caption generation with the UI panel:
 
    The stage will be loaded in the stage view. If prompted to enable script execution, click **Yes**.
 5. Enter the LLM model credentials in the [API key](https://docs.nvidia.com/nim/large-language-models/latest/getting-started.html#generate-an-api-key) field of the **Model Settings** panel; click **Accept** to continue.
-6. Under the **Caption Settings** panel, enter the desired caption level â **Brief Caption** for short and **Full Caption** for a more elaborate description. Enter the camera prim path in the **Input Camera Prim Path** field.
+6. Under the **Caption Settings** panel, enter the desired caption level – **Brief Caption** for short and **Full Caption** for a more elaborate description. Enter the camera prim path in the **Input Camera Prim Path** field.
    Input the **Output Path** to specify where to save the generated captions, the associated scene graphs, and metadata. Ensure the output path is a valid directory. Click **Generate Scene Graph**.
 
    Note
@@ -684,8 +684,8 @@ To launch scene caption generation with the UI panel:
    If the service associated with the default model is not reachable, a different model can be selected from the models available on
    the [NVIDIA NIM API reference page](https://docs.api.nvidia.com/nim/reference/llm-apis). Enter the model identifier in the **Model Name** field of the **Model Settings** panel.
 
-   Itâs also possible to obtain NVIDIA NIMs and host them locally.
-   Visit [NVIDIAâs NIM page](https://build.nvidia.com) for more details.
+   It’s also possible to obtain NVIDIA NIMs and host them locally.
+   Visit [NVIDIA’s NIM page](https://build.nvidia.com) for more details.
 7. The scene graph, the caption, and the corresponding images are generated and saved in the output directory.
 
 Note
@@ -865,7 +865,7 @@ scene content and context. This will be saved in the output file
 qa\_caption
 
 If True, the extension will generate QA captions for the scene. The QA captions are questions and answers
-that test the modelâs understanding of the scene.
+that test the model’s understanding of the scene.
 
 This will be saved in the output file
 `<output_path>/<Camera Prim Name>/Captions/scene_graph_caption.json`.
@@ -894,7 +894,7 @@ in IRA, you can generate captions for each frame at the same time.
 
 To enable IRC in IRA:
 
-1. In the IRA configuration file, use IRCâs `SceneGraphWriter` to write the captions to the output directory.
+1. In the IRA configuration file, use IRC’s `SceneGraphWriter` to write the captions to the output directory.
 
    Example:
 
@@ -1007,7 +1007,7 @@ uniquely domain randomized. With the IRC extension enabled in IRC, you can gener
 
 To enable IRC in IRO:
 
-1. In the IRO configuration file, use IRCâs `CombinedIROSceneGraphWriter` to write the IRO output together with captions
+1. In the IRO configuration file, use IRC’s `CombinedIROSceneGraphWriter` to write the IRO output together with captions
    to the output directory.
 
    Example:
@@ -1099,9 +1099,9 @@ To use IRI in a scene, follow this workflow:
 
 1. Tag items in the scene with an appropriate event type using the property dropdown menu **+ Add > Incident
 Tagging**.
-Items can be tagged, for instance, as âloose itemsâ that can be knocked
-over in a topple event, âspillable itemsâ
-that can leak or spill liquid in a spill event, or âflammable itemsâ that can catch fire in a fire event.
+Items can be tagged, for instance, as ‘loose items’ that can be knocked
+over in a topple event, ‘spillable items’
+that can leak or spill liquid in a spill event, or ‘flammable items’ that can catch fire in a fire event.
 
 2. Save the scene to a usd file to commit that tagging information if you plan on closing and re-opening the scene.
 A sample scene with tags already applied is provided in the Content Browser
@@ -1115,12 +1115,12 @@ Note
 
 3. (IRI standalone) Set up an event configuration file which defines what events will occur in the scene by using the **Event Config File** window
 located in the menu **Tools > Action and Event Data Generation > Event Config File**.
-This configuration can also be saved and loaded later, though it is not saved into the sceneâs usd file and must be saved and loaded separately through
+This configuration can also be saved and loaded later, though it is not saved into the scene’s usd file and must be saved and loaded separately through
 the **Event Config File** panel.
 After configuring the events or loading an event config file, press **Set Up Events** to load the demons that will trigger the events at the specified times.
 
 4. Run the simulation with the play button to preview the scene. To generate SDG data you can also use the **Record Events** button in the **Event Config File** window.
-Event items are given semantic labels as the simulation runs to support replicatorâs SDG collection. A separate incident report is also written
+Event items are given semantic labels as the simulation runs to support replicator’s SDG collection. A separate incident report is also written
 as JSON (by default `incidents_report.json` in the output directory) to record event details. Refer to [Incident Report JSON](#iri-incident-report-json).
 
 Note
@@ -1191,19 +1191,19 @@ on the type of tag the loose item was given.
 
 #### Random Direction
 
-Items tagged as ârandom directionâ will have a force applied in a random direction.
+Items tagged as ‘random direction’ will have a force applied in a random direction.
 
 #### NavMesh Direction
 
-Items tagged as ânavmesh directionâ are expected to be outside of the walkable area of
+Items tagged as ‘navmesh direction’ are expected to be outside of the walkable area of
 the agents in the scene. A force will be applied in the direction of the nearest navmesh edge,
 useful for items on a warehouse shelf, or on a table.
 
 #### Closest Waypoint Direction
 
-The UI allows you to add âWaypointsâ to the scene. Waypoints are modeled as boxes that can be
+The UI allows you to add ‘Waypoints’ to the scene. Waypoints are modeled as boxes that can be
 placed anywhere in the scene and resized to outline walking paths or aisles.
-Items tagged as âclosest waypoint directionâ will have a force applied in the direction of the nearest point on the nearest waypoint.
+Items tagged as ‘closest waypoint direction’ will have a force applied in the direction of the nearest point on the nearest waypoint.
 
 #### Create Waypoint Prim
 
@@ -1215,13 +1215,13 @@ more complex structures like walking paths.
 ### Flammable Items
 
 Flammable items are any items that can catch fire. When a flammable item is tagged as such,
-it can be a target for a pyro event. The itemâs prim must have a visible mesh under itâs hierarchy to act as the fuel source.
+it can be a target for a pyro event. The item’s prim must have a visible mesh under it’s hierarchy to act as the fuel source.
 
 ### Spillable Items
 
 Spillable items are any items that can leak or spill liquid. When a spillable item is tagged as such,
-it can be a target for a spill event. Itemâs currently leak by instantiating a flat liquid surface onto
-prims in the scene marked as âspillable areaâ and which reside underneath the spillable item.
+it can be a target for a spill event. Item’s currently leak by instantiating a flat liquid surface onto
+prims in the scene marked as ‘spillable area’ and which reside underneath the spillable item.
 
 #### Spillable Area Floor
 
@@ -1230,7 +1230,7 @@ instantiated on a prim below the spilling item with this tag. If no such prim ex
 instantiated on the ground at height 0.0.
 
 **Untagging**:
-Tagged items may be untagged in the Properties panel and removing any properties in the **Raw Usd Properties** section that begin with âisaacsim\_replicator\_incident\_attr:â.
+Tagged items may be untagged in the Properties panel and removing any properties in the **Raw Usd Properties** section that begin with ‘isaacsim\_replicator\_incident\_attr:’.
 
 ## Event Configuration in IRI UI
 
@@ -1310,7 +1310,7 @@ A topple event has the following required fields:
         time: 1.0
 ```
 
-Toppled items in the scene will be given the semantic label âincident\_toppled\_itemâ.
+Toppled items in the scene will be given the semantic label ‘incident\_toppled\_item’.
 
 ### Fire Event
 
@@ -1330,7 +1330,7 @@ A fire event has the following required fields:
         time: 2.0
 ```
 
-Flammable items in the scene will be given the semantic label âincident\_flaming\_itemâ. The flame itself will require a custom replicator writer to be written.
+Flammable items in the scene will be given the semantic label ‘incident\_flaming\_item’. The flame itself will require a custom replicator writer to be written.
 
 The YAML `trigger` above sets the fire start time in seconds on the trigger; the incident report JSON records that trigger under `trigger_data` and adds fire-specific `simulation_data` (`start_time` in frames and `fire_prim`). Refer to [Incident Report JSON](#iri-incident-report-json).
 
@@ -1356,8 +1356,8 @@ A spill event has the following required fields:
         time: 1.5
 ```
 
-Leaking items in the scene will be given the semantic label âincident\_leaking\_itemâ. The liquid itself is given a separate semantic label,
-âincident\_liquid\_spillâ.
+Leaking items in the scene will be given the semantic label ‘incident\_leaking\_item’. The liquid itself is given a separate semantic label,
+‘incident\_liquid\_spill’.
 
 ## Triggers
 
@@ -1394,7 +1394,7 @@ trigger:
 
 ## SDG Collection
 
-SDG collection is handled by the replicatorâs SDG writers based on the semantic labels of the event items. The structured incident
+SDG collection is handled by the replicator’s SDG writers based on the semantic labels of the event items. The structured incident
 metadata file written when you record events is **JSON** (`incidents_report.json` by default; refer to [Incident Report JSON](#iri-incident-report-json)).
 It is **not** a YAML event log. The event configuration you save and load in Event Config File remains YAML and is separate from the incident report.
 
@@ -1533,7 +1533,7 @@ spill_event_manager.generate_spill_event(
 ```
 
 You can now press the play button to observe the simulated incidents in a windowed mode or
-use Isaacâs `SimulationApp` API to step through the scene frames if running the scene using
+use Isaac’s `SimulationApp` API to step through the scene frames if running the scene using
 Python in a headless mode.
 
 On this page
@@ -1597,7 +1597,7 @@ Before diving into detailed configuration, review the general workflow and key c
 * **Behaviors**: Atomic actions an actor can perform, such as `wander`, `patrol`, or `idle`.
 * **Routines**: A collection of behaviors assigned to an actor group. Actors randomly select behaviors from this pool based on assigned weights.
 * **Triggers**: Conditional logic that interrupts normal routines. When a condition is met (for example, a specific time or event), the trigger executes its defined list of behaviors in sequence. Once the trigger sequence is complete, the agent resumes its standard routine until another trigger activates.
-* **Behavior Tree (experimental)**: An alternative to the routine-trigger system. A character or robot group may specify a `behavior_tree` JSON asset instead of `routines` / `triggers`; all of the groupâs logic is then authored inside the tree. See [Behavior Tree Character Group (Experimental)](#ira-bt-character-group) and [Behavior Tree Robot Group (Experimental)](#ira-bt-robot-group).
+* **Behavior Tree (experimental)**: An alternative to the routine-trigger system. A character or robot group may specify a `behavior_tree` JSON asset instead of `routines` / `triggers`; all of the group’s logic is then authored inside the tree. See [Behavior Tree Character Group (Experimental)](#ira-bt-character-group) and [Behavior Tree Robot Group (Experimental)](#ira-bt-robot-group).
 * **Sensors**: Cameras placed in the scene to observe the simulation.
 * **Replicator**: The system responsible for rendering frames and writing annotated data (ground truth) to disk or cloud storage.
 
@@ -1619,13 +1619,13 @@ isaacsim.replicator.agent:
 
 ### Root Parameters
 
-* **version** (required): Semantic version of the configuration schema (for example, â1.0.0â).
+* **version** (required): Semantic version of the configuration schema (for example, “1.0.0”).
 * **environment** (required): Defines the simulation world.
 * **seed** (optional): A 32-bit unsigned integer (0..4,294,967,295).
   - Used to initialize random number generators for deterministic simulations (for example, character spawn locations, routine variations).
   - If omitted, a seed is generated based on the current system time.
 * **simulation\_duration** (optional): The total run time of the simulation in seconds (must be >= 0).
-  - The simulation runs with the timelineâs per-tick `dt` set to `1/30 s` and the applicationâs loop rate-limited to 30 Hz, giving an effective 30 FPS playback rate.
+  - The simulation runs with the timeline’s per-tick `dt` set to `1/30 s` and the application’s loop rate-limited to 30 Hz, giving an effective 30 FPS playback rate.
   - Defaults to `60.0` seconds.
 * **character** (optional): Configures human agents (appearance, behaviors like wander/patrol, and triggers).
 * **robot** (optional): Configures robot agents (config path, behaviors/commands, data collection).
@@ -1782,7 +1782,7 @@ Tip
 
 **Authoring a specific sequence of actions**
 
-Routines select behaviors randomly based on weights, so they are not suited for deterministic sequences. If you need actors to perform actions in a specific order (for example, walk to point A, idle for five seconds, then walk to point B), use a **trigger** instead. A triggerâs `behavior` list is always executed in order, making it the right tool for scripted sequences. Use a `time_trigger` with `time: 0` to start the sequence immediately when the simulation begins.
+Routines select behaviors randomly based on weights, so they are not suited for deterministic sequences. If you need actors to perform actions in a specific order (for example, walk to point A, idle for five seconds, then walk to point B), use a **trigger** instead. A trigger’s `behavior` list is always executed in order, making it the right tool for scripted sequences. Use a `time_trigger` with `time: 0` to start the sequence immediately when the simulation begins.
 
 **Trigger Types:**
 
@@ -1881,7 +1881,7 @@ Note
 **Behavior-Tree-Specific Parameters:**
 
 * `behavior_tree` (required): Path or URL to a JSON behavior tree asset. Supports Isaac asset-root-relative paths (for example, `Isaac/...`), absolute filesystem paths, and paths relative to the config file directory. The tree must reference node libraries such as `omni.behavior.tree.core` and `omni.anim.behavior.tree`.
-* `overrides` (optional): A YAML multi-line string containing JSON that overrides node port values at runtime without modifying the original tree file. The JSON follows the `omni.behavior.tree` override schema with `schemaVersion` and `instanceOverrides` keys. Refer to the [Behavior Treeâs User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html#instance-overrides) for more details on instance overrides.
+* `overrides` (optional): A YAML multi-line string containing JSON that overrides node port values at runtime without modifying the original tree file. The JSON follows the `omni.behavior.tree` override schema with `schemaVersion` and `instanceOverrides` keys. Refer to the [Behavior Tree’s User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html#instance-overrides) for more details on instance overrides.
 
 **Shared Parameters (same as IRA character groups):**
 
@@ -1963,7 +1963,7 @@ Defines robot agents.
 * `config_file_path` (required): Path to the robot agent YAML configuration file for this robot type. Supports absolute paths or paths relative to the built-in sample config folder (`data/sample_configs/` within the `isaacsim.anim.robot.core` extension).
 * `spawn_areas` (optional): NavMesh areas for spawning.
 * `agent_radius` (optional): Radius in meters used for NavMesh queries. Must be > 0 when set. If omitted, defaults to `0.5` at runtime.
-* `write_data` (optional): If `true`, enables data collection from the robotâs onboard cameras.
+* `write_data` (optional): If `true`, enables data collection from the robot’s onboard cameras.
 * `camera_prim_paths` (optional): List of specific camera prims on the robot to use. If empty and `write_data` is true, *all* cameras on the robot are used. Requires `write_data` to be `true`.
 * `semantic_labels` (optional): Default `[["class", "robot"]]`.
 * `semantic_label_path` (optional): Relative path under the robot prim to apply semantics.
@@ -2044,7 +2044,7 @@ Places cameras to look at specific targets.
 
 * `targets` (optional): List of target prim paths (for example, `/World/Characters`) or identifiers.
 * `raycast_density` (optional): Density of rays used to find valid camera positions. Higher values are more precise but slower.
-* `yaw_range` (optional): [min, max] degrees (0..360) for the cameraâs rotation around the target.
+* `yaw_range` (optional): [min, max] degrees (0..360) for the camera’s rotation around the target.
 * `occlusion_threshold` (optional): Threshold for filtering occluded views (-1 to disable).
 
 **2. Placement Strategy: maximum\_coverage**
@@ -2128,11 +2128,11 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
 
 1. **IRABasicWriter**:
 
-   The foundational writer for Agent simulations, derived from Replicatorâs `BasicWriter`. It organizes output into separate folders per annotator and consolidates object and agent metadata into `object_detection.json`.
+   The foundational writer for Agent simulations, derived from Replicator’s `BasicWriter`. It organizes output into separate folders per annotator and consolidates object and agent metadata into `object_detection.json`.
 
    * **Key Features**:
 
-     + **Folder Structure**: Outputs each annotatorâs data into separate folders for better readability.
+     + **Folder Structure**: Outputs each annotator’s data into separate folders for better readability.
      + **Object Detection**: Consolidates bounding box and skeleton data into a single file named `object_detection.json`.
      + **Default Semantic Filter**: `class:character|robot;id:*` (captures characters and robots).
      + **Action data output**: When object detection is enabled (object\_info or agent\_info annotators are on), the action data for each IRA actor will be included as well.
@@ -2165,7 +2165,7 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
      + `world_moving_direction`: Actor moving direction (vec3) in world space. `null` means actor is not moving.
      + `world_facing_direction`: Actor facing direction (vec3) in world space.
      + `speed`: The actor moving speed.
-     + `current_task_name`: Actorâs current action name (not behavior name).
+     + `current_task_name`: Actor’s current action name (not behavior name).
      + `asset_url`: The asset URL of the actor.
 
    **IRABasicWriter example:**
@@ -2186,7 +2186,7 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
    ```
 2. **CosmosIRAWriter**:
 
-   * Adds âCosmosâ Specific post-processing.
+   * Adds “Cosmos” Specific post-processing.
    * `shaded_seg`: Shaded segmentation visualization.
    * `canny_edge`: Canny edge detection filter (with `canny_threshold_low/high`).
 3. **SceneGraphWriter**:
@@ -2208,20 +2208,20 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
        - **Filesystem path** to a `.py` file (for example, `"<path/to/your_writers.py>"`): loads the file and registers all `Writer` subclasses defined in it.
 
        Use `writer_name` to select the specific writer from the discovered set.
-   * **Additional parameters**: All other key-value pairs in the YAML block are passed directly to the target writerâs `initialize(**kwargs)` call. Only parameters you explicitly list override the writerâs built-in defaults; unlisted parameters keep the writerâs own default values.
+   * **Additional parameters**: All other key-value pairs in the YAML block are passed directly to the target writer’s `initialize(**kwargs)` call. Only parameters you explicitly list override the writer’s built-in defaults; unlisted parameters keep the writer’s own default values.
 
    How parameter discovery works
 
-   When a `CustomWriter` entry is loaded, the system introspects the target writerâs `__init__` signature to discover all accepted parameters along with their types and default values. A typed Pydantic model is dynamically generated from this signature, which enables:
+   When a `CustomWriter` entry is loaded, the system introspects the target writer’s `__init__` signature to discover all accepted parameters along with their types and default values. A typed Pydantic model is dynamically generated from this signature, which enables:
 
-   * **Type validation**: Supplied parameter values are checked against the writerâs expected types before the simulation starts.
-   * **UI integration**: In the Configuration Editor UI, each discoverable parameter appears as an addable field with the correct widget type. Click **Add Parameter** to override a default, or remove a parameter to revert to the writerâs own default.
+   * **Type validation**: Supplied parameter values are checked against the writer’s expected types before the simulation starts.
+   * **UI integration**: In the Configuration Editor UI, each discoverable parameter appears as an addable field with the correct widget type. Click **Add Parameter** to override a default, or remove a parameter to revert to the writer’s own default.
 
    Parameters whose types cannot be represented in JSON (for example, custom backend objects) are excluded from the dynamic model and the UI but can still be passed in YAML.
 
    Note
 
-   Some writers accept `width` and `height` parameters that configure the writerâs output dimensions but do **not** modify the underlying RenderProduct resolution. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writerâs `width` and `height` parameters to match.
+   Some writers accept `width` and `height` parameters that configure the writer’s output dimensions but do **not** modify the underlying RenderProduct resolution. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writer’s `width` and `height` parameters to match.
 
    Auto-registration using writer scope
 
@@ -2244,8 +2244,8 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
 
       * **Writer Name**: A dropdown listing all writers currently in the `WriterRegistry`. Select the target writer.
       * **Writer Scope**: An optional text field that accepts a package path, a dotted class path, or a filesystem path to a `.py` file. Click **Register** to discover, validate, and register writers from the scope, which also refreshes the **Writer Name** dropdown.
-   3. Click **OK** to confirm. The editor displays the writerâs name as a read-only label and lists all currently set parameters with their values.
-   4. Use the **Add Parameter** dropdown at the bottom to override additional defaults from the writerâs `__init__` signature.
+   3. Click **OK** to confirm. The editor displays the writer’s name as a read-only label and lists all currently set parameters with their values.
+   4. Use the **Add Parameter** dropdown at the bottom to override additional defaults from the writer’s `__init__` signature.
 
    Important
 
@@ -2257,7 +2257,7 @@ In previous releases, the stock Replicator `BasicWriter` appeared as its own ent
 
    Note
 
-   Parameter names displayed in the UI are derived automatically from the writerâs `__init__` signature (for example, `sensorSetName` in `RTSPStreamWriter`). Because users can import custom or third-party writers, no specific naming format is enforced. The UI capitalizes the first letter of each name for readability (for example, `sensorSetName` appears as **SensorSetName**), but the original name is used when passing values to the writer.
+   Parameter names displayed in the UI are derived automatically from the writer’s `__init__` signature (for example, `sensorSetName` in `RTSPStreamWriter`). Because users can import custom or third-party writers, no specific naming format is enforced. The UI capitalizes the first letter of each name for readability (for example, `sensorSetName` appears as **SensorSetName**), but the original name is used when passing values to the writer.
 
    Multiple CustomWriter instances
 
@@ -2384,9 +2384,9 @@ For `get_config`, `update_config`, `add_config_item`, and `delete_config_item`, 
 
 ## Config File and Path
 
-* **get\_config\_file\_path()** â Returns the path of the config file currently associated with the in-memory config, or `None` if none is set.
-* **load\_config\_file(file\_path, set\_config=True)** â Loads a YAML config from disk. Returns `True` on success. If `set_config` is `True`, the loaded config becomes the current in-memory config. You can subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.CONFIG_FILE_LOADED_EVENT` to be notified when loading has finished.
-* **save\_config\_file(file\_path, exclude\_unset=False, exclude\_defaults=False)** â Writes the current in-memory config to a YAML file. Returns `True` on success. Use `exclude_unset` or `exclude_defaults` to trim output.
+* **get\_config\_file\_path()** — Returns the path of the config file currently associated with the in-memory config, or `None` if none is set.
+* **load\_config\_file(file\_path, set\_config=True)** — Loads a YAML config from disk. Returns `True` on success. If `set_config` is `True`, the loaded config becomes the current in-memory config. You can subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.CONFIG_FILE_LOADED_EVENT` to be notified when loading has finished.
+* **save\_config\_file(file\_path, exclude\_unset=False, exclude\_defaults=False)** — Writes the current in-memory config to a YAML file. Returns `True` on success. Use `exclude_unset` or `exclude_defaults` to trim output.
 
 **Example:**
 
@@ -2416,11 +2416,11 @@ save_config_file(temp_save_path)
 
 ## Read and Update Config
 
-* **get\_config(path=None)** â Returns the value at a dot-separated path, or the full config object if `path` is `None`. Returns `None` if the path is invalid or config is not loaded.
-* **set\_config(config, file\_path=None)** â Replaces the in-memory config with the given object (for example, from `get_config()` or the core loader). Optionally set `file_path` as the current file for the UI.
-* **update\_config(path, new\_value)** â Sets one field at the given path. Validates after the change; on failure the update is rolled back and returns `False`.
-* **add\_config\_item(path, value, key=None)** â Appends to a list at `path`, or adds a key-value pair to a dict (`key` required for dicts).
-* **delete\_config\_item(path, key)** â Removes a list element by index (or last item if `key` is `None`) or a dict entry by key.
+* **get\_config(path=None)** — Returns the value at a dot-separated path, or the full config object if `path` is `None`. Returns `None` if the path is invalid or config is not loaded.
+* **set\_config(config, file\_path=None)** — Replaces the in-memory config with the given object (for example, from `get_config()` or the core loader). Optionally set `file_path` as the current file for the UI.
+* **update\_config(path, new\_value)** — Sets one field at the given path. Validates after the change; on failure the update is rolled back and returns `False`.
+* **add\_config\_item(path, value, key=None)** — Appends to a list at `path`, or adds a key-value pair to a dict (`key` required for dicts).
+* **delete\_config\_item(path, key)** — Removes a list element by index (or last item if `key` is `None`) or a dict entry by key.
 
 **Example:**
 
@@ -2440,8 +2440,8 @@ delete_config_item("environment.prop_asset_paths", key=0)
 
 ## Simulation Control
 
-* **setup\_simulation()** â Validates the current config and passes it to the IRA core to set up the simulation (environment, agents, sensors). Returns `True` if setup was started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.SET_UP_SIMULATION_DONE_EVENT` when setup has finished.
-* **start\_data\_generation()** â Starts the data generation pipeline with the current config. Returns `True` if started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.DATA_GENERATION_DONE_EVENT` when generation has completed.
+* **setup\_simulation()** — Validates the current config and passes it to the IRA core to set up the simulation (environment, agents, sensors). Returns `True` if setup was started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.SET_UP_SIMULATION_DONE_EVENT` when setup has finished.
+* **start\_data\_generation()** — Starts the data generation pipeline with the current config. Returns `True` if started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.DATA_GENERATION_DONE_EVENT` when generation has completed.
 
 **Example workflow:** load config, optionally update fields, run setup, then start data generation. Use the carb event dispatcher to observe `SET_UP_SIMULATION_DONE_EVENT` and call `start_data_generation()` when setup is ready.
 
@@ -2622,7 +2622,7 @@ If `sensor_prim_list` is left empty, the writer attempts to attach to all camera
 
 Each RTSP stream requires a unique network port. When streaming from multiple cameras, assign a different `port` value to each CustomWriter instance to avoid conflicts.
 
-1. Click **Add Parameter** and select `port`. Set a port number (default is `8554`). Valid range is 1â65535.
+1. Click **Add Parameter** and select `port`. Set a port number (default is `8554`). Valid range is 1–65535.
 2. Click **Add Parameter** and select `mountPath`. Enter a descriptive mount path that starts with `/` (for example, `/camera_01`). This makes it easier to identify each stream when monitoring.
 
 The resulting RTSP URL for this stream is:
@@ -2644,7 +2644,7 @@ When using `"h264"` encoding, you can also configure `width` and `height` (defau
 
 Note
 
-The `width` and `height` parameters on `RTSPStreamWriter` do **not** change the RenderProduct resolution â they only configure the RTSP stream to match the existing input dimensions. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writerâs `width` and `height` to match. Mismatched values result in stretched or cropped frames.
+The `width` and `height` parameters on `RTSPStreamWriter` do **not** change the RenderProduct resolution — they only configure the RTSP stream to match the existing input dimensions. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writer’s `width` and `height` to match. Mismatched values result in stretched or cropped frames.
 
 ### Parameter Naming in the UI
 
@@ -2762,7 +2762,7 @@ Top-level samples. They use the stable routine-trigger character API
 
 | File | Expected behavior | Demonstrates |
 | --- | --- | --- |
-| `minimal.yaml` | Opens the warehouse stage. No actors, sensors, or data generation â a sanity check that IRA is enabled and the asset server is reachable. | Smallest valid IRA config. Loaded by the IRA UI on launch. |
+| `minimal.yaml` | Opens the warehouse stage. No actors, sensors, or data generation – a sanity check that IRA is enabled and the asset server is reachable. | Smallest valid IRA config. Loaded by the IRA UI on launch. |
 | `full_pipeline.yaml` | 10 workers wander the warehouse for 60 seconds while six randomly placed ceiling cameras capture per-frame RGB, depth, segmentation, bounding boxes, and cosmos video annotations to the output folder. | End-to-end pipeline: routine-based character behavior, RTX sensor placement (`aim_at_targets`), and `IRABasicWriter`. |
 
 ## Behavior-Tree Samples (Experimental)
@@ -2800,15 +2800,15 @@ On this page
 
 The `isaacsim.anim.robot.core` extension enables realistic robot animation through the playback of captured simulation motion data. It bridges physics-based simulation and animation, allowing users to recreate precise robot movements without the computational overhead of real-time physics calculations. The extension converts physics-enabled robot models into animated representations while preserving their kinematic accuracy and visual fidelity.
 
-`isaacsim.anim.robot.core` integrates with the `omni.metropolis.pipeline` agent framework. Each robot is an `AnimRobot` â a Metro Agent with a finite state machine that drives animation playback. Robots are configured through YAML files that define their kinematics, states, transitions, and animation data.
+`isaacsim.anim.robot.core` integrates with the `omni.metropolis.pipeline` agent framework. Each robot is an `AnimRobot` – a Metro Agent with a finite state machine that drives animation playback. Robots are configured through YAML files that define their kinematics, states, transitions, and animation data.
 
 ## Supported Robots
 
 The extension ships with sample configurations for the following robots:
 
-* **Nova Carter** â differential drive mobile robot
-* **iw.hub** â differential drive warehouse robot with lift capability
-* **Forklift** â differential drive forklift
+* **Nova Carter** – differential drive mobile robot
+* **iw.hub** – differential drive warehouse robot with lift capability
+* **Forklift** – differential drive forklift
 
 Custom robots can be added by creating a new YAML configuration file (see [Customization](#customization)).
 
@@ -2816,12 +2816,12 @@ Custom robots can be added by creating a new YAML configuration file (see [Custo
 
 The extension is composed of several key modules:
 
-* **AnimRobot** â the agent class that integrates with `omni.metropolis.pipeline`. It parses USD schema attributes, loads configuration, sets up the state machine, and manages the robotâs lifecycle.
-* **StateMachine** â a finite state machine that manages animation states and transitions. Each state can have associated animation data that is played back on the robotâs joints.
-* **Actions** â high-level commands (`MoveTo`, `Idle`, `Turn`, `Sequence`) that drive the robot by updating the state machine and applying motion each frame.
-* **Drive** â drive-base implementations (`OmniDirectionalDrive`, `DifferentialDrive`) that translate navigation paths into per-frame position and orientation updates.
-* **PathPlanner** â path planning backends exposing `get_path_points(start, end, agent_radius=0.5)` and returning a `list[Gf.Vec3d]` of waypoints (or `None` when no path exists). The `NavMeshPathPlanner` snaps `start` and `end` to the nearest valid navmesh location, queries the shortest path, and drops near-collinear waypoints before returning; the base `PathPlanner` returns the two-point straight line from `start` to `end` without any obstacle checks.
-* **Behaviors** â runtime behaviors (`Wander`, `Patrol`, `Halt`) and triggers (`Event`, `Time`, `Collision`) that compose actions into autonomous agent routines.
+* **AnimRobot** – the agent class that integrates with `omni.metropolis.pipeline`. It parses USD schema attributes, loads configuration, sets up the state machine, and manages the robot’s lifecycle.
+* **StateMachine** – a finite state machine that manages animation states and transitions. Each state can have associated animation data that is played back on the robot’s joints.
+* **Actions** – high-level commands (`MoveTo`, `Idle`, `Turn`, `Sequence`) that drive the robot by updating the state machine and applying motion each frame.
+* **Drive** – drive-base implementations (`OmniDirectionalDrive`, `DifferentialDrive`) that translate navigation paths into per-frame position and orientation updates.
+* **PathPlanner** – path planning backends exposing `get_path_points(start, end, agent_radius=0.5)` and returning a `list[Gf.Vec3d]` of waypoints (or `None` when no path exists). The `NavMeshPathPlanner` snaps `start` and `end` to the nearest valid navmesh location, queries the shortest path, and drops near-collinear waypoints before returning; the base `PathPlanner` returns the two-point straight line from `start` to `end` without any obstacle checks.
+* **Behaviors** – runtime behaviors (`Wander`, `Patrol`, `Halt`) and triggers (`Event`, `Time`, `Collision`) that compose actions into autonomous agent routines.
 
 ## Customization
 
@@ -2836,13 +2836,13 @@ The following attributes can be configured for each robot (based on the `BaseAge
 * **angular\_velocity** (float): Turning speed in degrees per second (default: `45.0`, must be >= 0).
 * **forward\_vec** (list[float]): Initial forward direction vector, exactly 3 elements (default: `[1.0, 0.0, 0.0]`).
 * **joints** (list[str]): List of joint prim relative paths that can be animated.
-* **drive\_base** (str): Robotâs drive system type. Supported values: `differential`, `omni_directional` (default: `omni_directional`).
+* **drive\_base** (str): Robot’s drive system type. Supported values: `differential`, `omni_directional` (default: `omni_directional`).
 * **path\_planner** (str): Path planner type. Supported values: `navmesh`, `base` (default: `navmesh`).
-* **states** (list[str]): List of FSM state names (default: `["idle", "turn_left", "turn_right", "forward"]`). Drive implementations push the FSM into these specific state names; any custom `states` list must still include `idle`, `forward`, `turn_left`, and `turn_right`, or the drive base will log a ânot in any valid stateâ error during motion.
+* **states** (list[str]): List of FSM state names (default: `["idle", "turn_left", "turn_right", "forward"]`). Drive implementations push the FSM into these specific state names; any custom `states` list must still include `idle`, `forward`, `turn_left`, and `turn_right`, or the drive base will log a “not in any valid state” error during motion.
 * **transitions** (dict[str, list[str]]): State transition graph defining valid transitions between states. Source and destination states are validated against the `states` list. Defaults to `{idle: [turn_left, turn_right, idle, forward], turn_left: [idle, forward], turn_right: [idle, forward], forward: [turn_left, turn_right, idle]}`.
-* **animation\_paths** (dict[str, str]): Mapping of state names to folder paths containing animation USDs. Paths may use the `${ext_path}` variable to reference the extensionâs install directory.
-* **asset\_path** (str | null): Relative or absolute path/URL to the agent USD. If relative, it tries local file first, then the Isaac Sim asset root. If omitted, the primâs existing references are used.
-* **radius** (float | null): Internal runtime override for the navmesh query radius. The YAML loader does not currently populate this field (it is declared `init=False` on `RuntimeAgentConfig` and is not derived from the agentâs bounding box), so setting it in the per-robot YAML has no effect today. To control the planning radius for an IRA-spawned robot, set `agent_radius` on the IRA robot group instead.
+* **animation\_paths** (dict[str, str]): Mapping of state names to folder paths containing animation USDs. Paths may use the `${ext_path}` variable to reference the extension’s install directory.
+* **asset\_path** (str | null): Relative or absolute path/URL to the agent USD. If relative, it tries local file first, then the Isaac Sim asset root. If omitted, the prim’s existing references are used.
+* **radius** (float | null): Internal runtime override for the navmesh query radius. The YAML loader does not currently populate this field (it is declared `init=False` on `RuntimeAgentConfig` and is not derived from the agent’s bounding box), so setting it in the per-robot YAML has no effect today. To control the planning radius for an IRA-spawned robot, set `agent_radius` on the IRA robot group instead.
 
 **Example Configuration (iw\_hub.yaml):**
 
@@ -2883,11 +2883,11 @@ radius: 0.8
 
 The extension provides the following action types for controlling robots programmatically:
 
-* **MoveTo** â moves the agent to a target position using the configured path planner and drive base. The target may be an `[x, y, z]` coordinate or a USD prim reference (`Sdf.Path`, prim-path string, or `Usd.Prim`); prim targets are re-resolved every 0.25 seconds and the path is replanned when the prim drifts past 0.25 minutes, so the agent tracks a moving target. The agent plans a path, then follows it by transitioning through turn and forward states.
-* **Idle** â keeps the agent in the idle state for a specified duration (in seconds).
-* **Turn** â rotates the agent in place to face a given 3D direction vector (yaw-only; the Z component is ignored).
-* **PlayAnimation** â plays a named FSM state on the agent. When `duration` is `0.0` (the default), the state plays once to its last time sample and the action completes; when `duration > 0`, the state is held for that many seconds.
-* **Sequence** â executes a non-empty list of actions in order, one after another.
+* **MoveTo** – moves the agent to a target position using the configured path planner and drive base. The target may be an `[x, y, z]` coordinate or a USD prim reference (`Sdf.Path`, prim-path string, or `Usd.Prim`); prim targets are re-resolved every 0.25 seconds and the path is replanned when the prim drifts past 0.25 minutes, so the agent tracks a moving target. The agent plans a path, then follows it by transitioning through turn and forward states.
+* **Idle** – keeps the agent in the idle state for a specified duration (in seconds).
+* **Turn** – rotates the agent in place to face a given 3D direction vector (yaw-only; the Z component is ignored).
+* **PlayAnimation** – plays a named FSM state on the agent. When `duration` is `0.0` (the default), the state plays once to its last time sample and the action completes; when `duration > 0`, the state is held for that many seconds.
+* **Sequence** – executes a non-empty list of actions in order, one after another.
 
 Actions can be created using functional APIs:
 
@@ -2931,28 +2931,28 @@ action = sequence(
 )
 ```
 
-Each action can also be injected into a running agent through the `execute()` method (or using `sequence(..., execute_now=True)`). Injection writes the action into the agentâs routines, so it only applies when the agent is in **RoutineTrigger** control mode; behavior-tree-controlled agents receive actions by ticking BT nodes instead.
+Each action can also be injected into a running agent through the `execute()` method (or using `sequence(..., execute_now=True)`). Injection writes the action into the agent’s routines, so it only applies when the agent is in **RoutineTrigger** control mode; behavior-tree-controlled agents receive actions by ticking BT nodes instead.
 
 ## Behaviors
 
 Behaviors define higher-level autonomous routines that compose actions. They are configured through the USD schema and run within the `omni.metropolis.pipeline` trigger system.
 
-* **Wander** â the robot moves to random navmesh-reachable points within a configurable distance range, then idles for a random duration. Configurable attributes include navigation areas, idle time range, and movement distance range.
-* **Patrol** â the robot visits a sequence of waypoints (specified as either `[x, y, z]` coordinates or USD prim targets) in order. Unreachable waypoints are skipped with a warning.
-* **Halt** â the robot idles for a random duration within a configurable time range.
+* **Wander** – the robot moves to random navmesh-reachable points within a configurable distance range, then idles for a random duration. Configurable attributes include navigation areas, idle time range, and movement distance range.
+* **Patrol** – the robot visits a sequence of waypoints (specified as either `[x, y, z]` coordinates or USD prim targets) in order. Unreachable waypoints are skipped with a warning.
+* **Halt** – the robot idles for a random duration within a configurable time range.
 
 These behaviors can be triggered by:
 
-* **Event triggers** â activated by external events
-* **Time triggers** â activated on a time schedule
-* **Collision triggers** â activated when another prim enters a configured collision volume on the agent
+* **Event triggers** – activated by external events
+* **Time triggers** – activated on a time schedule
+* **Collision triggers** – activated when another prim enters a configured collision volume on the agent
 
 ## Drive Types
 
 The extension supports different drive-base implementations that control how the robot physically moves and turns:
 
-* **OmniDirectionalDrive** â the agent can move in any direction without needing to turn first. It navigates along a path with constant linear velocity and can independently rotate to face a target direction.
-* **DifferentialDrive** â the agent must turn in place to face the target direction before driving forward. It follows a turn-then-drive pattern: first rotating toward the next waypoint, then moving forward in a straight line.
+* **OmniDirectionalDrive** – the agent can move in any direction without needing to turn first. It navigates along a path with constant linear velocity and can independently rotate to face a target direction.
+* **DifferentialDrive** – the agent must turn in place to face the target direction before driving forward. It follows a turn-then-drive pattern: first rotating toward the next waypoint, then moving forward in a straight line.
 
 The drive type is selected based on the `drive_base` field in the YAML configuration.
 
@@ -2964,28 +2964,28 @@ To create custom animations:
 2. Use `omni.kit.stagerecorder.core` to capture motion data.
 3. Update the `animation_paths` field in the YAML configuration with new animation folder paths.
 
-Animation files should be organized in state-specific folders. Each jointâs animation data is stored as a separate USD file named after the joint. For example, `iw.hub`âs turn-left animation is located at:
+Animation files should be organized in state-specific folders. Each joint’s animation data is stored as a separate USD file named after the joint. For example, `iw.hub`’s turn-left animation is located at:
 `{isaacsim.anim.robot.core extension path}/data/sample_animations/iw_hub/turn_left/`
 
 ## Public API
 
 User code (behavior trees, custom runtime states, standalone scripts) should import only from `isaacsim.anim.robot.core`; other submodules are internal and may change without notice.
 
-**Action factories** â return an opaque action handle with `update(dt)`, `is_done()`, and `cancel()` methods:
+**Action factories** – return an opaque action handle with `update(dt)`, `is_done()`, and `cancel()` methods:
 
 * `idle(runtime_config, state_machine, duration)`
-* `move_to(runtime_config, state_machine, target)` â `target` may be a Float3-like coordinate or a USD prim reference (`Sdf.Path`, prim-path string, or `Usd.Prim`).
-* `turn(runtime_config, state_machine, direction)` â yaw-only.
-* `play_animation(runtime_config, state_machine, state_name, duration=0.0)` â `duration=0.0` plays the state once to its last time sample; `duration > 0` holds it for that many seconds.
-* `sequence(actions, execute_now=False)` â `actions` must be non-empty; pass `execute_now=True` to inject the sequence into the running agent without a separate `execute()` call.
+* `move_to(runtime_config, state_machine, target)` – `target` may be a Float3-like coordinate or a USD prim reference (`Sdf.Path`, prim-path string, or `Usd.Prim`).
+* `turn(runtime_config, state_machine, direction)` – yaw-only.
+* `play_animation(runtime_config, state_machine, state_name, duration=0.0)` – `duration=0.0` plays the state once to its last time sample; `duration > 0` holds it for that many seconds.
+* `sequence(actions, execute_now=False)` – `actions` must be non-empty; pass `execute_now=True` to inject the sequence into the running agent without a separate `execute()` call.
 
 **Agent lookup**
 
-* `resolve_anim_robot(prim)` â given a `Usd.Prim`, return the live `AnimRobot` registered for that prim (exposing `.runtime_config` and `.state_machine`), or `None` when the prim is invalid, no agent has been registered yet (typical before the timeline starts), or the runtime has been torn down.
+* `resolve_anim_robot(prim)` – given a `Usd.Prim`, return the live `AnimRobot` registered for that prim (exposing `.runtime_config` and `.state_machine`), or `None` when the prim is invalid, no agent has been registered yet (typical before the timeline starts), or the runtime has been torn down.
 
 **Utility**
 
-* `get_IAR_sample_config_path()` â resolved path to the bundled sample-config folder. Returns the Isaac Sim asset server path (`/Isaac/Samples/AnimRobot/sample_configs/`) when reachable, or the local extension copy as a fallback.
+* `get_IAR_sample_config_path()` – resolved path to the bundled sample-config folder. Returns the Isaac Sim asset server path (`/Isaac/Samples/AnimRobot/sample_configs/`) when reachable, or the local extension copy as a fallback.
 
 ## Behavior Tree Nodes
 
@@ -3556,7 +3556,7 @@ node_to_model_map_path = resolve_example_scene_file_path(
 )
 ```
 
-## Step 1: setup\_workspace(â¦)
+## Step 1: setup\_workspace(…)
 
 Use this function to create a reusable `PlannerSession` and load input data into the workspace.
 
@@ -3598,7 +3598,7 @@ print(session.workspace_ready)
 print(session.actors_loaded, session.objects_loaded, session.nodes_loaded)
 ```
 
-## Step 2: prepare\_runtime(â¦)
+## Step 2: prepare\_runtime(…)
 
 Use this function after workspace setup to configure model access, retrievers, and Action IR for
 the session.
@@ -3650,7 +3650,7 @@ print(runtime_result.chat_model_name)
 print(runtime_result.retriever_ready, runtime_result.action_ir_ready)
 ```
 
-## Step 3: generate\_behavior\_tree(â¦)
+## Step 3: generate\_behavior\_tree(…)
 
 Use this function only after the session has a ready workspace and a prepared runtime.
 
@@ -3809,9 +3809,9 @@ asyncio.ensure_future(run_planner_example())
 On this page
 
 * [Shared Example Setup](#shared-example-setup)
-* [Step 1: setup\_workspace(â¦)](#step-1-setup-workspace)
-* [Step 2: prepare\_runtime(â¦)](#step-2-prepare-runtime)
-* [Step 3: generate\_behavior\_tree(â¦)](#step-3-generate-behavior-tree)
+* [Step 1: setup\_workspace(…)](#step-1-setup-workspace)
+* [Step 2: prepare\_runtime(…)](#step-2-prepare-runtime)
+* [Step 3: generate\_behavior\_tree(…)](#step-3-generate-behavior-tree)
 * [Async Execution Note](#async-execution-note)
 * [Practical Notes](#practical-notes)
 

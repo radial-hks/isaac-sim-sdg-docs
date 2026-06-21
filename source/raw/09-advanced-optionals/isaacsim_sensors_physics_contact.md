@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Contact Sensor"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "372495a115e9cfa9"
-fetched: "2026-06-21T13:05:43"
+checksum: "e11ca3561f375b07"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -27,11 +27,11 @@ See the [Isaac Sim Conventions](../reference_material/reference_conventions.html
 
 **Contact sensor properties**
 
-1. `radius` parameter specifies the distance of the contact force that it would detect. A value of `-1` uses the primâs collision geometry.
+1. `radius` parameter specifies the distance of the contact force that it would detect. A value of `-1` uses the prim’s collision geometry.
 2. `enabled` parameter determines if the sensor is running or not.
 3. `min threshold` parameter specifies the minimum amount of force to trigger a contact.
 4. `max threshold` parameter specifies the maximum amount of force the sensor outputs.
-5. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 â only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
+5. `sensorPeriod` parameter specifies the time in between sensor measurement. **Deprecated** since `isaacsim.robot.schema` 6.2.0 — only used by the deprecated `isaacsim.sensors.physics` extension. The new `isaacsim.sensors.experimental.physics` extension reads every physics step.
 
 For the full USD attribute definitions, see the [Contact Sensor schema reference](../omniverse_usd/sensor_schema.html#isaac-sim-sensor-schema-contact).
 
@@ -52,7 +52,7 @@ To run the Contact Sensor Example:
 
 1. Activate **Robotics Examples** tab from **Windows** > **Examples** > **Robotics Examples**.
 2. Click **Robotics Examples** > **Sensors** > **Contact Sensor**.
-3. Verify that you see a window containing the sensorâs force readings color coded by each antâs arm.
+3. Verify that you see a window containing the sensor’s force readings color coded by each ant’s arm.
 4. Press the **Open Source Code** button to view the source code. The source code illustrates how to load an Ant body into the scene and then add sensors to it using the Python API.
 5. Press the **Play** button to begin simulating.
 6. Press `SHIFT + LEFT_CLICK` to drag the ant around and see changes in the readings.
@@ -81,7 +81,7 @@ To set up the OmniGraph to collect readings from this sensor:
 > * *Print Text*: Prints the string readings to console. In the **Property** tab, set Log Level to *Warning* so that messages are visible in the terminal or console by default.
 
 1. Connect the above nodes as follows to print out the contact sensor reading:
-2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the contact sensorâs force output.
+2. Press the **Play** button on the GUI. If set up correctly, verify that the Isaac Sim internal *Console* reads out the contact sensor’s force output.
 
 **Contact sensor visualization**
 
@@ -161,7 +161,7 @@ sensor = ContactSensor(
 
 Note
 
-`translations` (local-frame) and `positions` (world-frame) cannot both be defined â they are mutually exclusive.
+`translations` (local-frame) and `positions` (world-frame) cannot both be defined — they are mutually exclusive.
 
 Creating a contact sensor requires an enabled rigid-body ancestor, and the body depends on a Contact Report API. Contact-producing geometry still needs collision APIs. `Contact.create()` applies the Contact Report API on the rigid-body ancestor when it creates the sensor prim; when wrapping an existing sensor prim with `Contact(path)` the API is not applied by Python, but the C++ runtime ensures contact reporting is enabled when the sensor goes live on **Play**. You can also manually add a Contact Report API to a prim through:
 
@@ -173,7 +173,7 @@ contact_report = PhysxSchema.PhysxContactReportAPI.Apply(parent_prim)
 contact_report.CreateThresholdAttr(0.0)
 ```
 
-To modify sensor parameters at runtime, use the authoring object exposed via `sensor.contact`: `sensor.contact.set_min_threshold(value)`, `sensor.contact.set_max_threshold(value)`, `sensor.contact.set_radius(value)`. The previous shorthand methods on `ContactSensor` itself were removed in 3.0.0 â call them on `sensor.contact`.
+To modify sensor parameters at runtime, use the authoring object exposed via `sensor.contact`: `sensor.contact.set_min_threshold(value)`, `sensor.contact.set_max_threshold(value)`, `sensor.contact.set_radius(value)`. The previous shorthand methods on `ContactSensor` itself were removed in 3.0.0 — call them on `sensor.contact`.
 
 ### Reading sensor output
 
@@ -181,8 +181,8 @@ The contact sensors are created dynamically on **Play**. Moving the sensor prim 
 
 There are three methods for reading the sensor output:
 
-* `ContactSensor.get_sensor_reading()` â returns the cached `ContactSensorReading`
-* `ContactSensor.get_data()` â returns a structured dictionary
+* `ContactSensor.get_sensor_reading()` — returns the cached `ContactSensorReading`
+* `ContactSensor.get_data()` — returns a structured dictionary
 * OmniGraph node `Isaac Read Contact Sensor`
 
 The following snippets assume you have created a `/World/Cube` prim and contact sensor prim using one of the two snippets [above](#isaacsim-sensors-physics-contact-standalone-python-create-modify).
@@ -223,7 +223,7 @@ print(value)
 
 **ContactSensor.get\_raw\_data()**
 
-Returns a list of raw contact records (one per contact event in the current physics step). Each record contains `time`, `dt`, `body0`, `body1`, `position`, `normal`, and `impulse`. Raw data disregards the sensorâs `min_threshold`/`max_threshold` filtering: contacts that fall below the threshold are still reported here, even though they would be discarded by the filtered `ContactSensorReading`. To pass through to a frame call instead, enable the `contacts` list with `ContactSensor.add_raw_contact_data_to_frame()`.
+Returns a list of raw contact records (one per contact event in the current physics step). Each record contains `time`, `dt`, `body0`, `body1`, `position`, `normal`, and `impulse`. Raw data disregards the sensor’s `min_threshold`/`max_threshold` filtering: contacts that fall below the threshold are still reported here, even though they would be discarded by the filtered `ContactSensorReading`. To pass through to a frame call instead, enable the `contacts` list with `ContactSensor.add_raw_contact_data_to_frame()`.
 
 ```python
 from isaacsim.sensors.experimental.physics import ContactSensor

@@ -4,7 +4,7 @@ title: "RTX Custom"
 section: "Sensors"
 module: "09-advanced-optionals"
 checksum: "1a04b83d23f4f0cf"
-fetched: "2026-06-21T13:05:44"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)

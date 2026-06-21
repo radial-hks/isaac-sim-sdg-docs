@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "PhysX Proximity"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "361f8a70dd0bde54"
-fetched: "2026-06-21T13:05:44"
+checksum: "4bd2ca960e74ab59"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -30,7 +30,7 @@ The code below uses the deprecated `isaacsim.sensors.physx` extension. See the d
 
 Execute the following script using `python.sh`. This creates a scene with two cubes and attaches a proximity sensor to one of the cubes.
 At the start of the simulation, the two cubes overlap and then move apart; the callback function in the script prints the proximity
-sensorâs output to the screen.
+sensor’s output to the screen.
 
 ```python
 import numpy as np

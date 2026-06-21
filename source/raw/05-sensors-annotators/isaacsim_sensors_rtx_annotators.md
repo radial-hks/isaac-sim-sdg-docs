@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "RTX Annotators"
 section: "标注"
 module: "05-sensors-annotators"
-checksum: "bd971d105316ea23"
-fetched: "2026-06-21T11:55:32"
+checksum: "57d367a5865f50a7"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [Sensors](index.html)
@@ -83,7 +83,7 @@ The `omni.replicator.core.orchestrator.step()` / `step_async()` methods are pref
 
 ### IsaacExtractRTXSensorPointCloud
 
-The `IsaacExtractRTXSensorPointCloud` Annotator extracts the `GenericModelOutput` bufferâs point cloud data
+The `IsaacExtractRTXSensorPointCloud` Annotator extracts the `GenericModelOutput` buffer’s point cloud data
 into a Cartesian (x, y, z) buffer every frame. It is provided by the `isaacsim.sensors.rtx.nodes` extension.
 
 This annotator works with both `OmniLidar` (RTX Lidar) and `OmniRadar` (RTX Radar) prims.
@@ -219,14 +219,14 @@ Note
 **Not every returned object ID has a map entry.**
 
 The renderer constructs each 128-bit object ID by combining a per-instance
-base stable ID with an *upper index* placed in the high 32 bits â the
+base stable ID with an *upper index* placed in the high 32 bits — the
 submesh index for mesh geometry, and the per-triangle primitive index for
 procedural geometry. `StableIdMap` registers per-instance entries (only
 for instances with a USD prim path) plus per-`GeomSubset` entries when
 an instance has more than one subset, but it does **not** register
 per-primitive entries.
 
-As a result, hits on procedural geometry, on submeshes that werenât
+As a result, hits on procedural geometry, on submeshes that weren’t
 expanded into the map, or on renderer-internal instances without a prim
 path will return object IDs with no map entry. Direct `map[id]` lookups
 on those IDs raise `KeyError`. Use `map.get(id, "<unknown>")` (as the
@@ -279,15 +279,15 @@ If the user does not set the required attributes or carb settings, the annotator
 | `distance` | `float` | Range of each return, in world units (by default, meters). | Provided if `outputDistance` is set to `true`. |
 | `intensity` | `float` | Intensity of each return, normalized as described [here](https://docs.omniverse.nvidia.com/kit/docs/omni.sensors.nv.lidar/latest/lidar_extension.html#intensity-defining-attributes). | Provided if `outputIntensity` is set to `true`. |
 | `timestamp` | `uint64` | Timestamp of each return, in nanoseconds since the start of the simulation. | Provided if `outputTimestamp` is set to `true`. |
-| `emitterId` | `uint32` | ID of the emitter that emitted the return. | Provided if `outputEmitterId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `channelId` | `uint32` | ID of the channel the return was generated on. | Provided if `outputChannelId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `materialId` | `uint32` | ID of the material of the object that generated the return. | Provided if `outputMaterialId` is set to `true`, and the OmniLidarâs `aux_output_level` is `EXTRA` (or higher). Refer to [RTX Sensor Non-Visual Materials](isaacsim_sensors_rtx_materials.html#isaacsim-sensors-rtx-materials) for more details on how material IDs are computed. |
-| `tickId` | `uint32` | ID of the tick the return was generated on. | Provided if `outputTickId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `hitNormal` | `float3` | Normal to the surface of the object that generated the return. | Provided if `outputHitNormal` is set to `true`, the OmniLidarâs `aux_output_level` is `FULL`, and `--/app/sensors/nv/lidar/publishNormals=true` is set. |
-| `velocity` | `float3` | Velocity of the object that generated the return. | Provided if `outputVelocity` is set to `true`, and the OmniLidarâs `aux_output_level` is `FULL`. |
-| `objectId` | `uint8` | ID of the object that generated the return. | Provided if `outputObjectId` is set to `true`, the OmniLidarâs `aux_output_level` is `EXTRA` (or higher), and `--/rtx-transient/stableIds/enabled=true` is set. Object ID is a stable, unique 128-bit unsigned integer mapping to the prim path of the object that generated the corresponding return. See [Semantic Segmentation with RTX Sensor using Object IDs](#rtx-sensor-resolving-object-ids) for more details. |
-| `echoId` | `uint8` | Indicates which echo the return represents in a multi-echo Lidar configuration. | Provided if `outputEchoId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `tickState` | `uint8` | Indicates the state of the tick the return was generated on. | Provided if `outputTickState` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
+| `emitterId` | `uint32` | ID of the emitter that emitted the return. | Provided if `outputEmitterId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `channelId` | `uint32` | ID of the channel the return was generated on. | Provided if `outputChannelId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `materialId` | `uint32` | ID of the material of the object that generated the return. | Provided if `outputMaterialId` is set to `true`, and the OmniLidar’s `aux_output_level` is `EXTRA` (or higher). Refer to [RTX Sensor Non-Visual Materials](isaacsim_sensors_rtx_materials.html#isaacsim-sensors-rtx-materials) for more details on how material IDs are computed. |
+| `tickId` | `uint32` | ID of the tick the return was generated on. | Provided if `outputTickId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `hitNormal` | `float3` | Normal to the surface of the object that generated the return. | Provided if `outputHitNormal` is set to `true`, the OmniLidar’s `aux_output_level` is `FULL`, and `--/app/sensors/nv/lidar/publishNormals=true` is set. |
+| `velocity` | `float3` | Velocity of the object that generated the return. | Provided if `outputVelocity` is set to `true`, and the OmniLidar’s `aux_output_level` is `FULL`. |
+| `objectId` | `uint8` | ID of the object that generated the return. | Provided if `outputObjectId` is set to `true`, the OmniLidar’s `aux_output_level` is `EXTRA` (or higher), and `--/rtx-transient/stableIds/enabled=true` is set. Object ID is a stable, unique 128-bit unsigned integer mapping to the prim path of the object that generated the corresponding return. See [Semantic Segmentation with RTX Sensor using Object IDs](#rtx-sensor-resolving-object-ids) for more details. |
+| `echoId` | `uint8` | Indicates which echo the return represents in a multi-echo Lidar configuration. | Provided if `outputEchoId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `tickState` | `uint8` | Indicates the state of the tick the return was generated on. | Provided if `outputTickState` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
 
 Note
 

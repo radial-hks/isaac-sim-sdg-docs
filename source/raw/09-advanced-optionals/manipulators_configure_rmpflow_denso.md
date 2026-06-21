@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators
 title: "Configure RMPflow Denso"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "b8a7fab74ff4c740"
-fetched: "2026-06-21T13:05:42"
+checksum: "c97aef694af31e90"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)
@@ -161,7 +161,7 @@ This tutorial focuses on three fields in this file:
 
 * `joint_limit_buffers` introduces artificial joint limits around the joint limits stated in the robot URDF. The shape of the provided `joint_limit_buffers` must match the c-space given in the `robot_description.yaml` file. Imagining that the template robot has seven revolute joints, the given buffers of .01 on the seven c-space joints mean that RMPflow will drive the robot up to .01 radians from the joint limits given in the robot URDF. If the robot has prismatic joints, a value of .01 would be expressed implicitly in meters.
 * `body_cylinders` and `body_collision_controllers` help RMPflow to avoid self-collision between the end effector and the robot base. `body_cylinders` define an imagined robot base using a set of capsules.
-* `body_collision_controllers` define collision spheres placed on different frames of the robot URDF. The template code above defines an unmoving capsule in absolute coordinates and a sphere centered around the âend\_effectorâ frame in the robot URDF. RMPflow will not allow a collision between the sphere and capsule.
+* `body_collision_controllers` define collision spheres placed on different frames of the robot URDF. The template code above defines an unmoving capsule in absolute coordinates and a sphere centered around the “end\_effector” frame in the robot URDF. RMPflow will not allow a collision between the sphere and capsule.
 
 Apart from preventing the end effector from colliding with the base, RMPflow does not directly avoid self-collisions based on collision geometry.
 
@@ -238,8 +238,8 @@ You would not allow the gripper to move close to the base at all. Choosing the b
 There is no reason to take away maneuverability around the robot base unless you observe that the robot is self-colliding.
 
 One potential configuration in this tutorial covers the other frames in the gripper and exaggerates the size of the robot base to make it
-harder for the gripper to intersect with the robotâs second link. The sizes and locations for the capsule and spheres are based on the collision spheres that
-youâve already added.
+harder for the gripper to intersect with the robot’s second link. The sizes and locations for the capsule and spheres are based on the collision spheres that
+you’ve already added.
 
 ```python
  1# body_cylinders are used to promote self-collision avoidance between the robot and its base
@@ -275,25 +275,25 @@ youâve already added.
 31       radius: .02
 ```
 
-You represent the robot base link âJ1â with a capsule of radius .08 m, which matches the size of the collision spheres in near the base of the robot.
-You represent the robotâs second link with a large sphere of radius .12.
+You represent the robot base link “J1” with a capsule of radius .08 m, which matches the size of the collision spheres in near the base of the robot.
+You represent the robot’s second link with a large sphere of radius .12.
 In the Lula Test Widget, you observe the robot does a much better job avoiding collisions with the first and second link.
 As expected, it is still possible to cause a self-collision, but the cases are much more limited.
 
 ### Creating an End Effector Frame
 
 Observe that the chosen end effector frame `right_inner_finger` does not directly
-represent the position of the robotâs gripper. The frame that RMPflow considers to be the end effector must be present in the robot URDF.
+represent the position of the robot’s gripper. The frame that RMPflow considers to be the end effector must be present in the robot URDF.
 In this tutorial, you selected a frame near the end of the robot as the best option. To directly control where the center of the gripper is, you have two options:
 
 * Manually compute transforms between the desired target and the target you send to RMPflow at runtime.
-* Add a frame to the robotâs URDF.
+* Add a frame to the robot’s URDF.
 
 This tutorial covers the second option by adding a frame to the **Cobotta Pro 900** URDF. Typically, the end effector position is in
 the center of the gripper, with two principal axes aligned with the gripper fingers.
 
-Investigating the **Cobotta Pro 900** URDF, you observe how the âright\_inner\_fingerâ frame is connected to the robot arm.
-In the URDF, you observe that the âright\_inner\_fingerâ joint is a grandchild of the âonrobot\_rg6\_base\_linkâ frame, which is at the gripper base.
+Investigating the **Cobotta Pro 900** URDF, you observe how the “right\_inner\_finger” frame is connected to the robot arm.
+In the URDF, you observe that the “right\_inner\_finger” joint is a grandchild of the “onrobot\_rg6\_base\_link” frame, which is at the gripper base.
 
 ```python
  1<joint name="right_inner_finger_joint" type="revolute">
@@ -315,10 +315,10 @@ In the URDF, you observe that the âright\_inner\_fingerâ joint is a gr
 17  </joint>
 ```
 
-This tells us that you can create a frame that is offset from the â`onrobot_rg6_base_link`â frame by a pure Z offset of `.064495+.136813=.2013` to represent a point in the center of the gripper, aligned with the â`right_inner_finger_joint`â and â`left_inner_finger_joint`â. To get closer with the tips of the fingers, increase the Z offset to .24.
+This tells us that you can create a frame that is offset from the “`onrobot_rg6_base_link`” frame by a pure Z offset of `.064495+.136813=.2013` to represent a point in the center of the gripper, aligned with the “`right_inner_finger_joint`” and “`left_inner_finger_joint`”. To get closer with the tips of the fingers, increase the Z offset to .24.
 
-Add a link to the URDF called âgripper\_centerâ, whose offset from the parent link â`onrobot_rg6_base_link`â is defined by the connection
-â`gripper_center_joint`â. In the tutorial file, the modified URDF is saved as `./cobotta_pro_900_gripper_frame.urdf`.
+Add a link to the URDF called “gripper\_center”, whose offset from the parent link “`onrobot_rg6_base_link`” is defined by the connection
+“`gripper_center_joint`”. In the tutorial file, the modified URDF is saved as `./cobotta_pro_900_gripper_frame.urdf`.
 
 ```python
 1<link name="gripper_center"/>

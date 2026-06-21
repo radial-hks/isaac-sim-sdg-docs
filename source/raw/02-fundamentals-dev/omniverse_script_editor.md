@@ -4,7 +4,7 @@ title: "Script Editor"
 section: "开发工具"
 module: "02-fundamentals-dev"
 checksum: "57b1a1dfe63592ff"
-fetched: "2026-06-21T12:48:06"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Development Tools](index.html)

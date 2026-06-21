@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/reference_material/render
 title: "Rendering Modes"
 section: "性能"
 module: "07-sdg-pipeline"
-checksum: "b584bfe363b2c2c4"
-fetched: "2026-06-21T11:55:36"
+checksum: "a9c81fe9389bf743"
+fetched: "2026-06-21T13:40:31"
 ---
 
 * Rendering modes
@@ -46,11 +46,11 @@ Common `renderer` values include:
 
 For RTX - Minimal, set `minimal_shading_mode` in the `SimulationApp` launch configuration to select the shading behavior. This option maps to `/rtx/minimal/mode`. The default is `0`. Accepted values are:
 
-* `0` â Real-Time 2.0 (reference).
-* `1` â Diffuse/Glossy/Emission.
-* `2` â Textured Diffuse.
-* `3` â Constant Diffuse.
-* `4` â No Rendering (black color output; use when only non-color AOVs such as depth or segmentation are needed).
+* `0` — Real-Time 2.0 (reference).
+* `1` — Diffuse/Glossy/Emission.
+* `2` — Textured Diffuse.
+* `3` — Constant Diffuse.
+* `4` — No Rendering (black color output; use when only non-color AOVs such as depth or segmentation are needed).
 
 In the Isaac Sim GUI, you can also select RTX - Minimal from the viewport render mode menu and modify shading behavior and other settings in the Rendering Settings panel.
 

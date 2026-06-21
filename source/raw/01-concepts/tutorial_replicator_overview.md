@@ -4,7 +4,7 @@ title: "Replicator Overview"
 section: "SDG概念"
 module: "01-concepts"
 checksum: "1a64f6b67404b9f1"
-fetched: "2026-06-21T12:48:04"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)

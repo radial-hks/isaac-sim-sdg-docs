@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Scene-Based SDG"
 section: "SDG"
 module: "02-sdg-workflows"
-checksum: "4795533dd93ad442"
-fetched: "2026-06-21T11:55:23"
+checksum: "c12c2fc34e6b6d0b"
+fetched: "2026-06-21T13:40:20"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -30,16 +30,16 @@ In this tutorial you:
 ## Prerequisites
 
 * Familiarity with the [omni.replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html "(in Omniverse Extensions)") extension, including its [annotators](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") and [writers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)").
-* Basic understanding of Isaac Simâs [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) and [World](../reference_material/reference_glossary.html#isaac-sim-glossary-world) concepts, further explained in the [Hello World](../core_api_tutorials/tutorial_core_hello_world.html#isaac-sim-app-tutorial-core-hello-world) tutorial.
+* Basic understanding of Isaac Sim’s [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) and [World](../reference_material/reference_glossary.html#isaac-sim-glossary-world) concepts, further explained in the [Hello World](../core_api_tutorials/tutorial_core_hello_world.html#isaac-sim-app-tutorial-core-hello-world) tutorial.
 * Running simulations as [Standalone Applications](../introduction/workflows.html#standalone-application) or via the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor).
 * Familiarity with Replicator [randomizers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)") and [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)") for a better understanding of the randomization pipeline.
 
 ## Scenario
 
-By default, the scenario is executed in a warehouse environment. Within this setting, a forklift is randomly placed in a designated area. Based on the forkliftâs position, a pallet is placed in front of it at a randomized distance. Using Replicatorâs `scatter_2d` randomization function with the collision check argument `check_for_collisions` set to `True`, the pallet is scattered with boxes, ensuring the boxes do not self-collide. The scatter graph node randomly scatters the boxes in each capture frame. Additionally, a traffic cone is randomly positioned at one of the bottom corners of the forkliftâs oriented bounding box (OBB). Before the synthetic data generation (SDG) pipeline starts, a short physics simulation is executed, during which several boxes are dropped onto a pallet situated behind the forklift.
+By default, the scenario is executed in a warehouse environment. Within this setting, a forklift is randomly placed in a designated area. Based on the forklift’s position, a pallet is placed in front of it at a randomized distance. Using Replicator’s `scatter_2d` randomization function with the collision check argument `check_for_collisions` set to `True`, the pallet is scattered with boxes, ensuring the boxes do not self-collide. The scatter graph node randomly scatters the boxes in each capture frame. Additionally, a traffic cone is randomly positioned at one of the bottom corners of the forklift’s oriented bounding box (OBB). Before the synthetic data generation (SDG) pipeline starts, a short physics simulation is executed, during which several boxes are dropped onto a pallet situated behind the forklift.
 
-Three camera views are used for the synthetic data generation (SDG). The first (`top_view_cam`) offers a top-down view of the scenario (left), the second (`pallet_cam`) captures a randomized view of the boxes scattered on the pallet (center), and the third is overlooking the pallet from the driverâs place in the forklift using various heights (right).
-The data is collected using Replicator writers with configurable backends. The default setup uses `BasicWriter` with a `DiskBackend`. The writerâs config parameters are loaded from the `writer_config` entry and used to initialize the writer with annotators including rgb, semantic\_segmentation, and bounding\_box\_3d. The output directory is specified in `backend_params`, which by default is `<working_dir>/_out_scene_based_sdg`.
+Three camera views are used for the synthetic data generation (SDG). The first (`top_view_cam`) offers a top-down view of the scenario (left), the second (`pallet_cam`) captures a randomized view of the boxes scattered on the pallet (center), and the third is overlooking the pallet from the driver’s place in the forklift using various heights (right).
+The data is collected using Replicator writers with configurable backends. The default setup uses `BasicWriter` with a `DiskBackend`. The writer’s config parameters are loaded from the `writer_config` entry and used to initialize the writer with annotators including rgb, semantic\_segmentation, and bounding\_box\_3d. The output directory is specified in `backend_params`, which by default is `<working_dir>/_out_scene_based_sdg`.
 
 ## Getting Started
 
@@ -1569,7 +1569,7 @@ def register_cardboxes_materials_graph_randomizer(
             rep.randomizer.materials(cardbox_material_urls)
 ```
 
-The traffic cone is positioned at one of the forkliftâs bounding box corners. A helper function calculates the corner positions:
+The traffic cone is positioned at one of the forklift’s bounding box corners. A helper function calculates the corner positions:
 
 Cone Placement Setup
 
@@ -1626,7 +1626,7 @@ def register_lights_graph_randomizer(forklift_prim: Usd.Prim, pallet_prim: Usd.P
         )
 ```
 
-Similar to the above examples, Replicator has support for many other randomizations. For more information, see Replicatorâs [randomizer examples tutorials](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)").
+Similar to the above examples, Replicator has support for many other randomizations. For more information, see Replicator’s [randomizer examples tutorials](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)").
 
 Camera bounds are calculated using a helper function to determine the randomization ranges:
 

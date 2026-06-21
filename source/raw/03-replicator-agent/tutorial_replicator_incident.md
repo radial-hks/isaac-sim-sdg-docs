@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Replicator Incident"
 section: "Agent"
 module: "03-replicator-agent"
-checksum: "915d57f17c6c7401"
-fetched: "2026-06-21T11:55:26"
+checksum: "5249e44a4afb924b"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -30,9 +30,9 @@ To use IRI in a scene, follow this workflow:
 
 1. Tag items in the scene with an appropriate event type using the property dropdown menu **+ Add > Incident
 Tagging**.
-Items can be tagged, for instance, as âloose itemsâ that can be knocked
-over in a topple event, âspillable itemsâ
-that can leak or spill liquid in a spill event, or âflammable itemsâ that can catch fire in a fire event.
+Items can be tagged, for instance, as ‘loose items’ that can be knocked
+over in a topple event, ‘spillable items’
+that can leak or spill liquid in a spill event, or ‘flammable items’ that can catch fire in a fire event.
 
 2. Save the scene to a usd file to commit that tagging information if you plan on closing and re-opening the scene.
 A sample scene with tags already applied is provided in the Content Browser
@@ -46,12 +46,12 @@ Note
 
 3. (IRI standalone) Set up an event configuration file which defines what events will occur in the scene by using the **Event Config File** window
 located in the menu **Tools > Action and Event Data Generation > Event Config File**.
-This configuration can also be saved and loaded later, though it is not saved into the sceneâs usd file and must be saved and loaded separately through
+This configuration can also be saved and loaded later, though it is not saved into the scene’s usd file and must be saved and loaded separately through
 the **Event Config File** panel.
 After configuring the events or loading an event config file, press **Set Up Events** to load the demons that will trigger the events at the specified times.
 
 4. Run the simulation with the play button to preview the scene. To generate SDG data you can also use the **Record Events** button in the **Event Config File** window.
-Event items are given semantic labels as the simulation runs to support replicatorâs SDG collection. A separate incident report is also written
+Event items are given semantic labels as the simulation runs to support replicator’s SDG collection. A separate incident report is also written
 as JSON (by default `incidents_report.json` in the output directory) to record event details. Refer to [Incident Report JSON](#iri-incident-report-json).
 
 Note
@@ -122,19 +122,19 @@ on the type of tag the loose item was given.
 
 #### Random Direction
 
-Items tagged as ârandom directionâ will have a force applied in a random direction.
+Items tagged as ‘random direction’ will have a force applied in a random direction.
 
 #### NavMesh Direction
 
-Items tagged as ânavmesh directionâ are expected to be outside of the walkable area of
+Items tagged as ‘navmesh direction’ are expected to be outside of the walkable area of
 the agents in the scene. A force will be applied in the direction of the nearest navmesh edge,
 useful for items on a warehouse shelf, or on a table.
 
 #### Closest Waypoint Direction
 
-The UI allows you to add âWaypointsâ to the scene. Waypoints are modeled as boxes that can be
+The UI allows you to add ‘Waypoints’ to the scene. Waypoints are modeled as boxes that can be
 placed anywhere in the scene and resized to outline walking paths or aisles.
-Items tagged as âclosest waypoint directionâ will have a force applied in the direction of the nearest point on the nearest waypoint.
+Items tagged as ‘closest waypoint direction’ will have a force applied in the direction of the nearest point on the nearest waypoint.
 
 #### Create Waypoint Prim
 
@@ -146,13 +146,13 @@ more complex structures like walking paths.
 ### Flammable Items
 
 Flammable items are any items that can catch fire. When a flammable item is tagged as such,
-it can be a target for a pyro event. The itemâs prim must have a visible mesh under itâs hierarchy to act as the fuel source.
+it can be a target for a pyro event. The item’s prim must have a visible mesh under it’s hierarchy to act as the fuel source.
 
 ### Spillable Items
 
 Spillable items are any items that can leak or spill liquid. When a spillable item is tagged as such,
-it can be a target for a spill event. Itemâs currently leak by instantiating a flat liquid surface onto
-prims in the scene marked as âspillable areaâ and which reside underneath the spillable item.
+it can be a target for a spill event. Item’s currently leak by instantiating a flat liquid surface onto
+prims in the scene marked as ‘spillable area’ and which reside underneath the spillable item.
 
 #### Spillable Area Floor
 
@@ -161,7 +161,7 @@ instantiated on a prim below the spilling item with this tag. If no such prim ex
 instantiated on the ground at height 0.0.
 
 **Untagging**:
-Tagged items may be untagged in the Properties panel and removing any properties in the **Raw Usd Properties** section that begin with âisaacsim\_replicator\_incident\_attr:â.
+Tagged items may be untagged in the Properties panel and removing any properties in the **Raw Usd Properties** section that begin with ‘isaacsim\_replicator\_incident\_attr:’.
 
 ## Event Configuration in IRI UI
 
@@ -241,7 +241,7 @@ A topple event has the following required fields:
         time: 1.0
 ```
 
-Toppled items in the scene will be given the semantic label âincident\_toppled\_itemâ.
+Toppled items in the scene will be given the semantic label ‘incident\_toppled\_item’.
 
 ### Fire Event
 
@@ -261,7 +261,7 @@ A fire event has the following required fields:
         time: 2.0
 ```
 
-Flammable items in the scene will be given the semantic label âincident\_flaming\_itemâ. The flame itself will require a custom replicator writer to be written.
+Flammable items in the scene will be given the semantic label ‘incident\_flaming\_item’. The flame itself will require a custom replicator writer to be written.
 
 The YAML `trigger` above sets the fire start time in seconds on the trigger; the incident report JSON records that trigger under `trigger_data` and adds fire-specific `simulation_data` (`start_time` in frames and `fire_prim`). Refer to [Incident Report JSON](#iri-incident-report-json).
 
@@ -287,8 +287,8 @@ A spill event has the following required fields:
         time: 1.5
 ```
 
-Leaking items in the scene will be given the semantic label âincident\_leaking\_itemâ. The liquid itself is given a separate semantic label,
-âincident\_liquid\_spillâ.
+Leaking items in the scene will be given the semantic label ‘incident\_leaking\_item’. The liquid itself is given a separate semantic label,
+‘incident\_liquid\_spill’.
 
 ## Triggers
 
@@ -325,7 +325,7 @@ trigger:
 
 ## SDG Collection
 
-SDG collection is handled by the replicatorâs SDG writers based on the semantic labels of the event items. The structured incident
+SDG collection is handled by the replicator’s SDG writers based on the semantic labels of the event items. The structured incident
 metadata file written when you record events is **JSON** (`incidents_report.json` by default; refer to [Incident Report JSON](#iri-incident-report-json)).
 It is **not** a YAML event log. The event configuration you save and load in Event Config File remains YAML and is separate from the incident report.
 
@@ -464,7 +464,7 @@ spill_event_manager.generate_spill_event(
 ```
 
 You can now press the play button to observe the simulated incidents in a windowed mode or
-use Isaacâs `SimulationApp` API to step through the scene frames if running the scene using
+use Isaac’s `SimulationApp` API to step through the scene frames if running the scene using
 Python in a headless mode.
 
 On this page

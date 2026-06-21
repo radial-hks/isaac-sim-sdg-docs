@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Getting Started"
 section: "教程"
 module: "01-replicator-core"
-checksum: "6f27e8a24728b332"
-fetched: "2026-06-21T11:55:19"
+checksum: "fe6c04972603da52"
+fetched: "2026-06-21T13:40:17"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T11:55:19"
 
 # Getting Started Scripts
 
-This guide outlines a series of example scripts designed to facilitate typical Isaac Sim Replicator workflows. The examples include both âasynchronousâ usage through the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor) and âsynchronousâ usage through the [Standalone Application](../introduction/workflows.html#standalone-application). These scripts cover simulation-based scenarios and configurations for synthetic data generation (SDG).
+This guide outlines a series of example scripts designed to facilitate typical Isaac Sim Replicator workflows. The examples include both “asynchronous” usage through the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor) and “synchronous” usage through the [Standalone Application](../introduction/workflows.html#standalone-application). These scripts cover simulation-based scenarios and configurations for synthetic data generation (SDG).
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ Where:
 
 * `rt_subframes`: Specifies the number of subframes to render. A value greater than 0 enables subframe generation, reducing rendering artifacts or allowing materials to load fully.
 * `pause_timeline`: Pauses the timeline (if currently playing) after the step if set to `True`.
-* `delta_time`: Specifies the time to advance the timeline during a step. Defaults to the timelineâs rate if `None`.
+* `delta_time`: Specifies the time to advance the timeline during a step. Defaults to the timeline’s rate if `None`.
 * `wait_for_render`: If `True`, the function blocks until the renderer completes the current frame before returning. Defaults to `True`.
 
 More details on graph-based replicator randomizers can be found in the [Randomizer Details](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)"), and for custom Isaac Sim or USD API-based randomizations, refer to the [Isaac Sim Randomizers Guide](tutorial_replicator_isaac_randomizers.html#isaac-sim-app-tutorial-replicator-isaac-randomizers).
@@ -486,7 +486,7 @@ The output directory will contain the captured data, including RGB with the 3D b
 
 ### Custom Randomizations: Replicator Graph and USD API
 
-This example demonstrates creating a custom randomization using Replicatorâs graph-based randomizers triggered by custom events and a custom USD API-based randomization. A dome lightâs color is randomized through custom events, while a cubeâs location is randomized through USD API. Data is captured using the `BasicWriter` with semantic segmentation. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
+This example demonstrates creating a custom randomization using Replicator’s graph-based randomizers triggered by custom events and a custom USD API-based randomization. A dome light’s color is randomized through custom events, while a cube’s location is randomized through USD API. Data is captured using the `BasicWriter` with semantic segmentation. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
 
 ```python
 ./python.sh standalone_examples/api/isaacsim.replicator.examples/sdg_getting_started_03.py
@@ -642,7 +642,7 @@ The output directory will contain the RGB and semantic segmentation images with 
 
 ### Event-Triggered Data Capture: Timeline and Simulation
 
-This example shows how to capture simulation data when specific conditions are met. A cube and sphere are dropped in a physics simulation, and data is captured at specific intervals based on the cubeâs height. The timeline is paused during capture to ensure data consistency. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
+This example shows how to capture simulation data when specific conditions are met. A cube and sphere are dropped in a physics simulation, and data is captured at specific intervals based on the cube’s height. The timeline is paused during capture to ensure data consistency. The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
 
 ```python
 ./python.sh standalone_examples/api/isaacsim.replicator.examples/sdg_getting_started_04.py

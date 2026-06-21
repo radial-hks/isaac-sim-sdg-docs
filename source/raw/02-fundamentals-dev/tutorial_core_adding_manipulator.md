@@ -4,7 +4,7 @@ title: "Adding Manipulator"
 section: "Core API"
 module: "02-fundamentals-dev"
 checksum: "66cdcb62714fa473"
-fetched: "2026-06-21T12:48:08"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Python Scripting and Tutorials](../python_scripting/index.html)

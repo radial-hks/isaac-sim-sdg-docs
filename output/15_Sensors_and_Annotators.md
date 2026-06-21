@@ -2,7 +2,7 @@
 
 > 相机/传感器配置 + RTX 标注器 + Writer 输出格式
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 9
 
 ---
@@ -52,15 +52,15 @@ split. See [Camera Sensors](../migration_guides/isaac_sim_6_0/sensors_camera_to_
 Isaac Sim cameras are USD `Camera` prims rendered by the RTX renderer. The
 `isaacsim.sensors.experimental.rtx` extension wraps these prims with two paired classes:
 
-* **Authoring** â `RtxCamera` creates or wraps a USD `Camera` prim, applies the
+* **Authoring** — `RtxCamera` creates or wraps a USD `Camera` prim, applies the
   `OmniSensorAPI` schema, and exposes the optical parameters (focal length, aperture,
   clipping range) through its `.camera` property.
-* **Runtime** â `CameraSensor` wraps an `RtxCamera` object, creates a Replicator render
+* **Runtime** — `CameraSensor` wraps an `RtxCamera` object, creates a Replicator render
   product at a specified resolution, attaches annotators (`rgb`, `distance_to_camera`,
   `semantic_segmentation`, etc.), and provides `get_data()` for retrieving rendered frames
   as numpy/warp arrays.
 
-Two specialized camera variants extend this base â `SingleViewDepthCameraSensor` for
+Two specialized camera variants extend this base — `SingleViewDepthCameraSensor` for
 stereoscopic depth simulation and `StructuredLightCamera` for projected-pattern depth
 recovery. See [Specialized Camera Types](#isaacsim-sensors-camera-specialized-types) below.
 
@@ -102,7 +102,7 @@ The `tick_rate` parameter (Hz) on `RtxCamera` controls how frequently the camera
 of `0` (the default) enables autotrigger mode, where the camera renders every simulation frame.
 Setting a nonzero value causes the camera to render at the specified frequency independently of the
 simulation step rate. This maps to the `omni:sensor:tickRate` prim attribute and requires the
-`OmniSensorAPI` schema to be applied to the Camera prim â `RtxCamera` does this automatically.
+`OmniSensorAPI` schema to be applied to the Camera prim — `RtxCamera` does this automatically.
 
 ```python
 from isaacsim.sensors.experimental.rtx import RtxCamera
@@ -182,7 +182,7 @@ located at `standalone_examples/api/isaacsim.sensors.experimental.rtx/camera_ope
 Note
 
 * Previously, the `Camera` class included APIs to approximate OpenCV pinhole and fisheye models distortion parameters by setting coefficients for the `fisheyePolynomial` distortion model. Now that OpenCV lens distortion models are natively supported, those APIs have been deprecated.
-* [Omniverse RTX Camera Projection Attributes](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#rtx-camera-projection-attributes-deprecated) have been deprecated as of Isaac Sim 5.0, in favor of the `OmniLensDistortion` [schemata](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata). The deprecated attributes are still visible in the UI in the `Fisheye Lens` panel when selecting a Camera prim, but will be ignored if you have set an `OmniLensDistortion` schema instead. Follow the instructions in [âHow To Add Schemata to Camerasâ](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata) to see how to update Camera prim attributes for the new schemata in the UI.
+* [Omniverse RTX Camera Projection Attributes](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#rtx-camera-projection-attributes-deprecated) have been deprecated as of Isaac Sim 5.0, in favor of the `OmniLensDistortion` [schemata](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata). The deprecated attributes are still visible in the UI in the `Fisheye Lens` panel when selecting a Camera prim, but will be ignored if you have set an `OmniLensDistortion` schema instead. Follow the instructions in [“How To Add Schemata to Cameras”](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata) to see how to update Camera prim attributes for the new schemata in the UI.
 
 Warning
 
@@ -270,19 +270,19 @@ Run the example:
 The example renders 20 frames and saves output from each ISP stage to the `camera_isp_pipeline_outputs` directory.
 The pipeline stages, in order, are described below.
 
-**HDR texture read** â the raw HDR radiance buffer read from the renderer before any sensor processing.
+**HDR texture read** — the raw HDR radiance buffer read from the renderer before any sensor processing.
 
-**Color correction** â applies black-level subtraction, white-balance gains, a 3x3 color-correction matrix, and sensor-response scaling.
+**Color correction** — applies black-level subtraction, white-balance gains, a 3x3 color-correction matrix, and sensor-response scaling.
 
-**CFA encoding** â encodes the RGB image into a single-channel Bayer mosaic using the configured Color Filter Array pattern (GRBG in this example).
+**CFA encoding** — encodes the RGB image into a single-channel Bayer mosaic using the configured Color Filter Array pattern (GRBG in this example).
 
-**Noise simulation** â adds Gaussian and shot noise to the Bayer image to approximate real sensor behavior.
+**Noise simulation** — adds Gaussian and shot noise to the Bayer image to approximate real sensor behavior.
 
-**Companding** â applies a piecewise-linear tone curve that compresses the high-dynamic-range Bayer data into a lower bit depth.
+**Companding** — applies a piecewise-linear tone curve that compresses the high-dynamic-range Bayer data into a lower bit depth.
 
-**ISP output** â the fully processed image after the on-chip ISP program runs (demosaic, denoise, tone-map, and color grading).
+**ISP output** — the fully processed image after the on-chip ISP program runs (demosaic, denoise, tone-map, and color grading).
 
-**YUV conversion** â the final ISP output converted from RGB to YUV color space.
+**YUV conversion** — the final ISP output converted from RGB to YUV color space.
 
 ### Camera Sensor Rigs
 
@@ -291,7 +291,7 @@ The camera sensor rig is a collection of camera sensors that are attached to a s
 This will be a short discussion on how we created a digital twin of the RealSenseâ¢ Depth Camera D455. The USD for the camera can be found in the content folder as: `/Isaac/Sensors/RealSense/D455/rsd455.usd`.
 
 There are three visual sensors, and one IMU sensor on the RealSense. Their placement relative to the camera origin was taken from the layout diagram in
-the [TechSpec document](https://www.intelrealsense.com/wp-content/uploads/2023/07/Intel-RealSense-D400-Series-Datasheet-July-2023.pdf) from [Intelâs web site](https://www.intelrealsense.com/depth-camera-d455/).
+the [TechSpec document](https://www.intelrealsense.com/wp-content/uploads/2023/07/Intel-RealSense-D400-Series-Datasheet-July-2023.pdf) from [Intel’s web site](https://www.intelrealsense.com/depth-camera-d455/).
 
 Most camera parameters were also found in the TechSpec, for example, the USD parameter `fStop` is the denominator of the F Number from the TechSpec; the `focalLength` is the Focal Length, and the `ftheatMaxFov`
 is the Diagonal Field of View. However, some parameters, like the `focusDistance` were estimated by comparing real output and informed guesses.
@@ -299,9 +299,9 @@ is the Diagonal Field of View. However, some parameters, like the `focusDistance
 The `horizontalAperture` and `verticalAperture` in that example are derived from the technical specification. From the TechSpec, the left, right, and color sensors are listed as a OmniVision Technologies OV9782, and
 the [Tech Spec](https://www.ovt.com/products/ov09782-ga4a/) for that sensor lists the image area as 3896 x 2453 Âµm. We used that as the aperture sizes.
 
-The resolution for the depth and color cameras are 1280 x 800, but itâs up to you to attach a render product of that size to the outputs.
+The resolution for the depth and color cameras are 1280 x 800, but it’s up to you to attach a render product of that size to the outputs.
 
-The `Pseudo Depth` camera is a stand in for the depth image created by the cameraâs firmware. We donât attempt to copy the algorithms that create the image from stereo, but the `Camera_Pseudo_Depth` component
+The `Pseudo Depth` camera is a stand in for the depth image created by the camera’s firmware. We don’t attempt to copy the algorithms that create the image from stereo, but the `Camera_Pseudo_Depth` component
 is a convenience camera that can return the scene depth as seen from that camera position between the left and right stereo cameras. It would be more accurate to create a depth image from stereo, and if
 the same algorithm that is used in the RealSense was used then the same results (including artifacts) would be produced.
 
@@ -686,7 +686,7 @@ The `omni.replicator.core.orchestrator.step()` / `step_async()` methods are pref
 
 ### IsaacExtractRTXSensorPointCloud
 
-The `IsaacExtractRTXSensorPointCloud` Annotator extracts the `GenericModelOutput` bufferâs point cloud data
+The `IsaacExtractRTXSensorPointCloud` Annotator extracts the `GenericModelOutput` buffer’s point cloud data
 into a Cartesian (x, y, z) buffer every frame. It is provided by the `isaacsim.sensors.rtx.nodes` extension.
 
 This annotator works with both `OmniLidar` (RTX Lidar) and `OmniRadar` (RTX Radar) prims.
@@ -822,14 +822,14 @@ Note
 **Not every returned object ID has a map entry.**
 
 The renderer constructs each 128-bit object ID by combining a per-instance
-base stable ID with an *upper index* placed in the high 32 bits â the
+base stable ID with an *upper index* placed in the high 32 bits — the
 submesh index for mesh geometry, and the per-triangle primitive index for
 procedural geometry. `StableIdMap` registers per-instance entries (only
 for instances with a USD prim path) plus per-`GeomSubset` entries when
 an instance has more than one subset, but it does **not** register
 per-primitive entries.
 
-As a result, hits on procedural geometry, on submeshes that werenât
+As a result, hits on procedural geometry, on submeshes that weren’t
 expanded into the map, or on renderer-internal instances without a prim
 path will return object IDs with no map entry. Direct `map[id]` lookups
 on those IDs raise `KeyError`. Use `map.get(id, "<unknown>")` (as the
@@ -882,15 +882,15 @@ If the user does not set the required attributes or carb settings, the annotator
 | `distance` | `float` | Range of each return, in world units (by default, meters). | Provided if `outputDistance` is set to `true`. |
 | `intensity` | `float` | Intensity of each return, normalized as described [here](https://docs.omniverse.nvidia.com/kit/docs/omni.sensors.nv.lidar/latest/lidar_extension.html#intensity-defining-attributes). | Provided if `outputIntensity` is set to `true`. |
 | `timestamp` | `uint64` | Timestamp of each return, in nanoseconds since the start of the simulation. | Provided if `outputTimestamp` is set to `true`. |
-| `emitterId` | `uint32` | ID of the emitter that emitted the return. | Provided if `outputEmitterId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `channelId` | `uint32` | ID of the channel the return was generated on. | Provided if `outputChannelId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `materialId` | `uint32` | ID of the material of the object that generated the return. | Provided if `outputMaterialId` is set to `true`, and the OmniLidarâs `aux_output_level` is `EXTRA` (or higher). Refer to [RTX Sensor Non-Visual Materials](isaacsim_sensors_rtx_materials.html#isaacsim-sensors-rtx-materials) for more details on how material IDs are computed. |
-| `tickId` | `uint32` | ID of the tick the return was generated on. | Provided if `outputTickId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `hitNormal` | `float3` | Normal to the surface of the object that generated the return. | Provided if `outputHitNormal` is set to `true`, the OmniLidarâs `aux_output_level` is `FULL`, and `--/app/sensors/nv/lidar/publishNormals=true` is set. |
-| `velocity` | `float3` | Velocity of the object that generated the return. | Provided if `outputVelocity` is set to `true`, and the OmniLidarâs `aux_output_level` is `FULL`. |
-| `objectId` | `uint8` | ID of the object that generated the return. | Provided if `outputObjectId` is set to `true`, the OmniLidarâs `aux_output_level` is `EXTRA` (or higher), and `--/rtx-transient/stableIds/enabled=true` is set. Object ID is a stable, unique 128-bit unsigned integer mapping to the prim path of the object that generated the corresponding return. See [Semantic Segmentation with RTX Sensor using Object IDs](#rtx-sensor-resolving-object-ids) for more details. |
-| `echoId` | `uint8` | Indicates which echo the return represents in a multi-echo Lidar configuration. | Provided if `outputEchoId` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
-| `tickState` | `uint8` | Indicates the state of the tick the return was generated on. | Provided if `outputTickState` is set to `true`, and the OmniLidarâs `aux_output_level` is `BASIC` (or higher). |
+| `emitterId` | `uint32` | ID of the emitter that emitted the return. | Provided if `outputEmitterId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `channelId` | `uint32` | ID of the channel the return was generated on. | Provided if `outputChannelId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `materialId` | `uint32` | ID of the material of the object that generated the return. | Provided if `outputMaterialId` is set to `true`, and the OmniLidar’s `aux_output_level` is `EXTRA` (or higher). Refer to [RTX Sensor Non-Visual Materials](isaacsim_sensors_rtx_materials.html#isaacsim-sensors-rtx-materials) for more details on how material IDs are computed. |
+| `tickId` | `uint32` | ID of the tick the return was generated on. | Provided if `outputTickId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `hitNormal` | `float3` | Normal to the surface of the object that generated the return. | Provided if `outputHitNormal` is set to `true`, the OmniLidar’s `aux_output_level` is `FULL`, and `--/app/sensors/nv/lidar/publishNormals=true` is set. |
+| `velocity` | `float3` | Velocity of the object that generated the return. | Provided if `outputVelocity` is set to `true`, and the OmniLidar’s `aux_output_level` is `FULL`. |
+| `objectId` | `uint8` | ID of the object that generated the return. | Provided if `outputObjectId` is set to `true`, the OmniLidar’s `aux_output_level` is `EXTRA` (or higher), and `--/rtx-transient/stableIds/enabled=true` is set. Object ID is a stable, unique 128-bit unsigned integer mapping to the prim path of the object that generated the corresponding return. See [Semantic Segmentation with RTX Sensor using Object IDs](#rtx-sensor-resolving-object-ids) for more details. |
+| `echoId` | `uint8` | Indicates which echo the return represents in a multi-echo Lidar configuration. | Provided if `outputEchoId` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
+| `tickState` | `uint8` | Indicates the state of the tick the return was generated on. | Provided if `outputTickState` is set to `true`, and the OmniLidar’s `aux_output_level` is `BASIC` (or higher). |
 
 Note
 
@@ -947,7 +947,7 @@ On this page
 
 # Multi-Tick Rendering
 
-Multi-tick rendering decouples each sensorâs render rate from the main simulation frame rate.
+Multi-tick rendering decouples each sensor’s render rate from the main simulation frame rate.
 Instead of rendering every sensor every frame, each sensor ticks independently at its
 own configurable rate. This significantly improves performance in scenes with many sensors
 by avoiding redundant rendering work.
@@ -1089,7 +1089,7 @@ when configuring deterministic simulations or interpreting sensor output.
 | --- | --- | --- | --- |
 | Run-loop / `omni.timeline` time | Wall-clock dt per app update, or a fixed manual dt when set | `RenderingManager.set_dt(...)` (manual mode), `/app/runLoops/main/rateLimitFrequency` | Timeline UI, `timeCodesPerSecond`, stage update scheduling |
 | Physics simulation time | Recomputed on every physics step as `stepCount / stepsPerSecond` | `PhysicsScene.set_dt(...)` or `SimulationManager.setup_simulation(dt=...)` | `SimulationManager.get_simulation_time()`, `IsaacReadSimulationTime`, ROS 2 / UCX / HSB timestamps |
-| Renderer simulation time | Mirror of physics time, written to the Fabric prim `/ExternalSimulationTime.omni:time` after each physics step | Driven by `isaacsim.core.simulation_manager`; seeded by `RenderingManager` when the simulation manager is absent | The multi-tick rendererâs per-sensor tick scheduler at `eHydraRendering` |
+| Renderer simulation time | Mirror of physics time, written to the Fabric prim `/ExternalSimulationTime.omni:time` after each physics step | Driven by `isaacsim.core.simulation_manager`; seeded by `RenderingManager` when the simulation manager is absent | The multi-tick renderer’s per-sensor tick scheduler at `eHydraRendering` |
 
 The renderer no longer reads `omni.timeline` to obtain the current simulation time;
 it reads the `omni:time` attribute on the `/ExternalSimulationTime` prim from Fabric. Physics writes that attribute on
@@ -1106,7 +1106,7 @@ For one `App.update()` with the timeline playing:
    the loop time. Each substep recomputes the physics simulation time and writes it to
    `/ExternalSimulationTime`.
 3. Hydra reads `/ExternalSimulationTime` once. The per-sensor tick scheduler compares
-   that value to each sensorâs last-rendered time and its `omni:sensor:tickRate` to
+   that value to each sensor’s last-rendered time and its `omni:sensor:tickRate` to
    decide which sensors render this frame.
 4. OmniGraph nodes such as `IsaacReadSimulationTime` read the same simulation time,
    either directly or, when given a reference frame `RationalTime`, via interpolation
@@ -1124,7 +1124,7 @@ For one `App.update()` with the timeline playing:
 In the `physics_dt <= loop_dt` cases, multiple physics substeps in the same frame all
 write to `/ExternalSimulationTime`, but only the last value is what the renderer
 reads. `TimeSampleStorage` collapses these writes to a single sample per frame, keyed
-by the frameâs `RationalTime`, holding the cumulative physics time.
+by the frame’s `RationalTime`, holding the cumulative physics time.
 
 In the `physics_dt > loop_dt` case, frames where no physics step runs leave
 `/ExternalSimulationTime` unchanged. The render pipeline still runs every app update,
@@ -1137,7 +1137,7 @@ sensors render on that frame.
 The table above describes the substep-to-catch-up behavior that applies when
 `/app/player/useFixedTimeStepping` is **false** (the default in standalone Python).
 The full Isaac Sim GUI app sets this carb setting to **true** in
-`source/apps/isaacsim.exp.full.kit`. With it true, the timeline ignores the run-loopâs
+`source/apps/isaacsim.exp.full.kit`. With it true, the timeline ignores the run-loop’s
 measured `dt` and forces `dt = 1 / timeCodesPerSecond` per accepted update inside
 `Timeline::update()`. Sensor and timeline time then advance at:
 
@@ -1153,7 +1153,7 @@ Consequences:
   alone - it aligns `rateLimitFrequency`, `targetFramerate`, and `timeCodesPerSecond`
   to the same value.
 * If `loop_hz_wall < timeCodesPerSecond` (e.g. the loop is rate-limited below the
-  timelineâs per-tick rate), the simulation runs in **slow motion** at ratio
+  timeline’s per-tick rate), the simulation runs in **slow motion** at ratio
   `loop_hz_wall / timeCodesPerSecond`. RTX sensors gated by
   `/ExternalSimulationTime` publish proportionally slower; OnPlaybackTick-driven
   publishers (`/clock`, OmniGraph ticks) still fire at `loop_hz_wall`. This is the
@@ -1209,7 +1209,7 @@ tick rates, and the underlying loop / physics clocks discussed in
 | `/rtx/hydra/supportMultiTickRate` | carb setting | `true` | Enables multi-tick rendering. When `false`, the renderer reverts to per-frame rendering and does not consult `/ExternalSimulationTime`. |
 | `/rtx/rendering/perSensorTickTlas` | carb setting | `true` | Builds a per-sensor Top-Level Acceleration Structure (TLAS) on each sensor tick instead of once per frame. |
 | `/app/player/playSimulations` | carb setting | `true` | When `false`, `App.update()` does not step physics, so `/ExternalSimulationTime` is frozen even though `omni.timeline` may continue to advance. `RenderingManager.render()` toggles this around its update to render without ticking the simulation clock. |
-| `RenderingManager.set_dt(dt)` | Python API | n/a | Sets `loop_dt`. Switches the Isaac loop runner to manual mode, sets `/app/runLoops/main/rateLimitFrequency`, and updates `omni.timeline.set_target_framerate` and the stageâs `timeCodesPerSecond`. |
+| `RenderingManager.set_dt(dt)` | Python API | n/a | Sets `loop_dt`. Switches the Isaac loop runner to manual mode, sets `/app/runLoops/main/rateLimitFrequency`, and updates `omni.timeline.set_target_framerate` and the stage’s `timeCodesPerSecond`. |
 | `PhysicsScene.set_dt(dt)` / `SimulationManager.setup_simulation(dt=...)` | Python API | 1/60 s | Sets `physics_dt` on the physics scene. The physics engine uses an internal accumulator to decide how many substeps to take each app update. |
 | `RenderingManager.render()` | Python API | n/a | Render the stage without stepping physics. Temporarily sets `/app/player/playSimulations=false` for one app update. |
 | `omni:sensor:tickRate` (Hz) | USD attribute | `0` (autotrigger) | Per-sensor render rate. Compared against `/ExternalSimulationTime` by the per-sensor tick scheduler. Applied to `Camera` and `OmniLidar` prims; ignored on `OmniRadar` in 6.0 GA (see [RTX Radar autotriggers in 6.0 GA](#isaac-sim-sensors-multitick-known-issue-radar-autotrigger)). |
@@ -1249,7 +1249,7 @@ default, the following changes may affect your workflow.
    [frameSkipCount Deprecation](#isaac-sim-sensors-multitick-frameskipcount-deprecation) below.
 4. **RTX Lidar accumulation moved to a USD attribute.** Lidar scan accumulation is now
    controlled by the `omni:sensor:Core:accumulateOutputs` attribute on the
-   `OmniLidar` prim. The deprecated `isaacsim.sensors.rtx` extensionâs
+   `OmniLidar` prim. The deprecated `isaacsim.sensors.rtx` extension’s
    `IsaacExtractRTXSensorPointCloudNoAccumulator` annotator and its
    `IsaacCreateRTXLidarScanBuffer` and `IsaacComputeRTXLidarFlatScan` nodes have
    been updated to read this attribute. The newer `IsaacExtractRTXSensorPointCloud`
@@ -1356,7 +1356,7 @@ the recommended remediation.
 A fatal crash from `rtx.sensors.lidar.core.plugin` may occur during the first 1-2
 wall-clock seconds after starting simulation when a scene combines RTX Radar, RTX Lidar,
 and Motion BVH. The crash is caused by a timing-dependent race in the RTX sensor
-frameworkâs frames-in-flight (FIF) scheduling, where the Lidarâs per-frame trace begins
+framework’s frames-in-flight (FIF) scheduling, where the Lidar’s per-frame trace begins
 before its sensor profile has been initialized. Affected configurations crash
 deterministically; unaffected hardware does not see the issue. The error appears as a
 floating-point exception inside `LidarRotary::openTrace` or, less commonly, a
@@ -1375,7 +1375,7 @@ session is stable for the remainder of its lifetime.
 In standalone Python workflows, delay creating the render product for the Radar and
 attaching any Annotators or Writers until after the frames-in-flight have stabilized.
 Construct the Lidars normally before `timeline.play()`, but construct only the
-Radarâs USD authoring object pre-play and defer the `RadarSensor` wrap until after a
+Radar’s USD authoring object pre-play and defer the `RadarSensor` wrap until after a
 short warmup window:
 
 ```python
@@ -1441,12 +1441,12 @@ frames-in-flight buffer plus a small margin. Heavier scenes may require a larger
 #### OmniGraph workaround
 
 In OmniGraph workflows using the `ROS2RtxRadarHelper` node, you can stagger creating
-the Radarâs render product until after the Lidars have stabilized. Place an
+the Radar’s render product until after the Lidars have stabilized. Place an
 `omni.graph.action.Countdown` node between the `OnPlaybackTick` and the
 `ROS2RtxRadarHelper` node, setting its `duration` to `5` and its `period` to
-`1`. The `Countdown` nodeâs `finished` output triggers downstream graph execution
+`1`. The `Countdown` node’s `finished` output triggers downstream graph execution
 after `duration` ticks have elapsed, analogous to the 5-frame warmup in the standalone
-Python workflow. You may need to increase the `duration` value based on your sceneâs
+Python workflow. You may need to increase the `duration` value based on your scene’s
 complexity and your hardware configuration.
 
 On this page
@@ -1532,20 +1532,20 @@ The **Calibration Tool** UI will automatically be opened on the right side of th
 >   > }
 >   > ```
 
-**Scene Root Prim Path**: The path to the root prim of the scene. This is used to approximate the top view cameraâs position. The top view camera will look at the scene root primâs center.
+**Scene Root Prim Path**: The path to the root prim of the scene. This is used to approximate the top view camera’s position. The top view camera will look at the scene root prim’s center.
 
 **Floor & Ceiling Height**: The floor and ceiling height values for the scene.
 
 > Note
 >
 > * The ceiling height adjusts the clipping range of the top view camera, making it easier to create accurate top views.
-> * By default, the ceiling height is set to `-1`, which means the top view cameraâs clipping range will use its default value.
+> * By default, the ceiling height is set to `-1`, which means the top view camera’s clipping range will use its default value.
 > * By customizing the ceiling height, you can clip out prims or objects above the specified value when creating a top view camera.
 
 **Top View Camera**: This camera will be used to render the `top_view` images.
 
-> * **Create**: After **Scene Root Prim Path** is set, clicking this button will automatically generate a top view camera that looks at the scene rootâs center. The top view camera will be generated under `/World/Top_Camera`.
-> * **Path**: After clicking **Create**, the top view cameraâs path will be shown here. You can also use this field to select existing top view cameras in the stage.
+> * **Create**: After **Scene Root Prim Path** is set, clicking this button will automatically generate a top view camera that looks at the scene root’s center. The top view camera will be generated under `/World/Top_Camera`.
+> * **Path**: After clicking **Create**, the top view camera’s path will be shown here. You can also use this field to select existing top view cameras in the stage.
 
 > Note
 >
@@ -1556,13 +1556,13 @@ The **Calibration Tool** UI will automatically be opened on the right side of th
 
 > * Default value: 100
 
-**Minimum FOV Polygon Edge Length (meter)**: The minimum length of edges in the polygonâs contour. Edges shorter than this length are ignored and the vertices are connected to the next point that meets this criteria. The unit is meter.
+**Minimum FOV Polygon Edge Length (meter)**: The minimum length of edges in the polygon’s contour. Edges shorter than this length are ignored and the vertices are connected to the next point that meets this criteria. The unit is meter.
 
 > * Default value: 0 (no simplification in drawing the contour)
 
 **Minimum Area of FOV Polygon Hole to Ignore**: When generating data, holes in the FOV polygon that are smaller than this threshold value are ignored. Holes are the areas that are not included in the FOV polygon.
 
-> * Default value: 0 (donât ignore any holes in FOV polygons)
+> * Default value: 0 (don’t ignore any holes in FOV polygons)
 
 **Create Camera View Images**: Whether to include camera view images in the output folder.
 
@@ -1630,12 +1630,12 @@ The **Top View Camera** supports the following features:
 The extension provides a UI to help you create the top view camera:
 
 1. Set the **Scene Root Prim Path**. The top view camera generated by this tool will look at this scene root. In this case, set it to `/Root`.
-2. Set the **Floor & Ceiling Height** values to clip the ceiling from the top view cameraâs view.
+2. Set the **Floor & Ceiling Height** values to clip the ceiling from the top view camera’s view.
 
    > Note
    >
    > * In this tutorial, set **Ceiling Height** to `6` to clip the warehouse ceiling.
-   > * Because the warehouse floor height is `0`, thereâs no need to change the **Floor Height**.
+   > * Because the warehouse floor height is `0`, there’s no need to change the **Floor Height**.
 3. Click **Create**. The top view camera will be generated and its path will be shown in the text field.
 4. Switch the viewport to the new top view camera to verify that it covers the floorplan.
 
@@ -1647,7 +1647,7 @@ To switch the viewport to the top-view camera, click the Camera icon, then click
 
 This step is to enter the information needed for camera calibration.
 
-1. Enter the place information in **Place Info**. In this case, itâs `city=Santa Clara/building=Isaac Sim Warehouse/room=Warehouse`.
+1. Enter the place information in **Place Info**. In this case, it’s `city=Santa Clara/building=Isaac Sim Warehouse/room=Warehouse`.
 2. Set **Raycast Density**, **Minimum FOV Polygon Edge Length**, and **Minimum Area of FOV Polygon Hole to Ignore**. See the [Input Field](#ira-calibration-attribute) for more details. In this case, use the default values.
 3. Check the **Create Camera View Images**, **Create FOV Polygon Images**, and **Show FOV Polygon** boxes if these [additional data](#ira-calibration-additional-attribute) are needed.
 4. Set **Output Folder Path** by either entering the path or clicking the folder picker icon.
@@ -1660,7 +1660,7 @@ Note
 
 * Calibration dot prims are generated under `/World/Calibration_Dots/[Camera Name]/`, where `[Camera Name]` is the name of the camera.
 * For each camera prim under `/World/Cameras`, six calibration dots are generated. The dot prims are used to calculate the projection matrix for each camera.
-* You can switch your viewport to any cameraâs view to check whether all calibration dots are visible.
+* You can switch your viewport to any camera’s view to check whether all calibration dots are visible.
 
 ### Generate the Calibration File
 
@@ -1675,7 +1675,7 @@ Your result might look different because it depends on the camera parameters. In
 
 To visualize the generated FOV polygon top view image, generate the image by clicking on **Generate Top View Image** button.
 
-> The Top View Cameraâs view will be rendered and output to the `[Output Folder Path]`.
+> The Top View Camera’s view will be rendered and output to the `[Output Folder Path]`.
 > An `imageMetadata.json` file is also generated to store image metadata.
 
 Note
@@ -1806,7 +1806,7 @@ The total number of cameras to be placed in the scene.
 >   :   The minimum additional patch a camera must cover for it to be considered valid.
 >       If the new camera increases coverage less than this value, placement will stop.
 > * **Limit FOV by Distance**:
->   :   Determines whether the cameraâs field of view should be restricted based on its **Camera Distance Range**.
+>   :   Determines whether the camera’s field of view should be restricted based on its **Camera Distance Range**.
 >       - If enabled, the estimated camera coverage will be further limited according to the distance between each visible area and the target camera.
 > * **Coverage Density**:
 >   :   Specifies how many cameras must cover each patch at a minimum.
@@ -1887,7 +1887,7 @@ Refer to the [Camera Range Input Fields](#camera-range-parameters) for more deta
 
 ### (Optional) Adjust Stage Processing
 
-**Stage Processing Parameters** allows you to configure the camera placement method according to the stageâs size, height, and complexity.
+**Stage Processing Parameters** allows you to configure the camera placement method according to the stage’s size, height, and complexity.
 Tune **Stage Processing Parameters** to set patch size or ground height, if applicable.
 Refer to the [Stage Processing Parameters Field](#stage-processing-parameters) for more details. This example uses the default values.
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/introduction/quickstart_i
 title: "Quick Start with Robot"
 section: "入门"
 module: "01-concepts"
-checksum: "2608cdc4d6261781"
-fetched: "2026-06-21T12:48:03"
+checksum: "5493ea523cafe06e"
+fetched: "2026-06-21T13:39:50"
 ---
 
 * [Quick Tutorials](quickstart_index.html)
@@ -29,7 +29,7 @@ Add a robot to Stage
 
 Examine the robot
 
-Use the Physics Inspector to examine the robotâs joint properties.
+Use the Physics Inspector to examine the robot’s joint properties.
 
 1. Go to **Tools > Physics > Physics Inspector**. A window opens on the right.
 2. Select Franka to inspect. The window will populate the joint information, such as the upper and lower limits as well as its default position by default.
@@ -98,7 +98,7 @@ positions = arm_handle.get_dof_positions()
 print("Joint positions:", positions)
 ```
 
-Notice when you pressed âRunâ, it only prints the state once, even if the simulation is running. You would have to keep pressing âRunâ if you want to see more recent states. If you want to see the information printed at every physics step, you would need to insert these commands into a physics callback that runs at each physics step. We will go more in depth on how time stepping works in the next section [Workflows](workflows.html#isaac-sim-app-tutorial-intro-workflows).
+Notice when you pressed “Run”, it only prints the state once, even if the simulation is running. You would have to keep pressing “Run” if you want to see more recent states. If you want to see the information printed at every physics step, you would need to insert these commands into a physics callback that runs at each physics step. We will go more in depth on how time stepping works in the next section [Workflows](workflows.html#isaac-sim-app-tutorial-intro-workflows).
 
 To insert the commands into a physics callback, run the following snippet in a separate tab in the Script Editor.
 
@@ -128,7 +128,7 @@ Control the Robot
 
 There are many ways to control the robot in Isaac Sim. The lowest level is sending direct joint commands to set position, velocity, and efforts. Here is an example of how to control the robot using the Articulation API at the joint level.
 
-Open a new tab in the Script Editor, copy-paste the following code snippet. This can only be run after the previous âAdd a robot to Stageâ step, where `arm_handle` has already been established. Press **Play** before running the snippet. Physics must be running for these commands to work. The snippet sets the Franka arm to a target pose. If you have added the print-state callback above, you should see the printed joint values change as the robot moves.
+Open a new tab in the Script Editor, copy-paste the following code snippet. This can only be run after the previous “Add a robot to Stage” step, where `arm_handle` has already been established. Press **Play** before running the snippet. Physics must be running for these commands to work. The snippet sets the Franka arm to a target pose. If you have added the print-state callback above, you should see the printed joint values change as the robot moves.
 
 ```python
 # Move arm to a target pose. arm_handle from add_franka_to_stage snippet.
@@ -139,7 +139,7 @@ arm_handle.set_dof_positions([-1.5, 0.0, 0.0, -1.5, 0.0, 1.5, 0.5, 0.04, 0.04])
 # arm_handle.set_dof_positions([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.04])
 ```
 
-Similar to the examine snippet above, `set_dof_positions` here is executed once when you press âRunâ. If you wish to send commands at every physics step, you would need to insert these commands into a physics callback that runs at each physics step.
+Similar to the examine snippet above, `set_dof_positions` here is executed once when you press “Run”. If you wish to send commands at every physics step, you would need to insert these commands into a physics callback that runs at each physics step.
 
 Standalone Python
 
@@ -190,7 +190,7 @@ arm = Articulation("/World/Arm")
 
 **Stepping the simulation explicitly**
 
-At the bottom of the script, a loop calls `SimulationManager.step()` and `RenderingManager.render()` every iteration to advance physics and rendering. The script runs for 4 cycles; in each cycle the arm and the car move or stop, and the carâs joint positions are printed at every physics step in the last cycle.
+At the bottom of the script, a loop calls `SimulationManager.step()` and `RenderingManager.render()` every iteration to advance physics and rendering. The script runs for 4 cycles; in each cycle the arm and the car move or stop, and the car’s joint positions are printed at every physics step in the last cycle.
 
 ```python
 from isaacsim.core.rendering_manager import RenderingManager

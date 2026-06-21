@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Articulation Force"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "83500adcff0e36e5"
-fetched: "2026-06-21T13:05:43"
+checksum: "4ffeaed84c7f994b"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -20,7 +20,7 @@ Articulation sensors allow reading the active and passive components of the join
 from the `isaacsim.core.experimental.prims` extension.
 See [Robot Simulation Snippets](../python_scripting/robots_simulation.html#isaac-robot-simulation-how-to) for more details about the Articulation class. Specifically,
 
-* `get_link_incoming_joint_force()` returns the 6D force and torque (shape `(N, L, 3)` each) for each linkâs incoming joint.
+* `get_link_incoming_joint_force()` returns the 6D force and torque (shape `(N, L, 3)` each) for each link’s incoming joint.
   This provides the total spatial force at each joint and can be used to mimic force-torque sensors by reading forces from a fixed joint.
 * `get_dof_projected_joint_forces()` returns the active component of the joint forces projected onto the motion direction for each DOF.
   This is useful for reading the measured effort at each actuated joint.

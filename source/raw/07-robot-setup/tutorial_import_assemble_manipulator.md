@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Import & Assemble Manipulator"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "3916622d92e7bf25"
-fetched: "2026-06-21T13:05:36"
+checksum: "72df9992cc394d80"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -23,9 +23,9 @@ This is the first manipulator tutorial in a series of four tutorials. This tutor
 
 Isaac Sim always uses Python 3.12, so the UR description package and any ROS packages used in this tutorial must be available in a Python 3.12 environment. How you obtain the package depends on your platform:
 
-* **Ubuntu 24.04 + ROS 2 Jazzy** â install the prebuilt `ros-jazzy-ur-description` apt package; the system Python (3.12) already matches Isaac Sim.
-* **Ubuntu 22.04 + ROS 2 Humble or Jazzy** â the system Python is 3.10, so the workspace must be cloned and rebuilt against Python 3.12 using the included `build_ros.sh` script.
-* **Windows + Pixi-based ROS 2 Jazzy** â add the UR description package to your Pixi environment (`pixi add ros-jazzy-ur-description`); Pixi-managed ROS 2 Jazzy already runs on Python 3.12. See [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Pixi setup. WSL2 is not supported for the ROS-based URDF import workflow â use the prebuilt USD files in the content browser instead.
+* **Ubuntu 24.04 + ROS 2 Jazzy** — install the prebuilt `ros-jazzy-ur-description` apt package; the system Python (3.12) already matches Isaac Sim.
+* **Ubuntu 22.04 + ROS 2 Humble or Jazzy** — the system Python is 3.10, so the workspace must be cloned and rebuilt against Python 3.12 using the included `build_ros.sh` script.
+* **Windows + Pixi-based ROS 2 Jazzy** — add the UR description package to your Pixi environment (`pixi add ros-jazzy-ur-description`); Pixi-managed ROS 2 Jazzy already runs on Python 3.12. See [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Pixi setup. WSL2 is not supported for the ROS-based URDF import workflow — use the prebuilt USD files in the content browser instead.
 
 Attention
 
@@ -342,7 +342,7 @@ Note
 
 See [Isaac Sim ROS Workspaces](../installation/install_ros.html#isaac-sim-ros-workspace) for more information on setting up your custom ROS 2 package in your ROS workspace.
 
-1. Change into your Isaac Sim ROS Workspace, then into the distro-specific workspaceâs `src` folder:
+1. Change into your Isaac Sim ROS Workspace, then into the distro-specific workspace’s `src` folder:
 
    ```python
    cd <path to Isaac Sim ROS Workspace>
@@ -398,8 +398,8 @@ ROS 2 Humble on Windows (Pixi) is not a supported configuration in [ROS 2 Instal
 
 1. Go to `Window` > `Extensions`.
 2. Type `URDF` in the search box, and find the `ROS 2 Robot Description URDF Importer Extension`.
-3. If you canât find it, remove the `@feature` filter from the search box.
-4. If you still canât find it, make sure Isaac Sim was launched from the same terminal where ROS was sourced.
+3. If you can’t find it, remove the `@feature` filter from the search box.
+4. If you still can’t find it, make sure Isaac Sim was launched from the same terminal where ROS was sourced.
 5. Enable the extension by clicking the toggle button labeled `ENABLE`.
 6. Check the box for `AUTOLOAD`, just to the right of `ENABLE`.
 
@@ -481,7 +481,7 @@ Use the [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tune
 
 1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
 2. On the **Gain Tuner** window, on the **Robot Selection** dropdown, select the **ur** articulation in the stage.
-3. In the **Tune Gains** panel, you can adjust the gains for the robot and the gripper fingers joints. Test it with the **Test Gains Settings** panel. letâs start by setting the natural frequency to `300` and the damping ratio to `1.0`.
+3. In the **Tune Gains** panel, you can adjust the gains for the robot and the gripper fingers joints. Test it with the **Test Gains Settings** panel. let’s start by setting the natural frequency to `300` and the damping ratio to `1.0`.
 
 Hint
 
@@ -502,7 +502,7 @@ For reference, the resulting USD file is available in the content browser at `Is
 
 ## 2F-140 Gripper Parameters
 
-In the next section of the tutorial, we will be connecting the UR10e robot with the 2F-140 gripper. Letâs review the expected parameters for the gripper joints.
+In the next section of the tutorial, we will be connecting the UR10e robot with the 2F-140 gripper. Let’s review the expected parameters for the gripper joints.
 
 ### Expected Parameters for Finger and Knuckle Joints
 

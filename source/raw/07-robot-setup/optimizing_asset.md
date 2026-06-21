@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/opt
 title: "Optimizing Asset"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "0336d8c542457551"
-fetched: "2026-06-21T13:05:35"
+checksum: "464d44f54c80d2bc"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -35,7 +35,7 @@ This tutorial details how to make robot assets more performant and where to find
 This tutorial explores the NVIDIA Jetbot Robot asset which improve performance.
 If you import the asset from a different source, for example from custom CAD, you might end up with numerous meshes per rigid body and this can severely impact performance.
 
-From the recording of this Jetbot asset imported from CAD that on the right side we have an unoptimized asset, and itâs achieving 40 FPS, while the asset on the left was optimized, and now achieves 64 FPS.
+From the recording of this Jetbot asset imported from CAD that on the right side we have an unoptimized asset, and it’s achieving 40 FPS, while the asset on the left was optimized, and now achieves 64 FPS.
 
 ## Asset Structure Optimization
 
@@ -62,7 +62,7 @@ create a new prim to be set as default.
 2. Create a new Xform called `Jetbot_Sim` and drag it onto Root.
 3. Right click on `Jetbot_Sim` and choose **Set as Default Prim**.
 4. Right click and choose **Create** > **Scope** and name it `Visuals`.
-5. Drag this scope onto Root so itâs unparented from `Jetbot_Sim`.
+5. Drag this scope onto Root so it’s unparented from `Jetbot_Sim`.
 6. Select the prims under `Jetbot` and drag them onto `Jetbot_Sim`.
 
    > Note
@@ -93,7 +93,7 @@ First, enable the merge mesh tool by going to **Window** > **Extensions** and se
 9. For `prim_path`, type in `/Visuals/left_wheel`.
 10. Back in the **Stage** panel, select the `/Jetbot_Sim/Visuals/left_wheel` prim, which you just added a reference onto. Then in the **Property** panel, scroll down to the **References** section. The prim path is in red, select the Asset Path entry and **clear** it.
 11. This will make the reference point to the internal `/Jetbot_Sim/Visuals/left_wheel` prim. The mesh for `left_wheel` shows as a child. Verify that a **Looks** scope was created in `Jetbot_Sim`, with the materials for this mesh.
-12. Verify that the wheel is referenced correctly in place, along with the base mesh that is at the origin. You can hide the Visuals scope so base meshes wonât be visible.
+12. Verify that the wheel is referenced correctly in place, along with the base mesh that is at the origin. You can hide the Visuals scope so base meshes won’t be visible.
 13. Save the file with CTRL+S.
 14. To complete the mesh optimization, repeat the previous steps for other bodies.
 
@@ -106,7 +106,7 @@ The finished USD with all mesh merges is available for you at `Isaac Sim/Samples
 Scenegraph instancing enables sharable, composed representations of subgraphs of prims. It is a directive that instructs the scene composer that a certain component of the scene is a repeatable pattern. While this allows for a leaner overall scene, it does require a few rules to be followed.
 
 Any children of an instance cannot have attributes modified, because they all inherit from the same asset in memory.
-Instances must be applied on Referenced assets, so that the scenegraph composer knows that from the reference and downwards, things are expected to remain the same and it needs to create a pointer to the asset data to be used anywhere itâs referenced.
+Instances must be applied on Referenced assets, so that the scenegraph composer knows that from the reference and downwards, things are expected to remain the same and it needs to create a pointer to the asset data to be used anywhere it’s referenced.
 
 1. Start by opening the USD file `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_post_merge.usd`, if you have not merged all the meshes.
 2. The left and right wheel meshes are identical. Further simplify the asset by having left and right wheel reference the same mesh. Select `Visuals/left_wheel` and rename it to `Visuals/wheel`.
@@ -116,7 +116,7 @@ Instances must be applied on Referenced assets, so that the scenegraph composer 
 
    At this point, all meshes are still considered unique elements because the assets are only defined as a reference.
 6. To leverage memory savings, shift-select all Visuals prims under `/Jetbot_Sim` and check **Instanceable** in the Property panel.
-7. On the Visuals prims, notice the reference icon now has a blue âIâ on it. This indicates they are instantiable meshes and effectively applying any memory savings.
+7. On the Visuals prims, notice the reference icon now has a blue “I” on it. This indicates they are instantiable meshes and effectively applying any memory savings.
 8. Save the file with CTRL+S.
 
 Note

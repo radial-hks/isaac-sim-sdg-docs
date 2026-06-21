@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Mutable"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "7efffb576dba3d04"
-fetched: "2026-06-21T11:55:29"
+checksum: "02a31d60140ff5aa"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T11:55:29"
 
 # Mutable
 
-If the pair is a dictionary with a key `type`, itâs a mutable. There are four types of mutables:
+If the pair is a dictionary with a key `type`, it’s a mutable. There are four types of mutables:
 
 * [Camera](camera.html#camera) where we are
 * [Geometry](geometry.html#geometry) the things we want to observe

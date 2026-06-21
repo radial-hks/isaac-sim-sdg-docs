@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_scrip
 title: "OmniGraph Scripting"
 section: "OmniGraph"
 module: "08-omnigraph-robot-sim"
-checksum: "68d9d230495e3998"
-fetched: "2026-06-21T13:05:38"
+checksum: "d54c6cd7c04fc1fb"
+fetched: "2026-06-21T13:40:09"
 ---
 
 * [OmniGraph](index.html)
@@ -34,9 +34,9 @@ This tutorial will
 
 ### Creating a Graph
 
-First letâs build a simple action graph that prints âHello Worldâ to the console on every simulation frame.
+First let’s build a simple action graph that prints “Hello World” to the console on every simulation frame.
 
-1. Open âWindow > Script Editorâ and paste the following code:
+1. Open ‘Window > Script Editor’ and paste the following code:
 
    > ```python
    > import omni.graph.core as og
@@ -57,15 +57,15 @@ First letâs build a simple action graph that prints âHello Worldâ
    >     },
    > )
    > ```
-2. Press âRunâ to execute the script. You should see a new prim `/action_graph` created on the Stage tree.
-3. Expand the prim on stage, the nodes âtickâ and âprintâ should be listed under the graph. These nodes can be accessed just like any other prim on the stage.
-4. Press âplayâ to start the simulation. You should see âHello Worldâ printed to the console on every frame.
+2. Press ‘Run’ to execute the script. You should see a new prim `/action_graph` created on the Stage tree.
+3. Expand the prim on stage, the nodes “tick” and “print” should be listed under the graph. These nodes can be accessed just like any other prim on the stage.
+4. Press “play” to start the simulation. You should see “Hello World” printed to the console on every frame.
 5. Open graph editor by going to Window > Graph Editors > Action Graph.
-6. With the newly created graph highlighted on the Stage tree on the right, open the graph by clicking on the icon for âEdit Action Graphâ in the graph editor window. You should see two nodes connected with each other by a line.
+6. With the newly created graph highlighted on the Stage tree on the right, open the graph by clicking on the icon for ‘Edit Action Graph’ in the graph editor window. You should see two nodes connected with each other by a line.
 
 ### Editing a Graph
 
-Once a graph has been created, there are specific APIs to manipulate the graphâs terms.
+Once a graph has been created, there are specific APIs to manipulate the graph’s terms.
 
 **Getting and Setting Attribute Values**
 
@@ -82,9 +82,9 @@ print("Existing Text: ", existing_text)
 og.Controller.attribute("/action_graph/print.inputs:text").set("New Texts to print")
 ```
 
-This will change the value in the âPrint Textâ node from âHello Worldâ to âNew Texts to printâ. But this affect wonât take place until the first tick through the graph. So when you press âRunâ in the script editor, the graph has yet to be ticked, so it should fetch the current value from the node, and print out a single string of âExisting Text: Hello Worldâ in the Script Editorâs console (as well as the terminal if you are using that, or the main Omniverseâs console if you include âInfoâ to be printed).
+This will change the value in the “Print Text” node from “Hello World” to “New Texts to print”. But this affect won’t take place until the first tick through the graph. So when you press ‘Run’ in the script editor, the graph has yet to be ticked, so it should fetch the current value from the node, and print out a single string of “Existing Text: Hello World” in the Script Editor’s console (as well as the terminal if you are using that, or the main Omniverse’s console if you include “Info” to be printed).
 
-Now press âPlayâ and start the simulation. It should now print, at the rate of one string per tick, the updated text âNew Texts to printâ, in the terminal or the main Omniverse console (though not the Script Editorâs console).
+Now press ‘Play’ and start the simulation. It should now print, at the rate of one string per tick, the updated text “New Texts to print”, in the terminal or the main Omniverse console (though not the Script Editor’s console).
 
 **Adding Nodes and Connections**
 
@@ -98,15 +98,15 @@ og.Controller.attribute("/action_graph/new_node_name.inputs:value").set("This is
 og.Controller.connect("/action_graph/new_node_name.inputs:value", "/action_graph/print.inputs:text")
 ```
 
-A new node named ânew\_node\_nameâ will be created and connected to the âPrint Textâ node. If you have the graph editor (Window > Graph Editors > Action Graph) open, you can see that there are now three nodes connected to each other instead of two.
+A new node named “new\_node\_name” will be created and connected to the “Print Text” node. If you have the graph editor (Window > Graph Editors > Action Graph) open, you can see that there are now three nodes connected to each other instead of two.
 
 ### Graph Execution
 
 By default, the graph is evaluated on every frame. You can change this behavior by setting the graph to evaluate only when you call it.
 
-You can also trigger each graph explicitly by making execute only when you call it. To do this, there is a special parameter called âpipeline\_stageâ where you can set the graph to execute âOn Demandâ. Most of the times we want to set this variable during the creation of the graph:
+You can also trigger each graph explicitly by making execute only when you call it. To do this, there is a special parameter called “pipeline\_stage” where you can set the graph to execute “On Demand”. Most of the times we want to set this variable during the creation of the graph:
 
-1. Delete the previous graph by selecting it on the stage tree and pressing âDeleteâ key.
+1. Delete the previous graph by selecting it on the stage tree and pressing ‘Delete’ key.
 2. Open a new tab in the Script Editor and paste the following code
 
    > ```python
@@ -126,10 +126,10 @@ You can also trigger each graph explicitly by making execute only when you call 
    >     },
    > )
    > ```
-3. Press âRunâ in the Script Editor. A new graph `/ondemand_graph` will be created.
-4. Start simulation by press âplayâ, nothing should be printed from this graph because we did not explicitly call to evaluate it.
+3. Press ‘Run’ in the Script Editor. A new graph `/ondemand_graph` will be created.
+4. Start simulation by press “play”, nothing should be printed from this graph because we did not explicitly call to evaluate it.
 5. To manually trigger a graph, open another tab, and paste in `demand_graph_handle.evaluate()`
-6. Make sure simulation is still running. Click âRunâ in the Script Editor. You should see âOn Demand Graphâ printed to the console once.
+6. Make sure simulation is still running. Click ‘Run’ in the Script Editor. You should see “On Demand Graph” printed to the console once.
 
 Alternatively, you can also set it for an existing graph by `demand_graph_handle.change_pipeline_stage(og.GraphPipelineStage.GRAPH_PIPELINE_STAGE_ONDEMAND)`
 

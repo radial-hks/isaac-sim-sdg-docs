@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transfo
 title: "Asset Transformer Tutorials"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "3598ad593b2f0857"
-fetched: "2026-06-21T13:05:33"
+checksum: "028374d282bb4c9e"
+fetched: "2026-06-21T13:40:05"
 ---
 
 * [Robot Setup](index.html)
@@ -283,7 +283,7 @@ The final action list now contains four rules:
 
 This tutorial demonstrates how to use the Asset Transformer API to run a transformation pipeline programmatically. This is useful for batch processing, CI/CD integration, or embedding asset transformation into custom extensions and workflows.
 
-The code blocks below are taken from a single script, `docs/isaacsim/snippets/robot_setup/asset_transformer_tutorials.py`, which you can run as a standalone app (for example, to list registered rule types) using Isaac Simâs `python.sh`.
+The code blocks below are taken from a single script, `docs/isaacsim/snippets/robot_setup/asset_transformer_tutorials.py`, which you can run as a standalone app (for example, to list registered rule types) using Isaac Sim’s `python.sh`.
 
 ### Load and Run a Saved Profile
 
@@ -384,7 +384,7 @@ print(f"Transformation complete: {report.output_stage_path}")
 
 ### Use the Isaac Sim Structure Profile in Code
 
-To use the built-in Isaac Sim Structure profile programmatically, load it from the extensionâs data directory:
+To use the built-in Isaac Sim Structure profile programmatically, load it from the extension’s data directory:
 
 ```python
 import json

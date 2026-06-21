@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/reference_material/refere
 title: "Glossary"
 section: "参考"
 module: "01-concepts"
-checksum: "c6670ea95acb6fae"
-fetched: "2026-06-21T12:48:04"
+checksum: "c36a256a508e8224"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * Glossary
@@ -28,7 +28,7 @@ This section provides an explanation of the terms used throughout NVIDIA Isaac S
   + [Omniverse USD Composer](#omniverse-usd-composer)
   + [Carbonite (carb)](#carbonite-carb)
   + [RTX - Real-Time mode](#real-time-render-mode)
-  + [RTX â Interactive (Path Tracing) mode](#interactive-render-mode)
+  + [RTX – Interactive (Path Tracing) mode](#interactive-render-mode)
   + [Extensions](#extensions)
   + [Omniverse Connect](#omniverse-connect)
 * [USD](#usd)
@@ -63,15 +63,15 @@ This section provides an explanation of the terms used throughout NVIDIA Isaac S
 
 ### [Application](#id4)
 
-An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UIâs of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
+An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UI’s of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
 
 ### [Apps](#id5)
 
-An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UIâs of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
+An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UI’s of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
 
 ### [Connectors](#id6)
 
-An Omniverse Connector is middleware with which Omniverse and other software applications communicate with each other. They enable the import/export 3D assets, data, and models between different tools and workflows. Itâs important to note that this means using USD as the âgo betweenâ format to convert 3D data.
+An Omniverse Connector is middleware with which Omniverse and other software applications communicate with each other. They enable the import/export 3D assets, data, and models between different tools and workflows. It’s important to note that this means using USD as the “go between” format to convert 3D data.
 
 ### [Omniverse Nucleus](#id7)
 
@@ -81,7 +81,7 @@ Nucleus operates under a publish/subscribe model. Subject to access controls, Om
 
 This allows a variety of Omniverse-enabled client applications ( Apps, Connectors, and others) to share and modify authoritative representations of virtual worlds.
 
-* See [Nucleus overview](https://docs.omniverse.nvidia.com/nucleus/latest/overview/overview.html "(in Omniverse Nucleus)") for a more in-depth look at Nucleusâs data model, architecture, and distribution platforms.
+* See [Nucleus overview](https://docs.omniverse.nvidia.com/nucleus/latest/overview/overview.html "(in Omniverse Nucleus)") for a more in-depth look at Nucleus’s data model, architecture, and distribution platforms.
 
 ### [Hub Workstation Cache](#id8)
 
@@ -94,7 +94,7 @@ Hub Workstation Cache has been performance optimized and supports storage-derive
 
 ### [Live Sync](#id9)
 
-Live Sync mode enables real-time âliveâ editing of shared files on a Nucleus Server. The Live Sync button is on the top-right corner of the Workspace.
+Live Sync mode enables real-time “live” editing of shared files on a Nucleus Server. The Live Sync button is on the top-right corner of the Workspace.
 
 ### [Omniverse Kit](#id10)
 
@@ -112,7 +112,7 @@ The NVIDIA Omniverse Launcher is your first step into the Omniverse. It provides
 
 ### [Omniverse USD Composer](#id12)
 
-NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixarâs USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
+NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
 
 ### [Carbonite (carb)](#id13)
 
@@ -122,7 +122,7 @@ The Carbonite SDK provides the core functionality of all Omniverse apps. This is
 
 High quality real-time rendering mode.
 
-### [RTX â Interactive (Path Tracing) mode](#id15)
+### [RTX – Interactive (Path Tracing) mode](#id15)
 
 The highest quality, physically accurate rendering mode.
 
@@ -140,12 +140,12 @@ Connectors are extensions and additional software layers on top of the open-sour
 
 ### [USD](#id19)
 
-Universal Scene Description (USD) is an easily extensible, open-source 3D scene description file format developed by Pixar for content creation and interchange among different tools. As a result of its power and versatility, itâs being widely adopted, not only in the visual effects community, but also in architecture, design, robotics, manufacturing, and other disciplines.
+Universal Scene Description (USD) is an easily extensible, open-source 3D scene description file format developed by Pixar for content creation and interchange among different tools. As a result of its power and versatility, it’s being widely adopted, not only in the visual effects community, but also in architecture, design, robotics, manufacturing, and other disciplines.
 
-* For a more in-depth look at USD in Omniverse, see NVIDIAâs USD primer [What is USD?](https://developer.nvidia.com/usd/).
+* For a more in-depth look at USD in Omniverse, see NVIDIA’s USD primer [What is USD?](https://developer.nvidia.com/usd/).
 * See the [USD API](https://graphics.pixar.com/usd/release/index.html) docs for more details.
 * See the [USD Glossary of Terms & Concepts](https://graphics.pixar.com/usd/release/glossary.html) for more details.
-* See [NVIDIAâs USD tutorials](https://developer.nvidia.com/usd/tutorials)
+* See [NVIDIA’s USD tutorials](https://developer.nvidia.com/usd/tutorials)
 
 ### [MDL](#id20)
 
@@ -160,7 +160,7 @@ The Omniverse Stage window allows you to see all the assets in your current USD 
 
 ### [Prim](#id22)
 
-A [Prim](https://graphics.pixar.com/usd/release/glossary.html#usdglossary-prim) is the primary container object in USD: prims can contain (and order) other prims, creating a ânamespace hierarchyâ on a Stage,
+A [Prim](https://graphics.pixar.com/usd/release/glossary.html#usdglossary-prim) is the primary container object in USD: prims can contain (and order) other prims, creating a “namespace hierarchy” on a Stage,
 and prims can also contain (and order) properties that hold meaningful data. Prims, along with their associated, computed indices, are
 the only persistent scenegraph objects that a Stage retains in memory, and the API for interacting with prims is provided by the UsdPrim class.
 
@@ -172,7 +172,7 @@ A mesh is a subdividable primitive that consists of points, edges, and faces tha
 
 ### [Shape](#id24)
 
-A Shape is a geometric primitive that maps to one of USDâs five âintrinsicâ `UsdGeomGprim` classes:
+A Shape is a geometric primitive that maps to one of USD’s five “intrinsic” `UsdGeomGprim` classes:
 
 > * [UsdGeomCapsule](https://graphics.pixar.com/usd/release/api/class_usd_geom_capsule.html)
 > * [UsdGeomCone](https://graphics.pixar.com/usd/release/api/class_usd_geom_cone.html)
@@ -192,9 +192,9 @@ A primitive that is included from some other layer is a **Reference** to that pr
 
 If the contents of a reference need to be modified during simulation, then it must be converted into a **Payload**. A payload is indicated by the **blue arrow** on the associated Xform in the context tree of Isaac Sim. Payloads are references that have all of their data actively loaded by the sim so that it can be modified at runtime.
 
-**Instances** are indicated by a **blue âIâ**, and can be either references or payloads. They carry additional assumptions about the structure of the asset for more efficient vectorization (scaled up).
+**Instances** are indicated by a **blue “I”**, and can be either references or payloads. They carry additional assumptions about the structure of the asset for more efficient vectorization (scaled up).
 
-For example, suppose you want to collect synthetic data with a robot. If you arenât going to modify the structure of the robot, it can exist as a reference on the stage (the asset is defined in some other file). If, during data collection, you want to be able to swap the robot out for a different one, those meshes need to be held in active memory. This means that the asset first needs to be converted from a reference to a payload. If you wanted to collect data with a 1000 robots at once, and they are all the same, you might use instantiable references. Whereas, if you wanted to collect data with a 1000 randomly sampled robots (different arms with the same number of joints for example), you would use instance payloads.
+For example, suppose you want to collect synthetic data with a robot. If you aren’t going to modify the structure of the robot, it can exist as a reference on the stage (the asset is defined in some other file). If, during data collection, you want to be able to swap the robot out for a different one, those meshes need to be held in active memory. This means that the asset first needs to be converted from a reference to a payload. If you wanted to collect data with a 1000 robots at once, and they are all the same, you might use instantiable references. Whereas, if you wanted to collect data with a 1000 randomly sampled robots (different arms with the same number of joints for example), you would use instance payloads.
 
 ### [Y-Up / Z-Up](#id26)
 
@@ -202,7 +202,7 @@ The axis of orientation of a given scene/prim. Y-Up refers to the Positive Y Axi
 
 ### [Layer](#id27)
 
-A component of the collaborative nature of USD. Each layer in USD signifies a userâs âopinionâ on assets inside a stage. Layers can override other layers.
+A component of the collaborative nature of USD. Each layer in USD signifies a user’s “opinion” on assets inside a stage. Layers can override other layers.
 
 ### [Instance](#id28)
 
@@ -308,7 +308,7 @@ On this page
   + [Omniverse USD Composer](#omniverse-usd-composer)
   + [Carbonite (carb)](#carbonite-carb)
   + [RTX - Real-Time mode](#real-time-render-mode)
-  + [RTX â Interactive (Path Tracing) mode](#interactive-render-mode)
+  + [RTX – Interactive (Path Tracing) mode](#interactive-render-mode)
   + [Extensions](#extensions)
   + [Omniverse Connect](#omniverse-connect)
 * [USD](#usd)

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Randomization Dependency"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "dacf3e4d22bdf815"
-fetched: "2026-06-21T11:55:29"
+checksum: "b3204e2483843245"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -25,11 +25,11 @@ These elements can be wired up with macros to form a DAG-like dependency tree, s
 
 Note
 
-The images in the following examples are generated using the [embedded interface](../tutorial_replicator_object.html#embedded-interface). In the viewport, you can focus on a selected prim by pressing âFâ; and then you can press âAlt + Left Mouse Buttonâ to rotate the active camera around the selected prim.
+The images in the following examples are generated using the [embedded interface](../tutorial_replicator_object.html#embedded-interface). In the viewport, you can focus on a selected prim by pressing “F”; and then you can press “Alt + Left Mouse Button” to rotate the active camera around the selected prim.
 
 ## A Basic Example
 
-Letâs start with a basic example: âRandomly scatter ten randomly colored cubes on a planeâ. The corresponding description file is:
+Let’s start with a basic example: “Randomly scatter ten randomly colored cubes on a plane”. The corresponding description file is:
 
 ```python
 isaacsim.replicator.object:
@@ -124,7 +124,7 @@ By using the [embedded interface](../tutorial_replicator_object.html#embedded-in
 
 ## Randomization Dependency
 
-To take a step further, to âRandomly scatter 10 randomly colored cubes on a plane, with varying sizes from 0.5 to 1.5, and varying color from red to blue, the bigger the size, the redder it is while the smaller the size, the bluer it isâ, you can do:
+To take a step further, to “Randomly scatter 10 randomly colored cubes on a plane, with varying sizes from 0.5 to 1.5, and varying color from red to blue, the bigger the size, the redder it is while the smaller the size, the bluer it is”, you can do:
 
 ```python
 isaacsim.replicator.object:
@@ -260,7 +260,7 @@ And then for `basic_shape_0`, for example, the R channel of color, `0.0 + $[/siz
 
 ## Harmonization
 
-Try to âpack the above cubes into a big box and randomly place and rotate this big box around the up axisâ:
+Try to “pack the above cubes into a big box and randomly place and rotate this big box around the up axis”:
 
 The corresponding description file:
 
@@ -378,15 +378,15 @@ Here, `translate` and `rotateY` defines the global movement of the big box (the 
 
 During initialization, mutable attributes and harmonizers are initialized, and a dependency tree with mutable elements (such as mutable attributes with different distribution types, expressions with macros, and more) is created based on the description file, and then the USD runtime scene is initialized, loading all the prims that are about to be randomized.
 
-Each frame, all the mutable attributes resolve for their values. Mutable attributes with macros, like channels of color and size in our examples resolve their dependent mutable elements (like macro expressions) recursively. The symbol resolution procedures are totally in description level, so itâs as if we are doing randomization on text; in this stage, the USD environment is not involved.
+Each frame, all the mutable attributes resolve for their values. Mutable attributes with macros, like channels of color and size in our examples resolve their dependent mutable elements (like macro expressions) recursively. The symbol resolution procedures are totally in description level, so it’s as if we are doing randomization on text; in this stage, the USD environment is not involved.
 
 ### Harmonization Process
 
-A harmonized mutable attribute is a special mutable attribute that canât be resolved by running resolution one time, because it needs information from other mutable attributes sharing the same harmonizer. Run it the first time to resolve the symbols, the attribute gets into an `AWAITING_HARMONIZATION` state, and then the harmonizer absorbs its pitch (in this case, the size of the cube):
+A harmonized mutable attribute is a special mutable attribute that can’t be resolved by running resolution one time, because it needs information from other mutable attributes sharing the same harmonizer. Run it the first time to resolve the symbols, the attribute gets into an `AWAITING_HARMONIZATION` state, and then the harmonizer absorbs its pitch (in this case, the size of the cube):
 
 All non-harmonized attributes are resolved, which is necessary because harmonized attributes may depend on them. For example, an object can be randomized to use a different USD model with a different size bounding box, which can be the pitch to be absorbed by the harmonizer. The USD runtime is then updated based on non-harmonized attributes.
 
-After getting all the information from the harmonized attributes, the harmonizer harmonizes. It now knows where each cubeâs local transformations in the big box.
+After getting all the information from the harmonized attributes, the harmonizer harmonizes. It now knows where each cube’s local transformations in the big box.
 
 The system is in `AWAITING_HARMONIZATION` state if there is at least one attribute in this state, which means you need to resolve the whole description again. Now the corresponding values are propagated back to respective harmonized attributes.
 

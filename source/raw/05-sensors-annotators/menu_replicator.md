@@ -4,7 +4,7 @@ title: "Menu Replicator (GUI)"
 section: "GUI"
 module: "05-sensors-annotators"
 checksum: "75cf4230db0e7940"
-fetched: "2026-06-21T11:55:31"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [GUI Reference](index.html)

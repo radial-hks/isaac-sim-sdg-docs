@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig
 title: "Rig Closed Loop Structures"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "c322b6869a52cdb8"
-fetched: "2026-06-21T13:05:35"
+checksum: "7b13bcddca416417"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -54,7 +54,7 @@ All the rigid body, masses, and joint definition are done in [Onshape](https://d
 Instead of opening the original asset, edit the asset using **layers**. Layers allow for building a scene on top of a root asset and saving it without changing the underlying root layer assets. For example, you can add a ground plane and objects used to test the gripper, save the testing setup in the layers, while keeping the original gripper asset free of any extraneous items used for testing.
 
 1. Create a new stage without the reference added during import.
-2. Save this stage with the name `Robotiq_2F_85_config.usd` at the same folder as the imported assets (you can locate the source file in the Reference or Payload section on the Property panel, and click the âLocate fileâ icon).
+2. Save this stage with the name `Robotiq_2F_85_config.usd` at the same folder as the imported assets (you can locate the source file in the Reference or Payload section on the Property panel, and click the “Locate file” icon).
 3. Open the layer tab and drag the `Robotiq_2F_85_edit.usd` in the **Root Layer**.
 
 There is also a file named `Robotiq_2F_85_base.usd` in the source folder. This is the clean stage post import from Onshape and must not be directly edited to facilitate updates when the asset is re-imported from Onshape.
@@ -89,7 +89,7 @@ you may need to de-select instanceable for the two xforms in `right/left_inner_f
 
 ## Breaking the Articulation Loop
 
-If you try to simulate this asset now, youâll get two big warnings on the screen:
+If you try to simulate this asset now, you’ll get two big warnings on the screen:
 
 For more information, see [Physics Simulation Fundamentals](../physics/simulation_fundamentals.html#simulation-fundamentals). Articulations must be kinematic trees, but there is no need to delete any joints. To eliminate those warnings, you must choose one joint to exclude from the Articulation and have it be treated as a maximal coordinate joint. Because maximal coordinate joints are treated with a lower priority by the solver, it is the joint that accumulates the most error in simulation.
 
@@ -207,7 +207,7 @@ physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
 
 1. Set the target position for Joint X to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
 2. Set the target position for Joint Z to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
-3. Verify that you see the fingers ragdoll on the screen. Itâs still necessary to Tune the Joint Drives for the fingers.
+3. Verify that you see the fingers ragdoll on the screen. It’s still necessary to Tune the Joint Drives for the fingers.
 
 You can see in the video below that the gripper will move forward and lift up.
 
@@ -264,14 +264,14 @@ This gripper is controlled with a single input command that moves both fingers c
 
 ## Collision Meshes
 
-The default setting for collision meshes at import is Convex Hull. This is a good balance between performance and accuracy. However, for grippers, you often want the fingertips to have a collision mesh that closely follows the contour of the fingertip geometry, so that there wonât be any gaps between the fingertips and the objects being grasped.
+The default setting for collision meshes at import is Convex Hull. This is a good balance between performance and accuracy. However, for grippers, you often want the fingertips to have a collision mesh that closely follows the contour of the fingertip geometry, so that there won’t be any gaps between the fingertips and the objects being grasped.
 
 To visualize the collision meshes:
 
 1. Find the eye icon on top of the viewport, and click **Show By Type** > **Physics** > **Colliders** > **All**.
 2. Verify that outlines show up surrounding any objects that have collision meshes.
-3. Optionally, to change any collision meshes, select the part of the object associated with that mesh by clicking on it in the viewport, and then in the Physics section of the Property panel, change the Collider Approximation type to Convex Decomposition, or any other type thatâs appropriate for your use case.
-4. If you donât see a Physics or Collider section, then you might need to go down or up the stage tree from the selected item.
+3. Optionally, to change any collision meshes, select the part of the object associated with that mesh by clicking on it in the viewport, and then in the Physics section of the Property panel, change the Collider Approximation type to Convex Decomposition, or any other type that’s appropriate for your use case.
+4. If you don’t see a Physics or Collider section, then you might need to go down or up the stage tree from the selected item.
 5. The collision API can be applied to a nested child Xform, or the parent of the selected object.
 
 ### Self-Collision

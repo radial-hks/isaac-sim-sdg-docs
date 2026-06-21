@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "RTX Lidar"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "41066868ec3ad574"
-fetched: "2026-06-21T13:05:44"
+checksum: "4da97b5d84434564"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -72,7 +72,7 @@ lidar = Lidar.create(
 
 The snippet above creates a reference to `Example_Rotary.usda` as an `OmniLidar` prim in the stage at the
 specified `translations` with the specified `orientations`, at path `/World/lidar`. The `Example_Rotary`
-config does not support variant sets, so `variant` is unused. The primâs `omni:sensor:Core:scanRateBaseHz`
+config does not support variant sets, so `variant` is unused. The prim’s `omni:sensor:Core:scanRateBaseHz`
 attribute is set from 10 Hz (default) to 20 Hz via the `attributes` dictionary.
 
 Review the [OmniSensorGenericLidarCoreAPI](https://docs.omniverse.nvidia.com/kit/docs/omni.usd.schema.omni_sensors/107.3.1/omni_sensors_schema.html#omnisensorgenericlidarcoreapi)
@@ -83,7 +83,7 @@ Note
 
 `Lidar.create()` accepts either `config` (a registered configuration name from
 `isaacsim.sensors.experimental.rtx.SUPPORTED_LIDAR_CONFIGS`) **or** `usd_path` (a direct path
-to an `OmniLidar` USD asset) â the two are mutually exclusive. Both `Lidar.create()` and
+to an `OmniLidar` USD asset) — the two are mutually exclusive. Both `Lidar.create()` and
 `Lidar(...)` accept `schemas` (a list of additional USD schemas to apply) and `attributes`
 (a dict of prim attributes to author). Transforms are passed as plural arrays
 (`positions=[[...]]` / `translations=[[...]]` / `orientations=[[...]]` / `scales=[[...]]`);

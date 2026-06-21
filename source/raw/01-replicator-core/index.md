@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/inde
 title: "Index"
 section: "教程"
 module: "01-replicator-core"
-checksum: "98bfaff40fd428d6"
-fetched: "2026-06-21T11:55:19"
+checksum: "4030b5be29e43457"
+fetched: "2026-06-21T13:40:16"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -28,8 +28,8 @@ Isaac Sim Replicator offers various tools and workflows for synthetic data gener
 * [Scene Based Synthetic Dataset Generation](tutorial_replicator_scene_based_sdg.html)
 * [Object Based Synthetic Dataset Generation](tutorial_replicator_object_based_sdg.html)
 * [Environment Based Synthetic Dataset Generation with Infinigen](tutorial_replicator_infinigen_sdg.html)
-* [Randomization in Simulation â AMR Navigation](tutorial_replicator_amr_navigation.html)
-* [Randomization in Simulation â UR10 Palletizing](tutorial_replicator_ur10_palletizing.html)
+* [Randomization in Simulation – AMR Navigation](tutorial_replicator_amr_navigation.html)
+* [Randomization in Simulation – UR10 Palletizing](tutorial_replicator_ur10_palletizing.html)
 * [Cosmos Synthetic Data Generation](tutorial_replicator_cosmos.html)
 
 ## Customization Tools and Techniques

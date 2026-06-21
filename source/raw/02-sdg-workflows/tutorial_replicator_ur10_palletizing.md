@@ -3,17 +3,17 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "UR10 Palletizing"
 section: "SDG"
 module: "02-sdg-workflows"
-checksum: "fa81cffdaaa4f358"
-fetched: "2026-06-21T11:55:24"
+checksum: "e32b76e7fe054bdf"
+fetched: "2026-06-21T13:40:21"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
 * [Perception Data Generation (Replicator)](index.html)
-* Randomization in Simulation â UR10 Palletizing
+* Randomization in Simulation – UR10 Palletizing
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Randomization in Simulation â UR10 Palletizing
+# Randomization in Simulation – UR10 Palletizing
 
 Example of using Isaac Sim and Replicator to capture synthetic data from simulated environments (UR10 palletizing).
 
@@ -57,7 +57,7 @@ In the above images, data collected from the actions in the left side image belo
 
 In the above images, data collected from the right side image belongs to the **bin on pallet scenario**.
 
-For each frame in this scenario, the camera pose is iterated through in a predefined sequence, while the custom lightsâ parameters are randomized. Data is generated for each manipulated bin in the palletizing demo scene.
+For each frame in this scenario, the camera pose is iterated through in a predefined sequence, while the custom lights’ parameters are randomized. Data is generated for each manipulated bin in the palletizing demo scene.
 
 The events for which synthetic data are collected are:
 
@@ -608,7 +608,7 @@ The attributes of this class include:
 * `self._in_running_state` indicates whether the demo is currently running
 * `self._bin_flip_scenario_done` is a flag to mark if the bin flip scenario has been completed, to avoid triggering it again
 * `self._timeline` is used to pause and resume the simulation in response to Synthetic Data Generation (SDG) events
-* `self._timeline_sub` is a subscriber to timeline events, allowing the monitoring of the simulation state (tracking the active binâs surroundings)
+* `self._timeline_sub` is a subscriber to timeline events, allowing the monitoring of the simulation state (tracking the active bin’s surroundings)
 * `self._overlap_extent` represents an extent cache of the bin size, which is used to query for overlaps around the active bin
 * `self._rep_camera` points the temporary replicator camera to capture SDG data
 * `self._output_dir` is the output directory where the SDG data gets stored
@@ -741,7 +741,7 @@ The `_create_bin_flip_graph` function is used to create the Replicator randomiza
 
 The `rep.orchestrator.step_async` function is called for the requested number of frames (`self._bin_flip_frames`) to advance the randomization graph by one frame and provide the annotators with the new data. The data is then retrieved using the `get_data()` function and saved to disk using `write_image`. To optimize simulation performance, render products are discarded after each SDG pipeline and the constructed Replicator graphs are removed.
 
-After the SDG scenario is completed, the render mode is set back to realtime path tracing. The timeline then resumes the simulation and the timeline subscriber is reactivated to continue monitoring the simulation environment. To ensure that the **bin flip scenario** doesnât re-trigger, given that the bin remains in contact with the flip helper object, the `self._bin_flip_scenario_done` flag is set to `True`.
+After the SDG scenario is completed, the render mode is set back to realtime path tracing. The timeline then resumes the simulation and the timeline subscriber is reactivated to continue monitoring the simulation environment. To ensure that the **bin flip scenario** doesn’t re-trigger, given that the bin remains in contact with the flip helper object, the `self._bin_flip_scenario_done` flag is set to `True`.
 
 Bin Flip Scenario Snippet
 
@@ -911,7 +911,7 @@ async def _run_pallet_scenario(self):
     self._timeline.play()
 ```
 
-For the **bin on pallet scenario**, the Replicator randomization graph randomizes the colors of the bin materials. A predefined list of textures is used, from which the graph randomly selects and applies th pallet textures, this is done by `rep.randomizer.texture(texture_paths,..)`. The cameraâs position varies around the pallet using `rep.distribution.uniform(..)` and is oriented towards the palletâs location. The trigger is split into two parts:
+For the **bin on pallet scenario**, the Replicator randomization graph randomizes the colors of the bin materials. A predefined list of textures is used, from which the graph randomly selects and applies th pallet textures, this is done by `rep.randomizer.texture(texture_paths,..)`. The camera’s position varies around the pallet using `rep.distribution.uniform(..)` and is oriented towards the pallet’s location. The trigger is split into two parts:
 
 * the bin materials are changed **every frame** as shown by `rep.trigger.on_frame()`
 * while the pallet textures and the camera positions are executed every **four frames**, represented by `rep.trigger.on_frame(interval=4)`

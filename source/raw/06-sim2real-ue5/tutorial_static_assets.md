@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/digital_twin/warehouse_lo
 title: "Static Assets"
 section: "数字孪生"
 module: "06-sim2real-ue5"
-checksum: "8582baf231d3bd1d"
-fetched: "2026-06-21T12:48:19"
+checksum: "c6e7bff5f44674d7"
+fetched: "2026-06-21T13:40:03"
 ---
 
 * [Digital Twin](../index.html)
@@ -16,13 +16,13 @@ fetched: "2026-06-21T12:48:19"
 
 Isaac Sim comes with a multitude of assets for you to build your own application. Additionally, there are extra asset libraries provided by NVIDIA that you can use. Open **Window** > **Browsers** > **NVIDIA Assets**, and the window **NVIDIA Assets** will show, where you can browse for all content to build your environment.
 
-Letâs start by setting up the warehouse building. click on the **+** Icon next to **Industrial**, then on **Buildings**, and select **Warehouse**. By dragging **Warehouse01** to the scene, youâll load a reference to the asset on your stage. Alternatively, you can also [build a custom warehouse](ext_omni_warehouse_creator.html).
+Let’s start by setting up the warehouse building. click on the **+** Icon next to **Industrial**, then on **Buildings**, and select **Warehouse**. By dragging **Warehouse01** to the scene, you’ll load a reference to the asset on your stage. Alternatively, you can also [build a custom warehouse](ext_omni_warehouse_creator.html).
 
 Note
 
 If you drag on the viewport window, it will let you place it at an arbitrary position, If instead you want it placed at the origin or on a given xform, drag it into the Stage window on top of the desired Prim.
 
-Depending on which assets you goals, you may find **NVIDIA Assets** that are currently on a centimeter scale. This is because **NVIDIA Assets** are created by our art team, while **Isaac Sim Assets** have been curated with intent. Be mindful of the units! When importing certain assets, you may need to manually scale them down to units of 0.01. To do this, select the asset prim, click on âAdd Transformâ on the Properties pane, and set the scale to 0.01 on all directions.
+Depending on which assets you goals, you may find **NVIDIA Assets** that are currently on a centimeter scale. This is because **NVIDIA Assets** are created by our art team, while **Isaac Sim Assets** have been curated with intent. Be mindful of the units! When importing certain assets, you may need to manually scale them down to units of 0.01. To do this, select the asset prim, click on “Add Transform” on the Properties pane, and set the scale to 0.01 on all directions.
 
 Note
 
@@ -42,9 +42,9 @@ Omniverse also contains a suite of [SimReady Assets](https://docs.omniverse.nvid
 
 ### Example
 
-Letâs make a variation of WarehousePile\_A04 that contains physics properties, with boxes being individual rigid bodies.
+Let’s make a variation of WarehousePile\_A04 that contains physics properties, with boxes being individual rigid bodies.
 
-We start with a brand new Stage, and create an Xform under World with the name âImportâ, and set its scale to 0.01
+We start with a brand new Stage, and create an Xform under World with the name “Import”, and set its scale to 0.01
 
 Then we drag the WarehousePile\_A04 into it.
 
@@ -52,7 +52,7 @@ To simplify the tree, we can bring the imported prim at the root. Click on the O
 
 You can now go back to the previously saved asset to customize it to contain physics material properties, different mass properties, and so on. All changes will be stored locally and be applied on top of the original asset. To see the local changes, you can go to the Layer tab, right click the Root layer, and click on Edit.
 
-You will see that the USD file opens in edit mode on your text editor, containing the reference to the original asset, and all âdeltasâ that are being applied to it.
+You will see that the USD file opens in edit mode on your text editor, containing the reference to the original asset, and all “deltas” that are being applied to it.
 
 On this page
 

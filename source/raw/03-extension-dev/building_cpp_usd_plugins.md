@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omniverse_usd/building_cp
 title: "Building C++ USD Plugins"
 section: "高级"
 module: "03-extension-dev"
-checksum: "4491609f4002b642"
-fetched: "2026-06-21T12:48:11"
+checksum: "d8e2ff103627ce14"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * [Omniverse and USD](index.html)
@@ -43,7 +43,7 @@ libraries already loaded in the Isaac Sim process.
 ## Prerequisites
 
 Inside the standalone installer, locate the bundled packman launcher and
-the manifest that pins all of Isaac Simâs external dependencies:
+the manifest that pins all of Isaac Sim’s external dependencies:
 
 ```python
 <isaac-sim-install>/kit/dev/tools/packman/packman
@@ -53,7 +53,7 @@ the manifest that pins all of Isaac Simâs external dependencies:
 Open `all-deps.packman.xml` and find the `usd-release` dependency
 entry. It contains an inner `<package>` element whose `name` and
 `version` attributes identify the exact OpenUSD build that
-Isaac Sim was compiled against â for example:
+Isaac Sim was compiled against — for example:
 
 ```python
 <dependency name="usd-release">
@@ -78,7 +78,7 @@ must be able to `#include <Python.h>`.
 
 ## Pull Matching USD Dev Artifacts With Packman
 
-Create a small packman project file next to your plugin source â for
+Create a small packman project file next to your plugin source — for
 example, `usd-dev.packman.xml`:
 
 ```python
@@ -124,7 +124,7 @@ the `usd-release` packman drop does not include them. A plain
 `find_package(pxr REQUIRED)` therefore fails to resolve. The recipe in
 the next section sidesteps this by pointing CMake at `include/`
 directly. **Do not** link your plugin against the libraries under
-`_deps/usd-release/lib/` â see the next section.
+`_deps/usd-release/lib/` — see the next section.
 
 ## Compile and Link
 
@@ -140,7 +140,7 @@ The build needs:
 * Linker flag `-Wl,--no-as-needed` around those libraries.
 
 The same paths and flags apply to any build system, but how each tool
-expresses them differs â some accept absolute filesystem paths
+expresses them differs — some accept absolute filesystem paths
 directly, others encourage wrapping pre-built libraries as targets or
 referencing them through workspace-local paths. Use whatever mechanism
 is idiomatic for your build system. As an example, in CMake:
@@ -189,7 +189,7 @@ Two link-line details matter:
 
 1. `-Wl,--no-as-needed` is required around the `usd_*` libraries.
    Without it, the linker drops any USD library whose symbols are only
-   referenced through the C++ vtable and RTTI of your plugin class â and
+   referenced through the C++ vtable and RTTI of your plugin class — and
    for any class discovered by `Plug` that is essentially every USD
    library you depend on. The result is a plugin that links cleanly but
    fails inside `Plug::Load()` at runtime with undefined-symbol errors
@@ -207,14 +207,14 @@ your plugin during stage open.
 
 ## Plugin Source Requirements
 
-USDâs plugin registration macros (`TF_REGISTRY_FUNCTION`,
+USD’s plugin registration macros (`TF_REGISTRY_FUNCTION`,
 `TF_REGISTRY_FUNCTION_WITH_TAG`) expand at global namespace scope and
 reference unqualified `Tf_RegistryInit` and the per-library tag
 `MFB_ALT_PACKAGE_NAME`. Two source-level requirements are not
 optional:
 
 1. Define three preprocessor macros at compile time, one per plugin
-   target. They identify the plugin to USDâs registry; the values are
+   target. They identify the plugin to USD’s registry; the values are
    conventionally the same short name in three case variants. In CMake,
    this looks like:
 
@@ -250,7 +250,7 @@ Without either, the plugin will not compile.
 
 OpenUSD encodes its release version in the `pxrInternal_v0_*` inline
 namespace. A plugin compiled against one OpenUSD release cannot be loaded
-into a process that links a different OpenUSD release â the mangled
+into a process that links a different OpenUSD release — the mangled
 symbol names will not match, and you will see undefined-symbol errors
 inside `Plug::Load()`.
 
@@ -279,11 +279,11 @@ relying on this table.
 
 ## Related
 
-* [CLI extension templates](../utilities/cli_extension_templates.html#isaac-sim-cli-extension-templates) â in-tree C++ Kit extension
+* [CLI extension templates](../utilities/cli_extension_templates.html#isaac-sim-cli-extension-templates) — in-tree C++ Kit extension
   development against the Isaac Sim source repository. Use this
   workflow when you can build inside the repo; use the page above when
   you can only build against the standalone installer.
-* [USD Tools](usd_tools.html#isaac-sim-app-usd-tools) â GUI-side USD tooling shipped with
+* [USD Tools](usd_tools.html#isaac-sim-app-usd-tools) — GUI-side USD tooling shipped with
   Isaac Sim.
 
 On this page

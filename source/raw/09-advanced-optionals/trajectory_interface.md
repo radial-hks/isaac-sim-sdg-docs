@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/tra
 title: "Trajectory Interface"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "a30321198dfae604"
-fetched: "2026-06-21T13:05:41"
+checksum: "85eb20ceb1e58aea"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -66,7 +66,7 @@ To configure Lula Trajectory Generators for a specific robot you must have the f
 
 The `LulaCSpaceTrajectoryGenerator` class takes in a series of c-space waypoints that correspond to the c-space coordinates listed in the required robot description YAML file.
 The generator will use spline-based interpolation to connect the waypoints with an initial and final velocity of 0.
-The trajectory is time-optimal â that is, either the velocity, acceleration, or jerk limits are saturated at any given time to produce a trajectory with as short a duration as possible.
+The trajectory is time-optimal – that is, either the velocity, acceleration, or jerk limits are saturated at any given time to produce a trajectory with as short a duration as possible.
 The generator will return an instance of the Trajectory interface.
 
 ### Lula Task-Space Trajectory Generator

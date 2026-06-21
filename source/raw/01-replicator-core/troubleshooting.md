@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/trou
 title: "Troubleshooting"
 section: "教程"
 module: "01-replicator-core"
-checksum: "905df3ae929af217"
-fetched: "2026-06-21T11:55:20"
+checksum: "b7d0202c99c5ae7b"
+fetched: "2026-06-21T13:40:17"
 ---
 
 * [Help & FAQ](../overview/help.html)
@@ -52,7 +52,7 @@ When working with large datasets or high-resolution images, you may experience s
 
 ## Replicator Layers and Randomization
 
-Using [replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/basic_functionalities.html "(in Omniverse Extensions)")âs `rep.new_layer()` functionality, which creates a new layer in which to place and randomize assets, may lead to issues in simulation scenarios where these assets are used. In such cases the use of `rep.new_layer()` can be omitted.
+Using [replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/basic_functionalities.html "(in Omniverse Extensions)")’s `rep.new_layer()` functionality, which creates a new layer in which to place and randomize assets, may lead to issues in simulation scenarios where these assets are used. In such cases the use of `rep.new_layer()` can be omitted.
 
 When using multiple randomizers, be aware that they may conflict with each other. Test your randomization settings carefully to ensure they produce the expected results.
 
@@ -95,7 +95,7 @@ On Windows, when running SDG pipelines with Replicator in standalone mode, the f
 
 ### Workaround
 
-Call a few âwarmupâ steps to advance the simulation before the first capture to avoid missing the initial frame. For example:
+Call a few “warmup” steps to advance the simulation before the first capture to avoid missing the initial frame. For example:
 
 ```python
 # Warmup the simulation

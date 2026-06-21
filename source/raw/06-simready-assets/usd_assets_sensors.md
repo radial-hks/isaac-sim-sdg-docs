@@ -4,7 +4,7 @@ title: "Sensors"
 section: "资产库"
 module: "06-simready-assets"
 checksum: "dff0bc8f5bf4b9b6"
-fetched: "2026-06-21T11:55:34"
+fetched: "2026-06-21T13:40:29"
 ---
 
 * [Isaac Sim Assets](usd_assets_overview.html)

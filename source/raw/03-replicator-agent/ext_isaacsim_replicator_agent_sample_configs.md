@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Sample Configs"
 section: "Agent配置"
 module: "03-replicator-agent"
-checksum: "5fa5024f1f3a5645"
-fetched: "2026-06-21T11:55:26"
+checksum: "c08754f5c61acb81"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -48,7 +48,7 @@ Top-level samples. They use the stable routine-trigger character API
 
 | File | Expected behavior | Demonstrates |
 | --- | --- | --- |
-| `minimal.yaml` | Opens the warehouse stage. No actors, sensors, or data generation â a sanity check that IRA is enabled and the asset server is reachable. | Smallest valid IRA config. Loaded by the IRA UI on launch. |
+| `minimal.yaml` | Opens the warehouse stage. No actors, sensors, or data generation – a sanity check that IRA is enabled and the asset server is reachable. | Smallest valid IRA config. Loaded by the IRA UI on launch. |
 | `full_pipeline.yaml` | 10 workers wander the warehouse for 60 seconds while six randomly placed ceiling cameras capture per-frame RGB, depth, segmentation, bounding boxes, and cosmos video annotations to the output folder. | End-to-end pipeline: routine-based character behavior, RTX sensor placement (`aim_at_targets`), and `IRABasicWriter`. |
 
 ## Behavior-Tree Samples (Experimental)

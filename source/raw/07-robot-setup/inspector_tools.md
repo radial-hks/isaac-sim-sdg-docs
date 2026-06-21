@@ -4,7 +4,7 @@ title: "Inspector Tools"
 section: "Setup 工具"
 module: "07-robot-setup"
 checksum: "190a078af70e7c46"
-fetched: "2026-06-21T13:05:34"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](index.html)

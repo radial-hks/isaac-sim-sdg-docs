@@ -2,7 +2,7 @@
 
 > 开发工具、Python 脚本、Core API 教程 — 日常开发必备
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 21
 
 ---
@@ -114,9 +114,9 @@ The Core API tutorials is for beginner NVIDIA Isaac Sim users. This tutorial ser
 
 # Hello World
 
-[NVIDIA Omniverseâ¢ Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/kit-architecture.html "(in Omniverse Developer Guide)"), the toolkit that NVIDIA Isaac Sim uses to build its applications, provides a Python interpreter for scripting. This means every single GUI command, as well as many additional functions are available as Python APIs. However, the learning curve for interfacing with Omniverse Kit using Pixarâs USD Python API is steep and steps are frequently tedious. Therefore weâve provided a set of APIs that are designed to be used in robotics applications, APIs that abstract away the complexity of USD APIs and merge multiple steps into one for frequently performed tasks.
+[NVIDIA Omniverseâ¢ Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/kit-architecture.html "(in Omniverse Developer Guide)"), the toolkit that NVIDIA Isaac Sim uses to build its applications, provides a Python interpreter for scripting. This means every single GUI command, as well as many additional functions are available as Python APIs. However, the learning curve for interfacing with Omniverse Kit using Pixar’s USD Python API is steep and steps are frequently tedious. Therefore we’ve provided a set of APIs that are designed to be used in robotics applications, APIs that abstract away the complexity of USD APIs and merge multiple steps into one for frequently performed tasks.
 
-In this tutorial, we will present the concepts of Core APIs and how to use them. We will start with adding a cube to an empty stage, and weâll build upon it to create a scene with multiple robots executing multiple tasks simultaneously, as seen below.
+In this tutorial, we will present the concepts of Core APIs and how to use them. We will start with adding a cube to an empty stage, and we’ll build upon it to create a scene with multiple robots executing multiple tasks simultaneously, as seen below.
 
 ## Learning Objectives
 
@@ -149,9 +149,9 @@ The `hello_world.py` script is where the logic of the application will be added,
 elements of the application will be added in `hello_world_extension.py` script and thus
 linked to the logic.
 
-1. Click **File > New From Stage Template > Empty** to create a new stage, click **Donât Save** when prompted to save the current stage.
+1. Click **File > New From Stage Template > Empty** to create a new stage, click **Don’t Save** when prompted to save the current stage.
 2. Click the **LOAD** button to load the World.
-3. Open `hello_world.py` and press âCtrl+Sâ to use the hot-reload feature. You will
+3. Open `hello_world.py` and press “Ctrl+S” to use the hot-reload feature. You will
    notice that the menu disappears from the workspace (because it was restarted).
 4. Open the example menu again and click the **LOAD** button.
 
@@ -430,7 +430,7 @@ Complete code:
 
 Print the world pose and velocity of the cube during simulation at every physics step
 executed. As mentioned in [Workflows](../introduction/workflows.html#isaac-sim-app-tutorial-intro-workflows), in this workflow the
-application is running asynchronously and canât control when to step physics. However, you can add
+application is running asynchronously and can’t control when to step physics. However, you can add
 callbacks to ensure certain things happen before certain events.
 
 Import SimulationManager:
@@ -691,7 +691,7 @@ The server shown in these steps has been connected to in [Workstation Setup](../
 
 1. Add the assets by simply dragging them to the stage window or the viewport.
 2. Try to do the same thing through Python in the **Hello World** example.
-3. Create a new stage: **File > new > Donât Save**
+3. Create a new stage: **File > new > Don’t Save**
 4. Open the `hello_world.py` file by clicking the **Open Source Code**
    button in the **Hello World** window.
 
@@ -777,7 +777,7 @@ it is not moving. The next section walks through how to make the robot move.
 In NVIDIA Isaac Sim, Robots are constructed of physically accurate articulated joints. Applying actions
 to these articulations make them move.
 
-Next, apply random velocities to the Jetbotâs wheel joints to get it moving.
+Next, apply random velocities to the Jetbot’s wheel joints to get it moving.
 
 Importing SimulationManager:
 
@@ -893,7 +893,7 @@ exercises:
 
 ## Controlling Specific Joints
 
-You can also control specific joints by their names or indices. Hereâs how to get the wheel
+You can also control specific joints by their names or indices. Here’s how to get the wheel
 joint indices and apply velocities only to specific joints:
 
 Getting wheel indices:
@@ -1838,7 +1838,7 @@ the **RESET** button instead.
 
 ## Organizing Robot Scenarios with Classes
 
-When working with multiple robots performing similar tasks, itâs helpful to encapsulate the
+When working with multiple robots performing similar tasks, it’s helpful to encapsulate the
 robot setup and control logic into reusable classes. This approach allows you to easily
 create multiple instances with different parameters (like position offsets).
 
@@ -2341,34 +2341,34 @@ This tutorial shows how to add objects to the scene and configure them for simul
 
 *10-15 Minute Tutorial*
 
-## Adding Rubikâs Cube
+## Adding Rubik’s Cube
 
-Start by adding a Rubikâs Cube to the scene.
+Start by adding a Rubik’s Cube to the scene.
 
 1. Create a new stage on Isaac Sim by clicking on the **File** tab and then clicking on **New Stage**.
-2. In the Content Browser, go to `Isaac Sim` > `Props` > `Rubiks_Cube` > `rubiks_cube.usd` and drag and drop the `rubiks_cube.usd` file into the stage. This will add a Rubikâs Cube to the scene as a payload.
-3. Left click on the Rubikâs Cube and in the properties panel, set the `Position` to `(0, 0, 0.1)`.
+2. In the Content Browser, go to `Isaac Sim` > `Props` > `Rubiks_Cube` > `rubiks_cube.usd` and drag and drop the `rubiks_cube.usd` file into the stage. This will add a Rubik’s Cube to the scene as a payload.
+3. Left click on the Rubik’s Cube and in the properties panel, set the `Position` to `(0, 0, 0.1)`.
 4. On the stage, right click `Create` > `Isaac` > `Environment` > `Flat Grid` to create a flat ground.
-5. Click `PLAY` to start the simulation, you will see the Rubikâs Cube is not falling to the ground. This is because the Rubikâs Cube is not a rigid body.
+5. Click `PLAY` to start the simulation, you will see the Rubik’s Cube is not falling to the ground. This is because the Rubik’s Cube is not a rigid body.
 6. Click `STOP` to stop the simulation.
 
 ## Configure Physics Properties
 
 ### Add Rigid Body Properties
 
-1. Right click on the Rubikâs Cube and select `Add` > `Physics` > `Rigid Body`. This will add a rigid body attribute to the Rubikâs Cube and it will be affected by physics.
-2. Now, click `PLAY` to start the simulation, you will see the Rubikâs Cube fall through the ground, this is because the Rubikâs Cube does not have a collision shape. Click `STOP` to stop the simulation.
+1. Right click on the Rubik’s Cube and select `Add` > `Physics` > `Rigid Body`. This will add a rigid body attribute to the Rubik’s Cube and it will be affected by physics.
+2. Now, click `PLAY` to start the simulation, you will see the Rubik’s Cube fall through the ground, this is because the Rubik’s Cube does not have a collision shape. Click `STOP` to stop the simulation.
 
 ### Add Collision Properties
 
-1. Right click on the Rubikâs Cube and select `Add` > `Physics` > `Collider Presets`. This will add a collision attribute to the Rubikâs Cube and it will collide with other objects.
-2. Now, click `PLAY` to start the simulation, you will see the Rubikâs Cube fall on the ground. Click `STOP` to stop the simulation.
+1. Right click on the Rubik’s Cube and select `Add` > `Physics` > `Collider Presets`. This will add a collision attribute to the Rubik’s Cube and it will collide with other objects.
+2. Now, click `PLAY` to start the simulation, you will see the Rubik’s Cube fall on the ground. Click `STOP` to stop the simulation.
 
 ### Add Mass
 
-In addition to collision, you can also add mass, inertia, and center of mass to the Rubikâs Cube to configure its physical properties.
+In addition to collision, you can also add mass, inertia, and center of mass to the Rubik’s Cube to configure its physical properties.
 
-1. Right click on the Rubikâs Cube and select `Add` > `Physics` > `Mass`. This will add a mass attribute to the Rubikâs Cube.
+1. Right click on the Rubik’s Cube and select `Add` > `Physics` > `Mass`. This will add a mass attribute to the Rubik’s Cube.
 2. In the properties panel, scroll down to the `Mass` section and set the `Mass` to `0.1` to make it weigh 100 grams.
 
 Note
@@ -2381,7 +2381,7 @@ Setting the mass to 0 will make the simulation to compute it at runtime based on
 
 Right click on the `Eye` on the top left of the viewport and select `Show By Type` > `Physics` > `Coliders` > `All`. This will show the collision shapes everything in the scene.
 
-The ground planeâs collider is pink to denote it is a static object. The Rubikâs Cube is a dynamic object, so it falls to the ground and its collider is green.
+The ground plane’s collider is pink to denote it is a static object. The Rubik’s Cube is a dynamic object, so it falls to the ground and its collider is green.
 
 Note
 
@@ -2389,25 +2389,25 @@ You can adjust the collider type by left clicking on the `RubikCube` mesh at `Wo
 
 ### Customize Collider
 
-Letâs customize the collider for the Rubikâs Cube, by making it a sphere and easier to roll
+Let’s customize the collider for the Rubik’s Cube, by making it a sphere and easier to roll
 
 1. Left click on the `RubikCube` mesh at `World/rubiks_cube/RubikCube` and scroll down to the `Physics/Collider` section, press the `x` on the right to delete the current collider.
-2. Left click on the `rubiks_cube` Xform and select `Create` > `Shape` > `Sphere`. This will add a sphere shape around the Rubikâs Cube.
-3. Scroll down to the `Geometry` section and set the `Radius` to `0.07` to make the sphere smaller to match the Rubikâs Cube.
+2. Left click on the `rubiks_cube` Xform and select `Create` > `Shape` > `Sphere`. This will add a sphere shape around the Rubik’s Cube.
+3. Scroll down to the `Geometry` section and set the `Radius` to `0.07` to make the sphere smaller to match the Rubik’s Cube.
 4. Add a Collider to the sphere by selecting `Add` > `Physics` > `Collider Presets`.
 5. Hide the Sphere by unckecking the eye icon to the right of the sphere on the stage.
 6. Slant the groundplane by going to `FlatGrid` and Click on `Toggle Offset Mode` icon on the right of `Transform` in the Properties panel, then setting the `Rotation` to `(10, 0, 0)` to give it a 10 degree slope.
-7. Click `PLAY` to start the simulation, you will see the Rubikâs Cube rolls on the ground. Click `STOP` to stop the simulation.
+7. Click `PLAY` to start the simulation, you will see the Rubik’s Cube rolls on the ground. Click `STOP` to stop the simulation.
 
 ### Add Physics Materials
 
-You can also apply surface properties to the Rubikâs Cube by adding a physics material.
+You can also apply surface properties to the Rubik’s Cube by adding a physics material.
 
-1. Left click on the Rubikâs Cube and in the properties panel, set the `Position` to `(0, 0, 1)` to move it up.
-2. Right click on the Rubikâs Cube and select `Create` > `Physics` > `Physics Material`. Check `Rigid Body Material`. This will add a physics material attribute to the Rubikâs Cube. Drag it to the `World/rubiks_cube/Looks` scope.
+1. Left click on the Rubik’s Cube and in the properties panel, set the `Position` to `(0, 0, 1)` to move it up.
+2. Right click on the Rubik’s Cube and select `Create` > `Physics` > `Physics Material`. Check `Rigid Body Material`. This will add a physics material attribute to the Rubik’s Cube. Drag it to the `World/rubiks_cube/Looks` scope.
 3. In the properties panel, scroll down to the `Physics Material` section and set the `Restitution` to `1` to make it bounce.
 4. Select the `Sphere` collider we created earlier and in the properties panel, scroll down to the `Physics/Physics material on selected Material` section and select the `Physics Material` we just created at `/World/rubiks_cube/Looks/PhysicsMaterial`.
-5. Click `PLAY` to start the simulation, you will see the Rubikâs Cube rolls on the ground and bounces. Click `STOP` to stop the simulation.
+5. Click `PLAY` to start the simulation, you will see the Rubik’s Cube rolls on the ground and bounces. Click `STOP` to stop the simulation.
 
 Note
 
@@ -2422,7 +2422,7 @@ The completed asset is available at `Isaac Sim` > `Samples` > `Rigging` > `Rubik
 * Object rigid body api should be applied to the default prim of the object.
 * collision API should be applied to the mesh prim of the object, and it should be applied as a **physXSchema**
 
-### Whatâs Next?
+### What’s Next?
 
 Extending from the concepts above, you assemble more complex collision shapes using basic shapes. For example, in the image below, we approximated a bearing collider using cylinders and rectangles.
 
@@ -2438,7 +2438,7 @@ This tutorial covered the following topics:
 On this page
 
 * [Learning Objectives](#learning-objectives)
-* [Adding Rubikâs Cube](#adding-rubik-s-cube)
+* [Adding Rubik’s Cube](#adding-rubik-s-cube)
 * [Configure Physics Properties](#configure-physics-properties)
   + [Add Rigid Body Properties](#add-rigid-body-properties)
   + [Add Collision Properties](#add-collision-properties)
@@ -2447,7 +2447,7 @@ On this page
   + [Customize Collider](#customize-collider)
   + [Add Physics Materials](#add-physics-materials)
   + [Tips](#tips)
-  + [Whatâs Next?](#what-s-next)
+  + [What’s Next?](#what-s-next)
 * [Summary](#summary)
 
 ---
@@ -2579,7 +2579,7 @@ On this page
 ## Overview
 
 The `isaacsim.code_editor.python_server` extension provides a TCP socket server that enables remote Python code execution within a running Isaac Sim instance.
-Any client â VS Code, LLM agents, custom automation scripts â can connect over TCP, send Python source code, and receive structured JSON results.
+Any client — VS Code, LLM agents, custom automation scripts — can connect over TCP, send Python source code, and receive structured JSON results.
 
 The extension is automatically loaded as a dependency of `isaacsim.code_editor.vscode`, but it can also be enabled independently for headless or programmatic workflows.
 
@@ -2716,7 +2716,7 @@ An LLM tool implementation needs only to:
 
 1. Open a TCP connection to the configured host and port.
 2. Send the Python code as UTF-8 bytes.
-3. Signal end-of-input by calling `write_eof()` (required â the server buffers until EOF).
+3. Signal end-of-input by calling `write_eof()` (required — the server buffers until EOF).
 4. Read the JSON response.
 5. Parse `status` to determine success or failure, `output` for printed text, and `result` for expression values.
 
@@ -2909,11 +2909,11 @@ Refer to [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext
 
 # Isaac Sim MCP Server
 
-The Isaac Sim MCP Server is a Model Context Protocol (MCP) server that gives AI coding assistants deep knowledge of NVIDIA Isaac Sim â extensions, code examples, settings, and developer instructions â via semantic search.
+The Isaac Sim MCP Server is a Model Context Protocol (MCP) server that gives AI coding assistants deep knowledge of NVIDIA Isaac Sim — extensions, code examples, settings, and developer instructions — via semantic search.
 
 For installation, MCP client setup, deployment options, and troubleshooting, see the [Isaac Sim MCP Server README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/README.md).
 
-For developer documentation â key concepts, integration examples, performance notes, and pointers to the architecture and prompt-design references â see the [Isaac Sim MCP Server docs README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/docs/README.md).
+For developer documentation — key concepts, integration examples, performance notes, and pointers to the architecture and prompt-design references — see the [Isaac Sim MCP Server docs README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/docs/README.md).
 
 ---
 
@@ -2971,9 +2971,9 @@ At the root of your Isaac Sim installation, run the following command:
 
 ## Edit .toml File
 
-For more permanent changes, you can edit the extensionâs .toml file. The changes made this way will persist after you close the application.
+For more permanent changes, you can edit the extension’s .toml file. The changes made this way will persist after you close the application.
 
-1. Navigate to the extensionâs folder. For example, if you are changing the settings for the `isaacsim.code_editor.python_server` extension, navigate to `<isaac-sim-root_dir>/exts/isaacsim.code_editor.python_server/config`.
+1. Navigate to the extension’s folder. For example, if you are changing the settings for the `isaacsim.code_editor.python_server` extension, navigate to `<isaac-sim-root_dir>/exts/isaacsim.code_editor.python_server/config`.
 2. Open the .toml file with a text editor, and add the following line to the file:
 
    > ```python
@@ -3118,7 +3118,7 @@ A **Stage** is a USD concept, and defines the logical and relational context for
 
 Similarly, the **World** is what provides context to the simulation, defining which prims are relevant to the ongoing flow of time, the **scene**, and managing the aspects of the simulation that are most important to the user.
 
-For example, imagine you are going to see a play at a theater. The theater is like the **application**, your gateway to the play, while the **simulation** is the play itself, defined by a program. You take your seat and you can see the **stage**, where the play will take place. When the play starts, the curtain rises and reveals a **scene** composed props and actors that then act out that part of the play. When itâs time to move to the next scene, the curtain falls, the scene is reset, and then the curtain rises again, revealing the next part of the play. The stage crew and all the mechanical devices behind the scene that manages the curtain and the props is the **world** of the play.
+For example, imagine you are going to see a play at a theater. The theater is like the **application**, your gateway to the play, while the **simulation** is the play itself, defined by a program. You take your seat and you can see the **stage**, where the play will take place. When the play starts, the curtain rises and reveals a **scene** composed props and actors that then act out that part of the play. When it’s time to move to the next scene, the curtain falls, the scene is reset, and then the curtain rises again, revealing the next part of the play. The stage crew and all the mechanical devices behind the scene that manages the curtain and the props is the **world** of the play.
 
 On this page
 
@@ -3581,8 +3581,8 @@ geom_prim.set_collision_approximations(["convexDecomposition"])
 RigidPrim(cube.paths)
 ```
 
-To verify that collision meshes have been successfully enabled, click the âeyeâ icon > âShow By Typeâ >
-âPhysics Meshâ > âAllâ. This will show the collision meshes as pink outlines on the objects.
+To verify that collision meshes have been successfully enabled, click the “eye” icon > “Show By Type” >
+“Physics Mesh” > “All”. This will show the collision meshes as pink outlines on the objects.
 
 ### Traverse a stage and assign collision meshes to children
 
@@ -3667,7 +3667,7 @@ The following is assumed: the stage contains a physics scene, all objects have c
 and the play button has been clicked.
 
 The parameters: origin, rayDir and distance define a ray along which a ray hit might be detected.
-The output of the query can be used to access the objectâs reference, and its distance from the raycast origin.
+The output of the query can be used to access the object’s reference, and its distance from the raycast origin.
 
 ```python
 import carb
@@ -4187,7 +4187,7 @@ Prepare the scene:
 Warning
 
 The snippets are disparate examples, running them out of order may have unintended consequences.
-The resulting movements may not respect the robotâs kinematic limitations.
+The resulting movements may not respect the robot’s kinematic limitations.
 
 Make sure there is a Franka robot at the `/Franka` prim path and that the simulation is playing.
 Then, open the Script Editor window (Window > Script Editor menu) and run the following snippets.
@@ -4425,7 +4425,7 @@ The `UsdGeom.Points` API is the most efficient method to render large amounts of
 ### UsdGeom.PointInstancer
 
 Use the `UsdGeom.PointInstancer` API when the geometry needs to interact with the physics scene.
-The `UsdGeom.PointInstancer` API lets you efficiently replicate an instance of a prim â with all of its USD properties â
+The `UsdGeom.PointInstancer` API lets you efficiently replicate an instance of a prim — with all of its USD properties —
 and update all instances with a list of positions, colors, and sizes.
 
 See the [PointInstancer Reference](https://openusd.org/release/api/class_usd_geom_point_instancer.html) for more information regarding the PointInstancer API.

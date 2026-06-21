@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omniverse_usd/intro_to_us
 title: "Intro to USD"
 section: "OpenUSD"
 module: "01-concepts"
-checksum: "69eef6b84818fe6f"
-fetched: "2026-06-21T12:48:04"
+checksum: "1f7eedbcb43e333d"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * [Omniverse and USD](index.html)
@@ -75,7 +75,7 @@ Put all the rigid body parts of the robot under a single [Prim](../reference_mat
 
 To have the necessary environment set up in the USD stages but not export them when they are being referenced, you need to move non-referenced items out of the default Prim:
 
-* Select the robotâs parent prim on stage, in this tutorial /mock\_robot.
+* Select the robot’s parent prim on stage, in this tutorial /mock\_robot.
 * Open the menu *Edit* while the prim is selected, and click on *unparent*.
 * Validate that instead of being under World, mock\_robot is parallel to World.
 * Right-click on the robot prim again on stage, and *Set as a Default Prim*. Save.

@@ -4,7 +4,7 @@ title: "Application Template"
 section: "高级"
 module: "03-extension-dev"
 checksum: "9b820b0b52da9b63"
-fetched: "2026-06-21T12:48:11"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * Application Template

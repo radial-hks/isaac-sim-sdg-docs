@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Camera Placement"
 section: "传感器配置"
 module: "05-sensors-annotators"
-checksum: "2075da7d198bd90d"
-fetched: "2026-06-21T11:55:32"
+checksum: "37320e8aea4171b1"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -109,7 +109,7 @@ The total number of cameras to be placed in the scene.
 >   :   The minimum additional patch a camera must cover for it to be considered valid.
 >       If the new camera increases coverage less than this value, placement will stop.
 > * **Limit FOV by Distance**:
->   :   Determines whether the cameraâs field of view should be restricted based on its **Camera Distance Range**.
+>   :   Determines whether the camera’s field of view should be restricted based on its **Camera Distance Range**.
 >       - If enabled, the estimated camera coverage will be further limited according to the distance between each visible area and the target camera.
 > * **Coverage Density**:
 >   :   Specifies how many cameras must cover each patch at a minimum.
@@ -190,7 +190,7 @@ Refer to the [Camera Range Input Fields](#camera-range-parameters) for more deta
 
 ### (Optional) Adjust Stage Processing
 
-**Stage Processing Parameters** allows you to configure the camera placement method according to the stageâs size, height, and complexity.
+**Stage Processing Parameters** allows you to configure the camera placement method according to the stage’s size, height, and complexity.
 Tune **Stage Processing Parameters** to set patch size or ground height, if applicable.
 Refer to the [Stage Processing Parameters Field](#stage-processing-parameters) for more details. This example uses the default values.
 

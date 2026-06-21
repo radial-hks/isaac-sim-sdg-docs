@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/digital_twin/ext_isaacsim
 title: "Occupancy Map Generator"
 section: "数字孪生"
 module: "06-sim2real-ue5"
-checksum: "958eb623d9b331ff"
-fetched: "2026-06-21T12:48:19"
+checksum: "f196fcf622dab13a"
+fetched: "2026-06-21T13:40:03"
 ---
 
 * [Digital Twin](index.html)
@@ -64,17 +64,17 @@ The following steps show how to create and visualize an occupancy map of a certa
 > 1. Create a new Cone shape (**Create > Shape > Cone** menu) and add the physics Collision property to it (right click and **Add > Physics > Collider Preset**, or in the *Property* panel).
 > 2. Translate the shape 0.3 meters in the X-axis and orient it 90Âº in the X-axis Euler angles by modifying its *Transform* in the *Property* panel.
 > 3. Click on the **Tools > Robotics > Occupancy Map** menu to open the *Occupancy Map* window docked to the *Property* panel.
-> 4. Set the Occupancy Mapâs Origin Z-axis value to 0.1 meters to map the area at that height
+> 4. Set the Occupancy Map’s Origin Z-axis value to 0.1 meters to map the area at that height
 > 5. Click on **CALCULATE** followed by **VISUALIZE IMAGE**. The *Occupancy Map Visualization* window will appear as shown in the image in the next subsection.
 > 6. Finally, click **Save Image** to save the map to an easily accessible location. You will need it for later steps in this guide!
 
 #### Occupancy Map Visualization window
 
-* **Occupied Color**: The color chosen to represent space that is âoccupiedâ.
-* **Freespace Color**: The color chosen to represent space that is âfreeâ.
-* **Unknown Color**: The color chosen to represent space that is interstitial or âunknownâ.
+* **Occupied Color**: The color chosen to represent space that is “occupied”.
+* **Freespace Color**: The color chosen to represent space that is “free”.
+* **Unknown Color**: The color chosen to represent space that is interstitial or “unknown”.
 * **Rotate Image**: Rotates the coordinates of the image space. A rotation of \(\text{180}^{\circ}\) will result in a Heightmap orientation that matches that of the original source stage of the occupancy map.
-* **Coordinate Type**: Determines the format of the output in the information window. Stage Space coordinates reports values in the space of the stage, while the âROS Occupancy Map Parameters Fileâ returns the needed parameters for the ROS Occupancy Map.
+* **Coordinate Type**: Determines the format of the output in the information window. Stage Space coordinates reports values in the space of the stage, while the “ROS Occupancy Map Parameters File” returns the needed parameters for the ROS Occupancy Map.
 * **Filename**: Base name used when saving the PNG image or YAML file, and written into the YAML `image` field. Defaults to the stage name.
 * **RE-GENERATE IMAGE**: This will regenerate the image and information window if you changed the stage.
 * **Save Image**: Opens a file dialog pre-filled with the Filename to save the occupancy map as a `.png` file.

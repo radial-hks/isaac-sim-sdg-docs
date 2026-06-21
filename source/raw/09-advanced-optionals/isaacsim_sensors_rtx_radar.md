@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "RTX Radar"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "94cc1b17b78935b0"
-fetched: "2026-06-21T13:05:45"
+checksum: "9a797054e3dc099f"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Sensors](index.html)
@@ -22,7 +22,7 @@ Warning
 
 **Motion BVH Must Be Enabled for RTX Radar**
 
-RTX Radar requires Motion BVH to be enabled for the Doppler effectâand therefore RTX Radar entirelyâto be modeled correctly.
+RTX Radar requires Motion BVH to be enabled for the Doppler effect—and therefore RTX Radar entirely—to be modeled correctly.
 **Without Motion BVH enabled, RTX Radar will not produce accurate results.**
 
 Motion BVH is disabled by default in Isaac Sim for performance reasons. You must explicitly enable it before using RTX Radar.
@@ -93,7 +93,7 @@ Note
 exclusive), plus `attributes` for prim-attribute overrides and the plural transform arrays
 (`positions=[[...]]` / `translations=[[...]]` / `orientations=[[...]]` / `scales=[[...]]`;
 `N=1`). Additional USD schemas via `schemas=[...]` are accepted by the `Radar(...)`
-constructor â pass them through `Radar(...)` directly if you need them, since
+constructor — pass them through `Radar(...)` directly if you need them, since
 `Radar.create()` does not currently forward `schemas`.
 
 Annotators can then be attached to the `OmniRadar` prim to collect and visualize the Radar results.

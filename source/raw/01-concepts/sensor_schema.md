@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omniverse_usd/sensor_sche
 title: "Sensor Schema"
 section: "OpenUSD"
 module: "01-concepts"
-checksum: "6af0f737cf8b82e9"
-fetched: "2026-06-21T12:48:04"
+checksum: "82bda23a33d29e80"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * [Omniverse and USD](index.html)
@@ -35,7 +35,7 @@ See [Contact sensor](../sensors/isaacsim_sensors_physics_contact.html#isaacsim-s
 | Attribute | Type | Description |
 | --- | --- | --- |
 | `threshold` | Float2 | Min and max force detected by this sensor, in (kg) \* (stage length unit) / (second)^2. |
-| `radius` | Float | Radius of the contact sensor sphere, in stage length units. A value of `-1` uses the primâs collision geometry. |
+| `radius` | Float | Radius of the contact sensor sphere, in stage length units. A value of `-1` uses the prim’s collision geometry. |
 | `color` | Float4 | Color of the contact sensor visualization sphere (R, G, B, A). |
 | `sensorPeriod` | Float | **Deprecated** since `isaacsim.robot.schema` 6.2.0. Only used by the deprecated `isaacsim.sensors.physx` extension. Time between measurements in simulator seconds. |
 
@@ -58,7 +58,7 @@ See [IMU sensor](../sensors/isaacsim_sensors_physics_imu.html#isaacsim-sensors-p
 
 See [Physics raycast sensor](../sensors/isaacsim_sensors_physics_raycast.html#isaacsim-sensors-physics-raycast) for usage documentation.
 
-Origins and directions are specified in the sensor primâs local coordinate frame. At each physics step the sensorâs world transform is computed from the current rigid-body pose, optionally extrapolated forward using linear/angular velocity when a non-zero `rayTimeOffset` is specified. Each rayâs local origin and direction are then transformed into world space for the raycast.
+Origins and directions are specified in the sensor prim’s local coordinate frame. At each physics step the sensor’s world transform is computed from the current rigid-body pose, optionally extrapolated forward using linear/angular velocity when a non-zero `rayTimeOffset` is specified. Each ray’s local origin and direction are then transformed into world space for the raycast.
 
 All attributes are read once when the sensor is first evaluated after simulation starts. Changing attribute values while the simulation is playing has no effect; stop and restart the simulation to pick up changes.
 
@@ -67,9 +67,9 @@ All attributes are read once when the sensor is first evaluated after simulation
 | `numRays` | UInt | Number of rays cast by this sensor. `rayOrigins` and `rayDirections` must each have exactly this many elements. |
 | `minRange` | Float | Minimum detection range in stage length units. Rays start at `origin + direction * minRange`. |
 | `maxRange` | Float | Maximum detection range in stage length units. |
-| `rayOrigins` | Float3[] | Per-ray origin translations in the sensorâs local coordinate frame. |
-| `rayDirections` | Float3[] | Per-ray cast direction vectors in the sensorâs local coordinate frame. Vectors are normalized before use. |
-| `rayTimeOffsets` | Float[] | Per-ray time offsets in seconds. When provided, only rays whose time offsets fall within the current physics stepâs time window are fired. The sweep period equals `max(rayTimeOffsets)`. If empty, all rays fire every step. |
+| `rayOrigins` | Float3[] | Per-ray origin translations in the sensor’s local coordinate frame. |
+| `rayDirections` | Float3[] | Per-ray cast direction vectors in the sensor’s local coordinate frame. Vectors are normalized before use. |
+| `rayTimeOffsets` | Float[] | Per-ray time offsets in seconds. When provided, only rays whose time offsets fall within the current physics step’s time window are fired. The sweep period equals `max(rayTimeOffsets)`. If empty, all rays fire every step. |
 | `outputFrameOfReference` | Token | Coordinate frame for hit positions and normals: `SENSOR` (default) or `WORLD`. |
 | `reportHitPrimPaths` | Bool | When `True`, the sensor reading includes the USD prim path of each hit surface. |
 
@@ -77,7 +77,7 @@ All attributes are read once when the sensor is first evaluated after simulation
 
 The following sensor schemas are defined in `SensorSchema.usda` but are deprecated:
 
-* **IsaacLightBeamSensor** â Deprecated since `isaacsim.robot.schema` 6.2.0. Use `IsaacRaycastSensor` with `isaacsim.sensors.experimental.physics` instead. See [Migrating to the physics raycast sensor](../sensors/isaacsim_sensors_physx_lightbeam.html#isaacsim-sensors-physx-lightbeam-migration).
+* **IsaacLightBeamSensor** – Deprecated since `isaacsim.robot.schema` 6.2.0. Use `IsaacRaycastSensor` with `isaacsim.sensors.experimental.physics` instead. See [Migrating to the physics raycast sensor](../sensors/isaacsim_sensors_physx_lightbeam.html#isaacsim-sensors-physx-lightbeam-migration).
 
 The `IsaacRtxLidarSensorAPI` and `IsaacRtxRadarSensorAPI` are applied API schemas for the RTX sensor pipeline and are not physics-based sensors. See [RTX Sensors](../sensors/isaacsim_sensors_rtx.html#isaacsim-sensors-rtx) for RTX sensor documentation.
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/introduction/reference_ar
 title: "Reference Architecture (re-fetch for Sim2Real context)"
 section: "架构参考"
 module: "06-sim2real-ue5"
-checksum: "ac6d8ec67618dccd"
-fetched: "2026-06-21T12:48:20"
+checksum: "2ddf67e514ce8cfc"
+fetched: "2026-06-21T13:40:04"
 ---
 
 * Reference Architecture and Task Groupings
@@ -62,7 +62,7 @@ Description (OpenUSD)](https://www.nvidia.com/en-us/omniverse/usd/).
 
 All assets need to be converted to OpenUSD before they can be used with Isaac Sim, and the default unit for Isaac Sim is meters.
 
-NVIDIA provides a vast collection of OpenUSD âSimReadyâ assets. [SimReady](https://developer.nvidia.com/omniverse/simready-assets), or
+NVIDIA provides a vast collection of OpenUSD ‘SimReady’ assets. [SimReady](https://developer.nvidia.com/omniverse/simready-assets), or
 simulation-ready, assets are physically accurate 3D objects that have accurate
 physical properties, behavior, and connected data streams that are used to represent the real world in
 simulated digital worlds. Developers can use these building blocks to construct scenes and
@@ -146,7 +146,7 @@ specific use cases. PhysX supports exact representations for Cube, Capsule, and
 Sphere shapes. Cones and Cylinders are supported through the custom geometry
 flag and are particularly useful when setting collision approximations for wheels of
 robots. [Rigid-body physics materials](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/rigid_bodies.html#configure-rigid-body-s-material-properties)
-provide friction, restitution (a.k.a. âbouncinessâ), and material density properties
+provide friction, restitution (a.k.a. ‘bounciness’), and material density properties
 
 #### Adding Joints and Drives
 
@@ -179,7 +179,7 @@ materials by specifying their physical properties, surface characteristics, and 
 interact with light. Omniverse comes with several template materials, including a physically
 based glass; several general purpose multi-lobed materials useful for dielectric and
 non-dielectric materials, skin, hair, liquids and other materials requiring subsurface
-scattering or transmissive effects; and USDâs UsdPreviewSurface.
+scattering or transmissive effects; and USD’s UsdPreviewSurface.
 
 ## Interaction with Digital Twin
 
@@ -245,7 +245,7 @@ enables developers to seamlessly integrate the generated data with their trainin
 To get started, developers can leverage the Python API provided by Omniverse Replicator
 for generating synthetic data. The same scripts can be used to generate data headlessly in
 the cloud through the Isaac Sim docker container (instructions [Container Installation](../installation/install_container.html#isaac-sim-app-install-container))
-on a developerâs preferred CSP (AWS, Alibaba, Azure, GCP) with the [Cloud Deployment](../installation/install_cloud.html#isaac-sim-app-install-cloud) guide.
+on a developer’s preferred CSP (AWS, Alibaba, Azure, GCP) with the [Cloud Deployment](../installation/install_cloud.html#isaac-sim-app-install-cloud) guide.
 [Replicator YAML](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/yaml_workflow.html#replicator-yaml)
 can be used for low-code situations where scripts can easily be edited by non-technical experts.
 They offer a high level of portability and care suitable for cloud use cases.
@@ -318,7 +318,7 @@ software stack needed before physically setting up the robot.
 
 [OSMO](https://developer.nvidia.com/osmo)
 is a cloud-native workow orchestration platform that lets you easily scale your
-workloads across distributed environments â from on-premises to private and public
+workloads across distributed environments — from on-premises to private and public
 cloud. You can now apply for early access.
 
 #### Sizing Calculator

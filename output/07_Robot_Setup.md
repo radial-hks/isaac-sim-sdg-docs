@@ -2,7 +2,7 @@
 
 > Robot Setup 工具链（Wizard/Poser/Inspector/GainTuner）+ 配置实战教程
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 32
 
 ---
@@ -183,7 +183,7 @@ For a full explanation of how the Gain Tuner works, the physics behind joint dri
 1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
 2. Select the UR10 from the **Select Robot** dropdown.
 3. Ensure that **Mode** is set to **Position** for each joint.
-4. Observe that all six joints â `shoulder_pan_joint`, `shoulder_lift_joint`, `elbow_joint`, `wrist_1_joint`, `wrist_2_joint`, `wrist_3_joint` â have **Stiffness** and **Damping** set to `0`. With zero gains the robot has no active drives and will collapse under gravity when the simulation is played.
+4. Observe that all six joints — `shoulder_pan_joint`, `shoulder_lift_joint`, `elbow_joint`, `wrist_1_joint`, `wrist_2_joint`, `wrist_3_joint` — have **Stiffness** and **Damping** set to `0`. With zero gains the robot has no active drives and will collapse under gravity when the simulation is played.
 
 ## Step 2: Snap-to-Limits with weak gains
 
@@ -202,11 +202,11 @@ With stiffness at only 10 Nm/rad and no damping, expect:
 
 Note
 
-If a joint reports **Blocked**, re-run with **Disable Self-Collisions** enabled. If the joint then passes, the joint limit extends beyond what the collision geometry allows â tighten the joint limit in USD rather than adjusting gains.
+If a joint reports **Blocked**, re-run with **Disable Self-Collisions** enabled. If the joint then passes, the joint limit extends beyond what the collision geometry allows — tighten the joint limit in USD rather than adjusting gains.
 
 ## Step 3: Tuned parameters
 
-Before adjusting gains, check the joint force limits. The UR10âs URDF defines max effort values (330 Nm for the shoulder joints, 150 Nm for the elbow, 56 Nm for the wrist joints) that are imported as the joint **Max Force** in USD. With high stiffness, the PD controller may need to apply forces that exceed these limits to drive the heavy shoulder and elbow links to their targets. If a joint still fails Snap-to-Limits after increasing stiffness, select the joint in the **Properties** panel and set **Max Force** to a higher value or to `inf` (infinite) under **Joint** > **Advanced** > **Maximum Force**. For the UR10, `shoulder_pan_joint` and `shoulder_lift_joint` require infinite max force to pass.
+Before adjusting gains, check the joint force limits. The UR10’s URDF defines max effort values (330 Nm for the shoulder joints, 150 Nm for the elbow, 56 Nm for the wrist joints) that are imported as the joint **Max Force** in USD. With high stiffness, the PD controller may need to apply forces that exceed these limits to drive the heavy shoulder and elbow links to their targets. If a joint still fails Snap-to-Limits after increasing stiffness, select the joint in the **Properties** panel and set **Max Force** to a higher value or to `inf` (infinite) under **Joint** > **Advanced** > **Maximum Force**. For the UR10, `shoulder_pan_joint` and `shoulder_lift_joint` require infinite max force to pass.
 
 The following gains produce a UR10 that passes Snap-to-Limits. They were found using the position-drive tuning heuristic described in the [Tuning Workflow](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-tuning-workflow) section of the Gain Tuner reference:
 
@@ -243,12 +243,12 @@ Now observe what happens without velocity limits:
 2. Press **Run Test** again.
 3. Some joints now report **Unstable**.
 
-Without velocity limits, the PD controller responds to the stress testâs large position errors by generating forces that accelerate joints to extreme speeds within a single simulation timestep. At these speeds the discrete-time solver can fail to converge, leading to energy blowup or NaN values.
+Without velocity limits, the PD controller responds to the stress test’s large position errors by generating forces that accelerate joints to extreme speeds within a single simulation timestep. At these speeds the discrete-time solver can fail to converge, leading to energy blowup or NaN values.
 
 Velocity limits serve two purposes:
 
-* **Physical fidelity** â real actuators have maximum speeds defined by the manufacturer. The UR10âs URDF specifies velocity limits of approximately 2â3 rad/s per joint. Setting these in simulation reproduces the real robotâs motion envelope.
-* **Solver stability** â by capping joint speed, velocity limits keep per-step displacements within the range where the PhysX implicit integrator remains numerically stable.
+* **Physical fidelity** — real actuators have maximum speeds defined by the manufacturer. The UR10’s URDF specifies velocity limits of approximately 2–3 rad/s per joint. Setting these in simulation reproduces the real robot’s motion envelope.
+* **Solver stability** — by capping joint speed, velocity limits keep per-step displacements within the range where the PhysX implicit integrator remains numerically stable.
 
 If your application requires higher velocity limits than the manufacturer specification, increase them incrementally and re-run the Stress Test after each change to confirm the solver remains stable at the new limits.
 
@@ -311,7 +311,7 @@ This tutorial details how to make robot assets more performant and where to find
 This tutorial explores the NVIDIA Jetbot Robot asset which improve performance.
 If you import the asset from a different source, for example from custom CAD, you might end up with numerous meshes per rigid body and this can severely impact performance.
 
-From the recording of this Jetbot asset imported from CAD that on the right side we have an unoptimized asset, and itâs achieving 40 FPS, while the asset on the left was optimized, and now achieves 64 FPS.
+From the recording of this Jetbot asset imported from CAD that on the right side we have an unoptimized asset, and it’s achieving 40 FPS, while the asset on the left was optimized, and now achieves 64 FPS.
 
 ## Asset Structure Optimization
 
@@ -338,7 +338,7 @@ create a new prim to be set as default.
 2. Create a new Xform called `Jetbot_Sim` and drag it onto Root.
 3. Right click on `Jetbot_Sim` and choose **Set as Default Prim**.
 4. Right click and choose **Create** > **Scope** and name it `Visuals`.
-5. Drag this scope onto Root so itâs unparented from `Jetbot_Sim`.
+5. Drag this scope onto Root so it’s unparented from `Jetbot_Sim`.
 6. Select the prims under `Jetbot` and drag them onto `Jetbot_Sim`.
 
    > Note
@@ -369,7 +369,7 @@ First, enable the merge mesh tool by going to **Window** > **Extensions** and se
 9. For `prim_path`, type in `/Visuals/left_wheel`.
 10. Back in the **Stage** panel, select the `/Jetbot_Sim/Visuals/left_wheel` prim, which you just added a reference onto. Then in the **Property** panel, scroll down to the **References** section. The prim path is in red, select the Asset Path entry and **clear** it.
 11. This will make the reference point to the internal `/Jetbot_Sim/Visuals/left_wheel` prim. The mesh for `left_wheel` shows as a child. Verify that a **Looks** scope was created in `Jetbot_Sim`, with the materials for this mesh.
-12. Verify that the wheel is referenced correctly in place, along with the base mesh that is at the origin. You can hide the Visuals scope so base meshes wonât be visible.
+12. Verify that the wheel is referenced correctly in place, along with the base mesh that is at the origin. You can hide the Visuals scope so base meshes won’t be visible.
 13. Save the file with CTRL+S.
 14. To complete the mesh optimization, repeat the previous steps for other bodies.
 
@@ -382,7 +382,7 @@ The finished USD with all mesh merges is available for you at `Isaac Sim/Samples
 Scenegraph instancing enables sharable, composed representations of subgraphs of prims. It is a directive that instructs the scene composer that a certain component of the scene is a repeatable pattern. While this allows for a leaner overall scene, it does require a few rules to be followed.
 
 Any children of an instance cannot have attributes modified, because they all inherit from the same asset in memory.
-Instances must be applied on Referenced assets, so that the scenegraph composer knows that from the reference and downwards, things are expected to remain the same and it needs to create a pointer to the asset data to be used anywhere itâs referenced.
+Instances must be applied on Referenced assets, so that the scenegraph composer knows that from the reference and downwards, things are expected to remain the same and it needs to create a pointer to the asset data to be used anywhere it’s referenced.
 
 1. Start by opening the USD file `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_post_merge.usd`, if you have not merged all the meshes.
 2. The left and right wheel meshes are identical. Further simplify the asset by having left and right wheel reference the same mesh. Select `Visuals/left_wheel` and rename it to `Visuals/wheel`.
@@ -392,7 +392,7 @@ Instances must be applied on Referenced assets, so that the scenegraph composer 
 
    At this point, all meshes are still considered unique elements because the assets are only defined as a reference.
 6. To leverage memory savings, shift-select all Visuals prims under `/Jetbot_Sim` and check **Instanceable** in the Property panel.
-7. On the Visuals prims, notice the reference icon now has a blue âIâ on it. This indicates they are instantiable meshes and effectively applying any memory savings.
+7. On the Visuals prims, notice the reference icon now has a blue “I” on it. This indicates they are instantiable meshes and effectively applying any memory savings.
 8. Save the file with CTRL+S.
 
 Note
@@ -470,7 +470,7 @@ All the rigid body, masses, and joint definition are done in [Onshape](https://d
 Instead of opening the original asset, edit the asset using **layers**. Layers allow for building a scene on top of a root asset and saving it without changing the underlying root layer assets. For example, you can add a ground plane and objects used to test the gripper, save the testing setup in the layers, while keeping the original gripper asset free of any extraneous items used for testing.
 
 1. Create a new stage without the reference added during import.
-2. Save this stage with the name `Robotiq_2F_85_config.usd` at the same folder as the imported assets (you can locate the source file in the Reference or Payload section on the Property panel, and click the âLocate fileâ icon).
+2. Save this stage with the name `Robotiq_2F_85_config.usd` at the same folder as the imported assets (you can locate the source file in the Reference or Payload section on the Property panel, and click the “Locate file” icon).
 3. Open the layer tab and drag the `Robotiq_2F_85_edit.usd` in the **Root Layer**.
 
 There is also a file named `Robotiq_2F_85_base.usd` in the source folder. This is the clean stage post import from Onshape and must not be directly edited to facilitate updates when the asset is re-imported from Onshape.
@@ -505,7 +505,7 @@ you may need to de-select instanceable for the two xforms in `right/left_inner_f
 
 ## Breaking the Articulation Loop
 
-If you try to simulate this asset now, youâll get two big warnings on the screen:
+If you try to simulate this asset now, you’ll get two big warnings on the screen:
 
 For more information, see [Physics Simulation Fundamentals](../physics/simulation_fundamentals.html#simulation-fundamentals). Articulations must be kinematic trees, but there is no need to delete any joints. To eliminate those warnings, you must choose one joint to exclude from the Articulation and have it be treated as a maximal coordinate joint. Because maximal coordinate joints are treated with a lower priority by the solver, it is the joint that accumulates the most error in simulation.
 
@@ -623,7 +623,7 @@ physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
 
 1. Set the target position for Joint X to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
 2. Set the target position for Joint Z to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
-3. Verify that you see the fingers ragdoll on the screen. Itâs still necessary to Tune the Joint Drives for the fingers.
+3. Verify that you see the fingers ragdoll on the screen. It’s still necessary to Tune the Joint Drives for the fingers.
 
 You can see in the video below that the gripper will move forward and lift up.
 
@@ -680,14 +680,14 @@ This gripper is controlled with a single input command that moves both fingers c
 
 ## Collision Meshes
 
-The default setting for collision meshes at import is Convex Hull. This is a good balance between performance and accuracy. However, for grippers, you often want the fingertips to have a collision mesh that closely follows the contour of the fingertip geometry, so that there wonât be any gaps between the fingertips and the objects being grasped.
+The default setting for collision meshes at import is Convex Hull. This is a good balance between performance and accuracy. However, for grippers, you often want the fingertips to have a collision mesh that closely follows the contour of the fingertip geometry, so that there won’t be any gaps between the fingertips and the objects being grasped.
 
 To visualize the collision meshes:
 
 1. Find the eye icon on top of the viewport, and click **Show By Type** > **Physics** > **Colliders** > **All**.
 2. Verify that outlines show up surrounding any objects that have collision meshes.
-3. Optionally, to change any collision meshes, select the part of the object associated with that mesh by clicking on it in the viewport, and then in the Physics section of the Property panel, change the Collider Approximation type to Convex Decomposition, or any other type thatâs appropriate for your use case.
-4. If you donât see a Physics or Collider section, then you might need to go down or up the stage tree from the selected item.
+3. Optionally, to change any collision meshes, select the part of the object associated with that mesh by clicking on it in the viewport, and then in the Physics section of the Property panel, change the Collider Approximation type to Convex Decomposition, or any other type that’s appropriate for your use case.
+4. If you don’t see a Physics or Collider section, then you might need to go down or up the stage tree from the selected item.
 5. The collision API can be applied to a nested child Xform, or the parent of the selected object.
 
 ### Self-Collision
@@ -791,7 +791,7 @@ On this page
 
 # Tutorial 5: Rig a Mobile Robot
 
-If you built a robot inside Omniverse USD Composer or used importers that do not carry over joint information, youâll need to rig the robot before it can move like an articulated robot and be controlled by Isaac Sim APIs. This involves defining the types of joints between the body parts and setting the parameters that governs the jointsâ behavior, such as stiffness and damping. This tutorial covers step-by-step instruction on how to rig a forklift.
+If you built a robot inside Omniverse USD Composer or used importers that do not carry over joint information, you’ll need to rig the robot before it can move like an articulated robot and be controlled by Isaac Sim APIs. This involves defining the types of joints between the body parts and setting the parameters that governs the joints’ behavior, such as stiffness and damping. This tutorial covers step-by-step instruction on how to rig a forklift.
 
 ## Learning Objectives
 
@@ -833,9 +833,9 @@ For the forklift, there are seven DOF in total:
 ### Organize the Hierarchy
 
 Open the unrigged forklift asset from the Content Browser: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_unrigged_cm.usd`.
-Depending on the importer used and the original assetâs setup, the unrigged structure of the USD could have no hierarchy in terms of how parts are organized. It could have every single component listed independently on the stage tree. This makes it difficult to read and navigate, but more importantly, it does not define which objects are moving as a group and how these groups are related to each other.
+Depending on the importer used and the original asset’s setup, the unrigged structure of the USD could have no hierarchy in terms of how parts are organized. It could have every single component listed independently on the stage tree. This makes it difficult to read and navigate, but more importantly, it does not define which objects are moving as a group and how these groups are related to each other.
 
-All meshes that are children of a parent prim are expected to move together when the parent prim moves. For example, the sticker and chains on the meshes are a part of the forklift body, and the entire body, no matter how many screws or blocks are used to make up the body, can be considered as a single link of this robot. Organize them all under a single parent âbodyâ prim. This ensures that when the âbodyâ moves, that all child parts that make up the body are moving together.
+All meshes that are children of a parent prim are expected to move together when the parent prim moves. For example, the sticker and chains on the meshes are a part of the forklift body, and the entire body, no matter how many screws or blocks are used to make up the body, can be considered as a single link of this robot. Organize them all under a single parent ‘body’ prim. This ensures that when the ‘body’ moves, that all child parts that make up the body are moving together.
 
 To organize prims for the forklift:
 
@@ -847,7 +847,7 @@ To organize prims for the forklift:
    :   Note
 
        Rigid body prims cannot have children that are also rigid bodies.
-6. It is easier to set the joints if they align the frame of the Xform to the frames of the respective wheels. To do so, for each wheel, select the mesh, and in its property tab under **Transform**, there are two components `Translate` and `Translate:pivot`. The newly created Xformâs transform must be the sum of those two components. For example, if `translate` is at \(X=x\_1, Y=y\_1, Z=z\_1\), and `translate:pivot` is at \(X=x\_p, Y=y\_p, Z=z\_p\), then the transform of the newly created Xform must be set to: \(X = x\_1+ x\_p , Y = y\_1 + y\_p , Z = z\_1 + z\_p\).
+6. It is easier to set the joints if they align the frame of the Xform to the frames of the respective wheels. To do so, for each wheel, select the mesh, and in its property tab under **Transform**, there are two components `Translate` and `Translate:pivot`. The newly created Xform’s transform must be the sum of those two components. For example, if `translate` is at \(X=x\_1, Y=y\_1, Z=z\_1\), and `translate:pivot` is at \(X=x\_p, Y=y\_p, Z=z\_p\), then the transform of the newly created Xform must be set to: \(X = x\_1+ x\_p , Y = y\_1 + y\_p , Z = z\_1 + z\_p\).
 7. `Translate` of the wheel mesh needs to be set to the inverse of the `Translate:pivot` property of the corresponding mesh. For example, if `Translate` is \(X, Y, Z\) and `Translate:pivot` is \(X\_p, Y\_p, Z\_p\), so now, set the translate to \(-X\_p, -Y\_p, -Z\_p\).
 8. Move the corresponding mesh under the XForm, this will define the parent-child relationship between them.
 
@@ -874,7 +874,7 @@ The process for the wheels is a little different, any collision approximation th
 1. Go to **Create > Shape > Cylinder**.
 2. Set the scale to `X=0.16`, `Y=0.16`, ``` Z=0.08`,` and Orient along ``Y=90 ```.
 3. Right click and create four duplicates of this cylinder, one for each of the four front roller wheels.
-4. Drag the cylinders under the respective wheelâs Xform and change their transform about all axes to `0`. This aligns the cylinder axis and the Xform axis completely.
+4. Drag the cylinders under the respective wheel’s Xform and change their transform about all axes to `0`. This aligns the cylinder axis and the Xform axis completely.
 5. Right click on the cylinder and **Add > Physics > Collider**.
 6. Following the same process for the back wheel, modify the cylinder scale to `X=0.3`, `Y=0.3`, `Z=0.1`, orient along `Y=90` because of its bigger size.
 
@@ -900,7 +900,7 @@ The first joint is the joint between the forklift body and the fork. It needs li
 For all the roller support wheels, create revolute joints:
 
 1. Select the `body` XForm, holding the **Ctrl** key select any of the roller wheel XForms. Right click **Create > Physics > Joint > Revolute Joint**. Verify that you see a Revolute joint added under the Xform for the wheel.
-2. Verify that the joints appear in the expected location. If not, make sure that the location of the joint matches the with the rotation axis of the wheel, and make sure to set the rotation axis to âXâ.
+2. Verify that the joints appear in the expected location. If not, make sure that the location of the joint matches the with the rotation axis of the wheel, and make sure to set the rotation axis to “X”.
 3. Follow the same process for the three remaining roller supports of the forklift.
 4. Create a Scope by right clicking on the stage and name it `roller_joints`. Drag the roller joints under the scope.
 
@@ -916,7 +916,7 @@ Next, add the last two joints, which are responsible for driving and turning the
 
 ### Add Articulations
 
-The last step is adding articulation to the Forklift and putting all the joints into a single articulation chain, which makes it easier for the physics solver when solving for articulated objects such as a robot. **This has already been added for the prim in the reference USD assets**. But if not, to put select and right click on the âSMV\_Forklift\_B01\_01â Xform and **Add > Physics > Articulation Root**. Under properties, disable the **Self collision** check box.
+The last step is adding articulation to the Forklift and putting all the joints into a single articulation chain, which makes it easier for the physics solver when solving for articulated objects such as a robot. **This has already been added for the prim in the reference USD assets**. But if not, to put select and right click on the ‘SMV\_Forklift\_B01\_01’ Xform and **Add > Physics > Articulation Root**. Under properties, disable the **Self collision** check box.
 
 There are a few caveats for the placement of the articulation root.
 
@@ -989,13 +989,13 @@ We highly recommend downloading the prebuilt asset to your local machine for eas
 
 ## Adjust the Articulation for Manipulation Tasks
 
-Adjust the articulation for the UR10e robot to make it more stable and accurate for manipulation tasks. Letâs first open the physx layer, and create a physx articulation root.
+Adjust the articulation for the UR10e robot to make it more stable and accurate for manipulation tasks. Let’s first open the physx layer, and create a physx articulation root.
 
 1. Open the interface file, `ur.usda`, and select the layer lab on the top right corner
-2. Click âInsert Sublayerâ icon at the bottom of the layer panel. (orange arrow with stacked layers icon)
+2. Click “Insert Sublayer” icon at the bottom of the layer panel. (orange arrow with stacked layers icon)
 3. In the file dialog, navigate to `path/to/Manipulator/configure_manipulator/ur10e/ur_gripper/payloads/Physics/`, select `physx.usda`, and click **Open** to insert it as a sublayer.
 
-1. Left click on physx.usda layer, then right click to select âSet Authoring Layerâ. Now all your changes will be saved to the physx.usda layer.
+1. Left click on physx.usda layer, then right click to select “Set Authoring Layer”. Now all your changes will be saved to the physx.usda layer.
 
 1. In the Stage panel, select the **ur/Geometry/World** prim.
 2. In the Property Editor at the bottom right, scroll down to the **Physics/Articulation** section. If you do not see an Articulation(PhysX), create a new one by clicking the **add** > **Physics** > **Articulation(PhysX)**.
@@ -1050,7 +1050,7 @@ Add physics materials to the robot gripper to make it more realistic and stable 
 
    If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/robotiq_2f_140/configuration/robotiq_2f_140_physics.usd`.
 2. Right click on the **robotiq\_arg2f\_140\_model** prim and select **Create** > **Physics** > **Physics Material**, select **Rigid Body Material**. This will add a physics material attribute to the gripper.
-3. In the properties panel, scroll down to the **Physics/Rigid Body Material** section and set the **static friction** to **1.0** and **dynamic friction** to **1.0**. For your robot, match the friction values to the robotâs surface friction coefficients.
+3. In the properties panel, scroll down to the **Physics/Rigid Body Material** section and set the **static friction** to **1.0** and **dynamic friction** to **1.0**. For your robot, match the friction values to the robot’s surface friction coefficients.
 4. Apply the physics material to the gripper finger tip.
    - Select the `colliders/left_inner_finger/mesh_1/box` and in the properties panel, scroll down to the **Physics/Physics material on selected Material** section.
    - Select the **Physics Material** you just created at `/World/robotiq_arg2f_140_model/Looks/finger`.
@@ -1062,11 +1062,11 @@ See [Adding Props](../core_api_tutorials/tutorial_core_adding_props.html#isaac-s
 
 ## Configure Joint Effort Limits
 
-In the physics layer of the robotiq\_arg2f\_140\_model asset from the previous step, letâs configure the joint effort limits for the gripper.
+In the physics layer of the robotiq\_arg2f\_140\_model asset from the previous step, let’s configure the joint effort limits for the gripper.
 
 1. In the **Stage** panel, select the `robotiq_arg2f_140_model/joints/finger_joint` prim. This is the joint that controls the gripper fingers, all other gripper joints are `Mimic` joints.
 2. In the **Property Editor** at the bottom right, scroll down to the `Drive/Angular/Max Force` section.
-3. Set the **Max Force** to `200`. This is the maximum force that can be applied to the gripper fingers. For your robot, match the max force to the robotâs joint torque limits.
+3. Set the **Max Force** to `200`. This is the maximum force that can be applied to the gripper fingers. For your robot, match the max force to the robot’s joint torque limits.
 4. **Ctrl + S** to save the changes.
 
 Note
@@ -1075,7 +1075,7 @@ When the max force is very high, you might need to increase the physics step fre
 
 ## Inspect the Robot Articulation
 
-Letâs inspect the robot articulation to verify the joint effort limits are applied correctly. Open the top level `ur` asset that you built in the previous tutorial.
+Let’s inspect the robot articulation to verify the joint effort limits are applied correctly. Open the top level `ur` asset that you built in the previous tutorial.
 This asset references the physics layers that you modified, so all the changes you made to the physics layer will be reflected in this asset.
 
 Note
@@ -1124,7 +1124,7 @@ On this page
 ## Learning Objectives
 
 This is the third manipulator tutorial in a series of four tutorials. This tutorial will show you how to generate the robot configuration file for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq.
-These robot configuration files provide information about the robotâs kinematics, dynamics, and other properties that are used in RMPFlow and [cuMotion](https://nvidia-isaac.github.io/cumotion/) motion planners.
+These robot configuration files provide information about the robot’s kinematics, dynamics, and other properties that are used in RMPFlow and [cuMotion](https://nvidia-isaac.github.io/cumotion/) motion planners.
 
 *30 Minutes Tutorial*
 
@@ -1144,7 +1144,7 @@ Generate the robot URDF file from the UR10e robot and the 2F-140 gripper.
 
 1. Go to **Window** > **Extensions**.
 2. Type **URDF** in the search box, and find the **Isaac Sim USD to URDF Exporter Extension**.
-3. If you canât find it, remove the **@feature** filter from the search box.
+3. If you can’t find it, remove the **@feature** filter from the search box.
 4. Enable the extension by clicking the toggle button labeled **ENABLE**.
 5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
 
@@ -1156,7 +1156,7 @@ Generate the robot URDF file from the UR10e robot and the 2F-140 gripper.
 
    Tip
 
-   Using `robot.urdf` matches the default `--urdf` value in the pick-and-place tutorial scripts, so you wonât need to pass `--urdf` explicitly when running them.
+   Using `robot.urdf` matches the default `--urdf` value in the pick-and-place tutorial scripts, so you won’t need to pass `--urdf` explicitly when running them.
 4. In the **Mesh Directory Path** field, select the correct folder path to save the URDF meshes.
 5. Click **Export**.
 
@@ -1172,7 +1172,7 @@ Generate the XRDF file and collision spheres for the UR10e robot and the 2F-140 
 
 1. Go to **Window** > **Extensions**.
 2. Search for `isaacsim.robot_setup.xrdf_editor` and find the **cuMotion/Lula Robot Description Editor** extension.
-3. If you canât find it, remove the **@feature** filter from the search box.
+3. If you can’t find it, remove the **@feature** filter from the search box.
 4. Enable the extension by clicking the toggle button labeled **ENABLE**.
 5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
 
@@ -1248,7 +1248,7 @@ Spheres generated for the full ur10e robot.
 
 General tuning tips
 
-* Size spheres to cover the link without being oversized â large spheres cause solver conservatism.
+* Size spheres to cover the link without being oversized — large spheres cause solver conservatism.
 * More spheres improves collision accuracy but reduces solver performance.
 * For long cylindrical links, generate spheres on the ends and use **Connect Spheres** to fill the middle evenly.
 * Use **Scale Spheres in Link** to resize spheres uniformly across a link.
@@ -1296,7 +1296,7 @@ Pass this directory to the tutorial scripts with `--xrdf-dir /path/to/robot/conf
 
 The `rmp_flow.yaml` file configures the RMPflow reactive motion controller. Save the text below in a file named `rmp_flow.yaml` and save it to the same directory as your `robot.urdf` and `robot.xrdf` files.
 
-rmp\_flow.yaml â RMPflow configuration example
+rmp\_flow.yaml — RMPflow configuration example
 
 ```python
 format: rmpflow
@@ -1420,7 +1420,7 @@ On this page
 
 # Tutorial 4: Add Camera and Sensors to a Robot
 
-Isaac Sim provides a variety of sensors that can be used to sense the environment and robotâs state.
+Isaac Sim provides a variety of sensors that can be used to sense the environment and robot’s state.
 This tutorial guides you through attaching a camera sensor to a mock robot, a process that can be generalized to other sensors.
 Details regarding the camera and other types of sensors can be found in our Advanced Tutorials and Sensor Extensions.
 
@@ -1442,8 +1442,8 @@ Start this tutorial using the `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_ri
 
 To add a camera:
 
-1. Go to the Menu Bar and select **Create > Camera**. A camera appears on the stage tree, and a grey wireframe representing the cameraâs view appears on the stage.
-2. You can move and rotate the cameraâs transform just like any other objects on the stage.
+1. Go to the Menu Bar and select **Create > Camera**. A camera appears on the stage tree, and a grey wireframe representing the camera’s view appears on the stage.
+2. You can move and rotate the camera’s transform just like any other objects on the stage.
 
 Note
 
@@ -1454,7 +1454,7 @@ A new camera appears on the Stage tree, and the list of cameras that can be sele
 
 ## Inspect the Camera
 
-Use the [Camera Inspector Extension](../sensors/isaacsim_sensors_camera.html#isaac-sim-app-tutorial-camera-inspector-extension) to inspect the camera image and modify the cameraâs states as needed.
+Use the [Camera Inspector Extension](../sensors/isaacsim_sensors_camera.html#isaac-sim-app-tutorial-camera-inspector-extension) to inspect the camera image and modify the camera’s states as needed.
 
 1. Select **Tools > Robotics > Camera Inspector**.
 2. Verify that you can see the camera in the dropdown. Click the **Refresh** button to find new cameras.
@@ -1464,19 +1464,19 @@ Use the [Camera Inspector Extension](../sensors/isaacsim_sensors_camera.html#isa
 
 1. Rename the newly added camera to `car_camera`.
 2. It is easier to place the camera if you can see the desired camera input stream and where it is relative to the robot from an outside camera.
-   Open up a second viewport window by going to the Menu Bar and click **Window > Viewports > Viewport 2**. A new viewport appears. Dock it wherever youâd like.
+   Open up a second viewport window by going to the Menu Bar and click **Window > Viewports > Viewport 2**. A new viewport appears. Dock it wherever you’d like.
 3. Keep one of the viewports in **Perspective** camera view, and change the other one to *car\_camera* view. Find the **Cameras** menu on the top edge of the viewport, and switch to **Camera > car\_camera**.
 4. Validate that you have a view of the onboard camera and an overview of the scene.
-5. Attach the camera to the robotâs body by dragging the prim under `body`. The camera moves together with the body. You may need to switch the camera view for the viewport again.
+5. Attach the camera to the robot’s body by dragging the prim under `body`. The camera moves together with the body. You may need to switch the camera view for the viewport again.
 6. Point the camera slightly down and make it face forward so you can see the car and the ground. Set the camera transform translation to `x=-6,y=0,z=2.2`, orientation to `x=0,y=-80,z=-90`, and scale to `x=1,y=1,z=1`.
-7. Verify that you see the viewport showing the onboard camera view splitting the window between the robotâs body and the ground and the relative position and orientation of the camera to the robot in the *Perspective* camera viewport.
+7. Verify that you see the viewport showing the onboard camera view splitting the window between the robot’s body and the ground and the relative position and orientation of the camera to the robot in the *Perspective* camera viewport.
 8. Press **Play**. The camera onboard the robot moves with the robot.
 
 A similar strategy is used to apply other onboard sensors.
 
 Note
 
-If the view of the camera is moved while displaying, it changes the cameraâs properties. Instead, affix a prim to the parent with the correct offset and affix the camera to that new prim. Then, if the camera position is accidentally moved, it can be reset by zeroing all its position and orientation parameters relative to the prim, which cannot be easily changed.
+If the view of the camera is moved while displaying, it changes the camera’s properties. Instead, affix a prim to the parent with the correct offset and affix the camera to that new prim. Then, if the camera position is accidentally moved, it can be reset by zeroing all its position and orientation parameters relative to the prim, which cannot be easily changed.
 
 ## Summary
 
@@ -1511,9 +1511,9 @@ On this page
 
 # Tutorial 3: Articulate a Basic Robot
 
-NVIDIA Isaac Simâs GUI interface features are the same ones used in NVIDIA Omniverseâ¢ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
+NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverseâ¢ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
 
-You will rig a basic ârobotâ with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
+You will rig a basic “robot” with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
 
 This is not needed for robots that are imported from [Importing your Onshape Document](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html#isaac-onshape-importer-tutorials-importing "(in Omniverse Extensions)") or [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer), these are important concepts to understand for tuning your robots and assembling objects with articulations.
 
@@ -1555,7 +1555,7 @@ Select both joints and click the `+ Add` button in the **Property** tab, and sel
 * **Position Control:** For position controlled joints, set a high stiffness and relatively low or zero damping.
 * **Velocity Control:** For velocity controller joints, set a high damping and zero stiffness.
 
-For joints on a wheel, it makes more sense to be velocity controlled, so set both wheelsâ **Damping** to **1e4** and **Target Velocity** to **200** **rad/s**.
+For joints on a wheel, it makes more sense to be velocity controlled, so set both wheels’ **Damping** to **1e4** and **Target Velocity** to **200** **rad/s**.
 If you are working with joints with limited range, those can be set in the **Property** tab, under the **Raw USD Properties > Lower (Upper) Limit**.
 Press **Play** to see the mock mobile robot drive off.
 
@@ -1587,12 +1587,12 @@ Validate that the resulting robot matches the asset that is provided in the Cont
 
 ## Add Controller
 
-After the joints are part of an articulation, you can use tools to test the robotâs movement.
+After the joints are part of an articulation, you can use tools to test the robot’s movement.
 
 1. Create another scope by right clicking **Create > Scope**, rename it to **Graphs**. This will be used to store the ActionGraphs.
 2. Drag the **Graphs** scope under the `mock_robot` Xform in the stage tree.
-3. Go to **Tools > Robotics > OmniGraph Controllers > Joint Velocity** to add a velocity controller graph to the stage. This graph will allow you to control the robotâs movement by setting the target velocity for each joint.
-4. Click the **Add** button for âRobot Primâ and select the prim with the Articulation Root API, in this case, itâs `/mock_robot`.
+3. Go to **Tools > Robotics > OmniGraph Controllers > Joint Velocity** to add a velocity controller graph to the stage. This graph will allow you to control the robot’s movement by setting the target velocity for each joint.
+4. Click the **Add** button for “Robot Prim” and select the prim with the Articulation Root API, in this case, it’s `/mock_robot`.
 5. For Graph Path, write `mock_robot/Graphs/Velocity_Controller` to place the ActionGraph in the **Graphs** scope above.
 6. Click **OK** to create the graph.
 7. To move the robot, press **Play** to start the simulation. If you have any default position or velocity targets set, the robot starts moving towards those targets immediately. To change the joint commands, select the `JointCommandArray` on the stage tree under **/Graphs/velocity\_controller**, and change the parameters `input0` and `input1` in the properties window.
@@ -1655,9 +1655,9 @@ This is the first manipulator tutorial in a series of four tutorials. This tutor
 
 Isaac Sim always uses Python 3.12, so the UR description package and any ROS packages used in this tutorial must be available in a Python 3.12 environment. How you obtain the package depends on your platform:
 
-* **Ubuntu 24.04 + ROS 2 Jazzy** â install the prebuilt `ros-jazzy-ur-description` apt package; the system Python (3.12) already matches Isaac Sim.
-* **Ubuntu 22.04 + ROS 2 Humble or Jazzy** â the system Python is 3.10, so the workspace must be cloned and rebuilt against Python 3.12 using the included `build_ros.sh` script.
-* **Windows + Pixi-based ROS 2 Jazzy** â add the UR description package to your Pixi environment (`pixi add ros-jazzy-ur-description`); Pixi-managed ROS 2 Jazzy already runs on Python 3.12. See [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Pixi setup. WSL2 is not supported for the ROS-based URDF import workflow â use the prebuilt USD files in the content browser instead.
+* **Ubuntu 24.04 + ROS 2 Jazzy** — install the prebuilt `ros-jazzy-ur-description` apt package; the system Python (3.12) already matches Isaac Sim.
+* **Ubuntu 22.04 + ROS 2 Humble or Jazzy** — the system Python is 3.10, so the workspace must be cloned and rebuilt against Python 3.12 using the included `build_ros.sh` script.
+* **Windows + Pixi-based ROS 2 Jazzy** — add the UR description package to your Pixi environment (`pixi add ros-jazzy-ur-description`); Pixi-managed ROS 2 Jazzy already runs on Python 3.12. See [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Pixi setup. WSL2 is not supported for the ROS-based URDF import workflow — use the prebuilt USD files in the content browser instead.
 
 Attention
 
@@ -1974,7 +1974,7 @@ Note
 
 See [Isaac Sim ROS Workspaces](../installation/install_ros.html#isaac-sim-ros-workspace) for more information on setting up your custom ROS 2 package in your ROS workspace.
 
-1. Change into your Isaac Sim ROS Workspace, then into the distro-specific workspaceâs `src` folder:
+1. Change into your Isaac Sim ROS Workspace, then into the distro-specific workspace’s `src` folder:
 
    ```python
    cd <path to Isaac Sim ROS Workspace>
@@ -2030,8 +2030,8 @@ ROS 2 Humble on Windows (Pixi) is not a supported configuration in [ROS 2 Instal
 
 1. Go to `Window` > `Extensions`.
 2. Type `URDF` in the search box, and find the `ROS 2 Robot Description URDF Importer Extension`.
-3. If you canât find it, remove the `@feature` filter from the search box.
-4. If you still canât find it, make sure Isaac Sim was launched from the same terminal where ROS was sourced.
+3. If you can’t find it, remove the `@feature` filter from the search box.
+4. If you still can’t find it, make sure Isaac Sim was launched from the same terminal where ROS was sourced.
 5. Enable the extension by clicking the toggle button labeled `ENABLE`.
 6. Check the box for `AUTOLOAD`, just to the right of `ENABLE`.
 
@@ -2113,7 +2113,7 @@ Use the [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tune
 
 1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
 2. On the **Gain Tuner** window, on the **Robot Selection** dropdown, select the **ur** articulation in the stage.
-3. In the **Tune Gains** panel, you can adjust the gains for the robot and the gripper fingers joints. Test it with the **Test Gains Settings** panel. letâs start by setting the natural frequency to `300` and the damping ratio to `1.0`.
+3. In the **Tune Gains** panel, you can adjust the gains for the robot and the gripper fingers joints. Test it with the **Test Gains Settings** panel. let’s start by setting the natural frequency to `300` and the damping ratio to `1.0`.
 
 Hint
 
@@ -2134,7 +2134,7 @@ For reference, the resulting USD file is available in the content browser at `Is
 
 ## 2F-140 Gripper Parameters
 
-In the next section of the tutorial, we will be connecting the UR10e robot with the 2F-140 gripper. Letâs review the expected parameters for the gripper joints.
+In the next section of the tutorial, we will be connecting the UR10e robot with the 2F-140 gripper. Let’s review the expected parameters for the gripper joints.
 
 ### Expected Parameters for Finger and Knuckle Joints
 
@@ -2238,7 +2238,7 @@ This tutorial covers how to:
 
 ## Adding Objects to the Scene
 
-There are many ways to âadd objectsâ to the stage, but all of them fundamentally do the same thing, which is to define a USD primitive in the stage context tree. The goal is to create a basic, two wheeled robot. Start by creating some basic shapes and modifying their properties. For the body, use a cube and for the wheels use cylinders.
+There are many ways to “add objects” to the stage, but all of them fundamentally do the same thing, which is to define a USD primitive in the stage context tree. The goal is to create a basic, two wheeled robot. Start by creating some basic shapes and modifying their properties. For the body, use a cube and for the wheels use cylinders.
 
 To create the body of the robot:
 
@@ -2317,7 +2317,7 @@ To apply the assigned physics material to an object:
 
 ## Material Properties
 
-The objects may reflect the color of the spotlight added earlier, but it doesnât actually have any colors assigned. You can confirm this by turning off the spotlight.
+The objects may reflect the color of the spotlight added earlier, but it doesn’t actually have any colors assigned. You can confirm this by turning off the spotlight.
 
 To change the color of the object, create a different material and then assign it to the objects, just like with the physics materials.
 For example, create two different materials, one for the body of the car and one for the wheels.
@@ -2408,14 +2408,14 @@ To add a **Physics Scene** to simulate real world physics, including gravity and
 3. Click on it to examine its properties.
    You can see that gravity is set to the magnitude of `Earth Gravity`, or `9.8` meters per second squared. Remember that the default unit of length is meters.
 4. Unless you are simulating hundreds of rigid bodies and robots, it is more efficient to use CPU physics
-   :   * Open Physics Sceneâs **Property** tab
+   :   * Open Physics Scene’s **Property** tab
        * Uncheck **Enable GPU dynamics**
        * Set the **Broadphase** type to **MBP**.
 
 ## Adding a Ground Plane
 
 The ground plane prevents any physics-enabled objects from falling below it.
-The ground planeâs collision property extends indefinitely even though the plane is only visible up to 25 meters in each direction.
+The ground plane’s collision property extends indefinitely even though the plane is only visible up to 25 meters in each direction.
 
 To add a ground plane to the virtual environment:
 
@@ -2424,11 +2424,11 @@ To add a ground plane to the virtual environment:
 
 ## Lighting
 
-Every new [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) is pre-populated with a `defaultLight`, otherwise you wouldnât see anything. This default light is a child of the `Environment` Xform in the stage and can be found in the stage context tree.
+Every new [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) is pre-populated with a `defaultLight`, otherwise you wouldn’t see anything. This default light is a child of the `Environment` Xform in the stage and can be found in the stage context tree.
 
 To create additional spotlights:
 
-1. Add a ground plane, if there isnât already one, so we can see the reflection of the light. **Create > Physics > Ground Plane**.
+1. Add a ground plane, if there isn’t already one, so we can see the reflection of the light. **Create > Physics > Ground Plane**.
 2. Go to **Create > Light > Sphere Light**.
 3. Pose the light on the stage.
    - In the **Stage** tab on the top right, select the newly created light in the stage tree.
@@ -2488,8 +2488,8 @@ We will be using the robot imported in [Tutorial 6: Setup a Manipulator](tutoria
 
 This tutorial builds on top of the [Robot Motion (Experimental)](../robot_motion_experimental/index.html#isaac-sim-robot-motion-experimental) extension and demonstrates two motion controllers:
 
-* **cuMotion RMPflow** â a GPU-accelerated reactive motion planner with collision avoidance. See the [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) overview and the [RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) for full details.
-* **PINK differential IK** â a CPU-based inverse kinematics solver using the [PINK](https://github.com/stephane-caron/pink) library. See the [PINK Integration](../pink/index.html#isaac-sim-pink) overview and the [IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) for full details.
+* **cuMotion RMPflow** — a GPU-accelerated reactive motion planner with collision avoidance. See the [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) overview and the [RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) for full details.
+* **PINK differential IK** — a CPU-based inverse kinematics solver using the [PINK](https://github.com/stephane-caron/pink) library. See the [PINK Integration](../pink/index.html#isaac-sim-pink) overview and the [IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) for full details.
 
 *30 Minutes Tutorial*
 
@@ -2529,7 +2529,7 @@ This example introduces the Articulation API by controlling the 2F-140 gripper j
 * `Articulation.dof_names` returns the list of all degrees of freedom in order. The gripper joint is named `finger_joint`.
 * `set_dof_position_targets` sends a position target to one or more DOFs by index. Passing `dof_indices` restricts the command to only those joints.
 
-tutorial\_9\_gripper\_control.py â gripper control loop
+tutorial\_9\_gripper\_control.py — gripper control loop
 
 ```python
     finger_idx = robot.dof_names.index("finger_joint")
@@ -2562,7 +2562,7 @@ This example plans and executes a joint-space trajectory using `mg.Path` and `mg
 * `get_estimated_state` packages the current joint positions, velocities, and efforts into an `mg.RobotState`.
 * `apply_desired_state` applies the position, velocity, and effort targets from the desired state back to the articulation.
 
-tutorial\_9\_arm\_trajectory.py â trajectory setup
+tutorial\_9\_arm\_trajectory.py — trajectory setup
 
 ```python
     waypoints = np.array(
@@ -2592,7 +2592,7 @@ tutorial\_9\_arm\_trajectory.py â trajectory setup
         raise RuntimeError("Failed to reset TrajectoryFollower")
 ```
 
-tutorial\_9\_arm\_trajectory.py â trajectory execution loop
+tutorial\_9\_arm\_trajectory.py — trajectory execution loop
 
 ```python
     dt = SimulationManager.get_physics_dt()
@@ -2622,8 +2622,8 @@ tutorial\_9\_arm\_trajectory.py â trajectory execution loop
 
 See also
 
-* [Trajectory Planning and Execution](../motion_generation/trajectory_planning.html) â the `mg.Path` and `mg.TrajectoryFollower` API used in this part.
-* [cuMotion Trajectory Generator Tutorial](../cumotion/tutorial_trajectory_generator.html#isaac-sim-cumotion-tutorial-trajectory-generator) â generating collision-aware trajectories with cuMotion.
+* [Trajectory Planning and Execution](../motion_generation/trajectory_planning.html) — the `mg.Path` and `mg.TrajectoryFollower` API used in this part.
+* [cuMotion Trajectory Generator Tutorial](../cumotion/tutorial_trajectory_generator.html#isaac-sim-cumotion-tutorial-trajectory-generator) — generating collision-aware trajectories with cuMotion.
 
 ## Part 3: Follow Target using cuMotion RMPflow
 
@@ -2647,7 +2647,7 @@ To enable obstacle avoidance, pass `--with-obstacle`:
 * `create_setpoint_state` packages a target position and orientation into an `mg.RobotState` that the controller can track.
 * `world_binding.synchronize_transforms()` must be called each step to update obstacle transforms before planning.
 
-tutorial\_9\_follow\_target.py â scene and controller setup
+tutorial\_9\_follow\_target.py — scene and controller setup
 
 ```python
 async def setup_scene_and_controller(
@@ -2720,7 +2720,7 @@ async def setup_scene_and_controller(
     return controller, cumotion_robot, articulation, world_binding, target_object
 ```
 
-tutorial\_9\_follow\_target.py â per-step control loop
+tutorial\_9\_follow\_target.py — per-step control loop
 
 ```python
 def run_step(
@@ -2747,9 +2747,9 @@ def run_step(
 
 See also
 
-* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) â in-depth walkthrough of `RmpFlowController` configuration and tuning.
-* [cuMotion World Interface Tutorial](../cumotion/tutorial_world_interface.html#isaac-sim-cumotion-tutorial-world-interface) â details on `CumotionWorldInterface`, `SceneQuery`, and `WorldBinding`.
-* [Scene Interaction](../motion_generation/scene_interaction.html) â the underlying Motion Generation API for discovering and synchronizing obstacles from the USD scene.
+* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — in-depth walkthrough of `RmpFlowController` configuration and tuning.
+* [cuMotion World Interface Tutorial](../cumotion/tutorial_world_interface.html#isaac-sim-cumotion-tutorial-world-interface) — details on `CumotionWorldInterface`, `SceneQuery`, and `WorldBinding`.
+* [Scene Interaction](../motion_generation/scene_interaction.html) — the underlying Motion Generation API for discovering and synchronizing obstacles from the USD scene.
 
 ## Part 4: Pick and Place
 
@@ -2778,21 +2778,21 @@ If no `--xrdf-dir` is provided, `load_cumotion_supported_robot("ur10")` will be 
 * `RmpFlowController.get_rmp_flow_config().set_param(key, value)` allows tuning RMPflow parameters at runtime. For this example, `cspace_target_rmp/metric_scalar` is reduced to 1.0 to reduce the influence of the initial position error on the motion planning.
 * `controller.reset(estimated_state, setpoint, t)` must be called at the start of each arm motion segment to re-initialize the planner from the current robot state.
 
-tutorial\_9\_pick\_place\_cumotion.py â UR10ePickPlace state machine class
+tutorial\_9\_pick\_place\_cumotion.py — UR10ePickPlace state machine class
 
 ```python
 class UR10ePickPlace:
     """Pick-and-place controller for the UR10e + 2F-140 gripper using cuMotion RMPflow.
 
     Phases:
-        0  Pre-grasp  â arm moves above the cube
-        1  Approach   â arm descends to grasp height
-        2  Grasp      â gripper closes
-        3  Lift       â arm rises with the cube
-        4  Transport  â arm moves above the target location
-        5  Lower      â arm descends to place height
-        6  Release    â gripper opens
-        7  Retract    â arm lifts away
+        0  Pre-grasp  — arm moves above the cube
+        1  Approach   — arm descends to grasp height
+        2  Grasp      — gripper closes
+        3  Lift       — arm rises with the cube
+        4  Transport  — arm moves above the target location
+        5  Lower      — arm descends to place height
+        6  Release    — gripper opens
+        7  Retract    — arm lifts away
     """
 
     _ROBOT_PRIM_PATH = "/World/ur10e_robot"
@@ -3083,9 +3083,9 @@ class UR10ePickPlace:
 
 See also
 
-* [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) â overview of the [cuMotion](https://nvidia-isaac.github.io/cumotion/) integration and its components.
-* [cuMotion Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) â generating the URDF and XRDF files used by `--xrdf-dir`, including `tool_frames`.
-* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) â full tutorial on `RmpFlowController`, including parameter tuning via `get_rmp_flow_config().set_param`.
+* [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) — overview of the [cuMotion](https://nvidia-isaac.github.io/cumotion/) integration and its components.
+* [cuMotion Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) — generating the URDF and XRDF files used by `--xrdf-dir`, including `tool_frames`.
+* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — full tutorial on `RmpFlowController`, including parameter tuning via `get_rmp_flow_config().set_param`.
 
 ### PINK Differential IK
 
@@ -3104,23 +3104,23 @@ Run this example with:
 
 * `load_pink_supported_robot("ur10")` loads the built-in PINK robot model for the UR10, backed by a Pinocchio model. Alternatively, a custom URDF can be loaded using `load_pink_robot` by passing in `--urdf <path_to_urdf>`.
 * `PinkIKController` accepts a tool frame name, position and orientation costs, a posture cost, and a QP solver (`"osqp"`). It integrates Cartesian velocity commands into joint positions each step.
-* `_init_pink_q0` sets `pink_robot.q0` to the elbow-up configuration. PINKâs PostureTask regularizes the IK solution toward this reference, steering the solver away from elbow-down or degenerate configurations.
+* `_init_pink_q0` sets `pink_robot.q0` to the elbow-up configuration. PINK’s PostureTask regularizes the IK solution toward this reference, steering the solver away from elbow-down or degenerate configurations.
 
-tutorial\_9\_pick\_place\_pink.py â UR10ePickPlace state machine class
+tutorial\_9\_pick\_place\_pink.py — UR10ePickPlace state machine class
 
 ```python
 class UR10ePickPlace:
     """Pick-and-place controller for the UR10e + 2F-140 gripper using PINK differential IK.
 
     Phases:
-        0  Pre-grasp  â arm moves above the cube
-        1  Approach   â arm descends to grasp height
-        2  Grasp      â gripper closes
-        3  Lift       â arm rises with the cube
-        4  Transport  â arm moves above the target location
-        5  Lower      â arm descends to place height
-        6  Release    â gripper opens
-        7  Retract    â arm lifts away
+        0  Pre-grasp  — arm moves above the cube
+        1  Approach   — arm descends to grasp height
+        2  Grasp      — gripper closes
+        3  Lift       — arm rises with the cube
+        4  Transport  — arm moves above the target location
+        5  Lower      — arm descends to place height
+        6  Release    — gripper opens
+        7  Retract    — arm lifts away
     """
 
     _ROBOT_PRIM_PATH = "/World/ur10e_robot"
@@ -3396,9 +3396,9 @@ class UR10ePickPlace:
 
 See also
 
-* [PINK Integration](../pink/index.html#isaac-sim-pink) â overview of the PINK integration and its weighted multi-task IK approach.
-* [PINK IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) â in-depth walkthrough of `PinkIKController`, task weights, posture regularization, and QP solver selection.
-* [PINK Robot Configuration Tutorial](../pink/tutorial_robot_configuration.html#isaac-sim-pink-tutorial-robot-configuration) â loading PINK robot models with `load_pink_supported_robot()` and `load_pink_robot()`.
+* [PINK Integration](../pink/index.html#isaac-sim-pink) — overview of the PINK integration and its weighted multi-task IK approach.
+* [PINK IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) — in-depth walkthrough of `PinkIKController`, task weights, posture regularization, and QP solver selection.
+* [PINK Robot Configuration Tutorial](../pink/tutorial_robot_configuration.html#isaac-sim-pink-tutorial-robot-configuration) — loading PINK robot models with `load_pink_supported_robot()` and `load_pink_robot()`.
 
 ## Summary
 
@@ -3518,7 +3518,7 @@ To save the robot pose:
 
 ## Setting the Joint Configuration
 
-Set the joint configuration to match the policyâs robot configuration. This may be different from the values stored in the USD file.
+Set the joint configuration to match the policy’s robot configuration. This may be different from the values stored in the USD file.
 The joint drive configuration is specified under the `scene:robot:actuators` section of the environment definition file.
 
 The following snippet shows the actuator configuration for the H1 robot legs.
@@ -3691,7 +3691,7 @@ To find this tutorial of use, you must have two USD assets to assemble into one.
 * A robot arm that needs to be attached to a gripper.
 * A robot that needs to be fixed to a moving base.
 
-The use of the word ârobotâ here indicates a USD asset that Contains the [Robot Schema](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema) Applied.
+The use of the word ‘robot’ here indicates a USD asset that Contains the [Robot Schema](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema) Applied.
 
 ## Understanding the Mechanics of Assembled Bodies
 
@@ -3720,11 +3720,11 @@ To use the Robot Assembler, start by loading the assets you want to assemble on 
 
 With the **Robot Assembler** window open and both Robots available in the current stage, you can select a **Base Robot** and an **Attach Robot**.
 
-Each robot has an âAttach Pointâ frame that can be used to specify the point on the robot that will be attached to the other robot. This attach point should be a [Robot Link](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-link-api) or a [Site](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-site-api).
+Each robot has an “Attach Point” frame that can be used to specify the point on the robot that will be attached to the other robot. This attach point should be a [Robot Link](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-link-api) or a [Site](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-site-api).
 
-The Assembler also expects an assembly namespace, which defaults to âGripperâ, but can be changed to any string. This namespace is used to identify the attachment point on the base robot when making the assembly directly on the base robot asset.
+The Assembler also expects an assembly namespace, which defaults to “Gripper”, but can be changed to any string. This namespace is used to identify the attachment point on the base robot when making the assembly directly on the base robot asset.
 
-After selections are made, click on the **Begin Assembly** button to begin the assembly process. This will move the âAttach Robotâ to the âAttach Pointâ of the âBase Robotâ, and let you make any final adjustments to the transform. For convenience, a set of Buttons will be shown to allow you to rotate the âAttach Robotâ around the X, Y, and Z axes, by increments of 90 degrees. You can also move it through the viewport gizmos however you choose. If you de-select the âattach robotâ, the **Select Attach Point Prim** button will re-select it so you can manually move it to the desired position.
+After selections are made, click on the **Begin Assembly** button to begin the assembly process. This will move the “Attach Robot” to the “Attach Point” of the “Base Robot”, and let you make any final adjustments to the transform. For convenience, a set of Buttons will be shown to allow you to rotate the “Attach Robot” around the X, Y, and Z axes, by increments of 90 degrees. You can also move it through the viewport gizmos however you choose. If you de-select the “attach robot”, the **Select Attach Point Prim** button will re-select it so you can manually move it to the desired position.
 
 After you are happy with the transform, you can click on the **Assemble and Simulate** button to verify the assembly and check if the resulting robot is stable.
 
@@ -3884,7 +3884,7 @@ When an action is expanded, the following configuration options appear:
 
 * **Rule Type**: Searchable dropdown to select the rule implementation. The dropdown lists each rule by its short class name in the **Rule Name** column and bundles rules by scope in the **Package** column.
 * **Destination**: Output path for the rule (relative to package root).
-* **Parameters**: Dynamic parameter editors generated from the ruleâs configuration parameters.
+* **Parameters**: Dynamic parameter editors generated from the rule’s configuration parameters.
 
 Note
 
@@ -3980,7 +3980,7 @@ A rule profile defines a complete transformation pipeline. Profiles are stored a
 **Loading a Profile**:
 
 1. Click the **Load Preset** button in the Actions section.
-2. Select a preset from the recent presets menu, or choose **Browseâ¦** to open a file picker.
+2. Select a preset from the recent presets menu, or choose **Browse…** to open a file picker.
 3. The profile loads and populates the action list.
 
 **Saving a Profile**:
@@ -4020,7 +4020,7 @@ The execution report contains the following information:
 
 **Per-Rule Results**:
 
-Each ruleâs execution result includes:
+Each rule’s execution result includes:
 
 | Field | Description |
 | --- | --- |
@@ -4203,7 +4203,7 @@ class RuleInterface(ABC):
 | Method | Description |
 | --- | --- |
 | `process_rule()` | Execute the rule logic. Return `None` to continue with the current working stage, or return a file path to switch the working stage for subsequent rules. |
-| `get_configuration_parameters()` | Return a list of `RuleConfigurationParam` objects describing the ruleâs configurable parameters. |
+| `get_configuration_parameters()` | Return a list of `RuleConfigurationParam` objects describing the rule’s configurable parameters. |
 | `log_operation()` | Record human-readable log messages for the execution report. |
 | `add_affected_stage()` | Record identifiers for stages or layers modified by the rule. |
 
@@ -4234,7 +4234,7 @@ def process_rule(self) -> str | None:
 
 ## Rule Registration
 
-The `RuleRegistry` is a singleton class that maintains a mapping of rule type names to their implementation classes. When the `AssetTransformerManager` executes a profile, it looks up each ruleâs `type` string in the registry to find the corresponding implementation class.
+The `RuleRegistry` is a singleton class that maintains a mapping of rule type names to their implementation classes. When the `AssetTransformerManager` executes a profile, it looks up each rule’s `type` string in the registry to find the corresponding implementation class.
 
 The `RuleRegistry` uses a singleton pattern, meaning there is only one global instance shared across all code. This allows rules registered by any extension or module to be available to all transformation profiles.
 
@@ -4592,9 +4592,9 @@ Routes applied API schemas and their associated properties to a separate layer. 
 
 1. **Schema Discovery**: Traverses all prims in the stage and collects applied API schemas matching the specified patterns.
 2. **Property Namespace Resolution**: For each matched schema, determines the property namespace prefix (for example, `PhysicsRigidBodyAPI` uses `physics:` namespace, `PhysicsDriveAPI:angular` uses `drive:angular:`).
-3. **Schema Transfer**: Uses USDâs `TokenListOp` to remove the schema token from the source layerâs `apiSchemas` metadata and prepend it to the destination layer.
+3. **Schema Transfer**: Uses USD’s `TokenListOp` to remove the schema token from the source layer’s `apiSchemas` metadata and prepend it to the destination layer.
 4. **Property Transfer**: Copies all properties belonging to the schema namespace from the source layer to the destination layer using `Sdf.CopySpec`, then removes them from the source.
-5. **Layer Management**: Sets the destination layerâs default prim to match the source and saves both layers.
+5. **Layer Management**: Sets the destination layer’s default prim to match the source and saves both layers.
 
 PropertyRoutingRule
 
@@ -4663,7 +4663,7 @@ Removes specific applied API schemas (and optionally their associated properties
 **Execution Logic**:
 
 1. **Pattern Matching**: Iterates over all prims in the target layer, matching applied API schemas against the specified wildcard patterns.
-2. **Schema Removal**: Removes matching schema tokens from each primâs `apiSchemas` metadata using `TokenListOp` manipulation.
+2. **Schema Removal**: Removes matching schema tokens from each prim’s `apiSchemas` metadata using `TokenListOp` manipulation.
 3. **Property Cleanup**: If `clear_properties` is enabled, removes all properties in the matched schema namespace from the prim spec.
 4. **Layer Save**: Saves the modified layer.
 
@@ -4689,9 +4689,9 @@ Routes material prims to a shared layer with global deduplication, creates insta
 
 **Execution Logic**:
 
-1. **Material Discovery**: Finds all material prims (`UsdShade.Material`) within the scope, tracking which layer defines each material. Materials with `PhysicsMaterialAPI` applied are skipped â these physics-specific materials remain in the base layer at their original paths so that `material:binding:physics` relationships continue to resolve.
+1. **Material Discovery**: Finds all material prims (`UsdShade.Material`) within the scope, tracking which layer defines each material. Materials with `PhysicsMaterialAPI` applied are skipped — these physics-specific materials remain in the base layer at their original paths so that `material:binding:physics` relationships continue to resolve.
 2. **Asset Collection**: Resolves all texture and MDL file paths referenced by materials, handling both local and remote (Nucleus) assets. Parses MDL files to discover embedded texture references.
-3. **Content Hashing**: Computes SHA-256 hashes of each materialâs content (type, attributes, connections, relationships) using resolved asset paths for consistent deduplication.
+3. **Content Hashing**: Computes SHA-256 hashes of each material’s content (type, attributes, connections, relationships) using resolved asset paths for consistent deduplication.
 4. **Asset Transfer**: Copies all unique assets to the textures folder with global deduplication. Handles filename collisions by appending numeric suffixes. Updates MDL files to point to transferred textures.
 5. **Material Layer Creation**: Creates a `/Materials` scope in the materials layer. For each unique material (by hash), copies the material definition with updated asset paths.
 6. **Instanceable References**: Updates each original material location with an instanceable reference to the deduplicated material in the materials layer.
@@ -4747,7 +4747,7 @@ Flattens the original input stage into a single layer with optional variant sele
 **Execution Logic**:
 
 1. **Original Stage Access**: Opens the original input stage (before any processing) to preserve relative asset paths that would be broken after initial manager processing.
-2. **Variant Selection Application**: If `selected_variants` is specified, applies the variant selections to the default primâs variant sets. Case-insensitive matching finds variants like `physx` when `PhysX` is requested.
+2. **Variant Selection Application**: If `selected_variants` is specified, applies the variant selections to the default prim’s variant sets. Case-insensitive matching finds variants like `physx` when `PhysX` is requested.
 3. **Variant Clearing**: If `clear_variants` is enabled, iterates through all prims and clears their `variantSelections` metadata to ensure a neutral base.
 4. **Stage Flattening**: Uses `Usd.Stage.Flatten()` to compose all layers, references, and payloads into a single layer.
 5. **Export**: Exports the flattened layer to the destination path. Handles USD layer caching by transferring content to cached layers when necessary.
@@ -4770,9 +4770,9 @@ Routes variant set contents to separate layer files. Each variant is extracted i
 
 **Execution Logic**:
 
-1. **Variant Set Analysis**: Examines the default primâs variant sets and builds a map of variant assets (payloads/references within each variant) to variant names.
+1. **Variant Set Analysis**: Examines the default prim’s variant sets and builds a map of variant assets (payloads/references within each variant) to variant names.
 2. **Variant File Mapping**: Creates a mapping from original variant asset paths to new output file paths (`{VariantSetName}/{variant_name}.usda`).
-3. **Dependency Collection**: Uses `UsdUtils.ComputeAllDependencies` to discover all assets referenced by each variantâs source (sublayers, references, payloads, textures). Copies dependencies to a `dependencies` folder.
+3. **Dependency Collection**: Uses `UsdUtils.ComputeAllDependencies` to discover all assets referenced by each variant’s source (sublayers, references, payloads, textures). Copies dependencies to a `dependencies` folder.
 4. **Asset Copy with Remapping**: For variants with payloads/references, copies the source asset to the variant output file. Uses `UsdUtils.ModifyAssetPaths` to remap all internal paths to point to new variant files or collected dependencies.
 5. **Delta Application**: Applies any direct overrides from the variant spec (attributes, relationships, child prims, composition arcs) as the strongest opinion on top of the copied content.
 6. **Inter-Variant Remapping**: Updates references between variants to point to the new variant files. Remaps paths in collected dependencies to ensure consistency.
@@ -4799,11 +4799,11 @@ Generates the final interface layer with composition arcs to organize USD assets
 
 1. **Interface Layer Creation**: Creates the interface layer at the package root, named after the original input asset.
 2. **Default Prim Setup**: Ensures the default prim exists as an Xform in the interface layer.
-3. **Base Connection**: Connects the base layer to the default prim using the specified connection type (prepends Reference or Payload to the primâs list, or inserts Sublayer).
+3. **Base Connection**: Connects the base layer to the default prim using the specified connection type (prepends Reference or Payload to the prim’s list, or inserts Sublayer).
 4. **Folder Variant Generation**: If enabled, scans the payloads folder for subfolders containing USD files. Each subfolder becomes a variant set, with a `none` variant (no payload) and variants for each USD file (payloaded).
-5. **Custom Connections**: Applies custom connection specifications. For Sublayer connections, adds to the layerâs sublayer paths. For Reference/Payload connections, adds to the default prim. Can modify the interface layer or any specified asset layer.
-6. **Extraneous Prim Recovery**: Scans the base layer for root-level prims outside `defaultPrim` (e.g. `/Render`, `/PhysicsScene`). Copies each into the interface layer at the same root level using `Sdf.CopySpec`, then removes them from the base layer and saves it. This keeps those prims reachable in the composed stage and makes the pipeline idempotent â prims that would not survive a reference-based round-trip are promoted to the interface layer where they persist across re-transforms.
-7. **Variant Selection Defaults**: Sets default variant selections on the interface layerâs default prim.
+5. **Custom Connections**: Applies custom connection specifications. For Sublayer connections, adds to the layer’s sublayer paths. For Reference/Payload connections, adds to the default prim. Can modify the interface layer or any specified asset layer.
+6. **Extraneous Prim Recovery**: Scans the base layer for root-level prims outside `defaultPrim` (e.g. `/Render`, `/PhysicsScene`). Copies each into the interface layer at the same root level using `Sdf.CopySpec`, then removes them from the base layer and saves it. This keeps those prims reachable in the composed stage and makes the pipeline idempotent — prims that would not survive a reference-based round-trip are promoted to the interface layer where they persist across re-transforms.
+7. **Variant Selection Defaults**: Sets default variant selections on the interface layer’s default prim.
 
 Isaac Sim
 
@@ -4889,8 +4889,8 @@ Corrects physics joint local poses after upstream rules (such as GeometriesRouti
 1. **Original Stage**: Opens the original input asset (before any transformer rules ran) via `input_stage`.
 2. **Joint Discovery**: Traverses the working stage for all `UsdPhysics.Joint` prims.
 3. **World Pose Comparison**: For each joint, computes the joint world pose from both `body0` and `body1` on the original stage and on the working stage using `local_pose * body_world_transform`.
-4. **Drift Detection**: If the working stageâs joint world pose differs from the original beyond the configured tolerance, the affected body side is flagged for correction.
-5. **Local Pose Fix**: Computes the corrective local pose as `joint_world_orig * inverse(body_world_entry)` and writes the resulting translation and rotation back to the jointâs `localPos` and `localRot` attributes.
+4. **Drift Detection**: If the working stage’s joint world pose differs from the original beyond the configured tolerance, the affected body side is flagged for correction.
+5. **Local Pose Fix**: Computes the corrective local pose as `joint_world_orig * inverse(body_world_entry)` and writes the resulting translation and rotation back to the joint’s `localPos` and `localRot` attributes.
 6. **Layer Save**: Saves the modified edit layer if any corrections were applied.
 
 MergeMeshRule
@@ -4941,15 +4941,15 @@ Mimic joints are left as `NewtonMimicAPI` on the joint prim and consumed directl
 
 ## Idempotency Requirement
 
-All transformation rules **must** be idempotent: running the full profile twice on the same asset (once on the original, then on the first runâs output) must produce identical USD layers, with the sole exception of the `doc` metadata field which embeds absolute paths. The extension includes an idempotency test (`test_profile_idempotency.py`) that enforces this requirement.
+All transformation rules **must** be idempotent: running the full profile twice on the same asset (once on the original, then on the first run’s output) must produce identical USD layers, with the sole exception of the `doc` metadata field which embeds absolute paths. The extension includes an idempotency test (`test_profile_idempotency.py`) that enforces this requirement.
 
 Common sources of non-idempotency to watch for when developing new rules:
 
-* **Floating-point drift** â Matrix composition/decomposition round-trips introduce noise. Quantize values to a fixed number of significant digits, or read canonical xformOp values directly when possible.
-* **Stale composition arcs** â Extracting content from variant specs can leave behind self-referencing payloads or references on the destination prim. Strip any arcs that were not present in the source.
-* **Inconsistent defaultPrim** â Use `self.source_stage.GetDefaultPrim()` (composed stage) rather than `self.source_stage.GetRootLayer().defaultPrim` (root layer only) to reliably resolve the default prim across re-transforms.
-* **Non-deterministic merge decisions** â When deciding whether to merge a child into its parent, account for scaffolding prims (e.g. `VisualMaterials` scopes, empty overs) left behind by previous runs.
-* **Extraneous root-level prims** â After flattening, root-level prims outside the `defaultPrim` hierarchy (e.g. viewport/render artifacts) do not survive a reference-based round-trip. The `InterfaceConnectionRule` handles this automatically by moving such prims from the base layer into the interface layer, but custom rules that introduce root-level prims should be aware of this composition constraint.
+* **Floating-point drift** – Matrix composition/decomposition round-trips introduce noise. Quantize values to a fixed number of significant digits, or read canonical xformOp values directly when possible.
+* **Stale composition arcs** – Extracting content from variant specs can leave behind self-referencing payloads or references on the destination prim. Strip any arcs that were not present in the source.
+* **Inconsistent defaultPrim** – Use `self.source_stage.GetDefaultPrim()` (composed stage) rather than `self.source_stage.GetRootLayer().defaultPrim` (root layer only) to reliably resolve the default prim across re-transforms.
+* **Non-deterministic merge decisions** – When deciding whether to merge a child into its parent, account for scaffolding prims (e.g. `VisualMaterials` scopes, empty overs) left behind by previous runs.
+* **Extraneous root-level prims** – After flattening, root-level prims outside the `defaultPrim` hierarchy (e.g. viewport/render artifacts) do not survive a reference-based round-trip. The `InterfaceConnectionRule` handles this automatically by moving such prims from the base layer into the interface layer, but custom rules that introduce root-level prims should be aware of this composition constraint.
 
 ## Rule Type Quick Reference
 
@@ -5269,7 +5269,7 @@ The final action list now contains four rules:
 
 This tutorial demonstrates how to use the Asset Transformer API to run a transformation pipeline programmatically. This is useful for batch processing, CI/CD integration, or embedding asset transformation into custom extensions and workflows.
 
-The code blocks below are taken from a single script, `docs/isaacsim/snippets/robot_setup/asset_transformer_tutorials.py`, which you can run as a standalone app (for example, to list registered rule types) using Isaac Simâs `python.sh`.
+The code blocks below are taken from a single script, `docs/isaacsim/snippets/robot_setup/asset_transformer_tutorials.py`, which you can run as a standalone app (for example, to list registered rule types) using Isaac Sim’s `python.sh`.
 
 ### Load and Run a Saved Profile
 
@@ -5370,7 +5370,7 @@ print(f"Transformation complete: {report.output_stage_path}")
 
 ### Use the Isaac Sim Structure Profile in Code
 
-To use the built-in Isaac Sim Structure profile programmatically, load it from the extensionâs data directory:
+To use the built-in Isaac Sim Structure profile programmatically, load it from the extension’s data directory:
 
 ```python
 import json
@@ -5542,12 +5542,12 @@ Physics Validation Rules
 | **PhysicsDriveAndJointState** | Validates that joint drives have proper force limits and matching state values.   * Drive max force is defined and positive (not zero or infinite) * Drive target positions match joint state positions within tolerance (1e-2) * Drive target velocities match joint state velocities within tolerance (1e-2) |
 | **DriveJointValueReasonable** | Validates that joint drive stiffness values are within reasonable ranges.   * Drive stiffness is within range (0.0 to 1,000,000.0) * Mimic joints have stiffness and damping set to 0.0 * Non-mimic joints have stiffness values defined * Maximum natural frequency warning threshold: 500.0 Hz |
 | **JointHasCorrectTransformAndState** | Validates that joint transforms and states are consistent with the connected bodies.   * Joint position consistency between connected bodies * Joint orientation consistency between connected bodies * Joint state values match the robot pose configuration * Applies to revolute and prismatic joints |
-| **JointHasJointStateAPI** | Validates that joints have the JointStateAPI applied.   * Prismatic joints have JointStateAPI with âlinearâ type * Revolute joints have JointStateAPI with âangularâ type * Provides automatic fix suggestion to apply missing APIs |
+| **JointHasJointStateAPI** | Validates that joints have the JointStateAPI applied.   * Prismatic joints have JointStateAPI with “linear” type * Revolute joints have JointStateAPI with “angular” type * Provides automatic fix suggestion to apply missing APIs |
 | **MimicAPICheck** | Validates proper configuration of mimic joint APIs.   * Reference joint relationship has exactly one target * Gear ratio, natural frequency, and damping ratio are defined and non-zero * Joint limits are properly configured relative to reference joint limits * Limit compatibility based on gear ratio sign (positive/negative) |
 | **RigidBodyHasMassAPI** | Validates that rigid bodies have properly configured mass properties.   * Rigid bodies have MassAPI applied * Mass attribute is authored and non-zero * Diagonal inertia is authored and non-zero * Principal axes are authored and normalized |
 | **RigidBodyHasCollider** | Validates that enabled rigid bodies have collision geometry.   * Enabled rigid bodies have collision geometry in their hierarchy * Searches through prim range including instance proxies |
-| **NonAdjacentCollisionMeshesDoNotClash** | Validates that non-adjacent collision meshes donât intersect.   * Performs physics simulation to detect colliding pairs * Verifies that colliding bodies are connected by joints * Reports errors for non-adjacent colliding meshes |
-| **InvisibleCollisionMeshHasPurposeGuide** | Validates that invisible collision meshes have purpose set to âguideâ.   * Collision meshes with invisible visibility * Purpose attribute is set to âguideâ for invisible collision meshes |
+| **NonAdjacentCollisionMeshesDoNotClash** | Validates that non-adjacent collision meshes don’t intersect.   * Performs physics simulation to detect colliding pairs * Verifies that colliding bodies are connected by joints * Reports errors for non-adjacent colliding meshes |
+| **InvisibleCollisionMeshHasPurposeGuide** | Validates that invisible collision meshes have purpose set to ‘guide’.   * Collision meshes with invisible visibility * Purpose attribute is set to ‘guide’ for invisible collision meshes |
 | **HasArticulationRoot** | Validates that at least one prim in the stage has the ArticulationRootAPI.   * At least one prim in the stage has ArticulationRootAPI applied |
 
 # IsaacSim.RobotRules
@@ -5557,15 +5557,15 @@ Robot Validation Rules
 | Rule Name | Description and Checks |
 | --- | --- |
 | RobotNaming | Validates that robot assets follow the standard naming convention.   * Minimum folder nesting depth (at least 3 levels) * Folder name matches robot filename * Supports versioned folder structure: <Manufacturer>/<robot>/<robot.usd> or <Manufacturer>/<robot>/<version>/<robot.usd> |
-| **CleanFolder** | Validates that robot asset folders donât contain unexpected files.   * Robot asset folders only contain expected files * Warns about unexpected files in the asset directory |
-| **NoOverrides** | Validates that prims donât have overridden attributes.   * Prims donât have overridden attributes (excluding /Render paths) * Detects attributes with authored values in layer stack * Only applies for the open stage |
+| **CleanFolder** | Validates that robot asset folders don’t contain unexpected files.   * Robot asset folders only contain expected files * Warns about unexpected files in the asset directory |
+| **NoOverrides** | Validates that prims don’t have overridden attributes.   * Prims don’t have overridden attributes (excluding /Render paths) * Detects attributes with authored values in layer stack * Only applies for the open stage |
 | **RobotSchema** | Validates that robot assets have the required RobotAPI and relationships.   * Default prim is set on the stage * Default prim has RobotAPI applied * robotLinks relationship exists and has targets * robotJoints relationship exists and has targets |
 | **JointsExist** | Validates that robot assets contain at least one joint.   * At least one prim in the stage has JointAPI applied |
 | **LinksExist** | Validates that robot assets contain at least one link.   * At least one prim in the stage has LinkAPI applied |
 | **ThumbnailExists** | Validates that robot assets have a thumbnail image.   * Thumbnail image exists at expected path: `<folder>/.thumbs/256x256/<filename>.png` |
 | **CheckRobotRelationships** | Validates that robot relationships are properly defined and prepended.   * robotLinks and robotJoints relationships exist * Relationships are prepended for proper USD composition * Provides automatic fix suggestions for missing or non-prepended relationships |
-| **VerifyRobotPhysicsAttributesSourceLayer** | Validates that physics attributes are authored in the physics layer.   * Physics attributes (starting with âphysics:â) are authored in \_physics.usd layer * Warns when physics attributes are found in other layers |
-| **VerifyRobotPhysicsSchemaSourceLayer** | Validates that physics schemas are applied in the physics layer.   * Physics schemas (starting with âPhysxâ or âPhysicsâ) are applied in \_physics.usd layer * Warns when physics schemas are found in other layers |
+| **VerifyRobotPhysicsAttributesSourceLayer** | Validates that physics attributes are authored in the physics layer.   * Physics attributes (starting with “physics:”) are authored in \_physics.usd layer * Warns when physics attributes are found in other layers |
+| **VerifyRobotPhysicsSchemaSourceLayer** | Validates that physics schemas are applied in the physics layer.   * Physics schemas (starting with “Physx” or “Physics”) are applied in \_physics.usd layer * Warns when physics schemas are found in other layers |
 
 # IsaacSim.SimReadyAssetRules
 
@@ -5573,7 +5573,7 @@ Sim Ready Asset Validation Rules
 
 | Rule Name | Description and Checks |
 | --- | --- |
-| **NoNestedMaterials** | Validates that materials donât contain nested materials.   * Material prims donât contain child materials in their hierarchy * Warns about nested material configurations |
+| **NoNestedMaterials** | Validates that materials don’t contain nested materials.   * Material prims don’t contain child materials in their hierarchy * Warns about nested material configurations |
 | **MaterialsOnTopLevelOnly** | Validates that materials are only defined in the top-level Looks prim.   * All materials are children of the top-level Looks prim * Materials are not scattered throughout the stage hierarchy * Skips materials in referenced/payload content |
 
 # Running the Validation Rules
@@ -5702,7 +5702,7 @@ The panel opens docked at the bottom-left of the editor, adjacent to the Content
 
 The robot dropdown auto-populates with every prim on the stage that has the Robot Schema applied. It automatically selects the first robot on the stage, and checks collisions. If you made modifications to the robot, click **Check Collisions** to update the results.
 
-The tool queries the physics engine for all collider pairs that overlap in the robotâs current configuration, maps each collider to its owning rigid body link, and populates the table.
+The tool queries the physics engine for all collider pairs that overlap in the robot’s current configuration, maps each collider to its owning rigid body link, and populates the table.
 
 ### 4. Inspect a Collision Pair
 
@@ -5771,17 +5771,17 @@ For a hands-on walkthrough that uses the UR10 manipulator, see the [Tutorial 11:
 
 ## Overview
 
-The purpose of the Gain Tuner is to find a pair of stiffness and damping gains for each robot joint so that the robot is able to follow commanded trajectories according to the robotâs expected behavior.
+The purpose of the Gain Tuner is to find a pair of stiffness and damping gains for each robot joint so that the robot is able to follow commanded trajectories according to the robot’s expected behavior.
 
 The Gain Tuner offers a set of tests that allow you to quickly assess the quality of the current set of gains and a utility for tuning gains manually.
 
 * **Tuning Gains**: A utility for tuning the gains for the robot.
 * **Gains Tests**: A suite of tests for evaluating joint behavior:
 
-  + *Snap-to-Limits* â commands joints to their lower and upper limits to verify they can reach their full range of motion.
-  + *Sinusoidal* â drives joints with continuous sinusoidal trajectories.
-  + *Step Function* â drives joints with step-function trajectories.
-  + *Stress Test* â drives joints with extreme random commands to surface instabilities that can appear during reinforcement learning training.
+  + *Snap-to-Limits* — commands joints to their lower and upper limits to verify they can reach their full range of motion.
+  + *Sinusoidal* — drives joints with continuous sinusoidal trajectories.
+  + *Step Function* — drives joints with step-function trajectories.
+  + *Stress Test* — drives joints with extreme random commands to surface instabilities that can appear during reinforcement learning training.
 * **Test Results**: A plot of the results of the gains tests on the tracked joint positions and velocities, compared against the commanded trajectory.
 
 ### Understanding Joint Drives
@@ -5827,7 +5827,7 @@ From this formula, you can describe the different modes of the joint drive:
 * Position Drive: When the joint drive is in position mode, the desired position is the target position. This requires the stiffness to be greater than `0`, and the damping to be any value.
 * Velocity Drive: When the joint drive is in velocity mode, the desired position is the current position, and the desired velocity is the target velocity. This requires the stiffness to be `0` and the damping to be any value.
 * None: When the joint drive is in none mode, the joint drive is not active. The joint can still be controlled by applying a direct effort. This requires the stiffness to be `0` and the damping to be `0`.
-* Mimic: When the joint drive is in mimic mode, the joint drive is driven by the mimic joint. This means that the joint drive will not be active, but the mimic jointâs attributes of Natural Frequency and Damping Ratio can still be configured through the Tuner.
+* Mimic: When the joint drive is in mimic mode, the joint drive is driven by the mimic joint. This means that the joint drive will not be active, but the mimic joint’s attributes of Natural Frequency and Damping Ratio can still be configured through the Tuner.
 
 This Dampener-Spring model can also be described in terms of the natural frequency and damping ratio:
 
@@ -5842,20 +5842,20 @@ From the above formula, observe that there are two ways to Tune Gains:
 
 Note
 
-Because the robot is a structure that is made of multiple links and moving joints, the natural frequency of each joint is dependent on the robotâs configuration. To establish a standard, the natural frequency of the robot at its home configuration is used.
+Because the robot is a structure that is made of multiple links and moving joints, the natural frequency of each joint is dependent on the robot’s configuration. To establish a standard, the natural frequency of the robot at its home configuration is used.
 
 #### Tuning Options
 
 In the Tuning Options, you can select the tuning mode between Stiffness and Natural Frequency. On the joints table, observe the following options:
 
 * **Mode**: The mode of the joint drive (Position, Velocity, None, Mimic)
-* **Type**: The type of the joint drive (Force, Acceleration). In Force, the effort is applied directly to the joint. In Acceleration, the effort is Normalized by the jointâs mass, and is thus invariant to the robotâs configuration, behaving as an ideal actuator.
+* **Type**: The type of the joint drive (Force, Acceleration). In Force, the effort is applied directly to the joint. In Acceleration, the effort is Normalized by the joint’s mass, and is thus invariant to the robot’s configuration, behaving as an ideal actuator.
 * **Stiffness** (Stiffness Mode): The stiffness of the joint drive. Changing this will lead to a change in the natural frequency of the joint.
 * **Damping** (Stiffness Mode): The damping of the joint drive. Changing this will lead to a change in the damping ratio of the joint.
 * **Natural Frequency** (Natural Frequency Mode): The natural frequency of the joint drive.
 * **Damping Ratio** (Natural Frequency Mode): The damping ratio of the joint drive.
 
-The configurable Degrees of Freedom (DOF) of the robot are displayed in accordance with what is defined in the Robotâs Joints list.
+The configurable Degrees of Freedom (DOF) of the robot are displayed in accordance with what is defined in the Robot’s Joints list.
 
 ## Tuning Workflow
 
@@ -5864,9 +5864,9 @@ Gain tuning is an iterative process. The recommended workflow moves through two 
 1. **Set initial gains** using the position or velocity drive heuristics below.
 2. **Tune and evaluate** using the built-in test modes, each targeting a different aspect of joint behavior:
 
-   * **Snap-to-Limits** *(default)* â commands joints to their lower and upper limits. Use this to verify that gains are strong enough to reach the full range of motion and that limits, gains, and collision geometry are mutually consistent.
-   * **Sinusoidal** â drives joints with a continuous repeating waveform. Use this to evaluate how well gains track smooth motion and to identify underdamping or overdamping from the shape of the tracking curve.
-   * **Step Function** â drives joints with sudden position changes. Use this to evaluate how quickly and accurately gains respond to discrete commands, as a closer approximation of how a policy issues targets during training.
+   * **Snap-to-Limits** *(default)* — commands joints to their lower and upper limits. Use this to verify that gains are strong enough to reach the full range of motion and that limits, gains, and collision geometry are mutually consistent.
+   * **Sinusoidal** — drives joints with a continuous repeating waveform. Use this to evaluate how well gains track smooth motion and to identify underdamping or overdamping from the shape of the tracking curve.
+   * **Step Function** — drives joints with sudden position changes. Use this to evaluate how quickly and accurately gains respond to discrete commands, as a closer approximation of how a policy issues targets during training.
 
 Once gains are satisfactory across all three test modes, run the **Stress Test** to confirm they are robust under the extreme commands typical of reinforcement learning training before moving to Isaac Lab.
 
@@ -5887,7 +5887,7 @@ For each joint of the robot:
 
 #### Velocity Limit and Industrial Robots
 
-Many robots, including the majority of industrial robots, come with pre-tuned PD control for their joint drives and can be set up to have a perfect position control response, always driving at the given joint velocity limit. To reproduce this behavior, increase the joint stiffness from the previous tuning heuristic by a factor of two and define the maximum joint velocity in **Joint** > **Advanced** > **Maximum Joint Velocity** in the **Properties** panel. Run the simulation to verify the joint velocity is meeting the specification and fine-tune the stiffness until the joint max velocity limit is within tolerance. If stiffness is too high, the max velocity may still be violated, so it is not advised to add infinite stiffness to the joint â instead operate with stiffness similar to the values calibrated without a max joint velocity.
+Many robots, including the majority of industrial robots, come with pre-tuned PD control for their joint drives and can be set up to have a perfect position control response, always driving at the given joint velocity limit. To reproduce this behavior, increase the joint stiffness from the previous tuning heuristic by a factor of two and define the maximum joint velocity in **Joint** > **Advanced** > **Maximum Joint Velocity** in the **Properties** panel. Run the simulation to verify the joint velocity is meeting the specification and fine-tune the stiffness until the joint max velocity limit is within tolerance. If stiffness is too high, the max velocity may still be violated, so it is not advised to add infinite stiffness to the joint — instead operate with stiffness similar to the values calibrated without a max joint velocity.
 
 ### Velocity Drive
 
@@ -5896,11 +5896,11 @@ For each joint of the robot:
 1. Start by setting the **Stiffness** to zero and only tuning the damping.
 2. Increase the damping until the joint is able to converge near the target velocity.
 3. If the robot may carry additional load, slightly increase the damping (for example, add 10% extra) to account for the extra load.
-4. You can limit the jointâs output by either setting the max joint velocity, or restricting the max joint force to impose a maximum joint load effort.
+4. You can limit the joint’s output by either setting the max joint velocity, or restricting the max joint force to impose a maximum joint load effort.
 
 ### Saving Gains to the Asset
 
-Following the NVIDIA Isaac Sim [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure), joint gains are a physics configuration and ideally should be saved on the physics layer. To facilitate this, the **Save Gains to Physics Layer** button on the UI searches for the assetâs physics layer where the joint is defined and applies the updated gains to that layer.
+Following the NVIDIA Isaac Sim [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure), joint gains are a physics configuration and ideally should be saved on the physics layer. To facilitate this, the **Save Gains to Physics Layer** button on the UI searches for the asset’s physics layer where the joint is defined and applies the updated gains to that layer.
 
 ### Gains Tests
 
@@ -5914,7 +5914,7 @@ The three tuning test modes share the same setup steps:
 2. Assign joints to sequences. Joints in the same sequence are tested simultaneously; joints in different sequences are tested one group at a time, with the robot resetting to its home configuration between sequences. Group joints that are expected to move together.
 3. Select the desired test mode in the test mode selector, configure parameters, and press **Play**, then **Run Test**.
 
-Repeat â adjust gains, re-run, observe â until results are satisfactory. Each test mode surfaces different information, so it is useful to work across all three rather than treating any one as definitive.
+Repeat — adjust gains, re-run, observe — until results are satisfactory. Each test mode surfaces different information, so it is useful to work across all three rather than treating any one as definitive.
 
 Note
 
@@ -5950,9 +5950,9 @@ Per-joint results include settling time (reported separately for the lower and u
 Each classification points to a different part of the system and suggests a different remedy.
 
 * **Pass with long settling time**: The joint reaches its target but slowly, indicating the system is overdamped. Try increasing stiffness or reducing damping, then re-run to confirm settling time improves without introducing oscillation. Residual oscillation will appear as elevated mean hold error even on a passing joint.
-* **Pass with high hold error**: The joint reached the limit closely enough to pass the tolerance check but is not holding cleanly â likely underdamped with residual oscillation. Try increasing damping.
+* **Pass with high hold error**: The joint reached the limit closely enough to pass the tolerance check but is not holding cleanly — likely underdamped with residual oscillation. Try increasing damping.
 * **Fail**: The joint did not reach its target and was still moving at the end of the timeout. First re-run with **Disable Velocity Limits** enabled. If the joint passes, the velocity limit is preventing the joint from reaching its target in time and the remedy is raising the velocity limit rather than adjusting gains. If the joint still fails, stiffness is insufficient and should be increased.
-* **Blocked**: The joint stalled before reaching its limit. Re-run with **Disable Self-Collisions** enabled. If the joint passes, the limit is set beyond what the collision geometry allows â tighten the joint limit in USD rather than adjusting gains. If the joint remains blocked with collisions disabled, examine whether a mimic joint coupling, another joint in the same sequence, or an incorrectly authored limit is constraining motion.
+* **Blocked**: The joint stalled before reaching its limit. Re-run with **Disable Self-Collisions** enabled. If the joint passes, the limit is set beyond what the collision geometry allows — tighten the joint limit in USD rather than adjusting gains. If the joint remains blocked with collisions disabled, examine whether a mimic joint coupling, another joint in the same sequence, or an incorrectly authored limit is constraining motion.
 
 Note
 
@@ -5960,7 +5960,7 @@ These tests identify that something is wrong and roughly where, but the magnitud
 
 #### Sinusoidal
 
-Drives joints with a continuous sinusoidal trajectory for the test duration. Useful for evaluating how well gains track smooth, repeating motion across a jointâs range.
+Drives joints with a continuous sinusoidal trajectory for the test duration. Useful for evaluating how well gains track smooth, repeating motion across a joint’s range.
 
 **Parameters:**
 
@@ -5997,7 +5997,7 @@ Use the result plots to guide adjustments:
 
 * **Measured position reaches the step target and holds cleanly**: gains are well-tuned for this step size and period.
 * **Measured position overshoots and oscillates before settling**: damping is too low. Increase damping.
-* **Measured position approaches the target slowly or does not reach it within the period**: stiffness is too low, or the period is shorter than the jointâs velocity limit allows. Try increasing stiffness or lengthening the period.
+* **Measured position approaches the target slowly or does not reach it within the period**: stiffness is too low, or the period is shorter than the joint’s velocity limit allows. Try increasing stiffness or lengthening the period.
 * **Measured position reaches the step target but with a consistent steady-state offset**: the joint drive may be saturating. Check the joint max force setting.
 
 Note
@@ -6006,13 +6006,13 @@ A reasonable goal across all three test modes is to find gains that reach the co
 
 #### Stress Test
 
-The stress test subjects joints to extreme random commands to surface PhysX solver instabilities that may appear during reinforcement learning training but are invisible during normal GUI testing. When training a policy with many parallel environments, the exploration space is large and joints may receive rapid, unconstrained commands across their full range. Finding these instabilities in the GUI â where iteration time is fast and the robot inspector is available â is significantly easier than diagnosing them during a training run.
+The stress test subjects joints to extreme random commands to surface PhysX solver instabilities that may appear during reinforcement learning training but are invisible during normal GUI testing. When training a policy with many parallel environments, the exploration space is large and joints may receive rapid, unconstrained commands across their full range. Finding these instabilities in the GUI — where iteration time is fast and the robot inspector is available — is significantly easier than diagnosing them during a training run.
 
 Two sub-modes are available:
 
-**Random Walk** â Every physics step, a Gaussian-distributed delta is added to each jointâs current position target. Commands are clamped to joint limits. This simulates unconstrained neural-net exploration during early policy training. The standard deviation (sigma) is expressed as a percentage of each jointâs range, so wider joints receive proportionally larger perturbations.
+**Random Walk** — Every physics step, a Gaussian-distributed delta is added to each joint’s current position target. Commands are clamped to joint limits. This simulates unconstrained neural-net exploration during early policy training. The standard deviation (sigma) is expressed as a percentage of each joint’s range, so wider joints receive proportionally larger perturbations.
 
-**Adversarial** â Every *N* physics steps, all active joints are simultaneously snapped to randomly chosen lower or upper limits (50/50 per joint). This maximizes worst-case solver load by driving extreme correlated configurations that the random walk would only hit rarely, targeting the same failure modes that arise when many parallel training environments simultaneously drive a robot to opposing extremes.
+**Adversarial** — Every *N* physics steps, all active joints are simultaneously snapped to randomly chosen lower or upper limits (50/50 per joint). This maximizes worst-case solver load by driving extreme correlated configurations that the random walk would only hit rarely, targeting the same failure modes that arise when many parallel training environments simultaneously drive a robot to opposing extremes.
 
 Per-joint instability detection runs every step:
 
@@ -6029,7 +6029,7 @@ The RNG seed is logged so destabilizing runs can be reproduced exactly.
 | **Sub-mode** | Random Walk or Adversarial. | Random Walk |
 | **Duration** | Simulation-time seconds to run. | 10.0 |
 | **Velocity Threshold** | Absolute velocity (rad/s or m/s) above which a joint is flagged as Unstable. | 100.0 |
-| **Sigma (% range)** | Standard deviation of the per-step Gaussian delta in Random Walk mode, expressed as a percentage of each jointâs range. | 1.0 |
+| **Sigma (% range)** | Standard deviation of the per-step Gaussian delta in Random Walk mode, expressed as a percentage of each joint’s range. | 1.0 |
 | **Snap Interval** | Physics steps between random snaps in Adversarial mode. | 10 |
 | **Seed** | RNG seed for reproducibility. Logged in results so a destabilizing run can be reproduced exactly. | 42 |
 | **Disable Self-Collisions** | Temporarily disable self-collisions on the articulation during the test. Useful for distinguishing instabilities caused by contact events from those caused by gains. | Off |
@@ -6037,7 +6037,7 @@ The RNG seed is logged so destabilizing runs can be reproduced exactly.
 
 **Interpreting Results:**
 
-* **Stable across both modes**: Positive evidence that the gains are unlikely to cause solver instabilities during Isaac Lab training at the configured sigma and snap interval. Document the test parameters alongside the result â a robot that is stable at 1% sigma may not be stable at 5% sigma, and this distinction matters when estimating safety margins for policy training.
+* **Stable across both modes**: Positive evidence that the gains are unlikely to cause solver instabilities during Isaac Lab training at the configured sigma and snap interval. Document the test parameters alongside the result — a robot that is stable at 1% sigma may not be stable at 5% sigma, and this distinction matters when estimating safety margins for policy training.
 * **Unstable with self-collisions enabled, Stable with them disabled**: The instability is contact-driven rather than gains-driven. Do not adjust gains in response to this result. Instead, examine whether the joint limits allow configurations where self-contact occurs and tighten limits or adjust collision geometry accordingly.
 * **Unstable with self-collisions disabled**: Gains are implicated. Examine the logged time-to-instability and triggering command. A very short time-to-instability at low sigma indicates the gains are marginal even under mild perturbation and significant adjustment is needed. A long time-to-instability at high sigma indicates the gains are robust under realistic conditions and the instability is only reachable at perturbation levels a trained policy would rarely produce.
 * **Unstable in Random Walk but Stable in Adversarial (or vice versa)**: The failure mode differs between the two sub-modes and the results can help narrow the diagnosis. Random Walk instabilities tend to arise from the target drifting into a problematic region incrementally. Adversarial instabilities tend to arise from the solver struggling with simultaneous extreme configurations across coupled joints.
@@ -6052,7 +6052,7 @@ A Stable result is meaningful only at the sigma and snap interval values used. R
 
 ## Visualizing Results
 
-The results of the tests are visualized as plots, where tracked joint positions and velocities are compared against the commanded trajectory. Select the desired joint in the left panel to display its results in the plots. Results are color-coded by joint, with measured values shown as a faded version of the commanded trajectoryâs color.
+The results of the tests are visualized as plots, where tracked joint positions and velocities are compared against the commanded trajectory. Select the desired joint in the left panel to display its results in the plots. Results are color-coded by joint, with measured values shown as a faded version of the commanded trajectory’s color.
 
 Even if a joint is not listed in the Robot Schema, it is still visualized in the plots if it is part of the physical robot.
 
@@ -6067,7 +6067,7 @@ Visualization results are only available after tests have finished running. Depe
 * Disable gravity if your robot has built-in gravity compensation or a separate gravity compensation controller.
 * Group joints that are expected to move together and tune each group individually first, then combine them for a final test. For a humanoid robot, for example, you may want to separate the legs and arms.
 * Reduce the maximum speed of a joint that you are tuning if it is not expected to be commanded to move that fast in practice. Most default maximum velocities in USD are likely impractically high.
-* When running the Stress Test, document the highest sigma at which all joints are Stable â this is a practical safety margin for your Isaac Lab training configuration.
+* When running the Stress Test, document the highest sigma at which all joints are Stable — this is a practical safety margin for your Isaac Lab training configuration.
 * If a joint is Blocked in Snap-to-Limits, use **Disable Self-Collisions** to confirm the cause before adjusting gains.
 
 ## Further Learning
@@ -6110,7 +6110,7 @@ On this page
 
 # Mesh merge tool
 
-Deprecated since version 6.0: The standalone `isaacsim.util.merge_mesh` extension is deprecated and will be removed in a future release. Use the **Scene Optimizer** `merge` operation instead, through the URDF/MJCF importerâs **Merge Mesh** option, the **Scene Optimizer** panel (**Window > Utilities > Scene Optimizer**), the [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) `MergeMeshRule`, or by calling the operation directly from Python.
+Deprecated since version 6.0: The standalone `isaacsim.util.merge_mesh` extension is deprecated and will be removed in a future release. Use the **Scene Optimizer** `merge` operation instead, through the URDF/MJCF importer’s **Merge Mesh** option, the **Scene Optimizer** panel (**Window > Utilities > Scene Optimizer**), the [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) `MergeMeshRule`, or by calling the operation directly from Python.
 
 ## About
 
@@ -6131,9 +6131,9 @@ Four integration paths expose the Scene Optimizer merge operation in NVIDIA Isaa
 
 Both the URDF and MJCF importers expose a **Merge Mesh** checkbox under the **Options** section of the importer UI. Enabling this option runs three Scene Optimizer operations in sequence on the converted USD stage:
 
-1. `meshCleanup` â merges duplicate vertices, removes degenerate faces, fixes non-manifold geometry.
-2. `generateNormals` and `generateProjectionUVs` â regenerates vertex normals and projected UVs.
-3. `merge` â for each rigid body in the stage, merges all child visual mesh prims (those with `default` or `render` purpose) into a single mesh under that body.
+1. `meshCleanup` — merges duplicate vertices, removes degenerate faces, fixes non-manifold geometry.
+2. `generateNormals` and `generateProjectionUVs` — regenerates vertex normals and projected UVs.
+3. `merge` — for each rigid body in the stage, merges all child visual mesh prims (those with `default` or `render` purpose) into a single mesh under that body.
 
 The importer determines merge groups automatically by traversing each `UsdPhysics.RigidBodyAPI` prim and collecting its child geometry, stopping at nested rigid-body boundaries. No additional configuration is required.
 
@@ -6154,15 +6154,15 @@ Use the Scene Optimizer panel to merge meshes interactively.
 
    * To use a bundled preset, click **Load Preset** and pick one of the merge-related presets:
 
-     + **Modify Stage - Merge Meshes** â flatten the hierarchy and merge meshes by material into `/World/Geometry/merged`.
-     + **Modify Stage - Spatial Merge Meshes** â merge all meshes regardless of material based on a spatial bounding volume; useful for very dense scenes.
-     + **Modify Instances - Merge Meshes** â merge meshes inside each prototype while preserving the instance hierarchy. Best when the asset uses scenegraph instancing.
+     + **Modify Stage - Merge Meshes** — flatten the hierarchy and merge meshes by material into `/World/Geometry/merged`.
+     + **Modify Stage - Spatial Merge Meshes** — merge all meshes regardless of material based on a spatial bounding volume; useful for very dense scenes.
+     + **Modify Instances - Merge Meshes** — merge meshes inside each prototype while preserving the instance hierarchy. Best when the asset uses scenegraph instancing.
    * To merge a hand-picked set of meshes, click **Add Scene Optimizer Process** and select **Merge Meshes** (the operation registered as `merge`). Configure:
 
-     + **Mesh Prim Paths**: enter prim paths or path expressions (for example, `/World/Robot/left_wheel//Mesh*` â the leading `//` matches descendants at any depth under `left_wheel`). Click the **pencil** icon to pick paths from the stage, or click **Add** with prims selected in the viewport.
+     + **Mesh Prim Paths**: enter prim paths or path expressions (for example, `/World/Robot/left_wheel//Mesh*` — the leading `//` matches descendants at any depth under `left_wheel`). Click the **pencil** icon to pick paths from the stage, or click **Add** with prims selected in the viewport.
      + **Consider Materials**: enable to preserve per-material `GeomSubset` partitions on the merged mesh (Scene Optimizer equivalent of the legacy **Combine Materials** option).
      + **Original Geom Option**: `0` to keep the source meshes, `1` to deactivate them, `2` to delete them.
-     + **Merge Point**: `0` to place the merged mesh at world origin, `1` to use the root primâs transform.
+     + **Merge Point**: `0` to place the merged mesh at world origin, `1` to use the root prim’s transform.
      + **Root Path**: optional explicit path for the merged result; defaults to the first entry in **Mesh Prim Paths**.
      + **Spatial Mode** / **Spatial Threshold** / **Spatial Vertex Count**: leave at defaults unless you need spatial grouping.
 5. **Add prerequisite cleanup steps (optional but recommended).** Click **Add Scene Optimizer Process** twice more and add **Mesh Cleanup** (`meshCleanup`) followed by **Generate Normals** (`generateNormals`). Drag the handles in the top-left of each process card so they execute before **Merge Meshes**. This matches the pipeline the URDF/MJCF importer runs internally.
@@ -6175,11 +6175,11 @@ Use the Scene Optimizer panel to merge meshes interactively.
 
 Note
 
-The Scene Optimizer UI executes operations directly on the **active stage** in memory. Save the stage explicitly after merging â the panel does not write to disk on its own.
+The Scene Optimizer UI executes operations directly on the **active stage** in memory. Save the stage explicitly after merging — the panel does not write to disk on its own.
 
 JSON preset (Scene Optimizer)
 
-The Scene Optimizer panel reads and writes its own JSON preset format. A minimal preset that mirrors the importerâs pipeline (cleanup, normals + UVs, merge) looks like this:
+The Scene Optimizer panel reads and writes its own JSON preset format. A minimal preset that mirrors the importer’s pipeline (cleanup, normals + UVs, merge) looks like this:
 
 ```python
 [
@@ -6232,15 +6232,15 @@ The Scene Optimizer panel reads and writes its own JSON preset format. A minimal
 ]
 ```
 
-Edit `meshPrimPaths` to target the meshes to merge. Use [USD path expressions](https://openusd.org/release/api/class_sdf_path_expression.html) â the `//` operator matches descendants at any depth, so `/World/Robot//Mesh*` finds every prim named `Mesh*` anywhere under `/World/Robot`.
+Edit `meshPrimPaths` to target the meshes to merge. Use [USD path expressions](https://openusd.org/release/api/class_sdf_path_expression.html) — the `//` operator matches descendants at any depth, so `/World/Robot//Mesh*` finds every prim named `Mesh*` anywhere under `/World/Robot`.
 
-Load this file via the Scene Optimizer panelâs **Load Preset > Browseâ¦** button.
+Load this file via the Scene Optimizer panel’s **Load Preset > Browse…** button.
 
 Refer to the [Scene Optimizer extension documentation](https://docs.omniverse.nvidia.com/extensions/latest/ext_scene-optimizer.html) for the full operation catalog, the bundled preset descriptions, and the Scene Optimizer CLI usage.
 
 ## Using the asset transformer
 
-If you need to chain mesh merging with other USD restructuring rules â schema routing, geometry deduplication, material routing, interface generation â wrap the merge step in an Asset Transformer profile. The [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) ships a **Merge Mesh** profile (`source/extensions/isaacsim.asset.transformer.rules/data/merge_mesh.json`) that runs the same rigid-body-aware merge as the importer:
+If you need to chain mesh merging with other USD restructuring rules — schema routing, geometry deduplication, material routing, interface generation — wrap the merge step in an Asset Transformer profile. The [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) ships a **Merge Mesh** profile (`source/extensions/isaacsim.asset.transformer.rules/data/merge_mesh.json`) that runs the same rigid-body-aware merge as the importer:
 
 ```python
 {
@@ -6262,7 +6262,7 @@ If you need to chain mesh merging with other USD restructuring rules â sche
 }
 ```
 
-The `MergeMeshRule` walks all rigid bodies in the stage and applies the Scene Optimizer `merge` operation to each bodyâs child visual meshes â no parameters required.
+The `MergeMeshRule` walks all rigid bodies in the stage and applies the Scene Optimizer `merge` operation to each body’s child visual meshes — no parameters required.
 
 Chain it with `GeometriesRoutingRule` and `MaterialsRoutingRule` for a full cleanup + merge + dedupe pipeline:
 
@@ -6311,9 +6311,9 @@ Load the profile via **Tools > Robotics > Asset Editors > Asset Transformer > Lo
 
 ## Using the Python API
 
-The `isaacsim.asset.importer.utils.merge_mesh_utils` module wraps the Scene Optimizer operations used by the importer. Use it for headless asset preparation, batch processing, or custom asset âmassagingâ that does not fit the importer or transformer flows.
+The `isaacsim.asset.importer.utils.merge_mesh_utils` module wraps the Scene Optimizer operations used by the importer. Use it for headless asset preparation, batch processing, or custom asset “massaging” that does not fit the importer or transformer flows.
 
-The code blocks below are taken from a single runnable script, `docs/isaacsim/snippets/robot_setup/merge_mesh.py`, which you can execute with Isaac Simâs `python.sh`. Pass `--test` to import the bundled `carter.urdf` test asset and exercise every snippet end-to-end.
+The code blocks below are taken from a single runnable script, `docs/isaacsim/snippets/robot_setup/merge_mesh.py`, which you can execute with Isaac Sim’s `python.sh`. Pass `--test` to import the bundled `carter.urdf` test asset and exercise every snippet end-to-end.
 
 Note
 
@@ -6331,7 +6331,7 @@ Available helpers:
 | --- | --- |
 | `clean_mesh_operation(stage)` | Run `meshCleanup`: merge duplicate vertices, remove degenerate faces, make manifold. |
 | `generate_mesh_uv_normals_operation(stage)` | Run `generateNormals` and `generateProjectionUVs` to regenerate per-vertex normals and projected UVs. |
-| `merge_meshes_operation(stage)` | Walk all rigid bodies and merge each bodyâs child visual meshes (returns the number of merged groups). |
+| `merge_meshes_operation(stage)` | Walk all rigid bodies and merge each body’s child visual meshes (returns the number of merged groups). |
 | `merge_mesh(stage, mesh_paths)` | Merge an explicit list of mesh prim paths into a single mesh. |
 
 Example: full importer-equivalent pipeline applied to an existing stage
@@ -6351,7 +6351,7 @@ print(f"Merged {merged_groups} rigid-body mesh group(s)")
 stage.Save()
 ```
 
-Example: merge a hand-picked set of meshes (replaces the legacy âselect prims, click Mergeâ workflow)
+Example: merge a hand-picked set of meshes (replaces the legacy “select prims, click Merge” workflow)
 
 ```python
 from isaacsim.asset.importer.utils import merge_mesh_utils
@@ -6369,7 +6369,7 @@ merge_mesh_utils.merge_mesh(stage, mesh_paths)
 stage.Save()
 ```
 
-The first prim in the list is used as the merge root and origin, matching the legacy toolâs âfirst selection winsâ behavior.
+The first prim in the list is used as the merge root and origin, matching the legacy tool’s “first selection wins” behavior.
 
 ## Scene Optimizer operation reference
 
@@ -6462,25 +6462,25 @@ MERGE_CONFIG = {
 }
 ```
 
-The importer sets `considerMaterials` to `False` because material routing is handled separately by the asset transformerâs `MaterialsRoutingRule`. Set it to `True` when running `merge` standalone to preserve per-material `GeomSubset` partitioning on the merged mesh â this is the Scene Optimizer equivalent of the legacy toolâs **Combine Materials** option.
+The importer sets `considerMaterials` to `False` because material routing is handled separately by the asset transformer’s `MaterialsRoutingRule`. Set it to `True` when running `merge` standalone to preserve per-material `GeomSubset` partitioning on the merged mesh — this is the Scene Optimizer equivalent of the legacy tool’s **Combine Materials** option.
 
 ## Migrating from the legacy mesh merge tool
 
 | Legacy option | Scene Optimizer equivalent |
 | --- | --- |
 | **Source Prim** (first selection = origin) | Pass mesh paths to `merge_mesh(stage, paths)`; first path is used as `rootPath`. |
-| **Clear Parent Transform** | Set `mergePoint` to `0` (world origin) or `1` (root primâs transform) in the `merge` config. |
+| **Clear Parent Transform** | Set `mergePoint` to `0` (world origin) or `1` (root prim’s transform) in the `merge` config. |
 | **Deactivate source assets** | Controlled by `originalGeomOption`: `0` keeps originals, `1` deactivates them, `2` deletes them. |
 | **Combine Materials** | Set `considerMaterials = True` in the `merge` config. Material assignments are preserved as `GeomSubset` entries on the merged mesh. |
 | Selecting an empty Xform first to set origin | Use `rootPath` to specify any prim path as the merge target/origin. |
 
 ## See also
 
-* [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) â URDF importer with built-in **Merge Mesh** option.
-* [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) â MJCF importer with built-in **Merge Mesh** option.
-* [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) â Rule-based asset transformation framework.
-* [Asset Transformer Rules Reference](asset_transformer_rules.html#isaac-sim-app-asset-transformer-rules) â `MergeMeshRule` reference and other available rules.
-* [Scene Optimizer extension documentation](https://docs.omniverse.nvidia.com/extensions/latest/ext_scene-optimizer.html) â Full operation reference for `omni.scene.optimizer.core`.
+* [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) — URDF importer with built-in **Merge Mesh** option.
+* [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) — MJCF importer with built-in **Merge Mesh** option.
+* [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) — Rule-based asset transformation framework.
+* [Asset Transformer Rules Reference](asset_transformer_rules.html#isaac-sim-app-asset-transformer-rules) — `MergeMeshRule` reference and other available rules.
+* [Scene Optimizer extension documentation](https://docs.omniverse.nvidia.com/extensions/latest/ext_scene-optimizer.html) — Full operation reference for `omni.scene.optimizer.core`.
 
 On this page
 
@@ -6536,9 +6536,9 @@ The window docks to the left of the viewport.
 
 The header exposes a robot picker, a refresh button, and a **+ New Inspector** button.
 
-* **Robot drop-down** â lists every prim on the stage that has `IsaacRobotAPI` applied. Click the drop-down to open a searchable popup; type any substring of the prim path to narrow the list. Selecting a robot rebinds the table to that robotâs joints.
-* **Refresh** â rescans the stage for prims with `IsaacRobotAPI`. Use this after authoring a new robot in a script editor or after switching layers.
-* **+ New Inspector** â spawns an additional Joint Inspector window. Each window keeps an independent robot selection and column set, which is useful for side-by-side comparison of two robots or two views of the same robot.
+* **Robot drop-down** – lists every prim on the stage that has `IsaacRobotAPI` applied. Click the drop-down to open a searchable popup; type any substring of the prim path to narrow the list. Selecting a robot rebinds the table to that robot’s joints.
+* **Refresh** – rescans the stage for prims with `IsaacRobotAPI`. Use this after authoring a new robot in a script editor or after switching layers.
+* **+ New Inspector** – spawns an additional Joint Inspector window. Each window keeps an independent robot selection and column set, which is useful for side-by-side comparison of two robots or two views of the same robot.
 
 The window listens to stage open/close and asset-load events so the robot list refreshes automatically when assets finish loading.
 
@@ -6546,8 +6546,8 @@ The window listens to stage open/close and asset-load events so the robot list r
 
 A search field above the table filters the joint rows by name. Two matching modes are supported:
 
-* **Substring (default)** â a case-insensitive substring match against the joint short name and the full prim path. `arm` matches `shoulder_arm_joint` as well as `/World/UR10/shoulder/arm`.
-* **Glob (``\*`` or ``?`` in the query)** â `fnmatch`-style wildcards. The query is also matched in a substring-fenced form (`*pattern*`) so `hand*` finds anything that contains `hand`, mirroring the typical search-bar mental model.
+* **Substring (default)** – a case-insensitive substring match against the joint short name and the full prim path. `arm` matches `shoulder_arm_joint` as well as `/World/UR10/shoulder/arm`.
+* **Glob (``\*`` or ``?`` in the query)** – `fnmatch`-style wildcards. The query is also matched in a substring-fenced form (`*pattern*`) so `hand*` finds anything that contains `hand`, mirroring the typical search-bar mental model.
 
 A clear button on the right of the field removes the query and restores the full list.
 
@@ -6557,7 +6557,7 @@ The hamburger button on the right of the toolbar opens a categorized columns pop
 
 The popup contains:
 
-* **Backend pills** at the top â `PhysX` and `MuJoCo` toggle the visibility of every column belonging to that simulation backend. The pill state does not flip the per-column checkboxes, so re-enabling a backend restores the previously checked columns.
+* **Backend pills** at the top – `PhysX` and `MuJoCo` toggle the visibility of every column belonging to that simulation backend. The pill state does not flip the per-column checkboxes, so re-enabling a backend restores the previously checked columns.
 * **Categorized checkbox rows** for the available column groups.
 
 The available column groups are summarized below.
@@ -6573,12 +6573,12 @@ The available column groups are summarized below.
 Column behavior:
 
 * Items whose backing API is not applied on any joint of the current robot stay clickable but render dimmed; their tooltip explains why the column is currently empty.
-* The userâs column selection persists across robot switches. A column reappears as soon as a robot whose joints back the column is selected.
+* The user’s column selection persists across robot switches. A column reappears as soon as a robot whose joints back the column is selected.
 * `Joint Limits` columns belong to USD core schemas and are not affected by the backend pills.
 
 ### Per-axis fan-out
 
-When every joint authoring a multi-apply schema has at most one axis applied (the common case for revolute and prismatic chains), the per-axis dimension is collapsed and the column appears once. The cell automatically picks the jointâs authored axis or its natural axis (`angular` for revolute, `linear` for prismatic).
+When every joint authoring a multi-apply schema has at most one axis applied (the common case for revolute and prismatic chains), the per-axis dimension is collapsed and the column appears once. The cell automatically picks the joint’s authored axis or its natural axis (`angular` for revolute, `linear` for prismatic).
 
 Multi-DOF (for example, `D6Joint`) joints make the column fan out: one column per distinct axis (`transX`, `transY`, `transZ`, `rotX`, `rotY`, `rotZ`) is rendered, with the axis token appended to the header label.
 
@@ -6642,7 +6642,7 @@ A mode selector at the top of the window controls how the robot hierarchy is dis
 | --- | --- |
 | **Flat** | Links and joints are listed as two flat scopes (`Links`, `Joints`) under each robot, ordered as they appear in the schema relationships. Useful for quickly reviewing the complete lists. |
 | **Tree** (default) | Parent link â joint â child link chain. Matches the kinematic traversal order and is the most natural representation for articulated robots. |
-| **MuJoCo** | Tree rooted at the base link. Each linkâs children appear first, and the joint connecting the link to its own parent appears as the last child entry. Mirrors the body-centric layout used by MuJoCo MJCF files. |
+| **MuJoCo** | Tree rooted at the base link. Each link’s children appear first, and the joint connecting the link to its own parent appears as the last child entry. Mirrors the body-centric layout used by MuJoCo MJCF files. |
 
 |  |  |  |
 | --- | --- | --- |
@@ -6792,8 +6792,8 @@ The Robot Poser creates, edits, and applies named poses for robots that carry th
 
 The functionality is split across two extensions:
 
-* `isaacsim.robot.poser` â Headless API for IK solving, named-pose CRUD, joint-state application, and JSON import/export.
-* `isaacsim.robot.poser.ui` â GUI comprising the Robot Poser window, the Named Pose properties panel, and a custom stage icon for `IsaacNamedPose` prims.
+* `isaacsim.robot.poser` – Headless API for IK solving, named-pose CRUD, joint-state application, and JSON import/export.
+* `isaacsim.robot.poser.ui` – GUI comprising the Robot Poser window, the Named Pose properties panel, and a custom stage icon for `IsaacNamedPose` prims.
 
 # Robot Poser Window
 
@@ -6805,7 +6805,7 @@ A dropdown at the top of the window lists every prim on the current stage that h
 
 ## Named Poses Table
 
-The main area of the window displays a table of the robotâs named poses. Each row shows:
+The main area of the window displays a table of the robot’s named poses. Each row shows:
 
 | Column | Description |
 | --- | --- |
@@ -6815,33 +6815,33 @@ The main area of the window displays a table of the robotâs named poses. Ea
 
 Note
 
-Selecting a site that is not a fixed frame of the robot, and that affect the robotâs origin in the course of the kinematic chain may result in the robot moving its base origin. If that needs to be fixed in the future, you can manually reset the pose of the robotâs origin link, and re-apply the named pose.
+Selecting a site that is not a fixed frame of the robot, and that affect the robot’s origin in the course of the kinematic chain may result in the robot moving its base origin. If that needs to be fixed in the future, you can manually reset the pose of the robot’s origin link, and re-apply the named pose.
 
 Note
 
-tip: create a named pose for the robotâs base position, and you can use it to reset the robot to its initial position if any authoring cause the robot to move from its initial position.
+tip: create a named pose for the robot’s base position, and you can use it to reset the robot to its initial position if any authoring cause the robot to move from its initial position.
 
 ### Row Actions
 
 Each row provides action buttons:
 
-* **Apply Pose** () â Sets the robot to the stored joint configuration. When simulation is stopped the joints are teleported directly; when running, the values are written as joint drive targets.
-* **Track Target** () â Enables real-time IK tracking for the pose. While active, moving the `IsaacNamedPose` prim in the viewport (via its manipulator gizmo) continuously solves IK and updates the stored joint values. When IK fails to converge, a red outline is drawn on the end-effector link chain to indicate the failure.
+* **Apply Pose** () – Sets the robot to the stored joint configuration. When simulation is stopped the joints are teleported directly; when running, the values are written as joint drive targets.
+* **Track Target** () – Enables real-time IK tracking for the pose. While active, moving the `IsaacNamedPose` prim in the viewport (via its manipulator gizmo) continuously solves IK and updates the stored joint values. When IK fails to converge, a red outline is drawn on the end-effector link chain to indicate the failure.
 
 ### Managing Poses
 
-* **Add** â Creates a new `IsaacNamedPose` prim under the robotâs `Named_Poses` scope, registers it in the `isaac:robot:namedPoses` relationship, and adds a row to the table. The new pose captures the robotâs current joint state for the selected start/end site pair.
-* **Remove** â Deletes the selected pose prim from the stage and removes it from the robotâs relationship.
-* **Search** â Filters the table rows by name.
-* **Drag-and-drop** â Reorders rows, which also reorders the targets in the `namedPoses` relationship.
+* **Add** – Creates a new `IsaacNamedPose` prim under the robot’s `Named_Poses` scope, registers it in the `isaac:robot:namedPoses` relationship, and adds a row to the table. The new pose captures the robot’s current joint state for the selected start/end site pair.
+* **Remove** – Deletes the selected pose prim from the stage and removes it from the robot’s relationship.
+* **Search** – Filters the table rows by name.
+* **Drag-and-drop** – Reorders rows, which also reorders the targets in the `namedPoses` relationship.
 
 ## Simulation Behavior
 
 The Robot Poser behaves differently depending on whether the simulation timeline is playing.
 
-**Simulation stopped** â Joint values are applied by directly teleporting the joint attributes on the USD stage. The robot jumps to the target pose instantly, and is authored to the active edit target layer. This is the expected mode during authoring: it lets you position the robot precisely without physics interference and produces clean USD opinions suitable for saving.
+**Simulation stopped** – Joint values are applied by directly teleporting the joint attributes on the USD stage. The robot jumps to the target pose instantly, and is authored to the active edit target layer. This is the expected mode during authoring: it lets you position the robot precisely without physics interference and produces clean USD opinions suitable for saving.
 
-**Simulation running** â Joint values are written as joint drive targets. The physics engine then moves the robot toward the requested configuration over subsequent simulation steps, respecting dynamics, joint limits, and contact forces. The resulting motion is smooth but may not reach the exact target if forces or collisions prevent it. The target pose is not authored to the active edit target layer, instead it is authored to a session layer, and gets cleared once simulation stops. If you want to keep the pose after simulation stops, you can change the simulation setting to not reset the robot state on stop.
+**Simulation running** – Joint values are written as joint drive targets. The physics engine then moves the robot toward the requested configuration over subsequent simulation steps, respecting dynamics, joint limits, and contact forces. The resulting motion is smooth but may not reach the exact target if forces or collisions prevent it. The target pose is not authored to the active edit target layer, instead it is authored to a session layer, and gets cleared once simulation stops. If you want to keep the pose after simulation stops, you can change the simulation setting to not reset the robot state on stop.
 
 IK tracking follows the same rule: while tracking is active and simulation is stopped, joints are teleported each frame the target moves; while simulation is running, drive targets are updated instead.
 
@@ -6849,10 +6849,10 @@ IK tracking follows the same rule: while tracking is active and simulation is st
 
 Named poses and the joint values they write to are authored on the current edit target layer. Following the [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure) guidelines:
 
-* **Named pose prims** (`IsaacNamedPose`) should be authored in the **robot schema layer** alongside the rest of the Robot Schema. They describe the robotâs capabilities and travel with the asset.
+* **Named pose prims** (`IsaacNamedPose`) should be authored in the **robot schema layer** alongside the rest of the Robot Schema. They describe the robot’s capabilities and travel with the asset.
 * **Robot base pose** (the initial position and orientation of the robot on the stage) should be authored in the base layer, or a **dedicated authoring layer** applied on top of the asset base (to avoid data loss) and physics layers. This keeps scene-level placement separate from the robot definition itself and avoids modifying the source or physics layers.
 
-When authoring named poses, if physics is not enabled, temporarily add the physics layer as a sublayer so the kinematic chain can be resolved, then remove it before saving â the same workflow used when applying the Robot Schema itself.
+When authoring named poses, if physics is not enabled, temporarily add the physics layer as a sublayer so the kinematic chain can be resolved, then remove it before saving – the same workflow used when applying the Robot Schema itself.
 
 # Named Pose Properties Panel
 
@@ -6869,7 +6869,7 @@ Two combo boxes at the top of the panel control the **Start Link** and **End Lin
 | Button | Description |
 | --- | --- |
 | **Set Robot to Pose** () | Applies the stored joint values to the robot, matching the behavior of the Apply Pose button in the Robot Poser window. |
-| **Track Target** () | Starts standalone IK tracking for this pose. The tracking loop runs independently of the Robot Poser window â no window needs to be open. While tracking, the named pose primâs Xform (position and orientation) is used as the IK target each frame. Moving the prim via the viewport manipulator drives the robot in real time. |
+| **Track Target** () | Starts standalone IK tracking for this pose. The tracking loop runs independently of the Robot Poser window – no window needs to be open. While tracking, the named pose prim’s Xform (position and orientation) is used as the IK target each frame. Moving the prim via the viewport manipulator drives the robot in real time. |
 
 ## Joint Table
 
@@ -6879,7 +6879,7 @@ Below the action buttons, an editable joint table lists every joint in the kinem
 | --- | --- | --- |
 | **Lock** | Toggle icon | Locks or unlocks the joint. A locked (fixed) joint is held constant during IK solving; its `jointFixed` flag is set to `True` in the stored pose. |
 | **Joint** | Label | Joint prim name. |
-| **Value** | Slider | Current joint value within the jointâs limits. Dragging the slider updates the stored `jointValues` attribute on the prim. When tracking is active, the FK is recomputed and the named pose primâs transform is updated to reflect the new end-effector position. |
+| **Value** | Slider | Current joint value within the joint’s limits. Dragging the slider updates the stored `jointValues` attribute on the prim. When tracking is active, the FK is recomputed and the named pose prim’s transform is updated to reflect the new end-effector position. |
 
 ## IK Failure Visualization
 
@@ -6887,7 +6887,7 @@ When IK tracking is active and the solver fails to converge (the target pose is 
 
 # Example: Authoring Named Poses
 
-This walkthrough creates three named poses on a robot arm â a home position, a pick-ready stance, and a place target â using the Robot Poser window and IK tracking. Start with a stage that contains at least one robot prim with `IsaacRobotAPI` applied.
+This walkthrough creates three named poses on a robot arm – a home position, a pick-ready stance, and a place target – using the Robot Poser window and IK tracking. Start with a stage that contains at least one robot prim with `IsaacRobotAPI` applied.
 In This Example, we will use the `UR10e` robot from `UniversalRobots`, with the Robotiq 2F-85 gripper.
 1. Find the `UR10e` robot in the `UniversalRobots` folder in the assets browser.
 2. Add the `UR10e` robot to the stage by dragging it onto the stage.
@@ -6897,13 +6897,13 @@ In This Example, we will use the `UR10e` robot from `UniversalRobots`, with the 
 
 Open the Robot Poser window via **Tools > Robotics > Robot Poser**. In the **Active Robot** dropdown, ensure the UR10e is selected.
 
-## 2. Add a âHomeâ Pose
+## 2. Add a “Home” Pose
 
 With the robot in its default joint configuration, Select the start link as `` `base_link` `` and the end link as `` `grip_frame` ``. Notice there are two `` `base_link` `` items on the dropdown. Hover over the name to verify it is the base\_link for the ur10e, and not for the gripper. Click **Add** in the Robot Poser window. A new row appears in the Named Poses table. Rename it to `Home` by double-clicking the name cell. Select the desired **Start Site** and **End Site** for the kinematic chain.
 
-This pose captures the robotâs current joint state and serves as a known-good reset position.
+This pose captures the robot’s current joint state and serves as a known-good reset position.
 
-## 3. Add a âPick Readyâ Pose with IK Tracking
+## 3. Add a “Pick Ready” Pose with IK Tracking
 
 Click **Add** again to create a second pose and rename it to `PickReady`. Click the **Track Target** button () on the new row to enable IK tracking.
 
@@ -6911,7 +6911,7 @@ With tracking active, select the `PickReady` named pose prim in the viewport and
 
 Once the robot reaches the target pose, click **Track Target** again to stop tracking. The joint values are now stored in the `PickReady` prim.
 
-## 4. Add a âPlaceâ Pose
+## 4. Add a “Place” Pose
 
 Repeat the process: click **Add**, rename the pose to `Place`, enable **Track Target**, and drag the named pose prim to the desired place location. Stop tracking when satisfied.
 
@@ -6926,8 +6926,8 @@ See video below for a demonstration of the workflow.
 * Enable tracking and move the named pose prim in the viewport while simulation is running. The robot will follow the named pose prim in real time.
 * Use the Animation curve Editor to create a robot animation from the named poses by setting time-coded joint target values for the joints.
 * Work on a Multi-end-effector robot by creating named poses for each end-effector.
-* Try creating a named pose for the robotâs base position, and you can use it to reset the robot to its initial position if any authoring cause the robot to move from its initial position.
-* Try creating a named pose between two different end-effectors that moves the robotâs base link to a new position. Reset the robot to the origin by resetting the base link transform, and re-apply the Zero-Pose named pose.
+* Try creating a named pose for the robot’s base position, and you can use it to reset the robot to its initial position if any authoring cause the robot to move from its initial position.
+* Try creating a named pose between two different end-effectors that moves the robot’s base link to a new position. Reset the robot to the origin by resetting the base link transform, and re-apply the Zero-Pose named pose.
 
 # Named Pose Schema Reference
 
@@ -6952,9 +6952,9 @@ On this page
   + [IK Failure Visualization](#ik-failure-visualization)
 * [Example: Authoring Named Poses](#example-authoring-named-poses)
   + [1. Select the Robot](#select-the-robot)
-  + [2. Add a âHomeâ Pose](#add-a-home-pose)
-  + [3. Add a âPick Readyâ Pose with IK Tracking](#add-a-pick-ready-pose-with-ik-tracking)
-  + [4. Add a âPlaceâ Pose](#add-a-place-pose)
+  + [2. Add a “Home” Pose](#add-a-home-pose)
+  + [3. Add a “Pick Ready” Pose with IK Tracking](#add-a-pick-ready-pose-with-ik-tracking)
+  + [4. Add a “Place” Pose](#add-a-place-pose)
   + [5. Verify the Poses](#verify-the-poses)
   + [Things to try](#things-to-try)
 * [Named Pose Schema Reference](#named-pose-schema-reference)
@@ -6976,7 +6976,7 @@ Warning
 
 **Deprecated:** The Robot Wizard extension (`isaacsim.robot_setup.wizard`) is deprecated since Isaac Sim 6.0.0 and will be removed in a future release.
 
-The Robot Wizard was designed to speed up the process of setting up a robot in Isaac Sim. It allowed you to define the robotâs hierarchy, organize the meshes, add colliders, joints and joint drives. It automatically applied relevant Schemas and APIs without needing to manually edit the USD files. It separated the robot into different configurations based on the desired structure described in [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure).
+The Robot Wizard was designed to speed up the process of setting up a robot in Isaac Sim. It allowed you to define the robot’s hierarchy, organize the meshes, add colliders, joints and joint drives. It automatically applied relevant Schemas and APIs without needing to manually edit the USD files. It separated the robot into different configurations based on the desired structure described in [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure).
 
 The following sections explain the UI and functions behind each step in the wizard. To observe the wizard in action, refer to [Robot Wizard Tutorial [Deprecated]](robot_wizard_tutorials.html#isaac-sim-app-robot-wizard-tutorials).
 
@@ -6986,18 +6986,18 @@ The Robot Wizard guides you through the following steps:
 
 ^ **File Preparation**: Load the robot model and allocate folders and files for the final robot files.
 
-* **Organize Link Hierarchy**: Define the robotâs hierarchy and link the parent-mesh child relationships.
-* **Colliders**: Examine colliders to the robotâs links.
-* **Joints and Drives**: Add joints to the robotâs links and drives and configure their properties.
+* **Organize Link Hierarchy**: Define the robot’s hierarchy and link the parent-mesh child relationships.
+* **Colliders**: Examine colliders to the robot’s links.
+* **Joints and Drives**: Add joints to the robot’s links and drives and configure their properties.
 
 The resulting files of the Robot Wizard are all placed in a folder, which you will have a chance to indicate in the wizard. The folder contains the following files:
 
 * <robot\_root\_folder>/configurations:
-  :   + The folder that contains the robotâs configurations USD files. The configurations are the different variants of the robot, such as a robot with or without physics, with sensors, and different end-effectors.
+  :   + The folder that contains the robot’s configurations USD files. The configurations are the different variants of the robot, such as a robot with or without physics, with sensors, and different end-effectors.
 * <robot\_root\_folder>/configurations/<robot-name>\_base.usd
-  :   + The configuration file that contains the robotâs base mesh and hierarchy.
+  :   + The configuration file that contains the robot’s base mesh and hierarchy.
 * <robot\_root\_folder>/configurations/<robot-name>\_physics.usd
-  :   + The configuration file that contains the robotâs physics setup in a sublayer. This includes the rigid body definition, colliders, joints, and drives.
+  :   + The configuration file that contains the robot’s physics setup in a sublayer. This includes the rigid body definition, colliders, joints, and drives.
 * <robot\_root\_folder>/configurations/<robot-name>\_robot.usd
   :   + The configuration file that contains the robot schema, labeling the robot and its components.
 * <robot\_root\_folder>/<robot-name>.usd:
@@ -7009,12 +7009,12 @@ The resulting files of the Robot Wizard are all placed in a folder, which you wi
 
 | Ref # | Panel Name | Description |
 | --- | --- | --- |
-| 1 | Wizard Steps | The Wizard Steps panel shows your progress. You can click on each step to navigate to it. It will also advance itself as you go through the wizard. The names of the steps will change to green when itâs completed. |
+| 1 | Wizard Steps | The Wizard Steps panel shows your progress. You can click on each step to navigate to it. It will also advance itself as you go through the wizard. The names of the steps will change to green when it’s completed. |
 | 2 | Additional Tools | You may open other tools for robot setup here. |
 | 3 | Step Pages | Each step in the wizard has a page. You can navigate through the pages by clicking on the step name in the Wizard Steps panel. |
 | 4 | Next Button | The Next button will advance you to the next step in the wizard. |
 | 5 | Start Over | The Button will reset the wizard to the first step. |
-| 6 | Launch On Startup | When checked, the wizard will launch automatically when Isaac Sim is started. Itâs defaulted to not start. |
+| 6 | Launch On Startup | When checked, the wizard will launch automatically when Isaac Sim is started. It’s defaulted to not start. |
 | 7 | Help | Open the documentation page for the wizard in your browser. |
 
 ### Add Robot
@@ -7038,7 +7038,7 @@ This page allows you to indicate the folder where the robot files will be saved.
 1. The folder will be created in the format of `<Root Folder>/configurations/<robot-name>_base.usd`. You can change the name and the root folder.
 2. The stage that is currently open will not be the final robot file. You may choose to save a copy of it in the `<Root Folder>/stage_copy.usd`. If it has unsaved changes, you will also have the choice to save it and overwrite the existing path.
 3. The **Robot Files Allocated** displays the filepaths that will be created in the folder. If filepaths text turned purple in color, it means that the file already exists, proceeding without changing the filepath will overwrite the existing file. If it turns red, it means you do not have permission to write to the folder.
-4. In the case where you are examining a robot thatâs loaded to the stage as a reference or payload, the **Additional Information** section contains the path to the original file that the robot is loaded from.
+4. In the case where you are examining a robot that’s loaded to the stage as a reference or payload, the **Additional Information** section contains the path to the original file that the robot is loaded from.
 5. Click **Robot Hierarchy** to advance to the next step.
 
 ### Robot Hierarchy
@@ -7048,9 +7048,9 @@ Assets in Isaac Sim are organized based on how the robot moves. All the componen
 | Ref # | Panel Name | Description |
 | --- | --- | --- |
 | 1 | New Link Structure | This section displays the new structure of the robot. This structure is based on the links. It might have existing links populated for you if you have chosen a robot type in [Add Robot](#isaac-sim-app-tutorial-wizard-add-robot). You can always add or remove links by using the buttons in the lower right hand corner. |
-| 2 | Current Link Structure | This section displays the current structure of the robot thatâs on stage. |
-| 3 | Parent | The Parent button will be enabled after youâve selected a target link from the window above and source links from the window below. Clicking on the button will parent the source link to the target link. |
-| 4 | Unparent | The Unparent button will be enabled after youâve selected a link from the window above. Clicking on the button will unparent the link from its parent. |
+| 2 | Current Link Structure | This section displays the current structure of the robot that’s on stage. |
+| 3 | Parent | The Parent button will be enabled after you’ve selected a target link from the window above and source links from the window below. Clicking on the button will parent the source link to the target link. |
+| 4 | Unparent | The Unparent button will be enabled after you’ve selected a link from the window above. Clicking on the button will unparent the link from its parent. |
 | 5 | Add/Remove Links | The Add/Remove buttons will add/remove links from the new link structure. |
 | 6 | Clear All/Copy All | The Clear All button will clear all the links in the new link structure. The Copy All button will copy all the links in the current link structure to the new link structure. |
 | 7 | Instructions | Expand to observe the instructions for the current step. |
@@ -7061,7 +7061,7 @@ Assets in Isaac Sim are organized based on how the robot moves. All the componen
 * The reorganization is focused on grouping different mesh components under a single parent when they belong to the same link. If you have robots where the mesh is nested under many layers of Xforms, choose only the mesh prim and move that to the top window, and delete (right click > delete) any leftover empty parent prims in the bottom window (old stage) where the mesh has been moved.
 * It will also ignore any non-mesh prims, such as materials, joints, and textures. Those will be directly copied over to the new file under relevant parent prims.
 * Any mesh that is not parented at the end will also get automatically copied over to the new file, unless explicitly deleted.
-* The position of the links is set to align with a âreference childâ prim. The reference child prim can be indicated by right clicking on the link in the top window, and selecting **Mark as Reference Child**. If no reference child is indicated through the stage, the linkâs origin will be positioned at the origin of the first child. Consequently, the transform of all the child meshes will be recalculated to be relative to the parent linkâs location.
+* The position of the links is set to align with a “reference child” prim. The reference child prim can be indicated by right clicking on the link in the top window, and selecting **Mark as Reference Child**. If no reference child is indicated through the stage, the link’s origin will be positioned at the origin of the first child. Consequently, the transform of all the child meshes will be recalculated to be relative to the parent link’s location.
 * No actual prims are created or modified while on this page. All changes are implemented when clicking the **Add Colliders** button to move on to the next step.
 
 ### Add Colliders
@@ -7090,7 +7090,7 @@ No USD changes are made while on this page. All changes are implemented when cli
 
 This page finishes the process of creating the robot and creates the final robot files.
 
-You must indicate the link or joint to be the âArticulation Rootâ. Think of this as the start of the joint chain. For fixed based robots, this is usually the fixed joint. For mobile robots, this is usually the chassis.
+You must indicate the link or joint to be the “Articulation Root”. Think of this as the start of the joint chain. For fixed based robots, this is usually the fixed joint. For mobile robots, this is usually the chassis.
 
 You can also choose to add a minimal environment to the main robot USD file. This can be a ground, a default light, and a PhysicsScene. These will be added outside of the Default Prim of the file, so that they will only show up when the original robot file is opened directly on stage, but not when the robot is added as a reference or payload into another scene. They are particularly useful for debugging purposes.
 
@@ -7136,7 +7136,7 @@ Load the prepared file for this tutorial onto stage. Go to `Isaac/Samples/Riggin
 
 For more in-depth explanation about the Wizard, refer to [Robot Wizard [Deprecated]](robot_wizard.html#isaac-sim-app-robot-wizard).
 
-If the Wizard window is not already open, open it from **Window > Robot Wizard**. If you donât observe the wizard under the Window menu, go to the **Window > Extensions** and enable **Isaac Sim Robot Wizard**.
+If the Wizard window is not already open, open it from **Window > Robot Wizard**. If you don’t observe the wizard under the Window menu, go to the **Window > Extensions** and enable **Isaac Sim Robot Wizard**.
 
 ## Instructions
 
@@ -7144,7 +7144,7 @@ If the Wizard window is not already open, open it from **Window > Robot Wizard**
 
 1. Select **Configure a Robot on Stage**.
 2. Select **custom** in the dropdown list for Robot Type.
-3. Give your robot a name. The name will be used as the robotâs parent prim name on stage.
+3. Give your robot a name. The name will be used as the robot’s parent prim name on stage.
 4. If the robot prim is not already populated in the **Select Robot Parent Xform** field, click on the dropper and select **World** from the stage popup.
 5. Click **Prepare Files** to complete this page.
 
@@ -7156,27 +7156,27 @@ If the Wizard window is not already open, open it from **Window > Robot Wizard**
 
 ### Robot Hierarchy
 
-1. Add a new link inside the **New Links Structure** window and name it â<robot\_name>/link3â.
+1. Add a new link inside the **New Links Structure** window and name it “<robot\_name>/link3”.
 2. Put Cube and Cone under `link1`, Cylinder under `link2`, and `Cylinder_01` and `Cube_01` under `link3`.
 3. Click **Add Colliders** to finish this page.
 
 Note
 
-You are no longer looking at the original `raw_blocks.usd` file on stage. Instead, a new stage is opened with a robot thatâs organized in the link structure you organized in the **Robot Hierarchy** page. This might look a little strange in the viewport.
+You are no longer looking at the original `raw_blocks.usd` file on stage. Instead, a new stage is opened with a robot that’s organized in the link structure you organized in the **Robot Hierarchy** page. This might look a little strange in the viewport.
 
-Take a look at the **Stage** window, verify that in addition to the new robot with the new structure, there are also three new âScopesâ added to the stage:
+Take a look at the **Stage** window, verify that in addition to the new robot with the new structure, there are also three new “Scopes” added to the stage:
 
 * **meshes** scope contains the original meshes from the `raw_blocks.usd` file. Each link is a separate mesh, and each mesh has a (0,0,0) origin, that is why there are two copies of each shape, some of them appearing to be clustered in the center of the grid.
-* **visuals** scope contains the visual meshes for each link. They are references pointing towards meshes inside the âmeshesâ scope that are being used for visual purposes.
-* **colliders** scope contains the collision meshes for each link. They are also references, but pointing to the meshes inside the âmeshesâ scope that are used for collision detections. For basic shapes, the visual and collider meshes are often the same. For complex shapes, it is computationally performant to use an approximated version of the visual mesh, such as the bounding volume or convex hull. This allows for faster physics computation while retaining the visual accuracy.
+* **visuals** scope contains the visual meshes for each link. They are references pointing towards meshes inside the “meshes” scope that are being used for visual purposes.
+* **colliders** scope contains the collision meshes for each link. They are also references, but pointing to the meshes inside the “meshes” scope that are used for collision detections. For basic shapes, the visual and collider meshes are often the same. For complex shapes, it is computationally performant to use an approximated version of the visual mesh, such as the bounding volume or convex hull. This allows for faster physics computation while retaining the visual accuracy.
 
 Verify that the main robot prim contains the links as its immediate children, and that each link prims contains the visual and collider meshes as its immediate children. Additional scopes (folders) and a placeholder folder for the joints are created to organize the materials.
 
-To observe what the new robot looks like without the original meshes distraction, hide the âmeshesâ, âvisualsâ, and âcollidersâ scopes.
+To observe what the new robot looks like without the original meshes distraction, hide the “meshes”, “visuals”, and “colliders” scopes.
 
 ### Add Colliders
 
-1. For this particular asset, where the shapes are basic, thereâs nothing to do on this page. If you are configuring a robot with more complex shapes, you can modify the collision approximation on the right hand column for level of accuracy.
+1. For this particular asset, where the shapes are basic, there’s nothing to do on this page. If you are configuring a robot with more complex shapes, you can modify the collision approximation on the right hand column for level of accuracy.
 2. Click **Add Joints & Drives** to move on to the next page.
 
 Note
@@ -7190,7 +7190,7 @@ Everything prior to adding the colliders are considered fundamental to the defin
 
 | Joint Name | Joint Type | Axis | Parent Link | Child Link | Driver Type |
 | --- | --- | --- | --- | --- | --- |
-| fixed\_joint | Fixed | â | â | <robot\_name>/link1 | (not used) |
+| fixed\_joint | Fixed | — | — | <robot\_name>/link1 | (not used) |
 | slider\_joint | Prismatic | X | <robot\_name>/link1 | <robot\_name>/link2 | force |
 | rotate\_joint | Revolute | Z | <robot\_name>/link2 | <robot\_name>/link3 | force |
 
@@ -7214,7 +7214,7 @@ Verify that the Joints folder is populated with the three created joints. You ca
 
 ### Save Robot
 
-1. Select the âfixed\_jointâ as the âArticulation Rootâ.
+1. Select the “fixed\_joint” as the “Articulation Root”.
 2. Select to add a light and physics scene to the main robot file. The ground is optional because the robot has a fixed joint to the world.
 3. Click **Save Robot** to finish the process.
 
@@ -7228,7 +7228,7 @@ Here is summary of all the things that were done by the wizard. There is a final
 
 **Robot Hierarchy**:
 
-There is still a vestigial `/World` prim on stage, for now, you can manually move the content into the robot primâs corresponding folders.
+There is still a vestigial `/World` prim on stage, for now, you can manually move the content into the robot prim’s corresponding folders.
 
 **Files and Folders created**:
 
@@ -7302,11 +7302,11 @@ This page consolidates troubleshooting information for robot setup and simulatio
 
 ## Reparenting Assets
 
-You can change how reparenting behaves under **Edit > Preferences**, and on the **Stage Panel**, scroll down to authoring. The checkbox **Keep Prim world Transform when reparenting**, lets you decide when reparenting if the objects remain in place or if they get moved to the parentâs frame of reference. You can use this to your advantage to apply offsets or change the parentâs origin without impacting the children elements.
+You can change how reparenting behaves under **Edit > Preferences**, and on the **Stage Panel**, scroll down to authoring. The checkbox **Keep Prim world Transform when reparenting**, lets you decide when reparenting if the objects remain in place or if they get moved to the parent’s frame of reference. You can use this to your advantage to apply offsets or change the parent’s origin without impacting the children elements.
 
 ## Robot Rigging Issues
 
-If your robot âexplodesâ during simulation or after some movements, check if any of the collision meshes are colliding with each other.
+If your robot “explodes” during simulation or after some movements, check if any of the collision meshes are colliding with each other.
 
 Common rigging issues and their solutions:
 
@@ -7315,7 +7315,7 @@ Common rigging issues and their solutions:
 3. Incorrect joint ordering - Make sure that joint orderings in articulation chains are correct
 4. Physics instabilities - Adjust physics timestep or solver iteration counts if experiencing vibrations or instabilities
 
-Physics Inspector âfailed to find internal jointâ errors for robots with mimic joints does not affect the functionality of the mimic joints and can be ignored:
+Physics Inspector “failed to find internal joint” errors for robots with mimic joints does not affect the functionality of the mimic joints and can be ignored:
 
 ```python
 [Error] [omni.physx.plugin] Usd Physics: failed to find internal joint object for PhysxMimicJointAPI at /Franka/panda_hand/panda_finger_joint2. Please ensure that the prim is a supported joint type and is part of an articulation.
@@ -7323,7 +7323,7 @@ Physics Inspector âfailed to find internal jointâ errors for robots wi
 
 ## Robot Controller Issues
 
-1. Gains produced by the gain turner may not perfectly track the robotâs commanded movements (for example, as seen in the Cobotta Pro robot). Manual tuning of gains may be necessary for optimal performance.
+1. Gains produced by the gain turner may not perfectly track the robot’s commanded movements (for example, as seen in the Cobotta Pro robot). Manual tuning of gains may be necessary for optimal performance.
 2. Some grippers with parallel mechanism (that is, Robotiq 2F-85 and 2F-C2) have links that do not move with rest of the gripper. This is a known issue and may require manual adjustment of the gripper joints.
 3. When working with differential drive robots, make sure that wheel friction is appropriate. Too little friction can result in wheel slippage, while too much friction can cause erratic movement.
 
@@ -7333,12 +7333,12 @@ USD to URDF Exporter issues:
 
 * The Collider meshes may be improperly included in the visuals. They can be manually removed from the URDF file.
 * The Body and Joints are authored in the URDF file in alphabetical order. They can be manually reordered in the URDF file.
-* Depending on the robot structure, some body names may be overridden due to the merging of different frames. Review the output and verify that itâs accurate.
+* Depending on the robot structure, some body names may be overridden due to the merging of different frames. Review the output and verify that it’s accurate.
 * The URDF exporter adds joint effort and velocity limits as inf when unbounded. This may make the URDF not import correctly if the URDF parser does not support inf values in Float.
 
 When importing a URDF:
 
-1. If more than one asset in URDF contains the same material name, only one material is created regardless if the parameters in the material are different. For example, if two meshes have materials with the name âmaterialâ, one is blue and the other is red, both meshes will be either red or blue. This also applies for textured materials.
+1. If more than one asset in URDF contains the same material name, only one material is created regardless if the parameters in the material are different. For example, if two meshes have materials with the name “material”, one is blue and the other is red, both meshes will be either red or blue. This also applies for textured materials.
 2. MJCF importer does not show the built-in bookmark in the file picker dialog. The bookmark is still available in the content pane and can be copy-pasted into the file picker dialog.
 
 ## Closed Loop Structure Issues
@@ -7354,7 +7354,7 @@ For robots with closed-loop kinematic chains:
 
 1. Sometimes the robot may have non-zero target positions. When the target position does not match the initial position, the robot will move to the target position on the first frame. To prevent this, either set the target position to zero or set the initial position to the target position.
 2. Max forces may be high or low in the URDF, set them to a more reasonable value in the USD.
-3. If the stiffness and damping values are too high, the robot may oscillate. If itâs too low, the robot may not move to the desired position. Use the gain tuner to test the stiffness and damping.
+3. If the stiffness and damping values are too high, the robot may oscillate. If it’s too low, the robot may not move to the desired position. Use the gain tuner to test the stiffness and damping.
 4. If the robot have overlapping collision meshes, use a filtered pair to ignore collisions between specific meshes.
 
 ## Common Issues
@@ -7365,10 +7365,10 @@ For robots with closed-loop kinematic chains:
 | Robot joints are not moving at all | Check the joint limits and ensure they are set correctly. Adjust the limits in the source file or in the USD after importing. Verify that the joint gains are non zero. If you have mimic joints, make sure the gear ratio and direction are set correctly. One suggestion is to disable all the joints first, and then add them back one by one to isolate the issue. |
 | Robot joints are moving in the wrong direction | Check the joint axis and ensure they are set correctly. Adjust the joint axis in the source file or in the USD after importing. For mimic joints, verify that the direction is set correctly. |
 | Robot shakes uncontrollably starting from the first frame | Usually, conflicting collisions can generate adnormal amount of force which cause the robot to behave incorrectly. Check for self overlapping collision geometries. Uncheck self collision enabled in Articulation Root if self collision is not needed. If self collision is required, apply contact filter to specific pairs of colliders that should not collide. |
-| Robot shakes uncontrollably after some movements | This usually happens when the robot gains are too high and generating adnormal amount of torque. Try increasing the physics substeps and solver iteration counts in the Physics Settings window. You can also try reducing the robotâs maximum velocity and force limits to prevent extreme movements. |
+| Robot shakes uncontrollably after some movements | This usually happens when the robot gains are too high and generating adnormal amount of torque. Try increasing the physics substeps and solver iteration counts in the Physics Settings window. You can also try reducing the robot’s maximum velocity and force limits to prevent extreme movements. |
 | Robot experiences physX transform errors | This usually happens when the robot is under extreme forces or torques similar to the previous scenario and it can be induced by conflicting joint transformations. First disable all the joints and see if the issue persists. If the issue is resolved, re-enable the joints one by one to isolate the problematic joints. Check for conflicting joint limits or positions. |
 | The robot is penetrating the ground or other objects on the first frame | Check the initial position of the robot and ensure it is above the ground plane and not intersecting with any meshes. Verify that the collision geometries are correctly defined and not intersecting with other objects at the start of the simulation. |
-| The robot is penetrating the ground or other objects during simulation | Adjust the physics timestep and solver iteration counts to improve stability, modify the contact offset of the colliders to ensure proper collision detection, and verify that the robotâs mass and inertia properties are realistic. |
+| The robot is penetrating the ground or other objects during simulation | Adjust the physics timestep and solver iteration counts to improve stability, modify the contact offset of the colliders to ensure proper collision detection, and verify that the robot’s mass and inertia properties are realistic. |
 | The simulation performacne is slow at run time | Reduce the number of collision meshes and simplify their geometry by using simliar colliders, and adjust the physics timestep and solver settings for better performance. |
 | The robot joints are not following the commanded positions accurately | Tune the joint gains using the [Gain Tuner Extension](ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner), ensure that the maximum velocity and force limits are set appropriately, and verify that there are no conflicting forces acting on the robot. |
 

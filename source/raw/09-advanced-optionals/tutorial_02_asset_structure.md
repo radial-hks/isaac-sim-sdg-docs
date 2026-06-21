@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "Tutorial 02: Asset Structure"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "f4414ad502e34e9d"
-fetched: "2026-06-21T13:05:45"
+checksum: "36a52b782c027f55"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -59,25 +59,25 @@ Below we see how this robot is represented in USD using the Asset Structure 3.0 
 
 ### File Hierarchy and Stacks
 
-* **Inspire Hand File Hierarchy** â The asset is split into multiple USD files (geometry, materials, robot metadata, instances, base scene, physics, and PhysX overrides), each with a clear role.
-* **Inspire Hand Asset Stack** â Layers and references compose the visual and structural representation (meshes, materials, transforms, robot API).
-* **Inspire Hand Physics Stack** â Payloads and variants add physics (rigid bodies, joints, drives) and engine-specific tuning (e.g., PhysX) without modifying the base asset.
+* **Inspire Hand File Hierarchy** — The asset is split into multiple USD files (geometry, materials, robot metadata, instances, base scene, physics, and PhysX overrides), each with a clear role.
+* **Inspire Hand Asset Stack** — Layers and references compose the visual and structural representation (meshes, materials, transforms, robot API).
+* **Inspire Hand Physics Stack** — Payloads and variants add physics (rigid bodies, joints, drives) and engine-specific tuning (e.g., PhysX) without modifying the base asset.
 
 Together, the **combined** stack gives a single `inspire_hand` prim that is simulation-ready and can switch between no physics, generic USD physics, or PhysX via a variant.
 
 ## Module 1.3: Asset Structure Walkthrough
 
-Here we walk through each file in the Inspire Hand and how it contributes to the final asset. Knowing each fileâs **role** and **format** (e.g. binary for geometry, ASCII for readability) will help you know where to author changes in later modules.
+Here we walk through each file in the Inspire Hand and how it contributes to the final asset. Knowing each file’s **role** and **format** (e.g. binary for geometry, ASCII for readability) will help you know where to author changes in later modules.
 
-geometries.usd â Mesh file
-geometries.usd â Mesh file
-âââââââââ
+geometries.usd — Mesh file
+geometries.usd — Mesh file
+————————–
 
 * **Role:** Stores all the **meshes** used by the robot.
 * **Format:** Binary (`.usd` or `.usdc`) for efficiency.
 * Contains only geometry (mesh data); no materials or physics.
 
-### materials.usda â Material file
+### materials.usda — Material file
 
 * **Role:** Stores all **materials** used by the robot (e.g., Plastic\_ABS).
 * **Format:** ASCII (`.usda`) for readability.
@@ -113,7 +113,7 @@ def Shader "Shader" (
 }
 ```
 
-### robot.usda â Robot metadata
+### robot.usda — Robot metadata
 
 * **Role:** Contains **robot metadata** and the Isaac Robot API.
 * Applied as an overlay over the `inspire_hand` prim with `apiSchemas = ["IsaacRobotAPI"]`.
@@ -147,13 +147,13 @@ over "inspire_hand" (
 }
 ```
 
-### instances.usda â Mesh + materials + colliders
+### instances.usda — Mesh + materials + colliders
 
 * **Role:** Builds **visual and collision** meshes by combining `materials.usda` and `geometries.usd`.
 * References geometry from the mesh file and applies materials; adds collision by applying `PhysicsCollisionAPI` and `PhysicsMeshCollisionAPI` (or other collider APIs) on the same or child prims.
 * Example pattern for a link (e.g., `r_base_link_1`): an `Xform` references the geometry prim, and a child over adds `physics:approximation` (e.g., `"convexHull"`) and `purpose = "guide"` for collision.
 
-So this file is where âmesh + materials + collidersâ are assembled per link.
+So this file is where “mesh + materials + colliders” are assembled per link.
 
 ```python
 r_base_link_1 collision definition:
@@ -172,7 +172,7 @@ r_base_link_1 collision definition:
     }
 ```
 
-### base.usda â Animation-ready scene
+### base.usda — Animation-ready scene
 
 * **Role:** **Animation-ready** scene: loads visual/collision meshes as **instanceable** references and applies **transforms** (translate, orient, scale) for each link.
 * References `instances.usda` (e.g., `@instances.usda@</Instances/right_thumb_1>`) and uses `instanceable = true` for efficiency.
@@ -196,7 +196,7 @@ Right thumb transform and mesh definition:
 }
 ```
 
-### physics.usda â USD physics file
+### physics.usda — USD physics file
 
 * **Role:** Stores **USD physics attributes**: rigid bodies, mass, and **joints** (with drive and state APIs).
 * Links prims to: **PhysicsRigidBodyAPI**, **PhysicsMassAPI**, etc., for bodies; **PhysicsRevoluteJoint** (or other joint types) with **PhysicsDriveAPI** and **PhysicsJointStateAPI** for actuated joints.
@@ -228,7 +228,7 @@ def PhysicsRevoluteJoint "right_thumb_1_joint" (
 }
 ```
 
-### physx.usda â PhysX file
+### physx.usda — PhysX file
 
 * **Role:** Stores **PhysX-specific** attributes so the same asset can be tuned for PhysX without changing the generic physics file.
 * Adds APIs such as **PhysxJointAPI** and **PhysxMimicJointAPI** on top of the joints defined in `physics.usda`.
@@ -260,7 +260,7 @@ over "right_thumb_4_joint" (
 }
 ```
 
-### inspire\_hand.usda â The interface
+### inspire\_hand.usda — The interface
 
 * **Role:** **The interface** that ties everything together: references the base scene and selects physics via **variants**.
 * Root prim references the base (e.g., `prepend references = @payloads/base.usda@`) and declares `variantSet "Physics"` with options such as: `"none"` (no physics payload), `"physics"` (payload `payloads/Physics/physics.usda`), `"physx"` (payload `payloads/Physics/physx.usda`).
@@ -297,7 +297,7 @@ This tutorial covered:
 
 * **USD Asset Structure 3.0**: geometry, materials, metadata, instances, base scene, and physics live in dedicated files so you can find and edit the right layer without clashing with others.
 * How **layers, payloads, and variants** compose the Inspire Hand and let you switch between no physics, generic physics, or PhysX from a single asset.
-* The role of each fileâfrom **geometries.usd** and **materials.usda** through **physics.usda** and **physx.usda**âso you know where to author collision filters and joint parameters in later tutorials.
+* The role of each file—from **geometries.usd** and **materials.usda** through **physics.usda** and **physx.usda**—so you know where to author collision filters and joint parameters in later tutorials.
 
 ## Next Steps
 
@@ -311,12 +311,12 @@ On this page
 * [Module 1.2: Inspire Hand Overview](#module-1-2-inspire-hand-overview)
   + [File Hierarchy and Stacks](#file-hierarchy-and-stacks)
 * [Module 1.3: Asset Structure Walkthrough](#module-1-3-asset-structure-walkthrough)
-  + [materials.usda â Material file](#materials-usda-material-file)
-  + [robot.usda â Robot metadata](#robot-usda-robot-metadata)
-  + [instances.usda â Mesh + materials + colliders](#instances-usda-mesh-materials-colliders)
-  + [base.usda â Animation-ready scene](#base-usda-animation-ready-scene)
-  + [physics.usda â USD physics file](#physics-usda-usd-physics-file)
-  + [physx.usda â PhysX file](#physx-usda-physx-file)
-  + [inspire\_hand.usda â The interface](#inspire-hand-usda-the-interface)
+  + [materials.usda — Material file](#materials-usda-material-file)
+  + [robot.usda — Robot metadata](#robot-usda-robot-metadata)
+  + [instances.usda — Mesh + materials + colliders](#instances-usda-mesh-materials-colliders)
+  + [base.usda — Animation-ready scene](#base-usda-animation-ready-scene)
+  + [physics.usda — USD physics file](#physics-usda-usd-physics-file)
+  + [physx.usda — PhysX file](#physx-usda-physx-file)
+  + [inspire\_hand.usda — The interface](#inspire-hand-usda-the-interface)
 * [Summary](#summary)
 * [Next Steps](#next-steps)

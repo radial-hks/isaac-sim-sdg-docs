@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/isaac_s
 title: "Isaac Sim MCP Server"
 section: "开发工具"
 module: "02-fundamentals-dev"
-checksum: "c30e22c99832c250"
-fetched: "2026-06-21T12:48:06"
+checksum: "d9ea480932564dd8"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Development Tools](index.html)
@@ -14,8 +14,8 @@ fetched: "2026-06-21T12:48:06"
 
 # Isaac Sim MCP Server
 
-The Isaac Sim MCP Server is a Model Context Protocol (MCP) server that gives AI coding assistants deep knowledge of NVIDIA Isaac Sim â extensions, code examples, settings, and developer instructions â via semantic search.
+The Isaac Sim MCP Server is a Model Context Protocol (MCP) server that gives AI coding assistants deep knowledge of NVIDIA Isaac Sim — extensions, code examples, settings, and developer instructions — via semantic search.
 
 For installation, MCP client setup, deployment options, and troubleshooting, see the [Isaac Sim MCP Server README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/README.md).
 
-For developer documentation â key concepts, integration examples, performance notes, and pointers to the architecture and prompt-design references â see the [Isaac Sim MCP Server docs README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/docs/README.md).
+For developer documentation — key concepts, integration examples, performance notes, and pointers to the architecture and prompt-design references — see the [Isaac Sim MCP Server docs README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/docs/README.md).

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Geometry"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "c2d9b71e1d35ee84"
-fetched: "2026-06-21T11:55:28"
+checksum: "eab8a70c23db37f4"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T11:55:28"
 
 # Geometry
 
-If a mutable has attribute `type` of `geometry`, itâs a geometry. A geometry is a substance in space.
+If a mutable has attribute `type` of `geometry`, it’s a geometry. A geometry is a substance in space.
 
 Available attributes of `geometry`:
 
@@ -26,7 +26,7 @@ Available attributes of `geometry`:
 | physics | string | `collision` or `rigidbody` |
 | is\_instance | bool | whether the geometry is instanced - default to true; required to be false for shader attribute randomization |
 
-If `physics` is set to `rigidbody`, the object is a dynamic object that responds to physics. If itâs set to `collision`, the object is a static object that dynamic objects interact with. For example, a wall can have `collision` and a ping-pong ball bouncing off of it has `rigidbody`.
+If `physics` is set to `rigidbody`, the object is a dynamic object that responds to physics. If it’s set to `collision`, the object is a static object that dynamic objects interact with. For example, a wall can have `collision` and a ping-pong ball bouncing off of it has `rigidbody`.
 
 **Physics Properties Randomization**
 
@@ -163,7 +163,7 @@ This image illustrates how the shape of the bottle is controlled by these four e
 
 Note
 
-We currently donât yet have collision detection for deformed shapes; they donât have physics.
+We currently don’t yet have collision detection for deformed shapes; they don’t have physics.
 
 **Room geometry**
 

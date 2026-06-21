@@ -4,7 +4,7 @@ title: "Robots"
 section: "资产库"
 module: "06-simready-assets"
 checksum: "a6623e77bff339b4"
-fetched: "2026-06-21T11:55:35"
+fetched: "2026-06-21T13:40:29"
 ---
 
 * [Isaac Sim Assets](usd_assets_overview.html)

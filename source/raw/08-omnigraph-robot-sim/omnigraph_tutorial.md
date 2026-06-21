@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_tutor
 title: "OmniGraph Tutorial"
 section: "OmniGraph"
 module: "08-omnigraph-robot-sim"
-checksum: "131e6b392df29746"
-fetched: "2026-06-21T13:05:38"
+checksum: "128718fcb23c9714"
+fetched: "2026-06-21T13:40:09"
 ---
 
 * [OmniGraph](index.html)
@@ -26,7 +26,7 @@ This tutorial aims to
 
 ## Build the Graph
 
-Letâs build an action graph to control a robot in Isaac Sim the Jetbot.
+Let’s build an action graph to control a robot in Isaac Sim the Jetbot.
 
 ### Setting Up the Stage
 
@@ -43,7 +43,7 @@ Note
 Click play! Validate that the JetBot falls and lands on the stage. Click stop before continuing.
 
 Depending on your default render settings, the camera of the JetBot may have a placeholder mesh (it looks like a gray television camera).
-To hide these meshes, click on the  icon in the viewport and select **Show By Type â> Cameras**.
+To hide these meshes, click on the  icon in the viewport and select **Show By Type –> Cameras**.
 
 ### Building the Graph
 
@@ -56,7 +56,7 @@ To hide these meshes, click on the  icon in the viewport and select **Show By Ty
 The `Articulation Controller` applies driver commands (in the form of force, position, or velocity) to the specified joints
 of any prim with an articulation root.
 
-To tell the controller which robot itâs going to control:
+To tell the controller which robot it’s going to control:
 
 1. Select the `Articulation Controller` node in the graph and open up the property pane.
 2. You can either:
@@ -79,7 +79,7 @@ Stage Tree
 
 1. Type `token` into the search bar of the graph editor.
 2. Add two `Constant Token` nodes to the graph.
-3. Select one and set itâs value to `left_wheel_joint` in the properties pane.
+3. Select one and set it’s value to `left_wheel_joint` in the properties pane.
 4. Repeat this for the other constant token node, but set the value to `right_wheel_joint`.
 5. Type `make array` into the search bar of the graph editor.
 6. Add a `Make Array` node to the graph.
@@ -99,7 +99,7 @@ Simple differential control for the JetBot
 
 1. Press the play button.
 2. Select the `Differential Controller` node in the graph.
-3. Click and drag on either the angular or linear velocity values in the properties pane to change itâs value (or just click and type in the desired value).
+3. Click and drag on either the angular or linear velocity values in the properties pane to change it’s value (or just click and type in the desired value).
 
 Note
 
@@ -117,7 +117,7 @@ To use the Differential Controller graph from the menu shortcut:
 1. Delete (or Disable if that is an option) any previous OmniGraphs that controls the Jetbot.
 2. Go to the Menu bar and click on **Tools -> Robotics -> OmniGraph Controllers -> Differential Controller**.
 3. You are prompted for the necessary parameters.
-4. Add â/World/jetbotâ to `Articulation Root`, set the **distance between wheels** to 0.1125, and the **wheel radius** to 0.03.
+4. Add “/World/jetbot” to `Articulation Root`, set the **distance between wheels** to 0.1125, and the **wheel radius** to 0.03.
 5. Given JetBot only has two controllable joints, you can leave the rest of the fields empty.
 6. Turn **Use Keyboard Control (WASD)** on.
 7. Click **OK** to generate the graph. You can open the generated graph under `/Graph/differential_controller`.

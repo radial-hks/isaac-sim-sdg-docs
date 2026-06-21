@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/assemble_robo
 title: "Assemble Robots"
 section: "Setup 概览"
 module: "07-robot-setup"
-checksum: "fdc9ce8b2df653bc"
-fetched: "2026-06-21T13:05:33"
+checksum: "3ea72b16d9d3cf4d"
+fetched: "2026-06-21T13:40:05"
 ---
 
 * [Robot Setup](index.html)
@@ -31,7 +31,7 @@ To find this tutorial of use, you must have two USD assets to assemble into one.
 * A robot arm that needs to be attached to a gripper.
 * A robot that needs to be fixed to a moving base.
 
-The use of the word ârobotâ here indicates a USD asset that Contains the [Robot Schema](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema) Applied.
+The use of the word ‘robot’ here indicates a USD asset that Contains the [Robot Schema](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema) Applied.
 
 ## Understanding the Mechanics of Assembled Bodies
 
@@ -60,11 +60,11 @@ To use the Robot Assembler, start by loading the assets you want to assemble on 
 
 With the **Robot Assembler** window open and both Robots available in the current stage, you can select a **Base Robot** and an **Attach Robot**.
 
-Each robot has an âAttach Pointâ frame that can be used to specify the point on the robot that will be attached to the other robot. This attach point should be a [Robot Link](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-link-api) or a [Site](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-site-api).
+Each robot has an “Attach Point” frame that can be used to specify the point on the robot that will be attached to the other robot. This attach point should be a [Robot Link](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-link-api) or a [Site](../omniverse_usd/robot_schema.html#isaac-sim-robot-schema-site-api).
 
-The Assembler also expects an assembly namespace, which defaults to âGripperâ, but can be changed to any string. This namespace is used to identify the attachment point on the base robot when making the assembly directly on the base robot asset.
+The Assembler also expects an assembly namespace, which defaults to “Gripper”, but can be changed to any string. This namespace is used to identify the attachment point on the base robot when making the assembly directly on the base robot asset.
 
-After selections are made, click on the **Begin Assembly** button to begin the assembly process. This will move the âAttach Robotâ to the âAttach Pointâ of the âBase Robotâ, and let you make any final adjustments to the transform. For convenience, a set of Buttons will be shown to allow you to rotate the âAttach Robotâ around the X, Y, and Z axes, by increments of 90 degrees. You can also move it through the viewport gizmos however you choose. If you de-select the âattach robotâ, the **Select Attach Point Prim** button will re-select it so you can manually move it to the desired position.
+After selections are made, click on the **Begin Assembly** button to begin the assembly process. This will move the “Attach Robot” to the “Attach Point” of the “Base Robot”, and let you make any final adjustments to the transform. For convenience, a set of Buttons will be shown to allow you to rotate the “Attach Robot” around the X, Y, and Z axes, by increments of 90 degrees. You can also move it through the viewport gizmos however you choose. If you de-select the “attach robot”, the **Select Attach Point Prim** button will re-select it so you can manually move it to the desired position.
 
 After you are happy with the transform, you can click on the **Assemble and Simulate** button to verify the assembly and check if the resulting robot is stable.
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/util_sni
 title: "Util Snippets"
 section: "Python 脚本"
 module: "02-fundamentals-dev"
-checksum: "435e6e27f6f725b0"
-fetched: "2026-06-21T12:48:08"
+checksum: "57d0460eb548d99f"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Python Scripting and Tutorials](index.html)
@@ -134,7 +134,7 @@ The `UsdGeom.Points` API is the most efficient method to render large amounts of
 ### UsdGeom.PointInstancer
 
 Use the `UsdGeom.PointInstancer` API when the geometry needs to interact with the physics scene.
-The `UsdGeom.PointInstancer` API lets you efficiently replicate an instance of a prim â with all of its USD properties â
+The `UsdGeom.PointInstancer` API lets you efficiently replicate an instance of a prim — with all of its USD properties —
 and update all instances with a list of positions, colors, and sizes.
 
 See the [PointInstancer Reference](https://openusd.org/release/api/class_usd_geom_point_instancer.html) for more information regarding the PointInstancer API.

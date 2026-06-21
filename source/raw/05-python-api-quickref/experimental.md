@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/py/docs/overview/experime
 title: "Experimental API Overview"
 section: "总览"
 module: "05-python-api-quickref"
-checksum: "b62fa9dd9b6812bd"
-fetched: "2026-06-21T12:48:14"
+checksum: "3f0fd16303e40998"
+fetched: "2026-06-21T13:39:59"
 ---
 
 * Core Experimental API
@@ -29,7 +29,7 @@ Although we will try to maintain backward compatibility in the event of a change
 ## Overview
 
 The Core Experimental API (exposed by the `isaacsim.core.experimental.*` extensions)
-is a rewritten implementation of the current Isaac Simâs Core API.
+is a rewritten implementation of the current Isaac Sim’s Core API.
 It is designed to be more robust, flexible, and powerful, yet still maintain the core utilities and wrapper concepts.
 
 ### Main features (compared to the current Core API)
@@ -37,7 +37,7 @@ It is designed to be more robust, flexible, and powerful, yet still maintain the
 * **Warp-based implementation** for numeric data containers (such as arrays and tensors).
 
   While the current Core API operates with (user-selectable) numeric data containers
-  â NumPy arrays (CPU) or Torch tensors (CPU/GPU) â,
+  – NumPy arrays (CPU) or Torch tensors (CPU/GPU) –,
   the Core Experimental API operates with [Warp](https://nvidia.github.io/warp/) arrays (CPU/GPU).
 
   Functions, properties and methods that operate on numeric data containers:
@@ -62,7 +62,7 @@ It is designed to be more robust, flexible, and powerful, yet still maintain the
 
   *View* refers to the capability of a wrapper to wrap and operate on multiple USD prims.
 
-  In contrast to the current Core API (where only some of the `isaacsim.core.prims` extensionâs wrapper
+  In contrast to the current Core API (where only some of the `isaacsim.core.prims` extension’s wrapper
   classes allow wrapping multiple USD prims: *Articulation*, *RigidPrim*, *XFormPrim*, etc.),
   all Core Experimental API wrappers support wrapping one or more USD prims in the stage
   (not only for *Articulation*, *RigidPrim*, *XformPrim*, etc., but for shapes, meshes, lights, visual/physics materials).
@@ -89,7 +89,7 @@ It is designed to be more robust, flexible, and powerful, yet still maintain the
     >>> rb.set_masses(wp.array([[5], [5]]))  # <-- this is fine (int64, implicit)
     >>> rb.set_masses(5)                     # <-- this is fine (int, implicit)
     ```
-  + Broadcasting (following [NumPyâs broadcasting rules](https://numpy.org/doc/stable/user/basics.broadcasting.html))
+  + Broadcasting (following [NumPy’s broadcasting rules](https://numpy.org/doc/stable/user/basics.broadcasting.html))
 
     ```python
     >>> rb.set_masses(wp.array([[5.0], [5.0]]))  # expected shape
@@ -103,7 +103,7 @@ It is designed to be more robust, flexible, and powerful, yet still maintain the
 
 ### Motivation behind its design and implementation
 
-* Reduce Isaac Simâs third-party dependencies and package size.
+* Reduce Isaac Sim’s third-party dependencies and package size.
 
   As the Core Experimental API becomes the main Core API in future releases, PyTorch will no longer be a dependency.
   This will reduce the size of the Isaac Sim distributions (~ 4 GB).
@@ -114,7 +114,7 @@ It is designed to be more robust, flexible, and powerful, yet still maintain the
   [interoperate](https://nvidia.github.io/warp/modules/interoperability.html)
   with other frameworks through standard interface protocols for exchanging data in a zero-copy manner.
 
-  See the Isaac Simâs standalone example (`standalone_examples/api/isaacsim.core.experimental`)
+  See the Isaac Sim’s standalone example (`standalone_examples/api/isaacsim.core.experimental`)
   for a demonstration of how the Core Experimental API integrates with PyTorch, JAX, NumPy, and Warp itself.
 
   Caution
@@ -128,7 +128,7 @@ It is designed to be more robust, flexible, and powerful, yet still maintain the
 ## Backends
 
 The Experimental Core API is implemented using one or more of the backends listed in the following table.
-The docstring of the APIâs functions, properties and methods indicates which backends are supported (in order of call).
+The docstring of the API’s functions, properties and methods indicates which backends are supported (in order of call).
 
 | Backend | Description | Performance | Availability |
 | --- | --- | --- | --- |

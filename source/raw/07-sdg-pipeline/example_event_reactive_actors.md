@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Event Reactive Actors"
 section: "Pipeline"
 module: "07-sdg-pipeline"
-checksum: "553121a879eadc43"
-fetched: "2026-06-21T11:55:37"
+checksum: "c1a553f8bde75df7"
+fetched: "2026-06-21T13:40:32"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -29,7 +29,7 @@ At runtime, Event Generation fires a fire event in the warehouse, which dispatch
 
 ## How the Two Extensions Connect
 
-The two extensions have no direct API coupling. They connect through the **carb event bus** that every extension in a Kit app instance shares. Event Generation dispatches a named carb event when an incident fires, and Actor SDGâs `event_trigger` listens for that same name. A matching string is the only contract between them.
+The two extensions have no direct API coupling. They connect through the **carb event bus** that every extension in a Kit app instance shares. Event Generation dispatches a named carb event when an incident fires, and Actor SDG’s `event_trigger` listens for that same name. A matching string is the only contract between them.
 
 The dispatched event name is always:
 
@@ -37,7 +37,7 @@ The dispatched event name is always:
 isaacsim.replicator.incident.core.events/<event_name>
 ```
 
-Replace `<event_name>` with whatever you put under `FireEvent.name` (or `SpillEvent.name`) in the Event Generation YAML. The extension interpolates the event name into the dispatched string exactly as written. Use underscores instead of spaces; a space in `name` causes the actorâs `event_trigger` lookup to silently fail.
+Replace `<event_name>` with whatever you put under `FireEvent.name` (or `SpillEvent.name`) in the Event Generation YAML. The extension interpolates the event name into the dispatched string exactly as written. Use underscores instead of spaces; a space in `name` causes the actor’s `event_trigger` lookup to silently fail.
 
 Only `FireEvent` and `SpillEvent` dispatch carb events. `ToppleEvent` currently signals only within Event Generation and cannot drive an actor trigger. For the complete list of trigger types incidents support (including chaining one incident from another), refer to [Triggers](tutorial_replicator_incident.html#iri-trigger-section).
 
@@ -67,7 +67,7 @@ The `time: 4` is seconds counted from when the timeline starts playing. The exte
 
 ## Step 2 - Author the Actor SDG YAML
 
-Save as `agent_config.yaml`. The triggerâs `event:` string must match what Step 1 dispatches exactly.
+Save as `agent_config.yaml`. The trigger’s `event:` string must match what Step 1 dispatches exactly.
 
 ```python
 isaacsim.replicator.agent:
@@ -128,7 +128,7 @@ A few notes on this config:
 
 * The `sensor` block creates a single placeholder camera. The trigger does not require it, but the Configuration Editor populates it by default; leaving it in place keeps the YAML round-trippable through the editor UI.
 * `weight`, `repeat`, and `navigation_areas: []` are shown explicitly even though each is a default. This example surfaces them so that you can see what the Configuration Editor writes out and modify the values in place.
-* The triggerâs `behavior` list runs **in order**: a brief 1-2 second stop, then a patrol to `(0, 0, 0)`, then a 10-15 second stop. After the list completes, the actor resumes its routine.
+* The trigger’s `behavior` list runs **in order**: a brief 1-2 second stop, then a patrol to `(0, 0, 0)`, then a 10-15 second stop. After the list completes, the actor resumes its routine.
 
 Important
 
@@ -144,8 +144,8 @@ From the Isaac Sim install directory:
 
 This opens `isaacsim.exp.action_and_event_data_generation.full.kit`, which enables both Actor SDG and Event Generation UIs. Two menu entries appear under **Tools > Action and Event Data Generation**:
 
-* **Actor SDG** â Actor SDGâs config window.
-* **Event Config File** â Event Generationâs config window.
+* **Actor SDG** – Actor SDG’s config window.
+* **Event Config File** – Event Generation’s config window.
 
 Open both from the **Tools** menu and they dock side by side.
 
@@ -165,7 +165,7 @@ In the **Actor SDG** window:
 
 Internally this opens the warehouse stage, instantiates two `warehouse_workers` characters with their wander routine, and attaches a carb-event listener to each character already subscribed to `isaacsim.replicator.incident.core.events/warehouse_fire`. The subscription is live before you touch anything else.
 
-Do **not** start the timeline yet. Avoid both **Start Data Generation** and the **Play** button, because Event Generationâs time countdown begins as soon as the timeline plays. Complete Step 5 first.
+Do **not** start the timeline yet. Avoid both **Start Data Generation** and the **Play** button, because Event Generation’s time countdown begins as soon as the timeline plays. Complete Step 5 first.
 
 ## Step 5 - Set Up Event Generation
 
@@ -180,14 +180,14 @@ If you adapt this example to use `SpillEvent` or `ToppleEvent`, choose **Leakabl
 
 Internally, Event Generation reads the YAML, waits for navmesh baking, picks the tagged prim as the flammable target, and arms a time trigger that will fire at `t = 4 s` after the timeline plays. Nothing has fired yet.
 
-The Global sectionâs Seed field should populate to `42`, and the event list should show `warehouse_fire`.
+The Global section’s Seed field should populate to `42`, and the event list should show `warehouse_fire`.
 
 ## Step 6 - Play and Watch
 
 You have two ways to start the simulation:
 
-* **Play** button â in the Toolbar on the left side of the viewport. It plays the timeline only and writes no data. Useful for previewing the event and behavior sequence.
-* **Start Data Generation** (**Actor SDG** window) â plays the timeline *and* runs the Replicator writers configured in the `replicator` section to capture synthetic data. `simulation_duration: 25.0` stops playback automatically when the run completes; `IRABasicWriter` output appears under `~/out_event_reactive_actors/` in your home directory.
+* **Play** button – in the Toolbar on the left side of the viewport. It plays the timeline only and writes no data. Useful for previewing the event and behavior sequence.
+* **Start Data Generation** (**Actor SDG** window) – plays the timeline *and* runs the Replicator writers configured in the `replicator` section to capture synthetic data. `simulation_duration: 25.0` stops playback automatically when the run completes; `IRABasicWriter` output appears under `~/out_event_reactive_actors/` in your home directory.
 
 Either way, verify that you receive:
 

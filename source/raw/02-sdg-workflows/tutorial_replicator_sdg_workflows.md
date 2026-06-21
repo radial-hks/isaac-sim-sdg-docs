@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "SDG Workflows"
 section: "SDG"
 module: "02-sdg-workflows"
-checksum: "5a20d84ca3f9218b"
-fetched: "2026-06-21T11:55:23"
+checksum: "71f4a46deb82fa34"
+fetched: "2026-06-21T13:40:20"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -49,7 +49,7 @@ writer.initialize(
 writer.attach(rp)
 ```
 
-`attach` connects the writer to one or more render products. After this call, every orchestrator step routes that render productâs annotator data through the writer. Each annotator you enable (`rgb`, `semantic_segmentation`, and so on) adds GPU and I/O cost, so enable only what your dataset needs.
+`attach` connects the writer to one or more render products. After this call, every orchestrator step routes that render product’s annotator data through the writer. Each annotator you enable (`rgb`, `semantic_segmentation`, and so on) adds GPU and I/O cost, so enable only what your dataset needs.
 
 Replicator ships other built-in writers, for example `PoseWriter` (6-DoF object pose data) and `CosmosWriter` (multi-modal training data for [NVIDIA Cosmos](https://www.nvidia.com/en-us/ai/cosmos/)). To emit any other format, register a [custom writer](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/custom_writer.html "(in Omniverse Extensions)"). See [writer examples](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)") for the full list and [annotators](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") for the data sources writers can consume.
 
@@ -73,7 +73,7 @@ rep.orchestrator.step(rt_subframes=-1, pause_timeline=True, delta_time=None, wai
 
 * `rt_subframes` - number of subframes rendered before the frame is captured, covered in [RT Subframes](#isaac-sim-app-tutorial-replicator-sdg-workflows-rt-subframes) below.
 * `pause_timeline` - pause the timeline after the step. Defaults to `True`
-* `delta_time` - how far the timeline advances during the step. `None` (default) advances by the timelineâs rate, `0.0` does not advance the timeline, and a positive value advances by that amount.
+* `delta_time` - how far the timeline advances during the step. `None` (default) advances by the timeline’s rate, `0.0` does not advance the timeline, and a positive value advances by that amount.
 * `wait_for_render` - block until the frame finishes rendering. Defaults to `True`. Set it to `False` to let the next randomization start while the previous frame is still rendering, when exact frame-to-state correspondence is not required.
 
 ## RT Subframes
@@ -725,7 +725,7 @@ Output directory `_out_workflow_01`: per captured frame, an `rgb_*.png`, a color
 
 This workflow rebuilds its SDG content on a configurable cadence (`CAPTURES_PER_SCENE`). Each rebuild picks an environment, scatters pallets on the floor, builds vertical box stacks on each pallet, and orbits one camera around each pallet. It places assets with sample-time collision checks rather than rigid-body simulation, so there is no physics settling step.
 
-The persistent objects (a dome light, one camera, one render product, and one `BasicWriter`) are created once. The per-rebuild content lives under a unique scope `/World/SDG/Scene_<n>`. The script removes the previous scope before authoring the next one. If the old scope remains on the stage, Replicatorâs scatter-mesh cache reuses stale planes and asset placement fails.
+The persistent objects (a dome light, one camera, one render product, and one `BasicWriter`) are created once. The per-rebuild content lives under a unique scope `/World/SDG/Scene_<n>`. The script removes the previous scope before authoring the next one. If the old scope remains on the stage, Replicator’s scatter-mesh cache reuses stale planes and asset placement fails.
 
 Each scene rebuild does the following:
 
@@ -1402,7 +1402,7 @@ See [Replicator Troubleshooting](troubleshooting.html#isaac-sim-replicator-troub
 
 * **Ghosting or artifacts in early captures.** Increase `rt_subframes` (see [above](#isaac-sim-app-tutorial-replicator-sdg-workflows-rt-subframes)).
 * **Frames missing from the writer.** `wait_until_complete` was not called before exit.
-* **Scattered assets overlap or land in the wrong place after a rebuild (Workflow 2).** The previous scene scope was not removed before authoring the new one, so Replicatorâs scatter-mesh cache reused stale planes.
+* **Scattered assets overlap or land in the wrong place after a rebuild (Workflow 2).** The previous scene scope was not removed before authoring the new one, so Replicator’s scatter-mesh cache reused stale planes.
 * **Slow runs even though few frames are written.** The render product was left enabled during physics, scene construction, or randomization. Disable it and re-enable only around the orchestrator step.
 
 ## See Also

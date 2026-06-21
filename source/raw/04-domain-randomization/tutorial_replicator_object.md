@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Replicator Object Tutorial"
 section: "教程"
 module: "04-domain-randomization"
-checksum: "e47874748081723e"
-fetched: "2026-06-21T11:55:30"
+checksum: "c4488991568aeb17"
+fetched: "2026-06-21T13:40:26"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -41,7 +41,7 @@ To compose a randomized scene, IRO requires imported 3D models to be in USD form
 
 **Compose a Description File**
 
-The specifications of a description file is described in this multi-page documentation. Itâs recommended that you start with the video guides in [best practices](#best-practices).
+The specifications of a description file is described in this multi-page documentation. It’s recommended that you start with the video guides in [best practices](#best-practices).
 
 **Generate Synthetic Data**
 
@@ -59,7 +59,7 @@ An example notebook showing steps to train an object detection model on the synt
    If not, disable and enable the extension again. The Object SDG panel is turned on by default, and you can turn it off or on again by **Tools** > **Action and Event Data Generation** > **Object SDG**.
 3. Click on the folder icon or the Visual Studio Code icon on the right side of the opened extension panel as shown above. The root folder of the extension opens.
 4. Under `PATH_TO_CORE_EXTENSION/isaacsim/replicator/object/core/configs` there are many description files in YAML format.
-   Itâs recommended that you start with `demo_kaleidoscope.yaml`. For [empty space detection](ext_replicator-object/empty_space_detection.html#empty-space-detection), use `demo_empty_space.yaml` and refer to the linked catalog page.
+   It’s recommended that you start with `demo_kaleidoscope.yaml`. For [empty space detection](ext_replicator-object/empty_space_detection.html#empty-space-detection), use `demo_empty_space.yaml` and refer to the linked catalog page.
 5. Go to `global.yaml` and update `output_path` to any local folder where you can store the simulation output.
 
 Note
@@ -76,7 +76,7 @@ For example:
 * In `demo_bottle.yaml`, replace `PATH_TO_LABEL_IMAGES` with a folder that contains JPEG images.
 * For `tutorial_harmonizer_permutate.yaml`, `demo_macro.yaml`, `tutorial_macro.yaml`, `tutorial_scene_graph.yaml` and `tutorial_scene_graph_randomized.yaml` to run:
 
-  > + replace `PATH_TO_ORO` in `global.yaml` with the absolute path of `data/oro_tutorial_models/oro.usd` in the extensionâs root folder.
+  > + replace `PATH_TO_ORO` in `global.yaml` with the absolute path of `data/oro_tutorial_models/oro.usd` in the extension’s root folder.
 * In `doc_observatory.yaml`:
 
   > + replace `PATH_TO_OBSERVATORY_SCOPE` with the absolute path of `data/oro_tutorial_models/observatory_scope.usd`
@@ -134,7 +134,7 @@ To use the embedded interface, select a description file, and then click on the 
 
 Note
 
-After clicking on the **Initialize Scene Randomization** button and before clicking on the **Randomize Scene** button, it is normal that the viewport is black. To see anything of interest at this stage, press âFâ to focus on the selected prim.
+After clicking on the **Initialize Scene Randomization** button and before clicking on the **Randomize Scene** button, it is normal that the viewport is black. To see anything of interest at this stage, press “F” to focus on the selected prim.
 
 To preview physically, click on the triangular **Play** button on the left column of widgets.
 

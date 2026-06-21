@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators
 title: "Lula RRT Tutorial"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "4fddf38989a22f5b"
-fetched: "2026-06-21T13:05:42"
+checksum: "b3095ee01ba78924"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)
@@ -277,7 +277,7 @@ robot.
 
 ### Following a Plan with Exactness
 
-The `PathPlannerVisualizer` class is called a âVisualizerâ because it is only meant to give a visualization of an output plan, but it is not likely to be useful
+The `PathPlannerVisualizer` class is called a “Visualizer” because it is only meant to give a visualization of an output plan, but it is not likely to be useful
 beyond this. By densely linearly interpolating an `RRT` plan, the resulting trajectory is far from time-optimal or smooth. To follow a plan in a
 more theoretically sound way, the output of `RRT` can be combined with the `LulaTrajectoryGenerator`. This is demonstrated in the NVIDIA Isaac Sim Path Planning Example
 in the **Robotics Examples** tab. You can activate **Robotics Examples** tab from **Windows** > **Examples** > **Robotics Examples**.

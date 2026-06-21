@@ -4,7 +4,7 @@ title: "BT Context Files & Schemas"
 section: "BehaviorTree"
 module: "03-replicator-agent"
 checksum: "6c9ab7a628c64bfb"
-fetched: "2026-06-21T11:55:27"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)

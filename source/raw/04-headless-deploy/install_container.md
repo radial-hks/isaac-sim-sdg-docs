@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/installation/install_cont
 title: "Container Install"
 section: "容器化"
 module: "04-headless-deploy"
-checksum: "f3d1474e619ddf92"
-fetched: "2026-06-21T12:48:13"
+checksum: "66efabe1ecaf6ccd"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)
@@ -70,7 +70,7 @@ docker run --rm --runtime=nvidia --gpus all nvcr.io/nvidia/cuda:12.8.0-base-ubun
 Note
 
 * Install the latest version of [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit) to get security fixes.
-* The validation step uses the NGC-hosted CUDA base image (`nvcr.io/nvidia/cuda`), which is public and avoids Docker Hubâs anonymous pull rate limits (HTTP `429 Too Many Requests`). The image is multi-arch, so the same tag runs on Linux x86\_64 and aarch64.
+* The validation step uses the NGC-hosted CUDA base image (`nvcr.io/nvidia/cuda`), which is public and avoids Docker Hub’s anonymous pull rate limits (HTTP `429 Too Many Requests`). The image is multi-arch, so the same tag runs on Linux x86\_64 and aarch64.
 * If a step that pulls from Docker Hub (for example `docker run hello-world`) fails with `429 Too Many Requests`, run `docker login` first or retry later, since Docker Hub enforces rate limits on anonymous pulls.
 
 ## Container Deployment
@@ -126,7 +126,7 @@ Important
 `--network=host` is required for WebRTC livestreaming. The NVIDIA streaming SDK binds its UDP media
 socket to the `ISAACSIM_HOST` address, which must be a real network interface inside the container.
 Docker bridge networking (`-p` port publishing) does not work because the host IP is not available
-inside the containerâs network namespace â signaling may connect, but the video stream will not.
+inside the container’s network namespace — signaling may connect, but the video stream will not.
 
 Note
 
@@ -174,7 +174,7 @@ docker run --entrypoint bash -it --gpus all --rm --network=host \
     nvcr.io/nvidia/isaac-sim:6.0.0 ./isaac-sim.compatibility_check.sh --/app/quitAfter=10 --no-window
 ```
 
-* You should see the text âSystem checking result: PASSEDâ if your system is compaitble.
+* You should see the text “System checking result: PASSED” if your system is compaitble.
 
 7. Start Isaac Sim with native livestream mode:
 
@@ -258,7 +258,7 @@ Hub should also run as a container on the same host so that all Kit-based client
 
 Note
 
-Hub Workstation Cache is designed for **local workstation use only** â for example, bare-metal runs or containers
+Hub Workstation Cache is designed for **local workstation use only** — for example, bare-metal runs or containers
 on a local workstation. It is not intended for multi-user servers or cloud deployments. For distributed or cloud
 caching, see [Derived Data Cache Service (DDCS)](https://docs.nvidia.com/cloud-functions/current/latest/ddcs.html).
 

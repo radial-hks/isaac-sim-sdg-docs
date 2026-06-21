@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/environm
 title: "Environment Setup"
 section: "Python 脚本"
 module: "02-fundamentals-dev"
-checksum: "4470b08884764a37"
-fetched: "2026-06-21T12:48:07"
+checksum: "56a11eea1f742059"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Python Scripting and Tutorials](index.html)
@@ -457,8 +457,8 @@ geom_prim.set_collision_approximations(["convexDecomposition"])
 RigidPrim(cube.paths)
 ```
 
-To verify that collision meshes have been successfully enabled, click the âeyeâ icon > âShow By Typeâ >
-âPhysics Meshâ > âAllâ. This will show the collision meshes as pink outlines on the objects.
+To verify that collision meshes have been successfully enabled, click the “eye” icon > “Show By Type” >
+“Physics Mesh” > “All”. This will show the collision meshes as pink outlines on the objects.
 
 ### Traverse a stage and assign collision meshes to children
 
@@ -543,7 +543,7 @@ The following is assumed: the stage contains a physics scene, all objects have c
 and the play button has been clicked.
 
 The parameters: origin, rayDir and distance define a ray along which a ray hit might be detected.
-The output of the query can be used to access the objectâs reference, and its distance from the raycast origin.
+The output of the query can be used to access the object’s reference, and its distance from the raycast origin.
 
 ```python
 import carb

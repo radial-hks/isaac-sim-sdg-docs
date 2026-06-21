@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/ext_isaa
 title: "Policy Example"
 section: "Robot Simulation"
 module: "08-omnigraph-robot-sim"
-checksum: "e1b73185f11779d6"
-fetched: "2026-06-21T13:05:39"
+checksum: "73feec628940b56e"
+fetched: "2026-06-21T13:40:10"
 ---
 
 * [Robot Simulation](index.html)
@@ -29,7 +29,7 @@ To run examples below activate **Windows** > **Examples** > **Robotics Examples*
 3. (Optional) Use the **Physics Engine** menu in the viewport to switch between PhysX and Newton before loading. The example automatically selects the matching policy for the active engine.
 4. Press **LOAD** to open the scene.
 
-This example uses an H1 Flat Terrain Policy trained in Isaac Lab to control the humanoidâs locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
+This example uses an H1 Flat Terrain Policy trained in Isaac Lab to control the humanoid’s locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
 
 Controls:
 
@@ -44,7 +44,7 @@ Controls:
 3. (Optional) Use the **Physics Engine** menu in the viewport to switch between PhysX and Newton before loading. The example automatically selects the matching policy for the active engine.
 4. Press **LOAD** to open the scene.
 
-This example uses a Spot Flat Terrain Policy trained in Isaac Lab to control the quadrupedâs locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
+This example uses a Spot Flat Terrain Policy trained in Isaac Lab to control the quadruped’s locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
 
 Controls:
 
@@ -62,7 +62,7 @@ Controls:
 3. (Optional) Use the **Physics Engine** menu in the viewport to switch between PhysX and Newton before loading. The example automatically selects the matching policy for the active engine.
 4. Press **LOAD** to open the scene.
 
-This example uses a Go2 Flat Terrain Policy trained in Isaac Lab to control the quadrupedâs locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
+This example uses a Go2 Flat Terrain Policy trained in Isaac Lab to control the quadruped’s locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
 
 Controls:
 
@@ -79,7 +79,7 @@ Controls:
 2. Open the example menu using **Robotics Examples** > **POLICY** > **Franka**.
 3. Press **LOAD** to open the scene.
 
-This example uses the Franka Open Drawer Policy trained in Isaac Lab to control the robotâs arm.
+This example uses the Franka Open Drawer Policy trained in Isaac Lab to control the robot’s arm.
 The robot will open the drawer, hold it open until the would reset.
 
 ## Policies Files

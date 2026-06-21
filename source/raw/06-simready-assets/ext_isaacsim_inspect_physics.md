@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/physics/ext_isaacsim_insp
 title: "Inspect Physics"
 section: "物理"
 module: "06-simready-assets"
-checksum: "803c6316e1af951a"
-fetched: "2026-06-21T11:55:35"
+checksum: "269acb17bc424056"
+fetched: "2026-06-21T13:40:30"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -31,7 +31,7 @@ The simulation data visualizer provides the following information:
 * **Mass**: in [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) mass unit
 * **Moment of Inertia**: in [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) mass unit\*[Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) units^2
 
-For velocities, thereâs a fourth plot M, which is the magnitude of the vector.
+For velocities, there’s a fourth plot M, which is the magnitude of the vector.
 
 ## Inspect Physics Example
 

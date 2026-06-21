@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/ext_isaacsim_
 title: "Collision Detector"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "06185b369f5b6aff"
-fetched: "2026-06-21T13:05:34"
+checksum: "1f233d55169f2294"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](index.html)
@@ -88,7 +88,7 @@ The panel opens docked at the bottom-left of the editor, adjacent to the Content
 
 The robot dropdown auto-populates with every prim on the stage that has the Robot Schema applied. It automatically selects the first robot on the stage, and checks collisions. If you made modifications to the robot, click **Check Collisions** to update the results.
 
-The tool queries the physics engine for all collider pairs that overlap in the robotâs current configuration, maps each collider to its owning rigid body link, and populates the table.
+The tool queries the physics engine for all collider pairs that overlap in the robot’s current configuration, maps each collider to its owning rigid body link, and populates the table.
 
 ### 4. Inspect a Collision Pair
 

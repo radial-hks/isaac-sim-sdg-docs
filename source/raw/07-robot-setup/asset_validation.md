@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_validat
 title: "Asset Validation"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "31aaae92eccd3f27"
-fetched: "2026-06-21T13:05:33"
+checksum: "018d2b5789d22501"
+fetched: "2026-06-21T13:40:05"
 ---
 
 * [Robot Setup](index.html)
@@ -48,12 +48,12 @@ Physics Validation Rules
 | **PhysicsDriveAndJointState** | Validates that joint drives have proper force limits and matching state values.   * Drive max force is defined and positive (not zero or infinite) * Drive target positions match joint state positions within tolerance (1e-2) * Drive target velocities match joint state velocities within tolerance (1e-2) |
 | **DriveJointValueReasonable** | Validates that joint drive stiffness values are within reasonable ranges.   * Drive stiffness is within range (0.0 to 1,000,000.0) * Mimic joints have stiffness and damping set to 0.0 * Non-mimic joints have stiffness values defined * Maximum natural frequency warning threshold: 500.0 Hz |
 | **JointHasCorrectTransformAndState** | Validates that joint transforms and states are consistent with the connected bodies.   * Joint position consistency between connected bodies * Joint orientation consistency between connected bodies * Joint state values match the robot pose configuration * Applies to revolute and prismatic joints |
-| **JointHasJointStateAPI** | Validates that joints have the JointStateAPI applied.   * Prismatic joints have JointStateAPI with âlinearâ type * Revolute joints have JointStateAPI with âangularâ type * Provides automatic fix suggestion to apply missing APIs |
+| **JointHasJointStateAPI** | Validates that joints have the JointStateAPI applied.   * Prismatic joints have JointStateAPI with “linear” type * Revolute joints have JointStateAPI with “angular” type * Provides automatic fix suggestion to apply missing APIs |
 | **MimicAPICheck** | Validates proper configuration of mimic joint APIs.   * Reference joint relationship has exactly one target * Gear ratio, natural frequency, and damping ratio are defined and non-zero * Joint limits are properly configured relative to reference joint limits * Limit compatibility based on gear ratio sign (positive/negative) |
 | **RigidBodyHasMassAPI** | Validates that rigid bodies have properly configured mass properties.   * Rigid bodies have MassAPI applied * Mass attribute is authored and non-zero * Diagonal inertia is authored and non-zero * Principal axes are authored and normalized |
 | **RigidBodyHasCollider** | Validates that enabled rigid bodies have collision geometry.   * Enabled rigid bodies have collision geometry in their hierarchy * Searches through prim range including instance proxies |
-| **NonAdjacentCollisionMeshesDoNotClash** | Validates that non-adjacent collision meshes donât intersect.   * Performs physics simulation to detect colliding pairs * Verifies that colliding bodies are connected by joints * Reports errors for non-adjacent colliding meshes |
-| **InvisibleCollisionMeshHasPurposeGuide** | Validates that invisible collision meshes have purpose set to âguideâ.   * Collision meshes with invisible visibility * Purpose attribute is set to âguideâ for invisible collision meshes |
+| **NonAdjacentCollisionMeshesDoNotClash** | Validates that non-adjacent collision meshes don’t intersect.   * Performs physics simulation to detect colliding pairs * Verifies that colliding bodies are connected by joints * Reports errors for non-adjacent colliding meshes |
+| **InvisibleCollisionMeshHasPurposeGuide** | Validates that invisible collision meshes have purpose set to ‘guide’.   * Collision meshes with invisible visibility * Purpose attribute is set to ‘guide’ for invisible collision meshes |
 | **HasArticulationRoot** | Validates that at least one prim in the stage has the ArticulationRootAPI.   * At least one prim in the stage has ArticulationRootAPI applied |
 
 # IsaacSim.RobotRules
@@ -63,15 +63,15 @@ Robot Validation Rules
 | Rule Name | Description and Checks |
 | --- | --- |
 | RobotNaming | Validates that robot assets follow the standard naming convention.   * Minimum folder nesting depth (at least 3 levels) * Folder name matches robot filename * Supports versioned folder structure: <Manufacturer>/<robot>/<robot.usd> or <Manufacturer>/<robot>/<version>/<robot.usd> |
-| **CleanFolder** | Validates that robot asset folders donât contain unexpected files.   * Robot asset folders only contain expected files * Warns about unexpected files in the asset directory |
-| **NoOverrides** | Validates that prims donât have overridden attributes.   * Prims donât have overridden attributes (excluding /Render paths) * Detects attributes with authored values in layer stack * Only applies for the open stage |
+| **CleanFolder** | Validates that robot asset folders don’t contain unexpected files.   * Robot asset folders only contain expected files * Warns about unexpected files in the asset directory |
+| **NoOverrides** | Validates that prims don’t have overridden attributes.   * Prims don’t have overridden attributes (excluding /Render paths) * Detects attributes with authored values in layer stack * Only applies for the open stage |
 | **RobotSchema** | Validates that robot assets have the required RobotAPI and relationships.   * Default prim is set on the stage * Default prim has RobotAPI applied * robotLinks relationship exists and has targets * robotJoints relationship exists and has targets |
 | **JointsExist** | Validates that robot assets contain at least one joint.   * At least one prim in the stage has JointAPI applied |
 | **LinksExist** | Validates that robot assets contain at least one link.   * At least one prim in the stage has LinkAPI applied |
 | **ThumbnailExists** | Validates that robot assets have a thumbnail image.   * Thumbnail image exists at expected path: `<folder>/.thumbs/256x256/<filename>.png` |
 | **CheckRobotRelationships** | Validates that robot relationships are properly defined and prepended.   * robotLinks and robotJoints relationships exist * Relationships are prepended for proper USD composition * Provides automatic fix suggestions for missing or non-prepended relationships |
-| **VerifyRobotPhysicsAttributesSourceLayer** | Validates that physics attributes are authored in the physics layer.   * Physics attributes (starting with âphysics:â) are authored in \_physics.usd layer * Warns when physics attributes are found in other layers |
-| **VerifyRobotPhysicsSchemaSourceLayer** | Validates that physics schemas are applied in the physics layer.   * Physics schemas (starting with âPhysxâ or âPhysicsâ) are applied in \_physics.usd layer * Warns when physics schemas are found in other layers |
+| **VerifyRobotPhysicsAttributesSourceLayer** | Validates that physics attributes are authored in the physics layer.   * Physics attributes (starting with “physics:”) are authored in \_physics.usd layer * Warns when physics attributes are found in other layers |
+| **VerifyRobotPhysicsSchemaSourceLayer** | Validates that physics schemas are applied in the physics layer.   * Physics schemas (starting with “Physx” or “Physics”) are applied in \_physics.usd layer * Warns when physics schemas are found in other layers |
 
 # IsaacSim.SimReadyAssetRules
 
@@ -79,7 +79,7 @@ Sim Ready Asset Validation Rules
 
 | Rule Name | Description and Checks |
 | --- | --- |
-| **NoNestedMaterials** | Validates that materials donât contain nested materials.   * Material prims donât contain child materials in their hierarchy * Warns about nested material configurations |
+| **NoNestedMaterials** | Validates that materials don’t contain nested materials.   * Material prims don’t contain child materials in their hierarchy * Warns about nested material configurations |
 | **MaterialsOnTopLevelOnly** | Validates that materials are only defined in the top-level Looks prim.   * All materials are children of the top-level Looks prim * Materials are not scattered throughout the stage hierarchy * Skips materials in referenced/payload content |
 
 # Running the Validation Rules

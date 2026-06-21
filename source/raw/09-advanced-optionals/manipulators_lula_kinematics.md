@@ -4,7 +4,7 @@ title: "Lula Kinematics"
 section: "Manipulators"
 module: "09-advanced-optionals"
 checksum: "0142e94096c0aa04"
-fetched: "2026-06-21T13:05:42"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)

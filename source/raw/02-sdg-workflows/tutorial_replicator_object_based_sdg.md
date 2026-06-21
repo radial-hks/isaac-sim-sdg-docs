@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Object-Based SDG"
 section: "SDG"
 module: "02-sdg-workflows"
-checksum: "855eded869e2a5fb"
-fetched: "2026-06-21T11:55:24"
+checksum: "5ef6a3688b15ab33"
+fetched: "2026-06-21T13:40:21"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -1792,7 +1792,7 @@ The following snippets show the various randomizations used throughout the scrip
 
 Overlap Triggered Velocity Randomizer
 
-The following snippet simulates a bouncing area above the bottom collision box. The function checks for overlapping objects in the area and applies a random velocity to the objects. The function is triggered every physics update step to check for objects overlapping the âbounceâ area.
+The following snippet simulates a bouncing area above the bottom collision box. The function checks for overlapping objects in the area and applies a random velocity to the objects. The function is triggered every physics update step to check for objects overlapping the ‘bounce’ area.
 
 ```python
 # RANDOMIZERS
@@ -1866,7 +1866,7 @@ def simulate_camera_collision(num_frames: int = 1) -> None:
 
 Apply Velocities Towards a Target
 
-The following function applies velocities to the prims with a random magnitude towards the given target (center of the working area). This is making sure in the example scenario that the objects donât drift away and are occasionally pulled towards the center to clutter the scene.
+The following function applies velocities to the prims with a random magnitude towards the given target (center of the working area). This is making sure in the example scenario that the objects don’t drift away and are occasionally pulled towards the center to clutter the scene.
 
 ```python
 def apply_velocities_towards_target(

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Intro: Assemble Robot"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "8630fb28fa3ae6d5"
-fetched: "2026-06-21T13:05:36"
+checksum: "f85f2db722b2dc68"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -33,7 +33,7 @@ This tutorial covers how to:
 
 ## Adding Objects to the Scene
 
-There are many ways to âadd objectsâ to the stage, but all of them fundamentally do the same thing, which is to define a USD primitive in the stage context tree. The goal is to create a basic, two wheeled robot. Start by creating some basic shapes and modifying their properties. For the body, use a cube and for the wheels use cylinders.
+There are many ways to “add objects” to the stage, but all of them fundamentally do the same thing, which is to define a USD primitive in the stage context tree. The goal is to create a basic, two wheeled robot. Start by creating some basic shapes and modifying their properties. For the body, use a cube and for the wheels use cylinders.
 
 To create the body of the robot:
 
@@ -112,7 +112,7 @@ To apply the assigned physics material to an object:
 
 ## Material Properties
 
-The objects may reflect the color of the spotlight added earlier, but it doesnât actually have any colors assigned. You can confirm this by turning off the spotlight.
+The objects may reflect the color of the spotlight added earlier, but it doesn’t actually have any colors assigned. You can confirm this by turning off the spotlight.
 
 To change the color of the object, create a different material and then assign it to the objects, just like with the physics materials.
 For example, create two different materials, one for the body of the car and one for the wheels.

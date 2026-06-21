@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/reference_material/benchm
 title: "Benchmarks"
 section: "参考"
 module: "01-concepts"
-checksum: "236cb9cb68cf179f"
-fetched: "2026-06-21T12:48:04"
+checksum: "99c1dc1165f1010b"
+fetched: "2026-06-21T13:39:52"
 ---
 
 * Isaac Sim Benchmarks
@@ -296,7 +296,7 @@ Given a physics dt of `1/60`, the physics steps per second is equivalent to the 
 
 **Optimization Tips:**
 
-1. Select the appropriate physics backend for the workload. Itâs recommended to test with both backends to determine the optimal choice.
+1. Select the appropriate physics backend for the workload. It’s recommended to test with both backends to determine the optimal choice.
 
 > * CPU Physics: Low robot count and/or low complexity robots + scenes
 > * GPU Physics: Higher robot counts and/or higher complexity robots + scenes
@@ -486,7 +486,7 @@ SDG Images per Second (Simple)
 
 The throughput can be calculated as `Mean FPS * number of cameras` to yield the total number of images generated per second.
 
-**Performance Notes:** The usage of the âskip-write flag improves performance by skipping the disk write step, which can cause a bottleneck due to IO operations. Randomization of pose/orientation/material are CPU-intensive operations currently.
+**Performance Notes:** The usage of the –skip-write flag improves performance by skipping the disk write step, which can cause a bottleneck due to IO operations. Randomization of pose/orientation/material are CPU-intensive operations currently.
 
 **Optimization Tips:**
 
@@ -618,7 +618,7 @@ The first section shows the benchmark configuration and system information.
 |----------------------------------------------------|
 ```
 
-Itâs populated with the `workflow_metadata` dictionary passed into the `BaseIsaacBenchmark` object defined in each benchmark script.
+It’s populated with the `workflow_metadata` dictionary passed into the `BaseIsaacBenchmark` object defined in each benchmark script.
 
 #### Loading Phase Metrics
 

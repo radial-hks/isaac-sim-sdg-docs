@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Empty Space Detection"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "98ae58fef6e99ff7"
-fetched: "2026-06-21T11:55:30"
+checksum: "03eeb84f1184a746"
+fetched: "2026-06-21T13:40:26"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -52,7 +52,7 @@ Detection Parameters are optional. These keys are read from the **same** detecto
 | `cell_height_threshold` | numeric | `0.2` | Minimum vertical clearance used when classifying empty height spans. |
 | `x_length_threshold` | numeric | `0.2` | Minimum extent along X for a region to count as empty space. |
 | `y_length_threshold` | numeric | `0.2` | Minimum extent along Y for a region to count as empty space. |
-| `exclusive_ratio_threshold` | numeric | `0.8` | Ratio used when filtering candidate regions (higher tends to retain more regions; range `0.0`â`1.0`). |
+| `exclusive_ratio_threshold` | numeric | `0.8` | Ratio used when filtering candidate regions (higher tends to retain more regions; range `0.0`–`1.0`). |
 | `top_tolerance` | numeric | `0.2` | Height tolerance at the top of a span. |
 | `bottom_tolerance` | numeric | `0.1` | Height tolerance at the bottom of a span. |
 | `max_stack_height` | numeric / null | `None` | Optional cap on stack height in meters; `None` means no limit. |

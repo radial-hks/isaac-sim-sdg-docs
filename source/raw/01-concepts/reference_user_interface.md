@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/gui/reference_user_interf
 title: "User Interface Reference"
 section: "概念"
 module: "01-concepts"
-checksum: "4567cf6e0cc286e3"
-fetched: "2026-06-21T12:48:03"
+checksum: "f602d579595b6fef"
+fetched: "2026-06-21T13:39:50"
 ---
 
 * User Interface Reference
@@ -17,7 +17,7 @@ fetched: "2026-06-21T12:48:03"
 
 ## Opening Page
 
-Hereâs a summary of the Isaac Sim frequently mentioned elements on the opening page. For more detailed view of all the elements on the page, go to [Omniverse User Interface](https://docs.omniverse.nvidia.com/composer/latest/interface.html "(in Omniverse USD Composer)").
+Here’s a summary of the Isaac Sim frequently mentioned elements on the opening page. For more detailed view of all the elements on the page, go to [Omniverse User Interface](https://docs.omniverse.nvidia.com/composer/latest/interface.html "(in Omniverse USD Composer)").
 
 | Ref # | Option | Result |
 | --- | --- | --- |
@@ -67,7 +67,7 @@ The Layout of the windows can be rearranged by moving the tabbed windows around,
 
 Note
 
-A tab can be âtorn-offâ and moved to another panel or window by click-hold-drag on the tabs title-bar and dragging it to another location or UI pane.
+A tab can be “torn-off” and moved to another panel or window by click-hold-drag on the tabs title-bar and dragging it to another location or UI pane.
 
 ### OS Tabs
 
@@ -85,7 +85,7 @@ Grab handles are found in all Omniverse Apps and allow you to resize panels.
 
 1. Grab Handle.
 
-They are âinvisibleâ UI element dividers that, when rolled over, will illuminate and can be click-dragged. This allows for UI customization, which is especially helpful in managing window content.
+They are “invisible” UI element dividers that, when rolled over, will illuminate and can be click-dragged. This allows for UI customization, which is especially helpful in managing window content.
 
 Note
 

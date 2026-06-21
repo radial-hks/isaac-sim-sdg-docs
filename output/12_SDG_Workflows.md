@@ -2,7 +2,7 @@
 
 > 合成数据生成工作流：Object-Based / Scene-Based / Grab / Mobility / Teleop
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 9
 
 ---
@@ -90,7 +90,7 @@ writer.initialize(
 writer.attach(rp)
 ```
 
-`attach` connects the writer to one or more render products. After this call, every orchestrator step routes that render productâs annotator data through the writer. Each annotator you enable (`rgb`, `semantic_segmentation`, and so on) adds GPU and I/O cost, so enable only what your dataset needs.
+`attach` connects the writer to one or more render products. After this call, every orchestrator step routes that render product’s annotator data through the writer. Each annotator you enable (`rgb`, `semantic_segmentation`, and so on) adds GPU and I/O cost, so enable only what your dataset needs.
 
 Replicator ships other built-in writers, for example `PoseWriter` (6-DoF object pose data) and `CosmosWriter` (multi-modal training data for [NVIDIA Cosmos](https://www.nvidia.com/en-us/ai/cosmos/)). To emit any other format, register a [custom writer](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/custom_writer.html "(in Omniverse Extensions)"). See [writer examples](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)") for the full list and [annotators](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") for the data sources writers can consume.
 
@@ -114,7 +114,7 @@ rep.orchestrator.step(rt_subframes=-1, pause_timeline=True, delta_time=None, wai
 
 * `rt_subframes` - number of subframes rendered before the frame is captured, covered in [RT Subframes](#isaac-sim-app-tutorial-replicator-sdg-workflows-rt-subframes) below.
 * `pause_timeline` - pause the timeline after the step. Defaults to `True`
-* `delta_time` - how far the timeline advances during the step. `None` (default) advances by the timelineâs rate, `0.0` does not advance the timeline, and a positive value advances by that amount.
+* `delta_time` - how far the timeline advances during the step. `None` (default) advances by the timeline’s rate, `0.0` does not advance the timeline, and a positive value advances by that amount.
 * `wait_for_render` - block until the frame finishes rendering. Defaults to `True`. Set it to `False` to let the next randomization start while the previous frame is still rendering, when exact frame-to-state correspondence is not required.
 
 ## RT Subframes
@@ -766,7 +766,7 @@ Output directory `_out_workflow_01`: per captured frame, an `rgb_*.png`, a color
 
 This workflow rebuilds its SDG content on a configurable cadence (`CAPTURES_PER_SCENE`). Each rebuild picks an environment, scatters pallets on the floor, builds vertical box stacks on each pallet, and orbits one camera around each pallet. It places assets with sample-time collision checks rather than rigid-body simulation, so there is no physics settling step.
 
-The persistent objects (a dome light, one camera, one render product, and one `BasicWriter`) are created once. The per-rebuild content lives under a unique scope `/World/SDG/Scene_<n>`. The script removes the previous scope before authoring the next one. If the old scope remains on the stage, Replicatorâs scatter-mesh cache reuses stale planes and asset placement fails.
+The persistent objects (a dome light, one camera, one render product, and one `BasicWriter`) are created once. The per-rebuild content lives under a unique scope `/World/SDG/Scene_<n>`. The script removes the previous scope before authoring the next one. If the old scope remains on the stage, Replicator’s scatter-mesh cache reuses stale planes and asset placement fails.
 
 Each scene rebuild does the following:
 
@@ -1443,7 +1443,7 @@ See [Replicator Troubleshooting](troubleshooting.html#isaac-sim-replicator-troub
 
 * **Ghosting or artifacts in early captures.** Increase `rt_subframes` (see [above](#isaac-sim-app-tutorial-replicator-sdg-workflows-rt-subframes)).
 * **Frames missing from the writer.** `wait_until_complete` was not called before exit.
-* **Scattered assets overlap or land in the wrong place after a rebuild (Workflow 2).** The previous scene scope was not removed before authoring the new one, so Replicatorâs scatter-mesh cache reused stale planes.
+* **Scattered assets overlap or land in the wrong place after a rebuild (Workflow 2).** The previous scene scope was not removed before authoring the new one, so Replicator’s scatter-mesh cache reused stale planes.
 * **Slow runs even though few frames are written.** The render product was left enabled during physics, scene construction, or randomization. Disable it and re-enable only around the orchestrator step.
 
 ## See Also
@@ -3267,7 +3267,7 @@ The following snippets show the various randomizations used throughout the scrip
 
 Overlap Triggered Velocity Randomizer
 
-The following snippet simulates a bouncing area above the bottom collision box. The function checks for overlapping objects in the area and applies a random velocity to the objects. The function is triggered every physics update step to check for objects overlapping the âbounceâ area.
+The following snippet simulates a bouncing area above the bottom collision box. The function checks for overlapping objects in the area and applies a random velocity to the objects. The function is triggered every physics update step to check for objects overlapping the ‘bounce’ area.
 
 ```python
 # RANDOMIZERS
@@ -3341,7 +3341,7 @@ def simulate_camera_collision(num_frames: int = 1) -> None:
 
 Apply Velocities Towards a Target
 
-The following function applies velocities to the prims with a random magnitude towards the given target (center of the working area). This is making sure in the example scenario that the objects donât drift away and are occasionally pulled towards the center to clutter the scene.
+The following function applies velocities to the prims with a random magnitude towards the given target (center of the working area). This is making sure in the example scenario that the objects don’t drift away and are occasionally pulled towards the center to clutter the scene.
 
 ```python
 def apply_velocities_towards_target(
@@ -3628,16 +3628,16 @@ In this tutorial you:
 ## Prerequisites
 
 * Familiarity with the [omni.replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html "(in Omniverse Extensions)") extension, including its [annotators](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") and [writers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)").
-* Basic understanding of Isaac Simâs [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) and [World](../reference_material/reference_glossary.html#isaac-sim-glossary-world) concepts, further explained in the [Hello World](../core_api_tutorials/tutorial_core_hello_world.html#isaac-sim-app-tutorial-core-hello-world) tutorial.
+* Basic understanding of Isaac Sim’s [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) and [World](../reference_material/reference_glossary.html#isaac-sim-glossary-world) concepts, further explained in the [Hello World](../core_api_tutorials/tutorial_core_hello_world.html#isaac-sim-app-tutorial-core-hello-world) tutorial.
 * Running simulations as [Standalone Applications](../introduction/workflows.html#standalone-application) or via the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor).
 * Familiarity with Replicator [randomizers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)") and [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)") for a better understanding of the randomization pipeline.
 
 ## Scenario
 
-By default, the scenario is executed in a warehouse environment. Within this setting, a forklift is randomly placed in a designated area. Based on the forkliftâs position, a pallet is placed in front of it at a randomized distance. Using Replicatorâs `scatter_2d` randomization function with the collision check argument `check_for_collisions` set to `True`, the pallet is scattered with boxes, ensuring the boxes do not self-collide. The scatter graph node randomly scatters the boxes in each capture frame. Additionally, a traffic cone is randomly positioned at one of the bottom corners of the forkliftâs oriented bounding box (OBB). Before the synthetic data generation (SDG) pipeline starts, a short physics simulation is executed, during which several boxes are dropped onto a pallet situated behind the forklift.
+By default, the scenario is executed in a warehouse environment. Within this setting, a forklift is randomly placed in a designated area. Based on the forklift’s position, a pallet is placed in front of it at a randomized distance. Using Replicator’s `scatter_2d` randomization function with the collision check argument `check_for_collisions` set to `True`, the pallet is scattered with boxes, ensuring the boxes do not self-collide. The scatter graph node randomly scatters the boxes in each capture frame. Additionally, a traffic cone is randomly positioned at one of the bottom corners of the forklift’s oriented bounding box (OBB). Before the synthetic data generation (SDG) pipeline starts, a short physics simulation is executed, during which several boxes are dropped onto a pallet situated behind the forklift.
 
-Three camera views are used for the synthetic data generation (SDG). The first (`top_view_cam`) offers a top-down view of the scenario (left), the second (`pallet_cam`) captures a randomized view of the boxes scattered on the pallet (center), and the third is overlooking the pallet from the driverâs place in the forklift using various heights (right).
-The data is collected using Replicator writers with configurable backends. The default setup uses `BasicWriter` with a `DiskBackend`. The writerâs config parameters are loaded from the `writer_config` entry and used to initialize the writer with annotators including rgb, semantic\_segmentation, and bounding\_box\_3d. The output directory is specified in `backend_params`, which by default is `<working_dir>/_out_scene_based_sdg`.
+Three camera views are used for the synthetic data generation (SDG). The first (`top_view_cam`) offers a top-down view of the scenario (left), the second (`pallet_cam`) captures a randomized view of the boxes scattered on the pallet (center), and the third is overlooking the pallet from the driver’s place in the forklift using various heights (right).
+The data is collected using Replicator writers with configurable backends. The default setup uses `BasicWriter` with a `DiskBackend`. The writer’s config parameters are loaded from the `writer_config` entry and used to initialize the writer with annotators including rgb, semantic\_segmentation, and bounding\_box\_3d. The output directory is specified in `backend_params`, which by default is `<working_dir>/_out_scene_based_sdg`.
 
 ## Getting Started
 
@@ -5167,7 +5167,7 @@ def register_cardboxes_materials_graph_randomizer(
             rep.randomizer.materials(cardbox_material_urls)
 ```
 
-The traffic cone is positioned at one of the forkliftâs bounding box corners. A helper function calculates the corner positions:
+The traffic cone is positioned at one of the forklift’s bounding box corners. A helper function calculates the corner positions:
 
 Cone Placement Setup
 
@@ -5224,7 +5224,7 @@ def register_lights_graph_randomizer(forklift_prim: Usd.Prim, pallet_prim: Usd.P
         )
 ```
 
-Similar to the above examples, Replicator has support for many other randomizations. For more information, see Replicatorâs [randomizer examples tutorials](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)").
+Similar to the above examples, Replicator has support for many other randomizations. For more information, see Replicator’s [randomizer examples tutorials](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/randomizer_details.html "(in Omniverse Extensions)").
 
 Camera bounds are calculated using a helper function to determine the randomization ranges:
 
@@ -5548,7 +5548,7 @@ The extension is designed to automate the process of finding and evaluating pote
 
 1. **Configuration**: Defining the specific gripper, the target object, and the parameters that govern how grasps are found and tested.
 2. **Grasp Pose Sampling**: Algorithms (for example, antipodal samplers) generate a set of candidate grasp poses around the target object. These poses represent potential ways the gripper might hold the object.
-3. **Grasp Execution Phases**: For each candidate grasp, a sequence of actions, termed âGrasp Phasesâ (for example, move to pre-grasp, close fingers, lift), is simulated. This allows for defining complex, multi-step grasping behaviors analogous to real-world robot actions.
+3. **Grasp Execution Phases**: For each candidate grasp, a sequence of actions, termed “Grasp Phases” (for example, move to pre-grasp, close fingers, lift), is simulated. This allows for defining complex, multi-step grasping behaviors analogous to real-world robot actions.
 4. **Physics-Based Evaluation**: Each phase of the grasp is simulated in the physics engine. The success or failure of the grasp attempt, along with other metrics (like contact forces, object displacement), can be recorded. In its current state the extension saves the gripper state as result from which the grasps can be evaluated.
 5. **Data Logging and Management**: Successful grasps and their associated parameters are logged. The entire setup can be saved to and loaded from configuration files (YAML format), ensuring reproducibility and facilitating batch processing.
 
@@ -5570,13 +5570,13 @@ This section is dedicated to defining the properties and behavior of the gripper
   + Toggle visibility between all joints or of type drive (non-mimic) joints.
 * **Grasp Phases**: This powerful feature allows you to define a sequence of discrete actions that constitute a complete grasp attempt. This is analogous to defining a state machine or a sequence of motion primitives for the gripper.
 
-  For each phase (for example, âOpenâ, âCloseâ), you specify:
+  For each phase (for example, “Open”, “Close”), you specify:
 
   + Target joint positions for the active gripper joints.
   + Simulation step delta time (`dt`) for the physics steps within this phase.
   + Number of simulation steps to execute for this phase.
 
-  Phases can be reordered, deleted, or simulated individually for debugging. If pre-grasp joint positions adequately prepare the gripper (for example, fully open), an explicit âOpenâ phase might be unnecessary.
+  Phases can be reordered, deleted, or simulated individually for debugging. If pre-grasp joint positions adequately prepare the gripper (for example, fully open), an explicit “Open” phase might be unnecessary.
 
 ### Object Section
 
@@ -5586,7 +5586,7 @@ This section focuses on specifying the target object and configuring how potenti
 * **Grasp Pose Sampler**: This configures the algorithm used to find potential grasp poses. This tutorial primarily uses an **antipodal grasp sampler** (implemented in `sampler_utils.py`). An antipodal grasp is typically stable for parallel-jaw grippers, involving two contact points on opposite sides of the object. Key parameters include:
 
   + **Number of orientations per grasp axis**: How many rotational variations around the primary grasp axis to sample.
-  + **Gripper standoff distance**: The distance from the gripperâs Tool Center Point (TCP) or fingertips to the object surface during the approach phase, crucial for avoiding premature collision.
+  + **Gripper standoff distance**: The distance from the gripper’s Tool Center Point (TCP) or fingertips to the object surface during the approach phase, crucial for avoiding premature collision.
   + **Maximum gripper aperture**: The widest opening of the gripper jaws, filtering out grasps that are too wide for the object.
   + **Alignment axes for the grasp**: Defines local gripper axes to align with object features or the grasp line.
   + **Gripper approach direction**: The vector along which the gripper moves towards the object.
@@ -5599,7 +5599,7 @@ This section focuses on specifying the target object and configuring how potenti
   + Visualize the poses in the viewport (either in world or object-local frames) and cycle through them to inspect their placement.
 
   The following image shows example grasp poses generated by the antipodal sampler on various objects:
-* **Trimesh**: Provides options for debug visualization of the objectâs triangle mesh, which is used internally by the sampler for geometric calculations and collision checks.
+* **Trimesh**: Provides options for debug visualization of the object’s triangle mesh, which is used internally by the sampler for geometric calculations and collision checks.
 
 Note
 
@@ -5609,7 +5609,7 @@ The [Measure Tool](https://docs.omniverse.nvidia.com/extensions/latest/ext_measu
 
 The Workflow section is where you orchestrate the actual grasp evaluation process using the configurations defined in the Gripper and Object sections.
 
-The system first saves the gripperâs initial pose. Then, for each generated grasp pose selected for evaluation, it sequentially executes the defined grasp phases within the physics simulation. After all phases for a given pose are completed, the outcome (for example, success based on object stability, contact with target) and other relevant metrics are recorded.
+The system first saves the gripper’s initial pose. Then, for each generated grasp pose selected for evaluation, it sequentially executes the defined grasp phases within the physics simulation. After all phases for a given pose are completed, the outcome (for example, success based on object stability, contact with target) and other relevant metrics are recorded.
 
 * **Number of Grasps Samples**: Specify how many of the generated grasp poses should be evaluated. Use -1 to evaluate all available poses.
 * **Output Path**: Define the directory and base file name for saving the evaluation results. The results are typically saved in a structured format like YAML, detailing each evaluated grasp and its outcome.
@@ -5644,7 +5644,7 @@ This structured UI and configuration system offers detailed control and flexibil
 
 ### Configuration File Example
 
-Below is a snippet illustrating the structure of a YAML configuration file. It can store settings for the gripper, object, sampler, and defined grasp phases. The specific content will depend on which components were selected for inclusion through the âConfig Includesâ UI options.
+Below is a snippet illustrating the structure of a YAML configuration file. It can store settings for the gripper, object, sampler, and defined grasp phases. The specific content will depend on which components were selected for inclusion through the ‘Config Includes’ UI options.
 
 xarm\_antipodal.yaml
 
@@ -6027,7 +6027,7 @@ This tutorial uses an example warehouse scene.
 
 1. Load the warehouse stage:
 
-   1. Open Content Browser if itâs not already open (**Window > Browsers > Content**).
+   1. Open Content Browser if it’s not already open (**Window > Browsers > Content**).
    2. Load the warehouse USD file in Isaac Sim/Environments/Simple\_Warehouse/warehouse\_multiple\_shelves.usd.
 2. Create the occupancy map:
 
@@ -6050,11 +6050,11 @@ This tutorial uses an example warehouse scene.
       * `Y`: `-18.0`
       * `Z`: `0.1` (Assume the robot can move over `5cm` bumps)
 
-      Please note, the coordinates specified for the occupancy upper and lower bound define a bounding box within the warehouse\_multiple\_shelves.usd scene that we want the robot to be able to navigate. Weâve pre-selected values that cover the main floor area.
+      Please note, the coordinates specified for the occupancy upper and lower bound define a bounding box within the warehouse\_multiple\_shelves.usd scene that we want the robot to be able to navigate. We’ve pre-selected values that cover the main floor area.
       When using a different scene, you may adjust these bounds to cover the area suitable for your USD scene.
    5. Click **Calculate** to generate the occupancy map.
    6. Click **Visualize Image** to view the occupancy map.
-   7. Enter âmapâ in the **Image File Name** field and click **Update YAML**.
+   7. Enter “map” in the **Image File Name** field and click **Update YAML**.
    8. Click **Save YAML**.
    9. In the tree explorer, open the folder `~/MobilityGenData/maps/warehouse_multiple_shelves`.
 
@@ -6107,8 +6107,8 @@ The data is now recorded to `~/MobilityGenData/recordings` by default.
 
 ### Sensor calibration overrides
 
-If you change sensors on the robot in Isaac Simâfor example camera intrinsics, distortion
-coefficients, projection type, or sensor transformsâMobilityGen persists those edits as a **small
+If you change sensors on the robot in Isaac Sim—for example camera intrinsics, distortion
+coefficients, projection type, or sensor transforms—MobilityGen persists those edits as a **small
 USD diff**, not a full copy of the robot asset.
 
 The comparison below contrasts replay **without** the persisted override file against replay **with**
@@ -6154,18 +6154,18 @@ Isaac Sim ships a standalone replay script for this. Run it from the Isaac Sim r
     --render_interval 40
 ```
 
-* `--input` â directory containing one or more recordings (each in its own subdirectory).
-* `--output` â directory where replays with rendered sensor data will be written.
-* `--render_interval` â render every Nth physics step. `40` renders roughly once per second and is a good starting point; set to `1` for full-frame-rate output.
+* `--input` — directory containing one or more recordings (each in its own subdirectory).
+* `--output` — directory where replays with rendered sensor data will be written.
+* `--render_interval` — render every Nth physics step. `40` renders roughly once per second and is a good starting point; set to `1` for full-frame-rate output.
 
 Additional optional flags:
 
-* `--rgb_enabled` â enable RGB image rendering (default: `True`).
-* `--depth_enabled` â enable depth image rendering (default: `True`).
-* `--segmentation_enabled` â enable semantic segmentation rendering (default: `True`).
-* `--normals_enabled` â enable surface normal rendering (default: `False`).
-* `--instance_id_segmentation_enabled` â enable instance segmentation rendering (default: `False`).
-* `--render_rt_subframes` â number of RT subframes per step; increase for higher rendering quality at the cost of speed (default: `1`).
+* `--rgb_enabled` — enable RGB image rendering (default: `True`).
+* `--depth_enabled` — enable depth image rendering (default: `True`).
+* `--segmentation_enabled` — enable semantic segmentation rendering (default: `True`).
+* `--normals_enabled` — enable surface normal rendering (default: `False`).
+* `--instance_id_segmentation_enabled` — enable instance segmentation rendering (default: `False`).
+* `--render_rt_subframes` — number of RT subframes per step; increase for higher rendering quality at the cost of speed (default: `1`).
 
 After the script finishes, verify that you have a folder `~/MobilityGenData/replays`, which contains
 the rendered sensor data.
@@ -6193,7 +6193,7 @@ To generate procedural data:
 1. Follow `Build an Occupancy Map` above to create an occupancy map of the environment.
 2. Follow `Record a Trajectory` above, but select `RandomPathFollowingScenario` instead of `KeyboardTeleoperationScenario`.
    - You no longer need to manually teleoperate the robot. When the scenario is built, it will run and reset automatically.
-   - You do need to hit âstart recordingâ to enable recording to disk. However, when the scenario resets, a new recording will be created automatically.
+   - You do need to hit “start recording” to enable recording to disk. However, when the scenario resets, a new recording will be created automatically.
    - Verify that you have recordings collected in the `~/MobilityGenData` folder the same as above.
 3. Follow `Replay and render` above to render the sensor data from the recorded trajectories.
 
@@ -6240,10 +6240,10 @@ Common Robot Parameters
 | `front_camera_base_path` | The relative USD path to spawn the front camera. |
 | `front_camera_rotation` | The relative XYZ rotation used when spawning the front camera. |
 | `front_camera_translation` | The relative XYZ translation used when spawning the front camera. |
-| `keyboard_linear_velocity_gain` | The gain used to map keyboard button presses to the robotâs linear velocity. A larger gain results in faster movement. |
-| `keyboard_angular_velocity_gain` | The gain used to map keyboard button presses to the robotâs angular velocity. A larger gain results in faster movement. |
-| `gamepad_linear_velocity_gain` | The gain used to map gamepad axis movement to the robotâs linear velocity. A larger gain results in faster movement. |
-| `gamepad_angular_velocity_gain` | The gain used to map gamepad axis movement to the robotâs angular velocity. A larger gain results in faster movement. |
+| `keyboard_linear_velocity_gain` | The gain used to map keyboard button presses to the robot’s linear velocity. A larger gain results in faster movement. |
+| `keyboard_angular_velocity_gain` | The gain used to map keyboard button presses to the robot’s angular velocity. A larger gain results in faster movement. |
+| `gamepad_linear_velocity_gain` | The gain used to map gamepad axis movement to the robot’s linear velocity. A larger gain results in faster movement. |
+| `gamepad_angular_velocity_gain` | The gain used to map gamepad axis movement to the robot’s angular velocity. A larger gain results in faster movement. |
 | `random_action_linear_velocity_range` | The robot linear velocity limits for the random acceleration scenario. |
 | `random_action_angular_velocity_range` | The robot angular velocity limits for the random acceleration scenario. |
 | `random_action_linear_acceleration_std` | The standard deviation used for sampling the robot linear acceleration each timestep during the random acceleration scenario. |
@@ -6253,7 +6253,7 @@ Common Robot Parameters
 | `path_following_angular_gain` | The gain used for the proportional steering control in the path following scenario. A larger gain results in quicker turning, but potential overshoot and wobbling. |
 | `path_following_stop_distance_threshold` | The distance threshold at which point the robot will stop. Applies to the path following scenario. |
 | `path_following_forward_angle_threshold` | The angle threshold at which point the robot will move forward. Applies to the path following scenario. |
-| `path_following_target_point_offset_meters` | The offset distance used to generate the âtarget pointâ that the robot will follow in the path following scenario. A larger offset results in smoother motion, but too large may cause the robot to cut corners during turns. |
+| `path_following_target_point_offset_meters` | The offset distance used to generate the ‘target point’ that the robot will follow in the path following scenario. A larger offset results in smoother motion, but too large may cause the robot to cut corners during turns. |
 
 ### Use NuRec Assets in MobilityGen
 
@@ -6403,18 +6403,18 @@ Start the Isaac Teleop CloudXR runtime in a separate terminal and keep it runnin
 python -m isaacteleop.cloudxr
 ```
 
-Open the [Isaac Teleop Web Client](https://nvidia.github.io/IsaacTeleop/client/) from the headset browser and follow the displayed connection steps to pair the headset. With CloudXR running and the headset connected, you complete the rest of the workflow in Isaac Sim â launching the app, opening the Teleop window, and clicking **Connect** â without returning to the web client.
+Open the [Isaac Teleop Web Client](https://nvidia.github.io/IsaacTeleop/client/) from the headset browser and follow the displayed connection steps to pair the headset. With CloudXR running and the headset connected, you complete the rest of the workflow in Isaac Sim — launching the app, opening the Teleop window, and clicking **Connect** — without returning to the web client.
 
 ### Running modes
 
 The teleop runtime works in two Isaac Sim launch configurations. Both load the Teleop UI and support every controller described in this tutorial.
 
-* **2D monitor (controller tracking only)** â The desktop viewport renders the scene on a flat screen. The headset and controllers feed pose tracking to the runtime over CloudXR but do not stereo-render the scene. This is the default mode and requires no special app:
+* **2D monitor (controller tracking only)** — The desktop viewport renders the scene on a flat screen. The headset and controllers feed pose tracking to the runtime over CloudXR but do not stereo-render the scene. This is the default mode and requires no special app:
 
   ```python
   ./isaac-sim.sh
   ```
-* **VR headset (stereo rendering)** â Launches the XR VR experience app (`isaacsim.exp.base.xr.vr.kit`). The headset receives a stereo-rendered viewport for a first-person 3D view and exposes an in-headset **Play** / **Stop** UI equivalent to the desktop timeline buttons. The desktop window stays available for UI interaction:
+* **VR headset (stereo rendering)** — Launches the XR VR experience app (`isaacsim.exp.base.xr.vr.kit`). The headset receives a stereo-rendered viewport for a first-person 3D view and exposes an in-headset **Play** / **Stop** UI equivalent to the desktop timeline buttons. The desktop window stays available for UI interaction:
 
   ```python
   ./isaac-sim.xr.vr.sh
@@ -6431,17 +6431,17 @@ With the CloudXR runtime running and the headset connected, click **Connect** in
 Pair one of the built-in scenario stages with its matching profile, connect, and press **Play**. The profile resolves every controller against the stage, so no manual setup is needed.
 
 1. Open one of the [built-in scenario stages](#isaac-sim-app-tutorial-replicator-teleop-test-stages), for example `teleop_scenario_floating_xarm_dex3.usd`.
-2. In the Teleop windowâs **Profiles** panel, select the matching profile (`floating_xarm_dex3.yaml`) and click **Load**. Every controller resolves against the stage and its **Enable** button activates.
+2. In the Teleop window’s **Profiles** panel, select the matching profile (`floating_xarm_dex3.yaml`) and click **Load**. Every controller resolves against the stage and its **Enable** button activates.
 3. Expand **Session** and click **Connect**. Without a headset, expand **Session > Debug** and check **Debug Tracking** instead.
 4. Press **Play** on the timeline.
 5. Move the VR controllers (or drag the on-screen markers in debug mode) to operate the robot.
 
 A profile enables only the controllers its scenario needs:
 
-* [Floating Controller](#isaac-sim-app-tutorial-replicator-teleop-ui-floating) â tracks a free rigid-body gripper or end effector to the VR controller pose.
-* [IK Controller](#isaac-sim-app-tutorial-replicator-teleop-ui-ik) â drives an articulated arm through inverse kinematics so its end effector tracks the VR controller.
-* [Grasp Controller](#isaac-sim-app-tutorial-replicator-teleop-ui-grasp) â maps the VR trigger to gripper open and close.
-* [Locomotion](#isaac-sim-app-tutorial-replicator-teleop-ui-locomotion) â moves the robot base or the VR origin from the thumbsticks.
+* [Floating Controller](#isaac-sim-app-tutorial-replicator-teleop-ui-floating) — tracks a free rigid-body gripper or end effector to the VR controller pose.
+* [IK Controller](#isaac-sim-app-tutorial-replicator-teleop-ui-ik) — drives an articulated arm through inverse kinematics so its end effector tracks the VR controller.
+* [Grasp Controller](#isaac-sim-app-tutorial-replicator-teleop-ui-grasp) — maps the VR trigger to gripper open and close.
+* [Locomotion](#isaac-sim-app-tutorial-replicator-teleop-ui-locomotion) — moves the robot base or the VR origin from the thumbsticks.
 
 For example, `floating_xarm_dex3.yaml` enables the Floating, Grasp, and Locomotion controllers; the IK profiles enable IK instead of Floating. See the [workflow walkthrough](#isaac-sim-app-tutorial-replicator-teleop-walkthrough) for the detailed, step-by-step version, including recording and replay.
 
@@ -6449,8 +6449,8 @@ For example, `floating_xarm_dex3.yaml` enables the Floating, Grasp, and Locomoti
 
 The extension is split into two layers:
 
-* `isaacsim.replicator.teleop` â runtime that handles VR input, frame markers, and the four controllers (Floating, IK, Grasp, Locomotion), all managed by `TeleopManager`.
-* `isaacsim.replicator.teleop.ui` â the Teleop window with six collapsible panels: **Profiles**, **Session**, **Floating Controller**, **IK Controller**, **Grasp Controller**, and **Locomotion**.
+* `isaacsim.replicator.teleop` — runtime that handles VR input, frame markers, and the four controllers (Floating, IK, Grasp, Locomotion), all managed by `TeleopManager`.
+* `isaacsim.replicator.teleop.ui` — the Teleop window with six collapsible panels: **Profiles**, **Session**, **Floating Controller**, **IK Controller**, **Grasp Controller**, and **Locomotion**.
 
 Every controller follows the same three-step lifecycle:
 
@@ -6470,12 +6470,12 @@ The Teleop window contains six collapsible panels, described below from top to b
 
 The **Profiles** panel saves and restores the complete state of every other panel as a single YAML file.
 
-* **Dir** â working directory for teleop profile files. Defaults to the built-in profiles shipped with the extension. Click the folder icon to browse for a custom directory.
-* **Profile dropdown** â lists all `.yaml` files found in the working directory.
-* **Load** â reads the selected profile and applies it to all panels. If the stage contains the referenced prims, controllers are resolved immediately; otherwise the UI fields are populated and unresolved paths are reported.
-* **Save** â opens an inline **Name** field and **Confirm** button. Enter a filename (without `.yaml`) and click **Confirm** to write the current panel state to disk. If a file with that name already exists, an **Overwrite profile** dialog asks for confirmation; click **Overwrite** to replace it or **Cancel** to keep the existing file.
-* **Validate** â checks all panel settings against the current stage and reports error and warning counts in the status line. Detailed issues are printed to the console.
-* **Delete** (trash icon) â permanently removes the selected profile file from disk.
+* **Dir** — working directory for teleop profile files. Defaults to the built-in profiles shipped with the extension. Click the folder icon to browse for a custom directory.
+* **Profile dropdown** — lists all `.yaml` files found in the working directory.
+* **Load** — reads the selected profile and applies it to all panels. If the stage contains the referenced prims, controllers are resolved immediately; otherwise the UI fields are populated and unresolved paths are reported.
+* **Save** — opens an inline **Name** field and **Confirm** button. Enter a filename (without `.yaml`) and click **Confirm** to write the current panel state to disk. If a file with that name already exists, an **Overwrite profile** dialog asks for confirmation; click **Overwrite** to replace it or **Cancel** to keep the existing file.
+* **Validate** — checks all panel settings against the current stage and reports error and warning counts in the status line. Detailed issues are printed to the console.
+* **Delete** (trash icon) — permanently removes the selected profile file from disk.
 
 ### Session
 
@@ -6483,38 +6483,38 @@ The **Session** panel manages the VR connection, frame markers, the **XR Anchor*
 
 #### Connection
 
-* **Connect** / **Disconnect** â establishes or tears down the OpenXR connection to the Isaac Teleop CloudXR session.
-* **Status** â displays the current connection state: red (**Disconnected**), green (**Connected - markers active**), or yellow (intermediate states such as **No data**).
+* **Connect** / **Disconnect** — establishes or tears down the OpenXR connection to the Isaac Teleop CloudXR session.
+* **Status** — displays the current connection state: red (**Disconnected**), green (**Connected - markers active**), or yellow (intermediate states such as **No data**).
 
 #### Frame Markers
 
-The **Frame Markers** sub-section shows the live VR poses as four frame-axis prims under `/Teleop/Markers/TrackingOrigin` â the origin, **Left**, **Right**, and **Head**. Markers are created automatically on **Connect** and on enabling **Debug Tracking**; you can also create or remove them manually here.
+The **Frame Markers** sub-section shows the live VR poses as four frame-axis prims under `/Teleop/Markers/TrackingOrigin` — the origin, **Left**, **Right**, and **Head**. Markers are created automatically on **Connect** and on enabling **Debug Tracking**; you can also create or remove them manually here.
 
-* **Show** â creates the four frame-axis markers and begins streaming VR poses to them.
-* **Remove** â deletes the markers and stops tracking.
-* **Scale** â adjusts the visual axis length of every marker.
+* **Show** — creates the four frame-axis markers and begins streaming VR poses to them.
+* **Remove** — deletes the markers and stops tracking.
+* **Scale** — adjusts the visual axis length of every marker.
 
 #### XR Anchor
 
-The **XR Anchor** sub-panel groups every control that determines where the VR headset and controllers appear in the scene: the prim the anchor follows (**Custom Anchor**), the per-pose **Coordinate Frame** conversion, and the headset offset, rotation, and fixed-height controls applied on top of that anchor. The naming mirrors Kitâs VR Profile menu, where the same concept is exposed under **Navigation Settings > Physical World USD Anchor > Custom USD Anchor**.
+The **XR Anchor** sub-panel groups every control that determines where the VR headset and controllers appear in the scene: the prim the anchor follows (**Custom Anchor**), the per-pose **Coordinate Frame** conversion, and the headset offset, rotation, and fixed-height controls applied on top of that anchor. The naming mirrors Kit’s VR Profile menu, where the same concept is exposed under **Navigation Settings > Physical World USD Anchor > Custom USD Anchor**.
 
-* **Coordinate Frame** â selects how incoming VR poses are converted:
+* **Coordinate Frame** — selects how incoming VR poses are converted:
 
-  + **Isaac Sim (Z-up)** â applies a Y-up to Z-up rotation so poses match the Isaac Sim stage convention (default).
-  + **Raw (no conversion)** â passes poses through unchanged.
-* **Custom Anchor** â scene prim that the VR headset and controllers are anchored to. Click **Set** to validate the path and start live every-frame following of the primâs world transform. After a custom path is active, the same row button changes to **Clear**. **Clear** reverts the active anchor to the built-in origin marker under `/Teleop/Markers/` and resets the marker to world (0, 0, 0); the typed path is preserved in the field. To retarget the active anchor, click **Clear**, edit the path if needed, and click **Set** again. Use the bin glyph in the row to clear the field text. Paths under the reserved `/Teleop/Markers/` namespace fall back to the built-in origin on **Set**.
-* **Offset** â position offset in metres for the VR headset camera (one row with **X**, **Y**, and **Z** fields). Without a Custom Anchor this is an absolute world position; with one, it is relative to that prim.
-* **Rotation** â how the headset camera yaw tracks the Custom Anchor prim:
+  + **Isaac Sim (Z-up)** — applies a Y-up to Z-up rotation so poses match the Isaac Sim stage convention (default).
+  + **Raw (no conversion)** — passes poses through unchanged.
+* **Custom Anchor** — scene prim that the VR headset and controllers are anchored to. Click **Set** to validate the path and start live every-frame following of the prim’s world transform. After a custom path is active, the same row button changes to **Clear**. **Clear** reverts the active anchor to the built-in origin marker under `/Teleop/Markers/` and resets the marker to world (0, 0, 0); the typed path is preserved in the field. To retarget the active anchor, click **Clear**, edit the path if needed, and click **Set** again. Use the bin glyph in the row to clear the field text. Paths under the reserved `/Teleop/Markers/` namespace fall back to the built-in origin on **Set**.
+* **Offset** — position offset in metres for the VR headset camera (one row with **X**, **Y**, and **Z** fields). Without a Custom Anchor this is an absolute world position; with one, it is relative to that prim.
+* **Rotation** — how the headset camera yaw tracks the Custom Anchor prim:
 
-  + **Fixed** â ignore prim rotation entirely.
-  + **Follow Prim** â yaw tracks the prim (roll and pitch are stripped).
-  + **Follow (Smoothed)** â same as Follow Prim with slerp damping.
-* **Smooth** â slerp time constant in seconds, used only in **Smoothed** mode. Lower values give snappier tracking; higher values are smoother.
-* **Fixed Height** â locks the headset camera Z to its initial value, preventing vertical bobbing when the Custom Anchor prim moves up or down.
+  + **Fixed** — ignore prim rotation entirely.
+  + **Follow Prim** — yaw tracks the prim (roll and pitch are stripped).
+  + **Follow (Smoothed)** — same as Follow Prim with slerp damping.
+* **Smooth** — slerp time constant in seconds, used only in **Smoothed** mode. Lower values give snappier tracking; higher values are smoother.
+* **Fixed Height** — locks the headset camera Z to its initial value, preventing vertical bobbing when the Custom Anchor prim moves up or down.
 
 Note
 
-The teleop extension owns Kitâs XR profile anchor (set under **VR Profile > Navigation Settings > Physical World USD Anchor**) for the duration of a session. On **Connect** it switches Kit to `custom anchor` mode pointing at `/World/XRAnchor` and drives that prim every frame from the **Custom Anchor** prim plus the offset, rotation, smoothing, and coordinate-frame controls above. To retarget an active custom anchor, clear it first and then set the new path. Kitâs profile-level **Adjust for User Height** setting (under **Navigation Settings**) is unrelated â it shifts the camera at scene-entry time, while **Fixed Height** here locks Z to its first-frame value during the teleop session.
+The teleop extension owns Kit’s XR profile anchor (set under **VR Profile > Navigation Settings > Physical World USD Anchor**) for the duration of a session. On **Connect** it switches Kit to `custom anchor` mode pointing at `/World/XRAnchor` and drives that prim every frame from the **Custom Anchor** prim plus the offset, rotation, smoothing, and coordinate-frame controls above. To retarget an active custom anchor, clear it first and then set the new path. Kit’s profile-level **Adjust for User Height** setting (under **Navigation Settings**) is unrelated — it shifts the camera at scene-entry time, while **Fixed Height** here locks Z to its first-frame value during the teleop session.
 
 #### Debug
 
@@ -6524,13 +6524,13 @@ Debug mode replaces VR controller input with draggable USD markers and on-screen
 | --- | --- |
 |  |  |
 
-* **Write Backend** â overrides the global `XformPrim` backend used for all teleop writes. Options: **USD** (plain attribute writes), **USD-RT** (Fabric hierarchy), **Fabric** (fastest path, requires Fabric Scene Delegate).
-* **Debug Tracking** checkbox â enables synthetic pose input. Mutually exclusive with a live VR connection: disconnect first, or disable debug tracking before connecting.
-* **L Grasp** / **R Grasp** â sliders (0â1) that simulate the VR trigger squeeze. Feed directly into the Grasp Controller as `trigger_value`.
-* **Slide X** / **Slide Y** â sliders (-1 to 1) that simulate the left thumbstick for Locomotion lateral and forward/backward slide.
-* **Turn** â slider (-1 to 1) that simulates the right thumbstick for Locomotion yaw.
-* **Up** / **Down** â hold-buttons that simulate the right-side face buttons for vertical motion.
-* **Carry Origin** â hold-button that simulates the left primary face button. Press and hold to assert the input; release to clear it. The Locomotion controller toggles **Carry Tracking Space** on the rising edge.
+* **Write Backend** — overrides the global `XformPrim` backend used for all teleop writes. Options: **USD** (plain attribute writes), **USD-RT** (Fabric hierarchy), **Fabric** (fastest path, requires Fabric Scene Delegate).
+* **Debug Tracking** checkbox — enables synthetic pose input. Mutually exclusive with a live VR connection: disconnect first, or disable debug tracking before connecting.
+* **L Grasp** / **R Grasp** — sliders (0–1) that simulate the VR trigger squeeze. Feed directly into the Grasp Controller as `trigger_value`.
+* **Slide X** / **Slide Y** — sliders (-1 to 1) that simulate the left thumbstick for Locomotion lateral and forward/backward slide.
+* **Turn** — slider (-1 to 1) that simulates the right thumbstick for Locomotion yaw.
+* **Up** / **Down** — hold-buttons that simulate the right-side face buttons for vertical motion.
+* **Carry Origin** — hold-button that simulates the left primary face button. Press and hold to assert the input; release to clear it. The Locomotion controller toggles **Carry Tracking Space** on the rising edge.
 
 ### Floating Controller
 
@@ -6538,28 +6538,28 @@ The **Floating Controller** drives a free rigid body so that it tracks the VR co
 
 The target prim must be a rigid body. To control an articulated gripper with the Floating Controller, attach the articulation root joint to a rigid body and point the Floating Controller at that rigid body. The gripper articulation is then carried along as a child, while the Grasp Controller independently drives its finger joints.
 
-* **Prim Path** â the rigid body prim to drive. Click the **+** button to pick the prim from the viewport, or paste the path. Click **Apply** to validate. The path field, **+** button, and trash button are locked once configured; click **Clear** to reconfigure.
-* **Target Rot** (one row with **X**, **Y**, and **Z** combos) â per-axis local rotation offset in 90-degree increments (-180, -90, 0, +90, +180). Different grippers and end effectors have different local-frame conventions; these offsets align the controlled body so that its forward axis matches the VR controller pointing direction. For example, a gripper whose local Z points sideways instead of forward can be corrected with a 90-degree Y offset. Adjustable during **Play** and saved in teleop profiles.
-* **Pos Kp / Kd** â position proportional and derivative gains. Higher **Kp** makes the body snap to the target faster; **Kd** damps oscillations.
-* **Rot Kp / Kd** â orientation proportional and derivative gains. Same principle as position gains, applied to rotational tracking.
-* **Enable** / **Disable** â arms or disarms the controller for the next **Play**. Status transitions: *Configured* â *Standby* â *Active* (on Play).
-* **Clear** â destroys the controller resources while keeping the prim path.
+* **Prim Path** — the rigid body prim to drive. Click the **+** button to pick the prim from the viewport, or paste the path. Click **Apply** to validate. The path field, **+** button, and trash button are locked once configured; click **Clear** to reconfigure.
+* **Target Rot** (one row with **X**, **Y**, and **Z** combos) — per-axis local rotation offset in 90-degree increments (-180, -90, 0, +90, +180). Different grippers and end effectors have different local-frame conventions; these offsets align the controlled body so that its forward axis matches the VR controller pointing direction. For example, a gripper whose local Z points sideways instead of forward can be corrected with a 90-degree Y offset. Adjustable during **Play** and saved in teleop profiles.
+* **Pos Kp / Kd** — position proportional and derivative gains. Higher **Kp** makes the body snap to the target faster; **Kd** damps oscillations.
+* **Rot Kp / Kd** — orientation proportional and derivative gains. Same principle as position gains, applied to rotational tracking.
+* **Enable** / **Disable** — arms or disarms the controller for the next **Play**. Status transitions: *Configured* â *Standby* â *Active* (on Play).
+* **Clear** — destroys the controller resources while keeping the prim path.
 
 ### IK Controller
 
 The **IK Controller** drives an articulated robot arm through inverse kinematics so that its end effector tracks the VR controller pose. Each side (**Left** / **Right**) has its own collapsible sub-panel.
 
-The target prim must be an articulation. The IK solver operates on the joint chain from the articulation root down to the selected end-effector link. For a typical setup â for example a UR3e arm with a gripper attached â select the wrist link as the end effector so that IK solves only for the arm joints. The gripper joints are then driven separately by the Grasp Controller.
+The target prim must be an articulation. The IK solver operates on the joint chain from the articulation root down to the selected end-effector link. For a typical setup — for example a UR3e arm with a gripper attached — select the wrist link as the end effector so that IK solves only for the arm joints. The gripper joints are then driven separately by the Grasp Controller.
 
 #### Articulation and end effector
 
-* **Prim Path** â the articulation root prim. Click **Apply** to validate. On success the **EE Link** dropdown is populated with all body links in the kinematic chain.
-* **EE Link** â selects which link in the chain is the IK target. Choose the last arm link (for example the wrist) to exclude gripper joints from the IK solve. The last link in the chain is selected by default.
-* **Clear** â destroys the solver and articulation resources; the prim path is preserved for quick reconfiguration.
+* **Prim Path** — the articulation root prim. Click **Apply** to validate. On success the **EE Link** dropdown is populated with all body links in the kinematic chain.
+* **EE Link** — selects which link in the chain is the IK target. Choose the last arm link (for example the wrist) to exclude gripper joints from the IK solve. The last link in the chain is selected by default.
+* **Clear** — destroys the solver and articulation resources; the prim path is preserved for quick reconfiguration.
 
 #### Solver selection
 
-* **Solver** dropdown â chooses the IK backend. Each solver can be hot-swapped during **Play** without stopping the timeline:
+* **Solver** dropdown — chooses the IK backend. Each solver can be hot-swapped during **Play** without stopping the timeline:
 
   | Solver | Description |
   | --- | --- |
@@ -6567,50 +6567,50 @@ The target prim must be an articulation. The IK solver operates on the joint cha
   | **Velocity-based** | Velocity-space IK with a proportional **Gain** slider that controls tracking aggressiveness. Also supports a **Method** dropdown. |
   | **Levenberg-Marquardt** | Multi-iteration damped least-squares per frame. No method or gain controls. |
   | **PINK** | Task-based QP IK using a Pinocchio backend with joint-limit enforcement and posture regularisation. Exposes additional tuning described below. |
-* **Method** dropdown â visible only for **Position-based** and **Velocity-based** solvers. Selects the Jacobian inversion strategy:
+* **Method** dropdown — visible only for **Position-based** and **Velocity-based** solvers. Selects the Jacobian inversion strategy:
 
-  + **Damped LS** â most stable default; handles singularities well.
-  + **Pseudoinverse** â direct tracking when well-conditioned; less stable near singularities.
-  + **Transpose** â cheapest update; can be gain-sensitive.
-  + **SVD** â robust singular-value filtering; typically the heaviest compute.
+  + **Damped LS** — most stable default; handles singularities well.
+  + **Pseudoinverse** — direct tracking when well-conditioned; less stable near singularities.
+  + **Transpose** — cheapest update; can be gain-sensitive.
+  + **SVD** — robust singular-value filtering; typically the heaviest compute.
 
 #### Rotation offset and tuning
 
-* **EE Rot** (one row with **X**, **Y**, and **Z** combos) â per-axis local rotation offset in 90-degree increments (-180, -90, 0, +90, +180). Same purpose as **Target Rot** for the Floating Controller: align the IK target so the robotâs tool tip or gripper faces the same direction as the VR controller. Adjustable at runtime and saved in profiles.
-* **VR Target Filter** â exponential moving average (EMA) low-pass filter on the incoming VR target pose. Range 0.0â0.95. Higher values reduce jitter but add delay. Default 0.0 (no filtering).
-* **Max Joint Step** â safety clamp on the maximum joint-angle change per simulation step (radians). Prevents sudden joint jumps without acting as a true velocity limit. Default 0.0 (disabled).
-* **Gain** â (Velocity-based solver only) proportional gain controlling how aggressively the end effector tracks the VR target. Values of 1â5 give smooth conservative tracking; 10â20 are fast; above 30 may oscillate.
+* **EE Rot** (one row with **X**, **Y**, and **Z** combos) — per-axis local rotation offset in 90-degree increments (-180, -90, 0, +90, +180). Same purpose as **Target Rot** for the Floating Controller: align the IK target so the robot’s tool tip or gripper faces the same direction as the VR controller. Adjustable at runtime and saved in profiles.
+* **VR Target Filter** — exponential moving average (EMA) low-pass filter on the incoming VR target pose. Range 0.0–0.95. Higher values reduce jitter but add delay. Default 0.0 (no filtering).
+* **Max Joint Step** — safety clamp on the maximum joint-angle change per simulation step (radians). Prevents sudden joint jumps without acting as a true velocity limit. Default 0.0 (disabled).
+* **Gain** — (Velocity-based solver only) proportional gain controlling how aggressively the end effector tracks the VR target. Values of 1–5 give smooth conservative tracking; 10–20 are fast; above 30 may oscillate.
 
 #### PINK-specific tuning
 
 These controls appear only when the **PINK** solver is selected:
 
-* **Task Gain** â PINK `FrameTask` response gain. Higher values make tracking more aggressive; lower values soften it.
-* **Posture** â posture regularisation cost. Higher values keep the arm closer to its current pose; lower values give the end-effector task more freedom.
-* **QP** dropdown â quadratic-program solver backend. Use to compare solve quality and performance across backends.
-* **LM Damp** â `FrameTask` Levenberg-Marquardt damping. Higher values improve stability in difficult configurations but slow response.
+* **Task Gain** — PINK `FrameTask` response gain. Higher values make tracking more aggressive; lower values soften it.
+* **Posture** — posture regularisation cost. Higher values keep the arm closer to its current pose; lower values give the end-effector task more freedom.
+* **QP** dropdown — quadratic-program solver backend. Use to compare solve quality and performance across backends.
+* **LM Damp** — `FrameTask` Levenberg-Marquardt damping. Higher values improve stability in difficult configurations but slow response.
 
 #### Enable and status
 
-* **Enable** / **Disable** â arms or disarms the IK controller for the next **Play**. During Play the status shows **Active** when the target is reachable and **Out of reach** when the VR target leaves the armâs workspace. Tracking resumes automatically when the target returns to a reachable pose.
+* **Enable** / **Disable** — arms or disarms the IK controller for the next **Play**. During Play the status shows **Active** when the target is reachable and **Out of reach** when the VR target leaves the arm’s workspace. Tracking resumes automatically when the target returns to a reachable pose.
 
 ### Grasp Controller
 
-The **Grasp Controller** maps the VR triggerâs analog value (0 = open, 1 = fully closed) to gripper joint drive targets. Grippers vary widely â a parallel-jaw gripper has a single drive joint, while a multi-finger hand can have a dozen joints across several fingers â so the controller relies on a YAML config file that defines the mapping from the linear 0â1 trigger value to each jointâs target position. Each side (**Left** / **Right**) has its own collapsible sub-panel with independent configuration.
+The **Grasp Controller** maps the VR trigger’s analog value (0 = open, 1 = fully closed) to gripper joint drive targets. Grippers vary widely — a parallel-jaw gripper has a single drive joint, while a multi-finger hand can have a dozen joints across several fingers — so the controller relies on a YAML config file that defines the mapping from the linear 0–1 trigger value to each joint’s target position. Each side (**Left** / **Right**) has its own collapsible sub-panel with independent configuration.
 
-* **Prim Path** â the gripper articulation prim. Click **Apply** to validate the path and load the currently selected config in one step. The field is locked after configuration; click **Clear** to reconfigure.
-* **Config** dropdown â selects a built-in grasp configuration shipped with the extension. Selecting an entry immediately updates the path field next to it and resets the side to `Config changed - click Apply`, so **Apply** must be clicked again before **Enable** becomes available.
-* **Config path field** (the editable text field next to **Config**) â full path or `builtin://` URI to a grasp config YAML. Type a custom path here to use your own config file for a custom gripper or grasp style. Editing this field also requires another **Apply** click.
-* **Enable** / **Disable** â arms or disarms trigger tracking for this side.
-* **Clear** â destroys grasp resources while keeping the paths for quick reconfiguration.
+* **Prim Path** — the gripper articulation prim. Click **Apply** to validate the path and load the currently selected config in one step. The field is locked after configuration; click **Clear** to reconfigure.
+* **Config** dropdown — selects a built-in grasp configuration shipped with the extension. Selecting an entry immediately updates the path field next to it and resets the side to `Config changed - click Apply`, so **Apply** must be clicked again before **Enable** becomes available.
+* **Config path field** (the editable text field next to **Config**) — full path or `builtin://` URI to a grasp config YAML. Type a custom path here to use your own config file for a custom gripper or grasp style. Editing this field also requires another **Apply** click.
+* **Enable** / **Disable** — arms or disarms trigger tracking for this side.
+* **Clear** — destroys grasp resources while keeping the paths for quick reconfiguration.
 
 During **Play**, trigger pressure is read from the VR controller or from the **L Grasp** / **R Grasp** debug sliders. For each joint listed in the config, the controller interpolates linearly between the open and closed target values based on the current trigger value.
 
 #### Config file format
 
-Each config file lists the joints to drive, the input range, and the corresponding target range in degrees. Author custom config files to support your own grippers or to define alternative grasp styles on the same hand â for example, a pinch grasp vs. a full-palm grasp on a five-finger hand.
+Each config file lists the joints to drive, the input range, and the corresponding target range in degrees. Author custom config files to support your own grippers or to define alternative grasp styles on the same hand — for example, a pinch grasp vs. a full-palm grasp on a five-finger hand.
 
-**Simple gripper** â `xarm_grasp.yaml` maps a single drive joint:
+**Simple gripper** — `xarm_grasp.yaml` maps a single drive joint:
 
 ```python
 joints:
@@ -6619,7 +6619,7 @@ joints:
     target_range: [0.0, 48.0]
 ```
 
-**Multi-finger hand** â `dex3_grasp.yaml` maps seven joints across three fingers, each with its own target range:
+**Multi-finger hand** — `dex3_grasp.yaml` maps seven joints across three fingers, each with its own target range:
 
 ```python
 joints:
@@ -6648,27 +6648,27 @@ joints:
 
 ### Locomotion
 
-The **Locomotion** controller moves a prim kinematically using VR thumbstick and face-button input. Horizontal movement is projected onto the world ground plane using the primâs heading, so axes remain correct regardless of the target primâs local-frame orientation.
+The **Locomotion** controller moves a prim kinematically using VR thumbstick and face-button input. Horizontal movement is projected onto the world ground plane using the prim’s heading, so axes remain correct regardless of the target prim’s local-frame orientation.
 
 Two workflows are supported:
 
-* **Robot base** â set the prim path to a robot base link. Thumbstick input moves the robot, and attached arms and grippers follow. Toggle **Carry Tracking Space** (left primary button) to co-move the VR origin with the robot.
-* **VR origin** â set the prim path to the built-in tracking-space origin marker (`/Teleop/Markers/TrackingOrigin`). Carry is implicit because the locomotion prim *is* the VR origin. Use this for floating grippers that have no physical base.
+* **Robot base** — set the prim path to a robot base link. Thumbstick input moves the robot, and attached arms and grippers follow. Toggle **Carry Tracking Space** (left primary button) to co-move the VR origin with the robot.
+* **VR origin** — set the prim path to the built-in tracking-space origin marker (`/Teleop/Markers/TrackingOrigin`). Carry is implicit because the locomotion prim *is* the VR origin. Use this for floating grippers that have no physical base.
 
 Controls:
 
-* **Prim Path** â the prim to move. Click **Apply** to validate.
-* **Slide Step** â slide distance per app update at full input. Drives left-thumbstick translation (forward, backward, lateral) and the right face-button vertical motion.
-* **Turn Step** â turn angle per app update at full right-thumbstick yaw input.
-* **Enable** / **Disable** â arms or disarms locomotion for the next **Play**.
-* **Clear** â destroys the configured state while keeping the prim path.
+* **Prim Path** — the prim to move. Click **Apply** to validate.
+* **Slide Step** — slide distance per app update at full input. Drives left-thumbstick translation (forward, backward, lateral) and the right face-button vertical motion.
+* **Turn Step** — turn angle per app update at full right-thumbstick yaw input.
+* **Enable** / **Disable** — arms or disarms locomotion for the next **Play**.
+* **Clear** — destroys the configured state while keeping the prim path.
 
 During **Play** the controller reads the following VR inputs:
 
-* **Left thumbstick** â forward/backward (Y) and left/right (X) slide in the world ground plane.
-* **Right thumbstick** â left/right yaw turn.
-* **Right face buttons** â `A` (primary) moves down, `B` (secondary) moves up along world Z (Meta-style controller layout).
-* **Left primary face button** (`X` on Meta-style controllers) â toggles **Carry Tracking Space** mode. When active, locomotion also moves the Tracking Space prim with the base, including turn rotation around the base pivot. When the locomotion prim *is* the tracking-space origin, carry is implicit and the toggle has no additional effect.
+* **Left thumbstick** — forward/backward (Y) and left/right (X) slide in the world ground plane.
+* **Right thumbstick** — left/right yaw turn.
+* **Right face buttons** — `A` (primary) moves down, `B` (secondary) moves up along world Z (Meta-style controller layout).
+* **Left primary face button** (`X` on Meta-style controllers) — toggles **Carry Tracking Space** mode. When active, locomotion also moves the Tracking Space prim with the base, including turn rotation around the base pivot. When the locomotion prim *is* the tracking-space origin, carry is implicit and the toggle has no additional effect.
 
 ## Record and replay (Episode Recorder)
 
@@ -6678,21 +6678,21 @@ A recording *session* is one HDF5 file that contains many *episodes*. Episodes a
 
 ### Targets and output
 
-* **USD Root** â prim path scanned by the discovery helpers. `/World` is a sensible default.
-* **Discover** â lists every articulation (via `ArticulationRootAPI`), rigid body (via `RigidBodyAPI`), and plain Xform prim under the root. Plain Xforms are always included, so a locomotion-driven robot-base cube, a hand-placed tracker, or a visual tool tip under an articulation show up without extra opt-in.
-* **Discovered Targets** (collapsible, scrollable) â the articulations and prims found under the root. Tick the boxes for every target you want recorded; each tick maps to a group or dataset inside the HDF5 file.
-* **Output Dir** â directory where the HDF5 file is written. Defaults to `<cwd>/_episode_recorder`; created if missing.
-* **Export Scene** (next to the Output Dir field) â writes a flattened USD of the current stage as `<output_dir>/stage_snapshot.usd` together with `stage_snapshot.sidecar.json`. The snapshot is scene-level, so one click per scene is enough: subsequent **Open Session** calls detect the file and stamp its basename into the HDF5 `stage_snapshot` attribute automatically.
-* **File Prefix** â filename prefix. The final path is `{prefix}_{timestamp}.hdf5`.
-* **Auto-start recording on timeline Play** â when checked (default), pressing **Play** automatically starts a new episode. Uncheck it to record only when **Start** / **End** (or the VR button) is pressed; the timeline can play without any episode being captured.
-* **Pose Backend** (record side) â selects the backend used by the recorderâs per-tick batch `XformPrim.get_world_poses()` read. Options: **usd** (default; pure USD reads), **usdrt** (Fabric Scene Delegate via `IFabricHierarchy`), **fabric** (Fabric Scene Delegate direct). The Fabric-backed options are safe speedups when Fabric Scene Delegate is enabled and fall back to `usd` with a carb warning when it is disabled. Distinct from the **Write Backend** in the Teleop **Session > Debug** panel, which controls the teleop *write* path.
+* **USD Root** — prim path scanned by the discovery helpers. `/World` is a sensible default.
+* **Discover** — lists every articulation (via `ArticulationRootAPI`), rigid body (via `RigidBodyAPI`), and plain Xform prim under the root. Plain Xforms are always included, so a locomotion-driven robot-base cube, a hand-placed tracker, or a visual tool tip under an articulation show up without extra opt-in.
+* **Discovered Targets** (collapsible, scrollable) — the articulations and prims found under the root. Tick the boxes for every target you want recorded; each tick maps to a group or dataset inside the HDF5 file.
+* **Output Dir** — directory where the HDF5 file is written. Defaults to `<cwd>/_episode_recorder`; created if missing.
+* **Export Scene** (next to the Output Dir field) — writes a flattened USD of the current stage as `<output_dir>/stage_snapshot.usd` together with `stage_snapshot.sidecar.json`. The snapshot is scene-level, so one click per scene is enough: subsequent **Open Session** calls detect the file and stamp its basename into the HDF5 `stage_snapshot` attribute automatically.
+* **File Prefix** — filename prefix. The final path is `{prefix}_{timestamp}.hdf5`.
+* **Auto-start recording on timeline Play** — when checked (default), pressing **Play** automatically starts a new episode. Uncheck it to record only when **Start** / **End** (or the VR button) is pressed; the timeline can play without any episode being captured.
+* **Pose Backend** (record side) — selects the backend used by the recorder’s per-tick batch `XformPrim.get_world_poses()` read. Options: **usd** (default; pure USD reads), **usdrt** (Fabric Scene Delegate via `IFabricHierarchy`), **fabric** (Fabric Scene Delegate direct). The Fabric-backed options are safe speedups when Fabric Scene Delegate is enabled and fall back to `usd` with a carb warning when it is disabled. Distinct from the **Write Backend** in the Teleop **Session > Debug** panel, which controls the teleop *write* path.
 
 ### Session and episode control
 
-* **Open Session** / **Close Session** â single toggle button. On open, the recorder creates the HDF5 file, subscribes to simulation events, and the filename appears below. All configuration options are locked while a session is open.
-* **Start** / **End** â single toggle button that manually starts or ends an episode inside the open session. Only enabled while a session is open. Also driven by the VR left-Y button (see below) and, when **Auto-start recording on timeline Play** is enabled, by the timeline PLAY / STOP hooks.
-* **Binding badge** â small dotted label rendered next to **Start / End**. Lights up green and lists every external input (for example a `VRRecordingButton` attached by `TeleopManager`) currently wired to this recorder. The tooltip enumerates each bindingâs label and the command it dispatches (`start` / `end` / `toggle`). Empty when no external bindings are active.
-* **Status label** â colour-coded feedback below the buttons:
+* **Open Session** / **Close Session** — single toggle button. On open, the recorder creates the HDF5 file, subscribes to simulation events, and the filename appears below. All configuration options are locked while a session is open.
+* **Start** / **End** — single toggle button that manually starts or ends an episode inside the open session. Only enabled while a session is open. Also driven by the VR left-Y button (see below) and, when **Auto-start recording on timeline Play** is enabled, by the timeline PLAY / STOP hooks.
+* **Binding badge** — small dotted label rendered next to **Start / End**. Lights up green and lists every external input (for example a `VRRecordingButton` attached by `TeleopManager`) currently wired to this recorder. The tooltip enumerates each binding’s label and the command it dispatches (`start` / `end` / `toggle`). Empty when no external bindings are active.
+* **Status label** — colour-coded feedback below the buttons:
 
   + *Idle* (dim).
   + *Session open - N articulation(s), M prim(s)* (yellow).
@@ -6714,16 +6714,16 @@ The **Replay** sub-section (collapsible, collapsed by default) plays any previou
 
 The transport row uses Kit timeline-style glyph buttons rather than text labels: play / stop, pause, step-backward, and step-forward.
 
-* **File** â full path to an HDF5 session file. Use **Latest** to fill in the newest `{prefix}_*.hdf5` in the current **Output Dir**.
-* **Load** â opens the HDF5 and populates the **Episode** dropdown with every episode name and its frame count. The info label next to the dropdown shows `success=True/False` for the selected episode, so abandoned takes are visible at a glance. After load, a red warning row appears below the status if any prim paths referenced by the HDF5 do not resolve on the current stage â open the matching scene (or the exported `stage_snapshot.usd`) before starting the replay.
-* **Pose Backend** (replay side) â selects the backend used by the replayerâs per-tier batch pose write. Options match the record-side selector (**usd** / **usdrt** / **fabric**). `usd` is the recommended default â the ancestry-ordered tier split plus USD writes is what avoids parent-lag stutter on articulations nested under moving xforms. `usdrt` and `fabric` are reserved for benchmarking flat scenes and may exhibit a one-frame parent-lag on nested hierarchies. Applied on **Load**.
-* **Play / Stop** glyph â drives `EpisodeReplayer.start_replay`. Each Kit app update applies one recorded frame and seeks (never plays) the Kit timeline to the recorded `sim_time`, so any stage-authored USD animations play back in lockstep without stepping physics. Pose writes land in an anonymous USD sublayer so the root stage is never mutated. Stopping (or reaching the last frame in non-loop mode) pops that sublayer, returning every prim to its pre-replay pose; the HDF5 session stays loaded so a fresh replay can be started immediately.
-* **Pause** glyph â pauses the replay on the current frame; the last applied frame stays on the stage. Pressing it again resumes from where it left off. The Stop glyph still pops the anonymous sublayer.
-* **Step Backward / Step Forward** glyphs â apply the previous or next recorded frame and auto-pause the replay. Use them to inspect the recording one frame at a time or to seek to a specific moment before resuming.
-* **Seek timeline** â when checked (default), each applied frame also seeks the Kit timeline to that frameâs recorded `sim_time` so stage-authored USD animations stay in sync with the recording. Uncheck it to replay only the recorded prim poses and leave the timeline untouched.
-* **Progress label** â below the replay status, shows the currently applied frame as `Frame X / N`. The same counter is emitted to the terminal at one-second intervals and on the first and last frame.
+* **File** — full path to an HDF5 session file. Use **Latest** to fill in the newest `{prefix}_*.hdf5` in the current **Output Dir**.
+* **Load** — opens the HDF5 and populates the **Episode** dropdown with every episode name and its frame count. The info label next to the dropdown shows `success=True/False` for the selected episode, so abandoned takes are visible at a glance. After load, a red warning row appears below the status if any prim paths referenced by the HDF5 do not resolve on the current stage — open the matching scene (or the exported `stage_snapshot.usd`) before starting the replay.
+* **Pose Backend** (replay side) — selects the backend used by the replayer’s per-tier batch pose write. Options match the record-side selector (**usd** / **usdrt** / **fabric**). `usd` is the recommended default — the ancestry-ordered tier split plus USD writes is what avoids parent-lag stutter on articulations nested under moving xforms. `usdrt` and `fabric` are reserved for benchmarking flat scenes and may exhibit a one-frame parent-lag on nested hierarchies. Applied on **Load**.
+* **Play / Stop** glyph — drives `EpisodeReplayer.start_replay`. Each Kit app update applies one recorded frame and seeks (never plays) the Kit timeline to the recorded `sim_time`, so any stage-authored USD animations play back in lockstep without stepping physics. Pose writes land in an anonymous USD sublayer so the root stage is never mutated. Stopping (or reaching the last frame in non-loop mode) pops that sublayer, returning every prim to its pre-replay pose; the HDF5 session stays loaded so a fresh replay can be started immediately.
+* **Pause** glyph — pauses the replay on the current frame; the last applied frame stays on the stage. Pressing it again resumes from where it left off. The Stop glyph still pops the anonymous sublayer.
+* **Step Backward / Step Forward** glyphs — apply the previous or next recorded frame and auto-pause the replay. Use them to inspect the recording one frame at a time or to seek to a specific moment before resuming.
+* **Seek timeline** — when checked (default), each applied frame also seeks the Kit timeline to that frame’s recorded `sim_time` so stage-authored USD animations stay in sync with the recording. Uncheck it to replay only the recorded prim poses and leave the timeline untouched.
+* **Progress label** — below the replay status, shows the currently applied frame as `Frame X / N`. The same counter is emitted to the terminal at one-second intervals and on the first and last frame.
 
-Replay is pure-USD and timeline-seeking only â the replayer never plays the timeline and never calls into the physics engine. Teleop controllers (Floating, IK, Grasp, Locomotion) stay dormant during replay, which avoids the `Simulation view object is invalidated` errors that playing the timeline against a stopped simulation would otherwise trigger. The start / stop lifecycle emits `[EpisodeRecorder][UI] Replay: starting (episode ..., N frames, file=...)` and `Replay: stopped (reason=user | finished | stage_closed)` on the terminal, plus a periodic `Replay: frame X/N` progress line.
+Replay is pure-USD and timeline-seeking only — the replayer never plays the timeline and never calls into the physics engine. Teleop controllers (Floating, IK, Grasp, Locomotion) stay dormant during replay, which avoids the `Simulation view object is invalidated` errors that playing the timeline against a stopped simulation would otherwise trigger. The start / stop lifecycle emits `[EpisodeRecorder][UI] Replay: starting (episode ..., N frames, file=...)` and `Replay: stopped (reason=user | finished | stage_closed)` on the terminal, plus a periodic `Replay: frame X/N` progress line.
 
 For replay to work, every prim path recorded in the HDF5 must exist on the loaded stage. The Replay panel uses a lenient replayer (`ReplayPolicy(strictness="best_effort")`) that skips missing paths with a warning rather than erroring. To guarantee a reproducible setup, click **Export Scene** once before recording; the resulting `stage_snapshot.usd` can be opened on any machine to reproduce the authored stage before replaying.
 
@@ -6758,7 +6758,7 @@ Each session produces one HDF5 file with one group per episode. Datasets are pre
     âââ episode_00002/ ...
 ```
 
-For articulations, `L` is the number of recorded links (the articulation root plus every `UsdGeom.Xformable` descendant). The link list is frozen on **Open Session** and stored in the manifest so the replayer binds to the same prim set. There are no DOF, velocity, or drive-target channels: every gripper-drive joint is reproduced through its child linkâs recorded world pose, so replaying open / closed grippers works without running any teleop logic.
+For articulations, `L` is the number of recorded links (the articulation root plus every `UsdGeom.Xformable` descendant). The link list is frozen on **Open Session** and stored in the manifest so the replayer binds to the same prim set. There are no DOF, velocity, or drive-target channels: every gripper-drive joint is reproduced through its child link’s recorded world pose, so replaying open / closed grippers works without running any teleop logic.
 
 `EpisodeReplayer.list_episodes` iterates the `episodes/episode_NNNNN` groups for per-episode playback.
 
@@ -6766,8 +6766,8 @@ For articulations, `L` is the number of recorded links (the articulation root pl
 
 The recorder captures two kinds of data per frame:
 
-* **World state** (under `state/<name>/`, one HDF5 group per recorded articulation, Xform, or rigid body) â the world pose of every recorded prim. For articulations, this is the per-link pose array; for rigid bodies and Xforms, the single root pose. This is the *only* data the replayer applies.
-* **Teleop input channels** (under `teleop/<side>/...`, present only when a live `TeleopManager` is active at record time) â trigger, squeeze, thumbstick, button clicks, and optional OpenXR aim-pose and head-pose channels. Recorded for offline analysis, policy learning, and re-simulation; the replayer *ignores* them entirely.
+* **World state** (under `state/<name>/`, one HDF5 group per recorded articulation, Xform, or rigid body) — the world pose of every recorded prim. For articulations, this is the per-link pose array; for rigid bodies and Xforms, the single root pose. This is the *only* data the replayer applies.
+* **Teleop input channels** (under `teleop/<side>/...`, present only when a live `TeleopManager` is active at record time) — trigger, squeeze, thumbstick, button clicks, and optional OpenXR aim-pose and head-pose channels. Recorded for offline analysis, policy learning, and re-simulation; the replayer *ignores* them entirely.
 
 Aim-pose and head-pose capture is controlled by the carb settings `/persistent/exts/isaacsim.replicator.teleop/record/record_aim_pose` and `.../record_head_pose` (both default `True`). Toggle them from the Script Editor (`carb.settings.get_settings().set_bool(...)`) before opening a session if you want to skip them.
 
@@ -6775,7 +6775,7 @@ On replay, `EpisodeReplayer.apply_frame` writes the recorded world pose of every
 
 ### Programmatic recordables (cameras, attributes)
 
-The Episode Recorder window only auto-discovers articulations, rigid bodies, and plain Xforms under the **USD Root**. To capture additional channels â typically camera trajectories for the [synthetic-data pipeline](#isaac-sim-app-tutorial-replicator-teleop-sdg-replay) or arbitrary USD attributes for offline analysis â build the recorder programmatically and `add` the extra recordables before opening the session:
+The Episode Recorder window only auto-discovers articulations, rigid bodies, and plain Xforms under the **USD Root**. To capture additional channels — typically camera trajectories for the [synthetic-data pipeline](#isaac-sim-app-tutorial-replicator-teleop-sdg-replay) or arbitrary USD attributes for offline analysis — build the recorder programmatically and `add` the extra recordables before opening the session:
 
 ```python
 from isaacsim.replicator.episode_recorder import (
@@ -6801,11 +6801,11 @@ recorder.add(AttributeRecordable(
 recorder.open_session()
 ```
 
-`CameraRecordable` captures the cameraâs world pose plus its USD intrinsics (focal length, horizontal and vertical aperture, clipping range) every frame; resolution is stored once in the session manifest. On replay the same channel re-authors the recorded camera trajectory into the anonymous sublayer, so any Replicator render product attached to the camera prim picks it up without extra wiring.
+`CameraRecordable` captures the camera’s world pose plus its USD intrinsics (focal length, horizontal and vertical aperture, clipping range) every frame; resolution is stored once in the session manifest. On replay the same channel re-authors the recorded camera trajectory into the anonymous sublayer, so any Replicator render product attached to the camera prim picks it up without extra wiring.
 
 `AttributeRecordable` captures a single USD attribute on a prim per frame. Use it for environment state that is not a pose (light intensity, material parameter, custom authored attributes, and so on).
 
-Third-party extensions can also add channels to every session opened from the UI window by registering a session injector with `register_session_injector` â this is the same mechanism `install_teleop_session_injector` uses to contribute teleop controller, aim-pose, and head-pose channels.
+Third-party extensions can also add channels to every session opened from the UI window by registering a session injector with `register_session_injector` — this is the same mechanism `install_teleop_session_injector` uses to contribute teleop controller, aim-pose, and head-pose channels.
 
 ## Teleop profiles
 
@@ -6830,7 +6830,7 @@ The two bimanual profiles are described in detail below; the solo variants share
 
 `floating_xarm_dex3.yaml` configures a dual floating-gripper setup. The **Floating Controller** drives each gripper as a free rigid body, and **Locomotion** targets the VR origin marker so that thumbstick input repositions the entire VR workspace.
 
-**Session** â global settings that apply before any controller is configured:
+**Session** — global settings that apply before any controller is configured:
 
 ```python
 session:
@@ -6846,7 +6846,7 @@ session:
   anchor_fixed_height: true
 ```
 
-**Floating** â per-side rigid-body controller with PD gains and rotation offsets. Both sides are enabled, each pointing at a different gripper root prim:
+**Floating** — per-side rigid-body controller with PD gains and rotation offsets. Both sides are enabled, each pointing at a different gripper root prim:
 
 ```python
 floating:
@@ -6874,9 +6874,9 @@ floating:
       target_rot_z_deg: 90
 ```
 
-**IK** â neither side is enabled because the grippers are floating rigid bodies rather than articulations. The section is still present with defaults so that loading the profile resets any prior IK configuration.
+**IK** — neither side is enabled because the grippers are floating rigid bodies rather than articulations. The section is still present with defaults so that loading the profile resets any prior IK configuration.
 
-**Grasp** â maps each side to a gripper articulation prim and a built-in grasp config. `builtin://` paths resolve to YAML files shipped with the extension:
+**Grasp** — maps each side to a gripper articulation prim and a built-in grasp config. `builtin://` paths resolve to YAML files shipped with the extension:
 
 ```python
 grasp:
@@ -6890,7 +6890,7 @@ grasp:
     config_path: builtin://dex3_grasp
 ```
 
-**Locomotion** â drives the built-in tracking-space origin so that thumbstick input moves the entire teleop workspace (VR-origin workflow):
+**Locomotion** — drives the built-in tracking-space origin so that thumbstick input moves the entire teleop workspace (VR-origin workflow):
 
 ```python
 locomotion:
@@ -6903,9 +6903,9 @@ locomotion:
 
 #### Dual-arm IK (robot-base locomotion)
 
-`ik_dual_ur3_xarm_dex3.yaml` configures a dual UR3e arm setup where each arm is driven by the **PINK** IK solver. **Locomotion** targets the robotâs root prim so that thumbstick input moves the entire robot base.
+`ik_dual_ur3_xarm_dex3.yaml` configures a dual UR3e arm setup where each arm is driven by the **PINK** IK solver. **Locomotion** targets the robot’s root prim so that thumbstick input moves the entire robot base.
 
-**IK** â both sides are enabled with the PINK solver. Each side points at a different UR3e arm within the dual-arm assembly. The `ee_rot_*` offsets align each end effectorâs local frame with the VR controller pointing direction. The PINK solver does not use a Jacobian-inversion method; for the Position-based and Velocity-based solvers, add `method: damped-least-squares | pseudoinverse | transpose | singular-value-decomposition` to the sideâs settings.
+**IK** — both sides are enabled with the PINK solver. Each side points at a different UR3e arm within the dual-arm assembly. The `ee_rot_*` offsets align each end effector’s local frame with the VR controller pointing direction. The PINK solver does not use a Jacobian-inversion method; for the Position-based and Velocity-based solvers, add `method: damped-least-squares | pseudoinverse | transpose | singular-value-decomposition` to the side’s settings.
 
 ```python
 ik:
@@ -6943,11 +6943,11 @@ ik:
       ee_rot_z_deg: -180
 ```
 
-**Floating** â disabled because the arms are articulations controlled by IK.
+**Floating** — disabled because the arms are articulations controlled by IK.
 
-**Grasp** â same gripper mapping as the floating profile, with each side pointing at the corresponding gripper articulation.
+**Grasp** — same gripper mapping as the floating profile, with each side pointing at the corresponding gripper articulation.
 
-**Locomotion** â drives the robot root prim so that thumbstick input moves the dual-arm assembly as a whole (robot-base workflow). **Carry Tracking Space** can be toggled to co-move the VR origin with the robot:
+**Locomotion** — drives the robot root prim so that thumbstick input moves the dual-arm assembly as a whole (robot-base workflow). **Carry Tracking Space** can be toggled to co-move the VR origin with the robot:
 
 ```python
 locomotion:
@@ -6999,7 +6999,7 @@ If **Connect** fails the status stays red. The most common cause is that the Clo
 
 ### Operate without VR (debug mode)
 
-Use debug mode when no headset is available, when iterating on tuning, or when running headless. Debug mode and VR mode are mutually exclusive â disconnect VR before enabling debug, and uncheck **Debug Tracking** before clicking **Connect**.
+Use debug mode when no headset is available, when iterating on tuning, or when running headless. Debug mode and VR mode are mutually exclusive — disconnect VR before enabling debug, and uncheck **Debug Tracking** before clicking **Connect**.
 
 1. Expand **Session** > **Debug** and check **Debug Tracking**. Frame markers appear in the viewport, the **Connect** button is disabled, and the **L Grasp**, **R Grasp**, **Slide X**, **Slide Y**, **Turn**, **Up**, **Down**, and **Carry Origin** controls become live.
 2. Drag the **Left**, **Right**, or **Head** marker in the viewport to set its pose; drag the **TrackingOrigin** parent to move all four markers together. The marker hierarchy mirrors a real VR tracking space.
@@ -7026,7 +7026,7 @@ The Episode Recorder window captures simulation state and (when a `TeleopManager
 
 1. Open **Tools** > **Replicator** > **Episode Recorder**. Keep the Teleop window open so the session injector remains active.
 2. Set **USD Root** to `/World`, click **Discover**, and tick the targets to record (the robot, any tracked Xforms).
-3. Optional â click **Export Scene** once to write `stage_snapshot.usd` next to the HDF5 output. Replays on a different machine can use this snapshot as a portable stage.
+3. Optional — click **Export Scene** once to write `stage_snapshot.usd` next to the HDF5 output. Replays on a different machine can use this snapshot as a portable stage.
 4. Click **Open Session**. The configuration controls lock and the filename appears below the buttons.
 5. Press **Play** on the timeline. With **Auto-start recording on timeline Play** checked (the default), the status turns green with `Recording episode #1`. Operate the robot. Press **Stop** to end the episode. Repeat for additional episodes.
 6. To toggle recording manually from VR, press the left-**Y** button on the Meta Quest controller. Each rising edge starts or ends an episode.
@@ -7036,7 +7036,7 @@ The Episode Recorder window captures simulation state and (when a `TeleopManager
 
 1. Expand the **Replay** sub-section in the Episode Recorder window.
 2. Click **Latest** to fill in the most recent HDF5 file in the **Output Dir**, then click **Load**. The **Episode** dropdown lists every episode with its frame count and `success` flag.
-3. Select an episode and click the play glyph in the transport row. The Kit timeline seeks to each frameâs recorded `sim_time`. Every prim moves through its recorded trajectory; teleop controllers stay dormant.
+3. Select an episode and click the play glyph in the transport row. The Kit timeline seeks to each frame’s recorded `sim_time`. Every prim moves through its recorded trajectory; teleop controllers stay dormant.
 4. Use the pause and step-backward / step-forward glyphs to scrub. Uncheck **Seek timeline** to leave the Kit timeline alone (useful when the stage has no authored animation).
 5. Click the stop glyph to revert the stage to its pre-replay pose. The HDF5 stays loaded so a fresh replay can start immediately.
 
@@ -7049,12 +7049,12 @@ The UI replay covered in [Record and replay](#isaac-sim-app-tutorial-replicator-
 ### Prerequisites
 
 * An HDF5 session produced by the [Episode Recorder window](#isaac-sim-app-tutorial-replicator-teleop-episode-recorder) (or any `EpisodeRecorder` subclass).
-* A USD stage to replay against. Every prim path in the HDF5 must resolve on this stage. Point `STAGE_URL` at the assets-server path of the original scene, or at an exported snapshot â click **Export Scene** in the Episode Recorder window or call `export_stage_snapshot` from a script to produce `stage_snapshot.usd` next to the HDF5.
+* A USD stage to replay against. Every prim path in the HDF5 must resolve on this stage. Point `STAGE_URL` at the assets-server path of the original scene, or at an exported snapshot — click **Export Scene** in the Episode Recorder window or call `export_stage_snapshot` from a script to produce `stage_snapshot.usd` next to the HDF5.
 * Isaac Sim running. A VR or CloudXR connection is not required for replay.
 
 ### What the script does
 
-The script opens `STAGE_URL` (resolved through `get_assets_root_path`), resolves the cameras listed in `CAMERA_PATHS` (falling back to a default camera if none resolve), attaches a `BasicWriter` (RGB PNGs) to the camera render products, and iterates every recorded frame â calling `rep.orchestrator.step` (or `step_async` in the Script Editor variant) after each `step_frame`. Outputs land under `_out_teleop_replay/basic/` next to the current working directory.
+The script opens `STAGE_URL` (resolved through `get_assets_root_path`), resolves the cameras listed in `CAMERA_PATHS` (falling back to a default camera if none resolve), attaches a `BasicWriter` (RGB PNGs) to the camera render products, and iterates every recorded frame — calling `rep.orchestrator.step` (or `step_async` in the Script Editor variant) after each `step_frame`. Outputs land under `_out_teleop_replay/basic/` next to the current working directory.
 
 Before running either variant below, edit `HDF5_PATH` and `STAGE_URL` at the top of the script to point at your recorded session and its matching USD stage.
 
@@ -7444,11 +7444,11 @@ On this page
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
 * [Perception Data Generation (Replicator)](index.html)
-* Randomization in Simulation â AMR Navigation
+* Randomization in Simulation – AMR Navigation
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Randomization in Simulation â AMR Navigation
+# Randomization in Simulation – AMR Navigation
 
 Example of using Isaac Sim and Replicator to capture synthetic data from simulated environments (AMR Navigation).
 
@@ -8471,7 +8471,7 @@ The attributes of this class include:
 
 **Workflow and Start Function**
 
-The workflowâs main functions are `start` and the `_on_timeline_event` callback functions. `start` resolves the selected environment list, creates a new environment with:
+The workflow’s main functions are `start` and the `_on_timeline_event` callback functions. `start` resolves the selected environment list, creates a new environment with:
 
 * navigation specific physics scene
 * Nova Carter
@@ -8552,7 +8552,7 @@ def _on_timeline_event(self, e: carb.eventdispatcher.Event):
 
 To randomize the environment before the synthetic data capture, the following functions are used:
 
-* `_randomize_dolly_pose`: places the dolly at a random pose with a given minimum distance from Nova Carter. After such a pose is found, the navigation target is placed at the dollyâs position.
+* `_randomize_dolly_pose`: places the dolly at a random pose with a given minimum distance from Nova Carter. After such a pose is found, the navigation target is placed at the dolly’s position.
 * `_randomize_dolly_light`: places the dolly light above the dolly with a new random color.
 * `_randomize_prop_poses`: places the props above the dolly at random locations, which eventually starts to fall after the simulation starts.
 
@@ -8591,9 +8591,9 @@ def _randomize_prop_poses(self) -> None:
 
 **Synthetic Data Generation (SDG) Explanation**
 
-When executing the synthetic data generation (SDG) pipeline the `rep.orchestrator.step` function is called to initiate the data capture and the execution of the writerâs write function.
+When executing the synthetic data generation (SDG) pipeline the `rep.orchestrator.step` function is called to initiate the data capture and the execution of the writer’s write function.
 
-Depending on the value of the `use_temp_rp` flag, the sensorâs render products are handled differently:
+Depending on the value of the `use_temp_rp` flag, the sensor’s render products are handled differently:
 
 * If set to `True`, the render products are only enabled during data capture.
 * `False` is the default. It renders the render products and processes every frame.
@@ -8675,11 +8675,11 @@ On this page
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
 * [Perception Data Generation (Replicator)](index.html)
-* Randomization in Simulation â UR10 Palletizing
+* Randomization in Simulation – UR10 Palletizing
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Randomization in Simulation â UR10 Palletizing
+# Randomization in Simulation – UR10 Palletizing
 
 Example of using Isaac Sim and Replicator to capture synthetic data from simulated environments (UR10 palletizing).
 
@@ -8723,7 +8723,7 @@ In the above images, data collected from the actions in the left side image belo
 
 In the above images, data collected from the right side image belongs to the **bin on pallet scenario**.
 
-For each frame in this scenario, the camera pose is iterated through in a predefined sequence, while the custom lightsâ parameters are randomized. Data is generated for each manipulated bin in the palletizing demo scene.
+For each frame in this scenario, the camera pose is iterated through in a predefined sequence, while the custom lights’ parameters are randomized. Data is generated for each manipulated bin in the palletizing demo scene.
 
 The events for which synthetic data are collected are:
 
@@ -9274,7 +9274,7 @@ The attributes of this class include:
 * `self._in_running_state` indicates whether the demo is currently running
 * `self._bin_flip_scenario_done` is a flag to mark if the bin flip scenario has been completed, to avoid triggering it again
 * `self._timeline` is used to pause and resume the simulation in response to Synthetic Data Generation (SDG) events
-* `self._timeline_sub` is a subscriber to timeline events, allowing the monitoring of the simulation state (tracking the active binâs surroundings)
+* `self._timeline_sub` is a subscriber to timeline events, allowing the monitoring of the simulation state (tracking the active bin’s surroundings)
 * `self._overlap_extent` represents an extent cache of the bin size, which is used to query for overlaps around the active bin
 * `self._rep_camera` points the temporary replicator camera to capture SDG data
 * `self._output_dir` is the output directory where the SDG data gets stored
@@ -9407,7 +9407,7 @@ The `_create_bin_flip_graph` function is used to create the Replicator randomiza
 
 The `rep.orchestrator.step_async` function is called for the requested number of frames (`self._bin_flip_frames`) to advance the randomization graph by one frame and provide the annotators with the new data. The data is then retrieved using the `get_data()` function and saved to disk using `write_image`. To optimize simulation performance, render products are discarded after each SDG pipeline and the constructed Replicator graphs are removed.
 
-After the SDG scenario is completed, the render mode is set back to realtime path tracing. The timeline then resumes the simulation and the timeline subscriber is reactivated to continue monitoring the simulation environment. To ensure that the **bin flip scenario** doesnât re-trigger, given that the bin remains in contact with the flip helper object, the `self._bin_flip_scenario_done` flag is set to `True`.
+After the SDG scenario is completed, the render mode is set back to realtime path tracing. The timeline then resumes the simulation and the timeline subscriber is reactivated to continue monitoring the simulation environment. To ensure that the **bin flip scenario** doesn’t re-trigger, given that the bin remains in contact with the flip helper object, the `self._bin_flip_scenario_done` flag is set to `True`.
 
 Bin Flip Scenario Snippet
 
@@ -9577,7 +9577,7 @@ async def _run_pallet_scenario(self):
     self._timeline.play()
 ```
 
-For the **bin on pallet scenario**, the Replicator randomization graph randomizes the colors of the bin materials. A predefined list of textures is used, from which the graph randomly selects and applies th pallet textures, this is done by `rep.randomizer.texture(texture_paths,..)`. The cameraâs position varies around the pallet using `rep.distribution.uniform(..)` and is oriented towards the palletâs location. The trigger is split into two parts:
+For the **bin on pallet scenario**, the Replicator randomization graph randomizes the colors of the bin materials. A predefined list of textures is used, from which the graph randomly selects and applies th pallet textures, this is done by `rep.randomizer.texture(texture_paths,..)`. The camera’s position varies around the pallet using `rep.distribution.uniform(..)` and is oriented towards the pallet’s location. The trigger is split into two parts:
 
 * the bin materials are changed **every frame** as shown by `rep.trigger.on_frame()`
 * while the pallet textures and the camera positions are executed every **four frames**, represented by `rep.trigger.on_frame(interval=4)`

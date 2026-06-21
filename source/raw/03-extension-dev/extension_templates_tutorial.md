@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/utilities/extension_templ
 title: "Extension Templates Tutorial"
 section: "Extension 模板"
 module: "03-extension-dev"
-checksum: "7a049716c8396434"
-fetched: "2026-06-21T12:48:10"
+checksum: "897bd4502733125d"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * [Templates](templates_index.html)
@@ -32,7 +32,7 @@ In each template root directory, there is a folder called `./scripts` where all 
       class is meant to fulfill most use-cases without modification.
       In extension.py, useful standard callback functions are created that the user may complete in ui\_builder.py.
 * ui\_builder.py
-  :   This file is the userâs main entrypoint into the template. Here, the user can see useful callback functions that have been
+  :   This file is the user’s main entrypoint into the template. Here, the user can see useful callback functions that have been
       set up for them, and they may also create UI elements that are hooked up to user-defined callback functions. This file is
       the most thoroughly documented, and the user should read through it before making serious modification.
 
@@ -132,7 +132,7 @@ script the simple pick-and-place task shown below.
 
 The implementation details of the UI match the *Loaded Scenario Template*, and so this section focuses
 on the implementation of script-like behavior. Long-running functions that check in on every frame
-can be written using Pythonâs yield/generator framework. A function `my_script()` is implemented in
+can be written using Python’s yield/generator framework. A function `my_script()` is implemented in
 the file `scenario.py` that contains the sequence of `goto_position()`, `open_gripper_franka()`, and
 `close_gripper_franka()` function calls. The `my_script()` function makes use of `yield` and `yield from` statements.
 This allows `my_script()` to be wrapped in a generator with `self._script_generator = self.my_script()`.

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "Tutorial 06: Joint Gains Tuning"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "652f6bc7ea826194"
-fetched: "2026-06-21T13:05:45"
+checksum: "0db86d882b9c38e3"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:05:45"
 
 # Tutorial 6: Joint Gains Tuning
 
-Max torque and max velocity are set (Tutorial 5). The remaining question: **how does each joint respond when you command a new position?** Too stiff and the hand can jitter or overshoot; too soft and it lags or never reaches the target. Stiffness and damping form a PD (Proportional-Derivative) controller: stiffness pulls the joint toward the target, damping resists velocity and reduces oscillation. This tutorial uses the **Gain Tuner** in Isaac Sim to tune these gains for the thumb, run step and sinewave tests, and analyze position and velocity with the built-in chartsâso you can see underdamped, critically damped, and overdamped behavior and aim for responsive, stable motion.
+Max torque and max velocity are set (Tutorial 5). The remaining question: **how does each joint respond when you command a new position?** Too stiff and the hand can jitter or overshoot; too soft and it lags or never reaches the target. Stiffness and damping form a PD (Proportional-Derivative) controller: stiffness pulls the joint toward the target, damping resists velocity and reduces oscillation. This tutorial uses the **Gain Tuner** in Isaac Sim to tune these gains for the thumb, run step and sinewave tests, and analyze position and velocity with the built-in charts—so you can see underdamped, critically damped, and overdamped behavior and aim for responsive, stable motion.
 
 ## Learning Objectives
 
@@ -36,8 +36,8 @@ Position control in Isaac Sim uses stiffness and damping:
 
 **Force = (Stiffness Ã delta\_position) + (Damping Ã delta\_velocity)**
 
-* **Stiffness** â Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
-* **Damping** â Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
+* **Stiffness** — Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
+* **Damping** — Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
 
 Together they form a PD (Proportional-Derivative) controller.
 
@@ -45,19 +45,19 @@ Together they form a PD (Proportional-Derivative) controller.
 
 Stiffness and damping directly determine how the joint responds to position commands and how it behaves in contact. Poor tuning leads to:
 
-* **Unrealistic motion** â Too stiff can look robotic or cause jitter; too soft makes the hand feel sluggish or weak.
-* **Instability** â High stiffness with low damping causes oscillation and overshoot; in contact, this can produce chatter or unstable grasps.
-* **Poor tracking** â If gains are too low, the joint never reaches the target in time or drifts under load.
+* **Unrealistic motion** — Too stiff can look robotic or cause jitter; too soft makes the hand feel sluggish or weak.
+* **Instability** — High stiffness with low damping causes oscillation and overshoot; in contact, this can produce chatter or unstable grasps.
+* **Poor tracking** — If gains are too low, the joint never reaches the target in time or drifts under load.
 
 The ratio of stiffness to damping defines the **damping regime** of the response. For a step to a target position, you will see one of three behaviors:
 
 | Regime | What it looks like | Cause |
 | --- | --- | --- |
-| **Underdamped** | The joint overshoots the target, then oscillates (rings) before settling. You may see multiple overshoots. | Stiffness is high relative to damping; the âspringâ dominates and there isnât enough âshock absorberâ to dissipate energy. |
+| **Underdamped** | The joint overshoots the target, then oscillates (rings) before settling. You may see multiple overshoots. | Stiffness is high relative to damping; the “spring” dominates and there isn’t enough “shock absorber” to dissipate energy. |
 | **Critically damped** | The joint approaches the target smoothly and reaches it in the shortest time **without** overshooting. | Stiffness and damping are balanced so that the system neither rings nor moves slowly. Often the goal for responsive, stable motion. |
 | **Overdamped** | The joint approaches the target slowly and never overshoots. Response is sluggish; it may take a long time to settle. | Damping is high relative to stiffness; motion is heavily resisted. |
 
-In the Gain Tuner, if you see **oscillation or overshoot** in the position chart, you are underdampedâincrease damping (or reduce stiffness). If the joint **barely moves or creeps** toward the target, you are overdampedâincrease stiffness or reduce damping. Aim for a response that reaches the target quickly with little or no overshoot (near critically damped).
+In the Gain Tuner, if you see **oscillation or overshoot** in the position chart, you are underdamped—increase damping (or reduce stiffness). If the joint **barely moves or creeps** toward the target, you are overdamped—increase stiffness or reduce damping. Aim for a response that reaches the target quickly with little or no overshoot (near critically damped).
 
 ## Module 5.2: Using Gain Tuner to Tune Joint Drive Stiffness and Damping
 
@@ -95,7 +95,7 @@ If you want to precisely inspect and interactively move any joint through its fu
 2. In the Inspector window, select `r_base_link` as the **Articulation** in the dropdown.
 3. Use the interface to directly set drive target positions for any joint and observe their behavior in the viewport.
 
-Before commanding targets, make sure the jointâs stiffness is set to a nonzero valueâotherwise the joint may not respond to target changes.
+Before commanding targets, make sure the joint’s stiffness is set to a nonzero value—otherwise the joint may not respond to target changes.
 
 1. Press **Play**, then **Run Test** to apply the gains and run the evaluation.
 
@@ -105,7 +105,7 @@ If you see instabilities at higher stiffness values, open the *Property* panel, 
 
 ## Module 5.3: Analyze Tuning Results
 
-The Gain Tunerâs **Charts** let you compare actual position and velocity to the commanded values. Use them to spot overshoot, lag, or coupling: for example, `right_thumb_2_joint` tested alone can behave differently than when both thumb joints move together. Weâll adjust gains, run parallel tests for both thumb joints, then run all fingers in parallel to confirm the full hand tracks commands before saving to the physics layer.
+The Gain Tuner’s **Charts** let you compare actual position and velocity to the commanded values. Use them to spot overshoot, lag, or coupling: for example, `right_thumb_2_joint` tested alone can behave differently than when both thumb joints move together. We’ll adjust gains, run parallel tests for both thumb joints, then run all fingers in parallel to confirm the full hand tracks commands before saving to the physics layer.
 
 1. Once the tests from *Run a Test* are completed, expand the **Charts** section and multi-select (**CTRL** + left-click) `right_thumb_1_joint` and `right_thumb_2_joint`.
 
@@ -113,7 +113,7 @@ You should see that `right_thumb_1_joint` is oscillating around the target and `
 
 1. To improve tracking, increase stiffness to **0.07** for `right_thumb_2_joint`.
 
-1. Add damping **0.0001** to reduce oscillation. Set **Sequence** to **1** for both `right_thumb_1_joint` and `right_thumb_2_joint` so they run at the same time (parallel tests let the thumbâs lateral motion create space for the curling motion). Set **Step Min** to **0.0** and **Step Max** to **15** for `right_thumb_2_joint` to observe the effect of the range change.
+1. Add damping **0.0001** to reduce oscillation. Set **Sequence** to **1** for both `right_thumb_1_joint` and `right_thumb_2_joint` so they run at the same time (parallel tests let the thumb’s lateral motion create space for the curling motion). Set **Step Min** to **0.0** and **Step Max** to **15** for `right_thumb_2_joint` to observe the effect of the range change.
 
 1. Press **Play** if the simulation is not already playing. Click **Run Test**.
 
@@ -128,7 +128,7 @@ You should see that `right_thumb_1_joint` is oscillating around the target and `
 
 If velocities approach or exceed the maximums, reduce gain values or adjust test parameters.
 
-1. To evaluate the **entire handâs coordinated tracking**, run a parallel step function test:
+1. To evaluate the **entire hand’s coordinated tracking**, run a parallel step function test:
 
    * Enable **Test** for all joints in the Gain Tuner.
    * Set **Sequence** to **1** for each joint (this runs tests in parallel for all fingers).
@@ -153,7 +153,7 @@ In the Gain Tuner, open `/path/to/Inspire/module_5_end-checkpoint_3/inspire_hand
 
 This tutorial covered:
 
-* Using the **Gain Tuner** to tune stiffness and damping (Position, Force) for the thumb joints and saving gains to the **physics.usda** layer so the hand responds to position commands with stable, nearâcritically damped motion.
+* Using the **Gain Tuner** to tune stiffness and damping (Position, Force) for the thumb joints and saving gains to the **physics.usda** layer so the hand responds to position commands with stable, near–critically damped motion.
 * Running **step** and **sinewave** tests and interpreting damping regimes (underdamped, critically damped, overdamped) in the Charts to diagnose overshoot or sluggishness.
 * Verifying **parallel tests** for all joints; the same workflow applies to other digits or custom hands. The **module\_5\_end-checkpoint\_3** checkpoint contains the final tuned values.
 

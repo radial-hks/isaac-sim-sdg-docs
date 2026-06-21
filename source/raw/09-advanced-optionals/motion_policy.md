@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/mot
 title: "Motion Policy"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "30641fa3340986df"
-fetched: "2026-06-21T13:05:41"
+checksum: "d42f184b7baaedcf"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -56,7 +56,7 @@ For example, the Franka robot has nine degrees of freedom (DOFs):
 * two prismatic joints for controlling its gripper
 
 The robot Articulation exposes all nine degrees of freedom, but [RMPflow](rmpflow.html#isaac-sim-motion-generation-rmpflow) only cares about the seven revolute joints when navigating the robot to a position target. It is not appropriate for RMPflow to take control of the gripper DOFs, because those DOFs can be controlled separately when performing a task such as pick-and-place. `RmpFlow.get_active_joints()` returns the names of the seven revolute joints
-in the Franka robot. `RmpFlow.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Frankaâs hand to a target position.
+in the Franka robot. `RmpFlow.get_watched_joints()` returns an empty list because the joint states of the gripper DOFs are irrelevant when navigating the Franka’s hand to a target position.
 
 Every time RmpFlow returns joint targets for the Franka, it is returning arrays of length seven. When RmpFlow is passed an argument such as active\_joint\_positions, it is expecting a vector of seven numbers that describe the joint positions of the Franka robot in the order specified by `RmpFlow.get_active_joints()`.
 

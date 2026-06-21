@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Configuration Editor"
 section: "Agent配置"
 module: "03-replicator-agent"
-checksum: "19f1dabafed5b349"
-fetched: "2026-06-21T11:55:26"
+checksum: "ed89877e239d15f8"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -39,9 +39,9 @@ For `get_config`, `update_config`, `add_config_item`, and `delete_config_item`, 
 
 ## Config File and Path
 
-* **get\_config\_file\_path()** â Returns the path of the config file currently associated with the in-memory config, or `None` if none is set.
-* **load\_config\_file(file\_path, set\_config=True)** â Loads a YAML config from disk. Returns `True` on success. If `set_config` is `True`, the loaded config becomes the current in-memory config. You can subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.CONFIG_FILE_LOADED_EVENT` to be notified when loading has finished.
-* **save\_config\_file(file\_path, exclude\_unset=False, exclude\_defaults=False)** â Writes the current in-memory config to a YAML file. Returns `True` on success. Use `exclude_unset` or `exclude_defaults` to trim output.
+* **get\_config\_file\_path()** — Returns the path of the config file currently associated with the in-memory config, or `None` if none is set.
+* **load\_config\_file(file\_path, set\_config=True)** — Loads a YAML config from disk. Returns `True` on success. If `set_config` is `True`, the loaded config becomes the current in-memory config. You can subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.CONFIG_FILE_LOADED_EVENT` to be notified when loading has finished.
+* **save\_config\_file(file\_path, exclude\_unset=False, exclude\_defaults=False)** — Writes the current in-memory config to a YAML file. Returns `True` on success. Use `exclude_unset` or `exclude_defaults` to trim output.
 
 **Example:**
 
@@ -71,11 +71,11 @@ save_config_file(temp_save_path)
 
 ## Read and Update Config
 
-* **get\_config(path=None)** â Returns the value at a dot-separated path, or the full config object if `path` is `None`. Returns `None` if the path is invalid or config is not loaded.
-* **set\_config(config, file\_path=None)** â Replaces the in-memory config with the given object (for example, from `get_config()` or the core loader). Optionally set `file_path` as the current file for the UI.
-* **update\_config(path, new\_value)** â Sets one field at the given path. Validates after the change; on failure the update is rolled back and returns `False`.
-* **add\_config\_item(path, value, key=None)** â Appends to a list at `path`, or adds a key-value pair to a dict (`key` required for dicts).
-* **delete\_config\_item(path, key)** â Removes a list element by index (or last item if `key` is `None`) or a dict entry by key.
+* **get\_config(path=None)** — Returns the value at a dot-separated path, or the full config object if `path` is `None`. Returns `None` if the path is invalid or config is not loaded.
+* **set\_config(config, file\_path=None)** — Replaces the in-memory config with the given object (for example, from `get_config()` or the core loader). Optionally set `file_path` as the current file for the UI.
+* **update\_config(path, new\_value)** — Sets one field at the given path. Validates after the change; on failure the update is rolled back and returns `False`.
+* **add\_config\_item(path, value, key=None)** — Appends to a list at `path`, or adds a key-value pair to a dict (`key` required for dicts).
+* **delete\_config\_item(path, key)** — Removes a list element by index (or last item if `key` is `None`) or a dict entry by key.
 
 **Example:**
 
@@ -95,8 +95,8 @@ delete_config_item("environment.prop_asset_paths", key=0)
 
 ## Simulation Control
 
-* **setup\_simulation()** â Validates the current config and passes it to the IRA core to set up the simulation (environment, agents, sensors). Returns `True` if setup was started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.SET_UP_SIMULATION_DONE_EVENT` when setup has finished.
-* **start\_data\_generation()** â Starts the data generation pipeline with the current config. Returns `True` if started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.DATA_GENERATION_DONE_EVENT` when generation has completed.
+* **setup\_simulation()** — Validates the current config and passes it to the IRA core to set up the simulation (environment, agents, sensors). Returns `True` if setup was started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.SET_UP_SIMULATION_DONE_EVENT` when setup has finished.
+* **start\_data\_generation()** — Starts the data generation pipeline with the current config. Returns `True` if started. Subscribe to `isaacsim.replicator.agent.core.events.IRAEvents.DATA_GENERATION_DONE_EVENT` when generation has completed.
 
 **Example workflow:** load config, optionally update fields, run setup, then start data generation. Use the carb event dispatcher to observe `SET_UP_SIMULATION_DONE_EVENT` and call `start_data_generation()` when setup is ready.
 

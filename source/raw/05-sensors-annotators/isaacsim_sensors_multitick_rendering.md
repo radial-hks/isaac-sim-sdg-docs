@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Multitick Rendering"
 section: "渲染"
 module: "05-sensors-annotators"
-checksum: "0bb883d1de23e1be"
-fetched: "2026-06-21T11:55:32"
+checksum: "e30604aa868852c8"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [Sensors](index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T11:55:32"
 
 # Multi-Tick Rendering
 
-Multi-tick rendering decouples each sensorâs render rate from the main simulation frame rate.
+Multi-tick rendering decouples each sensor’s render rate from the main simulation frame rate.
 Instead of rendering every sensor every frame, each sensor ticks independently at its
 own configurable rate. This significantly improves performance in scenes with many sensors
 by avoiding redundant rendering work.
@@ -157,7 +157,7 @@ when configuring deterministic simulations or interpreting sensor output.
 | --- | --- | --- | --- |
 | Run-loop / `omni.timeline` time | Wall-clock dt per app update, or a fixed manual dt when set | `RenderingManager.set_dt(...)` (manual mode), `/app/runLoops/main/rateLimitFrequency` | Timeline UI, `timeCodesPerSecond`, stage update scheduling |
 | Physics simulation time | Recomputed on every physics step as `stepCount / stepsPerSecond` | `PhysicsScene.set_dt(...)` or `SimulationManager.setup_simulation(dt=...)` | `SimulationManager.get_simulation_time()`, `IsaacReadSimulationTime`, ROS 2 / UCX / HSB timestamps |
-| Renderer simulation time | Mirror of physics time, written to the Fabric prim `/ExternalSimulationTime.omni:time` after each physics step | Driven by `isaacsim.core.simulation_manager`; seeded by `RenderingManager` when the simulation manager is absent | The multi-tick rendererâs per-sensor tick scheduler at `eHydraRendering` |
+| Renderer simulation time | Mirror of physics time, written to the Fabric prim `/ExternalSimulationTime.omni:time` after each physics step | Driven by `isaacsim.core.simulation_manager`; seeded by `RenderingManager` when the simulation manager is absent | The multi-tick renderer’s per-sensor tick scheduler at `eHydraRendering` |
 
 The renderer no longer reads `omni.timeline` to obtain the current simulation time;
 it reads the `omni:time` attribute on the `/ExternalSimulationTime` prim from Fabric. Physics writes that attribute on
@@ -174,7 +174,7 @@ For one `App.update()` with the timeline playing:
    the loop time. Each substep recomputes the physics simulation time and writes it to
    `/ExternalSimulationTime`.
 3. Hydra reads `/ExternalSimulationTime` once. The per-sensor tick scheduler compares
-   that value to each sensorâs last-rendered time and its `omni:sensor:tickRate` to
+   that value to each sensor’s last-rendered time and its `omni:sensor:tickRate` to
    decide which sensors render this frame.
 4. OmniGraph nodes such as `IsaacReadSimulationTime` read the same simulation time,
    either directly or, when given a reference frame `RationalTime`, via interpolation
@@ -192,7 +192,7 @@ For one `App.update()` with the timeline playing:
 In the `physics_dt <= loop_dt` cases, multiple physics substeps in the same frame all
 write to `/ExternalSimulationTime`, but only the last value is what the renderer
 reads. `TimeSampleStorage` collapses these writes to a single sample per frame, keyed
-by the frameâs `RationalTime`, holding the cumulative physics time.
+by the frame’s `RationalTime`, holding the cumulative physics time.
 
 In the `physics_dt > loop_dt` case, frames where no physics step runs leave
 `/ExternalSimulationTime` unchanged. The render pipeline still runs every app update,
@@ -205,7 +205,7 @@ sensors render on that frame.
 The table above describes the substep-to-catch-up behavior that applies when
 `/app/player/useFixedTimeStepping` is **false** (the default in standalone Python).
 The full Isaac Sim GUI app sets this carb setting to **true** in
-`source/apps/isaacsim.exp.full.kit`. With it true, the timeline ignores the run-loopâs
+`source/apps/isaacsim.exp.full.kit`. With it true, the timeline ignores the run-loop’s
 measured `dt` and forces `dt = 1 / timeCodesPerSecond` per accepted update inside
 `Timeline::update()`. Sensor and timeline time then advance at:
 
@@ -221,7 +221,7 @@ Consequences:
   alone - it aligns `rateLimitFrequency`, `targetFramerate`, and `timeCodesPerSecond`
   to the same value.
 * If `loop_hz_wall < timeCodesPerSecond` (e.g. the loop is rate-limited below the
-  timelineâs per-tick rate), the simulation runs in **slow motion** at ratio
+  timeline’s per-tick rate), the simulation runs in **slow motion** at ratio
   `loop_hz_wall / timeCodesPerSecond`. RTX sensors gated by
   `/ExternalSimulationTime` publish proportionally slower; OnPlaybackTick-driven
   publishers (`/clock`, OmniGraph ticks) still fire at `loop_hz_wall`. This is the
@@ -277,7 +277,7 @@ tick rates, and the underlying loop / physics clocks discussed in
 | `/rtx/hydra/supportMultiTickRate` | carb setting | `true` | Enables multi-tick rendering. When `false`, the renderer reverts to per-frame rendering and does not consult `/ExternalSimulationTime`. |
 | `/rtx/rendering/perSensorTickTlas` | carb setting | `true` | Builds a per-sensor Top-Level Acceleration Structure (TLAS) on each sensor tick instead of once per frame. |
 | `/app/player/playSimulations` | carb setting | `true` | When `false`, `App.update()` does not step physics, so `/ExternalSimulationTime` is frozen even though `omni.timeline` may continue to advance. `RenderingManager.render()` toggles this around its update to render without ticking the simulation clock. |
-| `RenderingManager.set_dt(dt)` | Python API | n/a | Sets `loop_dt`. Switches the Isaac loop runner to manual mode, sets `/app/runLoops/main/rateLimitFrequency`, and updates `omni.timeline.set_target_framerate` and the stageâs `timeCodesPerSecond`. |
+| `RenderingManager.set_dt(dt)` | Python API | n/a | Sets `loop_dt`. Switches the Isaac loop runner to manual mode, sets `/app/runLoops/main/rateLimitFrequency`, and updates `omni.timeline.set_target_framerate` and the stage’s `timeCodesPerSecond`. |
 | `PhysicsScene.set_dt(dt)` / `SimulationManager.setup_simulation(dt=...)` | Python API | 1/60 s | Sets `physics_dt` on the physics scene. The physics engine uses an internal accumulator to decide how many substeps to take each app update. |
 | `RenderingManager.render()` | Python API | n/a | Render the stage without stepping physics. Temporarily sets `/app/player/playSimulations=false` for one app update. |
 | `omni:sensor:tickRate` (Hz) | USD attribute | `0` (autotrigger) | Per-sensor render rate. Compared against `/ExternalSimulationTime` by the per-sensor tick scheduler. Applied to `Camera` and `OmniLidar` prims; ignored on `OmniRadar` in 6.0 GA (see [RTX Radar autotriggers in 6.0 GA](#isaac-sim-sensors-multitick-known-issue-radar-autotrigger)). |
@@ -317,7 +317,7 @@ default, the following changes may affect your workflow.
    [frameSkipCount Deprecation](#isaac-sim-sensors-multitick-frameskipcount-deprecation) below.
 4. **RTX Lidar accumulation moved to a USD attribute.** Lidar scan accumulation is now
    controlled by the `omni:sensor:Core:accumulateOutputs` attribute on the
-   `OmniLidar` prim. The deprecated `isaacsim.sensors.rtx` extensionâs
+   `OmniLidar` prim. The deprecated `isaacsim.sensors.rtx` extension’s
    `IsaacExtractRTXSensorPointCloudNoAccumulator` annotator and its
    `IsaacCreateRTXLidarScanBuffer` and `IsaacComputeRTXLidarFlatScan` nodes have
    been updated to read this attribute. The newer `IsaacExtractRTXSensorPointCloud`
@@ -424,7 +424,7 @@ the recommended remediation.
 A fatal crash from `rtx.sensors.lidar.core.plugin` may occur during the first 1-2
 wall-clock seconds after starting simulation when a scene combines RTX Radar, RTX Lidar,
 and Motion BVH. The crash is caused by a timing-dependent race in the RTX sensor
-frameworkâs frames-in-flight (FIF) scheduling, where the Lidarâs per-frame trace begins
+framework’s frames-in-flight (FIF) scheduling, where the Lidar’s per-frame trace begins
 before its sensor profile has been initialized. Affected configurations crash
 deterministically; unaffected hardware does not see the issue. The error appears as a
 floating-point exception inside `LidarRotary::openTrace` or, less commonly, a
@@ -443,7 +443,7 @@ session is stable for the remainder of its lifetime.
 In standalone Python workflows, delay creating the render product for the Radar and
 attaching any Annotators or Writers until after the frames-in-flight have stabilized.
 Construct the Lidars normally before `timeline.play()`, but construct only the
-Radarâs USD authoring object pre-play and defer the `RadarSensor` wrap until after a
+Radar’s USD authoring object pre-play and defer the `RadarSensor` wrap until after a
 short warmup window:
 
 ```python
@@ -509,12 +509,12 @@ frames-in-flight buffer plus a small margin. Heavier scenes may require a larger
 #### OmniGraph workaround
 
 In OmniGraph workflows using the `ROS2RtxRadarHelper` node, you can stagger creating
-the Radarâs render product until after the Lidars have stabilized. Place an
+the Radar’s render product until after the Lidars have stabilized. Place an
 `omni.graph.action.Countdown` node between the `OnPlaybackTick` and the
 `ROS2RtxRadarHelper` node, setting its `duration` to `5` and its `period` to
-`1`. The `Countdown` nodeâs `finished` output triggers downstream graph execution
+`1`. The `Countdown` node’s `finished` output triggers downstream graph execution
 after `duration` ticks have elapsed, analogous to the 5-frame warmup in the standalone
-Python workflow. You may need to increase the `duration` value based on your sceneâs
+Python workflow. You may need to increase the `duration` value based on your scene’s
 complexity and your hardware configuration.
 
 On this page

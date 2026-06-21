@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/assets/usd_assets_props.h
 title: "Props"
 section: "资产库"
 module: "06-simready-assets"
-checksum: "7341f8bcb568d1e4"
-fetched: "2026-06-21T11:55:34"
+checksum: "f8c850a2c045e234"
+fetched: "2026-06-21T13:40:29"
 ---
 
 * [Isaac Sim Assets](usd_assets_overview.html)
@@ -44,12 +44,12 @@ Male character in construction uniform with retargeted skeleton.
 
 Note
 
-User can change a characterâs clothing color by modifying materialâs `Property -> Material and Shader` value
+User can change a character’s clothing color by modifying material’s `Property -> Material and Shader` value
 
-Here is an example of how to change male\_adult\_construction\_03âs safety hatâs color
+Here is an example of how to change male\_adult\_construction\_03’s safety hat’s color
 
 * First, expand the character on the stage menu and navigate to their `Looks` folder. Example - `/World/male_adult_construction_03/Looks`.
-* Next, select your target material (Example - `opaque__plastic__hardhat`) and change materialâs `Property -> Material and Shader -> Albedo -> Color Tint` value to adjust characterâs color.
+* Next, select your target material (Example - `opaque__plastic__hardhat`) and change material’s `Property -> Material and Shader -> Albedo -> Color Tint` value to adjust character’s color.
 
 ### April Tags
 

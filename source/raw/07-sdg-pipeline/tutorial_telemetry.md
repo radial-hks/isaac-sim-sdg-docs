@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Telemetry"
 section: "Pipeline"
 module: "07-sdg-pipeline"
-checksum: "a22ccabeb6daf64d"
-fetched: "2026-06-21T11:55:36"
+checksum: "5bc247ade580b976"
+fetched: "2026-06-21T13:40:31"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -32,7 +32,7 @@ Local telemetry logs can be found in the `~/.nvidia-omniverse/logs/` directory.
 
 ## Telemetry Architecture
 
-The telemetry system is built on NVIDIA Omniverseâs structured logging framework and consists of:
+The telemetry system is built on NVIDIA Omniverse’s structured logging framework and consists of:
 
 * **Schema Definition**: Structured schemas defining telemetry events and their attributes
 * **Event Generation**: Automated Python bindings generated from schema definitions
@@ -70,11 +70,11 @@ app_config = {
 sim_app = SimulationApp(launch_config=app_config, experience=base_exp_path)
 ```
 
-Regardless of the mode, data is saved locally to the userâs home directory in the `~/.nvidia-omniverse/logs/` directory.
+Regardless of the mode, data is saved locally to the user’s home directory in the `~/.nvidia-omniverse/logs/` directory.
 
 ## Configuring Telemetry
 
-To disable telemetry transmission (data collection), set `--/telemetry/enableAnonymousData=false` (or 0) on the command line or in the application config. Telemetry events will still be logged locally. Alternatively, in the appâs `.kit` file, set `enableAnonymousData = false` under `[settings.telemetry]` (refer to [Data Collection & Usage](../common/data-collection.html)).
+To disable telemetry transmission (data collection), set `--/telemetry/enableAnonymousData=false` (or 0) on the command line or in the application config. Telemetry events will still be logged locally. Alternatively, in the app’s `.kit` file, set `enableAnonymousData = false` under `[settings.telemetry]` (refer to [Data Collection & Usage](../common/data-collection.html)).
 
 To disable all telemetry (transmission and local logging), set `--/structuredLog/enable=false` (or 0) on the command line or in the application config.
 
@@ -82,8 +82,8 @@ Telemetry can also be enabled or disabled at the extension level through individ
 
 The following extensions contain specific telemetry settings:
 
-* `isaacsim.replicator.agent` â config at `EXTS_PATH/isaacsim.replicator.agent.core/config/extension.toml`
-* `omni.metropolis.utils` â config at `EXTS_PATH/omni.metropolis.utils/config/extension.toml`
+* `isaacsim.replicator.agent` — config at `EXTS_PATH/isaacsim.replicator.agent.core/config/extension.toml`
+* `omni.metropolis.utils` — config at `EXTS_PATH/omni.metropolis.utils/config/extension.toml`
 
 Note
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators
 title: "cuRobo"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "2ec91504e7910625"
-fetched: "2026-06-21T13:05:41"
+checksum: "d276c361bf91c978"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)
@@ -61,14 +61,14 @@ installing cuRobo and required libraries. cuRobo supports NVIDIA Isaac Sim 2022.
 ### Using Isaac Sim with cuRobo
 
 In the cuRobo documentation, refer to the
-[âUsing Isaac Simâ section](https://curobo.org/get_started/2b_isaacsim_examples.html) for an overview of how cuRobo
+[“Using Isaac Sim” section](https://curobo.org/get_started/2b_isaacsim_examples.html) for an overview of how cuRobo
 is interfaced to Isaac Sim, along with a series of standalone examples demonstrating collision checking, motion
 generation, inverse kinematics, model-predictive control, and multi-arm reaching.
 
 ### Using Isaac Sim with cuRobo and nvblox
 
 In the cuRobo documentation, refer to the
-[âUsing with Depth Cameraâ section](https://curobo.org/get_started/2d_nvblox_demo.html) for examples of
+[“Using with Depth Camera” section](https://curobo.org/get_started/2d_nvblox_demo.html) for examples of
 obstacle-aware motion generation in NVIDIA Isaac Sim, both with pre-generated signed distance fields (SDFs)
 from [nvblox](https://github.com/nvidia-isaac/nvblox) and with online mapping leveraging nvblox with a
 physical RealSense depth camera.

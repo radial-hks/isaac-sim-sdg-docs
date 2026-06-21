@@ -4,7 +4,7 @@ title: "Advanced Remote Setup"
 section: "远程"
 module: "04-headless-deploy"
 checksum: "1afc7f99344cfef0"
-fetched: "2026-06-21T12:48:13"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)

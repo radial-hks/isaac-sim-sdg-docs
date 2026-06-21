@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig
 title: "Rig Mobile Robot"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "804bd35cd2bd04b5"
-fetched: "2026-06-21T13:05:35"
+checksum: "9edd3d21f00bc648"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:05:35"
 
 # Tutorial 5: Rig a Mobile Robot
 
-If you built a robot inside Omniverse USD Composer or used importers that do not carry over joint information, youâll need to rig the robot before it can move like an articulated robot and be controlled by Isaac Sim APIs. This involves defining the types of joints between the body parts and setting the parameters that governs the jointsâ behavior, such as stiffness and damping. This tutorial covers step-by-step instruction on how to rig a forklift.
+If you built a robot inside Omniverse USD Composer or used importers that do not carry over joint information, you’ll need to rig the robot before it can move like an articulated robot and be controlled by Isaac Sim APIs. This involves defining the types of joints between the body parts and setting the parameters that governs the joints’ behavior, such as stiffness and damping. This tutorial covers step-by-step instruction on how to rig a forklift.
 
 ## Learning Objectives
 
@@ -57,9 +57,9 @@ For the forklift, there are seven DOF in total:
 ### Organize the Hierarchy
 
 Open the unrigged forklift asset from the Content Browser: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_unrigged_cm.usd`.
-Depending on the importer used and the original assetâs setup, the unrigged structure of the USD could have no hierarchy in terms of how parts are organized. It could have every single component listed independently on the stage tree. This makes it difficult to read and navigate, but more importantly, it does not define which objects are moving as a group and how these groups are related to each other.
+Depending on the importer used and the original asset’s setup, the unrigged structure of the USD could have no hierarchy in terms of how parts are organized. It could have every single component listed independently on the stage tree. This makes it difficult to read and navigate, but more importantly, it does not define which objects are moving as a group and how these groups are related to each other.
 
-All meshes that are children of a parent prim are expected to move together when the parent prim moves. For example, the sticker and chains on the meshes are a part of the forklift body, and the entire body, no matter how many screws or blocks are used to make up the body, can be considered as a single link of this robot. Organize them all under a single parent âbodyâ prim. This ensures that when the âbodyâ moves, that all child parts that make up the body are moving together.
+All meshes that are children of a parent prim are expected to move together when the parent prim moves. For example, the sticker and chains on the meshes are a part of the forklift body, and the entire body, no matter how many screws or blocks are used to make up the body, can be considered as a single link of this robot. Organize them all under a single parent ‘body’ prim. This ensures that when the ‘body’ moves, that all child parts that make up the body are moving together.
 
 To organize prims for the forklift:
 
@@ -71,7 +71,7 @@ To organize prims for the forklift:
    :   Note
 
        Rigid body prims cannot have children that are also rigid bodies.
-6. It is easier to set the joints if they align the frame of the Xform to the frames of the respective wheels. To do so, for each wheel, select the mesh, and in its property tab under **Transform**, there are two components `Translate` and `Translate:pivot`. The newly created Xformâs transform must be the sum of those two components. For example, if `translate` is at \(X=x\_1, Y=y\_1, Z=z\_1\), and `translate:pivot` is at \(X=x\_p, Y=y\_p, Z=z\_p\), then the transform of the newly created Xform must be set to: \(X = x\_1+ x\_p , Y = y\_1 + y\_p , Z = z\_1 + z\_p\).
+6. It is easier to set the joints if they align the frame of the Xform to the frames of the respective wheels. To do so, for each wheel, select the mesh, and in its property tab under **Transform**, there are two components `Translate` and `Translate:pivot`. The newly created Xform’s transform must be the sum of those two components. For example, if `translate` is at \(X=x\_1, Y=y\_1, Z=z\_1\), and `translate:pivot` is at \(X=x\_p, Y=y\_p, Z=z\_p\), then the transform of the newly created Xform must be set to: \(X = x\_1+ x\_p , Y = y\_1 + y\_p , Z = z\_1 + z\_p\).
 7. `Translate` of the wheel mesh needs to be set to the inverse of the `Translate:pivot` property of the corresponding mesh. For example, if `Translate` is \(X, Y, Z\) and `Translate:pivot` is \(X\_p, Y\_p, Z\_p\), so now, set the translate to \(-X\_p, -Y\_p, -Z\_p\).
 8. Move the corresponding mesh under the XForm, this will define the parent-child relationship between them.
 
@@ -98,7 +98,7 @@ The process for the wheels is a little different, any collision approximation th
 1. Go to **Create > Shape > Cylinder**.
 2. Set the scale to `X=0.16`, `Y=0.16`, ``` Z=0.08`,` and Orient along ``Y=90 ```.
 3. Right click and create four duplicates of this cylinder, one for each of the four front roller wheels.
-4. Drag the cylinders under the respective wheelâs Xform and change their transform about all axes to `0`. This aligns the cylinder axis and the Xform axis completely.
+4. Drag the cylinders under the respective wheel’s Xform and change their transform about all axes to `0`. This aligns the cylinder axis and the Xform axis completely.
 5. Right click on the cylinder and **Add > Physics > Collider**.
 6. Following the same process for the back wheel, modify the cylinder scale to `X=0.3`, `Y=0.3`, `Z=0.1`, orient along `Y=90` because of its bigger size.
 
@@ -124,7 +124,7 @@ The first joint is the joint between the forklift body and the fork. It needs li
 For all the roller support wheels, create revolute joints:
 
 1. Select the `body` XForm, holding the **Ctrl** key select any of the roller wheel XForms. Right click **Create > Physics > Joint > Revolute Joint**. Verify that you see a Revolute joint added under the Xform for the wheel.
-2. Verify that the joints appear in the expected location. If not, make sure that the location of the joint matches the with the rotation axis of the wheel, and make sure to set the rotation axis to âXâ.
+2. Verify that the joints appear in the expected location. If not, make sure that the location of the joint matches the with the rotation axis of the wheel, and make sure to set the rotation axis to “X”.
 3. Follow the same process for the three remaining roller supports of the forklift.
 4. Create a Scope by right clicking on the stage and name it `roller_joints`. Drag the roller joints under the scope.
 
@@ -140,7 +140,7 @@ Next, add the last two joints, which are responsible for driving and turning the
 
 ### Add Articulations
 
-The last step is adding articulation to the Forklift and putting all the joints into a single articulation chain, which makes it easier for the physics solver when solving for articulated objects such as a robot. **This has already been added for the prim in the reference USD assets**. But if not, to put select and right click on the âSMV\_Forklift\_B01\_01â Xform and **Add > Physics > Articulation Root**. Under properties, disable the **Self collision** check box.
+The last step is adding articulation to the Forklift and putting all the joints into a single articulation chain, which makes it easier for the physics solver when solving for articulated objects such as a robot. **This has already been added for the prim in the reference USD assets**. But if not, to put select and right click on the ‘SMV\_Forklift\_B01\_01’ Xform and **Add > Physics > Articulation Root**. Under properties, disable the **Self collision** check box.
 
 There are a few caveats for the placement of the articulation root.
 

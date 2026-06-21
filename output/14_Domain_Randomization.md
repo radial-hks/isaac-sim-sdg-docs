@@ -2,7 +2,7 @@
 
 > Replicator Object API 随机化器 + Domain Randomization OGN 节点
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 15
 
 ---
@@ -43,7 +43,7 @@
 
 # Camera
 
-If a mutable has an attribute `type` of `camera`, itâs a camera. Typically, a basic pinhole camera model is used.
+If a mutable has an attribute `type` of `camera`, it’s a camera. Typically, a basic pinhole camera model is used.
 
 Required attributes of a camera:
 
@@ -98,7 +98,7 @@ On this page
 
 # Force
 
-If a mutable has attribute `type` of `force`, itâs a force mutable that applies PhysX forces to rigid bodies. Forces can be used to create dynamic simulations with objects being pushed, pulled, or animated through physics.
+If a mutable has attribute `type` of `force`, it’s a force mutable that applies PhysX forces to rigid bodies. Forces can be used to create dynamic simulations with objects being pushed, pulled, or animated through physics.
 
 Available attributes of `force`:
 
@@ -191,7 +191,7 @@ rocket_thrust:
 
 # Geometry
 
-If a mutable has attribute `type` of `geometry`, itâs a geometry. A geometry is a substance in space.
+If a mutable has attribute `type` of `geometry`, it’s a geometry. A geometry is a substance in space.
 
 Available attributes of `geometry`:
 
@@ -201,7 +201,7 @@ Available attributes of `geometry`:
 | physics | string | `collision` or `rigidbody` |
 | is\_instance | bool | whether the geometry is instanced - default to true; required to be false for shader attribute randomization |
 
-If `physics` is set to `rigidbody`, the object is a dynamic object that responds to physics. If itâs set to `collision`, the object is a static object that dynamic objects interact with. For example, a wall can have `collision` and a ping-pong ball bouncing off of it has `rigidbody`.
+If `physics` is set to `rigidbody`, the object is a dynamic object that responds to physics. If it’s set to `collision`, the object is a static object that dynamic objects interact with. For example, a wall can have `collision` and a ping-pong ball bouncing off of it has `rigidbody`.
 
 **Physics Properties Randomization**
 
@@ -338,7 +338,7 @@ This image illustrates how the shape of the bottle is controlled by these four e
 
 Note
 
-We currently donât yet have collision detection for deformed shapes; they donât have physics.
+We currently don’t yet have collision detection for deformed shapes; they don’t have physics.
 
 **Room geometry**
 
@@ -521,7 +521,7 @@ More insights can be found in the [harmonization example](randomization_dependen
 
 # Light
 
-If a mutable has attribute `type` of `light`, itâs a light. There are directional lights and dome lights. A light has an `intensity` attribute. Specifically, a dome light has a `texture_path` attribute.
+If a mutable has attribute `type` of `light`, it’s a light. There are directional lights and dome lights. A light has an `intensity` attribute. Specifically, a dome light has a `texture_path` attribute.
 
 Aside from ordinary attributes of mutables, additional available attributes of lights are:
 
@@ -684,7 +684,7 @@ References to list elements refer to values in lists. In the example below, `/bi
 
 **$[special\_macros]**
 
-`$[seed]` resolves to the current frameâs seed number, and `$[frame]` resolves to the frame index.
+`$[seed]` resolves to the current frame’s seed number, and `$[frame]` resolves to the frame index.
 
 Note
 
@@ -752,7 +752,7 @@ Some other examples are listed below:
 
 # Mutable
 
-If the pair is a dictionary with a key `type`, itâs a mutable. There are four types of mutables:
+If the pair is a dictionary with a key `type`, it’s a mutable. There are four types of mutables:
 
 * [Camera](camera.html#camera) where we are
 * [Geometry](geometry.html#geometry) the things we want to observe
@@ -942,9 +942,9 @@ main_object:
 
 `distance_min` and `distance_max` are the minimum and maximum distance from the view point. `screen_space_range` is the range in screen space on which to scatter objects. For example, if you set it to `0.5`, the objects are only scattered in the space projected to the area specified within the dotted lines:
 
-Camera frustum doesnât scatter objects uniformly along the line of vision. Itâs scattered more often in the near field and the far field, such that the probability density of projected area is constant. For example, below is a uniformly sampled in (a) while sampling more in the near field in (b). In (b), the projected areas are more evenly spaced compared to (a).
+Camera frustum doesn’t scatter objects uniformly along the line of vision. It’s scattered more often in the near field and the far field, such that the probability density of projected area is constant. For example, below is a uniformly sampled in (a) while sampling more in the near field in (b). In (b), the projected areas are more evenly spaced compared to (a).
 
-For the same object, itâs more likely to be sampled near `distance_min` than `distance_max` such that a position that gives a projection ten pixels wide has the same possibility to be sampled with a position that gives a projection twenty pixels wide.
+For the same object, it’s more likely to be sampled near `distance_min` than `distance_max` such that a position that gives a projection ten pixels wide has the same possibility to be sampled with a position that gives a projection twenty pixels wide.
 
 Such a distance is given by:
 
@@ -980,11 +980,11 @@ These elements can be wired up with macros to form a DAG-like dependency tree, s
 
 Note
 
-The images in the following examples are generated using the [embedded interface](../tutorial_replicator_object.html#embedded-interface). In the viewport, you can focus on a selected prim by pressing âFâ; and then you can press âAlt + Left Mouse Buttonâ to rotate the active camera around the selected prim.
+The images in the following examples are generated using the [embedded interface](../tutorial_replicator_object.html#embedded-interface). In the viewport, you can focus on a selected prim by pressing “F”; and then you can press “Alt + Left Mouse Button” to rotate the active camera around the selected prim.
 
 ## A Basic Example
 
-Letâs start with a basic example: âRandomly scatter ten randomly colored cubes on a planeâ. The corresponding description file is:
+Let’s start with a basic example: “Randomly scatter ten randomly colored cubes on a plane”. The corresponding description file is:
 
 ```python
 isaacsim.replicator.object:
@@ -1079,7 +1079,7 @@ By using the [embedded interface](../tutorial_replicator_object.html#embedded-in
 
 ## Randomization Dependency
 
-To take a step further, to âRandomly scatter 10 randomly colored cubes on a plane, with varying sizes from 0.5 to 1.5, and varying color from red to blue, the bigger the size, the redder it is while the smaller the size, the bluer it isâ, you can do:
+To take a step further, to “Randomly scatter 10 randomly colored cubes on a plane, with varying sizes from 0.5 to 1.5, and varying color from red to blue, the bigger the size, the redder it is while the smaller the size, the bluer it is”, you can do:
 
 ```python
 isaacsim.replicator.object:
@@ -1215,7 +1215,7 @@ And then for `basic_shape_0`, for example, the R channel of color, `0.0 + $[/siz
 
 ## Harmonization
 
-Try to âpack the above cubes into a big box and randomly place and rotate this big box around the up axisâ:
+Try to “pack the above cubes into a big box and randomly place and rotate this big box around the up axis”:
 
 The corresponding description file:
 
@@ -1333,15 +1333,15 @@ Here, `translate` and `rotateY` defines the global movement of the big box (the 
 
 During initialization, mutable attributes and harmonizers are initialized, and a dependency tree with mutable elements (such as mutable attributes with different distribution types, expressions with macros, and more) is created based on the description file, and then the USD runtime scene is initialized, loading all the prims that are about to be randomized.
 
-Each frame, all the mutable attributes resolve for their values. Mutable attributes with macros, like channels of color and size in our examples resolve their dependent mutable elements (like macro expressions) recursively. The symbol resolution procedures are totally in description level, so itâs as if we are doing randomization on text; in this stage, the USD environment is not involved.
+Each frame, all the mutable attributes resolve for their values. Mutable attributes with macros, like channels of color and size in our examples resolve their dependent mutable elements (like macro expressions) recursively. The symbol resolution procedures are totally in description level, so it’s as if we are doing randomization on text; in this stage, the USD environment is not involved.
 
 ### Harmonization Process
 
-A harmonized mutable attribute is a special mutable attribute that canât be resolved by running resolution one time, because it needs information from other mutable attributes sharing the same harmonizer. Run it the first time to resolve the symbols, the attribute gets into an `AWAITING_HARMONIZATION` state, and then the harmonizer absorbs its pitch (in this case, the size of the cube):
+A harmonized mutable attribute is a special mutable attribute that can’t be resolved by running resolution one time, because it needs information from other mutable attributes sharing the same harmonizer. Run it the first time to resolve the symbols, the attribute gets into an `AWAITING_HARMONIZATION` state, and then the harmonizer absorbs its pitch (in this case, the size of the cube):
 
 All non-harmonized attributes are resolved, which is necessary because harmonized attributes may depend on them. For example, an object can be randomized to use a different USD model with a different size bounding box, which can be the pitch to be absorbed by the harmonizer. The USD runtime is then updated based on non-harmonized attributes.
 
-After getting all the information from the harmonized attributes, the harmonizer harmonizes. It now knows where each cubeâs local transformations in the big box.
+After getting all the information from the harmonized attributes, the harmonizer harmonizes. It now knows where each cube’s local transformations in the big box.
 
 The system is in `AWAITING_HARMONIZATION` state if there is at least one attribute in this state, which means you need to resolve the whole description again. Now the corresponding values are propagated back to respective harmonized attributes.
 
@@ -1370,7 +1370,7 @@ On this page
 
 # Setting
 
-If the key-value pair in the description file is neither a [Mutable](mutable.html#mutable) nor a [Harmonizer](harmonizer.html#harmonizer), itâs a setting. You can define a description with only settings.
+If the key-value pair in the description file is neither a [Mutable](mutable.html#mutable) nor a [Harmonizer](harmonizer.html#harmonizer), it’s a setting. You can define a description with only settings.
 
 ## Required Keys
 
@@ -1401,7 +1401,7 @@ The setting output\_path controls what is output to disk per frame. It has these
 
 Setting a switch to True or not setting the switch creates the corresponding folder under `output_path` and writes corresponding data into it.
 
-`usd_base_name` is the mutable name or the USD file base name of USD file when a geometry `mesh` is loaded, which means itâs not allowed to load different USD files with the same base name. Using `${resource_root_1}/apple.usd` and `${resource_root_1}/inner/apple.usd` in the same simulation causes unexpected behavior.
+`usd_base_name` is the mutable name or the USD file base name of USD file when a geometry `mesh` is loaded, which means it’s not allowed to load different USD files with the same base name. Using `${resource_root_1}/apple.usd` and `${resource_root_1}/inner/apple.usd` in the same simulation causes unexpected behavior.
 
 For example, an output switch could be:
 
@@ -1415,7 +1415,7 @@ output_switches:
   depth: False
 ```
 
-To also write per-frame scene captions alongside this output, the `Isaacsim.Replicator.Caption` extensionâs `CombinedIROSceneGraphWriter` can replace the default writer, refer to [Use Isaacsim.Replicator.Caption in Isaacsim.Replicator.Object](../tutorial_replicator_caption.html#using-iro-extension).
+To also write per-frame scene captions alongside this output, the `Isaacsim.Replicator.Caption` extension’s `CombinedIROSceneGraphWriter` can replace the default writer, refer to [Use Isaacsim.Replicator.Caption in Isaacsim.Replicator.Object](../tutorial_replicator_caption.html#using-iro-extension).
 
 ## Optional Keys
 
@@ -1463,7 +1463,7 @@ Each frame is randomized with its own seed, which equals the global seed plus th
 
 When objects are randomized in the scene for each frame, they can start at an overlapping position. Resolution of physics de-penetrates these objects. The de-penetration accelerates the objects, such that they can start off with a high speed. Increase linear/angular damping to keep object movement contained.
 
-However, if linear or angular damping is set too high, objects get lazy and they donât move much. This can be bad in a gravity enabled setting, where we want objects to be in close contact with a surface. Because different objects have different sizes and shapes, itâs good to tune these physics properties to reach a good appearance.
+However, if linear or angular damping is set too high, objects get lazy and they don’t move much. This can be bad in a gravity enabled setting, where we want objects to be in close contact with a surface. Because different objects have different sizes and shapes, it’s good to tune these physics properties to reach a good appearance.
 
 Similarly, too high of a value for friction makes objects cluster if they are in close contact; while too low of a value for friction makes them slippery and glide off surfaces.
 
@@ -1493,15 +1493,15 @@ On this page
 
 This page discusses how to move things around.
 
-The position, orientation, and size of an object in the scene must be defined by a sequence of transform operators (also known as a scene graph). This sequence is ordered such that global transforms are towards the top, while local transforms are towards the bottom. If you are not familiar with what âglobalâ and âlocalâ means, here is an example:
+The position, orientation, and size of an object in the scene must be defined by a sequence of transform operators (also known as a scene graph). This sequence is ordered such that global transforms are towards the top, while local transforms are towards the bottom. If you are not familiar with what “global” and “local” means, here is an example:
 
 ## Scene Graph Example
 
 Imagine that there is an observatory that has a movable base, a dome that can rotate around and a retractable scope that can rotate up and down. Inside the observatory sits a bird, Oro. You are sitting at the scope head, looking at Oro. And assume that Oro is frozen in space, so that if the observatory moves, it moves relative to Oro and you want to see Oro from different perspectives. The whole setting is:
 
-The scope head points towards the positive direction of the Z-axis, so we are looking towards the negative direction of Z-axis. Because the scope is retractable, start at zero length, so that we are inside Oroâs body. This is the starting pose, if no transform operators are defined at all.
+The scope head points towards the positive direction of the Z-axis, so we are looking towards the negative direction of Z-axis. Because the scope is retractable, start at zero length, so that we are inside Oro’s body. This is the starting pose, if no transform operators are defined at all.
 
-Define these entities in your descriptions. A camera, with camera parameters defined as described in [Camera](camera.html#camera); A [Dome light](light.html#dome-light) so that you can see things; and Oro, which is a [Geometry](geometry.html#geometry). The observatory is only conceptual, you donât need to see it.
+Define these entities in your descriptions. A camera, with camera parameters defined as described in [Camera](camera.html#camera); A [Dome light](light.html#dome-light) so that you can see things; and Oro, which is a [Geometry](geometry.html#geometry). The observatory is only conceptual, you don’t need to see it.
 
 ```python
 dome_light:
@@ -1560,7 +1560,7 @@ transform_operators:
   - 1000
 ```
 
-And eventually, drive the observatory forward, which is yet another translate, so that you donât always have Oro at the center of the screen. Because you are defining two translates, add a suffix `translate_global`:
+And eventually, drive the observatory forward, which is yet another translate, so that you don’t always have Oro at the center of the screen. Because you are defining two translates, add a suffix `translate_global`:
 
 ```python
 transform_operators:
@@ -1652,7 +1652,7 @@ Note
 
 * `orient` is represented by a quaternion in wxyz order, in which w is the scalar part; all other rotate operators describe rotation in degrees.
 * The Euler angle sequence is represented from local to global from left to right. For example, rotateXYZ means Y is global rotation relative to X, and Z is global rotation relative to Y.
-* Scale operators appear at the bottom. Itâs not recommended to define a scale above a translate or rotate, unless this is intended.
+* Scale operators appear at the bottom. It’s not recommended to define a scale above a translate or rotate, unless this is intended.
 
 ## Practical Example of Flexible xformOps
 
@@ -1798,14 +1798,14 @@ A prim has its scene graph described by a list of `xformOps`. It can be a rotati
 Here is a step-by-step guide to using the distribution visualizer on a basic prim.
 
 1. Click **Tools** > **Action and Event Data Generation** > **Distribution Visualizer** to open the distribution visualizer as shown below.
-2. Create a torus, a dome light; focus on the torus by pressing âFâ; and switch to path tracing mode, as shown below.
+2. Create a torus, a dome light; focus on the torus by pressing “F”; and switch to path tracing mode, as shown below.
 3. Click on blank space to deselect.
 4. Click on the torus again so that the distribution visualizer is in sync with the selected prim and its `xformOps` will be visible in the distribution visualizer. By default, it has translate, `rotateZYX`, and scale.
 5. Apply preset `xformOps` to the torus, by clicking on `Apply Preset xformOps`. This step is not needed for an ordinary prim; this is only to demonstrate the concept. You can observe the torus is now transformed to a new pose.
 
    > Note
    >
-   > If the torus is not visible, press âFâ on the keyboard to focus the active camera to look at it. If itâs still not visible, go to the stage tab and click on the torus to make sure itâs selected.
+   > If the torus is not visible, press “F” on the keyboard to focus the active camera to look at it. If it’s still not visible, go to the stage tab and click on the torus to make sure it’s selected.
 6. Click on blank space to deselect, and then click on the torus again. From global to local, the new `xformOps` are `rotateY`, `rotateX`, and `translate`.
 
    > Each `xformOp` has three lines:
@@ -1903,7 +1903,7 @@ Detection Parameters are optional. These keys are read from the **same** detecto
 | `cell_height_threshold` | numeric | `0.2` | Minimum vertical clearance used when classifying empty height spans. |
 | `x_length_threshold` | numeric | `0.2` | Minimum extent along X for a region to count as empty space. |
 | `y_length_threshold` | numeric | `0.2` | Minimum extent along Y for a region to count as empty space. |
-| `exclusive_ratio_threshold` | numeric | `0.8` | Ratio used when filtering candidate regions (higher tends to retain more regions; range `0.0`â`1.0`). |
+| `exclusive_ratio_threshold` | numeric | `0.8` | Ratio used when filtering candidate regions (higher tends to retain more regions; range `0.0`–`1.0`). |
 | `top_tolerance` | numeric | `0.2` | Height tolerance at the top of a span. |
 | `bottom_tolerance` | numeric | `0.1` | Height tolerance at the bottom of a span. |
 | `max_stack_height` | numeric / null | `None` | Optional cap on stack height in meters; `None` means no limit. |
@@ -2497,7 +2497,7 @@ When enabled, RAG allows Chat IRO to:
 Note
 
 Enabling crossâencoder reranking typically improves retrieval accuracy by
-10â30% at the cost of additional latency (around 100â200 ms per request).
+10–30% at the cost of additional latency (around 100–200 ms per request).
 For simple prompts or lowâlatency environments, keep
 `enable_rag_reranking = false`.
 
@@ -2646,7 +2646,7 @@ To compose a randomized scene, IRO requires imported 3D models to be in USD form
 
 **Compose a Description File**
 
-The specifications of a description file is described in this multi-page documentation. Itâs recommended that you start with the video guides in [best practices](#best-practices).
+The specifications of a description file is described in this multi-page documentation. It’s recommended that you start with the video guides in [best practices](#best-practices).
 
 **Generate Synthetic Data**
 
@@ -2664,7 +2664,7 @@ An example notebook showing steps to train an object detection model on the synt
    If not, disable and enable the extension again. The Object SDG panel is turned on by default, and you can turn it off or on again by **Tools** > **Action and Event Data Generation** > **Object SDG**.
 3. Click on the folder icon or the Visual Studio Code icon on the right side of the opened extension panel as shown above. The root folder of the extension opens.
 4. Under `PATH_TO_CORE_EXTENSION/isaacsim/replicator/object/core/configs` there are many description files in YAML format.
-   Itâs recommended that you start with `demo_kaleidoscope.yaml`. For [empty space detection](ext_replicator-object/empty_space_detection.html#empty-space-detection), use `demo_empty_space.yaml` and refer to the linked catalog page.
+   It’s recommended that you start with `demo_kaleidoscope.yaml`. For [empty space detection](ext_replicator-object/empty_space_detection.html#empty-space-detection), use `demo_empty_space.yaml` and refer to the linked catalog page.
 5. Go to `global.yaml` and update `output_path` to any local folder where you can store the simulation output.
 
 Note
@@ -2681,7 +2681,7 @@ For example:
 * In `demo_bottle.yaml`, replace `PATH_TO_LABEL_IMAGES` with a folder that contains JPEG images.
 * For `tutorial_harmonizer_permutate.yaml`, `demo_macro.yaml`, `tutorial_macro.yaml`, `tutorial_scene_graph.yaml` and `tutorial_scene_graph_randomized.yaml` to run:
 
-  > + replace `PATH_TO_ORO` in `global.yaml` with the absolute path of `data/oro_tutorial_models/oro.usd` in the extensionâs root folder.
+  > + replace `PATH_TO_ORO` in `global.yaml` with the absolute path of `data/oro_tutorial_models/oro.usd` in the extension’s root folder.
 * In `doc_observatory.yaml`:
 
   > + replace `PATH_TO_OBSERVATORY_SCOPE` with the absolute path of `data/oro_tutorial_models/observatory_scope.usd`
@@ -2739,7 +2739,7 @@ To use the embedded interface, select a description file, and then click on the 
 
 Note
 
-After clicking on the **Initialize Scene Randomization** button and before clicking on the **Randomize Scene** button, it is normal that the viewport is black. To see anything of interest at this stage, press âFâ to focus on the selected prim.
+After clicking on the **Initialize Scene Randomization** button and before clicking on the **Randomize Scene** button, it is normal that the viewport is black. To see anything of interest at this stage, press “F” to focus on the selected prim.
 
 To preview physically, click on the triangular **Play** button on the left column of widgets.
 

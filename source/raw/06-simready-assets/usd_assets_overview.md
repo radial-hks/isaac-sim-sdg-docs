@@ -4,7 +4,7 @@ title: "USD Assets Overview"
 section: "资产库"
 module: "06-simready-assets"
 checksum: "f438d652c7a9b9bd"
-fetched: "2026-06-21T11:55:34"
+fetched: "2026-06-21T13:40:29"
 ---
 
 * Isaac Sim Assets

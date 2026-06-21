@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/core_api_tutorials/tutori
 title: "Hello World"
 section: "Core API"
 module: "02-fundamentals-dev"
-checksum: "8b45a94852cf6e29"
-fetched: "2026-06-21T12:48:08"
+checksum: "61d9e00ebb001502"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Python Scripting and Tutorials](../python_scripting/index.html)
@@ -15,9 +15,9 @@ fetched: "2026-06-21T12:48:08"
 
 # Hello World
 
-[NVIDIA Omniverseâ¢ Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/kit-architecture.html "(in Omniverse Developer Guide)"), the toolkit that NVIDIA Isaac Sim uses to build its applications, provides a Python interpreter for scripting. This means every single GUI command, as well as many additional functions are available as Python APIs. However, the learning curve for interfacing with Omniverse Kit using Pixarâs USD Python API is steep and steps are frequently tedious. Therefore weâve provided a set of APIs that are designed to be used in robotics applications, APIs that abstract away the complexity of USD APIs and merge multiple steps into one for frequently performed tasks.
+[NVIDIA Omniverseâ¢ Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/kit-architecture.html "(in Omniverse Developer Guide)"), the toolkit that NVIDIA Isaac Sim uses to build its applications, provides a Python interpreter for scripting. This means every single GUI command, as well as many additional functions are available as Python APIs. However, the learning curve for interfacing with Omniverse Kit using Pixar’s USD Python API is steep and steps are frequently tedious. Therefore we’ve provided a set of APIs that are designed to be used in robotics applications, APIs that abstract away the complexity of USD APIs and merge multiple steps into one for frequently performed tasks.
 
-In this tutorial, we will present the concepts of Core APIs and how to use them. We will start with adding a cube to an empty stage, and weâll build upon it to create a scene with multiple robots executing multiple tasks simultaneously, as seen below.
+In this tutorial, we will present the concepts of Core APIs and how to use them. We will start with adding a cube to an empty stage, and we’ll build upon it to create a scene with multiple robots executing multiple tasks simultaneously, as seen below.
 
 ## Learning Objectives
 
@@ -50,9 +50,9 @@ The `hello_world.py` script is where the logic of the application will be added,
 elements of the application will be added in `hello_world_extension.py` script and thus
 linked to the logic.
 
-1. Click **File > New From Stage Template > Empty** to create a new stage, click **Donât Save** when prompted to save the current stage.
+1. Click **File > New From Stage Template > Empty** to create a new stage, click **Don’t Save** when prompted to save the current stage.
 2. Click the **LOAD** button to load the World.
-3. Open `hello_world.py` and press âCtrl+Sâ to use the hot-reload feature. You will
+3. Open `hello_world.py` and press “Ctrl+S” to use the hot-reload feature. You will
    notice that the menu disappears from the workspace (because it was restarted).
 4. Open the example menu again and click the **LOAD** button.
 
@@ -331,7 +331,7 @@ Complete code:
 
 Print the world pose and velocity of the cube during simulation at every physics step
 executed. As mentioned in [Workflows](../introduction/workflows.html#isaac-sim-app-tutorial-intro-workflows), in this workflow the
-application is running asynchronously and canât control when to step physics. However, you can add
+application is running asynchronously and can’t control when to step physics. However, you can add
 callbacks to ensure certain things happen before certain events.
 
 Import SimulationManager:

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/digital_twin/warehouse_lo
 title: "Conveyor Extension"
 section: "数字孪生"
 module: "06-sim2real-ue5"
-checksum: "cb56f467ec371ea7"
-fetched: "2026-06-21T12:48:19"
+checksum: "ab29355fd16c11e1"
+fetched: "2026-06-21T13:40:03"
 ---
 
 * [Digital Twin](../index.html)
@@ -46,7 +46,7 @@ To create a conveyor:
    * **Enabled**: Enables or disables the conveyor.
    * **Velocity**: Conveyor velocity.
 
-The generated Omniverse OmniGraph is preconfigured with a velocity variable that you can edit by selecting the Omniverse OmniGraph prim. To synchronize multiple conveyors in a scene, point each conveyorâs read-variable node (`read_speed`) at the same Omniverse OmniGraph variable.
+The generated Omniverse OmniGraph is preconfigured with a velocity variable that you can edit by selecting the Omniverse OmniGraph prim. To synchronize multiple conveyors in a scene, point each conveyor’s read-variable node (`read_speed`) at the same Omniverse OmniGraph variable.
 
 To emulate belt motion visually, apply a tiled texture and set the **Animate** properties so the texture translates along the same direction as the conveyor and at a matching speed.
 
@@ -75,7 +75,7 @@ The builder integrates loosely with the assets to keep system creation flexible 
 | 5 | Selected Track | Shows the currently selected track, its endpoints, and a Delete button that removes the track from the system. |
 | 6 | New Track | Shows the piece queued for insertion. Lets you choose the input endpoint and the track variant, and, when applicable, mirror the piece. |
 | 7 | Track Variants | Shows additional variants matching the current filter selection. |
-| 8 | Selected Endpoint | Each option corresponds to one of the trackâs endpoints. Endpoints that are already in use are hidden unless all endpoints are connected. |
+| 8 | Selected Endpoint | Each option corresponds to one of the track’s endpoints. Endpoints that are already in use are hidden unless all endpoints are connected. |
 | 9 | Mirror | Mirrors the selected piece along the primary belt direction. |
 
 ### Dataset
@@ -85,7 +85,7 @@ The dataset is a collection of USD files used to assemble conveyor systems. Each
 * Define a default prim. That prim and all of its children load when the asset is referenced.
 * Use an identity transform on the default prim (translate and rotate components set to zero).
 * Define each conveyor track as an `Xform` prim, with all visual and collision meshes parented under it.
-* Place the trackâs entry point at the origin, aligned with the X axis, centered on the Y axis.
+* Place the track’s entry point at the origin, aligned with the X axis, centered on the Y axis.
 * Place anchor points at the end of the track at `Z = 0`, centered on the Y axis. The X axis must be aligned with the base direction of the track.
 * Assign individual materials per track. Meshes that share the same conveyor base prim may share materials.
 * Live under a single base folder. Assets may still reference files outside that folder.
@@ -128,7 +128,7 @@ A JSON file accompanies the asset dataset. It provides the metadata required by 
 Note
 
 Strict JSON does not allow comments. The snippet above includes inline comments only to explain each field. Remove the comments before using the file, otherwise the extension will fail to load it.
-For a complete reference, see the JSON file in the extensionâs `data` folder.
+For a complete reference, see the JSON file in the extension’s `data` folder.
 
 ### Changing the configuration and dataset source
 
@@ -185,7 +185,7 @@ body_manager.add_body(
 )
 ```
 
-The method takes the rigid bodyâs USD prim path and a material index. Material indices come from another helper class, `MaterialPairManager`. Because the sample computes friction forces itself, the physics materials used by the built-in simulation must use a friction coefficient of zero. Otherwise, the built-in friction forces would compound with the custom forces. The sample sidesteps this by defining its own material system and assigning friction coefficients to material pairs:
+The method takes the rigid body’s USD prim path and a material index. Material indices come from another helper class, `MaterialPairManager`. Because the sample computes friction forces itself, the physics materials used by the built-in simulation must use a friction coefficient of zero. Otherwise, the built-in friction forces would compound with the custom forces. The sample sidesteps this by defining its own material system and assigning friction coefficients to material pairs:
 
 ```python
 body_material0_index = material_pair_manager.add_transported_body_material_index()

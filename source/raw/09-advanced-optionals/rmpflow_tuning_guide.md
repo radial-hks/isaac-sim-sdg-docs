@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/rmp
 title: "RMPflow Tuning"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "75abd36bc621ef4f"
-fetched: "2026-06-21T13:05:41"
+checksum: "ff83b9bce706f363"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -32,7 +32,7 @@ To review RMPflow and its features see, [RMPflow](rmpflow.html).
 
 NVIDIA Isaac Sim includes example RMPflow configuration files for multiple robot arms, including
 the 7-DOF Franka Emika Panda and the 6-DOF Universal Robots UR10. When tuning RMPflow for a
-new manipulator, itâs usually best to start with one of these two files. If the new robot
+new manipulator, it’s usually best to start with one of these two files. If the new robot
 is significantly larger or smaller than the one used as a reference, it might be necessary
 to rescale any parameters that have units of length. If the number of joints differ, the
 c-space\_target\_rmp/robust\_position\_term\_thresh parameter might also have to be adjusted.
@@ -54,7 +54,7 @@ It can helpful to play with parameter values for an existing robot (for example,
       The magnitude of the metric scalar should be kept relatively small (for example, in the range 1 to 100), because
       this sets the global scale of all RMPs.
       Remember to set the default configuration in the robot description file (YAML) to a reasonable natural
-      âreadyâ posture. This will be the default posture that the robot will favor while moving from place to place.
+      “ready” posture. This will be the default posture that the robot will favor while moving from place to place.
    2. **target\_rmp:** To get the end effector moving to a target robustly while continuing
       to use the c-space target RMP for redundancy resolution.
 
@@ -67,7 +67,7 @@ It can helpful to play with parameter values for an existing robot (for example,
          nullspace of the target RMP.
       4. Tune target\_rmp/accel\_p\_gain, target\_rmp/accel\_d\_gain, and target\_rmp/accel\_norm\_eps until
          good attractor behavior for the end effector has been achieved.
-      5. Experiment with reducing target\_rmp/max\_metric\_scalar to ensure that itâs not too large. As
+      5. Experiment with reducing target\_rmp/max\_metric\_scalar to ensure that it’s not too large. As
          max\_metric\_scalar is increased toward a suitable value, convergence accuracy should progressively
          improve. If convergence accuracy saturates at small constant error before the chosen max\_metric\_scalar
          value is reached, then it is probably set too high. This will be relevant when re-enabling the directional
@@ -86,7 +86,7 @@ It can helpful to play with parameter values for an existing robot (for example,
          target\_rmp/metric\_alpha\_length\_scale until good behavior is achieved.
    5. **axis\_target\_rmp:** If an orientation target is set, the axis target RMP will be used to bring
       the orientation of the control frame (for example, end effector) into alignment with the target orientation.
-      This RMP includes a âpriority boostingâ factor that depends on distance to the current
+      This RMP includes a “priority boosting” factor that depends on distance to the current
       position target, if one is set. This allows the robot to make progress toward the position
       target before zeroing in on the desired orientation.
    6. **joint\_limit\_rmp:** When properly tuned, behavior should be unchanged, except that joint

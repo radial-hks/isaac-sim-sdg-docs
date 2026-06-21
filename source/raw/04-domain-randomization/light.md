@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Light"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "1553859bdd60f480"
-fetched: "2026-06-21T11:55:28"
+checksum: "847622277d4d17ce"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T11:55:28"
 
 # Light
 
-If a mutable has attribute `type` of `light`, itâs a light. There are directional lights and dome lights. A light has an `intensity` attribute. Specifically, a dome light has a `texture_path` attribute.
+If a mutable has attribute `type` of `light`, it’s a light. There are directional lights and dome lights. A light has an `intensity` attribute. Specifically, a dome light has a `texture_path` attribute.
 
 Aside from ordinary attributes of mutables, additional available attributes of lights are:
 

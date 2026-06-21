@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/installation/manual_lives
 title: "Livestream Clients"
 section: "远程可视化"
 module: "04-headless-deploy"
-checksum: "9c34ed5ecdc3bcbb"
-fetched: "2026-06-21T12:48:13"
+checksum: "5615769790684834"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)
@@ -37,9 +37,9 @@ Note
 
 There are two ways to connect to a livestreaming Isaac Sim instance:
 
-* **Isaac Sim WebRTC Streaming Client** â A native desktop application available for Windows, macOS, and Linux.
+* **Isaac Sim WebRTC Streaming Client** — A native desktop application available for Windows, macOS, and Linux.
   Download it from the [Latest Release](download.html#isaac-sim-latest-release) section. Best suited for local or same-network connections.
-* **Web-based viewer (Docker Compose)** â A browser-based client deployed alongside Isaac Sim using Docker Compose.
+* **Web-based viewer (Docker Compose)** — A browser-based client deployed alongside Isaac Sim using Docker Compose.
   Runs in any Chromium-based browser with no installation required. Recommended for cloud
   and remote deployments. See [Web-Based Streaming Client (Docker Compose)](#isaac-sim-web-streaming-client) below.
 
@@ -80,7 +80,7 @@ Important
 
 The container must be started with `--network=host` for livestreaming to work.
 Docker bridge networking (`-p` port mapping) does not work with WebRTC because
-the host IP is not reachable from inside the containerâs network namespace.
+the host IP is not reachable from inside the container’s network namespace.
 
 For a simpler setup, Docker Compose is recommended for containerized streaming. It handles volume mounts, GPU assignment, networking, and health checks automatically. See [Web-Based Streaming Client (Docker Compose)](#isaac-sim-web-streaming-client) below or the [Docker README](https://github.com/isaac-sim/IsaacSim/blob/main/tools/docker/README.md) for details.
 
@@ -152,7 +152,7 @@ Note
   > + No FUSE or AppImage runtime is required by the package; it runs on Ubuntu 22.04,
   >   24.04, and later without additional system libraries beyond a standard desktop
   >   environment.
-  > + On Ubuntu 24.04 or later, Electronâs sandbox requires unprivileged user namespaces.
+  > + On Ubuntu 24.04 or later, Electron’s sandbox requires unprivileged user namespaces.
   >   If the client fails to launch with a SUID sandbox error, enable them with:
   >
   >   ```python

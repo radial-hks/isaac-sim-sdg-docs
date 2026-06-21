@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "OpenUSD Tuning Index"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "c32da09406ce169f"
-fetched: "2026-06-21T13:05:45"
+checksum: "1c1fb248a74cb1f0"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -14,11 +14,11 @@ fetched: "2026-06-21T13:05:45"
 
 # OpenUSD and Tuning Best Practices Tutorial Series
 
-This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assetsâsuch as a dexterous handâis foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
+This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assets—such as a dexterous hand—is foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
 
 Over this series, you work hands-on with the Inspire Hand asset in Isaac Sim to inspect the robot USD and asset structure, apply OpenUSD best practices for performance and stability, and tune joint parameters and control gains for stable, critically damped motion.
 
-This series takes approximately 60â90 minutes to complete as a hands-on lab.
+This series takes approximately 60–90 minutes to complete as a hands-on lab.
 
 ## Learning Objectives
 

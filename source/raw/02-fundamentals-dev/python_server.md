@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/python_
 title: "Python Server"
 section: "开发工具"
 module: "02-fundamentals-dev"
-checksum: "fdcee97806535034"
-fetched: "2026-06-21T12:48:07"
+checksum: "974cc56cf98acef3"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Development Tools](index.html)
@@ -17,7 +17,7 @@ fetched: "2026-06-21T12:48:07"
 ## Overview
 
 The `isaacsim.code_editor.python_server` extension provides a TCP socket server that enables remote Python code execution within a running Isaac Sim instance.
-Any client â VS Code, LLM agents, custom automation scripts â can connect over TCP, send Python source code, and receive structured JSON results.
+Any client — VS Code, LLM agents, custom automation scripts — can connect over TCP, send Python source code, and receive structured JSON results.
 
 The extension is automatically loaded as a dependency of `isaacsim.code_editor.vscode`, but it can also be enabled independently for headless or programmatic workflows.
 
@@ -154,7 +154,7 @@ An LLM tool implementation needs only to:
 
 1. Open a TCP connection to the configured host and port.
 2. Send the Python code as UTF-8 bytes.
-3. Signal end-of-input by calling `write_eof()` (required â the server buffers until EOF).
+3. Signal end-of-input by calling `write_eof()` (required — the server buffers until EOF).
 4. Read the JSON response.
 5. Parse `status` to determine success or failure, `output` for printed text, and `result` for expression values.
 

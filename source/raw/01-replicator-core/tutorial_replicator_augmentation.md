@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Augmentation"
 section: "教程"
 module: "01-replicator-core"
-checksum: "ce76e4ccb37d840d"
-fetched: "2026-06-21T11:55:20"
+checksum: "2ce92c0c15c87de6"
+fetched: "2026-06-21T13:40:17"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -47,9 +47,9 @@ The example can be run as a standalone application using the following commands 
 
 Optionally the following arguments can be used to change the default behavior:
 
-* `--env_url` â USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
-* `--use_warp` â flag to use warp (GPU) instead of numpy (CPU) for the augmentation functions (default: False)
-* `--num_frames` â the number of frames to be captured (default: 25)
+* `--env_url` – USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
+* `--use_warp` – flag to use warp (GPU) instead of numpy (CPU) for the augmentation functions (default: False)
+* `--num_frames` – the number of frames to be captured (default: 25)
 
 ```python
 ./python.sh standalone_examples/replicator/augmentation/annotator_augmentation.py --use_warp --num_frames 25 --env_url /Isaac/Environments/Grid/default_environment.usd
@@ -553,9 +553,9 @@ The example can be run as a standalone application using the following commands 
 >
 > Optionally the following arguments can be used to change the default behavior:
 >
-> * `--env_url` â USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
-> * `--use_warp` â flag to use warp (GPU) instead of NumPy (CPU) for the augmentation functions (default: False)
-> * `--num_frames` â the number of frames to be captured (default: 25)
+> * `--env_url` – USD environment path relative to the assets root (default: empty scene with dome light and ground plane)
+> * `--use_warp` – flag to use warp (GPU) instead of NumPy (CPU) for the augmentation functions (default: False)
+> * `--num_frames` – the number of frames to be captured (default: 25)
 >
 > ```python
 > ./python.sh standalone_examples/replicator/augmentation/writer_augmentation.py --use_warp --num_frames 25 --env_url /Isaac/Environments/Grid/default_environment.usd

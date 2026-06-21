@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Replicator Agent Tutorial"
 section: "Agent"
 module: "03-replicator-agent"
-checksum: "80ecb65834f4877f"
-fetched: "2026-06-21T11:55:26"
+checksum: "6874e99f002f3bda"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -24,7 +24,7 @@ This framework simplifies simulation customization with features like:
 
 * **Codeless Interaction**: Configurations are expressed in a YAML file. No code is needed to get synthetic data.
 * **Simplified Setup**: Included in Isaac Sim, it offers both GUI and scripting interfaces for interactive and headless workflows.
-* **High-Fidelity Data**: Leverages Omniverseâs SimReady assets, physics, and rendering to produce realistic imagery and accurate annotations essential for AI training.
+* **High-Fidelity Data**: Leverages Omniverse’s SimReady assets, physics, and rendering to produce realistic imagery and accurate annotations essential for AI training.
 * **Seamless Integration**: As part of Kit extensions, it works natively with `omni.anim.behavior`, `omni.anim.navigation`, and `omni.replicator.core`.
 
 Before enabling this extension, read [What Is Isaac Sim?](../index.html#isaac-sim-app-overview) to learn about Isaac Sim and follow [Installation](../installation/index.html) to install Isaac Sim.
@@ -244,16 +244,16 @@ Existing 0.x config files and scripts will not work without modification.
 
 Key reasons for the redesign:
 
-* **Simpler workflow** â The multi-step process of generating, saving, and
+* **Simpler workflow** – The multi-step process of generating, saving, and
   loading external command files is gone. Behaviors are now defined inline in
   the YAML config, reducing setup to two clicks in the UI.
-* **Greater flexibility** â Named groups let you define multiple character,
+* **Greater flexibility** – Named groups let you define multiple character,
   robot, and sensor populations with independent settings in a single config.
   Multiple data writers can run concurrently with per-writer timing and sensor
   selection.
-* **Stronger validation** â Pydantic v2 models validate configs on load and
+* **Stronger validation** – Pydantic v2 models validate configs on load and
   surface clear error messages, catching mistakes before the simulation starts.
-* **USD-native architecture** â Actor configurations are persisted as USD
+* **USD-native architecture** – Actor configurations are persisted as USD
   schemas and prims, making them inspectable and editable directly in the
   stage.
 
@@ -272,7 +272,7 @@ For a practical walkthrough of using the CustomWriter to stream RTSP video from 
 
 Actor behaviors are achieved by OMP, IRA, and IAR together.
 
-Actors perform a âroutine-triggerâ behavior loop at play. This pattern is configurable by the behaviors and triggers assigned to the actor.
+Actors perform a “routine-trigger” behavior loop at play. This pattern is configurable by the behaviors and triggers assigned to the actor.
 
 ### The Routine Trigger Loop
 
@@ -295,7 +295,7 @@ The actor USD API schema defines basic information of the actor:
 * seed
 * a routine reference slot and a trigger reference slot
 
-At play, the name, group, and seed will be combined and hashed into a single seed as `actor global seed`. This seed will be used for all the ârandomnessâ of the actor, including random routine picking for the actor itself and the picking within each behavior such as picking a speed from speed range.
+At play, the name, group, and seed will be combined and hashed into a single seed as `actor global seed`. This seed will be used for all the “randomness” of the actor, including random routine picking for the actor itself and the picking within each behavior such as picking a speed from speed range.
 This also means the same `actor global seed` displays the same result if other settings and the environment do not change.
 
 Each type of actor behavior is represented by a USD Prim type. It defines the configuration of the behavior:
@@ -342,7 +342,7 @@ Behavior tree mode is an alternative to the routine-trigger system. Each charact
 
 **Workflow**
 
-1. Author a behavior tree using `omni.behavior.tree.ui` and save it as a JSON file. The tree references node libraries `omni.behavior.tree.core` and `omni.anim.behavior.tree` for its action, composite, and modifier nodes. Refer to the [Behavior Treeâs User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html) for how to author a behavior tree.
+1. Author a behavior tree using `omni.behavior.tree.ui` and save it as a JSON file. The tree references node libraries `omni.behavior.tree.core` and `omni.anim.behavior.tree` for its action, composite, and modifier nodes. Refer to the [Behavior Tree’s User Guide](https://docs.omniverse.nvidia.com/kit/docs/behavior-tree/latest/user-guide.html) for how to author a behavior tree.
 2. In the IRA configuration YAML, create a character group with a `behavior_tree` field pointing to the JSON file. Optionally provide an `overrides` field to assign node parameters for different character groups without modifying the tree file.
 
    Warning
@@ -354,7 +354,7 @@ Some sample config files with behavior tree character groups are provided in the
 
 Warning
 
-Behavior tree characters set up by IRA still have the `IRACharacterAPI` schema applied, but this is only used for data-generation identification (name, group, semantic labels, and related fields). The characterâs behavior is entirely controlled by the behavior tree through `omni.behavior.tree.core` (OBT). IRA-level settings such as `seed` have no effect on behavior-tree characters.
+Behavior tree characters set up by IRA still have the `IRACharacterAPI` schema applied, but this is only used for data-generation identification (name, group, semantic labels, and related fields). The character’s behavior is entirely controlled by the behavior tree through `omni.behavior.tree.core` (OBT). IRA-level settings such as `seed` have no effect on behavior-tree characters.
 
 ## Terminology
 
@@ -372,7 +372,7 @@ A `.yaml` file that contains configuration data that defines the key components 
 
 Actor
 
-Actors are controlled by the respective controllers (`omni.behavior.tree` and `isaacsim.anim.robot`) and perform actions in the simulation. The extension supports human characters and robots (Nova Carter, iw.hub) as actors. The terms âactorâ and âagentâ are used interchangeably in this documentation.
+Actors are controlled by the respective controllers (`omni.behavior.tree` and `isaacsim.anim.robot`) and perform actions in the simulation. The extension supports human characters and robots (Nova Carter, iw.hub) as actors. The terms “actor” and “agent” are used interchangeably in this documentation.
 
 Seed
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Configure Manipulator"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "e73e712716158997"
-fetched: "2026-06-21T13:05:35"
+checksum: "32380aeb80eeee05"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -32,13 +32,13 @@ We highly recommend downloading the prebuilt asset to your local machine for eas
 
 ## Adjust the Articulation for Manipulation Tasks
 
-Adjust the articulation for the UR10e robot to make it more stable and accurate for manipulation tasks. Letâs first open the physx layer, and create a physx articulation root.
+Adjust the articulation for the UR10e robot to make it more stable and accurate for manipulation tasks. Let’s first open the physx layer, and create a physx articulation root.
 
 1. Open the interface file, `ur.usda`, and select the layer lab on the top right corner
-2. Click âInsert Sublayerâ icon at the bottom of the layer panel. (orange arrow with stacked layers icon)
+2. Click “Insert Sublayer” icon at the bottom of the layer panel. (orange arrow with stacked layers icon)
 3. In the file dialog, navigate to `path/to/Manipulator/configure_manipulator/ur10e/ur_gripper/payloads/Physics/`, select `physx.usda`, and click **Open** to insert it as a sublayer.
 
-1. Left click on physx.usda layer, then right click to select âSet Authoring Layerâ. Now all your changes will be saved to the physx.usda layer.
+1. Left click on physx.usda layer, then right click to select “Set Authoring Layer”. Now all your changes will be saved to the physx.usda layer.
 
 1. In the Stage panel, select the **ur/Geometry/World** prim.
 2. In the Property Editor at the bottom right, scroll down to the **Physics/Articulation** section. If you do not see an Articulation(PhysX), create a new one by clicking the **add** > **Physics** > **Articulation(PhysX)**.
@@ -93,7 +93,7 @@ Add physics materials to the robot gripper to make it more realistic and stable 
 
    If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/robotiq_2f_140/configuration/robotiq_2f_140_physics.usd`.
 2. Right click on the **robotiq\_arg2f\_140\_model** prim and select **Create** > **Physics** > **Physics Material**, select **Rigid Body Material**. This will add a physics material attribute to the gripper.
-3. In the properties panel, scroll down to the **Physics/Rigid Body Material** section and set the **static friction** to **1.0** and **dynamic friction** to **1.0**. For your robot, match the friction values to the robotâs surface friction coefficients.
+3. In the properties panel, scroll down to the **Physics/Rigid Body Material** section and set the **static friction** to **1.0** and **dynamic friction** to **1.0**. For your robot, match the friction values to the robot’s surface friction coefficients.
 4. Apply the physics material to the gripper finger tip.
    - Select the `colliders/left_inner_finger/mesh_1/box` and in the properties panel, scroll down to the **Physics/Physics material on selected Material** section.
    - Select the **Physics Material** you just created at `/World/robotiq_arg2f_140_model/Looks/finger`.
@@ -105,11 +105,11 @@ See [Adding Props](../core_api_tutorials/tutorial_core_adding_props.html#isaac-s
 
 ## Configure Joint Effort Limits
 
-In the physics layer of the robotiq\_arg2f\_140\_model asset from the previous step, letâs configure the joint effort limits for the gripper.
+In the physics layer of the robotiq\_arg2f\_140\_model asset from the previous step, let’s configure the joint effort limits for the gripper.
 
 1. In the **Stage** panel, select the `robotiq_arg2f_140_model/joints/finger_joint` prim. This is the joint that controls the gripper fingers, all other gripper joints are `Mimic` joints.
 2. In the **Property Editor** at the bottom right, scroll down to the `Drive/Angular/Max Force` section.
-3. Set the **Max Force** to `200`. This is the maximum force that can be applied to the gripper fingers. For your robot, match the max force to the robotâs joint torque limits.
+3. Set the **Max Force** to `200`. This is the maximum force that can be applied to the gripper fingers. For your robot, match the max force to the robot’s joint torque limits.
 4. **Ctrl + S** to save the changes.
 
 Note
@@ -118,7 +118,7 @@ When the max force is very high, you might need to increase the physics step fre
 
 ## Inspect the Robot Articulation
 
-Letâs inspect the robot articulation to verify the joint effort limits are applied correctly. Open the top level `ur` asset that you built in the previous tutorial.
+Let’s inspect the robot articulation to verify the joint effort limits are applied correctly. Open the top level `ur` asset that you built in the previous tutorial.
 This asset references the physics layers that you modified, so all the changes you made to the physics layer will be reflected in this asset.
 
 Note

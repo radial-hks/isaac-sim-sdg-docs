@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/joi
 title: "Joint Tuning"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "ef621baa22e58a4c"
-fetched: "2026-06-21T13:05:35"
+checksum: "b4708a2f256bf336"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -37,7 +37,7 @@ For a full explanation of how the Gain Tuner works, the physics behind joint dri
 1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
 2. Select the UR10 from the **Select Robot** dropdown.
 3. Ensure that **Mode** is set to **Position** for each joint.
-4. Observe that all six joints â `shoulder_pan_joint`, `shoulder_lift_joint`, `elbow_joint`, `wrist_1_joint`, `wrist_2_joint`, `wrist_3_joint` â have **Stiffness** and **Damping** set to `0`. With zero gains the robot has no active drives and will collapse under gravity when the simulation is played.
+4. Observe that all six joints — `shoulder_pan_joint`, `shoulder_lift_joint`, `elbow_joint`, `wrist_1_joint`, `wrist_2_joint`, `wrist_3_joint` — have **Stiffness** and **Damping** set to `0`. With zero gains the robot has no active drives and will collapse under gravity when the simulation is played.
 
 ## Step 2: Snap-to-Limits with weak gains
 
@@ -56,11 +56,11 @@ With stiffness at only 10 Nm/rad and no damping, expect:
 
 Note
 
-If a joint reports **Blocked**, re-run with **Disable Self-Collisions** enabled. If the joint then passes, the joint limit extends beyond what the collision geometry allows â tighten the joint limit in USD rather than adjusting gains.
+If a joint reports **Blocked**, re-run with **Disable Self-Collisions** enabled. If the joint then passes, the joint limit extends beyond what the collision geometry allows — tighten the joint limit in USD rather than adjusting gains.
 
 ## Step 3: Tuned parameters
 
-Before adjusting gains, check the joint force limits. The UR10âs URDF defines max effort values (330 Nm for the shoulder joints, 150 Nm for the elbow, 56 Nm for the wrist joints) that are imported as the joint **Max Force** in USD. With high stiffness, the PD controller may need to apply forces that exceed these limits to drive the heavy shoulder and elbow links to their targets. If a joint still fails Snap-to-Limits after increasing stiffness, select the joint in the **Properties** panel and set **Max Force** to a higher value or to `inf` (infinite) under **Joint** > **Advanced** > **Maximum Force**. For the UR10, `shoulder_pan_joint` and `shoulder_lift_joint` require infinite max force to pass.
+Before adjusting gains, check the joint force limits. The UR10’s URDF defines max effort values (330 Nm for the shoulder joints, 150 Nm for the elbow, 56 Nm for the wrist joints) that are imported as the joint **Max Force** in USD. With high stiffness, the PD controller may need to apply forces that exceed these limits to drive the heavy shoulder and elbow links to their targets. If a joint still fails Snap-to-Limits after increasing stiffness, select the joint in the **Properties** panel and set **Max Force** to a higher value or to `inf` (infinite) under **Joint** > **Advanced** > **Maximum Force**. For the UR10, `shoulder_pan_joint` and `shoulder_lift_joint` require infinite max force to pass.
 
 The following gains produce a UR10 that passes Snap-to-Limits. They were found using the position-drive tuning heuristic described in the [Tuning Workflow](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-tuning-workflow) section of the Gain Tuner reference:
 
@@ -97,12 +97,12 @@ Now observe what happens without velocity limits:
 2. Press **Run Test** again.
 3. Some joints now report **Unstable**.
 
-Without velocity limits, the PD controller responds to the stress testâs large position errors by generating forces that accelerate joints to extreme speeds within a single simulation timestep. At these speeds the discrete-time solver can fail to converge, leading to energy blowup or NaN values.
+Without velocity limits, the PD controller responds to the stress test’s large position errors by generating forces that accelerate joints to extreme speeds within a single simulation timestep. At these speeds the discrete-time solver can fail to converge, leading to energy blowup or NaN values.
 
 Velocity limits serve two purposes:
 
-* **Physical fidelity** â real actuators have maximum speeds defined by the manufacturer. The UR10âs URDF specifies velocity limits of approximately 2â3 rad/s per joint. Setting these in simulation reproduces the real robotâs motion envelope.
-* **Solver stability** â by capping joint speed, velocity limits keep per-step displacements within the range where the PhysX implicit integrator remains numerically stable.
+* **Physical fidelity** — real actuators have maximum speeds defined by the manufacturer. The UR10’s URDF specifies velocity limits of approximately 2–3 rad/s per joint. Setting these in simulation reproduces the real robot’s motion envelope.
+* **Solver stability** — by capping joint speed, velocity limits keep per-step displacements within the range where the PhysX implicit integrator remains numerically stable.
 
 If your application requires higher velocity limits than the manufacturer specification, increase them incrementally and re-run the Stress Test after each change to confirm the solver remains stable at the new limits.
 

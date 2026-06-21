@@ -4,7 +4,7 @@ title: "Sensors Index"
 section: "概览"
 module: "05-sensors-annotators"
 checksum: "b6a7cabeb1b1ea3b"
-fetched: "2026-06-21T11:55:32"
+fetched: "2026-06-21T13:40:28"
 ---
 
 * Sensors

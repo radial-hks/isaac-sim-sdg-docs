@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/carb_se
 title: "Carb Settings"
 section: "开发工具"
 module: "02-fundamentals-dev"
-checksum: "1bdbdb3f39dc0295"
-fetched: "2026-06-21T12:48:06"
+checksum: "e26d993cdbe32440"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Development Tools](index.html)
@@ -57,9 +57,9 @@ At the root of your Isaac Sim installation, run the following command:
 
 ## Edit .toml File
 
-For more permanent changes, you can edit the extensionâs .toml file. The changes made this way will persist after you close the application.
+For more permanent changes, you can edit the extension’s .toml file. The changes made this way will persist after you close the application.
 
-1. Navigate to the extensionâs folder. For example, if you are changing the settings for the `isaacsim.code_editor.python_server` extension, navigate to `<isaac-sim-root_dir>/exts/isaacsim.code_editor.python_server/config`.
+1. Navigate to the extension’s folder. For example, if you are changing the settings for the `isaacsim.code_editor.python_server` extension, navigate to `<isaac-sim-root_dir>/exts/isaacsim.code_editor.python_server/config`.
 2. Open the .toml file with a text editor, and add the following line to the file:
 
    > ```python

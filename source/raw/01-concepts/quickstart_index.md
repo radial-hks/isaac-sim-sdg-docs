@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/introduction/quickstart_i
 title: "Quick Start Index"
 section: "入门"
 module: "01-concepts"
-checksum: "7d0825da45d2ff78"
-fetched: "2026-06-21T12:48:03"
+checksum: "976720ab370948eb"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * Quick Tutorials
@@ -37,7 +37,7 @@ The Robot Setup Tutorials are designed as a complete learning path that takes yo
 
 **Start here:** [Tutorial 1: Stage Setup](../robot_setup_tutorials/tutorial_intro_environment_setup.html#isaac-sim-app-tutorial-intro-environment-setup)
 
-## Whatâs Next
+## What’s Next
 
 After completing either the Robot Setup Tutorials or Quick Tutorials, explore these additional resources:
 
@@ -48,4 +48,4 @@ After completing either the Robot Setup Tutorials or Quick Tutorials, explore th
 On this page
 
 * [For Beginners: Robot Setup Tutorials](#for-beginners-robot-setup-tutorials)
-* [Whatâs Next](#what-s-next)
+* [What’s Next](#what-s-next)

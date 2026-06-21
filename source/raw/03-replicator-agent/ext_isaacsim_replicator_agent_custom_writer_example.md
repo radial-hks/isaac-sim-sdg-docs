@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Custom Writer Example"
 section: "Agent配置"
 module: "03-replicator-agent"
-checksum: "987ad2ce0daa45ab"
-fetched: "2026-06-21T11:55:26"
+checksum: "63081481e45c2047"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -91,7 +91,7 @@ If `sensor_prim_list` is left empty, the writer attempts to attach to all camera
 
 Each RTSP stream requires a unique network port. When streaming from multiple cameras, assign a different `port` value to each CustomWriter instance to avoid conflicts.
 
-1. Click **Add Parameter** and select `port`. Set a port number (default is `8554`). Valid range is 1â65535.
+1. Click **Add Parameter** and select `port`. Set a port number (default is `8554`). Valid range is 1–65535.
 2. Click **Add Parameter** and select `mountPath`. Enter a descriptive mount path that starts with `/` (for example, `/camera_01`). This makes it easier to identify each stream when monitoring.
 
 The resulting RTSP URL for this stream is:
@@ -113,7 +113,7 @@ When using `"h264"` encoding, you can also configure `width` and `height` (defau
 
 Note
 
-The `width` and `height` parameters on `RTSPStreamWriter` do **not** change the RenderProduct resolution â they only configure the RTSP stream to match the existing input dimensions. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writerâs `width` and `height` to match. Mismatched values result in stretched or cropped frames.
+The `width` and `height` parameters on `RTSPStreamWriter` do **not** change the RenderProduct resolution — they only configure the RTSP stream to match the existing input dimensions. To change the actual rendered resolution, first adjust the **RenderProduct Resolution** in the CustomWriter UI panel, then set the writer’s `width` and `height` to match. Mismatched values result in stretched or cropped frames.
 
 ### Parameter Naming in the UI
 

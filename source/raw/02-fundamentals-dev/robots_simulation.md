@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/robots_s
 title: "Robots Simulation"
 section: "Python 脚本"
 module: "02-fundamentals-dev"
-checksum: "343c3131de0cfa0d"
-fetched: "2026-06-21T12:48:07"
+checksum: "ae5efd24d6541a83"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Python Scripting and Tutorials](index.html)
@@ -82,7 +82,7 @@ Prepare the scene:
 Warning
 
 The snippets are disparate examples, running them out of order may have unintended consequences.
-The resulting movements may not respect the robotâs kinematic limitations.
+The resulting movements may not respect the robot’s kinematic limitations.
 
 Make sure there is a Franka robot at the `/Franka` prim path and that the simulation is playing.
 Then, open the Script Editor window (Window > Script Editor menu) and run the following snippets.

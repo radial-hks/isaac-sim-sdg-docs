@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Generate Robot Config"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "663df7086368dedd"
-fetched: "2026-06-21T13:05:35"
+checksum: "6f4134f8d4b10445"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -18,7 +18,7 @@ fetched: "2026-06-21T13:05:35"
 ## Learning Objectives
 
 This is the third manipulator tutorial in a series of four tutorials. This tutorial will show you how to generate the robot configuration file for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq.
-These robot configuration files provide information about the robotâs kinematics, dynamics, and other properties that are used in RMPFlow and [cuMotion](https://nvidia-isaac.github.io/cumotion/) motion planners.
+These robot configuration files provide information about the robot’s kinematics, dynamics, and other properties that are used in RMPFlow and [cuMotion](https://nvidia-isaac.github.io/cumotion/) motion planners.
 
 *30 Minutes Tutorial*
 
@@ -38,7 +38,7 @@ Generate the robot URDF file from the UR10e robot and the 2F-140 gripper.
 
 1. Go to **Window** > **Extensions**.
 2. Type **URDF** in the search box, and find the **Isaac Sim USD to URDF Exporter Extension**.
-3. If you canât find it, remove the **@feature** filter from the search box.
+3. If you can’t find it, remove the **@feature** filter from the search box.
 4. Enable the extension by clicking the toggle button labeled **ENABLE**.
 5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
 
@@ -50,7 +50,7 @@ Generate the robot URDF file from the UR10e robot and the 2F-140 gripper.
 
    Tip
 
-   Using `robot.urdf` matches the default `--urdf` value in the pick-and-place tutorial scripts, so you wonât need to pass `--urdf` explicitly when running them.
+   Using `robot.urdf` matches the default `--urdf` value in the pick-and-place tutorial scripts, so you won’t need to pass `--urdf` explicitly when running them.
 4. In the **Mesh Directory Path** field, select the correct folder path to save the URDF meshes.
 5. Click **Export**.
 
@@ -66,7 +66,7 @@ Generate the XRDF file and collision spheres for the UR10e robot and the 2F-140 
 
 1. Go to **Window** > **Extensions**.
 2. Search for `isaacsim.robot_setup.xrdf_editor` and find the **cuMotion/Lula Robot Description Editor** extension.
-3. If you canât find it, remove the **@feature** filter from the search box.
+3. If you can’t find it, remove the **@feature** filter from the search box.
 4. Enable the extension by clicking the toggle button labeled **ENABLE**.
 5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
 
@@ -142,7 +142,7 @@ Spheres generated for the full ur10e robot.
 
 General tuning tips
 
-* Size spheres to cover the link without being oversized â large spheres cause solver conservatism.
+* Size spheres to cover the link without being oversized — large spheres cause solver conservatism.
 * More spheres improves collision accuracy but reduces solver performance.
 * For long cylindrical links, generate spheres on the ends and use **Connect Spheres** to fill the middle evenly.
 * Use **Scale Spheres in Link** to resize spheres uniformly across a link.
@@ -190,7 +190,7 @@ Pass this directory to the tutorial scripts with `--xrdf-dir /path/to/robot/conf
 
 The `rmp_flow.yaml` file configures the RMPflow reactive motion controller. Save the text below in a file named `rmp_flow.yaml` and save it to the same directory as your `robot.urdf` and `robot.xrdf` files.
 
-rmp\_flow.yaml â RMPflow configuration example
+rmp\_flow.yaml — RMPflow configuration example
 
 ```python
 format: rmpflow

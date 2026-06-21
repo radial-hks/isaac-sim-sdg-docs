@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "GUI Simple Robot"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "04230e96a21243bd"
-fetched: "2026-06-21T13:05:36"
+checksum: "3cf76798a60310a2"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -15,9 +15,9 @@ fetched: "2026-06-21T13:05:36"
 
 # Tutorial 3: Articulate a Basic Robot
 
-NVIDIA Isaac Simâs GUI interface features are the same ones used in NVIDIA Omniverseâ¢ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
+NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverseâ¢ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
 
-You will rig a basic ârobotâ with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
+You will rig a basic “robot” with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
 
 This is not needed for robots that are imported from [Importing your Onshape Document](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html#isaac-onshape-importer-tutorials-importing "(in Omniverse Extensions)") or [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer), these are important concepts to understand for tuning your robots and assembling objects with articulations.
 
@@ -59,7 +59,7 @@ Select both joints and click the `+ Add` button in the **Property** tab, and sel
 * **Position Control:** For position controlled joints, set a high stiffness and relatively low or zero damping.
 * **Velocity Control:** For velocity controller joints, set a high damping and zero stiffness.
 
-For joints on a wheel, it makes more sense to be velocity controlled, so set both wheelsâ **Damping** to **1e4** and **Target Velocity** to **200** **rad/s**.
+For joints on a wheel, it makes more sense to be velocity controlled, so set both wheels’ **Damping** to **1e4** and **Target Velocity** to **200** **rad/s**.
 If you are working with joints with limited range, those can be set in the **Property** tab, under the **Raw USD Properties > Lower (Upper) Limit**.
 Press **Play** to see the mock mobile robot drive off.
 
@@ -91,12 +91,12 @@ Validate that the resulting robot matches the asset that is provided in the Cont
 
 ## Add Controller
 
-After the joints are part of an articulation, you can use tools to test the robotâs movement.
+After the joints are part of an articulation, you can use tools to test the robot’s movement.
 
 1. Create another scope by right clicking **Create > Scope**, rename it to **Graphs**. This will be used to store the ActionGraphs.
 2. Drag the **Graphs** scope under the `mock_robot` Xform in the stage tree.
-3. Go to **Tools > Robotics > OmniGraph Controllers > Joint Velocity** to add a velocity controller graph to the stage. This graph will allow you to control the robotâs movement by setting the target velocity for each joint.
-4. Click the **Add** button for âRobot Primâ and select the prim with the Articulation Root API, in this case, itâs `/mock_robot`.
+3. Go to **Tools > Robotics > OmniGraph Controllers > Joint Velocity** to add a velocity controller graph to the stage. This graph will allow you to control the robot’s movement by setting the target velocity for each joint.
+4. Click the **Add** button for “Robot Prim” and select the prim with the Articulation Root API, in this case, it’s `/mock_robot`.
 5. For Graph Path, write `mock_robot/Graphs/Velocity_Controller` to place the ActionGraph in the **Graphs** scope above.
 6. Click **OK** to create the graph.
 7. To move the robot, press **Play** to start the simulation. If you have any default position or velocity targets set, the robot starts moving towards those targets immediately. To change the joint commands, select the `JointCommandArray` on the stage tree under **/Graphs/velocity\_controller**, and change the parameters `input0` and `input1` in the properties window.

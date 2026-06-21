@@ -2,7 +2,7 @@
 
 > Cosmos 增强 + InfiniGen SDG + Metropolis Pipeline + Telemetry + Headless
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 8
 
 ---
@@ -52,12 +52,12 @@ For examples of sim-to-real transformations in robotics, see the [Cosmos Cookboo
 ## Prerequisites
 
 * Familiarity with the [omni.replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html "(in Omniverse Extensions)") extension and its [writers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)")
-* Basic understanding of Isaac Simâs SDG [Getting Started Scripts](tutorial_replicator_getting_started.html#isaac-sim-app-tutorial-replicator-getting-started)
+* Basic understanding of Isaac Sim’s SDG [Getting Started Scripts](tutorial_replicator_getting_started.html#isaac-sim-app-tutorial-replicator-getting-started)
 * Running simulations as [Standalone Applications](../introduction/workflows.html#standalone-application) or via the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor).
 
 ## What the CosmosWriter Generates
 
-The writer outputs five synchronized modalities from the robotâs camera:
+The writer outputs five synchronized modalities from the robot’s camera:
 
 * **RGB** - Color imagery (vis control)
 * **Depth** - Distance-to-camera for spatial understanding
@@ -65,7 +65,7 @@ The writer outputs five synchronized modalities from the robotâs camera:
 * **Shaded Segmentation** - Instance masks with realistic shading
 * **Edges** - Canny edge detection for boundaries
 
-These modalities correspond to [Cosmos Transferâs](https://docs.nvidia.com/cosmos/latest/#controlnet-specification) control branches:
+These modalities correspond to [Cosmos Transfer’s](https://docs.nvidia.com/cosmos/latest/#controlnet-specification) control branches:
 
 * **vis**: Uses RGB imagery with bilateral blurring
 * **edge**: Applies Canny edge detection (tunable thresholds)
@@ -76,7 +76,7 @@ Each control branch can be weighted (0.0-1.0) to balance adherence vs. creative 
 
 ## Implementation
 
-This example demonstrates a Carter Nova robot autonomously navigating through a warehouse environment. As the robot moves from its starting position to a target location, the `CosmosWriter` captures synchronized multi-modal data (RGB, depth, segmentation, shaded segmentation, and edges) from the robotâs front camera. The captured data is organized into clips, with each clip containing a sequence of frames that can be used as input for Cosmos Transfer.
+This example demonstrates a Carter Nova robot autonomously navigating through a warehouse environment. As the robot moves from its starting position to a target location, the `CosmosWriter` captures synchronized multi-modal data (RGB, depth, segmentation, shaded segmentation, and edges) from the robot’s front camera. The captured data is organized into clips, with each clip containing a sequence of frames that can be used as input for Cosmos Transfer.
 
 Standalone Application
 
@@ -567,7 +567,7 @@ def run_sdg_pipeline(
 ```
 
 **Key aspects:**
-- The render product is created from the robotâs front camera at 1280x720 resolution
+- The render product is created from the robot’s front camera at 1280x720 resolution
 - `pause_timeline=False` allows the robot to continue moving during capture
 - The simulation advances between captures to show navigation progress
 
@@ -662,7 +662,7 @@ _out_cosmos_warehouse/
 
 **What Each Modality Provides:**
 
-* **RGB (rgb.mp4)**: The visual input video used with Cosmos Transferâs `vis` control branch for preserving lighting and camera properties
+* **RGB (rgb.mp4)**: The visual input video used with Cosmos Transfer’s `vis` control branch for preserving lighting and camera properties
 * **Depth (depth.mp4)**: 3D spatial information used with the `depth` control branch to maintain perspective and spatial relationships
 * **Segmentation (segmentation.mp4)**: Instance or semantic masks used with the `seg` control branch for object-level transformations
 * **Shaded Segmentation (shaded\_seg.mp4)**: Combines segmentation with realistic shading for enhanced visual coherence
@@ -714,7 +714,7 @@ For real-world examples of this workflow, see the [Cosmos Cookbook Robotics Gall
 * **Edge-only control**: Transform simulation videos into diverse kitchen styles (white cabinets, red cabinets, wood tones) and robot materials (plastic, metal, gold) while preserving exact robot motions
 * **Multi-control**: Combine depth, edge, and segmentation controls for precise scene manipulation
 
-Hereâs how the modalities map to Transferâs control branches:
+Here’s how the modalities map to Transfer’s control branches:
 
 **Basic Single Control Example:**
 
@@ -750,7 +750,7 @@ Hereâs how the modalities map to Transferâs control branches:
 **Key Considerations:**
 
 * **Control Weights**: Values 0.0-1.0 control adherence (higher = stricter following, lower = more creative freedom)
-* **Automatic Normalization**: If total weights > 1.0, theyâre normalized automatically
+* **Automatic Normalization**: If total weights > 1.0, they’re normalized automatically
 * **Prompting**: Focus on single scenes with rich descriptions; avoid camera control instructions
 * **Safety**: Human faces are automatically blurred by Cosmos Guardrail
 
@@ -865,7 +865,7 @@ Before starting this tutorial, you should be familiar with:
 
 ## Scenario Overview
 
-In this tutorial, we will use procedurally generated environments as backdrops for synthetic data generation. These environments are then configured with colliders and physics properties, enabling physics-based simulations. Within each indoor environment, we define a âworking areaââin this case, the dining tableâwhere we will place both labeled target assets and unlabeled distractor assets.
+In this tutorial, we will use procedurally generated environments as backdrops for synthetic data generation. These environments are then configured with colliders and physics properties, enabling physics-based simulations. Within each indoor environment, we define a “working area”—in this case, the dining table—where we will place both labeled target assets and unlabeled distractor assets.
 
 The assets are divided into two categories:
 
@@ -905,7 +905,7 @@ To generate a synthetic dataset using the default configuration, run the followi
 ./python.sh standalone_examples/replicator/infinigen/infinigen_sdg.py
 ```
 
-To use a custom configuration file that supports multiple writers and other custom settings, use the âconfig argument:
+To use a custom configuration file that supports multiple writers and other custom settings, use the –config argument:
 
 ```python
 ./python.sh standalone_examples/replicator/infinigen/infinigen_sdg.py \
@@ -2100,7 +2100,7 @@ def setup_writer(config: dict) -> None:
 
 Example configuration files are provided in the `infinigen/config` directory. These files allow you to customize various aspects of the simulation, such as the number of captures, assets to include, randomization parameters, and writers to use.
 
-Hereâs an example of a custom YAML configuration file that demonstrates the use of multiple writers:
+Here’s an example of a custom YAML configuration file that demonstrates the use of multiple writers:
 
 Custom YAML Configuration File
 
@@ -2437,9 +2437,9 @@ print(f"[SDG] Created {len(render_products)} render products")
 
 **Explanation:**
 
-* We use Replicatorâs `rep.functional.create.scope` to create an organizational scope for cameras.
+* We use Replicator’s `rep.functional.create.scope` to create an organizational scope for cameras.
 * Cameras are created using `rep.functional.create.camera` which provides a cleaner API for camera creation with configurable clipping range.
-* Render products are created using Replicatorâs `create.render_product` function.
+* Render products are created using Replicator’s `create.render_product` function.
 * If `disable_render_products` is set to `true` in the configuration, we disable the render products during creation. They will be enabled only during capture to save computational resources.
 
 ### Setting Up Replicator Writers
@@ -2787,17 +2787,17 @@ It also supplies the **AgentManager** and base agent interface so that agents (s
 
 ## Overview
 
-* **Configuration** â YAML-driven application setup
+* **Configuration** – YAML-driven application setup
 
-  + **ConfigurationManager** â Singleton that loads a config file and dispatches sections to registered extensions. Extensions register a section parser and async setup function that are used when the config file is loaded and the simulation is set up.
-* **Triggers** â event objects that run callbacks when they fire
+  + **ConfigurationManager** – Singleton that loads a config file and dispatches sections to registered extensions. Extensions register a section parser and async setup function that are used when the config file is loaded and the simulation is set up.
+* **Triggers** – event objects that run callbacks when they fire
 
-  + **TriggersManager** â Singleton that creates and manages trigger instances from a dictionary description. Use it to create triggers in script and pass them into incident (fire, topple, spill) and other event APIs.
-  + **Trigger types** â Time-based, carb-event-based, and collision-based triggers are registered by the extension at startup. Each trigger can have callbacks added using `add_callback`; when the trigger fires, all callbacks are invoked.
-* **Agents** â runtime representations of entities that can perform routines and respond to triggers
+  + **TriggersManager** – Singleton that creates and manages trigger instances from a dictionary description. Use it to create triggers in script and pass them into incident (fire, topple, spill) and other event APIs.
+  + **Trigger types** – Time-based, carb-event-based, and collision-based triggers are registered by the extension at startup. Each trigger can have callbacks added using `add_callback`; when the trigger fires, all callbacks are invoked.
+* **Agents** – runtime representations of entities that can perform routines and respond to triggers
 
-  + **AgentManager** â Singleton that creates and manages agent instances from a dictionary description. Use it to create agents in script and pass them into agent APIs.
-  + **Base agent interface** â The base agent interface is a USD Prim that defines the agentâs behavior and trigger. It is used to create and manage agents.
+  + **AgentManager** – Singleton that creates and manages agent instances from a dictionary description. Use it to create agents in script and pass them into agent APIs.
+  + **Base agent interface** – The base agent interface is a USD Prim that defines the agent’s behavior and trigger. It is used to create and manage agents.
 
 ## Configuration
 
@@ -2805,23 +2805,23 @@ The **ConfigurationManager** loads a YAML config file and routes sections to ext
 
 ### Using ConfigurationManager in Script
 
-Access the singleton using `ConfigurationManager.get_instance()` or use the module-level functions from `omni.metropolis.pipeline.configuration`. Register your extensionâs section before loading a config file; then call `load_config_file(path)` and `await setup_simulation()`.
+Access the singleton using `ConfigurationManager.get_instance()` or use the module-level functions from `omni.metropolis.pipeline.configuration`. Register your extension’s section before loading a config file; then call `load_config_file(path)` and `await setup_simulation()`.
 
 **Registration**
 
-* **register\_config\_section(extension\_name, section\_header, section\_name, section\_parser, section\_setup)** â Register a config section. `section_header` is the YAML top-level key (for example, `"omni.metropolis.pipeline"` or `"isaacsim.replicator.agent.core"`). `section_name` is the key under the orchestrator header (for example, `"agent"`). `section_parser` is a callable that accepts the raw dict for that section and returns parsed data. `section_setup` is an async callable that receives the parsed payload and runs when `setup_simulation()` is called.
-* **is\_section\_registered(extension\_name)** â Return whether that extension has registered a section.
-* **unregister\_config\_section(extension\_name)** â Remove the registration.
+* **register\_config\_section(extension\_name, section\_header, section\_name, section\_parser, section\_setup)** – Register a config section. `section_header` is the YAML top-level key (for example, `"omni.metropolis.pipeline"` or `"isaacsim.replicator.agent.core"`). `section_name` is the key under the orchestrator header (for example, `"agent"`). `section_parser` is a callable that accepts the raw dict for that section and returns parsed data. `section_setup` is an async callable that receives the parsed payload and runs when `setup_simulation()` is called.
+* **is\_section\_registered(extension\_name)** – Return whether that extension has registered a section.
+* **unregister\_config\_section(extension\_name)** – Remove the registration.
 
 **Loading and access**
 
-* **load\_config\_file(file\_path)** â Load and parse the YAML file. Returns `True` on success. Use `get_load_error_message()` if it returns `False`.
-* **get\_config(extension\_name)** â Return the parsed configuration for that extension, or `None` if not present or not loaded.
-* **get\_config\_file\_path()** â Return the path of the currently loaded config file, or `None`.
+* **load\_config\_file(file\_path)** – Load and parse the YAML file. Returns `True` on success. Use `get_load_error_message()` if it returns `False`.
+* **get\_config(extension\_name)** – Return the parsed configuration for that extension, or `None` if not present or not loaded.
+* **get\_config\_file\_path()** – Return the path of the currently loaded config file, or `None`.
 
 **Setup**
 
-* **setup\_simulation()** â Async. Run each registered extensionâs setup function with its parsed config. Returns `True` if all succeeded. Use `get_setup_error_message()` on failure.
+* **setup\_simulation()** – Async. Run each registered extension’s setup function with its parsed config. Returns `True` if all succeeded. Use `get_setup_error_message()` on failure.
 
 ### Example Usage
 
@@ -2893,10 +2893,10 @@ Fires on physics trigger enter/exit for a collider prim. The collider must have 
 
 ### Trigger API Summary
 
-* **TriggersManager.get\_instance()** â Return the singleton TriggersManager.
-* **create\_trigger\_by\_dict(dict\_data)** â Build a trigger from `{"trigger": {"type": "...", ...}}`. Returns a trigger instance or `None` if no registered type matches.
-* **TriggerBase.add\_callback(callback\_fn)** â Add a callable that takes the trigger instance as an argument; it is invoked when the trigger fires.
-* **TriggerBase.destroy()** â Unsubscribe from timeline/events and clear callbacks. Call when the trigger is no longer needed.
+* **TriggersManager.get\_instance()** – Return the singleton TriggersManager.
+* **create\_trigger\_by\_dict(dict\_data)** – Build a trigger from `{"trigger": {"type": "...", ...}}`. Returns a trigger instance or `None` if no registered type matches.
+* **TriggerBase.add\_callback(callback\_fn)** – Add a callable that takes the trigger instance as an argument; it is invoked when the trigger fires.
+* **TriggerBase.destroy()** – Unsubscribe from timeline/events and clear callbacks. Call when the trigger is no longer needed.
 
 ### Example Usage
 
@@ -2921,7 +2921,7 @@ For creating and configuring agents in the Action and Event Data Generation appl
 
 ### Example Usage
 
-The following pattern registers a custom agent class and creates a prim with the agentâs API. When the timeline plays, AgentsManager discovers the prim and instantiates the agent; when the timeline stops, runtime instances are cleared.
+The following pattern registers a custom agent class and creates a prim with the agent’s API. When the timeline plays, AgentsManager discovers the prim and instantiates the agent; when the timeline stops, runtime instances are cleared.
 
 ```python
 from typing import ClassVar
@@ -3014,7 +3014,7 @@ Local telemetry logs can be found in the `~/.nvidia-omniverse/logs/` directory.
 
 ## Telemetry Architecture
 
-The telemetry system is built on NVIDIA Omniverseâs structured logging framework and consists of:
+The telemetry system is built on NVIDIA Omniverse’s structured logging framework and consists of:
 
 * **Schema Definition**: Structured schemas defining telemetry events and their attributes
 * **Event Generation**: Automated Python bindings generated from schema definitions
@@ -3052,11 +3052,11 @@ app_config = {
 sim_app = SimulationApp(launch_config=app_config, experience=base_exp_path)
 ```
 
-Regardless of the mode, data is saved locally to the userâs home directory in the `~/.nvidia-omniverse/logs/` directory.
+Regardless of the mode, data is saved locally to the user’s home directory in the `~/.nvidia-omniverse/logs/` directory.
 
 ## Configuring Telemetry
 
-To disable telemetry transmission (data collection), set `--/telemetry/enableAnonymousData=false` (or 0) on the command line or in the application config. Telemetry events will still be logged locally. Alternatively, in the appâs `.kit` file, set `enableAnonymousData = false` under `[settings.telemetry]` (refer to [Data Collection & Usage](../common/data-collection.html)).
+To disable telemetry transmission (data collection), set `--/telemetry/enableAnonymousData=false` (or 0) on the command line or in the application config. Telemetry events will still be logged locally. Alternatively, in the app’s `.kit` file, set `enableAnonymousData = false` under `[settings.telemetry]` (refer to [Data Collection & Usage](../common/data-collection.html)).
 
 To disable all telemetry (transmission and local logging), set `--/structuredLog/enable=false` (or 0) on the command line or in the application config.
 
@@ -3064,8 +3064,8 @@ Telemetry can also be enabled or disabled at the extension level through individ
 
 The following extensions contain specific telemetry settings:
 
-* `isaacsim.replicator.agent` â config at `EXTS_PATH/isaacsim.replicator.agent.core/config/extension.toml`
-* `omni.metropolis.utils` â config at `EXTS_PATH/omni.metropolis.utils/config/extension.toml`
+* `isaacsim.replicator.agent` — config at `EXTS_PATH/isaacsim.replicator.agent.core/config/extension.toml`
+* `omni.metropolis.utils` — config at `EXTS_PATH/omni.metropolis.utils/config/extension.toml`
 
 Note
 
@@ -3158,7 +3158,7 @@ At runtime, Event Generation fires a fire event in the warehouse, which dispatch
 
 ## How the Two Extensions Connect
 
-The two extensions have no direct API coupling. They connect through the **carb event bus** that every extension in a Kit app instance shares. Event Generation dispatches a named carb event when an incident fires, and Actor SDGâs `event_trigger` listens for that same name. A matching string is the only contract between them.
+The two extensions have no direct API coupling. They connect through the **carb event bus** that every extension in a Kit app instance shares. Event Generation dispatches a named carb event when an incident fires, and Actor SDG’s `event_trigger` listens for that same name. A matching string is the only contract between them.
 
 The dispatched event name is always:
 
@@ -3166,7 +3166,7 @@ The dispatched event name is always:
 isaacsim.replicator.incident.core.events/<event_name>
 ```
 
-Replace `<event_name>` with whatever you put under `FireEvent.name` (or `SpillEvent.name`) in the Event Generation YAML. The extension interpolates the event name into the dispatched string exactly as written. Use underscores instead of spaces; a space in `name` causes the actorâs `event_trigger` lookup to silently fail.
+Replace `<event_name>` with whatever you put under `FireEvent.name` (or `SpillEvent.name`) in the Event Generation YAML. The extension interpolates the event name into the dispatched string exactly as written. Use underscores instead of spaces; a space in `name` causes the actor’s `event_trigger` lookup to silently fail.
 
 Only `FireEvent` and `SpillEvent` dispatch carb events. `ToppleEvent` currently signals only within Event Generation and cannot drive an actor trigger. For the complete list of trigger types incidents support (including chaining one incident from another), refer to [Triggers](tutorial_replicator_incident.html#iri-trigger-section).
 
@@ -3196,7 +3196,7 @@ The `time: 4` is seconds counted from when the timeline starts playing. The exte
 
 ## Step 2 - Author the Actor SDG YAML
 
-Save as `agent_config.yaml`. The triggerâs `event:` string must match what Step 1 dispatches exactly.
+Save as `agent_config.yaml`. The trigger’s `event:` string must match what Step 1 dispatches exactly.
 
 ```python
 isaacsim.replicator.agent:
@@ -3257,7 +3257,7 @@ A few notes on this config:
 
 * The `sensor` block creates a single placeholder camera. The trigger does not require it, but the Configuration Editor populates it by default; leaving it in place keeps the YAML round-trippable through the editor UI.
 * `weight`, `repeat`, and `navigation_areas: []` are shown explicitly even though each is a default. This example surfaces them so that you can see what the Configuration Editor writes out and modify the values in place.
-* The triggerâs `behavior` list runs **in order**: a brief 1-2 second stop, then a patrol to `(0, 0, 0)`, then a 10-15 second stop. After the list completes, the actor resumes its routine.
+* The trigger’s `behavior` list runs **in order**: a brief 1-2 second stop, then a patrol to `(0, 0, 0)`, then a 10-15 second stop. After the list completes, the actor resumes its routine.
 
 Important
 
@@ -3273,8 +3273,8 @@ From the Isaac Sim install directory:
 
 This opens `isaacsim.exp.action_and_event_data_generation.full.kit`, which enables both Actor SDG and Event Generation UIs. Two menu entries appear under **Tools > Action and Event Data Generation**:
 
-* **Actor SDG** â Actor SDGâs config window.
-* **Event Config File** â Event Generationâs config window.
+* **Actor SDG** – Actor SDG’s config window.
+* **Event Config File** – Event Generation’s config window.
 
 Open both from the **Tools** menu and they dock side by side.
 
@@ -3294,7 +3294,7 @@ In the **Actor SDG** window:
 
 Internally this opens the warehouse stage, instantiates two `warehouse_workers` characters with their wander routine, and attaches a carb-event listener to each character already subscribed to `isaacsim.replicator.incident.core.events/warehouse_fire`. The subscription is live before you touch anything else.
 
-Do **not** start the timeline yet. Avoid both **Start Data Generation** and the **Play** button, because Event Generationâs time countdown begins as soon as the timeline plays. Complete Step 5 first.
+Do **not** start the timeline yet. Avoid both **Start Data Generation** and the **Play** button, because Event Generation’s time countdown begins as soon as the timeline plays. Complete Step 5 first.
 
 ## Step 5 - Set Up Event Generation
 
@@ -3309,14 +3309,14 @@ If you adapt this example to use `SpillEvent` or `ToppleEvent`, choose **Leakabl
 
 Internally, Event Generation reads the YAML, waits for navmesh baking, picks the tagged prim as the flammable target, and arms a time trigger that will fire at `t = 4 s` after the timeline plays. Nothing has fired yet.
 
-The Global sectionâs Seed field should populate to `42`, and the event list should show `warehouse_fire`.
+The Global section’s Seed field should populate to `42`, and the event list should show `warehouse_fire`.
 
 ## Step 6 - Play and Watch
 
 You have two ways to start the simulation:
 
-* **Play** button â in the Toolbar on the left side of the viewport. It plays the timeline only and writes no data. Useful for previewing the event and behavior sequence.
-* **Start Data Generation** (**Actor SDG** window) â plays the timeline *and* runs the Replicator writers configured in the `replicator` section to capture synthetic data. `simulation_duration: 25.0` stops playback automatically when the run completes; `IRABasicWriter` output appears under `~/out_event_reactive_actors/` in your home directory.
+* **Play** button – in the Toolbar on the left side of the viewport. It plays the timeline only and writes no data. Useful for previewing the event and behavior sequence.
+* **Start Data Generation** (**Actor SDG** window) – plays the timeline *and* runs the Replicator writers configured in the `replicator` section to capture synthetic data. `simulation_duration: 25.0` stops playback automatically when the run completes; `IRABasicWriter` output appears under `~/out_event_reactive_actors/` in your home directory.
 
 Either way, verify that you receive:
 
@@ -3374,7 +3374,7 @@ Adjust the physics step size in your script using the `SimulationManager.set_phy
 * **Raising the clamp** (for example to `60`) keeps the app frame rate up under load at the cost of physics-time accuracy: when an app update is slow, PhysX truncates the substep budget, so simulated time falls behind wall-clock and the simulation appears to run in slow motion (or, equivalently, some physics work is effectively dropped). Use this when responsiveness / rendering throughput matters more than 1:1 sim-time-to-wall-time playback.
 * **Lowering the clamp** (for example to `15`) lets PhysX run more catch-up substeps after a slow frame, keeping simulated time closer to wall-clock at the cost of further reducing the visible frame rate. Use this when sim-time accuracy or determinism matters more than smoothness.
 
-This setting is **not** the same as the timelineâs `targetFrameRate` (set via `isaacsim.core.rendering_manager.RenderingManager.set_dt()`) or the loop runnerâs `/app/runLoops/main/rateLimitFrequency`. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the three-clock architecture.
+This setting is **not** the same as the timeline’s `targetFrameRate` (set via `isaacsim.core.rendering_manager.RenderingManager.set_dt()`) or the loop runner’s `/app/runLoops/main/rateLimitFrequency`. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the three-clock architecture.
 
 Note
 
@@ -3425,7 +3425,7 @@ Instancing inherently carries some limitations related to attributes as children
 
 3. **Simplify Colliders**: Colliders have high computational costs. The simpler, the collision shape, the more performant the simulation behaves.
 
-   * A reduction in contact points brings substantial performance improvements. For wheel colliders, itâs recommended to use a simple cylinder or sphere collider instead of a mesh collider. This greatly simplifies contact with the ground plane, increasing performance and allows the robot to drive smoothly over terrain.
+   * A reduction in contact points brings substantial performance improvements. For wheel colliders, it’s recommended to use a simple cylinder or sphere collider instead of a mesh collider. This greatly simplifies contact with the ground plane, increasing performance and allows the robot to drive smoothly over terrain.
    * For a robot, use the simplest approximations possible that provide the needed level of precision. For example, for a mobile robot, a cube approximation is often sufficient for the body.
    * Reducing the total number of colliders is also beneficial. Consider whether every collider added to the asset needs to be enabled. Selectively disabling/enabling colliders can greatly reduce computational cost.
 
@@ -3519,7 +3519,7 @@ Setting `disable_viewport_updates` in SimulationApp is only supported if running
 
 6. **Disabling texture streaming**: Texture streaming is a feature that helps minimize GPU memory consumption, particularly in large scenes.
 
-   > * Disabling texture streaming can have positive performance benefits but will result in increased GPU memory consumption. Thereâs also possible negative UX impacts if memory is running low - leading to crashes or missing some textures.
+   > * Disabling texture streaming can have positive performance benefits but will result in increased GPU memory consumption. There’s also possible negative UX impacts if memory is running low - leading to crashes or missing some textures.
    > * To disable texture streaming, modify the value of the `/rtx-transient/resourcemanager/texturestreaming/enabled` setting.
    >
    >   > ```python
@@ -3534,9 +3534,9 @@ This is not recommended for all use cases. It should be used on a case-by-case b
 
 Three settings control the number of CPU threads used by Isaac Sim. When left unset (the default behavior), Isaac Sim will use all available threads on the system. Standalone Python workflows are limited to 32 threads by default and can be modified by changing the `limit_cpu_threads` argument in the `SimulationApp` constructor.
 
-1. `--/plugins/carb.tasking.plugin/threadCount`: Sets Carboniteâs maximum worker thread count.
+1. `--/plugins/carb.tasking.plugin/threadCount`: Sets Carbonite’s maximum worker thread count.
 2. `--/persistent/physics/numThreads`: Sets how many Carbonite worker threads to use for physics simulation.
-3. `--/plugins/omni.tbb.globalcontrol/maxThreadCount`: Sets Omniverse TBB schedulerâs maximmum worker thread count.
+3. `--/plugins/omni.tbb.globalcontrol/maxThreadCount`: Sets Omniverse TBB scheduler’s maximmum worker thread count.
 
 Spawning too many worker threads may lead to CPU bottlenecking. Consider limiting the number of CPU threads used by Isaac Sim to fewer than the number of virtual cores on the system. Current testing indicates that 32 threads is optimal for most use cases.
 
@@ -3608,7 +3608,7 @@ Note
 Exact Isaac Sim performance metrics when using multiple data-center-grade GPUs can be found [here](benchmarks.html#isaac-sim-benchmarks-gpu-dependent).
 
 1. **Add as many GPUs as cameras being rendered - but no more.** When rendering 2 720p cameras with 2 GPUs, we saw a speed up of 72% to 89% compared to single GPU performance, but using 4 GPUs yielded only 61 - 81% improvement.
-2. **Performance scales better the more cameras youâre rendering.** Our 4 camera with 4x GPUs test scaled well with an overall speed up of about 213% - 233%, but our 8 camera with 4 GPUs test scaled even better with an overall speedup of 271% - 281%.
+2. **Performance scales better the more cameras you’re rendering.** Our 4 camera with 4x GPUs test scaled well with an overall speed up of about 213% - 233%, but our 8 camera with 4 GPUs test scaled even better with an overall speedup of 271% - 281%.
 3. **Single high-resolution cameras render faster on multiple GPUs.** An exception to our earlier rules - if you are rendering a single high-resolution (4K or higher) camera, multiple GPUs can help accelerate rendering.
 4. **Increasing GPU count does not improve scene load time.** GPU count does not influence the amount of time it takes to load a USD, or the maximum USD scene size that can be loaded.
 5. **GPU Physics simulation only utilizes 1 GPU.** Increasing GPU count will not improve GPU physics simulation performance.
@@ -3656,8 +3656,8 @@ Experimental suggestion to help reduce Isaac Sim RAM consumption in the event of
 Task Manager is a great resource for giving nice clean graphs and can show peak usage on a variety of system information regarding performance.
 
 1. Click on the Start icon
-2. Type âTask Managerâ
-3. In Task Manager, Select the âPerformanceâ Tab
+2. Type “Task Manager”
+3. In Task Manager, Select the “Performance” Tab
 
 On the left side of this pane you will see various graphs like CPU, Memory and GPU. Select any of these to get a more detailed view of the data. Generally speaking if any of these are spiking and peaking out, you should look into its cause and begin to troubleshoot.
 
@@ -3734,11 +3734,11 @@ Common `renderer` values include:
 
 For RTX - Minimal, set `minimal_shading_mode` in the `SimulationApp` launch configuration to select the shading behavior. This option maps to `/rtx/minimal/mode`. The default is `0`. Accepted values are:
 
-* `0` â Real-Time 2.0 (reference).
-* `1` â Diffuse/Glossy/Emission.
-* `2` â Textured Diffuse.
-* `3` â Constant Diffuse.
-* `4` â No Rendering (black color output; use when only non-color AOVs such as depth or segmentation are needed).
+* `0` — Real-Time 2.0 (reference).
+* `1` — Diffuse/Glossy/Emission.
+* `2` — Textured Diffuse.
+* `3` — Constant Diffuse.
+* `4` — No Rendering (black color output; use when only non-color AOVs such as depth or segmentation are needed).
 
 In the Isaac Sim GUI, you can also select RTX - Minimal from the viewport render mode menu and modify shading behavior and other settings in the Rendering Settings panel.
 
@@ -3829,7 +3829,7 @@ This section provides an explanation of the terms used throughout NVIDIA Isaac S
   + [Omniverse USD Composer](#omniverse-usd-composer)
   + [Carbonite (carb)](#carbonite-carb)
   + [RTX - Real-Time mode](#real-time-render-mode)
-  + [RTX â Interactive (Path Tracing) mode](#interactive-render-mode)
+  + [RTX – Interactive (Path Tracing) mode](#interactive-render-mode)
   + [Extensions](#extensions)
   + [Omniverse Connect](#omniverse-connect)
 * [USD](#usd)
@@ -3864,15 +3864,15 @@ This section provides an explanation of the terms used throughout NVIDIA Isaac S
 
 ### [Application](#id4)
 
-An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UIâs of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
+An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UI’s of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
 
 ### [Apps](#id5)
 
-An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UIâs of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
+An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UI’s of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
 
 ### [Connectors](#id6)
 
-An Omniverse Connector is middleware with which Omniverse and other software applications communicate with each other. They enable the import/export 3D assets, data, and models between different tools and workflows. Itâs important to note that this means using USD as the âgo betweenâ format to convert 3D data.
+An Omniverse Connector is middleware with which Omniverse and other software applications communicate with each other. They enable the import/export 3D assets, data, and models between different tools and workflows. It’s important to note that this means using USD as the “go between” format to convert 3D data.
 
 ### [Omniverse Nucleus](#id7)
 
@@ -3882,7 +3882,7 @@ Nucleus operates under a publish/subscribe model. Subject to access controls, Om
 
 This allows a variety of Omniverse-enabled client applications ( Apps, Connectors, and others) to share and modify authoritative representations of virtual worlds.
 
-* See [Nucleus overview](https://docs.omniverse.nvidia.com/nucleus/latest/overview/overview.html "(in Omniverse Nucleus)") for a more in-depth look at Nucleusâs data model, architecture, and distribution platforms.
+* See [Nucleus overview](https://docs.omniverse.nvidia.com/nucleus/latest/overview/overview.html "(in Omniverse Nucleus)") for a more in-depth look at Nucleus’s data model, architecture, and distribution platforms.
 
 ### [Hub Workstation Cache](#id8)
 
@@ -3895,7 +3895,7 @@ Hub Workstation Cache has been performance optimized and supports storage-derive
 
 ### [Live Sync](#id9)
 
-Live Sync mode enables real-time âliveâ editing of shared files on a Nucleus Server. The Live Sync button is on the top-right corner of the Workspace.
+Live Sync mode enables real-time “live” editing of shared files on a Nucleus Server. The Live Sync button is on the top-right corner of the Workspace.
 
 ### [Omniverse Kit](#id10)
 
@@ -3913,7 +3913,7 @@ The NVIDIA Omniverse Launcher is your first step into the Omniverse. It provides
 
 ### [Omniverse USD Composer](#id12)
 
-NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixarâs USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
+NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
 
 ### [Carbonite (carb)](#id13)
 
@@ -3923,7 +3923,7 @@ The Carbonite SDK provides the core functionality of all Omniverse apps. This is
 
 High quality real-time rendering mode.
 
-### [RTX â Interactive (Path Tracing) mode](#id15)
+### [RTX – Interactive (Path Tracing) mode](#id15)
 
 The highest quality, physically accurate rendering mode.
 
@@ -3941,12 +3941,12 @@ Connectors are extensions and additional software layers on top of the open-sour
 
 ### [USD](#id19)
 
-Universal Scene Description (USD) is an easily extensible, open-source 3D scene description file format developed by Pixar for content creation and interchange among different tools. As a result of its power and versatility, itâs being widely adopted, not only in the visual effects community, but also in architecture, design, robotics, manufacturing, and other disciplines.
+Universal Scene Description (USD) is an easily extensible, open-source 3D scene description file format developed by Pixar for content creation and interchange among different tools. As a result of its power and versatility, it’s being widely adopted, not only in the visual effects community, but also in architecture, design, robotics, manufacturing, and other disciplines.
 
-* For a more in-depth look at USD in Omniverse, see NVIDIAâs USD primer [What is USD?](https://developer.nvidia.com/usd/).
+* For a more in-depth look at USD in Omniverse, see NVIDIA’s USD primer [What is USD?](https://developer.nvidia.com/usd/).
 * See the [USD API](https://graphics.pixar.com/usd/release/index.html) docs for more details.
 * See the [USD Glossary of Terms & Concepts](https://graphics.pixar.com/usd/release/glossary.html) for more details.
-* See [NVIDIAâs USD tutorials](https://developer.nvidia.com/usd/tutorials)
+* See [NVIDIA’s USD tutorials](https://developer.nvidia.com/usd/tutorials)
 
 ### [MDL](#id20)
 
@@ -3961,7 +3961,7 @@ The Omniverse Stage window allows you to see all the assets in your current USD 
 
 ### [Prim](#id22)
 
-A [Prim](https://graphics.pixar.com/usd/release/glossary.html#usdglossary-prim) is the primary container object in USD: prims can contain (and order) other prims, creating a ânamespace hierarchyâ on a Stage,
+A [Prim](https://graphics.pixar.com/usd/release/glossary.html#usdglossary-prim) is the primary container object in USD: prims can contain (and order) other prims, creating a “namespace hierarchy” on a Stage,
 and prims can also contain (and order) properties that hold meaningful data. Prims, along with their associated, computed indices, are
 the only persistent scenegraph objects that a Stage retains in memory, and the API for interacting with prims is provided by the UsdPrim class.
 
@@ -3973,7 +3973,7 @@ A mesh is a subdividable primitive that consists of points, edges, and faces tha
 
 ### [Shape](#id24)
 
-A Shape is a geometric primitive that maps to one of USDâs five âintrinsicâ `UsdGeomGprim` classes:
+A Shape is a geometric primitive that maps to one of USD’s five “intrinsic” `UsdGeomGprim` classes:
 
 > * [UsdGeomCapsule](https://graphics.pixar.com/usd/release/api/class_usd_geom_capsule.html)
 > * [UsdGeomCone](https://graphics.pixar.com/usd/release/api/class_usd_geom_cone.html)
@@ -3993,9 +3993,9 @@ A primitive that is included from some other layer is a **Reference** to that pr
 
 If the contents of a reference need to be modified during simulation, then it must be converted into a **Payload**. A payload is indicated by the **blue arrow** on the associated Xform in the context tree of Isaac Sim. Payloads are references that have all of their data actively loaded by the sim so that it can be modified at runtime.
 
-**Instances** are indicated by a **blue âIâ**, and can be either references or payloads. They carry additional assumptions about the structure of the asset for more efficient vectorization (scaled up).
+**Instances** are indicated by a **blue “I”**, and can be either references or payloads. They carry additional assumptions about the structure of the asset for more efficient vectorization (scaled up).
 
-For example, suppose you want to collect synthetic data with a robot. If you arenât going to modify the structure of the robot, it can exist as a reference on the stage (the asset is defined in some other file). If, during data collection, you want to be able to swap the robot out for a different one, those meshes need to be held in active memory. This means that the asset first needs to be converted from a reference to a payload. If you wanted to collect data with a 1000 robots at once, and they are all the same, you might use instantiable references. Whereas, if you wanted to collect data with a 1000 randomly sampled robots (different arms with the same number of joints for example), you would use instance payloads.
+For example, suppose you want to collect synthetic data with a robot. If you aren’t going to modify the structure of the robot, it can exist as a reference on the stage (the asset is defined in some other file). If, during data collection, you want to be able to swap the robot out for a different one, those meshes need to be held in active memory. This means that the asset first needs to be converted from a reference to a payload. If you wanted to collect data with a 1000 robots at once, and they are all the same, you might use instantiable references. Whereas, if you wanted to collect data with a 1000 randomly sampled robots (different arms with the same number of joints for example), you would use instance payloads.
 
 ### [Y-Up / Z-Up](#id26)
 
@@ -4003,7 +4003,7 @@ The axis of orientation of a given scene/prim. Y-Up refers to the Positive Y Axi
 
 ### [Layer](#id27)
 
-A component of the collaborative nature of USD. Each layer in USD signifies a userâs âopinionâ on assets inside a stage. Layers can override other layers.
+A component of the collaborative nature of USD. Each layer in USD signifies a user’s “opinion” on assets inside a stage. Layers can override other layers.
 
 ### [Instance](#id28)
 
@@ -4109,7 +4109,7 @@ On this page
   + [Omniverse USD Composer](#omniverse-usd-composer)
   + [Carbonite (carb)](#carbonite-carb)
   + [RTX - Real-Time mode](#real-time-render-mode)
-  + [RTX â Interactive (Path Tracing) mode](#interactive-render-mode)
+  + [RTX – Interactive (Path Tracing) mode](#interactive-render-mode)
   + [Extensions](#extensions)
   + [Omniverse Connect](#omniverse-connect)
 * [USD](#usd)

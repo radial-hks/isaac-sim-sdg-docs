@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/isaac_lab_tutorials/tutor
 title: "Tutorial Cloner"
 section: "Isaac Lab (RL)"
 module: "06-sim2real-ue5"
-checksum: "7fabd8de76d28cf6"
-fetched: "2026-06-21T12:48:20"
+checksum: "893f75971fd16ffd"
+fetched: "2026-06-21T13:40:03"
 ---
 
 * [Isaac Lab](index.html)
@@ -39,7 +39,7 @@ Next, open the Script Editor window from the UI by navigating to Window > Script
 
 Please make sure isaacsim.core.cloner is enabled from the Extensions window before running the snippets.
 
-Letâs first start with a simple use case of the Cloner interface. In this example, we will create a scene with 4 cubes.
+Let’s first start with a simple use case of the Cloner interface. In this example, we will create a scene with 4 cubes.
 
 ```python
 from isaacsim.core.cloner import Cloner  # import Cloner interface
@@ -60,7 +60,7 @@ target_paths = cloner.generate_paths("/World/Cube", 4)
 cloner.clone(source_prim_path="/World/Cube_0", prim_paths=target_paths)
 ```
 
-We should now have 4 cubes in our stage: â/World/Cube\_0â, â/World/Cube\_1â, â/World/Cube\_2â, â/World/Cube\_3â. But you may have noticed that the cubes have all been created at the same position.
+We should now have 4 cubes in our stage: “/World/Cube\_0”, “/World/Cube\_1”, “/World/Cube\_2”, “/World/Cube\_3”. But you may have noticed that the cubes have all been created at the same position.
 
 We can add a transform to each cube, simply replace the last line of the previous code with the following:
 

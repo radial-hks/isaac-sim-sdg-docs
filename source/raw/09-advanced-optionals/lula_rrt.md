@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/lul
 title: "Lula RRT"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "d2ae212c0de7fa06"
-fetched: "2026-06-21T13:05:41"
+checksum: "79fbde0ae931addb"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -34,12 +34,12 @@ Three files are necessary to configure Lula RRT for use with a new robot:
 
 [[2](#id1)]
 
-J. J. Kuffner and S. M. LaValle, âRRT-connect: An efficient approach to single-query path planning,â Proceedings 2000 ICRA. Millennium Conference. IEEE International
+J. J. Kuffner and S. M. LaValle, “RRT-connect: An efficient approach to single-query path planning,” Proceedings 2000 ICRA. Millennium Conference. IEEE International
 Conference on Robotics and Automation. Symposia Proceedings (Cat. No.00CH37065), 2000, pp. 995-1001 vol.2, doi: 10.1109/ROBOT.2000.844730.
 
 [[3](#id2)]
 
-M. Vande Weghe, D. Ferguson and S. S. Srinivasa, âRandomized path planning for redundant manipulators without inverse kinematics,â 2007 7th IEEE-RAS International Conference
+M. Vande Weghe, D. Ferguson and S. S. Srinivasa, “Randomized path planning for redundant manipulators without inverse kinematics,” 2007 7th IEEE-RAS International Conference
 on Humanoid Robots, 2007, pp. 477-482, doi: 10.1109/ICHR.2007.4813913.
 
 On this page

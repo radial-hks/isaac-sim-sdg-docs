@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/core_api
 title: "Core API Overview"
 section: "Python 脚本"
 module: "02-fundamentals-dev"
-checksum: "71fa75134d2e97eb"
-fetched: "2026-06-21T12:48:07"
+checksum: "04f185d210f19df6"
+fetched: "2026-06-21T13:39:53"
 ---
 
 * [Python Scripting and Tutorials](index.html)
@@ -93,7 +93,7 @@ A **Stage** is a USD concept, and defines the logical and relational context for
 
 Similarly, the **World** is what provides context to the simulation, defining which prims are relevant to the ongoing flow of time, the **scene**, and managing the aspects of the simulation that are most important to the user.
 
-For example, imagine you are going to see a play at a theater. The theater is like the **application**, your gateway to the play, while the **simulation** is the play itself, defined by a program. You take your seat and you can see the **stage**, where the play will take place. When the play starts, the curtain rises and reveals a **scene** composed props and actors that then act out that part of the play. When itâs time to move to the next scene, the curtain falls, the scene is reset, and then the curtain rises again, revealing the next part of the play. The stage crew and all the mechanical devices behind the scene that manages the curtain and the props is the **world** of the play.
+For example, imagine you are going to see a play at a theater. The theater is like the **application**, your gateway to the play, while the **simulation** is the play itself, defined by a program. You take your seat and you can see the **stage**, where the play will take place. When the play starts, the curtain rises and reveals a **scene** composed props and actors that then act out that part of the play. When it’s time to move to the next scene, the curtain falls, the scene is reset, and then the curtain rises again, revealing the next part of the play. The stage crew and all the mechanical devices behind the scene that manages the curtain and the props is the **world** of the play.
 
 On this page
 

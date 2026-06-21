@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Rig Legged Robot"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "70842140102c28a4"
-fetched: "2026-06-21T13:05:36"
+checksum: "cdc9092ceea9c555"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -96,7 +96,7 @@ To save the robot pose:
 
 ## Setting the Joint Configuration
 
-Set the joint configuration to match the policyâs robot configuration. This may be different from the values stored in the USD file.
+Set the joint configuration to match the policy’s robot configuration. This may be different from the values stored in the USD file.
 The joint drive configuration is specified under the `scene:robot:actuators` section of the environment definition file.
 
 The following snippet shows the actuator configuration for the H1 robot legs.

@@ -4,7 +4,7 @@ title: "Isaac Randomizers"
 section: "教程"
 module: "01-replicator-core"
 checksum: "de3e44c447992773"
-fetched: "2026-06-21T11:55:19"
+fetched: "2026-06-21T13:40:17"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)

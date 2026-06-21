@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/synthetic_data_generation
 title: "Mobility Gen"
 section: "SDG"
 module: "02-sdg-workflows"
-checksum: "a1d3a6baecbe7ccb"
-fetched: "2026-06-21T11:55:22"
+checksum: "487dfe076304e52a"
+fetched: "2026-06-21T13:40:19"
 ---
 
 * [Synthetic Data Generation](index.html)
@@ -56,7 +56,7 @@ This tutorial uses an example warehouse scene.
 
 1. Load the warehouse stage:
 
-   1. Open Content Browser if itâs not already open (**Window > Browsers > Content**).
+   1. Open Content Browser if it’s not already open (**Window > Browsers > Content**).
    2. Load the warehouse USD file in Isaac Sim/Environments/Simple\_Warehouse/warehouse\_multiple\_shelves.usd.
 2. Create the occupancy map:
 
@@ -79,11 +79,11 @@ This tutorial uses an example warehouse scene.
       * `Y`: `-18.0`
       * `Z`: `0.1` (Assume the robot can move over `5cm` bumps)
 
-      Please note, the coordinates specified for the occupancy upper and lower bound define a bounding box within the warehouse\_multiple\_shelves.usd scene that we want the robot to be able to navigate. Weâve pre-selected values that cover the main floor area.
+      Please note, the coordinates specified for the occupancy upper and lower bound define a bounding box within the warehouse\_multiple\_shelves.usd scene that we want the robot to be able to navigate. We’ve pre-selected values that cover the main floor area.
       When using a different scene, you may adjust these bounds to cover the area suitable for your USD scene.
    5. Click **Calculate** to generate the occupancy map.
    6. Click **Visualize Image** to view the occupancy map.
-   7. Enter âmapâ in the **Image File Name** field and click **Update YAML**.
+   7. Enter “map” in the **Image File Name** field and click **Update YAML**.
    8. Click **Save YAML**.
    9. In the tree explorer, open the folder `~/MobilityGenData/maps/warehouse_multiple_shelves`.
 
@@ -136,8 +136,8 @@ The data is now recorded to `~/MobilityGenData/recordings` by default.
 
 ### Sensor calibration overrides
 
-If you change sensors on the robot in Isaac Simâfor example camera intrinsics, distortion
-coefficients, projection type, or sensor transformsâMobilityGen persists those edits as a **small
+If you change sensors on the robot in Isaac Sim—for example camera intrinsics, distortion
+coefficients, projection type, or sensor transforms—MobilityGen persists those edits as a **small
 USD diff**, not a full copy of the robot asset.
 
 The comparison below contrasts replay **without** the persisted override file against replay **with**
@@ -183,18 +183,18 @@ Isaac Sim ships a standalone replay script for this. Run it from the Isaac Sim r
     --render_interval 40
 ```
 
-* `--input` â directory containing one or more recordings (each in its own subdirectory).
-* `--output` â directory where replays with rendered sensor data will be written.
-* `--render_interval` â render every Nth physics step. `40` renders roughly once per second and is a good starting point; set to `1` for full-frame-rate output.
+* `--input` — directory containing one or more recordings (each in its own subdirectory).
+* `--output` — directory where replays with rendered sensor data will be written.
+* `--render_interval` — render every Nth physics step. `40` renders roughly once per second and is a good starting point; set to `1` for full-frame-rate output.
 
 Additional optional flags:
 
-* `--rgb_enabled` â enable RGB image rendering (default: `True`).
-* `--depth_enabled` â enable depth image rendering (default: `True`).
-* `--segmentation_enabled` â enable semantic segmentation rendering (default: `True`).
-* `--normals_enabled` â enable surface normal rendering (default: `False`).
-* `--instance_id_segmentation_enabled` â enable instance segmentation rendering (default: `False`).
-* `--render_rt_subframes` â number of RT subframes per step; increase for higher rendering quality at the cost of speed (default: `1`).
+* `--rgb_enabled` — enable RGB image rendering (default: `True`).
+* `--depth_enabled` — enable depth image rendering (default: `True`).
+* `--segmentation_enabled` — enable semantic segmentation rendering (default: `True`).
+* `--normals_enabled` — enable surface normal rendering (default: `False`).
+* `--instance_id_segmentation_enabled` — enable instance segmentation rendering (default: `False`).
+* `--render_rt_subframes` — number of RT subframes per step; increase for higher rendering quality at the cost of speed (default: `1`).
 
 After the script finishes, verify that you have a folder `~/MobilityGenData/replays`, which contains
 the rendered sensor data.
@@ -222,7 +222,7 @@ To generate procedural data:
 1. Follow `Build an Occupancy Map` above to create an occupancy map of the environment.
 2. Follow `Record a Trajectory` above, but select `RandomPathFollowingScenario` instead of `KeyboardTeleoperationScenario`.
    - You no longer need to manually teleoperate the robot. When the scenario is built, it will run and reset automatically.
-   - You do need to hit âstart recordingâ to enable recording to disk. However, when the scenario resets, a new recording will be created automatically.
+   - You do need to hit “start recording” to enable recording to disk. However, when the scenario resets, a new recording will be created automatically.
    - Verify that you have recordings collected in the `~/MobilityGenData` folder the same as above.
 3. Follow `Replay and render` above to render the sensor data from the recorded trajectories.
 
@@ -269,10 +269,10 @@ Common Robot Parameters
 | `front_camera_base_path` | The relative USD path to spawn the front camera. |
 | `front_camera_rotation` | The relative XYZ rotation used when spawning the front camera. |
 | `front_camera_translation` | The relative XYZ translation used when spawning the front camera. |
-| `keyboard_linear_velocity_gain` | The gain used to map keyboard button presses to the robotâs linear velocity. A larger gain results in faster movement. |
-| `keyboard_angular_velocity_gain` | The gain used to map keyboard button presses to the robotâs angular velocity. A larger gain results in faster movement. |
-| `gamepad_linear_velocity_gain` | The gain used to map gamepad axis movement to the robotâs linear velocity. A larger gain results in faster movement. |
-| `gamepad_angular_velocity_gain` | The gain used to map gamepad axis movement to the robotâs angular velocity. A larger gain results in faster movement. |
+| `keyboard_linear_velocity_gain` | The gain used to map keyboard button presses to the robot’s linear velocity. A larger gain results in faster movement. |
+| `keyboard_angular_velocity_gain` | The gain used to map keyboard button presses to the robot’s angular velocity. A larger gain results in faster movement. |
+| `gamepad_linear_velocity_gain` | The gain used to map gamepad axis movement to the robot’s linear velocity. A larger gain results in faster movement. |
+| `gamepad_angular_velocity_gain` | The gain used to map gamepad axis movement to the robot’s angular velocity. A larger gain results in faster movement. |
 | `random_action_linear_velocity_range` | The robot linear velocity limits for the random acceleration scenario. |
 | `random_action_angular_velocity_range` | The robot angular velocity limits for the random acceleration scenario. |
 | `random_action_linear_acceleration_std` | The standard deviation used for sampling the robot linear acceleration each timestep during the random acceleration scenario. |
@@ -282,7 +282,7 @@ Common Robot Parameters
 | `path_following_angular_gain` | The gain used for the proportional steering control in the path following scenario. A larger gain results in quicker turning, but potential overshoot and wobbling. |
 | `path_following_stop_distance_threshold` | The distance threshold at which point the robot will stop. Applies to the path following scenario. |
 | `path_following_forward_angle_threshold` | The angle threshold at which point the robot will move forward. Applies to the path following scenario. |
-| `path_following_target_point_offset_meters` | The offset distance used to generate the âtarget pointâ that the robot will follow in the path following scenario. A larger offset results in smoother motion, but too large may cause the robot to cut corners during turns. |
+| `path_following_target_point_offset_meters` | The offset distance used to generate the ‘target point’ that the robot will follow in the path following scenario. A larger offset results in smoother motion, but too large may cause the robot to cut corners during turns. |
 
 ### Use NuRec Assets in MobilityGen
 

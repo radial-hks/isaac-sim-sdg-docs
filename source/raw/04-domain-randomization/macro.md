@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Macro"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "bc9a102208a5c4d5"
-fetched: "2026-06-21T11:55:29"
+checksum: "5d2f06f2d10988a3"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -139,7 +139,7 @@ References to list elements refer to values in lists. In the example below, `/bi
 
 **$[special\_macros]**
 
-`$[seed]` resolves to the current frameâs seed number, and `$[frame]` resolves to the frame index.
+`$[seed]` resolves to the current frame’s seed number, and `$[frame]` resolves to the frame index.
 
 Note
 

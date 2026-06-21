@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Cosmos"
 section: "增强"
 module: "07-sdg-pipeline"
-checksum: "9d51526aa59e3427"
-fetched: "2026-06-21T11:55:37"
+checksum: "58eaac15ca6d54c0"
+fetched: "2026-06-21T13:40:32"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -32,12 +32,12 @@ For examples of sim-to-real transformations in robotics, see the [Cosmos Cookboo
 ## Prerequisites
 
 * Familiarity with the [omni.replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html "(in Omniverse Extensions)") extension and its [writers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)")
-* Basic understanding of Isaac Simâs SDG [Getting Started Scripts](tutorial_replicator_getting_started.html#isaac-sim-app-tutorial-replicator-getting-started)
+* Basic understanding of Isaac Sim’s SDG [Getting Started Scripts](tutorial_replicator_getting_started.html#isaac-sim-app-tutorial-replicator-getting-started)
 * Running simulations as [Standalone Applications](../introduction/workflows.html#standalone-application) or via the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor).
 
 ## What the CosmosWriter Generates
 
-The writer outputs five synchronized modalities from the robotâs camera:
+The writer outputs five synchronized modalities from the robot’s camera:
 
 * **RGB** - Color imagery (vis control)
 * **Depth** - Distance-to-camera for spatial understanding
@@ -45,7 +45,7 @@ The writer outputs five synchronized modalities from the robotâs camera:
 * **Shaded Segmentation** - Instance masks with realistic shading
 * **Edges** - Canny edge detection for boundaries
 
-These modalities correspond to [Cosmos Transferâs](https://docs.nvidia.com/cosmos/latest/#controlnet-specification) control branches:
+These modalities correspond to [Cosmos Transfer’s](https://docs.nvidia.com/cosmos/latest/#controlnet-specification) control branches:
 
 * **vis**: Uses RGB imagery with bilateral blurring
 * **edge**: Applies Canny edge detection (tunable thresholds)
@@ -56,7 +56,7 @@ Each control branch can be weighted (0.0-1.0) to balance adherence vs. creative 
 
 ## Implementation
 
-This example demonstrates a Carter Nova robot autonomously navigating through a warehouse environment. As the robot moves from its starting position to a target location, the `CosmosWriter` captures synchronized multi-modal data (RGB, depth, segmentation, shaded segmentation, and edges) from the robotâs front camera. The captured data is organized into clips, with each clip containing a sequence of frames that can be used as input for Cosmos Transfer.
+This example demonstrates a Carter Nova robot autonomously navigating through a warehouse environment. As the robot moves from its starting position to a target location, the `CosmosWriter` captures synchronized multi-modal data (RGB, depth, segmentation, shaded segmentation, and edges) from the robot’s front camera. The captured data is organized into clips, with each clip containing a sequence of frames that can be used as input for Cosmos Transfer.
 
 Standalone Application
 
@@ -547,7 +547,7 @@ def run_sdg_pipeline(
 ```
 
 **Key aspects:**
-- The render product is created from the robotâs front camera at 1280x720 resolution
+- The render product is created from the robot’s front camera at 1280x720 resolution
 - `pause_timeline=False` allows the robot to continue moving during capture
 - The simulation advances between captures to show navigation progress
 
@@ -642,7 +642,7 @@ _out_cosmos_warehouse/
 
 **What Each Modality Provides:**
 
-* **RGB (rgb.mp4)**: The visual input video used with Cosmos Transferâs `vis` control branch for preserving lighting and camera properties
+* **RGB (rgb.mp4)**: The visual input video used with Cosmos Transfer’s `vis` control branch for preserving lighting and camera properties
 * **Depth (depth.mp4)**: 3D spatial information used with the `depth` control branch to maintain perspective and spatial relationships
 * **Segmentation (segmentation.mp4)**: Instance or semantic masks used with the `seg` control branch for object-level transformations
 * **Shaded Segmentation (shaded\_seg.mp4)**: Combines segmentation with realistic shading for enhanced visual coherence
@@ -694,7 +694,7 @@ For real-world examples of this workflow, see the [Cosmos Cookbook Robotics Gall
 * **Edge-only control**: Transform simulation videos into diverse kitchen styles (white cabinets, red cabinets, wood tones) and robot materials (plastic, metal, gold) while preserving exact robot motions
 * **Multi-control**: Combine depth, edge, and segmentation controls for precise scene manipulation
 
-Hereâs how the modalities map to Transferâs control branches:
+Here’s how the modalities map to Transfer’s control branches:
 
 **Basic Single Control Example:**
 
@@ -730,7 +730,7 @@ Hereâs how the modalities map to Transferâs control branches:
 **Key Considerations:**
 
 * **Control Weights**: Values 0.0-1.0 control adherence (higher = stricter following, lower = more creative freedom)
-* **Automatic Normalization**: If total weights > 1.0, theyâre normalized automatically
+* **Automatic Normalization**: If total weights > 1.0, they’re normalized automatically
 * **Prompting**: Focus on single scenes with rich descriptions; avoid camera control instructions
 * **Safety**: Human faces are automatically blurred by Cosmos Guardrail
 

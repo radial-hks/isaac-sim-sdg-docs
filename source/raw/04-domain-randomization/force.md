@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Force"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "ec8db37c939c34ef"
-fetched: "2026-06-21T11:55:29"
+checksum: "e11c002bcc7c4c3f"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T11:55:29"
 
 # Force
 
-If a mutable has attribute `type` of `force`, itâs a force mutable that applies PhysX forces to rigid bodies. Forces can be used to create dynamic simulations with objects being pushed, pulled, or animated through physics.
+If a mutable has attribute `type` of `force`, it’s a force mutable that applies PhysX forces to rigid bodies. Forces can be used to create dynamic simulations with objects being pushed, pulled, or animated through physics.
 
 Available attributes of `force`:
 

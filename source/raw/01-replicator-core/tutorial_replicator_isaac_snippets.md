@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Isaac Snippets"
 section: "教程"
 module: "01-replicator-core"
-checksum: "d7c53de177e70e03"
-fetched: "2026-06-21T11:55:20"
+checksum: "a92d5bd3f2c72b3b"
+fetched: "2026-06-21T13:40:17"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -665,7 +665,7 @@ run_example()
 
 ## Motion Blur
 
-This example demonstrates how to capture motion blur data using [RTX Real-Time](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_rt.html) and [RTX Interactive (Path Tracing)](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_pt.html) rendering modes. For the RTX - Real-Time mode, refer to [motion blur parameters](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html#motion-blur). For the RTX â Interactive (Path Tracing) mode, motion blur is achieved by rendering multiple subframes (`/omni/replicator/pathTracedMotionBlurSubSamples`) and combining them to create the effect.
+This example demonstrates how to capture motion blur data using [RTX Real-Time](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_rt.html) and [RTX Interactive (Path Tracing)](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_pt.html) rendering modes. For the RTX - Real-Time mode, refer to [motion blur parameters](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx_post-processing.html#motion-blur). For the RTX – Interactive (Path Tracing) mode, motion blur is achieved by rendering multiple subframes (`/omni/replicator/pathTracedMotionBlurSubSamples`) and combining them to create the effect.
 
 The example uses animated and physics-enabled assets with synchronized motion. Keyframe animated assets can be advanced at any custom delta time due to their interpolated motion, whereas physics-enabled assets require a custom physics FPS to ensure motion samples at any custom delta time. The example showcases how to compute the target physics FPS, change it if needed, and restore the original physics FPS after capturing the motion blur.
 
@@ -2078,7 +2078,7 @@ run_cosmos_example(num_frames=NUM_FRAMES, segmentation_mapping=SEGMENTATION_MAPP
 
 ## Synthetic Data Generation with Deformables
 
-This example demonstrates synthetic data generation (SDG) with deformable physics: deformable assets (e.g., bananas and markers) are dropped into a crate, and RGB plus semantic segmentation frames are captured when each assetâs lowest vertex crosses a trigger height. It uses `VolumeDeformableMaterial`, `DeformablePrim`, and the deformable tensor API (e.g., `get_nodal_positions`) for trigger detection, with optional material color randomization per capture.
+This example demonstrates synthetic data generation (SDG) with deformable physics: deformable assets (e.g., bananas and markers) are dropped into a crate, and RGB plus semantic segmentation frames are captured when each asset’s lowest vertex crosses a trigger height. It uses `VolumeDeformableMaterial`, `DeformablePrim`, and the deformable tensor API (e.g., `get_nodal_positions`) for trigger detection, with optional material color randomization per capture.
 
 The standalone example can also be run directly (on Windows use `python.bat` instead of `python.sh`):
 

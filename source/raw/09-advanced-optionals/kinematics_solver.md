@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/kin
 title: "Kinematics Solver"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "ae4d7927f37053a7"
-fetched: "2026-06-21T13:05:41"
+checksum: "9b1c5d86ced4ea31"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)
@@ -48,9 +48,9 @@ inverse kinematics will have the same shape as KinematicsSolver.get\_joint\_name
 
 ### Frame Names
 
-An instance of the KinematicsSolver class must fulfill a function KinematicsSolver.get\_all\_frame\_names() to provide a list of frames in the robotâs kinematics chain that can have their positions
+An instance of the KinematicsSolver class must fulfill a function KinematicsSolver.get\_all\_frame\_names() to provide a list of frames in the robot’s kinematics chain that can have their positions
 referenced by name when solving either forward or inverse kinematics. The frame names returned by a KinematicsSolver do not have to match the frames present in the robot Articulation. Like joint names,
-the frame names come from the individual solverâs config file structure.
+the frame names come from the individual solver’s config file structure.
 
 ### Robot Base Pose
 

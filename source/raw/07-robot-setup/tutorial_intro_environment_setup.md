@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Intro: Environment Setup"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "a495b20ed22382fb"
-fetched: "2026-06-21T13:05:36"
+checksum: "9ec2002929a7013c"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -55,14 +55,14 @@ To add a **Physics Scene** to simulate real world physics, including gravity and
 3. Click on it to examine its properties.
    You can see that gravity is set to the magnitude of `Earth Gravity`, or `9.8` meters per second squared. Remember that the default unit of length is meters.
 4. Unless you are simulating hundreds of rigid bodies and robots, it is more efficient to use CPU physics
-   :   * Open Physics Sceneâs **Property** tab
+   :   * Open Physics Scene’s **Property** tab
        * Uncheck **Enable GPU dynamics**
        * Set the **Broadphase** type to **MBP**.
 
 ## Adding a Ground Plane
 
 The ground plane prevents any physics-enabled objects from falling below it.
-The ground planeâs collision property extends indefinitely even though the plane is only visible up to 25 meters in each direction.
+The ground plane’s collision property extends indefinitely even though the plane is only visible up to 25 meters in each direction.
 
 To add a ground plane to the virtual environment:
 
@@ -71,11 +71,11 @@ To add a ground plane to the virtual environment:
 
 ## Lighting
 
-Every new [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) is pre-populated with a `defaultLight`, otherwise you wouldnât see anything. This default light is a child of the `Environment` Xform in the stage and can be found in the stage context tree.
+Every new [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) is pre-populated with a `defaultLight`, otherwise you wouldn’t see anything. This default light is a child of the `Environment` Xform in the stage and can be found in the stage context tree.
 
 To create additional spotlights:
 
-1. Add a ground plane, if there isnât already one, so we can see the reflection of the light. **Create > Physics > Ground Plane**.
+1. Add a ground plane, if there isn’t already one, so we can see the reflection of the light. **Create > Physics > Ground Plane**.
 2. Go to **Create > Light > Sphere Light**.
 3. Pose the light on the stage.
    - In the **Stage** tab on the top right, select the newly created light in the stage tree.

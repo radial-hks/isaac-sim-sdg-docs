@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators
 title: "RMPflow Tutorial"
 section: "Manipulators"
 module: "09-advanced-optionals"
-checksum: "b8ef8d1329674795"
-fetched: "2026-06-21T13:05:42"
+checksum: "41ef0bb74acb9f96"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)
@@ -335,7 +335,7 @@ class FrankaRmpFlowExample:
 A supported set of robots can have their RMPflow configs loaded by name.
 Line 34 prints the names of every supported robot with a provided RMPflow config (at the time of writing this tutorial):
 
-> [âFrankaâ, âUR3â, âUR3eâ, âUR5â, âUR5eâ, âUR10â, âUR10eâ, âUR16eâ, âRizon4â, âCobotta\_Pro\_900â, âCobotta\_Pro\_1300â, âRS007Lâ, âRS007Nâ, âRS013Nâ, âRS025Nâ, âRS080Nâ, âTechman\_TM12â, âKuka\_KR210â, âFanuc\_CRX10IALâ]
+> [‘Franka’, ‘UR3’, ‘UR3e’, ‘UR5’, ‘UR5e’, ‘UR10’, ‘UR10e’, ‘UR16e’, ‘Rizon4’, ‘Cobotta\_Pro\_900’, ‘Cobotta\_Pro\_1300’, ‘RS007L’, ‘RS007N’, ‘RS013N’, ‘RS025N’, ‘RS080N’, ‘Techman\_TM12’, ‘Kuka\_KR210’, ‘Fanuc\_CRX10IAL’]
 
 On lines 35,38, the RmpFlow class initializer is simplified to unpacking a dictionary of loaded keyword arguments.
 The `load_supported_motion_policy_config()` function is the simplest way to load supported robots.
@@ -464,7 +464,7 @@ This tutorial reviewed four of the main features of `RmpFlow`:
 
 > 1. Navigating the robot through an environment to a target position and orientation.
 > 2. Adapting to a dynamic world on every frame.
-> 3. Adapting to a change in the robotâs position on the USD stage.
+> 3. Adapting to a change in the robot’s position on the USD stage.
 > 4. Using visualization to decouple the simulated robot `Articulation` from the RMPflow algorithm for quick and easy debugging.
 
 ### Further Learning

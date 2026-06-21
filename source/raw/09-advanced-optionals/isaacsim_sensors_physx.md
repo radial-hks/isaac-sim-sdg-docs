@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "PhysX Sensors Index"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "d37b59f74314e4f2"
-fetched: "2026-06-21T13:05:43"
+checksum: "347dce485ef4a3da"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -14,7 +14,7 @@ fetched: "2026-06-21T13:05:43"
 
 # PhysX SDK sensors
 
-Isaac Simâs PhysX SDK sensors use raycasts provided by the [PhysX SDK](https://nvidia-omniverse.github.io/PhysX/physx/5.3.0/) to measure the range between
+Isaac Sim’s PhysX SDK sensors use raycasts provided by the [PhysX SDK](https://nvidia-omniverse.github.io/PhysX/physx/5.3.0/) to measure the range between
 objects in the simulation.
 
 These sensors output the exact measurements from PhysX SDK. By default, the highest rate that the sensors can output data is the render rate.

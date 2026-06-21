@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Action & Event Data Gen Index"
 section: "概览"
 module: "03-replicator-agent"
-checksum: "1aa16f70bf80d6e8"
-fetched: "2026-06-21T11:55:26"
+checksum: "5c661bdd9b9ae37e"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -56,7 +56,7 @@ The core functionality is provided by a set of application-level extensions and 
 | Object Simulation and SDG | `isaacsim.replicator.object.core` | The **Isaac Sim Replicator Object (IRO)** extension allows you to programmatically create and place objects at scale. It can procedurally generate unique shapes, automatically stack racks, and pack boxes before applying physics to settle the scene realistically. |
 | Physical Space Event Generation | `isaacsim.replicator.incident.core` | The **Isaac Sim Replicator Incident (IRI)** extension generates realistic, configurable physical events. It orchestrates simulations using Omniverse Flow and PhysX to create scenarios ranging from spills and toppling boxes to complex fires with smoke, all with rich annotation and event metadata. |
 | VLM Scene Captioning | `isaacsim.replicator.caption.core` | The **Isaac Sim Replicator Caption (IRC)** extension bridges the gap between vision and language. It analyzes the scene to build a scene graph (objects and spatial relationships) and uses an LLM to generate rich, human-readable descriptions (global and brief captions) and visualized scene graphs. |
-| RTX Sensor Placement | `isaacsim.sensors.rtx.placement` | The **RTX Sensor Placement (ISP)** extension automates camera positioning. It algorithmically places sensors to maximize visual coverage, focus on points of interest, control occlusion, or create Birdâs-Eye-View groups, while extracting intrinsic and extrinsic calibration data. |
+| RTX Sensor Placement | `isaacsim.sensors.rtx.placement` | The **RTX Sensor Placement (ISP)** extension automates camera positioning. It algorithmically places sensors to maximize visual coverage, focus on points of interest, control occlusion, or create Bird’s-Eye-View groups, while extracting intrinsic and extrinsic calibration data. |
 | RTX Sensor Calibration | `isaacsim.sensors.rtx.calibration` | The **RTX Sensor Calibration (ISC)** extension generates camera calibration data for deployed cameras in the scene. |
 | Behavior Tree Generation | `omni.ai.behavior_tree_gen.core` and `omni.ai.behavior_tree_gen.bridge` | The **Behavior Tree Generation** workflow converts natural-language scenarios into behavior tree outputs. `omni.ai.behavior_tree_gen.core` provides the reusable pipeline and scripted API, while `omni.ai.behavior_tree_gen.bridge` provides the Kit UI, example loaders, and interactive workflow orchestration. |
 | Animated Robot Controller | `isaacsim.anim.robot.core` | The **Animated Robot Controller (IAR)** extension enables realistic robot animation by playing back captured simulation motion data. It bridges physics-based simulation and animation, allowing for precise robot movements without the overhead of real-time physics. |

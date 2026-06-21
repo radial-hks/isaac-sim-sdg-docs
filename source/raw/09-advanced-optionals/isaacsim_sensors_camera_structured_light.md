@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Camera Structured Light"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "402c658b03f9a088"
-fetched: "2026-06-21T13:05:42"
+checksum: "6ab8efa46a70f48a"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Sensors](index.html)
@@ -40,7 +40,7 @@ patterns (including the wrap-around from the last pattern back to the first), an
 
 ## Data acquisition
 
-`StructuredLightCamera` is an authoring class â it creates and manages USD prims but does not retrieve image data on its own. To capture frames, wrap an instance in
+`StructuredLightCamera` is an authoring class — it creates and manages USD prims but does not retrieve image data on its own. To capture frames, wrap an instance in
 `isaacsim.sensors.experimental.rtx.CameraSensor`:
 
 ```python
@@ -89,8 +89,8 @@ sensor = CameraSensor(cam, resolution=(720, 1280), annotators=["rgb"])
 
 The `CameraSensor` owns a Replicator render product against the same Camera prim, and there are two complementary ways to get image data out of it:
 
-* **Manual annotator pull** â construct the sensor with the desired annotators (`annotators=["rgb"]` above) and call `sensor.get_data("rgb")` from your own loop. The snippet above uses this pattern.
-* **Replicator writer** â leave `annotators=[]` and call `sensor.attach_writer("BasicWriter", output_dir=..., rgb=True)` (or any other Replicator writer). Each `rep.orchestrator.step` then automatically
+* **Manual annotator pull** — construct the sensor with the desired annotators (`annotators=["rgb"]` above) and call `sensor.get_data("rgb")` from your own loop. The snippet above uses this pattern.
+* **Replicator writer** — leave `annotators=[]` and call `sensor.attach_writer("BasicWriter", output_dir=..., rgb=True)` (or any other Replicator writer). Each `rep.orchestrator.step` then automatically
   dispatches a write to disk without any custom plumbing in your loop. See the [Standalone Python](#isaacsim-sensors-camera-structured-light-standalone) section for an end-to-end example of this pattern.
 
 ## Standalone Python
@@ -98,15 +98,15 @@ The `CameraSensor` owns a Replicator render product against the same Camera prim
 The standalone example at `standalone_examples/api/isaacsim.sensors.experimental.rtx/camera_structured_light.py` demonstrates capturing a 10-pattern sequence using the Replicator Orchestrator and a
 `BasicWriter`. The example:
 
-* Loads the bundled structured-light patterns and projector direction texture from the extensionâs `tests/data/structured_light_camera/` directory.
+* Loads the bundled structured-light patterns and projector direction texture from the extension’s `tests/data/structured_light_camera/` directory.
 * Builds a 1000-unit white PBR cube as an enclosure, with the camera and coincident projector at the origin.
 * Drives `rep.orchestrator.step(rt_subframes=32, delta_time=<interval>)` once per pattern, where `<interval>` is the difference between consecutive timestamps. Because `timestamps[0]` is always zero,
-  the first stepâs `delta_time` is also zero, so the orchestrator captures pattern 0 at \(t = 0\) before advancing.
-* Attaches a `BasicWriter` to the sensor so each step writes one `rgb_NNNN.png` to the exampleâs output directory.
+  the first step’s `delta_time` is also zero, so the orchestrator captures pattern 0 at \(t = 0\) before advancing.
+* Attaches a `BasicWriter` to the sensor so each step writes one `rgb_NNNN.png` to the example’s output directory.
 
 Note
 
-This example demonstrates the API plumbing â pattern cycling, RectLight cluster authoring, calibrated camera intrinsics, and Orchestrator capture. The camera and projector share an origin and so it
+This example demonstrates the API plumbing — pattern cycling, RectLight cluster authoring, calibrated camera intrinsics, and Orchestrator capture. The camera and projector share an origin and so it
 does **not** model a real depth-recovery rig (which would have a non-zero baseline between camera and projector). For a depth-recovery workflow, position the projector with `projector_position` /
 `projector_orientation` offset from the camera and adjust the captured-pattern triangulation accordingly.
 

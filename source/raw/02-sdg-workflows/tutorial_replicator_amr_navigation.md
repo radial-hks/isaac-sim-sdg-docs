@@ -3,17 +3,17 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "AMR Navigation"
 section: "SDG"
 module: "02-sdg-workflows"
-checksum: "7746bf44edeb0a1e"
-fetched: "2026-06-21T11:55:23"
+checksum: "8073029f0eb90d19"
+fetched: "2026-06-21T13:40:21"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
 * [Perception Data Generation (Replicator)](index.html)
-* Randomization in Simulation â AMR Navigation
+* Randomization in Simulation – AMR Navigation
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Randomization in Simulation â AMR Navigation
+# Randomization in Simulation – AMR Navigation
 
 Example of using Isaac Sim and Replicator to capture synthetic data from simulated environments (AMR Navigation).
 
@@ -1036,7 +1036,7 @@ The attributes of this class include:
 
 **Workflow and Start Function**
 
-The workflowâs main functions are `start` and the `_on_timeline_event` callback functions. `start` resolves the selected environment list, creates a new environment with:
+The workflow’s main functions are `start` and the `_on_timeline_event` callback functions. `start` resolves the selected environment list, creates a new environment with:
 
 * navigation specific physics scene
 * Nova Carter
@@ -1117,7 +1117,7 @@ def _on_timeline_event(self, e: carb.eventdispatcher.Event):
 
 To randomize the environment before the synthetic data capture, the following functions are used:
 
-* `_randomize_dolly_pose`: places the dolly at a random pose with a given minimum distance from Nova Carter. After such a pose is found, the navigation target is placed at the dollyâs position.
+* `_randomize_dolly_pose`: places the dolly at a random pose with a given minimum distance from Nova Carter. After such a pose is found, the navigation target is placed at the dolly’s position.
 * `_randomize_dolly_light`: places the dolly light above the dolly with a new random color.
 * `_randomize_prop_poses`: places the props above the dolly at random locations, which eventually starts to fall after the simulation starts.
 
@@ -1156,9 +1156,9 @@ def _randomize_prop_poses(self) -> None:
 
 **Synthetic Data Generation (SDG) Explanation**
 
-When executing the synthetic data generation (SDG) pipeline the `rep.orchestrator.step` function is called to initiate the data capture and the execution of the writerâs write function.
+When executing the synthetic data generation (SDG) pipeline the `rep.orchestrator.step` function is called to initiate the data capture and the execution of the writer’s write function.
 
-Depending on the value of the `use_temp_rp` flag, the sensorâs render products are handled differently:
+Depending on the value of the `use_temp_rp` flag, the sensor’s render products are handled differently:
 
 * If set to `True`, the render products are only enabled during data capture.
 * `False` is the default. It renders the render products and processes every frame.

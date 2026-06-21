@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "PhysX Lightbeam"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "a3f390e809d1d13c"
-fetched: "2026-06-21T13:05:44"
+checksum: "35d0a926b343201b"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -22,7 +22,7 @@ appropriate configuration.
 See [Migrating to the physics raycast sensor](#isaacsim-sensors-physx-lightbeam-migration) for step-by-step migration instructions, or the [isaacsim.sensors.experimental.physics API Documentation](../py/source/extensions/isaacsim.sensors.experimental.physics/docs/index.html) for the replacement APIs.
 
 The PhysX SDK lightbeam sensor in Isaac Sim uses PhysX SDK raycasts to determine if an object has intersected a light beam.
-You can specify the number of rays and height to create a safety light âcurtainâ of lightbeam sensors.
+You can specify the number of rays and height to create a safety light “curtain” of lightbeam sensors.
 
 See the [Isaac Sim Conventions](../reference_material/reference_conventions.html#isaac-sim-conventions) documentation for a complete list of Isaac Sim conventions.
 

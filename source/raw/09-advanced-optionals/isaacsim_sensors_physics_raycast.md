@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Raycast Sensor"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "23b6424e93b3210c"
-fetched: "2026-06-21T13:05:43"
+checksum: "15739658af27a87b"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -18,8 +18,8 @@ fetched: "2026-06-21T13:05:43"
 The physics raycast sensor uses physics raycasts to measure distances between a sensor prim and surrounding geometry.
 Unlike the fixed-pattern sensors in Isaac Sim, the physics raycast sensor accepts explicit per-ray origin offsets, direction vectors, and optional time offsets, making it suitable for a wide range of configurations, including solid-state sensors, rotating sensors, and beam curtains.
 
-Each physics step, the sensor casts rays from the primâs world-space position (plus per-ray origin offsets) along the specified directions.
-When `rayTimeOffsets` are provided, only the subset of rays whose time offsets fall within the current physics stepâs time window are fired, producing a sweeping pattern over multiple steps.
+Each physics step, the sensor casts rays from the prim’s world-space position (plus per-ray origin offsets) along the specified directions.
+When `rayTimeOffsets` are provided, only the subset of rays whose time offsets fall within the current physics step’s time window are fired, producing a sweeping pattern over multiple steps.
 
 See the [Isaac Sim Conventions](../reference_material/reference_conventions.html#isaac-sim-conventions) documentation for a complete list of Isaac Sim conventions.
 
@@ -29,10 +29,10 @@ See the [Isaac Sim Conventions](../reference_material/reference_conventions.html
 2. `numRays` (unsigned int) parameter specifies the authoritative ray count. `rayOrigins` and `rayDirections` must each have exactly this many elements. This is set automatically when using `Raycast.create()` or the `Raycast` authoring constructor.
 3. `minRange` parameter specifies the minimum detection range in stage length units. Rays start at `origin + direction * minRange`.
 4. `maxRange` parameter specifies the maximum detection range in stage length units.
-5. `rayOrigins` parameter specifies per-ray origin translations in the sensorâs local coordinate frame.
-6. `rayDirections` parameter specifies per-ray cast direction vectors in the sensorâs local coordinate frame. Vectors are normalized before use.
+5. `rayOrigins` parameter specifies per-ray origin translations in the sensor’s local coordinate frame.
+6. `rayDirections` parameter specifies per-ray cast direction vectors in the sensor’s local coordinate frame. Vectors are normalized before use.
 7. `rayTimeOffsets` parameter specifies per-ray time offsets in seconds. When provided, the sensor fires only rays whose offsets fall within the current physics step, enabling sweeping patterns. The sweep period is `max(rayTimeOffsets)`.
-8. `outputFrameOfReference` parameter selects the coordinate frame for hit positions and normals. `SENSOR` returns results in the sensorâs local coordinate frame; `WORLD` returns results in world coordinates.
+8. `outputFrameOfReference` parameter selects the coordinate frame for hit positions and normals. `SENSOR` returns results in the sensor’s local coordinate frame; `WORLD` returns results in world coordinates.
 9. `reportHitPrimPaths` parameter enables resolving the USD prim path of each hit surface.
 
 For the full USD attribute definitions, see the [Raycast Sensor schema reference](../omniverse_usd/sensor_schema.html#isaac-sim-sensor-schema-raycast).
@@ -141,8 +141,8 @@ Note
 
 Key differences from a naive setup that may cause visualization to fail:
 
-* **``doTransform`` must be False**: The read node outputs world-space coordinates. The Debug Draw nodeâs `doTransform` input applies an additional matrix transform by default, which displaces the rays to incorrect positions.
-* **``numRays`` must be connected**: Without this, the draw node doesnât know how many rays to render and defaults to zero.
+* **``doTransform`` must be False**: The read node outputs world-space coordinates. The Debug Draw node’s `doTransform` input applies an additional matrix transform by default, which displaces the rays to incorrect positions.
+* **``numRays`` must be connected**: Without this, the draw node doesn’t know how many rays to render and defaults to zero.
 * **Execution chain must be complete**: `execIn` â `execOut` â `exec` ensures the draw node fires after the read node has populated its outputs.
 
 ## Standalone Python
@@ -216,7 +216,7 @@ sensor = RaycastSensor(
 
 #### Using time offsets
 
-To create a sensor with a sweeping pattern, provide `ray_time_offsets`. Rays are only fired when their time offset falls within the current physics stepâs time window. The sweep period equals `max(ray_time_offsets)`.
+To create a sensor with a sweeping pattern, provide `ray_time_offsets`. Rays are only fired when their time offset falls within the current physics step’s time window. The sweep period equals `max(ray_time_offsets)`.
 
 ```python
 import math

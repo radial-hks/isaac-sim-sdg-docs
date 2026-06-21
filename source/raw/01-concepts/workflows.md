@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/introduction/workflows.ht
 title: "Workflows"
 section: "概念"
 module: "01-concepts"
-checksum: "d10e7d6857e65181"
-fetched: "2026-06-21T12:48:03"
+checksum: "a27d7e9df5133e06"
+fetched: "2026-06-21T13:39:50"
 ---
 
 * Workflows
@@ -58,11 +58,11 @@ The **GUI workflow** uses a collection of extensions that are loaded by default 
 
 The Extension and Standalone Python workflows use the same APIs for all the functions. However, they diverge for printing or commanding the robot joint states continuously.
 
-**Python in an Extension** â The [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)") allows you to interact with the Stage asynchronously using Python. This means that the Python APIs are interacting with the USD stage.
+**Python in an Extension** – The [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)") allows you to interact with the Stage asynchronously using Python. This means that the Python APIs are interacting with the USD stage.
 
 The Python in extension runs without blocking rendering and physics stepping. If you want to interact with the physics and rendering steps or perform an action that is likely to be blocking, you would have to explicitly insert relevant callbacks and async functions for those functions to work. In the extension applications, rendering is stepping the moment viewport opens and physics is stepping when you press the **Play** button.
 
-**Standalone Python** â To use the standalone Python version of Isaac Sim, you launch it using a Python script. Inside the script, you can control whether you open the GUI interface or run in headless mode.
+**Standalone Python** – To use the standalone Python version of Isaac Sim, you launch it using a Python script. Inside the script, you can control whether you open the GUI interface or run in headless mode.
 
 In standalone Python, you can do step rendering and physics manually, which gives you the ability to guarantee that stepping only happens after the completion of a set of commands. These functions make the standalone workflow ideal for use cases, such as training behaviors where there might be randomization actions that all need to complete before the next step, or if you need to control message publishing rates in ROS, as well as running headless to increase performance.
 
@@ -70,7 +70,7 @@ In standalone Python, you can do step rendering and physics manually, which give
 
 ## Hot Reloading for Extensions
 
-Python-based Extensions also have the ability to âhot reloadâ. This means that you can change the underlying code while Isaac Sim is running, and then see the reflected changes in your application after saving the file, without shutting down or restarting Isaac Sim. This is a powerful feature that allows you to iterate quickly on your application.
+Python-based Extensions also have the ability to “hot reload”. This means that you can change the underlying code while Isaac Sim is running, and then see the reflected changes in your application after saving the file, without shutting down or restarting Isaac Sim. This is a powerful feature that allows you to iterate quickly on your application.
 
 ## Review Examples
 

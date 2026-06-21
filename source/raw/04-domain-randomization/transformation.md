@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Transformation"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "9750036d055d1cdc"
-fetched: "2026-06-21T11:55:29"
+checksum: "3b6b14447c0942c8"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -18,15 +18,15 @@ fetched: "2026-06-21T11:55:29"
 
 This page discusses how to move things around.
 
-The position, orientation, and size of an object in the scene must be defined by a sequence of transform operators (also known as a scene graph). This sequence is ordered such that global transforms are towards the top, while local transforms are towards the bottom. If you are not familiar with what âglobalâ and âlocalâ means, here is an example:
+The position, orientation, and size of an object in the scene must be defined by a sequence of transform operators (also known as a scene graph). This sequence is ordered such that global transforms are towards the top, while local transforms are towards the bottom. If you are not familiar with what “global” and “local” means, here is an example:
 
 ## Scene Graph Example
 
 Imagine that there is an observatory that has a movable base, a dome that can rotate around and a retractable scope that can rotate up and down. Inside the observatory sits a bird, Oro. You are sitting at the scope head, looking at Oro. And assume that Oro is frozen in space, so that if the observatory moves, it moves relative to Oro and you want to see Oro from different perspectives. The whole setting is:
 
-The scope head points towards the positive direction of the Z-axis, so we are looking towards the negative direction of Z-axis. Because the scope is retractable, start at zero length, so that we are inside Oroâs body. This is the starting pose, if no transform operators are defined at all.
+The scope head points towards the positive direction of the Z-axis, so we are looking towards the negative direction of Z-axis. Because the scope is retractable, start at zero length, so that we are inside Oro’s body. This is the starting pose, if no transform operators are defined at all.
 
-Define these entities in your descriptions. A camera, with camera parameters defined as described in [Camera](camera.html#camera); A [Dome light](light.html#dome-light) so that you can see things; and Oro, which is a [Geometry](geometry.html#geometry). The observatory is only conceptual, you donât need to see it.
+Define these entities in your descriptions. A camera, with camera parameters defined as described in [Camera](camera.html#camera); A [Dome light](light.html#dome-light) so that you can see things; and Oro, which is a [Geometry](geometry.html#geometry). The observatory is only conceptual, you don’t need to see it.
 
 ```python
 dome_light:
@@ -85,7 +85,7 @@ transform_operators:
   - 1000
 ```
 
-And eventually, drive the observatory forward, which is yet another translate, so that you donât always have Oro at the center of the screen. Because you are defining two translates, add a suffix `translate_global`:
+And eventually, drive the observatory forward, which is yet another translate, so that you don’t always have Oro at the center of the screen. Because you are defining two translates, add a suffix `translate_global`:
 
 ```python
 transform_operators:
@@ -177,7 +177,7 @@ Note
 
 * `orient` is represented by a quaternion in wxyz order, in which w is the scalar part; all other rotate operators describe rotation in degrees.
 * The Euler angle sequence is represented from local to global from left to right. For example, rotateXYZ means Y is global rotation relative to X, and Z is global rotation relative to Y.
-* Scale operators appear at the bottom. Itâs not recommended to define a scale above a translate or rotate, unless this is intended.
+* Scale operators appear at the bottom. It’s not recommended to define a scale above a translate or rotate, unless this is intended.
 
 ## Practical Example of Flexible xformOps
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/installation/install_adva
 title: "Cloud: AWS"
 section: "云厂商"
 module: "04-headless-deploy"
-checksum: "c3cdab6e1b7ba231"
-fetched: "2026-06-21T12:48:13"
+checksum: "957f24ddf6000463"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)
@@ -34,7 +34,7 @@ The requirements for running NVIDIA Isaac Sim on Amazon Web Services (AWS) are:
 
 Follow these steps to launch an AWS EC2 instance:
 
-1. Navigate to the [AWS Marketplace](https://aws.amazon.com/marketplace/search/results?searchTerms=isaac+sim) and search for âisaac simâ.
+1. Navigate to the [AWS Marketplace](https://aws.amazon.com/marketplace/search/results?searchTerms=isaac+sim) and search for “isaac sim”.
 2. Select one of the instance type below:
 
 Linux Instance
@@ -62,7 +62,7 @@ Windows Instance
 10. Set the *Key Pair (login)* to use your pre-configured [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html).
 11. In the *Network settings* section, select the **Select existing security group** option. In the **Common security groups** dropdown, select your [security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html).
 12. In the **Summary** section on the right side of the page, click **Launch instance**.
-13. Locate your named instance in the table. It will take a few moments for the instance state to change from *Initializing* to *Running*. Once itâs running, itâs available to be connected to.
+13. Locate your named instance in the table. It will take a few moments for the instance state to change from *Initializing* to *Running*. Once it’s running, it’s available to be connected to.
 
 ## Connect
 
@@ -99,7 +99,7 @@ Linux Instance
    The password needs to be set via SSH each time a new instance is created, this is by design for security.
 
    * Enter a new password.
-   * Check your session is running by using the following command: `sudo dcv list-sessions`. (There should be a âconsoleâ session running.)
+   * Check your session is running by using the following command: `sudo dcv list-sessions`. (There should be a ‘console’ session running.)
 
 Windows Instance
 

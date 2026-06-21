@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transfo
 title: "Asset Transformer Rules"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "017efcfbf1f46482"
-fetched: "2026-06-21T13:05:33"
+checksum: "a6378f5478024446"
+fetched: "2026-06-21T13:40:05"
 ---
 
 * [Robot Setup](index.html)
@@ -61,9 +61,9 @@ Routes applied API schemas and their associated properties to a separate layer. 
 
 1. **Schema Discovery**: Traverses all prims in the stage and collects applied API schemas matching the specified patterns.
 2. **Property Namespace Resolution**: For each matched schema, determines the property namespace prefix (for example, `PhysicsRigidBodyAPI` uses `physics:` namespace, `PhysicsDriveAPI:angular` uses `drive:angular:`).
-3. **Schema Transfer**: Uses USDâs `TokenListOp` to remove the schema token from the source layerâs `apiSchemas` metadata and prepend it to the destination layer.
+3. **Schema Transfer**: Uses USD’s `TokenListOp` to remove the schema token from the source layer’s `apiSchemas` metadata and prepend it to the destination layer.
 4. **Property Transfer**: Copies all properties belonging to the schema namespace from the source layer to the destination layer using `Sdf.CopySpec`, then removes them from the source.
-5. **Layer Management**: Sets the destination layerâs default prim to match the source and saves both layers.
+5. **Layer Management**: Sets the destination layer’s default prim to match the source and saves both layers.
 
 PropertyRoutingRule
 
@@ -132,7 +132,7 @@ Removes specific applied API schemas (and optionally their associated properties
 **Execution Logic**:
 
 1. **Pattern Matching**: Iterates over all prims in the target layer, matching applied API schemas against the specified wildcard patterns.
-2. **Schema Removal**: Removes matching schema tokens from each primâs `apiSchemas` metadata using `TokenListOp` manipulation.
+2. **Schema Removal**: Removes matching schema tokens from each prim’s `apiSchemas` metadata using `TokenListOp` manipulation.
 3. **Property Cleanup**: If `clear_properties` is enabled, removes all properties in the matched schema namespace from the prim spec.
 4. **Layer Save**: Saves the modified layer.
 
@@ -158,9 +158,9 @@ Routes material prims to a shared layer with global deduplication, creates insta
 
 **Execution Logic**:
 
-1. **Material Discovery**: Finds all material prims (`UsdShade.Material`) within the scope, tracking which layer defines each material. Materials with `PhysicsMaterialAPI` applied are skipped â these physics-specific materials remain in the base layer at their original paths so that `material:binding:physics` relationships continue to resolve.
+1. **Material Discovery**: Finds all material prims (`UsdShade.Material`) within the scope, tracking which layer defines each material. Materials with `PhysicsMaterialAPI` applied are skipped — these physics-specific materials remain in the base layer at their original paths so that `material:binding:physics` relationships continue to resolve.
 2. **Asset Collection**: Resolves all texture and MDL file paths referenced by materials, handling both local and remote (Nucleus) assets. Parses MDL files to discover embedded texture references.
-3. **Content Hashing**: Computes SHA-256 hashes of each materialâs content (type, attributes, connections, relationships) using resolved asset paths for consistent deduplication.
+3. **Content Hashing**: Computes SHA-256 hashes of each material’s content (type, attributes, connections, relationships) using resolved asset paths for consistent deduplication.
 4. **Asset Transfer**: Copies all unique assets to the textures folder with global deduplication. Handles filename collisions by appending numeric suffixes. Updates MDL files to point to transferred textures.
 5. **Material Layer Creation**: Creates a `/Materials` scope in the materials layer. For each unique material (by hash), copies the material definition with updated asset paths.
 6. **Instanceable References**: Updates each original material location with an instanceable reference to the deduplicated material in the materials layer.
@@ -216,7 +216,7 @@ Flattens the original input stage into a single layer with optional variant sele
 **Execution Logic**:
 
 1. **Original Stage Access**: Opens the original input stage (before any processing) to preserve relative asset paths that would be broken after initial manager processing.
-2. **Variant Selection Application**: If `selected_variants` is specified, applies the variant selections to the default primâs variant sets. Case-insensitive matching finds variants like `physx` when `PhysX` is requested.
+2. **Variant Selection Application**: If `selected_variants` is specified, applies the variant selections to the default prim’s variant sets. Case-insensitive matching finds variants like `physx` when `PhysX` is requested.
 3. **Variant Clearing**: If `clear_variants` is enabled, iterates through all prims and clears their `variantSelections` metadata to ensure a neutral base.
 4. **Stage Flattening**: Uses `Usd.Stage.Flatten()` to compose all layers, references, and payloads into a single layer.
 5. **Export**: Exports the flattened layer to the destination path. Handles USD layer caching by transferring content to cached layers when necessary.
@@ -239,9 +239,9 @@ Routes variant set contents to separate layer files. Each variant is extracted i
 
 **Execution Logic**:
 
-1. **Variant Set Analysis**: Examines the default primâs variant sets and builds a map of variant assets (payloads/references within each variant) to variant names.
+1. **Variant Set Analysis**: Examines the default prim’s variant sets and builds a map of variant assets (payloads/references within each variant) to variant names.
 2. **Variant File Mapping**: Creates a mapping from original variant asset paths to new output file paths (`{VariantSetName}/{variant_name}.usda`).
-3. **Dependency Collection**: Uses `UsdUtils.ComputeAllDependencies` to discover all assets referenced by each variantâs source (sublayers, references, payloads, textures). Copies dependencies to a `dependencies` folder.
+3. **Dependency Collection**: Uses `UsdUtils.ComputeAllDependencies` to discover all assets referenced by each variant’s source (sublayers, references, payloads, textures). Copies dependencies to a `dependencies` folder.
 4. **Asset Copy with Remapping**: For variants with payloads/references, copies the source asset to the variant output file. Uses `UsdUtils.ModifyAssetPaths` to remap all internal paths to point to new variant files or collected dependencies.
 5. **Delta Application**: Applies any direct overrides from the variant spec (attributes, relationships, child prims, composition arcs) as the strongest opinion on top of the copied content.
 6. **Inter-Variant Remapping**: Updates references between variants to point to the new variant files. Remaps paths in collected dependencies to ensure consistency.
@@ -268,11 +268,11 @@ Generates the final interface layer with composition arcs to organize USD assets
 
 1. **Interface Layer Creation**: Creates the interface layer at the package root, named after the original input asset.
 2. **Default Prim Setup**: Ensures the default prim exists as an Xform in the interface layer.
-3. **Base Connection**: Connects the base layer to the default prim using the specified connection type (prepends Reference or Payload to the primâs list, or inserts Sublayer).
+3. **Base Connection**: Connects the base layer to the default prim using the specified connection type (prepends Reference or Payload to the prim’s list, or inserts Sublayer).
 4. **Folder Variant Generation**: If enabled, scans the payloads folder for subfolders containing USD files. Each subfolder becomes a variant set, with a `none` variant (no payload) and variants for each USD file (payloaded).
-5. **Custom Connections**: Applies custom connection specifications. For Sublayer connections, adds to the layerâs sublayer paths. For Reference/Payload connections, adds to the default prim. Can modify the interface layer or any specified asset layer.
-6. **Extraneous Prim Recovery**: Scans the base layer for root-level prims outside `defaultPrim` (e.g. `/Render`, `/PhysicsScene`). Copies each into the interface layer at the same root level using `Sdf.CopySpec`, then removes them from the base layer and saves it. This keeps those prims reachable in the composed stage and makes the pipeline idempotent â prims that would not survive a reference-based round-trip are promoted to the interface layer where they persist across re-transforms.
-7. **Variant Selection Defaults**: Sets default variant selections on the interface layerâs default prim.
+5. **Custom Connections**: Applies custom connection specifications. For Sublayer connections, adds to the layer’s sublayer paths. For Reference/Payload connections, adds to the default prim. Can modify the interface layer or any specified asset layer.
+6. **Extraneous Prim Recovery**: Scans the base layer for root-level prims outside `defaultPrim` (e.g. `/Render`, `/PhysicsScene`). Copies each into the interface layer at the same root level using `Sdf.CopySpec`, then removes them from the base layer and saves it. This keeps those prims reachable in the composed stage and makes the pipeline idempotent — prims that would not survive a reference-based round-trip are promoted to the interface layer where they persist across re-transforms.
+7. **Variant Selection Defaults**: Sets default variant selections on the interface layer’s default prim.
 
 Isaac Sim
 
@@ -358,8 +358,8 @@ Corrects physics joint local poses after upstream rules (such as GeometriesRouti
 1. **Original Stage**: Opens the original input asset (before any transformer rules ran) via `input_stage`.
 2. **Joint Discovery**: Traverses the working stage for all `UsdPhysics.Joint` prims.
 3. **World Pose Comparison**: For each joint, computes the joint world pose from both `body0` and `body1` on the original stage and on the working stage using `local_pose * body_world_transform`.
-4. **Drift Detection**: If the working stageâs joint world pose differs from the original beyond the configured tolerance, the affected body side is flagged for correction.
-5. **Local Pose Fix**: Computes the corrective local pose as `joint_world_orig * inverse(body_world_entry)` and writes the resulting translation and rotation back to the jointâs `localPos` and `localRot` attributes.
+4. **Drift Detection**: If the working stage’s joint world pose differs from the original beyond the configured tolerance, the affected body side is flagged for correction.
+5. **Local Pose Fix**: Computes the corrective local pose as `joint_world_orig * inverse(body_world_entry)` and writes the resulting translation and rotation back to the joint’s `localPos` and `localRot` attributes.
 6. **Layer Save**: Saves the modified edit layer if any corrections were applied.
 
 MergeMeshRule
@@ -410,15 +410,15 @@ Mimic joints are left as `NewtonMimicAPI` on the joint prim and consumed directl
 
 ## Idempotency Requirement
 
-All transformation rules **must** be idempotent: running the full profile twice on the same asset (once on the original, then on the first runâs output) must produce identical USD layers, with the sole exception of the `doc` metadata field which embeds absolute paths. The extension includes an idempotency test (`test_profile_idempotency.py`) that enforces this requirement.
+All transformation rules **must** be idempotent: running the full profile twice on the same asset (once on the original, then on the first run’s output) must produce identical USD layers, with the sole exception of the `doc` metadata field which embeds absolute paths. The extension includes an idempotency test (`test_profile_idempotency.py`) that enforces this requirement.
 
 Common sources of non-idempotency to watch for when developing new rules:
 
-* **Floating-point drift** â Matrix composition/decomposition round-trips introduce noise. Quantize values to a fixed number of significant digits, or read canonical xformOp values directly when possible.
-* **Stale composition arcs** â Extracting content from variant specs can leave behind self-referencing payloads or references on the destination prim. Strip any arcs that were not present in the source.
-* **Inconsistent defaultPrim** â Use `self.source_stage.GetDefaultPrim()` (composed stage) rather than `self.source_stage.GetRootLayer().defaultPrim` (root layer only) to reliably resolve the default prim across re-transforms.
-* **Non-deterministic merge decisions** â When deciding whether to merge a child into its parent, account for scaffolding prims (e.g. `VisualMaterials` scopes, empty overs) left behind by previous runs.
-* **Extraneous root-level prims** â After flattening, root-level prims outside the `defaultPrim` hierarchy (e.g. viewport/render artifacts) do not survive a reference-based round-trip. The `InterfaceConnectionRule` handles this automatically by moving such prims from the base layer into the interface layer, but custom rules that introduce root-level prims should be aware of this composition constraint.
+* **Floating-point drift** – Matrix composition/decomposition round-trips introduce noise. Quantize values to a fixed number of significant digits, or read canonical xformOp values directly when possible.
+* **Stale composition arcs** – Extracting content from variant specs can leave behind self-referencing payloads or references on the destination prim. Strip any arcs that were not present in the source.
+* **Inconsistent defaultPrim** – Use `self.source_stage.GetDefaultPrim()` (composed stage) rather than `self.source_stage.GetRootLayer().defaultPrim` (root layer only) to reliably resolve the default prim across re-transforms.
+* **Non-deterministic merge decisions** – When deciding whether to merge a child into its parent, account for scaffolding prims (e.g. `VisualMaterials` scopes, empty overs) left behind by previous runs.
+* **Extraneous root-level prims** – After flattening, root-level prims outside the `defaultPrim` hierarchy (e.g. viewport/render artifacts) do not survive a reference-based round-trip. The `InterfaceConnectionRule` handles this automatically by moving such prims from the base layer into the interface layer, but custom rules that introduce root-level prims should be aware of this composition constraint.
 
 ## Rule Type Quick Reference
 

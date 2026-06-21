@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transfo
 title: "Asset Transformer API"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "39a9926438a42822"
-fetched: "2026-06-21T13:05:33"
+checksum: "480afc98ff325b16"
+fetched: "2026-06-21T13:40:05"
 ---
 
 * [Robot Setup](index.html)
@@ -61,7 +61,7 @@ class RuleInterface(ABC):
 | Method | Description |
 | --- | --- |
 | `process_rule()` | Execute the rule logic. Return `None` to continue with the current working stage, or return a file path to switch the working stage for subsequent rules. |
-| `get_configuration_parameters()` | Return a list of `RuleConfigurationParam` objects describing the ruleâs configurable parameters. |
+| `get_configuration_parameters()` | Return a list of `RuleConfigurationParam` objects describing the rule’s configurable parameters. |
 | `log_operation()` | Record human-readable log messages for the execution report. |
 | `add_affected_stage()` | Record identifiers for stages or layers modified by the rule. |
 
@@ -92,7 +92,7 @@ def process_rule(self) -> str | None:
 
 ## Rule Registration
 
-The `RuleRegistry` is a singleton class that maintains a mapping of rule type names to their implementation classes. When the `AssetTransformerManager` executes a profile, it looks up each ruleâs `type` string in the registry to find the corresponding implementation class.
+The `RuleRegistry` is a singleton class that maintains a mapping of rule type names to their implementation classes. When the `AssetTransformerManager` executes a profile, it looks up each rule’s `type` string in the registry to find the corresponding implementation class.
 
 The `RuleRegistry` uses a singleton pattern, meaning there is only one global instance shared across all code. This allows rules registered by any extension or module to be available to all transformation profiles.
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Modular Scripting"
 section: "教程"
 module: "01-replicator-core"
-checksum: "6dbb18b2c2e1fe82"
-fetched: "2026-06-21T11:55:19"
+checksum: "409322853f814aa8"
+fetched: "2026-06-21T13:40:16"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -21,8 +21,8 @@ This tutorial introduces the `isaacsim.replicator.behavior` extension and walks 
 
 The behavior functionality ships as two extensions:
 
-* `isaacsim.replicator.behavior` â the core extension containing the behavior scripts. It has no UI dependency and runs in headless mode.
-* `isaacsim.replicator.behavior.ui` â the UI extension that renders exposed variables in the **Property** panel.
+* `isaacsim.replicator.behavior` — the core extension containing the behavior scripts. It has no UI dependency and runs in headless mode.
+* `isaacsim.replicator.behavior.ui` — the UI extension that renders exposed variables in the **Property** panel.
 
 The two extensions communicate through a carb event, so the core can run without the UI loaded. See [Core and UI extension split](#core-and-ui-extension-split) for details.
 
@@ -68,7 +68,7 @@ The [example section](#isaac-sim-app-tutorial-replicator-modular-scripting-examp
 
 ### Behavior scripts
 
-**Behavior scripts** are modular Python scripts attached to prims in a USD stage. By default, they respond to timeline events â start, pause, stop, and update â and define the randomization or custom logic applied to the prim during simulation or data generation.
+**Behavior scripts** are modular Python scripts attached to prims in a USD stage. By default, they respond to timeline events — start, pause, stop, and update — and define the randomization or custom logic applied to the prim during simulation or data generation.
 
 Attaching scripts directly to prims embeds the behavior in the USD itself and gives you:
 
@@ -80,7 +80,7 @@ Attaching scripts directly to prims embeds the behavior in the USD itself and gi
 
 ### Exposing variables through USD attributes
 
-Each behavior script exposes its input parameters as namespaced USD attributes on the prim that carries the script. This lets you edit behavior parameters directly from the **Property** panel â or programmatically through the USD API â without modifying the script source.
+Each behavior script exposes its input parameters as namespaced USD attributes on the prim that carries the script. This lets you edit behavior parameters directly from the **Property** panel — or programmatically through the USD API — without modifying the script source.
 
 Exposing variables as USD attributes provides three benefits:
 
@@ -94,8 +94,8 @@ The scripts use the USD API to create custom attributes under a shared namespace
 
 The behavior functionality is split across two extensions:
 
-* `isaacsim.replicator.behavior` â the **core** extension. It defines the behavior scripts, creates and removes the exposed USD attributes, and has no UI dependency. This lets you run the behaviors in headless mode (for example, during automated SDG pipelines).
-* `isaacsim.replicator.behavior.ui` â the **UI** extension. It registers an `ExposedVariablesPropertyWidget` with the **Property** panel that automatically renders the exposed variables as editable fields.
+* `isaacsim.replicator.behavior` — the **core** extension. It defines the behavior scripts, creates and removes the exposed USD attributes, and has no UI dependency. This lets you run the behaviors in headless mode (for example, during automated SDG pipelines).
+* `isaacsim.replicator.behavior.ui` — the **UI** extension. It registers an `ExposedVariablesPropertyWidget` with the **Property** panel that automatically renders the exposed variables as editable fields.
 
 The two extensions communicate through a single carb event, `isaacsim.replicator.behavior.EXPOSED_VARS_CHANGED`:
 
@@ -126,7 +126,7 @@ VARIABLES_TO_EXPOSE = [
 
 ### Custom event-based behavior scripts
 
-Timeline-driven behaviors are convenient, but some workflows need to run independently of the simulation clock â for example, pre-simulation setup, one-shot scene preparation, or sequences that must complete before data capture begins.
+Timeline-driven behaviors are convenient, but some workflows need to run independently of the simulation clock — for example, pre-simulation setup, one-shot scene preparation, or sequences that must complete before data capture begins.
 
 **Event-based scripting** lets a behavior skip the default timeline hooks and instead publish and subscribe to [custom events](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/guide/events.html) on the Omniverse event bus. This gives you:
 
@@ -165,8 +165,8 @@ Configuration Parameters
 
 * **range:minPosition** (Vector3d): Minimum bounds of the random offset.
 * **range:maxPosition** (Vector3d): Maximum bounds of the random offset.
-* **frame:useRelativeFrame** (Bool): If True, preserve the primâs initial offset (from the target prim if set, otherwise from its own starting position) and add the random offset on top. If False, the random offset is applied as an absolute position (relative to the target prim if set, otherwise to the world origin).
-* **frame:targetPrimPath** (String): Optional path to a reference prim. When set, all randomization is anchored to this primâs world location; leave empty to randomize independently of any other prim.
+* **frame:useRelativeFrame** (Bool): If True, preserve the prim’s initial offset (from the target prim if set, otherwise from its own starting position) and add the random offset on top. If False, the random offset is applied as an absolute position (relative to the target prim if set, otherwise to the world origin).
+* **frame:targetPrimPath** (String): Optional path to a reference prim. When set, all randomization is anchored to this prim’s world location; leave empty to randomize independently of any other prim.
 * **includeChildren** (Bool): Include child prims in randomization.
 * **interval** (UInt): Update frequency (0 = every frame).
 
@@ -177,11 +177,11 @@ The combination of `frame:targetPrimPath` and `frame:useRelativeFrame` determine
 | `targetPrimPath` | `useRelativeFrame` | Resulting location |
 | --- | --- | --- |
 | empty | False | `random_offset` (treated as absolute world coordinates). |
-| empty | True | `initial_location + random_offset` (jitter around the primâs starting position). |
+| empty | True | `initial_location + random_offset` (jitter around the prim’s starting position). |
 | set | False | `target_location + random_offset` (prim is placed near the target, ignoring its original position). |
 | set | True | `target_location + initial_offset_from_target + random_offset` (prim follows the target while preserving its original relative offset). |
 
-To make the primâs randomization fully independent of any other prim, leave `frame:targetPrimPath` empty. Toggling `frame:useRelativeFrame` alone does not decouple the prim from the target.
+To make the prim’s randomization fully independent of any other prim, leave `frame:targetPrimPath` empty. Toggling `frame:useRelativeFrame` alone does not decouple the prim from the target.
 
 Implementation Details
 
@@ -202,7 +202,7 @@ def _setup(self):
 ```
 
 * When **includeChildren** is True: Uses Usd.PrimRange to select all transformable descendant prims
-* When **includeChildren** is False: Only includes the assigned prim if itâs transformable
+* When **includeChildren** is False: Only includes the assigned prim if it’s transformable
 * Logs warning if no valid prims are found
 
 **Randomization Logic:**
@@ -233,8 +233,8 @@ def _randomize_location(self, prim):
 ```
 
 * Generates a random offset within the configured `range:minPosition` / `range:maxPosition` bounds.
-* If `frame:targetPrimPath` is set, anchors the result to the target primâs current world location.
-* If `frame:useRelativeFrame` is True, preserves the primâs initial offset (from the target prim if set, otherwise from its own starting position) so the random offset acts as jitter rather than an absolute placement.
+* If `frame:targetPrimPath` is set, anchors the result to the target prim’s current world location.
+* If `frame:useRelativeFrame` is True, preserves the prim’s initial offset (from the target prim if set, otherwise from its own starting position) so the random offset acts as jitter rather than an absolute placement.
 * Writes the final location to the prim using the existing translate or transform xformOp.
 
 Usage Example
@@ -258,7 +258,7 @@ Step-by-Step Configuration
 **Use Cases:**
 
 * **Background Objects**: Randomize prop positions for scene variety. Leave `frame:targetPrimPath` empty and set `frame:useRelativeFrame` to True to jitter each prop around its authored location.
-* **Follow a Moving Target**: Keep an objectâs relative offset to a moving prim. Set `frame:targetPrimPath` to the target and `frame:useRelativeFrame` to True.
+* **Follow a Moving Target**: Keep an object’s relative offset to a moving prim. Set `frame:targetPrimPath` to the target and `frame:useRelativeFrame` to True.
 * **Snap Near a Target**: Place an object at randomized positions around a target, ignoring its original location. Set `frame:targetPrimPath` to the target and `frame:useRelativeFrame` to False.
 * **Hierarchical Randomization**: Apply randomization to object groups by enabling `includeChildren`.
 
@@ -627,7 +627,7 @@ Step-by-Step Configuration
 
 **Example Configuration:**
 
-* **textures:csv**: âtexture1.jpg,texture2.png,texture3.exrâ
+* **textures:csv**: “texture1.jpg,texture2.png,texture3.exr”
 * **textureScaleRange**: (0.5, 2.0) (scale variation)
 * **textureRotateRange**: (0.0, 360.0) (full rotation)
 * **projectUvwProbability**: 0.3 (30% chance of UV projection)
@@ -773,7 +773,7 @@ Step-by-Step Configuration
 
 **Example Configuration:**
 
-* **assets:csv**: âbox1.usd,box2.usd,cylinder.usdâ
+* **assets:csv**: “box1.usd,box2.usd,cylinder.usd”
 * **assets:numRange**: (5, 20) (spawn 5-20 objects)
 * **dropHeight**: 2.0 (drop from 2 units above surface)
 * **renderSimulation**: True (show simulation steps)

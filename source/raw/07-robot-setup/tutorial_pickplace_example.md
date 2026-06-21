@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tut
 title: "Pick-Place Example"
 section: "Setup 教程"
 module: "07-robot-setup"
-checksum: "316678f8e3034606"
-fetched: "2026-06-21T13:05:36"
+checksum: "9cae807380cb9484"
+fetched: "2026-06-21T13:40:07"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -22,8 +22,8 @@ We will be using the robot imported in [Tutorial 6: Setup a Manipulator](tutoria
 
 This tutorial builds on top of the [Robot Motion (Experimental)](../robot_motion_experimental/index.html#isaac-sim-robot-motion-experimental) extension and demonstrates two motion controllers:
 
-* **cuMotion RMPflow** â a GPU-accelerated reactive motion planner with collision avoidance. See the [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) overview and the [RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) for full details.
-* **PINK differential IK** â a CPU-based inverse kinematics solver using the [PINK](https://github.com/stephane-caron/pink) library. See the [PINK Integration](../pink/index.html#isaac-sim-pink) overview and the [IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) for full details.
+* **cuMotion RMPflow** — a GPU-accelerated reactive motion planner with collision avoidance. See the [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) overview and the [RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) for full details.
+* **PINK differential IK** — a CPU-based inverse kinematics solver using the [PINK](https://github.com/stephane-caron/pink) library. See the [PINK Integration](../pink/index.html#isaac-sim-pink) overview and the [IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) for full details.
 
 *30 Minutes Tutorial*
 
@@ -63,7 +63,7 @@ This example introduces the Articulation API by controlling the 2F-140 gripper j
 * `Articulation.dof_names` returns the list of all degrees of freedom in order. The gripper joint is named `finger_joint`.
 * `set_dof_position_targets` sends a position target to one or more DOFs by index. Passing `dof_indices` restricts the command to only those joints.
 
-tutorial\_9\_gripper\_control.py â gripper control loop
+tutorial\_9\_gripper\_control.py — gripper control loop
 
 ```python
     finger_idx = robot.dof_names.index("finger_joint")
@@ -96,7 +96,7 @@ This example plans and executes a joint-space trajectory using `mg.Path` and `mg
 * `get_estimated_state` packages the current joint positions, velocities, and efforts into an `mg.RobotState`.
 * `apply_desired_state` applies the position, velocity, and effort targets from the desired state back to the articulation.
 
-tutorial\_9\_arm\_trajectory.py â trajectory setup
+tutorial\_9\_arm\_trajectory.py — trajectory setup
 
 ```python
     waypoints = np.array(
@@ -126,7 +126,7 @@ tutorial\_9\_arm\_trajectory.py â trajectory setup
         raise RuntimeError("Failed to reset TrajectoryFollower")
 ```
 
-tutorial\_9\_arm\_trajectory.py â trajectory execution loop
+tutorial\_9\_arm\_trajectory.py — trajectory execution loop
 
 ```python
     dt = SimulationManager.get_physics_dt()
@@ -156,8 +156,8 @@ tutorial\_9\_arm\_trajectory.py â trajectory execution loop
 
 See also
 
-* [Trajectory Planning and Execution](../motion_generation/trajectory_planning.html) â the `mg.Path` and `mg.TrajectoryFollower` API used in this part.
-* [cuMotion Trajectory Generator Tutorial](../cumotion/tutorial_trajectory_generator.html#isaac-sim-cumotion-tutorial-trajectory-generator) â generating collision-aware trajectories with cuMotion.
+* [Trajectory Planning and Execution](../motion_generation/trajectory_planning.html) — the `mg.Path` and `mg.TrajectoryFollower` API used in this part.
+* [cuMotion Trajectory Generator Tutorial](../cumotion/tutorial_trajectory_generator.html#isaac-sim-cumotion-tutorial-trajectory-generator) — generating collision-aware trajectories with cuMotion.
 
 ## Part 3: Follow Target using cuMotion RMPflow
 
@@ -181,7 +181,7 @@ To enable obstacle avoidance, pass `--with-obstacle`:
 * `create_setpoint_state` packages a target position and orientation into an `mg.RobotState` that the controller can track.
 * `world_binding.synchronize_transforms()` must be called each step to update obstacle transforms before planning.
 
-tutorial\_9\_follow\_target.py â scene and controller setup
+tutorial\_9\_follow\_target.py — scene and controller setup
 
 ```python
 async def setup_scene_and_controller(
@@ -254,7 +254,7 @@ async def setup_scene_and_controller(
     return controller, cumotion_robot, articulation, world_binding, target_object
 ```
 
-tutorial\_9\_follow\_target.py â per-step control loop
+tutorial\_9\_follow\_target.py — per-step control loop
 
 ```python
 def run_step(
@@ -281,9 +281,9 @@ def run_step(
 
 See also
 
-* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) â in-depth walkthrough of `RmpFlowController` configuration and tuning.
-* [cuMotion World Interface Tutorial](../cumotion/tutorial_world_interface.html#isaac-sim-cumotion-tutorial-world-interface) â details on `CumotionWorldInterface`, `SceneQuery`, and `WorldBinding`.
-* [Scene Interaction](../motion_generation/scene_interaction.html) â the underlying Motion Generation API for discovering and synchronizing obstacles from the USD scene.
+* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — in-depth walkthrough of `RmpFlowController` configuration and tuning.
+* [cuMotion World Interface Tutorial](../cumotion/tutorial_world_interface.html#isaac-sim-cumotion-tutorial-world-interface) — details on `CumotionWorldInterface`, `SceneQuery`, and `WorldBinding`.
+* [Scene Interaction](../motion_generation/scene_interaction.html) — the underlying Motion Generation API for discovering and synchronizing obstacles from the USD scene.
 
 ## Part 4: Pick and Place
 
@@ -312,21 +312,21 @@ If no `--xrdf-dir` is provided, `load_cumotion_supported_robot("ur10")` will be 
 * `RmpFlowController.get_rmp_flow_config().set_param(key, value)` allows tuning RMPflow parameters at runtime. For this example, `cspace_target_rmp/metric_scalar` is reduced to 1.0 to reduce the influence of the initial position error on the motion planning.
 * `controller.reset(estimated_state, setpoint, t)` must be called at the start of each arm motion segment to re-initialize the planner from the current robot state.
 
-tutorial\_9\_pick\_place\_cumotion.py â UR10ePickPlace state machine class
+tutorial\_9\_pick\_place\_cumotion.py — UR10ePickPlace state machine class
 
 ```python
 class UR10ePickPlace:
     """Pick-and-place controller for the UR10e + 2F-140 gripper using cuMotion RMPflow.
 
     Phases:
-        0  Pre-grasp  â arm moves above the cube
-        1  Approach   â arm descends to grasp height
-        2  Grasp      â gripper closes
-        3  Lift       â arm rises with the cube
-        4  Transport  â arm moves above the target location
-        5  Lower      â arm descends to place height
-        6  Release    â gripper opens
-        7  Retract    â arm lifts away
+        0  Pre-grasp  — arm moves above the cube
+        1  Approach   — arm descends to grasp height
+        2  Grasp      — gripper closes
+        3  Lift       — arm rises with the cube
+        4  Transport  — arm moves above the target location
+        5  Lower      — arm descends to place height
+        6  Release    — gripper opens
+        7  Retract    — arm lifts away
     """
 
     _ROBOT_PRIM_PATH = "/World/ur10e_robot"
@@ -617,9 +617,9 @@ class UR10ePickPlace:
 
 See also
 
-* [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) â overview of the [cuMotion](https://nvidia-isaac.github.io/cumotion/) integration and its components.
-* [cuMotion Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) â generating the URDF and XRDF files used by `--xrdf-dir`, including `tool_frames`.
-* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) â full tutorial on `RmpFlowController`, including parameter tuning via `get_rmp_flow_config().set_param`.
+* [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) — overview of the [cuMotion](https://nvidia-isaac.github.io/cumotion/) integration and its components.
+* [cuMotion Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) — generating the URDF and XRDF files used by `--xrdf-dir`, including `tool_frames`.
+* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — full tutorial on `RmpFlowController`, including parameter tuning via `get_rmp_flow_config().set_param`.
 
 ### PINK Differential IK
 
@@ -638,23 +638,23 @@ Run this example with:
 
 * `load_pink_supported_robot("ur10")` loads the built-in PINK robot model for the UR10, backed by a Pinocchio model. Alternatively, a custom URDF can be loaded using `load_pink_robot` by passing in `--urdf <path_to_urdf>`.
 * `PinkIKController` accepts a tool frame name, position and orientation costs, a posture cost, and a QP solver (`"osqp"`). It integrates Cartesian velocity commands into joint positions each step.
-* `_init_pink_q0` sets `pink_robot.q0` to the elbow-up configuration. PINKâs PostureTask regularizes the IK solution toward this reference, steering the solver away from elbow-down or degenerate configurations.
+* `_init_pink_q0` sets `pink_robot.q0` to the elbow-up configuration. PINK’s PostureTask regularizes the IK solution toward this reference, steering the solver away from elbow-down or degenerate configurations.
 
-tutorial\_9\_pick\_place\_pink.py â UR10ePickPlace state machine class
+tutorial\_9\_pick\_place\_pink.py — UR10ePickPlace state machine class
 
 ```python
 class UR10ePickPlace:
     """Pick-and-place controller for the UR10e + 2F-140 gripper using PINK differential IK.
 
     Phases:
-        0  Pre-grasp  â arm moves above the cube
-        1  Approach   â arm descends to grasp height
-        2  Grasp      â gripper closes
-        3  Lift       â arm rises with the cube
-        4  Transport  â arm moves above the target location
-        5  Lower      â arm descends to place height
-        6  Release    â gripper opens
-        7  Retract    â arm lifts away
+        0  Pre-grasp  — arm moves above the cube
+        1  Approach   — arm descends to grasp height
+        2  Grasp      — gripper closes
+        3  Lift       — arm rises with the cube
+        4  Transport  — arm moves above the target location
+        5  Lower      — arm descends to place height
+        6  Release    — gripper opens
+        7  Retract    — arm lifts away
     """
 
     _ROBOT_PRIM_PATH = "/World/ur10e_robot"
@@ -930,9 +930,9 @@ class UR10ePickPlace:
 
 See also
 
-* [PINK Integration](../pink/index.html#isaac-sim-pink) â overview of the PINK integration and its weighted multi-task IK approach.
-* [PINK IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) â in-depth walkthrough of `PinkIKController`, task weights, posture regularization, and QP solver selection.
-* [PINK Robot Configuration Tutorial](../pink/tutorial_robot_configuration.html#isaac-sim-pink-tutorial-robot-configuration) â loading PINK robot models with `load_pink_supported_robot()` and `load_pink_robot()`.
+* [PINK Integration](../pink/index.html#isaac-sim-pink) — overview of the PINK integration and its weighted multi-task IK approach.
+* [PINK IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) — in-depth walkthrough of `PinkIKController`, task weights, posture regularization, and QP solver selection.
+* [PINK Robot Configuration Tutorial](../pink/tutorial_robot_configuration.html#isaac-sim-pink-tutorial-robot-configuration) — loading PINK robot models with `load_pink_supported_robot()` and `load_pink_robot()`.
 
 ## Summary
 

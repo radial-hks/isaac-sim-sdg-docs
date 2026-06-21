@@ -4,7 +4,7 @@ title: "Motion Gen API"
 section: "Manipulators"
 module: "09-advanced-optionals"
 checksum: "0f8154fb2345fd4e"
-fetched: "2026-06-21T13:05:41"
+fetched: "2026-06-21T13:40:11"
 ---
 
 * [Robot Simulation](../../robot_simulation/index.html)

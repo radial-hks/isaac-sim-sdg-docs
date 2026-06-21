@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Mutable Attribute"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "b34ff048d103fe9f"
-fetched: "2026-06-21T11:55:29"
+checksum: "a1aa7394cfcdf01d"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -91,9 +91,9 @@ main_object:
 
 `distance_min` and `distance_max` are the minimum and maximum distance from the view point. `screen_space_range` is the range in screen space on which to scatter objects. For example, if you set it to `0.5`, the objects are only scattered in the space projected to the area specified within the dotted lines:
 
-Camera frustum doesnât scatter objects uniformly along the line of vision. Itâs scattered more often in the near field and the far field, such that the probability density of projected area is constant. For example, below is a uniformly sampled in (a) while sampling more in the near field in (b). In (b), the projected areas are more evenly spaced compared to (a).
+Camera frustum doesn’t scatter objects uniformly along the line of vision. It’s scattered more often in the near field and the far field, such that the probability density of projected area is constant. For example, below is a uniformly sampled in (a) while sampling more in the near field in (b). In (b), the projected areas are more evenly spaced compared to (a).
 
-For the same object, itâs more likely to be sampled near `distance_min` than `distance_max` such that a position that gives a projection ten pixels wide has the same possibility to be sampled with a position that gives a projection twenty pixels wide.
+For the same object, it’s more likely to be sampled near `distance_min` than `distance_max` such that a position that gives a projection ten pixels wide has the same possibility to be sampled with a position that gives a projection twenty pixels wide.
 
 Such a distance is given by:
 

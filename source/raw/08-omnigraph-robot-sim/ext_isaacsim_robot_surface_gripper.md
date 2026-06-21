@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/ext_isaa
 title: "Surface Gripper"
 section: "Robot Simulation"
 module: "08-omnigraph-robot-sim"
-checksum: "8643ed01168f1302"
-fetched: "2026-06-21T13:05:39"
+checksum: "b3f2c25d18f4a8d9"
+fetched: "2026-06-21T13:40:10"
 ---
 
 * [Robot Simulation](index.html)
@@ -48,13 +48,13 @@ The joints that are used to attach the gripper to the object are defined by the 
 
 * Joint must be enabled.
 * For all joints, Body 0 must be the same.
-* Joint must have âExclude from Articulationâ set to True. If this is not set, the surface gripper manager will set it to True at runtime.
+* Joint must have “Exclude from Articulation” set to True. If this is not set, the surface gripper manager will set it to True at runtime.
 
 ### Attachment Point API
 
 The joints that are defined by the `Attachment Points` property are automatically assigned the `Attachment API`. This API is responsible for providing additional attributes to the joint, which are necessary for the Surface Gripper Manager to handle the gripper. In the Attachment Point API, the following attributes are available:
 
-* `Clearance Offset`: This registers the distance from the joint to the parent objectâs surface. Since the surface gripper works by sending a raycast from the joint world position, this offset will be added to the raycast origin to avoid false positive hits with the parent object. If this offset is not defined, the raycast will start at the jointâs world position, and the gripper will automatically calculate and save the offset the first time it clears the parent object collider.
+* `Clearance Offset`: This registers the distance from the joint to the parent object’s surface. Since the surface gripper works by sending a raycast from the joint world position, this offset will be added to the raycast origin to avoid false positive hits with the parent object. If this offset is not defined, the raycast will start at the joint’s world position, and the gripper will automatically calculate and save the offset the first time it clears the parent object collider.
 * `Forward Axis`: This registers which joint axis will be used to attempt to close the gripper. The default value is `X`.
 
 These additional attributes can be found within the Raw USD Properties section of the Property tab.
@@ -137,7 +137,7 @@ print(status)  # Open, Closed, or Closing
 
 ### Controlling the Gripper
 
-The Gripper State is controlled through the `open` and `close` methods of the interface. Alternatively, thereâs also the `set_gripper_action` method, which receives a numeric value between -1 and 1, where `< -0.3` will open the gripper, `> 0.3` will close it, and anything in between will be ignored.
+The Gripper State is controlled through the `open` and `close` methods of the interface. Alternatively, there’s also the `set_gripper_action` method, which receives a numeric value between -1 and 1, where `< -0.3` will open the gripper, `> 0.3` will close it, and anything in between will be ignored.
 
 ```python
 gripper_interface.close_gripper(gripper_prim_path)
@@ -166,7 +166,7 @@ To run the example:
 
 1. Press the **Load** button. The scene should begin playing.
 2. You can move the gantry with the gamepad axes, or by manually editing the gantry joint target positions.
-3. Move the gantry near some cube or set of cubes, and click on the âOpen/Closeâ button - the button label reflects the current gripper state. The gripper can also be closed by the down face button on the gamepad (e.g. X on PlayStation controllers, or A on Xbox controllers).
+3. Move the gantry near some cube or set of cubes, and click on the “Open/Close” button - the button label reflects the current gripper state. The gripper can also be closed by the down face button on the gamepad (e.g. X on PlayStation controllers, or A on Xbox controllers).
 4. The gripper will attempt to close on the cubes, and if successful, the cubes will be grasped by the gripper.
 5. Lift the gantry. The cubes remain grasped by the gripper unless forces are excessive, in which case the gripper constraint may break.
 
@@ -221,7 +221,7 @@ Joint properties for `suction_joint`.
 
 The D6 joint exposes six degrees of freedom that can be configured independently. To simulate suction-cup compliance, you can set linear limits along the suction direction so the cup can sag or compress under load, and rotational limits so the grasped object can bend or twist at the contact point. Higher stiffness produces a stiffer grasp and adding damping prevents oscillation. Together these let you model elastic deformation without true soft-body physics.
 
-In this example, we add small limits of about -5 to 5 degrees for each rotation axis and 0.01 meters for the Z axis limit to allow for some compliance along the gripperâs normal axis. Additionally, add a `Z Axis Translation Drive` by clicking **+ Add > Physics > Z Axis Translation Drive**. Set the `Stiffness` to `1000` and the `Damping` to `100`. These values can be tuned for your specific application.
+In this example, we add small limits of about -5 to 5 degrees for each rotation axis and 0.01 meters for the Z axis limit to allow for some compliance along the gripper’s normal axis. Additionally, add a `Z Axis Translation Drive` by clicking **+ Add > Physics > Z Axis Translation Drive**. Set the `Stiffness` to `1000` and the `Damping` to `100`. These values can be tuned for your specific application.
 
 **AttachmentPointAPI on** `suction_joint`
 
@@ -279,11 +279,11 @@ attachment_points_rel.SetTargets([Sdf.Path(suction_joint_path)])
 gripper_prim.GetAttribute(robot_schema.Attributes.MAX_GRIP_DISTANCE.name).Set(0.01)
 ```
 
-`create_surface_gripper` is the same function the UI uses when you pick **Create** > **Isaac** > **Robots** > **Surface Gripper**; it picks a free prim name such as `SurfaceGripper` or `SurfaceGripper_01`. For lower-level control, call `robot_schema.CreateSurfaceGripper` directly â see [Creating a Surface Gripper fully in code](#isaac-surface-grippers-code-snippets).
+`create_surface_gripper` is the same function the UI uses when you pick **Create** > **Isaac** > **Robots** > **Surface Gripper**; it picks a free prim name such as `SurfaceGripper` or `SurfaceGripper_01`. For lower-level control, call `robot_schema.CreateSurfaceGripper` directly — see [Creating a Surface Gripper fully in code](#isaac-surface-grippers-code-snippets).
 
 OmniGraph
 
-Ensure youâve either completed the **GUI** or **Code** tab first. A Surface Gripper canât be created in an OmniGraph, but it can be controlled by logic within a graph. As shown below, the **Surface Gripper** node can be used to toggle the gripper between open and closed states and entirely enable/disable the gripper.
+Ensure you’ve either completed the **GUI** or **Code** tab first. A Surface Gripper can’t be created in an OmniGraph, but it can be controlled by logic within a graph. As shown below, the **Surface Gripper** node can be used to toggle the gripper between open and closed states and entirely enable/disable the gripper.
 
 1. Open **Window** > **Graph Editors** > **Action Graph** and choose **New Action Graph**.
 2. In the graph search field, find **Surface Gripper** and add it to the graph.
@@ -294,8 +294,8 @@ Ensure youâve either completed the **GUI** or **Code** tab first. A Surface
 
 ### Save the customized robot
 
-The stacking demo references your USD at `/World/robot`, so the robot must be the USDâs **Default Prim**
-and must live at the root of the file â not nested under a `/World` scope.
+The stacking demo references your USD at `/World/robot`, so the robot must be the USD’s **Default Prim**
+and must live at the root of the file — not nested under a `/World` scope.
 
 1. In the Stage tree, drag `/World/ur10` to the root so it becomes `/ur10`.
 2. Right-click `/ur10` and choose **Set as Default Prim**.

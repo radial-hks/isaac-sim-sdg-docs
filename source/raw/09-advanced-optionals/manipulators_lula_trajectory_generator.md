@@ -4,7 +4,7 @@ title: "Lula Trajectory Generator"
 section: "Manipulators"
 module: "09-advanced-optionals"
 checksum: "f27f584c6a284594"
-fetched: "2026-06-21T13:05:42"
+fetched: "2026-06-21T13:40:12"
 ---
 
 * [Robot Simulation](../robot_simulation/index.html)

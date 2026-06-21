@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/physics/simulation_fundam
 title: "Simulation Fundamentals"
 section: "物理"
 module: "06-simready-assets"
-checksum: "92498e5aeee907c3"
-fetched: "2026-06-21T11:55:34"
+checksum: "2a1d2029cfe493ed"
+fetched: "2026-06-21T13:40:29"
 ---
 
 * [Physics](index.html)
@@ -41,31 +41,31 @@ print(physics_attr.Get())
 physics_attr.Set(10.0)
 ```
 
-In some cases, you may need to have additional parameters when casting the Prim to a given API, for example, [Joint State](https://docs.omniverse.nvidia.com/kit/docs/omni_usd_schema_physics/latest/class_physx_schema_joint_state_a_p_i.html#afff2009176797852a1389d7244caa875) does require the joint type (âPrismaticâ, or âAngularâ, for instance). In these cases the C++ signature will contain a âTfTokenâ type. Replace it with a basic string and it should work in Python.
+In some cases, you may need to have additional parameters when casting the Prim to a given API, for example, [Joint State](https://docs.omniverse.nvidia.com/kit/docs/omni_usd_schema_physics/latest/class_physx_schema_joint_state_a_p_i.html#afff2009176797852a1389d7244caa875) does require the joint type (“Prismatic”, or “Angular”, for instance). In these cases the C++ signature will contain a “TfToken” type. Replace it with a basic string and it should work in Python.
 
-If you need to know the attribute name of some physics attribute you see on the UI, Hover over the attribute in the properties panel, and it will show its name in the tooltip. The attribute name standard is `schema_name:attribute_name`, so for example something like `physics:velocity` on a rigid body means itâs using the Physics Rigid Body API and the attribute name is `velocity`, so the corresponding attribute getter would be `UsdPhysics.RigidBodyAPI(prim).GetVelocityAttr()`.
+If you need to know the attribute name of some physics attribute you see on the UI, Hover over the attribute in the properties panel, and it will show its name in the tooltip. The attribute name standard is `schema_name:attribute_name`, so for example something like `physics:velocity` on a rigid body means it’s using the Physics Rigid Body API and the attribute name is `velocity`, so the corresponding attribute getter would be `UsdPhysics.RigidBodyAPI(prim).GetVelocityAttr()`.
 
 ## Simulation Timeline
 
-Simulation time **differs** from real-time. Depending on system configuration and the size of the simulated environment, each time step may be computed faster or slower than the time itâs simulating, resulting in a warped speed if results are presented sequentially (often, physics simulation in Isaac Sim is faster than real-time). To mitigate this, Isaac Sim is configured by default with a limiter to match real-time speed.
+Simulation time **differs** from real-time. Depending on system configuration and the size of the simulated environment, each time step may be computed faster or slower than the time it’s simulating, resulting in a warped speed if results are presented sequentially (often, physics simulation in Isaac Sim is faster than real-time). To mitigate this, Isaac Sim is configured by default with a limiter to match real-time speed.
 
 Moreover, the simulation may run at a faster pace than rendering, meaning there may be more than one simulation time-step occurring in the background for every rendered frame. In the simplified example below, the simulation is set to run at 120 time steps per second, while rendering is set to 60 frames per second, resulting in two physics steps per rendered frame:
 
 Note
 
-The physics step time doesnât necessarily coincide with system time (from the simulation start). In cases where the simulation can run faster than real-time, itâs possible to run an accelerated version of the simulation in a timeline without rendering or frame-rate blocking.
+The physics step time doesn’t necessarily coincide with system time (from the simulation start). In cases where the simulation can run faster than real-time, it’s possible to run an accelerated version of the simulation in a timeline without rendering or frame-rate blocking.
 
-Ideally, simulation and rendering would match or be multiples of each other, but when this isnât the case, each rendered frame may contain an uneven number of simulation timesteps. For example, simulation set to 100 steps per second, rendering set to 30 frames per second, resulting in most render updates having 3 simulation steps but occasionally 4 in a frame.
+Ideally, simulation and rendering would match or be multiples of each other, but when this isn’t the case, each rendered frame may contain an uneven number of simulation timesteps. For example, simulation set to 100 steps per second, rendering set to 30 frames per second, resulting in most render updates having 3 simulation steps but occasionally 4 in a frame.
 
 There are three event streams on the timeline (among a few others, but these are notably the most relevant for Isaac Sim). You can subscribe directly to Simulation Events or to Frame update events, either pre or post-rendering. OmniGraph nodes are typically updated on a pre-render event, but there are ways to set them to update on different events, such as every physics step.
 
 ### Configuring Frame Rate
 
-The stageâs **Timecodes per second** can be configured by adjusting the current stage metadata. In the **Layer** tab, select the **Root Layer**, and in the properties panel modify the **Timecodes per second** property. Under the GUI default `/app/player/useFixedTimeStepping=true`, the timeline uses `1 / TimeCodesPerSecond` as its per-tick `dt`, so this value sets the simulationâs wall-clock playback rate as well as the recorded animation rate. The physics step rate is configured separately on the Physics Scene (see **Configuring Simulation Timesteps** below); for the relationship between the three rates, see [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships).
+The stage’s **Timecodes per second** can be configured by adjusting the current stage metadata. In the **Layer** tab, select the **Root Layer**, and in the properties panel modify the **Timecodes per second** property. Under the GUI default `/app/player/useFixedTimeStepping=true`, the timeline uses `1 / TimeCodesPerSecond` as its per-tick `dt`, so this value sets the simulation’s wall-clock playback rate as well as the recorded animation rate. The physics step rate is configured separately on the Physics Scene (see **Configuring Simulation Timesteps** below); for the relationship between the three rates, see [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships).
 
 ### Configuring Simulation Timesteps
 
-Simulation steps per second are determined in the Physics Scene. If thereâs no Physics scene in your stage, it uses the default value, which is 60 steps per second.
+Simulation steps per second are determined in the Physics Scene. If there’s no Physics scene in your stage, it uses the default value, which is 60 steps per second.
 
 To add a Simulation Scene element:
 
@@ -94,9 +94,9 @@ Verify that the Xform is now be a rigid body, although you may not see much beca
 You can fix that by nesting a Cube in it:
 
 1. **Create** > **Mesh** > **Cube**, and drag it into the Xform.
-2. Ensure the cubeâs Translate is set to [0,0,0.5].
+2. Ensure the cube’s Translate is set to [0,0,0.5].
 
-After youâve completed the same setup as the screenshot above, hit play and see what happens:
+After you’ve completed the same setup as the screenshot above, hit play and see what happens:
 
 try {
 var kalturaPlayer = KalturaPlayer.setup({
@@ -113,17 +113,17 @@ console.error(e.message)
 
 Review the following:
 
-* Notice how the Z position gets updated as the object falls - this is because we are highlighting the rigid body directly. Try again selecting the cube, and youâll notice that it doesnât change.
+* Notice how the Z position gets updated as the object falls - this is because we are highlighting the rigid body directly. Try again selecting the cube, and you’ll notice that it doesn’t change.
 * The cube falls straight through the ground. We need to let the simulation know it needs to collide with other objects.
 
 ### Colliders
 
-To make our rigid body collide, you must indicate to the simulation that you want it to. For that, thereâs the Collider API.
+To make our rigid body collide, you must indicate to the simulation that you want it to. For that, there’s the Collider API.
 
 1. Select the Cube prim, and click on the **Add Button** > **Physics** > **Collider**.
 2. Run the simulation again and verify that the rigid body stops at the ground.
 
-Colliders can also be added to non-movable objects. Letâs experiment:
+Colliders can also be added to non-movable objects. Let’s experiment:
 
 1. Create a new cube and place it at Z=3.0.
 2. Then change its scale to [2,2,0.01] to create a 2x2 meter platform.
@@ -148,7 +148,7 @@ console.error(e.message)
 }
 
 With this example, you are solving some of the common issues of physics simulation. Because time is discretized, if objects move too fast, during one time-step the object is above the platform, and in the next it has completely passed through it, with no collision captured.
-This doesnât occur with the ground plane because it implements a âforce fieldâ that pushes penetrated objects towards the ground surface.
+This doesn’t occur with the ground plane because it implements a “force field” that pushes penetrated objects towards the ground surface.
 
 To remedy this, enable an option in the physics scene called **Enable CCD** (Continuous Collision Detection). CCD sweeps the object from one pose to the next. This option must also be enabled in the rigid body itself:
 
@@ -183,8 +183,8 @@ This is a debug view of the collision shape.
 
 You can also view a solid display of the colliders by opening the Physics debug menu:
 1. **Window** > **Simulation** > **Debug**.
-2. In the debug window, scroll to âCollision Mesh Debug Visualizationâ.
-3. Check âSolid Mesh Collision Visualizationâ.
+2. In the debug window, scroll to “Collision Mesh Debug Visualization”.
+3. Check “Solid Mesh Collision Visualization”.
 4 Verify that when you select the torus, its shape displays solidly.
 
 |  |  |
@@ -208,7 +208,7 @@ Fewer convex hulls typically results in higher performance.
 
 In the Simulation Debug tab, you can also increase the Explode View distance to split the collider shapes and better understand how the composition is made.
 
-The Collider drop-down contains more options to explore, like Bounding Cube and Sphere - the cheapest collisions possible, and a mode âSphere Approximationâ, which is similar to Convex decomposition but directly uses a group of spheres instead of conforming meshes.
+The Collider drop-down contains more options to explore, like Bounding Cube and Sphere - the cheapest collisions possible, and a mode “Sphere Approximation”, which is similar to Convex decomposition but directly uses a group of spheres instead of conforming meshes.
 
 Note
 
@@ -241,7 +241,7 @@ To assign a physics material:
 2. Scroll to the Collider settings.
 3. In Physics Materials on Selected Models, select the desired material. The list only allows picking materials that have physics properties.
 
-Note that you may also add a physics material to a render material with **âAddâ** > **Physics** > **Rigid Body Material** and assign the material in the render material section; the physics properties will be picked up.
+Note that you may also add a physics material to a render material with **“Add”** > **Physics** > **Rigid Body Material** and assign the material in the render material section; the physics properties will be picked up.
 
 #### Compliant Contacts
 
@@ -261,7 +261,7 @@ Robots are typically composed of multiple jointed rigid bodies. Joints create co
 
 You must configure the relative pose of the joint frames for each body to be jointed. Find more details, in particular the local scaling aspect of joint frames in the [Joint Frames Section](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/joints.html#jointframes "(in Omni Physics)").
 
-Note that when creating a joint through the UI, the jointâs frames are set to match the pose of the second rigid body selected for the creation.
+Note that when creating a joint through the UI, the joint’s frames are set to match the pose of the second rigid body selected for the creation.
 
 Now create a joint as follows:
 
@@ -270,7 +270,7 @@ Now create a joint as follows:
 
 For this tutorial, use the **Revolute Joint** type. Because the Torus was selected second, the joint is at its center.
 
-You will notice a circle on-screen, representing the origin and range of motion for the joint. If you start the simulation now, the Torus and Cube fall together. When the torus hits the ground, the cube stops moving. Itâs in a stable position, but if you nudge it, it moves down in a circular pattern. Interact with the cube by pressing shift and left-clicking the cube.
+You will notice a circle on-screen, representing the origin and range of motion for the joint. If you start the simulation now, the Torus and Cube fall together. When the torus hits the ground, the cube stops moving. It’s in a stable position, but if you nudge it, it moves down in a circular pattern. Interact with the cube by pressing shift and left-clicking the cube.
 
 Check the properties panel and review the following attributes:
 

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/gui/reference_keyboard_sh
 title: "Keyboard Shortcuts Reference"
 section: "概念"
 module: "01-concepts"
-checksum: "5b918f2a6f1ded48"
-fetched: "2026-06-21T12:48:03"
+checksum: "a51cecb47596e5e1"
+fetched: "2026-06-21T13:39:50"
 ---
 
 * Keyboard Shortcuts Reference
@@ -13,16 +13,16 @@ fetched: "2026-06-21T12:48:03"
 
 # Keyboard Shortcuts Reference
 
-Keyboard shortcuts can reduce the amount of clicking one must do by providing âhot keysâ that allow for âone touchâ operation.
+Keyboard shortcuts can reduce the amount of clicking one must do by providing “hot keys” that allow for “one touch” operation.
 
 ## Most Commonly Used Shortcuts
 
 The gizmos for manipulating an object are on the left hand side toolbar.
 
-> * Press âWâ or click on the Move Gizmo to drag and move, for example, a Cube. You can move it in only one axis by clicking on the arrows and drag, in two axes by clicking on the colored squares and drag, or in all three axes by clicking on the dot in the center of the gizmo and drag.
-> * Press âEâ or click on the Rotate Gizmo to rotate.
-> * Press âRâ or click on the Scale Gizmo to scale. You can scale in one dimension by clicking on the the arrows and drag, two dimensions by clicking on the colored squares and drag, or in all three dimensions by clicking on the circle in the center of the gizmo and drag.
-> * Press âESCAPEâ to deselect an object.
+> * Press “W” or click on the Move Gizmo to drag and move, for example, a Cube. You can move it in only one axis by clicking on the arrows and drag, in two axes by clicking on the colored squares and drag, or in all three axes by clicking on the dot in the center of the gizmo and drag.
+> * Press “E” or click on the Rotate Gizmo to rotate.
+> * Press “R” or click on the Scale Gizmo to scale. You can scale in one dimension by clicking on the the arrows and drag, two dimensions by clicking on the colored squares and drag, or in all three dimensions by clicking on the circle in the center of the gizmo and drag.
+> * Press “ESCAPE” to deselect an object.
 
 ## Viewport Controls
 
@@ -37,8 +37,8 @@ The gizmos for manipulating an object are on the left hand side toolbar.
 | Scroll Wheel | Opt + RMB | Zoom |
 | LMB |  | Select |
 | ESCAPE |  | Deselect |
-| Select + âFâ |  | Zoom Camera to Selected Objects |
-| Deselect + âFâ |  | Zoom Camera to All |
+| Select + ‘F’ |  | Zoom Camera to Selected Objects |
+| Deselect + ‘F’ |  | Zoom Camera to All |
 | Opt + LMB |  | Orbit about the Viewport Center |
 | MMB (Hold) |  | Pan |
 | RMB (Hold) |  | Pivot Camera |

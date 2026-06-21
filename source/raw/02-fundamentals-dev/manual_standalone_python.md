@@ -4,7 +4,7 @@ title: "Standalone Python"
 section: "Python 脚本"
 module: "02-fundamentals-dev"
 checksum: "74eb06359f98fe33"
-fetched: "2026-06-21T12:48:07"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Python Scripting and Tutorials](index.html)

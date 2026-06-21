@@ -2,7 +2,7 @@
 
 > Omniverse Kit Extension 从零搭建：模板、搜索、更新、调试
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 10
 
 ---
@@ -74,7 +74,7 @@ In each template root directory, there is a folder called `./scripts` where all 
       class is meant to fulfill most use-cases without modification.
       In extension.py, useful standard callback functions are created that the user may complete in ui\_builder.py.
 * ui\_builder.py
-  :   This file is the userâs main entrypoint into the template. Here, the user can see useful callback functions that have been
+  :   This file is the user’s main entrypoint into the template. Here, the user can see useful callback functions that have been
       set up for them, and they may also create UI elements that are hooked up to user-defined callback functions. This file is
       the most thoroughly documented, and the user should read through it before making serious modification.
 
@@ -174,7 +174,7 @@ script the simple pick-and-place task shown below.
 
 The implementation details of the UI match the *Loaded Scenario Template*, and so this section focuses
 on the implementation of script-like behavior. Long-running functions that check in on every frame
-can be written using Pythonâs yield/generator framework. A function `my_script()` is implemented in
+can be written using Python’s yield/generator framework. A function `my_script()` is implemented in
 the file `scenario.py` that contains the sequence of `goto_position()`, `open_gripper_franka()`, and
 `close_gripper_franka()` function calls. The `my_script()` function makes use of `yield` and `yield from` statements.
 This allows `my_script()` to be wrapped in a generator with `self._script_generator = self.my_script()`.
@@ -280,12 +280,12 @@ On this page
 
 The command-line interface (CLI) extension templates allow you to scaffold new Isaac Sim extensions from the terminal using `./repo.sh template new`. Four templates cover the most common extension patterns:
 
-* **Python extension** â Minimal Python-only extension with `extension.py`, docs, and test scaffolding.
-* **UI extension** â Python extension with **Examples Browser** integration, **Load World**/**Reset** controls, physics callbacks, and custom UI using the experimental `BaseSample` and `BaseSampleUITemplate` classes.
-* **C++ extension** â Extension with a Carbonite C++ plugin, pybind11 Python bindings, and a Python wrapper.
-* **OmniGraph extension** â Extension with C++ and Python OmniGraph Node (OGN) definitions, a Carbonite plugin, pybind11 bindings, and OGN build integration.
+* **Python extension** — Minimal Python-only extension with `extension.py`, docs, and test scaffolding.
+* **UI extension** — Python extension with **Examples Browser** integration, **Load World**/**Reset** controls, physics callbacks, and custom UI using the experimental `BaseSample` and `BaseSampleUITemplate` classes.
+* **C++ extension** — Extension with a Carbonite C++ plugin, pybind11 Python bindings, and a Python wrapper.
+* **OmniGraph extension** — Extension with C++ and Python OmniGraph Node (OGN) definitions, a Carbonite plugin, pybind11 bindings, and OGN build integration.
 
-The generator places all extensions in `source/extensions/`, and the build system discovers them automatically â no manual registration required.
+The generator places all extensions in `source/extensions/`, and the build system discovers them automatically — no manual registration required.
 
 ## Prerequisites
 
@@ -343,16 +343,16 @@ source/extensions/isaacsim.my.extension/
 
 **Key files to modify:**
 
-* `extension.py` â Add your startup/shutdown logic in `on_startup()` and `on_shutdown()`.
+* `extension.py` — Add your startup/shutdown logic in `on_startup()` and `on_shutdown()`.
 
 ### UI extension
 
 A Python extension with full UI and scene management. This template provides:
 
-* **Examples Browser integration** â Your extension appears under your chosen category in **Window > Examples Browser**.
-* **Load/Reset world controls** â Pre-built **Load World** and **Reset** buttons that manage the simulation lifecycle.
-* **Physics callbacks** â A `scenario.py` with `on_physics_step()` called every simulation step via `SimulationManager`.
-* **Custom UI** â A `ui.py` with an **Actions** frame where you add your own buttons and controls using `btn_builder` and other `UIElementWrapper` utilities.
+* **Examples Browser integration** — Your extension appears under your chosen category in **Window > Examples Browser**.
+* **Load/Reset world controls** — Pre-built **Load World** and **Reset** buttons that manage the simulation lifecycle.
+* **Physics callbacks** — A `scenario.py` with `on_physics_step()` called every simulation step via `SimulationManager`.
+* **Custom UI** — A `ui.py` with an **Actions** frame where you add your own buttons and controls using `btn_builder` and other `UIElementWrapper` utilities.
 
 The template uses the experimental APIs:
 
@@ -379,8 +379,8 @@ source/extensions/isaacsim.my.example/
 
 **Key files to modify:**
 
-* `scenario.py` â Add your simulation assets in `setup_scene()` and logic in `on_physics_step()`.
-* `ui.py` â Add custom buttons and controls in `build_extra_frames()`.
+* `scenario.py` — Add your simulation assets in `setup_scene()` and logic in `on_physics_step()`.
+* `ui.py` — Add custom buttons and controls in `build_extra_frames()`.
 
 ### C++ extension
 
@@ -409,10 +409,10 @@ The `binding_module` variable controls the pybind11 module name (e.g., `my_exten
 
 **Key files to modify:**
 
-* `IExample.h` â Define your Carbonite interface methods.
-* `ExamplePlugin.cpp` â Implement the interface.
-* `Bindings.cpp` â Expose additional methods to Python via pybind11.
-* `extension.py` â The interface is already acquired on startup; add your Python-side logic.
+* `IExample.h` — Define your Carbonite interface methods.
+* `ExamplePlugin.cpp` — Implement the interface.
+* `Bindings.cpp` — Expose additional methods to Python via pybind11.
+* `extension.py` — The interface is already acquired on startup; add your Python-side logic.
 
 ### OmniGraph extension
 
@@ -424,7 +424,7 @@ pairs in `python/nodes/`. The OGN build system auto-generates database classes a
 
 The Carbonite plugin implements `INITIALIZE_OGN_NODES()` / `RELEASE_OGN_NODES()` in `carbOnPluginStartup()` /
 `carbOnPluginShutdown()`. The pybind11 bindings expose `acquire_example_nodes_interface()` which `extension.py`
-calls on startup â this triggers the plugin to load and register the C++ OGN nodes.
+calls on startup — this triggers the plugin to load and register the C++ OGN nodes.
 
 Generated structure:
 
@@ -457,9 +457,9 @@ automatically derives the bindings module name from the extension name (e.g., `i
 
 **Key files to modify:**
 
-* `.ogn` files â Define node inputs, outputs, and metadata (JSON format).
-* `OgnExampleCpp.cpp` â Implement the `compute()` method for the C++ node.
-* `OgnExamplePython.py` â Implement the `compute()` method for the Python node.
+* `.ogn` files — Define node inputs, outputs, and metadata (JSON format).
+* `OgnExampleCpp.cpp` — Implement the `compute()` method for the C++ node.
+* `OgnExamplePython.py` — Implement the `compute()` method for the Python node.
 * To add more nodes, create new `.ogn` + `.cpp`/`.py` pairs in the appropriate `nodes/` directory.
 
 ## Tutorial: Creating and testing an extension
@@ -497,7 +497,7 @@ Rebuild the project so the new extension is included:
 ./build.sh
 ```
 
-The build system discovers the extension automatically â no manual registration required.
+The build system discovers the extension automatically — no manual registration required.
 A successful build ends with a summary similar to:
 
 ```python
@@ -511,7 +511,7 @@ _build/linux-x86_64/release/exts/isaacsim.my.hello/
 ```
 
 If the build fails, re-run with `./build.sh -v` for verbose output and inspect the first error
-message â subsequent errors are usually cascading consequences of the first.
+message — subsequent errors are usually cascading consequences of the first.
 
 ### Step 3: Run the startup test
 
@@ -579,10 +579,10 @@ After enabling the extension, open **Window > Examples Browser**. Your extension
 the category you selected at generation time (e.g., `Examples`). Selecting it opens a panel with
 **Load World** and **Reset** buttons:
 
-* Click **Load World** â the simulation should load the default scene defined in
+* Click **Load World** — the simulation should load the default scene defined in
   `scenario.py::setup_scene()` (a grid ground plane referenced from
   `Isaac/Environments/Grid/default_environment.usd`) and physics callbacks become active.
-* Click **Reset** â the world should return to its initial state and physics callbacks stop.
+* Click **Reset** — the world should return to its initial state and physics callbacks stop.
 
 Replace the body of `setup_scene()` and `on_physics_step()` to drive your own simulation.
 
@@ -677,7 +677,7 @@ For Continuous Integration (CI) automation, the full pipeline is:
    ./tests/tests-<extension_name>.sh
    ```
 
-Playback files use TOML (Tomâs Obvious, Minimal Language) format to specify the template and variable
+Playback files use TOML (Tom’s Obvious, Minimal Language) format to specify the template and variable
 values. The section header names the template (one of `isaacsim-python-extension`,
 `isaacsim-ui-extension`, `isaacsim-cpp-extension`, `isaacsim-omnigraph-extension`):
 
@@ -692,7 +692,7 @@ category = "Sensors"
 
 The `templates/tests/` directory contains pre-defined playback files
 (`test_python_extension.toml`, `test_ui_extension.toml`, `test_cpp_extension.toml`,
-`test_omnigraph_extension.toml`) used for CI build verification â copy one as a starting point
+`test_omnigraph_extension.toml`) used for CI build verification — copy one as a starting point
 when wiring up your own pipeline.
 
 ## Template variables
@@ -710,7 +710,7 @@ All templates share a common set of variables:
 | `python_module` | Auto-derived | Same as `extension_name` |
 | `python_module_path` | Auto-derived | Dots replaced with slashes (e.g., `isaacsim/sensors/lidar`) |
 | `python_module_toplevel` | Auto-derived | First segment of `extension_name` (e.g., `isaacsim`) |
-| `current_date` | Auto-generated | Todayâs date |
+| `current_date` | Auto-generated | Today’s date |
 
 Note
 
@@ -721,11 +721,11 @@ derives the pybind11 module name from `extension_name`.
 
 After generating an extension, always:
 
-1. **Build** â `./build.sh`
-2. **Test** â `cd _build/linux-x86_64/release && ./tests/tests-<extension_name>.sh`
+1. **Build** — `./build.sh`
+2. **Test** — `cd _build/linux-x86_64/release && ./tests/tests-<extension_name>.sh`
 
 For C++ and OmniGraph templates, the build compiles the Carbonite plugin and pybind11 bindings.
-If the build fails, check that the `premake5.lua` include paths match your extensionâs directory layout.
+If the build fails, check that the `premake5.lua` include paths match your extension’s directory layout.
 
 ## Troubleshooting
 
@@ -735,12 +735,12 @@ If the build fails, check that the `premake5.lua` include paths match your exten
 
 **C++ plugin not loading**
 :   Ensure the `[[native.plugin]]` section in `extension.toml` includes `path = "bin/*.plugin"`.
-    Without this, Kit cannot find the `.so` plugin file in the extensionâs `bin/` directory.
+    Without this, Kit cannot find the `.so` plugin file in the extension’s `bin/` directory.
 
 **C++ OGN nodes not registering**
 :   The Carbonite plugin must be started for `INITIALIZE_OGN_NODES()` to run. This happens when
     `acquire_example_nodes_interface()` is called from the pybind11 bindings in `extension.py`.
-    If the C++ nodes donât appear in `og.get_registered_nodes()`, verify that:
+    If the C++ nodes don’t appear in `og.get_registered_nodes()`, verify that:
 
     * `Bindings.cpp` has a `defineInterfaceClass<IExampleNodes>` call
     * `extension.py` imports and calls `acquire_example_nodes_interface()` in `on_startup()`
@@ -754,11 +754,11 @@ If the build fails, check that the `premake5.lua` include paths match your exten
 **Stubgen failure during build**
 :   The stubgen step may fail with `generic_type: type "X" is already registered` errors.
     This is a known issue with the pybind11 stub generator when multiple extensions share type names.
-    The build itself succeeds â only the `.pyi` stub generation fails, which does not affect runtime.
+    The build itself succeeds — only the `.pyi` stub generation fails, which does not affect runtime.
 
-**Template replay fails with âThis should not be encounteredâ**
+**Template replay fails with “This should not be encountered”**
 :   This means `.omniverse_eula_accepted.txt` is missing from the repository root. The template
-    generatorâs playback frontend cannot answer the EULA prompt interactively, so it raises an
+    generator’s playback frontend cannot answer the EULA prompt interactively, so it raises an
     exception in its `select()` method. Fix by creating the file:
 
     ```python
@@ -805,7 +805,7 @@ On this page
 The [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) is a Visual Studio Code extension that provides development support for NVIDIA Omniverse in general and Isaac Sim in particular.
 One of its features is the generation of advanced extension templates.
 
-Isaac Sim VS Code Editionâs Extension template generator wizard
+Isaac Sim VS Code Edition’s Extension template generator wizard
 
 Extension templates can be generated in the following forms:
 
@@ -839,14 +839,14 @@ Note
 
 The folder containing the extension to be created had to be listed in the Isaac Sim extension search path in order to be discoverable.
 
-If this is not the case, you can use the Isaac Simâs Extensions Manager (*Window > Extensions* menu) to add it.
+If this is not the case, you can use the Isaac Sim’s Extensions Manager (*Window > Extensions* menu) to add it.
 Click on the hamburger icon in the Extensions Manager, and then *Settings* in the sub-menu, to add the path to the folder containing your extensions.
 
 Hint
 
 For convenience, the `extsUser` folder at the root of the Isaac Sim installation is listed in the extension search path, so it is recommended to create the extension in that folder.
 
-Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*âs extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
+Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*’s extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
 
 * **Ext. name**: Given extension name. E.g. `my.custom.extension`.
 * **Ext. path**: Folder path that will contain the extension. E.g.: `PATH_TO_ISAAC_SIM/extsUser`.
@@ -894,10 +894,10 @@ Get the [Isaac Sim Open-Source Application](https://github.com/isaac-sim/IsaacSi
 
 Hint
 
-For convenience, the `source/extensions` folder at the root of the Isaac Sim Open-Source Application is configured, in the build system, as a place to search for the extensionsâ source code.
-Therefore, it is recommended to create the extension there. **Create it if the folder doesnât exist**.
+For convenience, the `source/extensions` folder at the root of the Isaac Sim Open-Source Application is configured, in the build system, as a place to search for the extensions’ source code.
+Therefore, it is recommended to create the extension there. **Create it if the folder doesn’t exist**.
 
-Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*âs extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
+Open, in the VS Code Editor, the *Isaac Sim VS Code Edition*’s extension template generator wizard (*Templates > Extension*) and fill/check, at least, the following fields:
 
 * **Ext. name**: Given extension name. E.g. `my.custom.extension`.
 * **Ext. path**: Folder path that will contain the extension source code. E.g.: `PATH_TO_ISAAC_SIM_APPLICATION/source/extensions`.
@@ -1068,16 +1068,16 @@ There are three **Search Mode** options: **File Index**, **AI**, and **WSCache**
 
 * **File Index** is only available if the *anchor path* is a folder in your local file system or an `Assets/Isaac/*` S3 folder. This option enables the following filter:
 
-  + **Name** filter - Enter text in the **Name** field to return only assets whose pathnames match the text. For example, enter ârobotâ to have the search API return all assets whose pathname contains ârobotâ.
+  + **Name** filter - Enter text in the **Name** field to return only assets whose pathnames match the text. For example, enter “robot” to have the search API return all assets whose pathname contains “robot”.
   + **Index Files** button - Click this to index files in the selected folder. This is needed if there are files in a local folder that have been added since the last index, or if you exited and restarted Isaac Sim since the last index. (You do not need to click this button if you select an `Assets/Isaac/*` S3 folder.)
 * **AI** is only available for folders in AWS S3 buckets. This option enables the following filters:
 
   + **Relevance cutoff** filter - Enter a value between 0 and 1 to set the minimum relevance score for assets to be returned. Assets with a relevance score lower than the specified cutoff are not returned. (*Relevance* is a measure of how well the asset matches the search query. A value of 1.0 is the highest confidence match possible, a value of 0.0 is no match, and values in between are partial matches. *Relevance* is discussed in more detail in [How to Display and Filter on Relevance Scores](#how-to-display-and-filter-on-relevance-scores).)
-  + **Phrase** filter - Enter a natural language phrase to search for assets that match the phrase. For example, enter âa robot with a cameraâ to have the search API return only assets whose properties match that description.
+  + **Phrase** filter - Enter a natural language phrase to search for assets that match the phrase. For example, enter “a robot with a camera” to have the search API return only assets whose properties match that description.
   + These filters are cumulative. The search API returns all assets that match ALL of the filters you specify, and excludes all others.
 * **WSCache** (SimReady Workspace Cache) is only available for folders in the `/SimReady` S3 bucket. This option enables the following filters:
 
-  + **Name** filter - Enter text for **Name** to return assets whose pathnames match the text. For example, enter ârobotâ to have the search API return assets whose pathnames match ârobotâ.
+  + **Name** filter - Enter text for **Name** to return assets whose pathnames match the text. For example, enter “robot” to have the search API return assets whose pathnames match “robot”.
   + **Profile** filter - Click the entry field and select a SimReady profile from the dropdown menu to return assets that match the selected profile.
   + **Feature** filter - Click the entry field and select a SimReady feature from the dropdown menu to return assets that match the selected feature.
   + **Tag** filter - Click the entry field and select a SimReady tag from the dropdown menu to return assets with the associated tag.
@@ -1097,7 +1097,7 @@ When you have scoped your search, selected a search mode, entered relevant searc
 
 The following examples assume you have already opened the **SimReady Asset Search** control panel.
 
-#### Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain âFanucâ.
+#### Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain “Fanuc”.
 
 1. Select the `Assets/Isaac/Robots` folder in the directory tree.
 2. Select **File Index** for **Search Mode**.
@@ -1116,12 +1116,12 @@ Unless you select a local folder, there is no need to click **Index Files**.
 4. Enter *robots* for **Phrase**.
 5. Click **Search**.
 
-#### Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is âProp-Robotics-Isaacâ and **Feature** is âFET003\_BASE\_NEUTRALâ.
+#### Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is “Prop-Robotics-Isaac” and **Feature** is “FET003\_BASE\_NEUTRAL”.
 
 1. Select the `Assets/Isaac/SimReady` S3 folder in the directory tree.
 2. Select **WSCache** for **Search Mode**.
-3. Select âProp-Robotics-Isaacâ for **Profile**.
-4. Select âFET003\_BASE\_NEUTRALâ for **Feature**.
+3. Select “Prop-Robotics-Isaac” for **Profile**.
+4. Select “FET003\_BASE\_NEUTRAL” for **Feature**.
 5. Select the **Match All** checkbox.
 6. Click **Search**.
 
@@ -1131,7 +1131,7 @@ In this example, the SimReady Content Browser lists only those assets that satis
 
 When you set **Search Mode** to **AI**, the SimReady Content Browser displays a relevance score for each asset it lists. The search API calculates this score; it is a measure of how well the asset matched the search query. A value of 1.0 is the highest confidence match possible, a value of 0.0 is no match, and values in between are partial matches. Use these scores to help you identify which assets are good matches for your search criteria.
 
-Setting **Search Mode** to **AI** exposes a **Relevance cutoff** filter. Use this filter to limit the results to matches for which the search API has higher confidence. Enter your minimum acceptable relevance score in the control panelâs **Relevance cutoff** field. This restricts the search results to assets whose relevance scores are equal to or greater than the value you specify.
+Setting **Search Mode** to **AI** exposes a **Relevance cutoff** filter. Use this filter to limit the results to matches for which the search API has higher confidence. Enter your minimum acceptable relevance score in the control panel’s **Relevance cutoff** field. This restricts the search results to assets whose relevance scores are equal to or greater than the value you specify.
 
 On this page
 
@@ -1143,9 +1143,9 @@ On this page
   + [How to Index Local Files](#how-to-index-local-files)
   + [How to Initiate a Search](#how-to-initiate-a-search)
   + [Examples](#examples)
-    - [Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain âFanucâ.](#search-for-assets-in-the-assets-isaac-robots-folder-whose-pathnames-contain-fanuc)
+    - [Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain “Fanuc”.](#search-for-assets-in-the-assets-isaac-robots-folder-whose-pathnames-contain-fanuc)
     - [Search for assets in the `Assets/Isaac` S3 folder or its subfolders that are robots.](#search-for-assets-in-the-assets-isaac-s3-folder-or-its-subfolders-that-are-robots)
-    - [Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is âProp-Robotics-Isaacâ and **Feature** is âFET003\_BASE\_NEUTRALâ.](#search-for-assets-in-the-assets-isaac-simready-s3-folder-whose-profile-is-prop-robotics-isaac-and-feature-is-fet003-base-neutral)
+    - [Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is “Prop-Robotics-Isaac” and **Feature** is “FET003\_BASE\_NEUTRAL”.](#search-for-assets-in-the-assets-isaac-simready-s3-folder-whose-profile-is-prop-robotics-isaac-and-feature-is-fet003-base-neutral)
 * [How to Display and Filter on Relevance Scores](#how-to-display-and-filter-on-relevance-scores)
 
 ---
@@ -1175,7 +1175,7 @@ Follow these steps to add an extension from a local folder path or a new extensi
 
    Click the dropdown in the top right and select the settings option.
 
-   * If you have the extension in a local folder, you can add the path to the extension by clicking the green **+** button in the **Extension Search Paths** section at the top and then typing the full path to the parent folder containing the extensionâs folder. This path can contain multiple extensions.
+   * If you have the extension in a local folder, you can add the path to the extension by clicking the green **+** button in the **Extension Search Paths** section at the top and then typing the full path to the parent folder containing the extension’s folder. This path can contain multiple extensions.
    * If you want to add a new extension registry, click the green **+** button in the **Extension Registries** section at the bottom and type in the full URL of the extension registry.
 3. **Search for the Extension**
 
@@ -1314,7 +1314,7 @@ libraries already loaded in the Isaac Sim process.
 ## Prerequisites
 
 Inside the standalone installer, locate the bundled packman launcher and
-the manifest that pins all of Isaac Simâs external dependencies:
+the manifest that pins all of Isaac Sim’s external dependencies:
 
 ```python
 <isaac-sim-install>/kit/dev/tools/packman/packman
@@ -1324,7 +1324,7 @@ the manifest that pins all of Isaac Simâs external dependencies:
 Open `all-deps.packman.xml` and find the `usd-release` dependency
 entry. It contains an inner `<package>` element whose `name` and
 `version` attributes identify the exact OpenUSD build that
-Isaac Sim was compiled against â for example:
+Isaac Sim was compiled against — for example:
 
 ```python
 <dependency name="usd-release">
@@ -1349,7 +1349,7 @@ must be able to `#include <Python.h>`.
 
 ## Pull Matching USD Dev Artifacts With Packman
 
-Create a small packman project file next to your plugin source â for
+Create a small packman project file next to your plugin source — for
 example, `usd-dev.packman.xml`:
 
 ```python
@@ -1395,7 +1395,7 @@ the `usd-release` packman drop does not include them. A plain
 `find_package(pxr REQUIRED)` therefore fails to resolve. The recipe in
 the next section sidesteps this by pointing CMake at `include/`
 directly. **Do not** link your plugin against the libraries under
-`_deps/usd-release/lib/` â see the next section.
+`_deps/usd-release/lib/` — see the next section.
 
 ## Compile and Link
 
@@ -1411,7 +1411,7 @@ The build needs:
 * Linker flag `-Wl,--no-as-needed` around those libraries.
 
 The same paths and flags apply to any build system, but how each tool
-expresses them differs â some accept absolute filesystem paths
+expresses them differs — some accept absolute filesystem paths
 directly, others encourage wrapping pre-built libraries as targets or
 referencing them through workspace-local paths. Use whatever mechanism
 is idiomatic for your build system. As an example, in CMake:
@@ -1460,7 +1460,7 @@ Two link-line details matter:
 
 1. `-Wl,--no-as-needed` is required around the `usd_*` libraries.
    Without it, the linker drops any USD library whose symbols are only
-   referenced through the C++ vtable and RTTI of your plugin class â and
+   referenced through the C++ vtable and RTTI of your plugin class — and
    for any class discovered by `Plug` that is essentially every USD
    library you depend on. The result is a plugin that links cleanly but
    fails inside `Plug::Load()` at runtime with undefined-symbol errors
@@ -1478,14 +1478,14 @@ your plugin during stage open.
 
 ## Plugin Source Requirements
 
-USDâs plugin registration macros (`TF_REGISTRY_FUNCTION`,
+USD’s plugin registration macros (`TF_REGISTRY_FUNCTION`,
 `TF_REGISTRY_FUNCTION_WITH_TAG`) expand at global namespace scope and
 reference unqualified `Tf_RegistryInit` and the per-library tag
 `MFB_ALT_PACKAGE_NAME`. Two source-level requirements are not
 optional:
 
 1. Define three preprocessor macros at compile time, one per plugin
-   target. They identify the plugin to USDâs registry; the values are
+   target. They identify the plugin to USD’s registry; the values are
    conventionally the same short name in three case variants. In CMake,
    this looks like:
 
@@ -1521,7 +1521,7 @@ Without either, the plugin will not compile.
 
 OpenUSD encodes its release version in the `pxrInternal_v0_*` inline
 namespace. A plugin compiled against one OpenUSD release cannot be loaded
-into a process that links a different OpenUSD release â the mangled
+into a process that links a different OpenUSD release — the mangled
 symbol names will not match, and you will see undefined-symbol errors
 inside `Plug::Load()`.
 
@@ -1550,11 +1550,11 @@ relying on this table.
 
 ## Related
 
-* [CLI extension templates](../utilities/cli_extension_templates.html#isaac-sim-cli-extension-templates) â in-tree C++ Kit extension
+* [CLI extension templates](../utilities/cli_extension_templates.html#isaac-sim-cli-extension-templates) — in-tree C++ Kit extension
   development against the Isaac Sim source repository. Use this
   workflow when you can build inside the repo; use the page above when
   you can only build against the standalone installer.
-* [USD Tools](usd_tools.html#isaac-sim-app-usd-tools) â GUI-side USD tooling shipped with
+* [USD Tools](usd_tools.html#isaac-sim-app-usd-tools) — GUI-side USD tooling shipped with
   Isaac Sim.
 
 On this page

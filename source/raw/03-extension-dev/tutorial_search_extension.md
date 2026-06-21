@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/utilities/tutorial_search
 title: "Search Extension Tutorial"
 section: "Extension 管理"
 module: "03-extension-dev"
-checksum: "1a03c5068b6f189e"
-fetched: "2026-06-21T12:48:11"
+checksum: "35fd089991c621d0"
+fetched: "2026-06-21T13:39:56"
 ---
 
 * SimReady Content Browser Search Extension Tutorial
@@ -66,16 +66,16 @@ There are three **Search Mode** options: **File Index**, **AI**, and **WSCache**
 
 * **File Index** is only available if the *anchor path* is a folder in your local file system or an `Assets/Isaac/*` S3 folder. This option enables the following filter:
 
-  + **Name** filter - Enter text in the **Name** field to return only assets whose pathnames match the text. For example, enter ârobotâ to have the search API return all assets whose pathname contains ârobotâ.
+  + **Name** filter - Enter text in the **Name** field to return only assets whose pathnames match the text. For example, enter “robot” to have the search API return all assets whose pathname contains “robot”.
   + **Index Files** button - Click this to index files in the selected folder. This is needed if there are files in a local folder that have been added since the last index, or if you exited and restarted Isaac Sim since the last index. (You do not need to click this button if you select an `Assets/Isaac/*` S3 folder.)
 * **AI** is only available for folders in AWS S3 buckets. This option enables the following filters:
 
   + **Relevance cutoff** filter - Enter a value between 0 and 1 to set the minimum relevance score for assets to be returned. Assets with a relevance score lower than the specified cutoff are not returned. (*Relevance* is a measure of how well the asset matches the search query. A value of 1.0 is the highest confidence match possible, a value of 0.0 is no match, and values in between are partial matches. *Relevance* is discussed in more detail in [How to Display and Filter on Relevance Scores](#how-to-display-and-filter-on-relevance-scores).)
-  + **Phrase** filter - Enter a natural language phrase to search for assets that match the phrase. For example, enter âa robot with a cameraâ to have the search API return only assets whose properties match that description.
+  + **Phrase** filter - Enter a natural language phrase to search for assets that match the phrase. For example, enter “a robot with a camera” to have the search API return only assets whose properties match that description.
   + These filters are cumulative. The search API returns all assets that match ALL of the filters you specify, and excludes all others.
 * **WSCache** (SimReady Workspace Cache) is only available for folders in the `/SimReady` S3 bucket. This option enables the following filters:
 
-  + **Name** filter - Enter text for **Name** to return assets whose pathnames match the text. For example, enter ârobotâ to have the search API return assets whose pathnames match ârobotâ.
+  + **Name** filter - Enter text for **Name** to return assets whose pathnames match the text. For example, enter “robot” to have the search API return assets whose pathnames match “robot”.
   + **Profile** filter - Click the entry field and select a SimReady profile from the dropdown menu to return assets that match the selected profile.
   + **Feature** filter - Click the entry field and select a SimReady feature from the dropdown menu to return assets that match the selected feature.
   + **Tag** filter - Click the entry field and select a SimReady tag from the dropdown menu to return assets with the associated tag.
@@ -95,7 +95,7 @@ When you have scoped your search, selected a search mode, entered relevant searc
 
 The following examples assume you have already opened the **SimReady Asset Search** control panel.
 
-#### Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain âFanucâ.
+#### Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain “Fanuc”.
 
 1. Select the `Assets/Isaac/Robots` folder in the directory tree.
 2. Select **File Index** for **Search Mode**.
@@ -114,12 +114,12 @@ Unless you select a local folder, there is no need to click **Index Files**.
 4. Enter *robots* for **Phrase**.
 5. Click **Search**.
 
-#### Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is âProp-Robotics-Isaacâ and **Feature** is âFET003\_BASE\_NEUTRALâ.
+#### Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is “Prop-Robotics-Isaac” and **Feature** is “FET003\_BASE\_NEUTRAL”.
 
 1. Select the `Assets/Isaac/SimReady` S3 folder in the directory tree.
 2. Select **WSCache** for **Search Mode**.
-3. Select âProp-Robotics-Isaacâ for **Profile**.
-4. Select âFET003\_BASE\_NEUTRALâ for **Feature**.
+3. Select “Prop-Robotics-Isaac” for **Profile**.
+4. Select “FET003\_BASE\_NEUTRAL” for **Feature**.
 5. Select the **Match All** checkbox.
 6. Click **Search**.
 
@@ -129,7 +129,7 @@ In this example, the SimReady Content Browser lists only those assets that satis
 
 When you set **Search Mode** to **AI**, the SimReady Content Browser displays a relevance score for each asset it lists. The search API calculates this score; it is a measure of how well the asset matched the search query. A value of 1.0 is the highest confidence match possible, a value of 0.0 is no match, and values in between are partial matches. Use these scores to help you identify which assets are good matches for your search criteria.
 
-Setting **Search Mode** to **AI** exposes a **Relevance cutoff** filter. Use this filter to limit the results to matches for which the search API has higher confidence. Enter your minimum acceptable relevance score in the control panelâs **Relevance cutoff** field. This restricts the search results to assets whose relevance scores are equal to or greater than the value you specify.
+Setting **Search Mode** to **AI** exposes a **Relevance cutoff** filter. Use this filter to limit the results to matches for which the search API has higher confidence. Enter your minimum acceptable relevance score in the control panel’s **Relevance cutoff** field. This restricts the search results to assets whose relevance scores are equal to or greater than the value you specify.
 
 On this page
 
@@ -141,7 +141,7 @@ On this page
   + [How to Index Local Files](#how-to-index-local-files)
   + [How to Initiate a Search](#how-to-initiate-a-search)
   + [Examples](#examples)
-    - [Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain âFanucâ.](#search-for-assets-in-the-assets-isaac-robots-folder-whose-pathnames-contain-fanuc)
+    - [Search for assets in the `Assets/Isaac/Robots` folder whose pathnames contain “Fanuc”.](#search-for-assets-in-the-assets-isaac-robots-folder-whose-pathnames-contain-fanuc)
     - [Search for assets in the `Assets/Isaac` S3 folder or its subfolders that are robots.](#search-for-assets-in-the-assets-isaac-s3-folder-or-its-subfolders-that-are-robots)
-    - [Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is âProp-Robotics-Isaacâ and **Feature** is âFET003\_BASE\_NEUTRALâ.](#search-for-assets-in-the-assets-isaac-simready-s3-folder-whose-profile-is-prop-robotics-isaac-and-feature-is-fet003-base-neutral)
+    - [Search for assets in the `Assets/Isaac/SimReady` S3 folder whose **Profile** is “Prop-Robotics-Isaac” and **Feature** is “FET003\_BASE\_NEUTRAL”.](#search-for-assets-in-the-assets-isaac-simready-s3-folder-whose-profile-is-prop-robotics-isaac-and-feature-is-fet003-base-neutral)
 * [How to Display and Filter on Relevance Scores](#how-to-display-and-filter-on-relevance-scores)

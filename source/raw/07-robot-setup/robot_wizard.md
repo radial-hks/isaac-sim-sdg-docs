@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/robot_wizard.
 title: "Robot Wizard"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "e496fece9d10d0a7"
-fetched: "2026-06-21T13:05:34"
+checksum: "8f45f566f74e175b"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](index.html)
@@ -18,7 +18,7 @@ Warning
 
 **Deprecated:** The Robot Wizard extension (`isaacsim.robot_setup.wizard`) is deprecated since Isaac Sim 6.0.0 and will be removed in a future release.
 
-The Robot Wizard was designed to speed up the process of setting up a robot in Isaac Sim. It allowed you to define the robotâs hierarchy, organize the meshes, add colliders, joints and joint drives. It automatically applied relevant Schemas and APIs without needing to manually edit the USD files. It separated the robot into different configurations based on the desired structure described in [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure).
+The Robot Wizard was designed to speed up the process of setting up a robot in Isaac Sim. It allowed you to define the robot’s hierarchy, organize the meshes, add colliders, joints and joint drives. It automatically applied relevant Schemas and APIs without needing to manually edit the USD files. It separated the robot into different configurations based on the desired structure described in [Asset Structure](asset_structure.html#isaac-sim-app-reference-asset-structure).
 
 The following sections explain the UI and functions behind each step in the wizard. To observe the wizard in action, refer to [Robot Wizard Tutorial [Deprecated]](robot_wizard_tutorials.html#isaac-sim-app-robot-wizard-tutorials).
 
@@ -28,18 +28,18 @@ The Robot Wizard guides you through the following steps:
 
 ^ **File Preparation**: Load the robot model and allocate folders and files for the final robot files.
 
-* **Organize Link Hierarchy**: Define the robotâs hierarchy and link the parent-mesh child relationships.
-* **Colliders**: Examine colliders to the robotâs links.
-* **Joints and Drives**: Add joints to the robotâs links and drives and configure their properties.
+* **Organize Link Hierarchy**: Define the robot’s hierarchy and link the parent-mesh child relationships.
+* **Colliders**: Examine colliders to the robot’s links.
+* **Joints and Drives**: Add joints to the robot’s links and drives and configure their properties.
 
 The resulting files of the Robot Wizard are all placed in a folder, which you will have a chance to indicate in the wizard. The folder contains the following files:
 
 * <robot\_root\_folder>/configurations:
-  :   + The folder that contains the robotâs configurations USD files. The configurations are the different variants of the robot, such as a robot with or without physics, with sensors, and different end-effectors.
+  :   + The folder that contains the robot’s configurations USD files. The configurations are the different variants of the robot, such as a robot with or without physics, with sensors, and different end-effectors.
 * <robot\_root\_folder>/configurations/<robot-name>\_base.usd
-  :   + The configuration file that contains the robotâs base mesh and hierarchy.
+  :   + The configuration file that contains the robot’s base mesh and hierarchy.
 * <robot\_root\_folder>/configurations/<robot-name>\_physics.usd
-  :   + The configuration file that contains the robotâs physics setup in a sublayer. This includes the rigid body definition, colliders, joints, and drives.
+  :   + The configuration file that contains the robot’s physics setup in a sublayer. This includes the rigid body definition, colliders, joints, and drives.
 * <robot\_root\_folder>/configurations/<robot-name>\_robot.usd
   :   + The configuration file that contains the robot schema, labeling the robot and its components.
 * <robot\_root\_folder>/<robot-name>.usd:
@@ -51,12 +51,12 @@ The resulting files of the Robot Wizard are all placed in a folder, which you wi
 
 | Ref # | Panel Name | Description |
 | --- | --- | --- |
-| 1 | Wizard Steps | The Wizard Steps panel shows your progress. You can click on each step to navigate to it. It will also advance itself as you go through the wizard. The names of the steps will change to green when itâs completed. |
+| 1 | Wizard Steps | The Wizard Steps panel shows your progress. You can click on each step to navigate to it. It will also advance itself as you go through the wizard. The names of the steps will change to green when it’s completed. |
 | 2 | Additional Tools | You may open other tools for robot setup here. |
 | 3 | Step Pages | Each step in the wizard has a page. You can navigate through the pages by clicking on the step name in the Wizard Steps panel. |
 | 4 | Next Button | The Next button will advance you to the next step in the wizard. |
 | 5 | Start Over | The Button will reset the wizard to the first step. |
-| 6 | Launch On Startup | When checked, the wizard will launch automatically when Isaac Sim is started. Itâs defaulted to not start. |
+| 6 | Launch On Startup | When checked, the wizard will launch automatically when Isaac Sim is started. It’s defaulted to not start. |
 | 7 | Help | Open the documentation page for the wizard in your browser. |
 
 ### Add Robot
@@ -80,7 +80,7 @@ This page allows you to indicate the folder where the robot files will be saved.
 1. The folder will be created in the format of `<Root Folder>/configurations/<robot-name>_base.usd`. You can change the name and the root folder.
 2. The stage that is currently open will not be the final robot file. You may choose to save a copy of it in the `<Root Folder>/stage_copy.usd`. If it has unsaved changes, you will also have the choice to save it and overwrite the existing path.
 3. The **Robot Files Allocated** displays the filepaths that will be created in the folder. If filepaths text turned purple in color, it means that the file already exists, proceeding without changing the filepath will overwrite the existing file. If it turns red, it means you do not have permission to write to the folder.
-4. In the case where you are examining a robot thatâs loaded to the stage as a reference or payload, the **Additional Information** section contains the path to the original file that the robot is loaded from.
+4. In the case where you are examining a robot that’s loaded to the stage as a reference or payload, the **Additional Information** section contains the path to the original file that the robot is loaded from.
 5. Click **Robot Hierarchy** to advance to the next step.
 
 ### Robot Hierarchy
@@ -90,9 +90,9 @@ Assets in Isaac Sim are organized based on how the robot moves. All the componen
 | Ref # | Panel Name | Description |
 | --- | --- | --- |
 | 1 | New Link Structure | This section displays the new structure of the robot. This structure is based on the links. It might have existing links populated for you if you have chosen a robot type in [Add Robot](#isaac-sim-app-tutorial-wizard-add-robot). You can always add or remove links by using the buttons in the lower right hand corner. |
-| 2 | Current Link Structure | This section displays the current structure of the robot thatâs on stage. |
-| 3 | Parent | The Parent button will be enabled after youâve selected a target link from the window above and source links from the window below. Clicking on the button will parent the source link to the target link. |
-| 4 | Unparent | The Unparent button will be enabled after youâve selected a link from the window above. Clicking on the button will unparent the link from its parent. |
+| 2 | Current Link Structure | This section displays the current structure of the robot that’s on stage. |
+| 3 | Parent | The Parent button will be enabled after you’ve selected a target link from the window above and source links from the window below. Clicking on the button will parent the source link to the target link. |
+| 4 | Unparent | The Unparent button will be enabled after you’ve selected a link from the window above. Clicking on the button will unparent the link from its parent. |
 | 5 | Add/Remove Links | The Add/Remove buttons will add/remove links from the new link structure. |
 | 6 | Clear All/Copy All | The Clear All button will clear all the links in the new link structure. The Copy All button will copy all the links in the current link structure to the new link structure. |
 | 7 | Instructions | Expand to observe the instructions for the current step. |
@@ -103,7 +103,7 @@ Assets in Isaac Sim are organized based on how the robot moves. All the componen
 * The reorganization is focused on grouping different mesh components under a single parent when they belong to the same link. If you have robots where the mesh is nested under many layers of Xforms, choose only the mesh prim and move that to the top window, and delete (right click > delete) any leftover empty parent prims in the bottom window (old stage) where the mesh has been moved.
 * It will also ignore any non-mesh prims, such as materials, joints, and textures. Those will be directly copied over to the new file under relevant parent prims.
 * Any mesh that is not parented at the end will also get automatically copied over to the new file, unless explicitly deleted.
-* The position of the links is set to align with a âreference childâ prim. The reference child prim can be indicated by right clicking on the link in the top window, and selecting **Mark as Reference Child**. If no reference child is indicated through the stage, the linkâs origin will be positioned at the origin of the first child. Consequently, the transform of all the child meshes will be recalculated to be relative to the parent linkâs location.
+* The position of the links is set to align with a “reference child” prim. The reference child prim can be indicated by right clicking on the link in the top window, and selecting **Mark as Reference Child**. If no reference child is indicated through the stage, the link’s origin will be positioned at the origin of the first child. Consequently, the transform of all the child meshes will be recalculated to be relative to the parent link’s location.
 * No actual prims are created or modified while on this page. All changes are implemented when clicking the **Add Colliders** button to move on to the next step.
 
 ### Add Colliders
@@ -132,7 +132,7 @@ No USD changes are made while on this page. All changes are implemented when cli
 
 This page finishes the process of creating the robot and creates the final robot files.
 
-You must indicate the link or joint to be the âArticulation Rootâ. Think of this as the start of the joint chain. For fixed based robots, this is usually the fixed joint. For mobile robots, this is usually the chassis.
+You must indicate the link or joint to be the “Articulation Root”. Think of this as the start of the joint chain. For fixed based robots, this is usually the fixed joint. For mobile robots, this is usually the chassis.
 
 You can also choose to add a minimal environment to the main robot USD file. This can be a ground, a default light, and a PhysicsScene. These will be added outside of the Default Prim of the file, so that they will only show up when the original robot file is opened directly on stage, but not when the robot is added as a reference or payload into another scene. They are particularly useful for debugging purposes.
 

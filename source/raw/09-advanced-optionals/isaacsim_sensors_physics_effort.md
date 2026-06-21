@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "Effort Sensor"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "b1737e20b3948747"
-fetched: "2026-06-21T13:05:43"
+checksum: "b2e915761b5d34fc"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -46,7 +46,7 @@ sensor = EffortSensor(path="/World/simple_articulation/Arm/RevoluteJoint", enabl
 
 Note
 
-The joint prim you pass in **is** the sensorâs prim â `EffortSensor` does not author a separate USD prim in the **Stage** panel on construction. Effort readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
+The joint prim you pass in **is** the sensor’s prim — `EffortSensor` does not author a separate USD prim in the **Stage** panel on construction. Effort readings become available via `get_sensor_reading()` once the simulation is playing; check `reading.is_valid` after pressing **Play** to confirm the sensor is active.
 
 To modify sensor parameters, change class member variables such as `enabled` directly. To change the `dof_name` and `buffer_size` for readings, use the corresponding member functions, `update_dof_name` and `change_buffer_size`.
 
@@ -54,8 +54,8 @@ To modify sensor parameters, change class member variables such as `enabled` dir
 
 There are two methods for reading the sensor output:
 
-* `EffortSensor.get_sensor_reading()` â returns an `EffortSensorReading` object with `is_valid`, `time`, and `value`.
-* `EffortSensor.get_data()` â returns a structured dictionary with `value`, `is_valid`, `time`, and `physics_step`.
+* `EffortSensor.get_sensor_reading()` — returns an `EffortSensorReading` object with `is_valid`, `time`, and `value`.
+* `EffortSensor.get_data()` — returns a structured dictionary with `value`, `is_valid`, `time`, and `physics_step`.
 
 After you create the effort sensor, press **Play** to start the simulation and call the function below to get the sensor reading for the current frame:
 

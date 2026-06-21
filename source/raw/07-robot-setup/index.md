@@ -4,7 +4,7 @@ title: "Setup Tutorials Index"
 section: "Setup 教程"
 module: "07-robot-setup"
 checksum: "2305f4c02b03e78f"
-fetched: "2026-06-21T13:05:35"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](../robot_setup/index.html)

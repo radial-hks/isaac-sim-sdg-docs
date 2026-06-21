@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omniverse_usd/robot_schem
 title: "Robot Schema"
 section: "OpenUSD"
 module: "01-concepts"
-checksum: "40f0090d4be175b0"
-fetched: "2026-06-21T12:48:04"
+checksum: "7834aeaddef6477e"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * [Omniverse and USD](index.html)
@@ -18,8 +18,8 @@ The Robot Schema extends OpenUSD with a set of applied API schemas that describe
 
 The schema is implemented across two extensions:
 
-* `isaacsim.robot.schema` â Schema definitions, application helpers, and programmatic utilities for traversing and maintaining robot structures.
-* `isaacsim.robot.schema.ui` â Interactive [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) for viewing robot kinematic trees in multiple display modes, selectively masking and bypassing components, anchoring links to the world, and visualizing joint connections in the viewport.
+* `isaacsim.robot.schema` – Schema definitions, application helpers, and programmatic utilities for traversing and maintaining robot structures.
+* `isaacsim.robot.schema.ui` – Interactive [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) for viewing robot kinematic trees in multiple display modes, selectively masking and bypassing components, anchoring links to the world, and visualizing joint connections in the viewport.
 
 # Schema Overview
 
@@ -27,7 +27,7 @@ The Robot Schema defines five applied API schemas and two typed schema:
 
 | Schema | Purpose |
 | --- | --- |
-| **IsaacRobotAPI** | Root definition applied to the robotâs top-level prim. Holds metadata and ordered lists of links and joints. |
+| **IsaacRobotAPI** | Root definition applied to the robot’s top-level prim. Holds metadata and ordered lists of links and joints. |
 | **IsaacLinkAPI** | Flags a rigid body (or other simulated body) as a link in the robot composition. |
 | **IsaacJointAPI** | Flags a physics joint as part of the robot composition and carries DOF ordering information. |
 | **IsaacSiteAPI** | Marks a point of interest on the robot (tool mount, sensor location, end-effector frame). |
@@ -37,7 +37,7 @@ The Robot Schema defines five applied API schemas and two typed schema:
 
 ## Robot API
 
-`IsaacRobotAPI` is applied to the robotâs root prim and serves as the single source of truth for the robotâs composition and metadata.
+`IsaacRobotAPI` is applied to the robot’s root prim and serves as the single source of truth for the robot’s composition and metadata.
 
 **Relationships**
 
@@ -51,7 +51,7 @@ The Robot Schema defines five applied API schemas and two typed schema:
 
 | Attribute | Type | Description |
 | --- | --- | --- |
-| `isaac:description` | String | Free-form text describing the robotâs purpose and capabilities. |
+| `isaac:description` | String | Free-form text describing the robot’s purpose and capabilities. |
 | `isaac:namespace` | String | Unique namespace identifier used for component messaging. |
 | `isaac:robotType` | Token | Category of robot, such as `Manipulator`, `Humanoid`, or `Mobile Base`. |
 | `isaac:license` | Token | License under which the robot asset is distributed. |
@@ -92,7 +92,7 @@ In prior revisions, per-axis DOF offset attributes (`isaac:physics:Tr_X:DoFOffse
 
 ## Site API
 
-`IsaacSiteAPI` describes points of interest on the robot â tool attachment frames, sensor mount locations, end-effector reference frames, and similar.
+`IsaacSiteAPI` describes points of interest on the robot – tool attachment frames, sensor mount locations, end-effector reference frames, and similar.
 
 | Attribute | Type | Description |
 | --- | --- | --- |
@@ -107,7 +107,7 @@ Note
 
 ## Named Pose
 
-`IsaacNamedPose` is a typed prim schema (inheriting from `Xform`) that stores a reusable joint configuration for a segment of the robotâs kinematic chain. Each named pose captures the joints between a start link and an end link/site, the corresponding joint values, and the target end-effector transform encoded in the primâs Xform ops.
+`IsaacNamedPose` is a typed prim schema (inheriting from `Xform`) that stores a reusable joint configuration for a segment of the robot’s kinematic chain. Each named pose captures the joints between a start link and an end link/site, the corresponding joint values, and the target end-effector transform encoded in the prim’s Xform ops.
 
 Named poses are collected under a `Named_Poses` scope beneath the robot root prim and registered via the `isaac:robot:namedPoses` relationship on `IsaacRobotAPI`. They are created and managed through the [Robot Poser](../robot_setup/robot_poser.html#isaac-sim-robot-poser) UI or programmatically via the `isaacsim.robot.poser` API.
 
@@ -127,18 +127,18 @@ Named poses are collected under a `Named_Poses` scope beneath the robot root pri
 | `isaac:robot:pose:jointValues` | Float[] | Joint values in USD native units (degrees for revolute, meters for prismatic), ordered to match the `joints` relationship. |
 | `isaac:robot:pose:jointFixed` | Bool[] | Per-joint fixed flags. When `True`, the corresponding joint is held constant during IK solving. |
 
-Because `IsaacNamedPose` inherits from `Xform`, its translate and orient ops store the target end-effector pose in the robotâs coordinate frame. Moving the prim in the viewport updates this target, and the [Robot Poser](../robot_setup/robot_poser.html#isaac-sim-robot-poser) can track the primâs transform in real time to solve IK continuously.
+Because `IsaacNamedPose` inherits from `Xform`, its translate and orient ops store the target end-effector pose in the robot’s coordinate frame. Moving the prim in the viewport updates this target, and the [Robot Poser](../robot_setup/robot_poser.html#isaac-sim-robot-poser) can track the prim’s transform in real time to solve IK continuously.
 
 # Composing Robots
 
-Robot compositions are built by applying `IsaacRobotAPI` to each sub-robotâs root prim. The final assembly is achieved by either:
+Robot compositions are built by applying `IsaacRobotAPI` to each sub-robot’s root prim. The final assembly is achieved by either:
 
-* Adding a sub-robotâs root prim to the parent robotâs links and joints lists, which causes the parent to recursively include the sub-robotâs full kinematic tree.
-* Selecting specific links and joints from sub-robots and adding them directly to the parent robotâs lists.
+* Adding a sub-robot’s root prim to the parent robot’s links and joints lists, which causes the parent to recursively include the sub-robot’s full kinematic tree.
+* Selecting specific links and joints from sub-robots and adding them directly to the parent robot’s lists.
 
 # Applying the Robot Schema
 
-All robots in Isaac Simâs asset library and those imported through [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) or [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) have the Robot Schema pre-applied. For robots imported in prior versions or from external sources, the schema must be applied manually.
+All robots in Isaac Sim’s asset library and those imported through [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) or [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) have the Robot Schema pre-applied. For robots imported in prior versions or from external sources, the schema must be applied manually.
 
 ## Through the GUI
 
@@ -154,7 +154,7 @@ If the robot structure changes over time (for instance, new links or joints are 
 
 Note
 
-When applying the schema, if your asset follows the [Asset Structure](../robot_setup/asset_structure.html#isaac-sim-app-reference-asset-structure) guidelines, apply it either in the base layer or in a dedicated robot schema layer â not directly in the interface layer. Auto-population requires authored physics, so temporarily add the physics layer as a sublayer during schema application, then remove it before saving.
+When applying the schema, if your asset follows the [Asset Structure](../robot_setup/asset_structure.html#isaac-sim-app-reference-asset-structure) guidelines, apply it either in the base layer or in a dedicated robot schema layer – not directly in the interface layer. Auto-population requires authored physics, so temporarily add the physics layer as a sublayer during schema application, then remove it before saving.
 
 ## Through Code
 
@@ -203,7 +203,7 @@ The first collapsible section binds each scalar [Robot API](#isaac-sim-robot-sch
 | Field | Editor | Notes |
 | --- | --- | --- |
 | **Description** | Text field | Free-form text. Updated on field commit (Enter / focus loss). |
-| **License** | Drop-down | Populated from the schemaâs `allowedTokens` so only recognized SPDX-style identifiers can be selected. |
+| **License** | Drop-down | Populated from the schema’s `allowedTokens` so only recognized SPDX-style identifiers can be selected. |
 | **Namespace** | Text field | Used for component messaging. |
 | **Robot Type** | Drop-down with **(Other)** entry | Selecting **(Other)** appends a side text field for typing a custom token; selecting any predefined value clears the override. |
 | **Source** | Text field | URL or reference to the original asset. |
@@ -218,25 +218,25 @@ Each row shows:
 
 * A numeric index (only for direct children, not for sub-robot rows).
 * A grab handle for drag-and-drop reordering. Dragging a row reveals a horizontal drop indicator at the insertion point.
-* The target primâs display name. Hovering shows a tooltip with the full prim path. Double-clicking selects the prim on the stage.
+* The target prim’s display name. Hovering shows a tooltip with the full prim path. Double-clicking selects the prim on the stage.
 * A trailing remove button that drops the entry from the relationship.
 
 ### Adding entries
 
 The **Add Joint** and **Add Link** buttons open a stage prim picker pre-filtered to compatible prims:
 
-* **Add Joint** â shows prims with `IsaacJointAPI` or `IsaacRobotAPI`.
-* **Add Link** â shows prims with `IsaacLinkAPI`, `IsaacSiteAPI`, or `IsaacRobotAPI`.
+* **Add Joint** – shows prims with `IsaacJointAPI` or `IsaacRobotAPI`.
+* **Add Link** – shows prims with `IsaacLinkAPI`, `IsaacSiteAPI`, or `IsaacRobotAPI`.
 
 ### Sub-robot rows
 
-When a row targets a prim that itself has `IsaacRobotAPI`, a disclosure triangle appears next to the label. Expanding the row displays a read-only, indented preview of that sub-robotâs matching relationship â joints in the joints list, links in the links list. The preview recurses up to four levels deep so deeply nested compositions stay legible.
+When a row targets a prim that itself has `IsaacRobotAPI`, a disclosure triangle appears next to the label. Expanding the row displays a read-only, indented preview of that sub-robot’s matching relationship – joints in the joints list, links in the links list. The preview recurses up to four levels deep so deeply nested compositions stay legible.
 
 .
 Maintenance Toolbar
-ââââââ-
+——————-
 
-Two buttons at the bottom of the widget keep the relationships consistent with the underlying physics articulation and the assetâs layer stack:
+Two buttons at the bottom of the widget keep the relationships consistent with the underlying physics articulation and the asset’s layer stack:
 
 | Control | Behavior |
 | --- | --- |
@@ -248,11 +248,11 @@ Two buttons at the bottom of the widget keep the relationships consistent with t
 
 Selecting a prim with one of the other Robot Schema APIs surfaces a focused widget for that schema:
 
-* **Robot Link** (`IsaacLinkAPI`) â exposes the optional `isaac:nameOverride` attribute.
-* **Robot Joint** (`IsaacJointAPI`) â exposes `isaac:nameOverride`, `isaac:physics:DofOffsetOpOrder`, and the `isaac:actuator` flag.
-* **Robot Site** (`IsaacSiteAPI`) â exposes the site description and forward-axis token; available on any `Xformable` prim.
+* **Robot Link** (`IsaacLinkAPI`) – exposes the optional `isaac:nameOverride` attribute.
+* **Robot Joint** (`IsaacJointAPI`) – exposes `isaac:nameOverride`, `isaac:physics:DofOffsetOpOrder`, and the `isaac:actuator` flag.
+* **Robot Site** (`IsaacSiteAPI`) – exposes the site description and forward-axis token; available on any `Xformable` prim.
 
-Each widget has a remove button in its header that drops the schema and clears its authored properties. Use the **+ Add** menuâs `Isaac/Robot Schema/...` entries to apply any of these schemas to a new prim.
+Each widget has a remove button in its header that drops the schema and clears its authored properties. Use the **+ Add** menu’s `Isaac/Robot Schema/...` entries to apply any of these schemas to a new prim.
 
 # Parsing Robot Structure
 
@@ -321,11 +321,11 @@ from usd.schema.isaac.robot_schema import utils
 
 | Function | Description |
 | --- | --- |
-| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robotâs kinematic structure. Returns the root node. |
+| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robot’s kinematic structure. Returns the root node. |
 | `GetAllRobotLinks(stage, robot_link_prim, include_reference_points)` | Returns all links of the robot. Retrieves from schema relationships and supplements with any missing links discovered through articulation traversal. |
 | `GetAllRobotJoints(stage, robot_link_prim, parse_nested_robots)` | Returns all joints of the robot. Retrieves from schema relationships and supplements with any missing joints from articulation traversal. |
-| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a jointâs body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
-| `GetJointPose(robot_prim, joint_prim)` | Returns the jointâs pose as a 4x4 matrix in the robotâs coordinate frame. |
+| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a joint’s body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
+| `GetJointPose(robot_prim, joint_prim)` | Returns the joint’s pose as a 4x4 matrix in the robot’s coordinate frame. |
 | `GetLinksFromJoint(root, joint_prim)` | Given a tree root and a joint, returns two lists: links before the joint (toward the base) and links after the joint (toward the leaves). |
 | `PrintRobotTree(root, indent)` | Prints an indented text representation of the link tree to the console. |
 
@@ -366,16 +366,16 @@ Both functions accept:
 | `EnsurePrependListForRobotRelationships(robot_prim)` | Rebuilds `robotLinks` and `robotJoints` using USD prepend list operations for correct layering behavior. |
 | `RebuildRelationshipAsPrepend(prim, rel_name, targets)` | Low-level helper that rebuilds a single relationship using prepend list operations. |
 | `UpdateDeprecatedSchemas(robot_prim)` | Traverses the robot subtree and replaces `IsaacReferencePointAPI` with `IsaacSiteAPI`. Also migrates deprecated per-axis DOF offset attributes on joints. |
-| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single jointâs deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
+| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single joint’s deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
 
 ## Named Pose Query
 
 | Function | Description |
 | --- | --- |
-| `GetAllNamedPoses(stage, robot_prim)` | Returns all [IsaacNamedPose](#isaac-sim-robot-schema-named-pose) prims registered in the robotâs `namedPoses` relationship. |
+| `GetAllNamedPoses(stage, robot_prim)` | Returns all [IsaacNamedPose](#isaac-sim-robot-schema-named-pose) prims registered in the robot’s `namedPoses` relationship. |
 | `GetNamedPoseStartLink(named_pose_prim)` | Returns the start link path from the named pose. |
 | `GetNamedPoseEndLink(named_pose_prim)` | Returns the end link / site path from the named pose. |
-| `GetNamedPoseJoints(named_pose_prim)` | Returns the ordered list of joint paths in the poseâs kinematic chain. |
+| `GetNamedPoseJoints(named_pose_prim)` | Returns the ordered list of joint paths in the pose’s kinematic chain. |
 | `GetNamedPoseJointValues(named_pose_prim)` | Returns the stored joint values array (native USD units). |
 | `GetNamedPoseJointFixed(named_pose_prim)` | Returns the per-joint fixed flags array. |
 | `GetNamedPoseValid(named_pose_prim)` | Returns whether the stored pose is valid. |
@@ -420,7 +420,7 @@ The `math` module (`usd.schema.isaac.robot_schema.math`) provides foundational d
 
 ## Kinematic Chain
 
-The `kinematic_chain` module (`usd.schema.isaac.robot_schema.kinematic_chain`) provides the `KinematicChain` class that caches the robotâs kinematic tree and builds an ordered joint chain between a start and end prim for FK and IK computation.
+The `kinematic_chain` module (`usd.schema.isaac.robot_schema.kinematic_chain`) provides the `KinematicChain` class that caches the robot’s kinematic tree and builds an ordered joint chain between a start and end prim for FK and IK computation.
 
 | Method / Property | Description |
 | --- | --- |
@@ -429,7 +429,7 @@ The `kinematic_chain` module (`usd.schema.isaac.robot_schema.kinematic_chain`) p
 | `compute_fk_and_jacobian(q)` | Fused single-pass FK and spatial Jacobian computation. Returns `(Transform, 6xN Jacobian)`. |
 | `read_joint_states()` | Read current USD joint state for the chain joints. Returns a dict of prim-path to value (radians or meters). |
 | `teleport(joint_dict)` | Apply joint values by propagating FK body transforms through the kinematic tree. For use when simulation is stopped. |
-| `teleport_anchored(joint_dict)` | Apply joint values while keeping a fixed primâs world position unchanged. Handles backward (child-to-parent) joints by rigidly correcting the robot after FK propagation. |
+| `teleport_anchored(joint_dict)` | Apply joint values while keeping a fixed prim’s world position unchanged. Handles backward (child-to-parent) joints by rigidly correcting the robot after FK propagation. |
 | `joints` | Ordered list of `Joint` objects in the chain. |
 | `tree_root` | Cached kinematic tree root node. |
 
@@ -480,7 +480,7 @@ from isaacsim.robot.poser import (
 
 | Function | Description |
 | --- | --- |
-| `store_named_pose(stage, robot_prim, pose_name, pose_result)` | Creates an `IsaacNamedPose` prim, writes joint values, relationships, and the target Xform, and registers it in the robotâs `namedPoses` relationship. |
+| `store_named_pose(stage, robot_prim, pose_name, pose_result)` | Creates an `IsaacNamedPose` prim, writes joint values, relationships, and the target Xform, and registers it in the robot’s `namedPoses` relationship. |
 | `get_named_pose(stage, robot_prim, pose_name)` | Retrieves a stored pose as a `PoseResult` dataclass. |
 | `list_named_poses(stage, robot_prim)` | Returns the names of all named poses on the robot. |
 | `delete_named_pose(stage, robot_prim, pose_name)` | Removes the pose prim and its entry from the `namedPoses` relationship. |
@@ -504,11 +504,11 @@ from usd.schema.isaac.robot_schema import utils
 
 | Function | Description |
 | --- | --- |
-| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robotâs kinematic structure. Returns the root node. |
+| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robot’s kinematic structure. Returns the root node. |
 | `GetAllRobotLinks(stage, robot_link_prim, include_reference_points)` | Returns all links of the robot. Retrieves from schema relationships and supplements with any missing links discovered through articulation traversal. |
 | `GetAllRobotJoints(stage, robot_link_prim, parse_nested_robots)` | Returns all joints of the robot. Retrieves from schema relationships and supplements with any missing joints from articulation traversal. |
-| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a jointâs body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
-| `GetJointPose(robot_prim, joint_prim)` | Returns the jointâs pose as a 4x4 matrix in the robotâs coordinate frame. |
+| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a joint’s body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
+| `GetJointPose(robot_prim, joint_prim)` | Returns the joint’s pose as a 4x4 matrix in the robot’s coordinate frame. |
 | `GetLinksFromJoint(root, joint_prim)` | Given a tree root and a joint, returns two lists: links before the joint (toward the base) and links after the joint (toward the leaves). |
 | `PrintRobotTree(root, indent)` | Prints an indented text representation of the link tree to the console. |
 
@@ -549,7 +549,7 @@ Both functions accept:
 | `EnsurePrependListForRobotRelationships(robot_prim)` | Rebuilds `robotLinks` and `robotJoints` using USD prepend list operations for correct layering behavior. |
 | `RebuildRelationshipAsPrepend(prim, rel_name, targets)` | Low-level helper that rebuilds a single relationship using prepend list operations. |
 | `UpdateDeprecatedSchemas(robot_prim)` | Traverses the robot subtree and replaces `IsaacReferencePointAPI` with `IsaacSiteAPI`. Also migrates deprecated per-axis DOF offset attributes on joints. |
-| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single jointâs deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
+| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single joint’s deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
 
 # Asset Structure
 

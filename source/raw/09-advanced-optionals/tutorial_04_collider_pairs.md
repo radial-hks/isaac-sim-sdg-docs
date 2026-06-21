@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "Tutorial 04: Collider Pairs"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "8fdf4468ff755acd"
-fetched: "2026-06-21T13:05:45"
+checksum: "6b70aa8344b4ae1d"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:05:45"
 
 # Tutorial 4: Collider Pairs
 
-We inspected the asset structure and collision meshes. Now we tackle a question that makes or breaks this dexterous hand simulation: **which parts of the hand are allowed to collide with each other?** In the real world, a finger canât pass through the palm, but in simulation, overlapping collision geometry between links can create phantom contacts, jitter, and forces that blow the hand apart. **Filtered Pairs** in Isaac Sim let you turn off collision between specific rigid bodies so you keep the contacts that matter (finger on object, intentional finger-to-finger) and remove the ones that cause instability.
+We inspected the asset structure and collision meshes. Now we tackle a question that makes or breaks this dexterous hand simulation: **which parts of the hand are allowed to collide with each other?** In the real world, a finger can’t pass through the palm, but in simulation, overlapping collision geometry between links can create phantom contacts, jitter, and forces that blow the hand apart. **Filtered Pairs** in Isaac Sim let you turn off collision between specific rigid bodies so you keep the contacts that matter (finger on object, intentional finger-to-finger) and remove the ones that cause instability.
 
 ## Learning Objectives
 
@@ -32,13 +32,13 @@ In this tutorial, you will:
 
 ## Module 3.1: Understanding Filtered Pairs
 
-**Filtered Pairs** explicitly tell the physics engine: âDo not detect collision between these two rigid bodies.â In Isaac Sim, adjacent links (two links connected by a joint) in an articulation donât self-collide by default, but **non-adjacent** links do. As you will see, many of those non-adjacent links can have overlapping or very close collision geometry. In these scenarios, you can get:
+**Filtered Pairs** explicitly tell the physics engine: “Do not detect collision between these two rigid bodies.” In Isaac Sim, adjacent links (two links connected by a joint) in an articulation don’t self-collide by default, but **non-adjacent** links do. As you will see, many of those non-adjacent links can have overlapping or very close collision geometry. In these scenarios, you can get:
 
-* **Unrealistic forces** â The solver tries to resolve interpenetration between links that would never actually touch in the real mechanism.
-* **Instability** â The hand can jitter, jump, or blow apart as conflicting contacts fight each other.
-* **Wasted compute** â Simulating every anatomically possible self-contact is rarely necessary for grasping or manipulation.
+* **Unrealistic forces** — The solver tries to resolve interpenetration between links that would never actually touch in the real mechanism.
+* **Instability** — The hand can jitter, jump, or blow apart as conflicting contacts fight each other.
+* **Wasted compute** — Simulating every anatomically possible self-contact is rarely necessary for grasping or manipulation.
 
-So the goal is to **filter the problematic pairs** while keeping contacts that you care about (e.g. fingerâobject, or specific fingerâfinger contacts). Use filtered pairs judiciously: over-filtering can allow unrealistic interpenetration; under-filtering can cause instability. Weâll turn on self-collisions, run the [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector) to see which links overlap at rest, then author filters on **physics.usda**. The Physics Debugger is also available to view solid collision meshes in the viewport while you reason about a pair.
+So the goal is to **filter the problematic pairs** while keeping contacts that you care about (e.g. finger–object, or specific finger–finger contacts). Use filtered pairs judiciously: over-filtering can allow unrealistic interpenetration; under-filtering can cause instability. We’ll turn on self-collisions, run the [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector) to see which links overlap at rest, then author filters on **physics.usda**. The Physics Debugger is also available to view solid collision meshes in the viewport while you reason about a pair.
 
 ## Module 3.2: Enable self-collision and inspect pairs
 
@@ -62,15 +62,15 @@ You should now see the **physx.usda** layer highlighted green, indicating it is 
 
 1. In the *Stage* panel, select `r_base_link`. In the *Property* panel, scroll to **Articulation Root** and check **Self Collisions Enabled**.
 
-1. Press **Play** again. Links move erratically as overlapping collision geometry between non-adjacent links is now colliding, and the solver canât resolve it cleanly.
+1. Press **Play** again. Links move erratically as overlapping collision geometry between non-adjacent links is now colliding, and the solver can’t resolve it cleanly.
 
 ### Step 2: Run the Robot Self-Collision Detector
 
-With **Self Collisions Enabled** on the articulation root, the physics engine can evaluate which collider pairs overlap in the handâs current configuration. The detector surfaces those pairs in a docked panel so you can inspect them and conveniently toggle **Filtered Pair**.
+With **Self Collisions Enabled** on the articulation root, the physics engine can evaluate which collider pairs overlap in the hand’s current configuration. The detector surfaces those pairs in a docked panel so you can inspect them and conveniently toggle **Filtered Pair**.
 
 Note
 
-If **Self Collisions** on the articulation root are **disabled**, the tool reports no overlapping pairs from the collision engineâsee [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui). Keep self-collisions **on** for this tutorial.
+If **Self Collisions** on the articulation root are **disabled**, the tool reports no overlapping pairs from the collision engine—see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui). Keep self-collisions **on** for this tutorial.
 
 1. Press **Stop** if the simulation is still running so the hand returns to a stable pose for analysis.
 2. Open **Tools > Robotics > Asset Editors > Robot Self-Collision Detector**.
@@ -78,10 +78,10 @@ If **Self Collisions** on the articulation root are **disabled**, the tool repor
 4. Leave **Include environment collisions** off unless you have added props; we only need self-pairs for this exercise.
 5. Click **Check Collisions**. The table fills with **Rigid Body A** and **Rigid Body B** for each overlapping pair.
 
-1. Use the **search** field or column sort to find rows that involve the pinky and palmâfor example pairs that include `r_base_link` with `right_little_rubber_1`, and `right_little_1` with `right_little_rubber_2`. You will enable **Filtered Pair** on those rows in the next module.
+1. Use the **search** field or column sort to find rows that involve the pinky and palm—for example pairs that include `r_base_link` with `right_little_rubber_1`, and `right_little_1` with `right_little_rubber_2`. You will enable **Filtered Pair** on those rows in the next module.
 2. Click a row to **highlight both bodies** in the viewport with distinct outline colors so you can confirm which links the table refers to.
 
-1. Use the **focal** (crosshair) icons next to a body name to select that bodyâs collision prims in the *Stage* when you need a closer look.
+1. Use the **focal** (crosshair) icons next to a body name to select that body’s collision prims in the *Stage* when you need a closer look.
 
 Sorting, batch checkbox toggles, multi-row selection, and keyboard navigation are described in [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector).
 
@@ -101,9 +101,9 @@ Tip
 
 1. Open **Eye > Show by Type > Meshes** and turn **Meshes** off so the solid collision meshes are easier to see.
 
-1. In the *Stage* panel, deactivate the `right_little_1` link (lower pinky) to expose the overlapping collision shapes underneathâthe rubber pad and surrounding links.
+1. In the *Stage* panel, deactivate the `right_little_1` link (lower pinky) to expose the overlapping collision shapes underneath—the rubber pad and surrounding links.
 
-1. Identify where `right_little_rubber_1` (lower pinky rubber pad) overlaps with `r_base_link` (palm)âthat is where a problematic self-collision is likely to occur.
+1. Identify where `right_little_rubber_1` (lower pinky rubber pad) overlaps with `r_base_link` (palm)—that is where a problematic self-collision is likely to occur.
 
 In the image above, with the lower pinky link hidden, the lower pinky rubber pad (tan/sand color) overlaps and collides with the palm (yellow). This is an example of a pair we will filter out to ensure stable simulation.
 
@@ -113,13 +113,13 @@ The schematic below shows which rigid body pairs of the pinky we will filter in 
 
 ## Module 3.3: Adding Filtered Pairs
 
-Next, we filter two specific self-collision pairs that drive pinky instability: (1) the palm `r_base_link` and the pinkyâs lower rubber pad `right_little_rubber_1`, and (2) the lower pinky link `right_little_1` and the upper rubber pad `right_little_rubber_2`.
+Next, we filter two specific self-collision pairs that drive pinky instability: (1) the palm `r_base_link` and the pinky’s lower rubber pad `right_little_rubber_1`, and (2) the lower pinky link `right_little_1` and the upper rubber pad `right_little_rubber_2`.
 
 Note
 
-It doesnât matter whether the filtered pair is a parent or child link; USDâs Physics Filtered Pairs block collisions between the specified pairs in both directions.
+It doesn’t matter whether the filtered pair is a parent or child link; USD’s Physics Filtered Pairs block collisions between the specified pairs in both directions.
 
-To follow Asset Structure 3.0, filtered pairs use the neutral Physics APIâauthor on **physics.usda**.
+To follow Asset Structure 3.0, filtered pairs use the neutral Physics API—author on **physics.usda**.
 
 ### Set **physics.usda** as the authoring layer
 
@@ -140,7 +140,7 @@ Tip
 
 Multi-select rows and toggle one **Filtered Pair** checkbox to apply the same state to every selected row; see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui).
 
-Toggling **Filtered Pair** authors `UsdPhysics.FilteredPairsAPI` on the active layerâthe **physics.usda** authoring layer you set above.
+Toggling **Filtered Pair** authors `UsdPhysics.FilteredPairsAPI` on the active layer—the **physics.usda** authoring layer you set above.
 
 Note
 
@@ -168,7 +168,7 @@ The following steps add the same two relationships by editing **Filtered Pairs**
 
 1. In the pop-up that appears, browse or type to select `right_little_rubber_1`.
 
-After these steps, collisions between the palm (`r_base_link`) and the pinkyâs lower rubber pad (`right_little_rubber_1`) are filtered out.
+After these steps, collisions between the palm (`r_base_link`) and the pinky’s lower rubber pad (`right_little_rubber_1`) are filtered out.
 
 #### Lower pinky link and upper rubber pad
 
@@ -185,7 +185,7 @@ This tutorial covered:
 
 * How **Filtered Pairs** work and when to use them to prevent invalid self-collisions.
 * Enabling self-collisions, running the **Robot Self-Collision Detector** to list overlapping pairs and mark **Filtered Pair**, and using the **Physics Debugger** for solid collision mesh visualization when helpful.
-* Authoring the pinkyâs two filters on **physics.usda** via the detector or the *Property* panel on `r_base_link` and `right_little_1`.
+* Authoring the pinky’s two filters on **physics.usda** via the detector or the *Property* panel on `r_base_link` and `right_little_1`.
 
 ## Next Steps
 

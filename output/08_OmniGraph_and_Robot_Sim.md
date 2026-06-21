@@ -2,7 +2,7 @@
 
 > OmniGraph 自定义节点（C++/Python/IPC）+ Robot Simulation 核心（Articulation Controller, Gripper）
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 13
 
 ---
@@ -49,7 +49,7 @@ The Robot Simulation section provides information on tools that you will need to
 
 * **Wheeled Robots**: use controllers that are based on universal formulas and require very few robot-specific parameters as inputs.
 * **Manipulators**: use controllers that are based on complex optimization, therefore the same robot performing the same task could use many variety of controllers, each with a different optimization method. They often require the robot models in the optimization process.
-* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition âcontrollersâ, for they can have task and path planners embedded as well.
+* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition “controllers”, for they can have task and path planners embedded as well.
 
 ## Joint Level Control
 
@@ -105,7 +105,7 @@ The Robot Simulation section provides information on tools that you will need to
 
 * **Wheeled Robots**: use controllers that are based on universal formulas and require very few robot-specific parameters as inputs.
 * **Manipulators**: use controllers that are based on complex optimization, therefore the same robot performing the same task could use many variety of controllers, each with a different optimization method. They often require the robot models in the optimization process.
-* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition âcontrollersâ, for they can have task and path planners embedded as well.
+* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition “controllers”, for they can have task and path planners embedded as well.
 
 ## Joint Level Control
 
@@ -470,7 +470,7 @@ For new controller development, consider using the newer experimental motion gen
 
 ## Differential controller
 
-The differential controller uses the speed differential between the left and right wheels to control the robotâs linear and angular velocity. The differential robot enables the robot to turn in place and is used in the NVIDIA Nova Carter robot.
+The differential controller uses the speed differential between the left and right wheels to control the robot’s linear and angular velocity. The differential robot enables the robot to turn in place and is used in the NVIDIA Nova Carter robot.
 
 ### The Math
 
@@ -586,7 +586,7 @@ simulation_app.close()
 ## Holonomic Controller
 
 The holonomic controller computes the joint drive commands required on omni-directional robots to produce the commanded forward, lateral, and yaw speeds of the robot. An example of a holonomic robot is the NVIDIA Kaya robot.
-The problem is framed as a quadratic program to minimize the residual ânet forceâ acting on the center of mass.
+The problem is framed as a quadratic program to minimize the residual “net force” acting on the center of mass.
 
 Note
 
@@ -618,9 +618,9 @@ Holonomic Controller OmniGraph Inputs
 | --- | --- |
 | execIn | Input execution |
 | wheelRadius | Array of wheel radius in meters |
-| wheelPositions | Position of the wheel with respect to chassisâ center of mass in meters |
-| wheelOrientations | Orientation of the wheel with respect to chassisâ center of mass frame |
-| mecanumAngles | Angles of the mecanum wheels with respect to wheelâs rotation axis in radians |
+| wheelPositions | Position of the wheel with respect to chassis’ center of mass in meters |
+| wheelOrientations | Orientation of the wheel with respect to chassis’ center of mass frame |
+| mecanumAngles | Angles of the mecanum wheels with respect to wheel’s rotation axis in radians |
 | wheelAxis | The rotation axis of the wheels |
 | upAxis | The up axis (default to z axis) |
 | Velocity Commands for the vehicle | Velocity in x and y (m/s) and rotation (rad/s) |
@@ -966,13 +966,13 @@ The joints that are used to attach the gripper to the object are defined by the 
 
 * Joint must be enabled.
 * For all joints, Body 0 must be the same.
-* Joint must have âExclude from Articulationâ set to True. If this is not set, the surface gripper manager will set it to True at runtime.
+* Joint must have “Exclude from Articulation” set to True. If this is not set, the surface gripper manager will set it to True at runtime.
 
 ### Attachment Point API
 
 The joints that are defined by the `Attachment Points` property are automatically assigned the `Attachment API`. This API is responsible for providing additional attributes to the joint, which are necessary for the Surface Gripper Manager to handle the gripper. In the Attachment Point API, the following attributes are available:
 
-* `Clearance Offset`: This registers the distance from the joint to the parent objectâs surface. Since the surface gripper works by sending a raycast from the joint world position, this offset will be added to the raycast origin to avoid false positive hits with the parent object. If this offset is not defined, the raycast will start at the jointâs world position, and the gripper will automatically calculate and save the offset the first time it clears the parent object collider.
+* `Clearance Offset`: This registers the distance from the joint to the parent object’s surface. Since the surface gripper works by sending a raycast from the joint world position, this offset will be added to the raycast origin to avoid false positive hits with the parent object. If this offset is not defined, the raycast will start at the joint’s world position, and the gripper will automatically calculate and save the offset the first time it clears the parent object collider.
 * `Forward Axis`: This registers which joint axis will be used to attempt to close the gripper. The default value is `X`.
 
 These additional attributes can be found within the Raw USD Properties section of the Property tab.
@@ -1055,7 +1055,7 @@ print(status)  # Open, Closed, or Closing
 
 ### Controlling the Gripper
 
-The Gripper State is controlled through the `open` and `close` methods of the interface. Alternatively, thereâs also the `set_gripper_action` method, which receives a numeric value between -1 and 1, where `< -0.3` will open the gripper, `> 0.3` will close it, and anything in between will be ignored.
+The Gripper State is controlled through the `open` and `close` methods of the interface. Alternatively, there’s also the `set_gripper_action` method, which receives a numeric value between -1 and 1, where `< -0.3` will open the gripper, `> 0.3` will close it, and anything in between will be ignored.
 
 ```python
 gripper_interface.close_gripper(gripper_prim_path)
@@ -1084,7 +1084,7 @@ To run the example:
 
 1. Press the **Load** button. The scene should begin playing.
 2. You can move the gantry with the gamepad axes, or by manually editing the gantry joint target positions.
-3. Move the gantry near some cube or set of cubes, and click on the âOpen/Closeâ button - the button label reflects the current gripper state. The gripper can also be closed by the down face button on the gamepad (e.g. X on PlayStation controllers, or A on Xbox controllers).
+3. Move the gantry near some cube or set of cubes, and click on the “Open/Close” button - the button label reflects the current gripper state. The gripper can also be closed by the down face button on the gamepad (e.g. X on PlayStation controllers, or A on Xbox controllers).
 4. The gripper will attempt to close on the cubes, and if successful, the cubes will be grasped by the gripper.
 5. Lift the gantry. The cubes remain grasped by the gripper unless forces are excessive, in which case the gripper constraint may break.
 
@@ -1139,7 +1139,7 @@ Joint properties for `suction_joint`.
 
 The D6 joint exposes six degrees of freedom that can be configured independently. To simulate suction-cup compliance, you can set linear limits along the suction direction so the cup can sag or compress under load, and rotational limits so the grasped object can bend or twist at the contact point. Higher stiffness produces a stiffer grasp and adding damping prevents oscillation. Together these let you model elastic deformation without true soft-body physics.
 
-In this example, we add small limits of about -5 to 5 degrees for each rotation axis and 0.01 meters for the Z axis limit to allow for some compliance along the gripperâs normal axis. Additionally, add a `Z Axis Translation Drive` by clicking **+ Add > Physics > Z Axis Translation Drive**. Set the `Stiffness` to `1000` and the `Damping` to `100`. These values can be tuned for your specific application.
+In this example, we add small limits of about -5 to 5 degrees for each rotation axis and 0.01 meters for the Z axis limit to allow for some compliance along the gripper’s normal axis. Additionally, add a `Z Axis Translation Drive` by clicking **+ Add > Physics > Z Axis Translation Drive**. Set the `Stiffness` to `1000` and the `Damping` to `100`. These values can be tuned for your specific application.
 
 **AttachmentPointAPI on** `suction_joint`
 
@@ -1197,11 +1197,11 @@ attachment_points_rel.SetTargets([Sdf.Path(suction_joint_path)])
 gripper_prim.GetAttribute(robot_schema.Attributes.MAX_GRIP_DISTANCE.name).Set(0.01)
 ```
 
-`create_surface_gripper` is the same function the UI uses when you pick **Create** > **Isaac** > **Robots** > **Surface Gripper**; it picks a free prim name such as `SurfaceGripper` or `SurfaceGripper_01`. For lower-level control, call `robot_schema.CreateSurfaceGripper` directly â see [Creating a Surface Gripper fully in code](#isaac-surface-grippers-code-snippets).
+`create_surface_gripper` is the same function the UI uses when you pick **Create** > **Isaac** > **Robots** > **Surface Gripper**; it picks a free prim name such as `SurfaceGripper` or `SurfaceGripper_01`. For lower-level control, call `robot_schema.CreateSurfaceGripper` directly — see [Creating a Surface Gripper fully in code](#isaac-surface-grippers-code-snippets).
 
 OmniGraph
 
-Ensure youâve either completed the **GUI** or **Code** tab first. A Surface Gripper canât be created in an OmniGraph, but it can be controlled by logic within a graph. As shown below, the **Surface Gripper** node can be used to toggle the gripper between open and closed states and entirely enable/disable the gripper.
+Ensure you’ve either completed the **GUI** or **Code** tab first. A Surface Gripper can’t be created in an OmniGraph, but it can be controlled by logic within a graph. As shown below, the **Surface Gripper** node can be used to toggle the gripper between open and closed states and entirely enable/disable the gripper.
 
 1. Open **Window** > **Graph Editors** > **Action Graph** and choose **New Action Graph**.
 2. In the graph search field, find **Surface Gripper** and add it to the graph.
@@ -1212,8 +1212,8 @@ Ensure youâve either completed the **GUI** or **Code** tab first. A Surface
 
 ### Save the customized robot
 
-The stacking demo references your USD at `/World/robot`, so the robot must be the USDâs **Default Prim**
-and must live at the root of the file â not nested under a `/World` scope.
+The stacking demo references your USD at `/World/robot`, so the robot must be the USD’s **Default Prim**
+and must live at the root of the file — not nested under a `/World` scope.
 
 1. In the Stage tree, drag `/World/ur10` to the root so it becomes `/ur10`.
 2. Right-click `/ur10` and choose **Set as Default Prim**.
@@ -1345,7 +1345,7 @@ The Grasp Editor handles these frames in two distinct ways:
   under the object\_frame and gripper\_frame fields.
 * On import, the object\_frame and gripper\_frame fields are ignored, because isaac\_grasp
   files may be authored externally (possibly without going through USD at all).
-* As a result, identifying the correct USD frames is the userâs responsibility when using the
+* As a result, identifying the correct USD frames is the user’s responsibility when using the
   Grasp Editor for importing.
 
 Each grasp in an isaac\_grasp file has a unique name (e.g. grasp\_0). The fields for a named
@@ -1361,7 +1361,7 @@ grasp are:
 
 All together, a grasp may be applied in practice by moving the gripper to the correct relative position and orientation
 while in the pregrasp\_cspace\_position, then closing the gripper until the joints are in cspace\_position.
-If the objectâs position and orientation in the world frame of reference is given by \(T\_o, R\_o\), with
+If the object’s position and orientation in the world frame of reference is given by \(T\_o, R\_o\), with
 the position and orientation fields specifying relative transformation \(^oT\_g, ^o\!\!R\_g\)
 (i.e. the translation and rotation of the gripper according to the object frame of reference),
 the desired position of the gripper in the world frame \(T\_g , R\_g\) is given by:
@@ -1382,8 +1382,8 @@ non-Articulation that has an associated mesh.
 To fill in the Selection Frame:
 
 1. Select the Articulation and object of interest. The prim path for the object can be copied by
-   right clicking on the desired prim and selecting âCopy Prim Pathâ.
-2. Choose an export path for the isaac\_grasp file. This should end in â.yamlâ.
+   right clicking on the desired prim and selecting “Copy Prim Path”.
+2. Choose an export path for the isaac\_grasp file. This should end in ‘.yaml’.
 
 A few rules apply to the export file:
 
@@ -1393,7 +1393,7 @@ A few rules apply to the export file:
   new isaac\_grasp file.
 
 This tutorial will author grasps between the Panda hand gripper (isolated from the Franka Emika Panda
-robot) and a mug. When âReadyâ is clicked, the Grasp Editor will:
+robot) and a mug. When “Ready” is clicked, the Grasp Editor will:
 
 * Validate each field in the panel.
 * Perform all necessary conversions of the selected object prim (the mug) to make it graspable.
@@ -1406,7 +1406,7 @@ The Grasp Editor does not revert these changes to the object asset, and so it is
 
 Warning
 
-There is a known issue that the mug may âdisappearâ, this is a visual bug. You can press âSTOPâ, then âPLAYâ again to make it reappear.
+There is a known issue that the mug may “disappear”, this is a visual bug. You can press “STOP”, then “PLAY” again to make it reappear.
 
 ### Select Frames of Reference
 
@@ -1424,11 +1424,11 @@ must correspond to the existing pipeline in which the object is being manipulate
 camera is being used to identify object pose, there is an implicit frame of reference for the object
 associated with that vision system. In this case, the selected frame for the object must correspond to this
 implicit frame of reference. If there is not already a frame in the USD that represents the correct frame of
-reference, a new one should be authored on the stage under the selected object path (e.g. nested under â/World/mugâ).
+reference, a new one should be authored on the stage under the selected object path (e.g. nested under “/World/mug”).
 
 In this tutorial, the base frames for the gripper and object are used. If the entire Franka Panda robot
 were being used, the correct frame of reference for the gripper would still be the panda\_hand frame.
-Once âFinalizeâ is clicked, these frames of reference become global to the output isaac\_grasp file and
+Once “Finalize” is clicked, these frames of reference become global to the output isaac\_grasp file and
 cannot be changed.
 
 **The Grasp Editor will write the USD paths for the frames of reference to the output isaac\_grasp file,
@@ -1441,7 +1441,7 @@ the gripper. The Panda hand is a two finger gripper, but one of the joints is a 
 in the figure below that changing the value of panda\_finger\_joint1 causes panda\_finger\_joint\_2 to
 move at the same time. This means that the Panda hand gripper is effectively controlled by a single DOF.
 
-Each active DOF in the gripper should be checked as âPart of Gripperâ. This will open a new menu of
+Each active DOF in the gripper should be checked as “Part of Gripper”. This will open a new menu of
 joint settings that define how the grasp will be simulated and what gets written to the output isaac\_grasp file.
 
 * Position When Open: The position of DOF that is considered to be open. Each grasp will be simulated
@@ -1462,7 +1462,7 @@ when moving the object into place in order to test a grasp. Masked collisions ar
 is simulated. When importing a grasp, collisions are masked automatically.
 
 If the simulated grasp does not appear to have complete contact between the object and gripper,
-you can use the âShow Physics Collidersâ button to visualize the collision geometry associated
+you can use the “Show Physics Colliders” button to visualize the collision geometry associated
 with your assets. It is outside of the scope of this extension to fix incorrect collider geometry,
 but the Grasp Editor does allow you to author grasps without simulating them. In this situation
 you can mask collisions and move things into place visually.
@@ -1473,7 +1473,7 @@ A grasp may be authored with the aid of simulation, since moving assets by hand 
 be the right position is imprecise. The figure below demonstrates the simulated authoring workflow:
 
 1. Move the object into roughly the right position to be grasped.
-2. Click the âSimulateâ button to close the gripper according to its joint settings. In the figure,
+2. Click the “Simulate” button to close the gripper according to its joint settings. In the figure,
    this causes the lip of the mug to be pushed into the exact center of the gripper fingers and leaves
    the gripper fingers in the exact position of contact with the object.
 3. Once the simulation is complete, the export panel will populate, and the grasp may be written
@@ -1488,7 +1488,7 @@ There may be reasons that the grasp simulation does not support your use-case su
 * The mechanics for opening and closing the gripper are more complicated than is represented in the Grasp Editor.
 
 In either case, the best way to make use of the Grasp Editor is to move things into place through
-external means and export the grasp without simulating by clicking the âSkip Simâ button. For example,
+external means and export the grasp without simulating by clicking the “Skip Sim” button. For example,
 some real robot grippers have heavily coupled degrees of freedom with somewhat complicated mechanics.
 For such a gripper, you would want to replicate the exact movement programmatically and send joint
 commands to the USD asset accordingly. In this case, you could turn on collisions and use an external
@@ -1499,7 +1499,7 @@ Grasp Editor to export the current state of grasp on the USD stage to your isaac
 
 An extra feature of the Grasp Editor is that you can apply external forces and torques as part of the
 grasp simulation. This may help to discern which grasps have the best force closure over the object.
-The amount of force and torque applied may be selected in the âAdd External Rigid Body Forcesâ panel.
+The amount of force and torque applied may be selected in the “Add External Rigid Body Forces” panel.
 A single scalar value may be chosen for force and for torque. A non-zero value \(v\) for force will cause
 a force of \(\pm v\) N along each axis, centered at the base frame of the rigid body.
 Likewise for torque, a value \(v\) will cause a torque of \(\pm v\) N\*m to be applied about each axis, centered
@@ -1512,16 +1512,16 @@ chosen, and the mug moves under the force, but the grasp is maintained.
 ### Exporting Grasps
 
 The export frame becomes available once a grasp has been fully simulated, or the option to simulate has been declined.
-On clicking âExportâ, the current state of the stage is used to fill in the relevant fields of the
+On clicking “Export”, the current state of the stage is used to fill in the relevant fields of the
 isaac\_grasp file.
 
-* The confidence field takes on the value of the âConfidenceâ field in the Export panel.
+* The confidence field takes on the value of the “Confidence” field in the Export panel.
 * The position and orientation fields for the grasp are determined by finding the relative position
-  of the gripper in the objectâs frame of reference. This uses the frames defined in
+  of the gripper in the object’s frame of reference. This uses the frames defined in
   [Select Frames of Reference](#isaac-sim-app-tutorial-grasp-editor-reference-frames).
 * The cspace\_position field is determined based on the current positions of the DOFs that have been marked as
   part of the gripper.
-* The pregrasp\_cspace\_position field is taken from the âPosition When Openâ field of Joint Settings for each
+* The pregrasp\_cspace\_position field is taken from the “Position When Open” field of Joint Settings for each
   DOF that has been marked as part of the gripper.
 
 At this stage, multiple grasps may be authored in a row and sequentially exported to the same isaac\_grasp file.
@@ -1545,7 +1545,7 @@ to execute one of the authored grasps.
 
 The following function snippet imports a grasp file demonstrated in [Importing Grasps](#isaac-sim-app-tutorial-grasp-editor-import) and
 determines where the panda\_hand frame should be in order to duplicate grasp\_1. To try this function, copy it into the
-[Script Editor](../development_tools/omniverse_script_editor.html#script-editor), and pass the import\_file\_path=âpath/to/your/isaac\_grasp.yamlâ argument to the function.
+[Script Editor](../development_tools/omniverse_script_editor.html#script-editor), and pass the import\_file\_path=”path/to/your/isaac\_grasp.yaml” argument to the function.
 
 ```python
 import isaacsim.core.experimental.utils.xform as xform_utils
@@ -1641,7 +1641,7 @@ To run examples below activate **Windows** > **Examples** > **Robotics Examples*
 3. (Optional) Use the **Physics Engine** menu in the viewport to switch between PhysX and Newton before loading. The example automatically selects the matching policy for the active engine.
 4. Press **LOAD** to open the scene.
 
-This example uses an H1 Flat Terrain Policy trained in Isaac Lab to control the humanoidâs locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
+This example uses an H1 Flat Terrain Policy trained in Isaac Lab to control the humanoid’s locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
 
 Controls:
 
@@ -1656,7 +1656,7 @@ Controls:
 3. (Optional) Use the **Physics Engine** menu in the viewport to switch between PhysX and Newton before loading. The example automatically selects the matching policy for the active engine.
 4. Press **LOAD** to open the scene.
 
-This example uses a Spot Flat Terrain Policy trained in Isaac Lab to control the quadrupedâs locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
+This example uses a Spot Flat Terrain Policy trained in Isaac Lab to control the quadruped’s locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
 
 Controls:
 
@@ -1674,7 +1674,7 @@ Controls:
 3. (Optional) Use the **Physics Engine** menu in the viewport to switch between PhysX and Newton before loading. The example automatically selects the matching policy for the active engine.
 4. Press **LOAD** to open the scene.
 
-This example uses a Go2 Flat Terrain Policy trained in Isaac Lab to control the quadrupedâs locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
+This example uses a Go2 Flat Terrain Policy trained in Isaac Lab to control the quadruped’s locomotion. Both PhysX and Newton policies are provided so you can compare locomotion behavior across physics engines.
 
 Controls:
 
@@ -1691,7 +1691,7 @@ Controls:
 2. Open the example menu using **Robotics Examples** > **POLICY** > **Franka**.
 3. Press **LOAD** to open the scene.
 
-This example uses the Franka Open Drawer Policy trained in Isaac Lab to control the robotâs arm.
+This example uses the Franka Open Drawer Policy trained in Isaac Lab to control the robot’s arm.
 The robot will open the drawer, hold it open until the would reset.
 
 ## Policies Files
@@ -1802,7 +1802,7 @@ This tutorial aims to
 
 ## Build the Graph
 
-Letâs build an action graph to control a robot in Isaac Sim the Jetbot.
+Let’s build an action graph to control a robot in Isaac Sim the Jetbot.
 
 ### Setting Up the Stage
 
@@ -1819,7 +1819,7 @@ Note
 Click play! Validate that the JetBot falls and lands on the stage. Click stop before continuing.
 
 Depending on your default render settings, the camera of the JetBot may have a placeholder mesh (it looks like a gray television camera).
-To hide these meshes, click on the  icon in the viewport and select **Show By Type â> Cameras**.
+To hide these meshes, click on the  icon in the viewport and select **Show By Type –> Cameras**.
 
 ### Building the Graph
 
@@ -1832,7 +1832,7 @@ To hide these meshes, click on the  icon in the viewport and select **Show By Ty
 The `Articulation Controller` applies driver commands (in the form of force, position, or velocity) to the specified joints
 of any prim with an articulation root.
 
-To tell the controller which robot itâs going to control:
+To tell the controller which robot it’s going to control:
 
 1. Select the `Articulation Controller` node in the graph and open up the property pane.
 2. You can either:
@@ -1855,7 +1855,7 @@ Stage Tree
 
 1. Type `token` into the search bar of the graph editor.
 2. Add two `Constant Token` nodes to the graph.
-3. Select one and set itâs value to `left_wheel_joint` in the properties pane.
+3. Select one and set it’s value to `left_wheel_joint` in the properties pane.
 4. Repeat this for the other constant token node, but set the value to `right_wheel_joint`.
 5. Type `make array` into the search bar of the graph editor.
 6. Add a `Make Array` node to the graph.
@@ -1875,7 +1875,7 @@ Simple differential control for the JetBot
 
 1. Press the play button.
 2. Select the `Differential Controller` node in the graph.
-3. Click and drag on either the angular or linear velocity values in the properties pane to change itâs value (or just click and type in the desired value).
+3. Click and drag on either the angular or linear velocity values in the properties pane to change it’s value (or just click and type in the desired value).
 
 Note
 
@@ -1893,7 +1893,7 @@ To use the Differential Controller graph from the menu shortcut:
 1. Delete (or Disable if that is an option) any previous OmniGraphs that controls the Jetbot.
 2. Go to the Menu bar and click on **Tools -> Robotics -> OmniGraph Controllers -> Differential Controller**.
 3. You are prompted for the necessary parameters.
-4. Add â/World/jetbotâ to `Articulation Root`, set the **distance between wheels** to 0.1125, and the **wheel radius** to 0.03.
+4. Add “/World/jetbot” to `Articulation Root`, set the **distance between wheels** to 0.1125, and the **wheel radius** to 0.03.
 5. Given JetBot only has two controllable joints, you can leave the rest of the fields empty.
 6. Turn **Use Keyboard Control (WASD)** on.
 7. Click **OK** to generate the graph. You can open the generated graph under `/Graph/differential_controller`.
@@ -1959,9 +1959,9 @@ This tutorial will
 
 ### Creating a Graph
 
-First letâs build a simple action graph that prints âHello Worldâ to the console on every simulation frame.
+First let’s build a simple action graph that prints “Hello World” to the console on every simulation frame.
 
-1. Open âWindow > Script Editorâ and paste the following code:
+1. Open ‘Window > Script Editor’ and paste the following code:
 
    > ```python
    > import omni.graph.core as og
@@ -1982,15 +1982,15 @@ First letâs build a simple action graph that prints âHello Worldâ
    >     },
    > )
    > ```
-2. Press âRunâ to execute the script. You should see a new prim `/action_graph` created on the Stage tree.
-3. Expand the prim on stage, the nodes âtickâ and âprintâ should be listed under the graph. These nodes can be accessed just like any other prim on the stage.
-4. Press âplayâ to start the simulation. You should see âHello Worldâ printed to the console on every frame.
+2. Press ‘Run’ to execute the script. You should see a new prim `/action_graph` created on the Stage tree.
+3. Expand the prim on stage, the nodes “tick” and “print” should be listed under the graph. These nodes can be accessed just like any other prim on the stage.
+4. Press “play” to start the simulation. You should see “Hello World” printed to the console on every frame.
 5. Open graph editor by going to Window > Graph Editors > Action Graph.
-6. With the newly created graph highlighted on the Stage tree on the right, open the graph by clicking on the icon for âEdit Action Graphâ in the graph editor window. You should see two nodes connected with each other by a line.
+6. With the newly created graph highlighted on the Stage tree on the right, open the graph by clicking on the icon for ‘Edit Action Graph’ in the graph editor window. You should see two nodes connected with each other by a line.
 
 ### Editing a Graph
 
-Once a graph has been created, there are specific APIs to manipulate the graphâs terms.
+Once a graph has been created, there are specific APIs to manipulate the graph’s terms.
 
 **Getting and Setting Attribute Values**
 
@@ -2007,9 +2007,9 @@ print("Existing Text: ", existing_text)
 og.Controller.attribute("/action_graph/print.inputs:text").set("New Texts to print")
 ```
 
-This will change the value in the âPrint Textâ node from âHello Worldâ to âNew Texts to printâ. But this affect wonât take place until the first tick through the graph. So when you press âRunâ in the script editor, the graph has yet to be ticked, so it should fetch the current value from the node, and print out a single string of âExisting Text: Hello Worldâ in the Script Editorâs console (as well as the terminal if you are using that, or the main Omniverseâs console if you include âInfoâ to be printed).
+This will change the value in the “Print Text” node from “Hello World” to “New Texts to print”. But this affect won’t take place until the first tick through the graph. So when you press ‘Run’ in the script editor, the graph has yet to be ticked, so it should fetch the current value from the node, and print out a single string of “Existing Text: Hello World” in the Script Editor’s console (as well as the terminal if you are using that, or the main Omniverse’s console if you include “Info” to be printed).
 
-Now press âPlayâ and start the simulation. It should now print, at the rate of one string per tick, the updated text âNew Texts to printâ, in the terminal or the main Omniverse console (though not the Script Editorâs console).
+Now press ‘Play’ and start the simulation. It should now print, at the rate of one string per tick, the updated text “New Texts to print”, in the terminal or the main Omniverse console (though not the Script Editor’s console).
 
 **Adding Nodes and Connections**
 
@@ -2023,15 +2023,15 @@ og.Controller.attribute("/action_graph/new_node_name.inputs:value").set("This is
 og.Controller.connect("/action_graph/new_node_name.inputs:value", "/action_graph/print.inputs:text")
 ```
 
-A new node named ânew\_node\_nameâ will be created and connected to the âPrint Textâ node. If you have the graph editor (Window > Graph Editors > Action Graph) open, you can see that there are now three nodes connected to each other instead of two.
+A new node named “new\_node\_name” will be created and connected to the “Print Text” node. If you have the graph editor (Window > Graph Editors > Action Graph) open, you can see that there are now three nodes connected to each other instead of two.
 
 ### Graph Execution
 
 By default, the graph is evaluated on every frame. You can change this behavior by setting the graph to evaluate only when you call it.
 
-You can also trigger each graph explicitly by making execute only when you call it. To do this, there is a special parameter called âpipeline\_stageâ where you can set the graph to execute âOn Demandâ. Most of the times we want to set this variable during the creation of the graph:
+You can also trigger each graph explicitly by making execute only when you call it. To do this, there is a special parameter called “pipeline\_stage” where you can set the graph to execute “On Demand”. Most of the times we want to set this variable during the creation of the graph:
 
-1. Delete the previous graph by selecting it on the stage tree and pressing âDeleteâ key.
+1. Delete the previous graph by selecting it on the stage tree and pressing ‘Delete’ key.
 2. Open a new tab in the Script Editor and paste the following code
 
    > ```python
@@ -2051,10 +2051,10 @@ You can also trigger each graph explicitly by making execute only when you call 
    >     },
    > )
    > ```
-3. Press âRunâ in the Script Editor. A new graph `/ondemand_graph` will be created.
-4. Start simulation by press âplayâ, nothing should be printed from this graph because we did not explicitly call to evaluate it.
+3. Press ‘Run’ in the Script Editor. A new graph `/ondemand_graph` will be created.
+4. Start simulation by press “play”, nothing should be printed from this graph because we did not explicitly call to evaluate it.
 5. To manually trigger a graph, open another tab, and paste in `demand_graph_handle.evaluate()`
-6. Make sure simulation is still running. Click âRunâ in the Script Editor. You should see âOn Demand Graphâ printed to the console once.
+6. Make sure simulation is still running. Click ‘Run’ in the Script Editor. You should see “On Demand Graph” printed to the console once.
 
 Alternatively, you can also set it for an existing graph by `demand_graph_handle.change_pipeline_stage(og.GraphPipelineStage.GRAPH_PIPELINE_STAGE_ONDEMAND)`
 
@@ -2098,7 +2098,7 @@ A node is defined by two files, an .ogn file, which is a JSON file that defines 
 
 ## Node Files
 
-All OmniGraph Node files starts with âOgnâ as a prefix. This is expected by the parser.
+All OmniGraph Node files starts with “Ogn” as a prefix. This is expected by the parser.
 
 ### Node Definition (.ogn)
 
@@ -2135,11 +2135,11 @@ The .ogn file is a JSON file that defines the structure of the node, including i
 28}
 ```
 
-A note about the input âexecInâ. This is a special input that is used to trigger the node. This trigger is only relevant in an Action Graph, where you must explicitly trigger the node to run, such as on a physics tick, or a stage event, like opening and closing a stage. In a Push Graph, the node will run automatically at every frame and the âexecInâ input is not necessary.
+A note about the input “execIn”. This is a special input that is used to trigger the node. This trigger is only relevant in an Action Graph, where you must explicitly trigger the node to run, such as on a physics tick, or a stage event, like opening and closing a stage. In a Push Graph, the node will run automatically at every frame and the ‘execIn’ input is not necessary.
 
 ### Function Definition
 
-Hereâs a minimum example of a Python node that takes an input number and outputs a boolean value based on whether the input is greater than 0:
+Here’s a minimum example of a Python node that takes an input number and outputs a boolean value based on whether the input is greater than 0:
 
 ```python
 class OgnNodeName:
@@ -2152,20 +2152,20 @@ class OgnNodeName:
 Notes:
 
 * the class name must match the name of the node in the .ogn file, and the file name must match the class name.
-* the âcomputeâ function is what the âexecInâ input triggers. It takes a single argument, the database, which contains the inputs and outputs of the node. The function should return True if the node ran successfully, and False if it failed.
-* this node has no internal state, which means all data that passes through it is gone the next tick. If you need to store data between ticks, you can use the âinternal stateâ to store it.
+* the “compute” function is what the ‘execIn’ input triggers. It takes a single argument, the database, which contains the inputs and outputs of the node. The function should return True if the node ran successfully, and False if it failed.
+* this node has no internal state, which means all data that passes through it is gone the next tick. If you need to store data between ticks, you can use the “internal state” to store it.
 
 ## Using the Custom Node
 
-You can simply insert your custom nodeâs `.py` and `.ogn` files into any of extensions that already have a directory that contains the `.py` and `.ogn` files for existing nodes and thereby avoid creating your own extension that way.
+You can simply insert your custom node’s `.py` and `.ogn` files into any of extensions that already have a directory that contains the `.py` and `.ogn` files for existing nodes and thereby avoid creating your own extension that way.
 
 You can also create your own extension and insert the files there. (link to the new template generator)
 
 ## Isaac Sim Nodes as Examples
 
-You are welcome to dig into the code behind some of our existing OmniGraph nodes to find examples of how to structure a node, or even modify them to suite your own need. To find the backend `.py` and `.ogn` files for a particular node. Hover your mouse over the node in the editor window, a tooltip window will appear and the name of the extension will be written in the parentheses. You can then navigate to the extensionsâs folder that contains the backend scripts for the nodes by going to `exts/isaacsim.<ext_name>/isaacsim/<ext_name>/ogn/python/nodes/`.
+You are welcome to dig into the code behind some of our existing OmniGraph nodes to find examples of how to structure a node, or even modify them to suite your own need. To find the backend `.py` and `.ogn` files for a particular node. Hover your mouse over the node in the editor window, a tooltip window will appear and the name of the extension will be written in the parentheses. You can then navigate to the extensions’s folder that contains the backend scripts for the nodes by going to `exts/isaacsim.<ext_name>/isaacsim/<ext_name>/ogn/python/nodes/`.
 
-Not all of the nodes are written in Python, some have C++ backends, so if you wonât necessarily see a corresponding `.py` and `.ogn` files for all the nodes on the list. Note that if you found a folder with a list of `Ogn<node_name>Database.py`, this is NOT the directory that contains the Python description of the node.
+Not all of the nodes are written in Python, some have C++ backends, so if you won’t necessarily see a corresponding `.py` and `.ogn` files for all the nodes on the list. Note that if you found a folder with a list of `Ogn<node_name>Database.py`, this is NOT the directory that contains the Python description of the node.
 
 On this page
 
@@ -2190,7 +2190,7 @@ On this page
 
 For C++ nodes, the [Node Definition (.ogn)](omnigraph_custom_python_nodes.html#isaac-sim-omnigraph-ogn-file) is the same as the one used for Custom Python Nodes.
 
-Examples of how to include OmniGraph nodes can be found in the extension templateâs [GitHub repo](https://github.com/NVIDIA-Omniverse/kit-extension-template-cpp/tree/main/source/extensions/omni.example.cpp.omnigraph_node).
+Examples of how to include OmniGraph nodes can be found in the extension template’s [GitHub repo](https://github.com/NVIDIA-Omniverse/kit-extension-template-cpp/tree/main/source/extensions/omni.example.cpp.omnigraph_node).
 
 To use the custom C++ nodes, you will need also build your custom C++ extension. Follow [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html) for the detailed instructions.
 
@@ -2221,9 +2221,9 @@ All commands in this tutorial are run from the **Isaac Sim repository root** (th
 
 **Prerequisites**:
 
-* **Custom C++ extensions** â [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html).
-* **OmniGraph** â [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)") and [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)").
-* **Custom nodes** â [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes) and [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html#isaac-sim-app-tutorial-advanced-omnigraph-custom-cpp-nodes).
+* **Custom C++ extensions** — [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html).
+* **OmniGraph** — [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)") and [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)").
+* **Custom nodes** — [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes) and [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html#isaac-sim-app-tutorial-advanced-omnigraph-custom-cpp-nodes).
 
 Optional: [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph), if you are new to the Action Graph editor.
 
@@ -2280,7 +2280,7 @@ source/extensions/<extension_name>/
 âââ premake5.lua                   â build configuration
 ```
 
-The build step is required before the extension loads in Isaac Sim â it compiles the C++ plugin and generates the OmniGraph database files that register your nodes. Run it now:
+The build step is required before the extension loads in Isaac Sim — it compiles the C++ plugin and generates the OmniGraph database files that register your nodes. Run it now:
 
 Linux
 
@@ -2294,13 +2294,13 @@ Windows
 .\build.bat
 ```
 
-The generated nodes â **Example C++ Node** (`OgnExampleCpp`) and **Example Python Node** (`OgnExamplePython`) â are placeholder stubs that double an input value. The display names in the Action Graph library come from the `uiName` field in each `.ogn` file, not the file name. Rename or replace them with your actual IPC node(s) as you work through the sections below.
+The generated nodes — **Example C++ Node** (`OgnExampleCpp`) and **Example Python Node** (`OgnExamplePython`) — are placeholder stubs that double an input value. The display names in the Action Graph library come from the `uiName` field in each `.ogn` file, not the file name. Rename or replace them with your actual IPC node(s) as you work through the sections below.
 
 Try it: verify your scaffold
 
 After the build completes above, confirm the scaffold registers its placeholder nodes:
 
-1. Launch the repo-built Isaac Sim â not a separately installed Isaac Sim:
+1. Launch the repo-built Isaac Sim — not a separately installed Isaac Sim:
 
    Linux
 
@@ -2314,7 +2314,7 @@ After the build completes above, confirm the scaffold registers its placeholder 
    .\_build\windows-x86_64\release\isaac-sim.bat
    ```
 2. Open **Window â Extensions**, search for your extension name (for example `isaacsim.my.ipc.nodes`), and enable it.
-3. Open **Window â Graph Editors â Action Graph** and search for `Example C++ Node` and `Example Python Node` in the node library. These names match the `uiName` fields in the scaffoldâs `.ogn` files.
+3. Open **Window â Graph Editors â Action Graph** and search for `Example C++ Node` and `Example Python Node` in the node library. These names match the `uiName` fields in the scaffold’s `.ogn` files.
 
 If both nodes appear, the scaffold is wired correctly. Proceed to [Design and Implement Your Nodes](#design-and-implement-your-nodes) to replace the placeholders.
 
@@ -2363,7 +2363,7 @@ Prebuilt native libraries go through packman. These steps follow the same patter
    libdirs     { "%{target_deps}/mylib/lib/%{platform}" }
    links       { "mylib" }
    ```
-3. **Shared libraries at runtime.** If the library ships as a `.so` / `.dll`, either bundle it beside the extension plugin or list it under `[native.library]` in `extension.toml` so Kitâs loader finds it.
+3. **Shared libraries at runtime.** If the library ships as a `.so` / `.dll`, either bundle it beside the extension plugin or list it under `[native.library]` in `extension.toml` so Kit’s loader finds it.
 
 The sample extension uses only standard BSD socket APIs and has no additional native library entries beyond the plugin itself.
 
@@ -2377,21 +2377,21 @@ Keep IPC nodes thin. They should only handle **serialization and transport**. Si
 
 Every custom IPC node requires the same six things, regardless of transport:
 
-* **Node schema** (`.ogn` file) â declare inputs (URI, config), outputs (data, `execOut`), and state. Refer to the sample `.ogn` files under `nodes/` in `isaacsim.examples.ipc` as a reference.
-* `BaseResetNode` subclass â holds per-instance state (sockets, buffers, handles). Implement `reset()` (C++) or `custom_reset()` (Python) to tear down the transport when the timeline stops or inputs change.
+* **Node schema** (`.ogn` file) — declare inputs (URI, config), outputs (data, `execOut`), and state. Refer to the sample `.ogn` files under `nodes/` in `isaacsim.examples.ipc` as a reference.
+* `BaseResetNode` subclass — holds per-instance state (sockets, buffers, handles). Implement `reset()` (C++) or `custom_reset()` (Python) to tear down the transport when the timeline stops or inputs change.
 * `compute(db)` with a lifecycle split:
 
   > + Detect input changes (URI, config) â call reset and teardown
   > + Try to open the transport if not ready â return early on failure (retry next evaluation)
   > + Do non-blocking I/O (send or try-receive)
   > + Write `db.outputs` and fire `execOut`
-* **Non-blocking I/O** â never block indefinitely in `compute`. Use try-receive, timeouts, or offload slow paths to a worker thread (refer to [Performance Considerations](#performance-considerations)).
+* **Non-blocking I/O** — never block indefinitely in `compute`. Use try-receive, timeouts, or offload slow paths to a worker thread (refer to [Performance Considerations](#performance-considerations)).
 * **Fire** `execOut` at the end of `compute` to signal downstream nodes that the transport operation is complete and/or new data is ready. You control when to fire it. For example, fire on every evaluation, only on successful send, or only when a full message has been received.
-* **Your transport library** â add it as a dependency (refer to [Add Your Transport Library](#add-your-transport-library) above) and replace the TCP helpers with your stackâs API.
+* **Your transport library** — add it as a dependency (refer to [Add Your Transport Library](#add-your-transport-library) above) and replace the TCP helpers with your stack’s API.
 
 ### OGN Schema Quick Reference
 
-Each `.ogn` file is a single JSON object keyed by the nodeâs registered type
+Each `.ogn` file is a single JSON object keyed by the node’s registered type
 name. The minimum schema for a Python IPC node looks like this:
 
 ```python
@@ -2657,7 +2657,7 @@ Source: `source/extensions/isaacsim.examples.ipc/`.
 | `SimpleSendSimulationClockCpp` / `SimpleSendSimulationClockPy` | C++ / Python | Forwards the simulation clock to an external process on each evaluation. Connects as a TCP client to `uri` (`host:port`). Input: `simulationTime` (`double`, seconds; connect from `IsaacReadSimulationTime`). Encodes the value as nanoseconds in an 8-byte signed int64 (little-endian) and sends it. Fires `execOut` on every evaluation. |
 | `SimpleReceiveExternalStepCpp` / `SimpleReceiveExternalStepPy` | C++ / Python | Receives a step counter from an external process and exposes it to downstream nodes. Binds as a TCP server on `uri` and accepts one client. Outputs a `step` (uint32). Fires `execOut` only when a complete 4-byte message arrives. Partial reads are buffered across evaluations. |
 
-In graphs, the full path is typically `isaacsim.examples.ipc.<TypeName>` (refer to the extensionâs `config/extension.toml`).
+In graphs, the full path is typically `isaacsim.examples.ipc.<TypeName>` (refer to the extension’s `config/extension.toml`).
 
 C++ and Python follow the same sequence in `compute`. They only differ by name and state wiring. For example, `reset()` compared to `custom_reset()`, and C++ `state` from the OGN database compared to Python `internal_state()`.
 
@@ -2689,13 +2689,13 @@ return true/false  (per node type / sample rules)
 
 Note
 
-If you have not yet replaced the scaffold placeholders, you can follow the steps below using `isaacsim.examples.ipc` as a stand-in â it ships with Isaac Sim and has fully working nodes ready to enable and find. Repeat the steps with your own extension name once you have implemented and built your nodes.
+If you have not yet replaced the scaffold placeholders, you can follow the steps below using `isaacsim.examples.ipc` as a stand-in — it ships with Isaac Sim and has fully working nodes ready to enable and find. Repeat the steps with your own extension name once you have implemented and built your nodes.
 
 The build (`./build.sh` on Linux, `.\build.bat` on Windows) compiles your extension and places the output under `_build/<platform>/release/exts/<extension_name>/` (`linux-x86_64` or `windows-x86_64` depending on host). Isaac Sim launched from the same repo automatically searches that directory, so no additional path configuration is needed.
 
 Note
 
-Always launch Isaac Sim from the repo build. A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension. After each build run, restart Isaac Sim â a loaded C++ plugin cannot be hot-swapped.
+Always launch Isaac Sim from the repo build. A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension. After each build run, restart Isaac Sim — a loaded C++ plugin cannot be hot-swapped.
 
 Launch (or restart) Isaac Sim from the repo build:
 
@@ -2750,12 +2750,12 @@ Once the reference graph works end-to-end with `isaacsim.examples.ipc` nodes, su
 1. In the graph, delete the `SimpleSendSimulationClock` node.
 2. Add your renamed node from the exercise above.
 3. Wire it the same way: Receive External Step `execOut` â your node `execIn`, and Isaac Read Simulation Time `simulationTime` â your node `simulationTime`.
-4. Run the bridge script. Because `transfer()` is still a stub that returns `true` without sending data, the script will connect but receive no clock output â that is expected. This confirms that your extension loads, enables, and participates in the graph.
+4. Run the bridge script. Because `transfer()` is still a stub that returns `true` without sending data, the script will connect but receive no clock output — that is expected. This confirms that your extension loads, enables, and participates in the graph.
 5. To complete the implementation, add the actual send logic to `transfer()`. Use `OgnSimpleSendSimulationClockCpp.cpp` (or the Python equivalent) in `source/extensions/isaacsim.examples.ipc/` as a reference.
 
 ### External Python Playback Bridge
 
-The `tcp_tutorial_playback_bridge.py` script demonstrates a complete roundtrip. It listens for the eight-byte clock that the Send node emits, connects to the Receive nodeâs listen port, primes one step, then for each frame reads the clock and sends back the next step so the next `OnPlaybackTick` can fire.
+The `tcp_tutorial_playback_bridge.py` script demonstrates a complete roundtrip. It listens for the eight-byte clock that the Send node emits, connects to the Receive node’s listen port, primes one step, then for each frame reads the clock and sends back the next step so the next `OnPlaybackTick` can fire.
 
 The script only uses the Python standard library (`socket`, `struct`, `argparse`) and has no Isaac Sim or third-party dependencies. Run it from the repo root with any system `python3`:
 
@@ -2773,22 +2773,22 @@ The script binds a TCP listener on `127.0.0.1`. For real deployments, bind only 
 
 **Stay within your frame budget.**
 
-> OmniGraph evaluates `compute` on paths that must stay responsive relative to simulation, UI, and other graphs. The usual failure mode is unpredictably long work and is not âsynchronousâ I/O by itself. Waiting on a slow peer, large copies, contended locks, or RPC that can stall for many milliseconds may cause performance issues.
+> OmniGraph evaluates `compute` on paths that must stay responsive relative to simulation, UI, and other graphs. The usual failure mode is unpredictably long work and is not “synchronous” I/O by itself. Waiting on a slow peer, large copies, contended locks, or RPC that can stall for many milliseconds may cause performance issues.
 
 **Small, fast paths are often fine.**
 
-> A tiny, fixed-size, fire-and-forget operation in `compute` (the tutorialâs eight byte clock send once the socket is connected) can stay on the graph thread if it consistently completes within your per-node budget at the target frame rate. The same applies to other stacks when you have measured the path and it does not wait on back-pressure from the remote side.
+> A tiny, fixed-size, fire-and-forget operation in `compute` (the tutorial’s eight byte clock send once the socket is connected) can stay on the graph thread if it consistently completes within your per-node budget at the target frame rate. The same applies to other stacks when you have measured the path and it does not wait on back-pressure from the remote side.
 
 **When to use workers, queues, or async APIs.**
 
 > * If a call can block for an unknown duration (request/response, readiness waits, large payloads, or anything that can exceed your per-node budget), run that IPC on a worker thread. Use callbacks that enqueue results, and keep `compute` to non-blocking dequeue and writing `db.outputs`.
-> * For inbound data, try-receive (as in the tutorialâs step node) avoids waiting indefinitely when the external process does not send on your schedule.
+> * For inbound data, try-receive (as in the tutorial’s step node) avoids waiting indefinitely when the external process does not send on your schedule.
 > * **Async or callback-based I/O:** Drive network or IPC on a worker thread, push decoded messages into a thread-safe queue, and let `compute` only dequeue (non-blocking) and write `db.outputs`.
 > * **Deferred completion:** Post work from `compute` without waiting for the reply. A background thread enqueues results for a later evaluation.
 
 **Structured messages vs fixed bytes.**
 
-> The fixed-size framing in the tutorial is for clarity. A production bridge typically uses your libraryâs message format (IDL-generated types, JSON, or another schema). You still decide when to send, how to parse inbound data, and how to keep each `compute` within budget.
+> The fixed-size framing in the tutorial is for clarity. A production bridge typically uses your library’s message format (IDL-generated types, JSON, or another schema). You still decide when to send, how to parse inbound data, and how to keep each `compute` within budget.
 
 **Large messages (camera frames, point clouds).**
 
@@ -2798,7 +2798,7 @@ The script binds a TCP listener on `127.0.0.1`. For real deployments, bind only 
 
 Besides `isaacsim.examples.ipc`, several extensions register OmniGraph nodes that read simulation state or drive simulation inside Isaac Sim, without acting as a general-purpose bridge to another process. The table highlights types that often sit next to custom IPC nodes in a bridge graph.
 
-Before designing your custom nodeâs inputs and outputs, check the `.ogn` of the built-in nodes you plan to connect toâtheir output attribute names and types determine what your node needs to consume or produce.
+Before designing your custom node’s inputs and outputs, check the `.ogn` of the built-in nodes you plan to connect to—their output attribute names and types determine what your node needs to consume or produce.
 
 Common built-in OmniGraph nodes for bridge-style graphs
 
@@ -2807,14 +2807,14 @@ Common built-in OmniGraph nodes for bridge-style graphs
 | Read joint positions / velocities (and efforts) for publishing | `IsaacArticulationState` | `isaacsim.core.nodes` | In: `robotPath` or `targetPrim`, optional `jointNames` / `jointIndices`. Out: `jointPositions`, `jointVelocities` (`double[]`), `jointNames` (`token[]`), plus measured effort arrays. |
 | Alternative joint state (physics sensor path) | `isaacsim.sensors.physics.IsaacReadJointState` | `isaacsim.sensors.physics.nodes` | In: `prim` (articulation root). Out: `jointPositions`, `jointVelocities`, `jointEfforts`, `jointNames`, `execOut`, etc. |
 | Apply joint position / velocity / effort commands | `IsaacArticulationController` | `isaacsim.core.nodes` | In: same robot targeting as above; `positionCommand`, `velocityCommand`, `effortCommand` (`double[]`). Angular units are radians at the controller API. |
-| Simulation tick / gating | `OnPhysicsStep`, `IsaacSimulationGate`, `IsaacReadSimulationTime`, â¦ | `isaacsim.core.nodes` | Use to pace state reads and command writes consistently (exact attributes vary by node). |
+| Simulation tick / gating | `OnPhysicsStep`, `IsaacSimulationGate`, `IsaacReadSimulationTime`, … | `isaacsim.core.nodes` | Use to pace state reads and command writes consistently (exact attributes vary by node). |
 | Camera / viewport render product path (setup only) | `IsaacGetViewportRenderProduct`, `IsaacCreateRenderProduct`, `IsaacAttachHydraTexture`, `IsaacSetCameraOnRenderProduct` | `isaacsim.core.nodes` | Mostly paths and targets (`renderProductPath`, `renderProductPrim`). Pixels require a separate readback step. Refer to [Camera and Render Products](#camera-and-render-products). |
 
 Other read extensions you can chain before a custom sender:
 
-* `isaacsim.sensors.physics.nodes` â IMU, contact, effort, etc., backed by `isaacsim.sensors.experimental.physics`.
-* `isaacsim.sensors.physx` â for example Isaac Read Lidar Beams, Isaac Read Lidar Point Cloud, Isaac Read Light Beam Sensor.
-* `isaacsim.sensors.rtx.nodes` â for example Isaac Extract RTX Sensor Point Cloud.
+* `isaacsim.sensors.physics.nodes` — IMU, contact, effort, etc., backed by `isaacsim.sensors.experimental.physics`.
+* `isaacsim.sensors.physx` — for example Isaac Read Lidar Beams, Isaac Read Lidar Point Cloud, Isaac Read Light Beam Sensor.
+* `isaacsim.sensors.rtx.nodes` — for example Isaac Extract RTX Sensor Point Cloud.
 
 For IPC with external applications (topics, services, or other runtimes), use dedicated bridge extensions rather than treating the nodes in the table above as a transport layer. Examples include `isaacsim.ros2.nodes` (ROS 2) or `isaacsim.ucx.nodes` (UCX). Those extensions play the same role as the TCP tutorial nodes, not the sensor-read nodes in the table.
 
@@ -2845,7 +2845,7 @@ Getting raw RGB pixels into a custom IPC node requires more than a plain `uchar[
 >    * Hydra texture chain (GPU handles through `IsaacAttachHydraTexture`)
 > 3. Pass the resulting CPU-addressable bytes or arrays into your IPC encoder node.
 
-The `isaacsim.ros2.bridge` extensionâs camera helper node is a concrete reference for how this pipeline is assembled. The ROS 2 camera publisher wires a render product to host readback and then to IPC. Browsing that source is the fastest way to understand the pattern before building your own.
+The `isaacsim.ros2.bridge` extension’s camera helper node is a concrete reference for how this pipeline is assembled. The ROS 2 camera publisher wires a render product to host readback and then to IPC. Browsing that source is the fastest way to understand the pattern before building your own.
 
 Refer to [Performance Considerations](#performance-considerations) before passing large buffers through `compute`. Camera frames are a common source of frame-budget overruns.
 
@@ -2931,7 +2931,7 @@ For information on how to use ROS Graphs, go to each of the relevant [ROS 2 Tuto
 Note
 
 * *No* validation is done to detect a graph with the same tasks or that controls the same robot. You must ensure that your graphs are unique in the scene.
-* These are just shortcuts to create the graph. You can always modify the graph after itâs created to suit your needs.
+* These are just shortcuts to create the graph. You can always modify the graph after it’s created to suit your needs.
 
 To use Python scripting to create these graphs:
 
@@ -2952,8 +2952,8 @@ The controller shortcuts for moving the robots are:
 Both Position and Velocity Controllers issue commands directly to each joint in the articulation.
 
 * **Robot Prim**: The parent prim of the robot.
-* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called â/Graph/{type}\_controllerâ. If a graph already exist in the path given, itâll find the next available path by appending a number to the end of that path.
-* **Add to Existing Graph** (optional): Default to False. If checked, itâll add the nodes to an existing graph and use an existing tick node if there exist one, but will add new controller nodes regardless of existing ones.
+* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called “/Graph/{type}\_controller”. If a graph already exist in the path given, it’ll find the next available path by appending a number to the end of that path.
+* **Add to Existing Graph** (optional): Default to False. If checked, it’ll add the nodes to an existing graph and use an existing tick node if there exist one, but will add new controller nodes regardless of existing ones.
 
 #### Use the Articulation Controller
 
@@ -2970,7 +2970,7 @@ If you had initial targets for position or velocity saved as part of the USD, it
 The Differential Controller takes in linear and angular velocities and converts them to individual wheel velocities.
 
 * **Robot Prim**: The Robot Prim.
-* **Graph Path**: The path to the graph generated. By default, it is under an independent tree called â/Graph/{type}\_controllerâ. If a graph already exist in the path given, it finds the next available path by appending a number to the end of that path.
+* **Graph Path**: The path to the graph generated. By default, it is under an independent tree called “/Graph/{type}\_controller”. If a graph already exist in the path given, it finds the next available path by appending a number to the end of that path.
 * **Wheel Radius**: The radius of the wheel in meters.
 * **Distance between wheels**: The distance between the two wheels in meters.
 * **Left/Right Joint Names** (optional): Names of the joints that control the left and right wheels.
@@ -2981,9 +2981,9 @@ The Differential Controller takes in linear and angular velocities and converts 
 #### Use the Differential Controller
 
 * In some robots, there are only two controllable joints, so you do not have to specify joint names or indices. For robots with multiple actuated joints in an articulation chain, you must specify either the names or the indices of the joints that control the left and right wheels. List the left wheel before the right wheel so the order matches the Differential Controller output.
-* If you did not include the WASD keyboard control in the graph, you can always test the controller by manually changing the âDesired Angular Velocityâ and âDesired Linear Velocityâ in the **DifferentialController** node under the newly created graph.
+* If you did not include the WASD keyboard control in the graph, you can always test the controller by manually changing the “Desired Angular Velocity” and “Desired Linear Velocity” in the **DifferentialController** node under the newly created graph.
 
-* If you are using the WASD Keyboard control, there are two scaling values used to scale the binary input from the keyboard to a linear velocity and an angular velocity that make sense for the vehicleâs size. The values are inside the nodes âScaleLinearâ and âScaleAngularâ respectively. You can print the output of the âDifferentialControllerâ node to see relative affects of the scaling values. You want to tune them so that the rotating commands results in similar magnitude changes in the wheelsâ velocities as the forward and backward commands.
+* If you are using the WASD Keyboard control, there are two scaling values used to scale the binary input from the keyboard to a linear velocity and an angular velocity that make sense for the vehicle’s size. The values are inside the nodes “ScaleLinear” and “ScaleAngular” respectively. You can print the output of the “DifferentialController” node to see relative affects of the scaling values. You want to tune them so that the rotating commands results in similar magnitude changes in the wheels’ velocities as the forward and backward commands.
 
 * If you are using Isaac Sim Assets, the default values of the wheel radius and distance between wheels can be found on the bottom of the page for Wheeled Robots in [Robot Assets](../assets/usd_assets_robots.html#isaac-assets-robots)
 
@@ -2993,16 +2993,16 @@ The Gripper Controller works for any end-effector that has only one-degree of ac
 
 * **Parent Robot**: The robot that contains the gripper. This could be the gripper itself, or if the gripper is part of an arm, this could be the prim for the entire manipulator.
 * **Gripper Root**: The prim that contains all the gripper joints.
-* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called â/Graph/{type}\_controllerâ. If a graph already exists in the path given, it finds the next available path by appending a number to the end of that path.
+* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called “/Graph/{type}\_controller”. If a graph already exists in the path given, it finds the next available path by appending a number to the end of that path.
 * **Gripper Speed**: The speed at which the gripper closes or opens in meters (or radian) per second.
 * **Gripper Joint Names**: The names of the joints that control the gripper fingers. List them all out separated by commas.
-* **Open/Close Position Limit** (optional): The joint position thatâs considered fully open. Unit: meter (prismatic) or radian (revolute). If left blank, it defaults to the joint limits inside the assetâs USD file.
-* **Use Keyboard Control** (optional): Default to none. If checked, it populates the graph that receives âOâ,âCâ, and âNâ as keyboard inputs to open, close, and stop the gripper.
+* **Open/Close Position Limit** (optional): The joint position that’s considered fully open. Unit: meter (prismatic) or radian (revolute). If left blank, it defaults to the joint limits inside the asset’s USD file.
+* **Use Keyboard Control** (optional): Default to none. If checked, it populates the graph that receives “O”,”C”, and “N” as keyboard inputs to open, close, and stop the gripper.
 * **Add to Existing Graph** (optional): Defaults to False. If checked, it adds the nodes to an existing graph and uses an existing tick node if one exists, but will add new controller nodes regardless of existing ones.
 
 #### Use the Gripper Controller
 
-If no joint limits are given, the gripper defaults to the joint limits inside the assetâs USD file. If the Open Position Limit and Close Position Limit are flipped, the gripper controller automatically corrects for it. The controller makes the assumption that the joint limits for opened position is greater than closed position. So if it is the opposite for your gripper, you would have to either adjust your definition of open and close or modify the Python script accordingly.
+If no joint limits are given, the gripper defaults to the joint limits inside the asset’s USD file. If the Open Position Limit and Close Position Limit are flipped, the gripper controller automatically corrects for it. The controller makes the assumption that the joint limits for opened position is greater than closed position. So if it is the opposite for your gripper, you would have to either adjust your definition of open and close or modify the Python script accordingly.
 
 * Only uniform speed and same joint limits are supported using the shortcut. If you want variable speed or different joint limits for each of the fingers, you can modify the graph by adding arrays for the speed and joint limit inputs.
 * If the articulation chain you are working with contains both an arm and a gripper and you wish to control the arm using the Articulcation Position Controller and the Gripper Controller for the gripper separately:

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Recorder"
 section: "教程"
 module: "01-replicator-core"
-checksum: "d4e037aa3e7ddc19"
-fetched: "2026-06-21T11:55:19"
+checksum: "a97c98411c50ef81"
+fetched: "2026-06-21T13:40:16"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -269,7 +269,7 @@ with rep.trigger.on_frame():
 
 ## Recording Loop Overview
 
-The **Synthetic Data Recorder** is a GUI extension for Isaac Sim that uses the `BasicWriter` or custom Replicator writers for capturing data. Its implementation is located in `/isaacsim.replicator.synthetic_recorder/isaacsim/replicator/synthetic_recorder/synthetic_recorder.py` and utilizes the `orchestrator.step(rt_subframes, pause_timeline, delta_time)` function to manage the recording process. This function ensures that recorded frames remain synchronized with the stage by waiting for any âframes in flightâ from the renderer. For integration with the UI, the recorder uses the asynchronous version of this function: `step_async`.
+The **Synthetic Data Recorder** is a GUI extension for Isaac Sim that uses the `BasicWriter` or custom Replicator writers for capturing data. Its implementation is located in `/isaacsim.replicator.synthetic_recorder/isaacsim/replicator/synthetic_recorder/synthetic_recorder.py` and utilizes the `orchestrator.step(rt_subframes, pause_timeline, delta_time)` function to manage the recording process. This function ensures that recorded frames remain synchronized with the stage by waiting for any “frames in flight” from the renderer. For integration with the UI, the recorder uses the asynchronous version of this function: `step_async`.
 
 ```python
 while self._current_frame < num_frames:

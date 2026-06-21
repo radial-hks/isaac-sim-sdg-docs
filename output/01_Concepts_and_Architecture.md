@@ -2,7 +2,7 @@
 
 > Isaac Sim 架构总览、核心概念、工作流、UI、资产结构、OpenUSD 基础
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 20
 
 ---
@@ -94,7 +94,7 @@ Description (OpenUSD)](https://www.nvidia.com/en-us/omniverse/usd/).
 
 All assets need to be converted to OpenUSD before they can be used with Isaac Sim, and the default unit for Isaac Sim is meters.
 
-NVIDIA provides a vast collection of OpenUSD âSimReadyâ assets. [SimReady](https://developer.nvidia.com/omniverse/simready-assets), or
+NVIDIA provides a vast collection of OpenUSD ‘SimReady’ assets. [SimReady](https://developer.nvidia.com/omniverse/simready-assets), or
 simulation-ready, assets are physically accurate 3D objects that have accurate
 physical properties, behavior, and connected data streams that are used to represent the real world in
 simulated digital worlds. Developers can use these building blocks to construct scenes and
@@ -178,7 +178,7 @@ specific use cases. PhysX supports exact representations for Cube, Capsule, and
 Sphere shapes. Cones and Cylinders are supported through the custom geometry
 flag and are particularly useful when setting collision approximations for wheels of
 robots. [Rigid-body physics materials](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/rigid_bodies.html#configure-rigid-body-s-material-properties)
-provide friction, restitution (a.k.a. âbouncinessâ), and material density properties
+provide friction, restitution (a.k.a. ‘bounciness’), and material density properties
 
 #### Adding Joints and Drives
 
@@ -211,7 +211,7 @@ materials by specifying their physical properties, surface characteristics, and 
 interact with light. Omniverse comes with several template materials, including a physically
 based glass; several general purpose multi-lobed materials useful for dielectric and
 non-dielectric materials, skin, hair, liquids and other materials requiring subsurface
-scattering or transmissive effects; and USDâs UsdPreviewSurface.
+scattering or transmissive effects; and USD’s UsdPreviewSurface.
 
 ## Interaction with Digital Twin
 
@@ -277,7 +277,7 @@ enables developers to seamlessly integrate the generated data with their trainin
 To get started, developers can leverage the Python API provided by Omniverse Replicator
 for generating synthetic data. The same scripts can be used to generate data headlessly in
 the cloud through the Isaac Sim docker container (instructions [Container Installation](../installation/install_container.html#isaac-sim-app-install-container))
-on a developerâs preferred CSP (AWS, Alibaba, Azure, GCP) with the [Cloud Deployment](../installation/install_cloud.html#isaac-sim-app-install-cloud) guide.
+on a developer’s preferred CSP (AWS, Alibaba, Azure, GCP) with the [Cloud Deployment](../installation/install_cloud.html#isaac-sim-app-install-cloud) guide.
 [Replicator YAML](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/yaml_workflow.html#replicator-yaml)
 can be used for low-code situations where scripts can easily be edited by non-technical experts.
 They offer a high level of portability and care suitable for cloud use cases.
@@ -350,7 +350,7 @@ software stack needed before physically setting up the robot.
 
 [OSMO](https://developer.nvidia.com/osmo)
 is a cloud-native workow orchestration platform that lets you easily scale your
-workloads across distributed environments â from on-premises to private and public
+workloads across distributed environments — from on-premises to private and public
 cloud. You can now apply for early access.
 
 #### Sizing Calculator
@@ -451,11 +451,11 @@ The **GUI workflow** uses a collection of extensions that are loaded by default 
 
 The Extension and Standalone Python workflows use the same APIs for all the functions. However, they diverge for printing or commanding the robot joint states continuously.
 
-**Python in an Extension** â The [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)") allows you to interact with the Stage asynchronously using Python. This means that the Python APIs are interacting with the USD stage.
+**Python in an Extension** – The [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)") allows you to interact with the Stage asynchronously using Python. This means that the Python APIs are interacting with the USD stage.
 
 The Python in extension runs without blocking rendering and physics stepping. If you want to interact with the physics and rendering steps or perform an action that is likely to be blocking, you would have to explicitly insert relevant callbacks and async functions for those functions to work. In the extension applications, rendering is stepping the moment viewport opens and physics is stepping when you press the **Play** button.
 
-**Standalone Python** â To use the standalone Python version of Isaac Sim, you launch it using a Python script. Inside the script, you can control whether you open the GUI interface or run in headless mode.
+**Standalone Python** – To use the standalone Python version of Isaac Sim, you launch it using a Python script. Inside the script, you can control whether you open the GUI interface or run in headless mode.
 
 In standalone Python, you can do step rendering and physics manually, which gives you the ability to guarantee that stepping only happens after the completion of a set of commands. These functions make the standalone workflow ideal for use cases, such as training behaviors where there might be randomization actions that all need to complete before the next step, or if you need to control message publishing rates in ROS, as well as running headless to increase performance.
 
@@ -463,7 +463,7 @@ In standalone Python, you can do step rendering and physics manually, which give
 
 ## Hot Reloading for Extensions
 
-Python-based Extensions also have the ability to âhot reloadâ. This means that you can change the underlying code while Isaac Sim is running, and then see the reflected changes in your application after saving the file, without shutting down or restarting Isaac Sim. This is a powerful feature that allows you to iterate quickly on your application.
+Python-based Extensions also have the ability to “hot reload”. This means that you can change the underlying code while Isaac Sim is running, and then see the reflected changes in your application after saving the file, without shutting down or restarting Isaac Sim. This is a powerful feature that allows you to iterate quickly on your application.
 
 ## Review Examples
 
@@ -497,7 +497,7 @@ On this page
 
 ## Opening Page
 
-Hereâs a summary of the Isaac Sim frequently mentioned elements on the opening page. For more detailed view of all the elements on the page, go to [Omniverse User Interface](https://docs.omniverse.nvidia.com/composer/latest/interface.html "(in Omniverse USD Composer)").
+Here’s a summary of the Isaac Sim frequently mentioned elements on the opening page. For more detailed view of all the elements on the page, go to [Omniverse User Interface](https://docs.omniverse.nvidia.com/composer/latest/interface.html "(in Omniverse USD Composer)").
 
 | Ref # | Option | Result |
 | --- | --- | --- |
@@ -547,7 +547,7 @@ The Layout of the windows can be rearranged by moving the tabbed windows around,
 
 Note
 
-A tab can be âtorn-offâ and moved to another panel or window by click-hold-drag on the tabs title-bar and dragging it to another location or UI pane.
+A tab can be “torn-off” and moved to another panel or window by click-hold-drag on the tabs title-bar and dragging it to another location or UI pane.
 
 ### OS Tabs
 
@@ -565,7 +565,7 @@ Grab handles are found in all Omniverse Apps and allow you to resize panels.
 
 1. Grab Handle.
 
-They are âinvisibleâ UI element dividers that, when rolled over, will illuminate and can be click-dragged. This allows for UI customization, which is especially helpful in managing window content.
+They are “invisible” UI element dividers that, when rolled over, will illuminate and can be click-dragged. This allows for UI customization, which is especially helpful in managing window content.
 
 Note
 
@@ -600,16 +600,16 @@ On this page
 
 # Keyboard Shortcuts Reference
 
-Keyboard shortcuts can reduce the amount of clicking one must do by providing âhot keysâ that allow for âone touchâ operation.
+Keyboard shortcuts can reduce the amount of clicking one must do by providing “hot keys” that allow for “one touch” operation.
 
 ## Most Commonly Used Shortcuts
 
 The gizmos for manipulating an object are on the left hand side toolbar.
 
-> * Press âWâ or click on the Move Gizmo to drag and move, for example, a Cube. You can move it in only one axis by clicking on the arrows and drag, in two axes by clicking on the colored squares and drag, or in all three axes by clicking on the dot in the center of the gizmo and drag.
-> * Press âEâ or click on the Rotate Gizmo to rotate.
-> * Press âRâ or click on the Scale Gizmo to scale. You can scale in one dimension by clicking on the the arrows and drag, two dimensions by clicking on the colored squares and drag, or in all three dimensions by clicking on the circle in the center of the gizmo and drag.
-> * Press âESCAPEâ to deselect an object.
+> * Press “W” or click on the Move Gizmo to drag and move, for example, a Cube. You can move it in only one axis by clicking on the arrows and drag, in two axes by clicking on the colored squares and drag, or in all three axes by clicking on the dot in the center of the gizmo and drag.
+> * Press “E” or click on the Rotate Gizmo to rotate.
+> * Press “R” or click on the Scale Gizmo to scale. You can scale in one dimension by clicking on the the arrows and drag, two dimensions by clicking on the colored squares and drag, or in all three dimensions by clicking on the circle in the center of the gizmo and drag.
+> * Press “ESCAPE” to deselect an object.
 
 ## Viewport Controls
 
@@ -624,8 +624,8 @@ The gizmos for manipulating an object are on the left hand side toolbar.
 | Scroll Wheel | Opt + RMB | Zoom |
 | LMB |  | Select |
 | ESCAPE |  | Deselect |
-| Select + âFâ |  | Zoom Camera to Selected Objects |
-| Deselect + âFâ |  | Zoom Camera to All |
+| Select + ‘F’ |  | Zoom Camera to Selected Objects |
+| Deselect + ‘F’ |  | Zoom Camera to All |
 | Opt + LMB |  | Orbit about the Viewport Center |
 | MMB (Hold) |  | Pan |
 | RMB (Hold) |  | Pivot Camera |
@@ -737,7 +737,7 @@ Examples of such features are:
 ## Transformation
 
 This stage prepares the asset for simulation by reorganizing and optimizing it. This transformation is necessary when the
-source asset contains nested rigid bodies or a complex structure that doesnât meet the requirements of simulation.
+source asset contains nested rigid bodies or a complex structure that doesn’t meet the requirements of simulation.
 The structure must be flattened with rigid bodies organized into a basic list, and meshes must be simplified to minimize their total count.
 The transformation process includes:
 
@@ -1141,7 +1141,7 @@ You can review the scripts in both workflows to see how they differ. Comparing a
 * The **extension script** can be found in **Window > Examples > Robotics Examples**, then click on **Open Script** on the right upper corner of the browser.
 * The **standalone script** can be found in the `<isaac-sim-root-dir>/standalone_examples/tutorials/` folder.
 
-You can try the âhot-reloadingâ feature out by editing any of the scripts in the Extension examples. Save the file and see the changes reflected immediately without shutting down the simulator.
+You can try the “hot-reloading” feature out by editing any of the scripts in the Extension examples. Save the file and see the changes reflected immediately without shutting down the simulator.
 
 For a description of workflow concepts, see [Workflows](workflows.html#isaac-sim-app-tutorial-intro-workflows).
 
@@ -1192,7 +1192,7 @@ Add a Distant Light source to the scene:
 
 Add a Visual Cube
 
-A âvisualâ cube is a cube with no physics properties attached, for example, no mass, no collision. This cube will not fall under gravity or collide with other objects.
+A “visual” cube is a cube with no physics properties attached, for example, no mass, no collision. This cube will not fall under gravity or collide with other objects.
 
 Add a cube to the scene:
 
@@ -1203,12 +1203,12 @@ Move, Rotate, and Scale the Cube
 
 Use the various gizmos on the left hand side toolbar to manipulate the cube.
 
-1. Press âWâ or click on the Move Gizmo to drag and move the cube. You can move it in only one axis by clicking on the arrows and drag, in two axes by clicking on the colored squares and drag, or in all three axes by clicking on the dot in the center of the gizmo and drag.
-2. Press âEâ or click on the Rotate Gizmo to rotate the cube.
-3. Press âRâ or click on the Scale Gizmo to scale the cube. You can scale it in one dimension by clicking on the the arrows and drag, two dimensions by clicking on the colored squares and drag, or in all three dimensions by clicking on the circle in the center of the gizmo and drag.
-4. Press âescâ to deselect the cube.
+1. Press “W” or click on the Move Gizmo to drag and move the cube. You can move it in only one axis by clicking on the arrows and drag, in two axes by clicking on the colored squares and drag, or in all three axes by clicking on the dot in the center of the gizmo and drag.
+2. Press “E” or click on the Rotate Gizmo to rotate the cube.
+3. Press “R” or click on the Scale Gizmo to scale the cube. You can scale it in one dimension by clicking on the the arrows and drag, two dimensions by clicking on the colored squares and drag, or in all three dimensions by clicking on the circle in the center of the gizmo and drag.
+4. Press “esc” to deselect the cube.
 
-For âMoveâ and âRotateâ, you can indicate if you are maneuvering in local or world coordinates. Click and hold on the gizmos to see the options.
+For “Move” and “Rotate”, you can indicate if you are maneuvering in local or world coordinates. Click and hold on the gizmos to see the options.
 
 You can make more precise modifications to the cube through its **Property** panel by typing in the exact numbers in the corresponding boxes. Click on the blue square next to the boxes to reset the values to default.
 
@@ -1220,7 +1220,7 @@ Physics and collision properties can be added separately, so you can have an obj
 
 To add physics and collision properties to the cube:
 
-1. Find the object (â/World/Cubeâ) on the stage tree and highlight it.
+1. Find the object (“/World/Cube”) on the stage tree and highlight it.
 2. From the **Property** panel on the bottom right of the Workspace, click on the **Add** button and select **Physics** on the dropdown menu. This will show a list of properties that can be added to the object.
 3. Select **Rigid Body with Colliders Preset** to add both physics and collision meshes to the object.
 4. Press the **Play** button to see the cube fall under gravity and collide with the ground plane.
@@ -1229,7 +1229,7 @@ Extension
 
 Launch
 
-We will demonstrate the property of an Extension workflow using an existing Extension module called the âScript Editorâ. The Script Editor allows the users to interact with the stage using Python. You will see that we will be mostly using the same Python APIs as in the Standalone Python workflow. The difference between the two workflows will become clear when we start to interact with the simulation timeline, especially in the [next tutorial](quickstart_isaacsim_robot.html#isaac-sim-app-intro-quickstart-robot).
+We will demonstrate the property of an Extension workflow using an existing Extension module called the “Script Editor”. The Script Editor allows the users to interact with the stage using Python. You will see that we will be mostly using the same Python APIs as in the Standalone Python workflow. The difference between the two workflows will become clear when we start to interact with the simulation timeline, especially in the [next tutorial](quickstart_isaacsim_robot.html#isaac-sim-app-intro-quickstart-robot).
 
 Launch a fresh instance of Isaac Sim, go the top Menu Bar and click **Window > Script Editor**.
 The code snippets in this tab are sections from one runnable script and should be executed in order.
@@ -1262,10 +1262,10 @@ distant_light.set_intensities(300)
 
 Add a Visual Cube
 
-A âvisualâ cube is a cube with no physics properties attached. No mass, no collision. This cube will not fall under gravity or collide with other objects. You can press **Play** to see that the cube does not do anything when the simulation is running.
+A “visual” cube is a cube with no physics properties attached. No mass, no collision. This cube will not fall under gravity or collide with other objects. You can press **Play** to see that the cube does not do anything when the simulation is running.
 
 1. Open a new tab in the Script Editor (**Tab > Add Tab**).
-2. Add two cubes by copy-pasting the following snippet in the Script Editor and run it. Weâll keep one as visual-only, and add physics and collision properties to the other for comparison.
+2. Add two cubes by copy-pasting the following snippet in the Script Editor and run it. We’ll keep one as visual-only, and add physics and collision properties to the other for comparison.
 
 ```python
 from isaacsim.core.experimental.materials import PreviewSurfaceMaterial
@@ -1441,7 +1441,7 @@ distantLight.set_intensities(300)
 
 **Add a Visual Cube**
 
-A âvisualâ cube is a cube with no physics properties attached. No mass, no collision. This cube will not fall under gravity or collide with other objects. You can press **Play** to see that the cube does not do anything when the simulation is running.
+A “visual” cube is a cube with no physics properties attached. No mass, no collision. This cube will not fall under gravity or collide with other objects. You can press **Play** to see that the cube does not do anything when the simulation is running.
 
 The lines inside `getting_started.py` that add a visual cube to the scene are:
 
@@ -1536,7 +1536,7 @@ Add a robot to Stage
 
 Examine the robot
 
-Use the Physics Inspector to examine the robotâs joint properties.
+Use the Physics Inspector to examine the robot’s joint properties.
 
 1. Go to **Tools > Physics > Physics Inspector**. A window opens on the right.
 2. Select Franka to inspect. The window will populate the joint information, such as the upper and lower limits as well as its default position by default.
@@ -1605,7 +1605,7 @@ positions = arm_handle.get_dof_positions()
 print("Joint positions:", positions)
 ```
 
-Notice when you pressed âRunâ, it only prints the state once, even if the simulation is running. You would have to keep pressing âRunâ if you want to see more recent states. If you want to see the information printed at every physics step, you would need to insert these commands into a physics callback that runs at each physics step. We will go more in depth on how time stepping works in the next section [Workflows](workflows.html#isaac-sim-app-tutorial-intro-workflows).
+Notice when you pressed “Run”, it only prints the state once, even if the simulation is running. You would have to keep pressing “Run” if you want to see more recent states. If you want to see the information printed at every physics step, you would need to insert these commands into a physics callback that runs at each physics step. We will go more in depth on how time stepping works in the next section [Workflows](workflows.html#isaac-sim-app-tutorial-intro-workflows).
 
 To insert the commands into a physics callback, run the following snippet in a separate tab in the Script Editor.
 
@@ -1635,7 +1635,7 @@ Control the Robot
 
 There are many ways to control the robot in Isaac Sim. The lowest level is sending direct joint commands to set position, velocity, and efforts. Here is an example of how to control the robot using the Articulation API at the joint level.
 
-Open a new tab in the Script Editor, copy-paste the following code snippet. This can only be run after the previous âAdd a robot to Stageâ step, where `arm_handle` has already been established. Press **Play** before running the snippet. Physics must be running for these commands to work. The snippet sets the Franka arm to a target pose. If you have added the print-state callback above, you should see the printed joint values change as the robot moves.
+Open a new tab in the Script Editor, copy-paste the following code snippet. This can only be run after the previous “Add a robot to Stage” step, where `arm_handle` has already been established. Press **Play** before running the snippet. Physics must be running for these commands to work. The snippet sets the Franka arm to a target pose. If you have added the print-state callback above, you should see the printed joint values change as the robot moves.
 
 ```python
 # Move arm to a target pose. arm_handle from add_franka_to_stage snippet.
@@ -1646,7 +1646,7 @@ arm_handle.set_dof_positions([-1.5, 0.0, 0.0, -1.5, 0.0, 1.5, 0.5, 0.04, 0.04])
 # arm_handle.set_dof_positions([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.04])
 ```
 
-Similar to the examine snippet above, `set_dof_positions` here is executed once when you press âRunâ. If you wish to send commands at every physics step, you would need to insert these commands into a physics callback that runs at each physics step.
+Similar to the examine snippet above, `set_dof_positions` here is executed once when you press “Run”. If you wish to send commands at every physics step, you would need to insert these commands into a physics callback that runs at each physics step.
 
 Standalone Python
 
@@ -1697,7 +1697,7 @@ arm = Articulation("/World/Arm")
 
 **Stepping the simulation explicitly**
 
-At the bottom of the script, a loop calls `SimulationManager.step()` and `RenderingManager.render()` every iteration to advance physics and rendering. The script runs for 4 cycles; in each cycle the arm and the car move or stop, and the carâs joint positions are printed at every physics step in the last cycle.
+At the bottom of the script, a loop calls `SimulationManager.step()` and `RenderingManager.render()` every iteration to advance physics and rendering. The script runs for 4 cycles; in each cycle the arm and the car move or stop, and the car’s joint positions are printed at every physics step in the last cycle.
 
 ```python
 from isaacsim.core.rendering_manager import RenderingManager
@@ -1763,7 +1763,7 @@ The Robot Setup Tutorials are designed as a complete learning path that takes yo
 
 **Start here:** [Tutorial 1: Stage Setup](../robot_setup_tutorials/tutorial_intro_environment_setup.html#isaac-sim-app-tutorial-intro-environment-setup)
 
-## Whatâs Next
+## What’s Next
 
 After completing either the Robot Setup Tutorials or Quick Tutorials, explore these additional resources:
 
@@ -1774,7 +1774,7 @@ After completing either the Robot Setup Tutorials or Quick Tutorials, explore th
 On this page
 
 * [For Beginners: Robot Setup Tutorials](#for-beginners-robot-setup-tutorials)
-* [Whatâs Next](#what-s-next)
+* [What’s Next](#what-s-next)
 
 ---
 
@@ -1817,7 +1817,7 @@ Some important concepts that are useful to understand when working with robot si
 
 ## Simulation Time Stepping and Rendering Rate
 
-* Adjust the physics step rate and the applicationâs loop / timeline rate. The physics step rate is set independently on the Physics Scene (or via `isaacsim.core.simulation_manager.SimulationManager.setup_simulation()`); lowering the applicationâs render rate via `isaacsim.core.rendering_manager.RenderingManager.set_dt()` does **not** automatically increase the number of physics substeps per frame. If you want more physics resolution, raise the Physics Sceneâs `timeStepsPerSecond` (equivalently `SimulationManager.setup_simulation(dt=...)`); if you want fewer, lower it.
+* Adjust the physics step rate and the application’s loop / timeline rate. The physics step rate is set independently on the Physics Scene (or via `isaacsim.core.simulation_manager.SimulationManager.setup_simulation()`); lowering the application’s render rate via `isaacsim.core.rendering_manager.RenderingManager.set_dt()` does **not** automatically increase the number of physics substeps per frame. If you want more physics resolution, raise the Physics Scene’s `timeStepsPerSecond` (equivalently `SimulationManager.setup_simulation(dt=...)`); if you want fewer, lower it.
 * For an end-to-end coherent rate change, call `SimulationManager.setup_simulation(dt=...)` and `RenderingManager.set_dt(...)` with the same `dt` so the three rate clocks stay aligned. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the relationship between the clocks.
 
 ### Alternatives to Animated USD with a Fixed Manual Step Size
@@ -1826,9 +1826,9 @@ The full Isaac Sim experience (`isaacsim.exp.full.kit`) enables Fixed Time Stepp
 
 If you are authoring or simulating a scene where moving parts are driven by USD keyframes, prefer one of the following over leaving the content as an animated USD that relies on the default fixed manual step:
 
-* **Drive the transforms procedurally each simulation tick.** Replace the time-sampled attributes on the moving prims with a per-step callback. The current API is `SimulationManager.register_callback(fn, event=SimulationEvent.PHYSICS_POST_STEP)` from `isaacsim.core.simulation_manager`; `add_physics_callback` on `SimulationContext` / `World` from the deprecated `isaacsim.core.api` namespace works equivalently for existing code. An OmniGraph triggered by the `OnPhysicsStep` node is the visual-scripting equivalent. Compute the pose from your own time variable â wall-clock `dt` for smooth GUI playback, simulation `dt` for determinism. This is the recommended pattern for scripted scenarios: it keeps determinism for `SimulationApp` and stays correct under any time-stepping mode.
+* **Drive the transforms procedurally each simulation tick.** Replace the time-sampled attributes on the moving prims with a per-step callback. The current API is `SimulationManager.register_callback(fn, event=SimulationEvent.PHYSICS_POST_STEP)` from `isaacsim.core.simulation_manager`; `add_physics_callback` on `SimulationContext` / `World` from the deprecated `isaacsim.core.api` namespace works equivalently for existing code. An OmniGraph triggered by the `OnPhysicsStep` node is the visual-scripting equivalent. Compute the pose from your own time variable — wall-clock `dt` for smooth GUI playback, simulation `dt` for determinism. This is the recommended pattern for scripted scenarios: it keeps determinism for `SimulationApp` and stays correct under any time-stepping mode.
 * **Author the motion as articulated joints or rigid-body kinematics** rather than as keyframed transforms. Joint targets and kinematic bodies are advanced by the physics step, so the motion stays synchronized with simulation time regardless of render rate. This is also the right choice when other simulated objects need to interact with the moving parts.
-* **Tune the loop rate to match the authored animationâs sample rate.** If you must keep the content as a keyframed USD and you are running interactively, set the main loop rate so that one fixed `dt` corresponds to one keyframe interval (for example, `--/app/runLoops/main/rateLimitFrequency=60` for a 60 FPS authored animation), and reduce scene cost (LODs, lighting, viewport resolution) until the renderer can hit that rate. While the renderer falls behind, timeline time will continue to lag wall-clock.
+* **Tune the loop rate to match the authored animation’s sample rate.** If you must keep the content as a keyframed USD and you are running interactively, set the main loop rate so that one fixed `dt` corresponds to one keyframe interval (for example, `--/app/runLoops/main/rateLimitFrequency=60` for a 60 FPS authored animation), and reduce scene cost (LODs, lighting, viewport resolution) until the renderer can hit that rate. While the renderer falls behind, timeline time will continue to lag wall-clock.
 * **Switch the GUI to Variable stepping for review and authoring.** For animation review or content-authoring sessions where determinism is not required, launch with the flags listed in [Choppy or Slow Animation Playback (Fixed Time Stepping)](../overview/troubleshooting.html#isaac-sim-troubleshooting-animation-playback-slow) to opt the experience into Variable stepping. Do not use these flags for `SimulationApp` jobs that depend on a fixed per-step `dt`.
 
 ## Adjusting friction for wheeled robots
@@ -1848,13 +1848,13 @@ If you are authoring or simulating a scene where moving parts are driven by USD 
 * Colliders should only be applied to the parts of the robot that need to interact with the environment.
 * Use simple shape colliders (box, sphere, capsule, convex hull) or convex hull whenever possible for better performance.
 * Only use convex decomposition colliders when necessary, such as tips of end effectors, as they are more computationally expensive. Adjust the Error Percentage, Shrink Wrap, and ofset parameters in the advanced tab for better accuracy.
-* Apply collision filters to avoid unnecessary collision checks between parts of the robot that should not collide with each other, such as the rubber pads on the finger and the finger itself. Overlapping colliders can cause instability in the simulation and cause the robot to âexplodeâ. Collision filters can be set via *Physics Collision Group*
+* Apply collision filters to avoid unnecessary collision checks between parts of the robot that should not collide with each other, such as the rubber pads on the finger and the finger itself. Overlapping colliders can cause instability in the simulation and cause the robot to “explode”. Collision filters can be set via *Physics Collision Group*
 * For dynamic collisions, use convex hull, convex decomposition, box, sphere, or SDF approximations only. Triangle mesh, and Mesh simplification only works for static objects.
 
 ## Masses
 
 * For accurate simulation, the mass, center of mass, diagonal inertia, principal axes of the rigid body should be set using the MassAPI, and match the real world masses as closely as possible.
-* If itâs not specified, the mass will be estimated based on the volume of the mesh, with dentisty set to 1000 kg/m^3 by default.
+* If it’s not specified, the mass will be estimated based on the volume of the mesh, with dentisty set to 1000 kg/m^3 by default.
 
 On this page
 
@@ -1943,7 +1943,7 @@ Put all the rigid body parts of the robot under a single [Prim](../reference_mat
 
 To have the necessary environment set up in the USD stages but not export them when they are being referenced, you need to move non-referenced items out of the default Prim:
 
-* Select the robotâs parent prim on stage, in this tutorial /mock\_robot.
+* Select the robot’s parent prim on stage, in this tutorial /mock\_robot.
 * Open the menu *Edit* while the prim is selected, and click on *unparent*.
 * Validate that instead of being under World, mock\_robot is parallel to World.
 * Right-click on the robot prim again on stage, and *Set as a Default Prim*. Save.
@@ -1996,7 +1996,7 @@ The language used in Isaac Sim to describe the robot and its environment is the 
 
 ## Why USD?
 
-USD enables seamless interchange of 3D content among diverse content creation apps with its rich, extensible language. With concepts of layering and variants, itâs a powerful tool that enables live collaboration on the same asset and scene. And when properly used, it permits working on assets without overwriting and erasing someone elseâs work.
+USD enables seamless interchange of 3D content among diverse content creation apps with its rich, extensible language. With concepts of layering and variants, it’s a powerful tool that enables live collaboration on the same asset and scene. And when properly used, it permits working on assets without overwriting and erasing someone else’s work.
 
 USD provides a text-based format for direct editing (*.usda). For higher performance and space optimization, there is a binary-encoded format (*.usd). All aspects of USD can be accessed through coding in C++ or Python.
 
@@ -2004,7 +2004,7 @@ APIs are available for you to set up a scene or tune a robot directly in USD, bu
 
 ## Hello World
 
-Letâs start by creating a basic USD file from code:
+Let’s start by creating a basic USD file from code:
 
 ```python
 xformPrim = UsdGeom.Xform.Define(stage, "/hello")
@@ -2070,11 +2070,11 @@ radiusAttr.Set(0.50)
 print(radiusAttr.Get())
 ```
 
-Because the stage was still open from the previous sample, youâll see the sphere reducing from radius 1.0 to 0.5, but it also prints these values in the console.
+Because the stage was still open from the previous sample, you’ll see the sphere reducing from radius 1.0 to 0.5, but it also prints these values in the console.
 
 To move the sphere to a new position use `xformOpOrder`, which is common to `Xform` and `Sphere`. Many different transforms can be applied to a prim, each from potentially different layers. The `xformOpOrder` tracks and manages the different transforms, it is like a list of `Xform` operations, applied in the order specified from first to last.
 
-Our sphere doesnât have its own, so to create a new one:
+Our sphere doesn’t have its own, so to create a new one:
 
 ```python
 translation = Gf.Vec3d(1, 0, 0)
@@ -2131,7 +2131,7 @@ with Sdf.ChangeBlock():
     )
 ```
 
-Material color shading is complicated. After creating the prim and appropriate attributes, you must link those attributes and properties together to form a `shader graph` that is processed to produce the desired material effect. After itâs created, the material can then be bound to the prim, thus changing its apparent color in the viewport.
+Material color shading is complicated. After creating the prim and appropriate attributes, you must link those attributes and properties together to form a `shader graph` that is processed to produce the desired material effect. After it’s created, the material can then be bound to the prim, thus changing its apparent color in the viewport.
 
 ```python
 # bind the material
@@ -2338,8 +2338,8 @@ The Robot Schema extends OpenUSD with a set of applied API schemas that describe
 
 The schema is implemented across two extensions:
 
-* `isaacsim.robot.schema` â Schema definitions, application helpers, and programmatic utilities for traversing and maintaining robot structures.
-* `isaacsim.robot.schema.ui` â Interactive [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) for viewing robot kinematic trees in multiple display modes, selectively masking and bypassing components, anchoring links to the world, and visualizing joint connections in the viewport.
+* `isaacsim.robot.schema` – Schema definitions, application helpers, and programmatic utilities for traversing and maintaining robot structures.
+* `isaacsim.robot.schema.ui` – Interactive [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) for viewing robot kinematic trees in multiple display modes, selectively masking and bypassing components, anchoring links to the world, and visualizing joint connections in the viewport.
 
 # Schema Overview
 
@@ -2347,7 +2347,7 @@ The Robot Schema defines five applied API schemas and two typed schema:
 
 | Schema | Purpose |
 | --- | --- |
-| **IsaacRobotAPI** | Root definition applied to the robotâs top-level prim. Holds metadata and ordered lists of links and joints. |
+| **IsaacRobotAPI** | Root definition applied to the robot’s top-level prim. Holds metadata and ordered lists of links and joints. |
 | **IsaacLinkAPI** | Flags a rigid body (or other simulated body) as a link in the robot composition. |
 | **IsaacJointAPI** | Flags a physics joint as part of the robot composition and carries DOF ordering information. |
 | **IsaacSiteAPI** | Marks a point of interest on the robot (tool mount, sensor location, end-effector frame). |
@@ -2357,7 +2357,7 @@ The Robot Schema defines five applied API schemas and two typed schema:
 
 ## Robot API
 
-`IsaacRobotAPI` is applied to the robotâs root prim and serves as the single source of truth for the robotâs composition and metadata.
+`IsaacRobotAPI` is applied to the robot’s root prim and serves as the single source of truth for the robot’s composition and metadata.
 
 **Relationships**
 
@@ -2371,7 +2371,7 @@ The Robot Schema defines five applied API schemas and two typed schema:
 
 | Attribute | Type | Description |
 | --- | --- | --- |
-| `isaac:description` | String | Free-form text describing the robotâs purpose and capabilities. |
+| `isaac:description` | String | Free-form text describing the robot’s purpose and capabilities. |
 | `isaac:namespace` | String | Unique namespace identifier used for component messaging. |
 | `isaac:robotType` | Token | Category of robot, such as `Manipulator`, `Humanoid`, or `Mobile Base`. |
 | `isaac:license` | Token | License under which the robot asset is distributed. |
@@ -2412,7 +2412,7 @@ In prior revisions, per-axis DOF offset attributes (`isaac:physics:Tr_X:DoFOffse
 
 ## Site API
 
-`IsaacSiteAPI` describes points of interest on the robot â tool attachment frames, sensor mount locations, end-effector reference frames, and similar.
+`IsaacSiteAPI` describes points of interest on the robot – tool attachment frames, sensor mount locations, end-effector reference frames, and similar.
 
 | Attribute | Type | Description |
 | --- | --- | --- |
@@ -2427,7 +2427,7 @@ Note
 
 ## Named Pose
 
-`IsaacNamedPose` is a typed prim schema (inheriting from `Xform`) that stores a reusable joint configuration for a segment of the robotâs kinematic chain. Each named pose captures the joints between a start link and an end link/site, the corresponding joint values, and the target end-effector transform encoded in the primâs Xform ops.
+`IsaacNamedPose` is a typed prim schema (inheriting from `Xform`) that stores a reusable joint configuration for a segment of the robot’s kinematic chain. Each named pose captures the joints between a start link and an end link/site, the corresponding joint values, and the target end-effector transform encoded in the prim’s Xform ops.
 
 Named poses are collected under a `Named_Poses` scope beneath the robot root prim and registered via the `isaac:robot:namedPoses` relationship on `IsaacRobotAPI`. They are created and managed through the [Robot Poser](../robot_setup/robot_poser.html#isaac-sim-robot-poser) UI or programmatically via the `isaacsim.robot.poser` API.
 
@@ -2447,18 +2447,18 @@ Named poses are collected under a `Named_Poses` scope beneath the robot root pri
 | `isaac:robot:pose:jointValues` | Float[] | Joint values in USD native units (degrees for revolute, meters for prismatic), ordered to match the `joints` relationship. |
 | `isaac:robot:pose:jointFixed` | Bool[] | Per-joint fixed flags. When `True`, the corresponding joint is held constant during IK solving. |
 
-Because `IsaacNamedPose` inherits from `Xform`, its translate and orient ops store the target end-effector pose in the robotâs coordinate frame. Moving the prim in the viewport updates this target, and the [Robot Poser](../robot_setup/robot_poser.html#isaac-sim-robot-poser) can track the primâs transform in real time to solve IK continuously.
+Because `IsaacNamedPose` inherits from `Xform`, its translate and orient ops store the target end-effector pose in the robot’s coordinate frame. Moving the prim in the viewport updates this target, and the [Robot Poser](../robot_setup/robot_poser.html#isaac-sim-robot-poser) can track the prim’s transform in real time to solve IK continuously.
 
 # Composing Robots
 
-Robot compositions are built by applying `IsaacRobotAPI` to each sub-robotâs root prim. The final assembly is achieved by either:
+Robot compositions are built by applying `IsaacRobotAPI` to each sub-robot’s root prim. The final assembly is achieved by either:
 
-* Adding a sub-robotâs root prim to the parent robotâs links and joints lists, which causes the parent to recursively include the sub-robotâs full kinematic tree.
-* Selecting specific links and joints from sub-robots and adding them directly to the parent robotâs lists.
+* Adding a sub-robot’s root prim to the parent robot’s links and joints lists, which causes the parent to recursively include the sub-robot’s full kinematic tree.
+* Selecting specific links and joints from sub-robots and adding them directly to the parent robot’s lists.
 
 # Applying the Robot Schema
 
-All robots in Isaac Simâs asset library and those imported through [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) or [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) have the Robot Schema pre-applied. For robots imported in prior versions or from external sources, the schema must be applied manually.
+All robots in Isaac Sim’s asset library and those imported through [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) or [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) have the Robot Schema pre-applied. For robots imported in prior versions or from external sources, the schema must be applied manually.
 
 ## Through the GUI
 
@@ -2474,7 +2474,7 @@ If the robot structure changes over time (for instance, new links or joints are 
 
 Note
 
-When applying the schema, if your asset follows the [Asset Structure](../robot_setup/asset_structure.html#isaac-sim-app-reference-asset-structure) guidelines, apply it either in the base layer or in a dedicated robot schema layer â not directly in the interface layer. Auto-population requires authored physics, so temporarily add the physics layer as a sublayer during schema application, then remove it before saving.
+When applying the schema, if your asset follows the [Asset Structure](../robot_setup/asset_structure.html#isaac-sim-app-reference-asset-structure) guidelines, apply it either in the base layer or in a dedicated robot schema layer – not directly in the interface layer. Auto-population requires authored physics, so temporarily add the physics layer as a sublayer during schema application, then remove it before saving.
 
 ## Through Code
 
@@ -2523,7 +2523,7 @@ The first collapsible section binds each scalar [Robot API](#isaac-sim-robot-sch
 | Field | Editor | Notes |
 | --- | --- | --- |
 | **Description** | Text field | Free-form text. Updated on field commit (Enter / focus loss). |
-| **License** | Drop-down | Populated from the schemaâs `allowedTokens` so only recognized SPDX-style identifiers can be selected. |
+| **License** | Drop-down | Populated from the schema’s `allowedTokens` so only recognized SPDX-style identifiers can be selected. |
 | **Namespace** | Text field | Used for component messaging. |
 | **Robot Type** | Drop-down with **(Other)** entry | Selecting **(Other)** appends a side text field for typing a custom token; selecting any predefined value clears the override. |
 | **Source** | Text field | URL or reference to the original asset. |
@@ -2538,25 +2538,25 @@ Each row shows:
 
 * A numeric index (only for direct children, not for sub-robot rows).
 * A grab handle for drag-and-drop reordering. Dragging a row reveals a horizontal drop indicator at the insertion point.
-* The target primâs display name. Hovering shows a tooltip with the full prim path. Double-clicking selects the prim on the stage.
+* The target prim’s display name. Hovering shows a tooltip with the full prim path. Double-clicking selects the prim on the stage.
 * A trailing remove button that drops the entry from the relationship.
 
 ### Adding entries
 
 The **Add Joint** and **Add Link** buttons open a stage prim picker pre-filtered to compatible prims:
 
-* **Add Joint** â shows prims with `IsaacJointAPI` or `IsaacRobotAPI`.
-* **Add Link** â shows prims with `IsaacLinkAPI`, `IsaacSiteAPI`, or `IsaacRobotAPI`.
+* **Add Joint** – shows prims with `IsaacJointAPI` or `IsaacRobotAPI`.
+* **Add Link** – shows prims with `IsaacLinkAPI`, `IsaacSiteAPI`, or `IsaacRobotAPI`.
 
 ### Sub-robot rows
 
-When a row targets a prim that itself has `IsaacRobotAPI`, a disclosure triangle appears next to the label. Expanding the row displays a read-only, indented preview of that sub-robotâs matching relationship â joints in the joints list, links in the links list. The preview recurses up to four levels deep so deeply nested compositions stay legible.
+When a row targets a prim that itself has `IsaacRobotAPI`, a disclosure triangle appears next to the label. Expanding the row displays a read-only, indented preview of that sub-robot’s matching relationship – joints in the joints list, links in the links list. The preview recurses up to four levels deep so deeply nested compositions stay legible.
 
 .
 Maintenance Toolbar
-ââââââ-
+——————-
 
-Two buttons at the bottom of the widget keep the relationships consistent with the underlying physics articulation and the assetâs layer stack:
+Two buttons at the bottom of the widget keep the relationships consistent with the underlying physics articulation and the asset’s layer stack:
 
 | Control | Behavior |
 | --- | --- |
@@ -2568,11 +2568,11 @@ Two buttons at the bottom of the widget keep the relationships consistent with t
 
 Selecting a prim with one of the other Robot Schema APIs surfaces a focused widget for that schema:
 
-* **Robot Link** (`IsaacLinkAPI`) â exposes the optional `isaac:nameOverride` attribute.
-* **Robot Joint** (`IsaacJointAPI`) â exposes `isaac:nameOverride`, `isaac:physics:DofOffsetOpOrder`, and the `isaac:actuator` flag.
-* **Robot Site** (`IsaacSiteAPI`) â exposes the site description and forward-axis token; available on any `Xformable` prim.
+* **Robot Link** (`IsaacLinkAPI`) – exposes the optional `isaac:nameOverride` attribute.
+* **Robot Joint** (`IsaacJointAPI`) – exposes `isaac:nameOverride`, `isaac:physics:DofOffsetOpOrder`, and the `isaac:actuator` flag.
+* **Robot Site** (`IsaacSiteAPI`) – exposes the site description and forward-axis token; available on any `Xformable` prim.
 
-Each widget has a remove button in its header that drops the schema and clears its authored properties. Use the **+ Add** menuâs `Isaac/Robot Schema/...` entries to apply any of these schemas to a new prim.
+Each widget has a remove button in its header that drops the schema and clears its authored properties. Use the **+ Add** menu’s `Isaac/Robot Schema/...` entries to apply any of these schemas to a new prim.
 
 # Parsing Robot Structure
 
@@ -2641,11 +2641,11 @@ from usd.schema.isaac.robot_schema import utils
 
 | Function | Description |
 | --- | --- |
-| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robotâs kinematic structure. Returns the root node. |
+| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robot’s kinematic structure. Returns the root node. |
 | `GetAllRobotLinks(stage, robot_link_prim, include_reference_points)` | Returns all links of the robot. Retrieves from schema relationships and supplements with any missing links discovered through articulation traversal. |
 | `GetAllRobotJoints(stage, robot_link_prim, parse_nested_robots)` | Returns all joints of the robot. Retrieves from schema relationships and supplements with any missing joints from articulation traversal. |
-| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a jointâs body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
-| `GetJointPose(robot_prim, joint_prim)` | Returns the jointâs pose as a 4x4 matrix in the robotâs coordinate frame. |
+| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a joint’s body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
+| `GetJointPose(robot_prim, joint_prim)` | Returns the joint’s pose as a 4x4 matrix in the robot’s coordinate frame. |
 | `GetLinksFromJoint(root, joint_prim)` | Given a tree root and a joint, returns two lists: links before the joint (toward the base) and links after the joint (toward the leaves). |
 | `PrintRobotTree(root, indent)` | Prints an indented text representation of the link tree to the console. |
 
@@ -2686,16 +2686,16 @@ Both functions accept:
 | `EnsurePrependListForRobotRelationships(robot_prim)` | Rebuilds `robotLinks` and `robotJoints` using USD prepend list operations for correct layering behavior. |
 | `RebuildRelationshipAsPrepend(prim, rel_name, targets)` | Low-level helper that rebuilds a single relationship using prepend list operations. |
 | `UpdateDeprecatedSchemas(robot_prim)` | Traverses the robot subtree and replaces `IsaacReferencePointAPI` with `IsaacSiteAPI`. Also migrates deprecated per-axis DOF offset attributes on joints. |
-| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single jointâs deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
+| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single joint’s deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
 
 ## Named Pose Query
 
 | Function | Description |
 | --- | --- |
-| `GetAllNamedPoses(stage, robot_prim)` | Returns all [IsaacNamedPose](#isaac-sim-robot-schema-named-pose) prims registered in the robotâs `namedPoses` relationship. |
+| `GetAllNamedPoses(stage, robot_prim)` | Returns all [IsaacNamedPose](#isaac-sim-robot-schema-named-pose) prims registered in the robot’s `namedPoses` relationship. |
 | `GetNamedPoseStartLink(named_pose_prim)` | Returns the start link path from the named pose. |
 | `GetNamedPoseEndLink(named_pose_prim)` | Returns the end link / site path from the named pose. |
-| `GetNamedPoseJoints(named_pose_prim)` | Returns the ordered list of joint paths in the poseâs kinematic chain. |
+| `GetNamedPoseJoints(named_pose_prim)` | Returns the ordered list of joint paths in the pose’s kinematic chain. |
 | `GetNamedPoseJointValues(named_pose_prim)` | Returns the stored joint values array (native USD units). |
 | `GetNamedPoseJointFixed(named_pose_prim)` | Returns the per-joint fixed flags array. |
 | `GetNamedPoseValid(named_pose_prim)` | Returns whether the stored pose is valid. |
@@ -2740,7 +2740,7 @@ The `math` module (`usd.schema.isaac.robot_schema.math`) provides foundational d
 
 ## Kinematic Chain
 
-The `kinematic_chain` module (`usd.schema.isaac.robot_schema.kinematic_chain`) provides the `KinematicChain` class that caches the robotâs kinematic tree and builds an ordered joint chain between a start and end prim for FK and IK computation.
+The `kinematic_chain` module (`usd.schema.isaac.robot_schema.kinematic_chain`) provides the `KinematicChain` class that caches the robot’s kinematic tree and builds an ordered joint chain between a start and end prim for FK and IK computation.
 
 | Method / Property | Description |
 | --- | --- |
@@ -2749,7 +2749,7 @@ The `kinematic_chain` module (`usd.schema.isaac.robot_schema.kinematic_chain`) p
 | `compute_fk_and_jacobian(q)` | Fused single-pass FK and spatial Jacobian computation. Returns `(Transform, 6xN Jacobian)`. |
 | `read_joint_states()` | Read current USD joint state for the chain joints. Returns a dict of prim-path to value (radians or meters). |
 | `teleport(joint_dict)` | Apply joint values by propagating FK body transforms through the kinematic tree. For use when simulation is stopped. |
-| `teleport_anchored(joint_dict)` | Apply joint values while keeping a fixed primâs world position unchanged. Handles backward (child-to-parent) joints by rigidly correcting the robot after FK propagation. |
+| `teleport_anchored(joint_dict)` | Apply joint values while keeping a fixed prim’s world position unchanged. Handles backward (child-to-parent) joints by rigidly correcting the robot after FK propagation. |
 | `joints` | Ordered list of `Joint` objects in the chain. |
 | `tree_root` | Cached kinematic tree root node. |
 
@@ -2800,7 +2800,7 @@ from isaacsim.robot.poser import (
 
 | Function | Description |
 | --- | --- |
-| `store_named_pose(stage, robot_prim, pose_name, pose_result)` | Creates an `IsaacNamedPose` prim, writes joint values, relationships, and the target Xform, and registers it in the robotâs `namedPoses` relationship. |
+| `store_named_pose(stage, robot_prim, pose_name, pose_result)` | Creates an `IsaacNamedPose` prim, writes joint values, relationships, and the target Xform, and registers it in the robot’s `namedPoses` relationship. |
 | `get_named_pose(stage, robot_prim, pose_name)` | Retrieves a stored pose as a `PoseResult` dataclass. |
 | `list_named_poses(stage, robot_prim)` | Returns the names of all named poses on the robot. |
 | `delete_named_pose(stage, robot_prim, pose_name)` | Removes the pose prim and its entry from the `namedPoses` relationship. |
@@ -2824,11 +2824,11 @@ from usd.schema.isaac.robot_schema import utils
 
 | Function | Description |
 | --- | --- |
-| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robotâs kinematic structure. Returns the root node. |
+| `GenerateRobotLinkTree(stage, robot_link_prim)` | Builds and returns a `RobotLinkNode` tree representing the robot’s kinematic structure. Returns the root node. |
 | `GetAllRobotLinks(stage, robot_link_prim, include_reference_points)` | Returns all links of the robot. Retrieves from schema relationships and supplements with any missing links discovered through articulation traversal. |
 | `GetAllRobotJoints(stage, robot_link_prim, parse_nested_robots)` | Returns all joints of the robot. Retrieves from schema relationships and supplements with any missing joints from articulation traversal. |
-| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a jointâs body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
-| `GetJointPose(robot_prim, joint_prim)` | Returns the jointâs pose as a 4x4 matrix in the robotâs coordinate frame. |
+| `GetJointBodyRelationship(joint_prim, bodyIndex)` | Returns the target path for a joint’s body connection (index 0 or 1). Returns `None` if the joint is excluded from articulation. |
+| `GetJointPose(robot_prim, joint_prim)` | Returns the joint’s pose as a 4x4 matrix in the robot’s coordinate frame. |
 | `GetLinksFromJoint(root, joint_prim)` | Given a tree root and a joint, returns two lists: links before the joint (toward the base) and links after the joint (toward the leaves). |
 | `PrintRobotTree(root, indent)` | Prints an indented text representation of the link tree to the console. |
 
@@ -2869,7 +2869,7 @@ Both functions accept:
 | `EnsurePrependListForRobotRelationships(robot_prim)` | Rebuilds `robotLinks` and `robotJoints` using USD prepend list operations for correct layering behavior. |
 | `RebuildRelationshipAsPrepend(prim, rel_name, targets)` | Low-level helper that rebuilds a single relationship using prepend list operations. |
 | `UpdateDeprecatedSchemas(robot_prim)` | Traverses the robot subtree and replaces `IsaacReferencePointAPI` with `IsaacSiteAPI`. Also migrates deprecated per-axis DOF offset attributes on joints. |
-| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single jointâs deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
+| `UpdateDeprecatedJointDofOrder(joint_prim)` | Migrates a single joint’s deprecated per-axis `DoFOffset` attributes to the `DofOffsetOpOrder` token array. Removes the deprecated attributes from the edit layer. |
 
 # Asset Structure
 
@@ -2948,7 +2948,7 @@ See [Contact sensor](../sensors/isaacsim_sensors_physics_contact.html#isaacsim-s
 | Attribute | Type | Description |
 | --- | --- | --- |
 | `threshold` | Float2 | Min and max force detected by this sensor, in (kg) \* (stage length unit) / (second)^2. |
-| `radius` | Float | Radius of the contact sensor sphere, in stage length units. A value of `-1` uses the primâs collision geometry. |
+| `radius` | Float | Radius of the contact sensor sphere, in stage length units. A value of `-1` uses the prim’s collision geometry. |
 | `color` | Float4 | Color of the contact sensor visualization sphere (R, G, B, A). |
 | `sensorPeriod` | Float | **Deprecated** since `isaacsim.robot.schema` 6.2.0. Only used by the deprecated `isaacsim.sensors.physx` extension. Time between measurements in simulator seconds. |
 
@@ -2971,7 +2971,7 @@ See [IMU sensor](../sensors/isaacsim_sensors_physics_imu.html#isaacsim-sensors-p
 
 See [Physics raycast sensor](../sensors/isaacsim_sensors_physics_raycast.html#isaacsim-sensors-physics-raycast) for usage documentation.
 
-Origins and directions are specified in the sensor primâs local coordinate frame. At each physics step the sensorâs world transform is computed from the current rigid-body pose, optionally extrapolated forward using linear/angular velocity when a non-zero `rayTimeOffset` is specified. Each rayâs local origin and direction are then transformed into world space for the raycast.
+Origins and directions are specified in the sensor prim’s local coordinate frame. At each physics step the sensor’s world transform is computed from the current rigid-body pose, optionally extrapolated forward using linear/angular velocity when a non-zero `rayTimeOffset` is specified. Each ray’s local origin and direction are then transformed into world space for the raycast.
 
 All attributes are read once when the sensor is first evaluated after simulation starts. Changing attribute values while the simulation is playing has no effect; stop and restart the simulation to pick up changes.
 
@@ -2980,9 +2980,9 @@ All attributes are read once when the sensor is first evaluated after simulation
 | `numRays` | UInt | Number of rays cast by this sensor. `rayOrigins` and `rayDirections` must each have exactly this many elements. |
 | `minRange` | Float | Minimum detection range in stage length units. Rays start at `origin + direction * minRange`. |
 | `maxRange` | Float | Maximum detection range in stage length units. |
-| `rayOrigins` | Float3[] | Per-ray origin translations in the sensorâs local coordinate frame. |
-| `rayDirections` | Float3[] | Per-ray cast direction vectors in the sensorâs local coordinate frame. Vectors are normalized before use. |
-| `rayTimeOffsets` | Float[] | Per-ray time offsets in seconds. When provided, only rays whose time offsets fall within the current physics stepâs time window are fired. The sweep period equals `max(rayTimeOffsets)`. If empty, all rays fire every step. |
+| `rayOrigins` | Float3[] | Per-ray origin translations in the sensor’s local coordinate frame. |
+| `rayDirections` | Float3[] | Per-ray cast direction vectors in the sensor’s local coordinate frame. Vectors are normalized before use. |
+| `rayTimeOffsets` | Float[] | Per-ray time offsets in seconds. When provided, only rays whose time offsets fall within the current physics step’s time window are fired. The sweep period equals `max(rayTimeOffsets)`. If empty, all rays fire every step. |
 | `outputFrameOfReference` | Token | Coordinate frame for hit positions and normals: `SENSOR` (default) or `WORLD`. |
 | `reportHitPrimPaths` | Bool | When `True`, the sensor reading includes the USD prim path of each hit surface. |
 
@@ -2990,7 +2990,7 @@ All attributes are read once when the sensor is first evaluated after simulation
 
 The following sensor schemas are defined in `SensorSchema.usda` but are deprecated:
 
-* **IsaacLightBeamSensor** â Deprecated since `isaacsim.robot.schema` 6.2.0. Use `IsaacRaycastSensor` with `isaacsim.sensors.experimental.physics` instead. See [Migrating to the physics raycast sensor](../sensors/isaacsim_sensors_physx_lightbeam.html#isaacsim-sensors-physx-lightbeam-migration).
+* **IsaacLightBeamSensor** – Deprecated since `isaacsim.robot.schema` 6.2.0. Use `IsaacRaycastSensor` with `isaacsim.sensors.experimental.physics` instead. See [Migrating to the physics raycast sensor](../sensors/isaacsim_sensors_physx_lightbeam.html#isaacsim-sensors-physx-lightbeam-migration).
 
 The `IsaacRtxLidarSensorAPI` and `IsaacRtxRadarSensorAPI` are applied API schemas for the RTX sensor pipeline and are not physics-based sensors. See [RTX Sensors](../sensors/isaacsim_sensors_rtx.html#isaacsim-sensors-rtx) for RTX sensor documentation.
 
@@ -3094,7 +3094,7 @@ Note
 
 ## Sensor Axes Representation (LiDAR, Cameras)
 
-Cameras in Isaac Sim are subject to three different types of axes definition, depending on the context of use. Here, we introduce the three conventions and how itâs used in different contexts.
+Cameras in Isaac Sim are subject to three different types of axes definition, depending on the context of use. Here, we introduce the three conventions and how it’s used in different contexts.
 
 ### World Axes
 
@@ -3158,7 +3158,7 @@ This section provides an explanation of the terms used throughout NVIDIA Isaac S
   + [Omniverse USD Composer](#omniverse-usd-composer)
   + [Carbonite (carb)](#carbonite-carb)
   + [RTX - Real-Time mode](#real-time-render-mode)
-  + [RTX â Interactive (Path Tracing) mode](#interactive-render-mode)
+  + [RTX – Interactive (Path Tracing) mode](#interactive-render-mode)
   + [Extensions](#extensions)
   + [Omniverse Connect](#omniverse-connect)
 * [USD](#usd)
@@ -3193,15 +3193,15 @@ This section provides an explanation of the terms used throughout NVIDIA Isaac S
 
 ### [Application](#id4)
 
-An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UIâs of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
+An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UI’s of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
 
 ### [Apps](#id5)
 
-An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UIâs of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
+An Omniverse App is built upon a specific set of Extensions to provide a desired functionality. An App gives the user a customized experience by implementing the UI’s of its Extensions with a custom layout. You can quickly and easily create customized Apps comprised of any number of Extensions developed by you, the Omniverse Community or NVIDIA. An App can be as simple as a 3D viewer or as complex as an AI suite. This modular approach to building Apps makes it easy to create a customized workflow or a global scale cloud application
 
 ### [Connectors](#id6)
 
-An Omniverse Connector is middleware with which Omniverse and other software applications communicate with each other. They enable the import/export 3D assets, data, and models between different tools and workflows. Itâs important to note that this means using USD as the âgo betweenâ format to convert 3D data.
+An Omniverse Connector is middleware with which Omniverse and other software applications communicate with each other. They enable the import/export 3D assets, data, and models between different tools and workflows. It’s important to note that this means using USD as the “go between” format to convert 3D data.
 
 ### [Omniverse Nucleus](#id7)
 
@@ -3211,7 +3211,7 @@ Nucleus operates under a publish/subscribe model. Subject to access controls, Om
 
 This allows a variety of Omniverse-enabled client applications ( Apps, Connectors, and others) to share and modify authoritative representations of virtual worlds.
 
-* See [Nucleus overview](https://docs.omniverse.nvidia.com/nucleus/latest/overview/overview.html "(in Omniverse Nucleus)") for a more in-depth look at Nucleusâs data model, architecture, and distribution platforms.
+* See [Nucleus overview](https://docs.omniverse.nvidia.com/nucleus/latest/overview/overview.html "(in Omniverse Nucleus)") for a more in-depth look at Nucleus’s data model, architecture, and distribution platforms.
 
 ### [Hub Workstation Cache](#id8)
 
@@ -3224,7 +3224,7 @@ Hub Workstation Cache has been performance optimized and supports storage-derive
 
 ### [Live Sync](#id9)
 
-Live Sync mode enables real-time âliveâ editing of shared files on a Nucleus Server. The Live Sync button is on the top-right corner of the Workspace.
+Live Sync mode enables real-time “live” editing of shared files on a Nucleus Server. The Live Sync button is on the top-right corner of the Workspace.
 
 ### [Omniverse Kit](#id10)
 
@@ -3242,7 +3242,7 @@ The NVIDIA Omniverse Launcher is your first step into the Omniverse. It provides
 
 ### [Omniverse USD Composer](#id12)
 
-NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixarâs USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
+NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
 
 ### [Carbonite (carb)](#id13)
 
@@ -3252,7 +3252,7 @@ The Carbonite SDK provides the core functionality of all Omniverse apps. This is
 
 High quality real-time rendering mode.
 
-### [RTX â Interactive (Path Tracing) mode](#id15)
+### [RTX – Interactive (Path Tracing) mode](#id15)
 
 The highest quality, physically accurate rendering mode.
 
@@ -3270,12 +3270,12 @@ Connectors are extensions and additional software layers on top of the open-sour
 
 ### [USD](#id19)
 
-Universal Scene Description (USD) is an easily extensible, open-source 3D scene description file format developed by Pixar for content creation and interchange among different tools. As a result of its power and versatility, itâs being widely adopted, not only in the visual effects community, but also in architecture, design, robotics, manufacturing, and other disciplines.
+Universal Scene Description (USD) is an easily extensible, open-source 3D scene description file format developed by Pixar for content creation and interchange among different tools. As a result of its power and versatility, it’s being widely adopted, not only in the visual effects community, but also in architecture, design, robotics, manufacturing, and other disciplines.
 
-* For a more in-depth look at USD in Omniverse, see NVIDIAâs USD primer [What is USD?](https://developer.nvidia.com/usd/).
+* For a more in-depth look at USD in Omniverse, see NVIDIA’s USD primer [What is USD?](https://developer.nvidia.com/usd/).
 * See the [USD API](https://graphics.pixar.com/usd/release/index.html) docs for more details.
 * See the [USD Glossary of Terms & Concepts](https://graphics.pixar.com/usd/release/glossary.html) for more details.
-* See [NVIDIAâs USD tutorials](https://developer.nvidia.com/usd/tutorials)
+* See [NVIDIA’s USD tutorials](https://developer.nvidia.com/usd/tutorials)
 
 ### [MDL](#id20)
 
@@ -3290,7 +3290,7 @@ The Omniverse Stage window allows you to see all the assets in your current USD 
 
 ### [Prim](#id22)
 
-A [Prim](https://graphics.pixar.com/usd/release/glossary.html#usdglossary-prim) is the primary container object in USD: prims can contain (and order) other prims, creating a ânamespace hierarchyâ on a Stage,
+A [Prim](https://graphics.pixar.com/usd/release/glossary.html#usdglossary-prim) is the primary container object in USD: prims can contain (and order) other prims, creating a “namespace hierarchy” on a Stage,
 and prims can also contain (and order) properties that hold meaningful data. Prims, along with their associated, computed indices, are
 the only persistent scenegraph objects that a Stage retains in memory, and the API for interacting with prims is provided by the UsdPrim class.
 
@@ -3302,7 +3302,7 @@ A mesh is a subdividable primitive that consists of points, edges, and faces tha
 
 ### [Shape](#id24)
 
-A Shape is a geometric primitive that maps to one of USDâs five âintrinsicâ `UsdGeomGprim` classes:
+A Shape is a geometric primitive that maps to one of USD’s five “intrinsic” `UsdGeomGprim` classes:
 
 > * [UsdGeomCapsule](https://graphics.pixar.com/usd/release/api/class_usd_geom_capsule.html)
 > * [UsdGeomCone](https://graphics.pixar.com/usd/release/api/class_usd_geom_cone.html)
@@ -3322,9 +3322,9 @@ A primitive that is included from some other layer is a **Reference** to that pr
 
 If the contents of a reference need to be modified during simulation, then it must be converted into a **Payload**. A payload is indicated by the **blue arrow** on the associated Xform in the context tree of Isaac Sim. Payloads are references that have all of their data actively loaded by the sim so that it can be modified at runtime.
 
-**Instances** are indicated by a **blue âIâ**, and can be either references or payloads. They carry additional assumptions about the structure of the asset for more efficient vectorization (scaled up).
+**Instances** are indicated by a **blue “I”**, and can be either references or payloads. They carry additional assumptions about the structure of the asset for more efficient vectorization (scaled up).
 
-For example, suppose you want to collect synthetic data with a robot. If you arenât going to modify the structure of the robot, it can exist as a reference on the stage (the asset is defined in some other file). If, during data collection, you want to be able to swap the robot out for a different one, those meshes need to be held in active memory. This means that the asset first needs to be converted from a reference to a payload. If you wanted to collect data with a 1000 robots at once, and they are all the same, you might use instantiable references. Whereas, if you wanted to collect data with a 1000 randomly sampled robots (different arms with the same number of joints for example), you would use instance payloads.
+For example, suppose you want to collect synthetic data with a robot. If you aren’t going to modify the structure of the robot, it can exist as a reference on the stage (the asset is defined in some other file). If, during data collection, you want to be able to swap the robot out for a different one, those meshes need to be held in active memory. This means that the asset first needs to be converted from a reference to a payload. If you wanted to collect data with a 1000 robots at once, and they are all the same, you might use instantiable references. Whereas, if you wanted to collect data with a 1000 randomly sampled robots (different arms with the same number of joints for example), you would use instance payloads.
 
 ### [Y-Up / Z-Up](#id26)
 
@@ -3332,7 +3332,7 @@ The axis of orientation of a given scene/prim. Y-Up refers to the Positive Y Axi
 
 ### [Layer](#id27)
 
-A component of the collaborative nature of USD. Each layer in USD signifies a userâs âopinionâ on assets inside a stage. Layers can override other layers.
+A component of the collaborative nature of USD. Each layer in USD signifies a user’s “opinion” on assets inside a stage. Layers can override other layers.
 
 ### [Instance](#id28)
 
@@ -3438,7 +3438,7 @@ On this page
   + [Omniverse USD Composer](#omniverse-usd-composer)
   + [Carbonite (carb)](#carbonite-carb)
   + [RTX - Real-Time mode](#real-time-render-mode)
-  + [RTX â Interactive (Path Tracing) mode](#interactive-render-mode)
+  + [RTX – Interactive (Path Tracing) mode](#interactive-render-mode)
   + [Extensions](#extensions)
   + [Omniverse Connect](#omniverse-connect)
 * [USD](#usd)
@@ -3762,7 +3762,7 @@ Given a physics dt of `1/60`, the physics steps per second is equivalent to the 
 
 **Optimization Tips:**
 
-1. Select the appropriate physics backend for the workload. Itâs recommended to test with both backends to determine the optimal choice.
+1. Select the appropriate physics backend for the workload. It’s recommended to test with both backends to determine the optimal choice.
 
 > * CPU Physics: Low robot count and/or low complexity robots + scenes
 > * GPU Physics: Higher robot counts and/or higher complexity robots + scenes
@@ -3952,7 +3952,7 @@ SDG Images per Second (Simple)
 
 The throughput can be calculated as `Mean FPS * number of cameras` to yield the total number of images generated per second.
 
-**Performance Notes:** The usage of the âskip-write flag improves performance by skipping the disk write step, which can cause a bottleneck due to IO operations. Randomization of pose/orientation/material are CPU-intensive operations currently.
+**Performance Notes:** The usage of the –skip-write flag improves performance by skipping the disk write step, which can cause a bottleneck due to IO operations. Randomization of pose/orientation/material are CPU-intensive operations currently.
 
 **Optimization Tips:**
 
@@ -4084,7 +4084,7 @@ The first section shows the benchmark configuration and system information.
 |----------------------------------------------------|
 ```
 
-Itâs populated with the `workflow_metadata` dictionary passed into the `BaseIsaacBenchmark` object defined in each benchmark script.
+It’s populated with the `workflow_metadata` dictionary passed into the `BaseIsaacBenchmark` object defined in each benchmark script.
 
 #### Loading Phase Metrics
 

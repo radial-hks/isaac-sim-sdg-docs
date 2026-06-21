@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "RTX Camera"
 section: "相机"
 module: "05-sensors-annotators"
-checksum: "ad8443c29acb9874"
-fetched: "2026-06-21T11:55:32"
+checksum: "f32b563c418af912"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [Sensors](index.html)
@@ -31,15 +31,15 @@ split. See [Camera Sensors](../migration_guides/isaac_sim_6_0/sensors_camera_to_
 Isaac Sim cameras are USD `Camera` prims rendered by the RTX renderer. The
 `isaacsim.sensors.experimental.rtx` extension wraps these prims with two paired classes:
 
-* **Authoring** â `RtxCamera` creates or wraps a USD `Camera` prim, applies the
+* **Authoring** — `RtxCamera` creates or wraps a USD `Camera` prim, applies the
   `OmniSensorAPI` schema, and exposes the optical parameters (focal length, aperture,
   clipping range) through its `.camera` property.
-* **Runtime** â `CameraSensor` wraps an `RtxCamera` object, creates a Replicator render
+* **Runtime** — `CameraSensor` wraps an `RtxCamera` object, creates a Replicator render
   product at a specified resolution, attaches annotators (`rgb`, `distance_to_camera`,
   `semantic_segmentation`, etc.), and provides `get_data()` for retrieving rendered frames
   as numpy/warp arrays.
 
-Two specialized camera variants extend this base â `SingleViewDepthCameraSensor` for
+Two specialized camera variants extend this base — `SingleViewDepthCameraSensor` for
 stereoscopic depth simulation and `StructuredLightCamera` for projected-pattern depth
 recovery. See [Specialized Camera Types](#isaacsim-sensors-camera-specialized-types) below.
 
@@ -81,7 +81,7 @@ The `tick_rate` parameter (Hz) on `RtxCamera` controls how frequently the camera
 of `0` (the default) enables autotrigger mode, where the camera renders every simulation frame.
 Setting a nonzero value causes the camera to render at the specified frequency independently of the
 simulation step rate. This maps to the `omni:sensor:tickRate` prim attribute and requires the
-`OmniSensorAPI` schema to be applied to the Camera prim â `RtxCamera` does this automatically.
+`OmniSensorAPI` schema to be applied to the Camera prim — `RtxCamera` does this automatically.
 
 ```python
 from isaacsim.sensors.experimental.rtx import RtxCamera
@@ -161,7 +161,7 @@ located at `standalone_examples/api/isaacsim.sensors.experimental.rtx/camera_ope
 Note
 
 * Previously, the `Camera` class included APIs to approximate OpenCV pinhole and fisheye models distortion parameters by setting coefficients for the `fisheyePolynomial` distortion model. Now that OpenCV lens distortion models are natively supported, those APIs have been deprecated.
-* [Omniverse RTX Camera Projection Attributes](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#rtx-camera-projection-attributes-deprecated) have been deprecated as of Isaac Sim 5.0, in favor of the `OmniLensDistortion` [schemata](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata). The deprecated attributes are still visible in the UI in the `Fisheye Lens` panel when selecting a Camera prim, but will be ignored if you have set an `OmniLensDistortion` schema instead. Follow the instructions in [âHow To Add Schemata to Camerasâ](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata) to see how to update Camera prim attributes for the new schemata in the UI.
+* [Omniverse RTX Camera Projection Attributes](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#rtx-camera-projection-attributes-deprecated) have been deprecated as of Isaac Sim 5.0, in favor of the `OmniLensDistortion` [schemata](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata). The deprecated attributes are still visible in the UI in the `Fisheye Lens` panel when selecting a Camera prim, but will be ignored if you have set an `OmniLensDistortion` schema instead. Follow the instructions in [“How To Add Schemata to Cameras”](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/cameras.html#omnilensdistortion-schemata) to see how to update Camera prim attributes for the new schemata in the UI.
 
 Warning
 
@@ -249,19 +249,19 @@ Run the example:
 The example renders 20 frames and saves output from each ISP stage to the `camera_isp_pipeline_outputs` directory.
 The pipeline stages, in order, are described below.
 
-**HDR texture read** â the raw HDR radiance buffer read from the renderer before any sensor processing.
+**HDR texture read** — the raw HDR radiance buffer read from the renderer before any sensor processing.
 
-**Color correction** â applies black-level subtraction, white-balance gains, a 3x3 color-correction matrix, and sensor-response scaling.
+**Color correction** — applies black-level subtraction, white-balance gains, a 3x3 color-correction matrix, and sensor-response scaling.
 
-**CFA encoding** â encodes the RGB image into a single-channel Bayer mosaic using the configured Color Filter Array pattern (GRBG in this example).
+**CFA encoding** — encodes the RGB image into a single-channel Bayer mosaic using the configured Color Filter Array pattern (GRBG in this example).
 
-**Noise simulation** â adds Gaussian and shot noise to the Bayer image to approximate real sensor behavior.
+**Noise simulation** — adds Gaussian and shot noise to the Bayer image to approximate real sensor behavior.
 
-**Companding** â applies a piecewise-linear tone curve that compresses the high-dynamic-range Bayer data into a lower bit depth.
+**Companding** — applies a piecewise-linear tone curve that compresses the high-dynamic-range Bayer data into a lower bit depth.
 
-**ISP output** â the fully processed image after the on-chip ISP program runs (demosaic, denoise, tone-map, and color grading).
+**ISP output** — the fully processed image after the on-chip ISP program runs (demosaic, denoise, tone-map, and color grading).
 
-**YUV conversion** â the final ISP output converted from RGB to YUV color space.
+**YUV conversion** — the final ISP output converted from RGB to YUV color space.
 
 ### Camera Sensor Rigs
 
@@ -270,7 +270,7 @@ The camera sensor rig is a collection of camera sensors that are attached to a s
 This will be a short discussion on how we created a digital twin of the RealSenseâ¢ Depth Camera D455. The USD for the camera can be found in the content folder as: `/Isaac/Sensors/RealSense/D455/rsd455.usd`.
 
 There are three visual sensors, and one IMU sensor on the RealSense. Their placement relative to the camera origin was taken from the layout diagram in
-the [TechSpec document](https://www.intelrealsense.com/wp-content/uploads/2023/07/Intel-RealSense-D400-Series-Datasheet-July-2023.pdf) from [Intelâs web site](https://www.intelrealsense.com/depth-camera-d455/).
+the [TechSpec document](https://www.intelrealsense.com/wp-content/uploads/2023/07/Intel-RealSense-D400-Series-Datasheet-July-2023.pdf) from [Intel’s web site](https://www.intelrealsense.com/depth-camera-d455/).
 
 Most camera parameters were also found in the TechSpec, for example, the USD parameter `fStop` is the denominator of the F Number from the TechSpec; the `focalLength` is the Focal Length, and the `ftheatMaxFov`
 is the Diagonal Field of View. However, some parameters, like the `focusDistance` were estimated by comparing real output and informed guesses.
@@ -278,9 +278,9 @@ is the Diagonal Field of View. However, some parameters, like the `focusDistance
 The `horizontalAperture` and `verticalAperture` in that example are derived from the technical specification. From the TechSpec, the left, right, and color sensors are listed as a OmniVision Technologies OV9782, and
 the [Tech Spec](https://www.ovt.com/products/ov09782-ga4a/) for that sensor lists the image area as 3896 x 2453 Âµm. We used that as the aperture sizes.
 
-The resolution for the depth and color cameras are 1280 x 800, but itâs up to you to attach a render product of that size to the outputs.
+The resolution for the depth and color cameras are 1280 x 800, but it’s up to you to attach a render product of that size to the outputs.
 
-The `Pseudo Depth` camera is a stand in for the depth image created by the cameraâs firmware. We donât attempt to copy the algorithms that create the image from stereo, but the `Camera_Pseudo_Depth` component
+The `Pseudo Depth` camera is a stand in for the depth image created by the camera’s firmware. We don’t attempt to copy the algorithms that create the image from stereo, but the `Camera_Pseudo_Depth` component
 is a convenience camera that can return the scene depth as seen from that camera position between the left and right stereo cameras. It would be more accurate to create a depth image from stereo, and if
 the same algorithm that is used in the RealSense was used then the same results (including artifacts) would be produced.
 

@@ -4,7 +4,7 @@ title: "BT Gen Tutorial"
 section: "BehaviorTree"
 module: "03-replicator-agent"
 checksum: "6ad73fe90b07d4d3"
-fetched: "2026-06-21T11:55:27"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)

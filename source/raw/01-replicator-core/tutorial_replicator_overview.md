@@ -4,7 +4,7 @@ title: "Replicator Overview"
 section: "教程"
 module: "01-replicator-core"
 checksum: "1a64f6b67404b9f1"
-fetched: "2026-06-21T11:55:19"
+fetched: "2026-06-21T13:40:16"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)

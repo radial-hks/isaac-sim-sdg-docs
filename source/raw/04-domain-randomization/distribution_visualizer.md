@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Distribution Visualizer"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "2595e820eeaebd21"
-fetched: "2026-06-21T11:55:29"
+checksum: "fabb50d97c77feb8"
+fetched: "2026-06-21T13:40:26"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -27,14 +27,14 @@ A prim has its scene graph described by a list of `xformOps`. It can be a rotati
 Here is a step-by-step guide to using the distribution visualizer on a basic prim.
 
 1. Click **Tools** > **Action and Event Data Generation** > **Distribution Visualizer** to open the distribution visualizer as shown below.
-2. Create a torus, a dome light; focus on the torus by pressing âFâ; and switch to path tracing mode, as shown below.
+2. Create a torus, a dome light; focus on the torus by pressing “F”; and switch to path tracing mode, as shown below.
 3. Click on blank space to deselect.
 4. Click on the torus again so that the distribution visualizer is in sync with the selected prim and its `xformOps` will be visible in the distribution visualizer. By default, it has translate, `rotateZYX`, and scale.
 5. Apply preset `xformOps` to the torus, by clicking on `Apply Preset xformOps`. This step is not needed for an ordinary prim; this is only to demonstrate the concept. You can observe the torus is now transformed to a new pose.
 
    > Note
    >
-   > If the torus is not visible, press âFâ on the keyboard to focus the active camera to look at it. If itâs still not visible, go to the stage tab and click on the torus to make sure itâs selected.
+   > If the torus is not visible, press “F” on the keyboard to focus the active camera to look at it. If it’s still not visible, go to the stage tab and click on the torus to make sure it’s selected.
 6. Click on blank space to deselect, and then click on the torus again. From global to local, the new `xformOps` are `rotateY`, `rotateX`, and `translate`.
 
    > Each `xformOp` has three lines:

@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "InfiniGen SDG"
 section: "增强"
 module: "07-sdg-pipeline"
-checksum: "e957ebcc0ec8c7e9"
-fetched: "2026-06-21T11:55:37"
+checksum: "7853c17ca6ebfb42"
+fetched: "2026-06-21T13:40:32"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -88,7 +88,7 @@ Before starting this tutorial, you should be familiar with:
 
 ## Scenario Overview
 
-In this tutorial, we will use procedurally generated environments as backdrops for synthetic data generation. These environments are then configured with colliders and physics properties, enabling physics-based simulations. Within each indoor environment, we define a âworking areaââin this case, the dining tableâwhere we will place both labeled target assets and unlabeled distractor assets.
+In this tutorial, we will use procedurally generated environments as backdrops for synthetic data generation. These environments are then configured with colliders and physics properties, enabling physics-based simulations. Within each indoor environment, we define a “working area”—in this case, the dining table—where we will place both labeled target assets and unlabeled distractor assets.
 
 The assets are divided into two categories:
 
@@ -128,7 +128,7 @@ To generate a synthetic dataset using the default configuration, run the followi
 ./python.sh standalone_examples/replicator/infinigen/infinigen_sdg.py
 ```
 
-To use a custom configuration file that supports multiple writers and other custom settings, use the âconfig argument:
+To use a custom configuration file that supports multiple writers and other custom settings, use the –config argument:
 
 ```python
 ./python.sh standalone_examples/replicator/infinigen/infinigen_sdg.py \
@@ -1323,7 +1323,7 @@ def setup_writer(config: dict) -> None:
 
 Example configuration files are provided in the `infinigen/config` directory. These files allow you to customize various aspects of the simulation, such as the number of captures, assets to include, randomization parameters, and writers to use.
 
-Hereâs an example of a custom YAML configuration file that demonstrates the use of multiple writers:
+Here’s an example of a custom YAML configuration file that demonstrates the use of multiple writers:
 
 Custom YAML Configuration File
 
@@ -1660,9 +1660,9 @@ print(f"[SDG] Created {len(render_products)} render products")
 
 **Explanation:**
 
-* We use Replicatorâs `rep.functional.create.scope` to create an organizational scope for cameras.
+* We use Replicator’s `rep.functional.create.scope` to create an organizational scope for cameras.
 * Cameras are created using `rep.functional.create.camera` which provides a cleaner API for camera creation with configurable clipping range.
-* Render products are created using Replicatorâs `create.render_product` function.
+* Render products are created using Replicator’s `create.render_product` function.
 * If `disable_render_products` is set to `true` in the configuration, we disable the render products during creation. They will be enabled only during capture to save computational resources.
 
 ### Setting Up Replicator Writers

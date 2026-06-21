@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "Camera Randomizer"
 section: "Replicator Object"
 module: "04-domain-randomization"
-checksum: "f3b999cc9c4fedef"
-fetched: "2026-06-21T11:55:28"
+checksum: "22fb6ea9adf1e718"
+fetched: "2026-06-21T13:40:25"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -16,7 +16,7 @@ fetched: "2026-06-21T11:55:28"
 
 # Camera
 
-If a mutable has an attribute `type` of `camera`, itâs a camera. Typically, a basic pinhole camera model is used.
+If a mutable has an attribute `type` of `camera`, it’s a camera. Typically, a basic pinhole camera model is used.
 
 Required attributes of a camera:
 

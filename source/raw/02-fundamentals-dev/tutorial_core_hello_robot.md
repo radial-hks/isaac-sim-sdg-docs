@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/core_api_tutorials/tutori
 title: "Hello Robot"
 section: "Core API"
 module: "02-fundamentals-dev"
-checksum: "73ae89d892cbc447"
-fetched: "2026-06-21T12:48:08"
+checksum: "7acaf030982ee569"
+fetched: "2026-06-21T13:39:54"
 ---
 
 * [Python Scripting and Tutorials](../python_scripting/index.html)
@@ -44,7 +44,7 @@ The server shown in these steps has been connected to in [Workstation Setup](../
 
 1. Add the assets by simply dragging them to the stage window or the viewport.
 2. Try to do the same thing through Python in the **Hello World** example.
-3. Create a new stage: **File > new > Donât Save**
+3. Create a new stage: **File > new > Don’t Save**
 4. Open the `hello_world.py` file by clicking the **Open Source Code**
    button in the **Hello World** window.
 
@@ -130,7 +130,7 @@ it is not moving. The next section walks through how to make the robot move.
 In NVIDIA Isaac Sim, Robots are constructed of physically accurate articulated joints. Applying actions
 to these articulations make them move.
 
-Next, apply random velocities to the Jetbotâs wheel joints to get it moving.
+Next, apply random velocities to the Jetbot’s wheel joints to get it moving.
 
 Importing SimulationManager:
 
@@ -246,7 +246,7 @@ exercises:
 
 ## Controlling Specific Joints
 
-You can also control specific joints by their names or indices. Hereâs how to get the wheel
+You can also control specific joints by their names or indices. Here’s how to get the wheel
 joint indices and apply velocities only to specific joints:
 
 Getting wheel indices:

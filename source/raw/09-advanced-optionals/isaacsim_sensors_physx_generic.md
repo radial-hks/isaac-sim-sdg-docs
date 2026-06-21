@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_
 title: "PhysX Generic"
 section: "Sensors"
 module: "09-advanced-optionals"
-checksum: "d068d20e84f341d6"
-fetched: "2026-06-21T13:05:43"
+checksum: "feab8f34f42e3840"
+fetched: "2026-06-21T13:40:13"
 ---
 
 * [Sensors](index.html)
@@ -51,8 +51,8 @@ To customize scanning patterns, fill or modify these parameters:
 * **streaming:** Set to `True` if streaming data continuously, `False` if sending a batch of data once in the beginning and repeating it.
 * **sampling\_rate:** Number of scans per second.
 * **batch\_size:** The number of scans each batch of data contains. The size must be large enough to run a few rendering frames without running out. For example, if you scan at 2400 scans per second and render at 120 fps, each frame renders 20 scans. If you send a batch size of 12000, you can render 600 frames, or five seconds at 120 fps, before you run out of data. If `batch_size` is less than `sampling_rate/fps`, the sensor scans at a rate that equals `batch_size` per frame, which likely means you scan slower than desired.
-* **sensor\_pattern:** An Nx2 NumPy array. N is `batch_size`, and the columns are [azimuth, zenith] angles of each scanning ray. Azimuth is the rayâs horizontal angle measured from the x-axis, and zenith angle is the vertical angle measured from the z-axis.
-* **origin\_offsets:** Optional Nx3 NumPy array. N is the batch size, and each row is the individual rayâs offset from origin in [x, y, z] coordinates.
+* **sensor\_pattern:** An Nx2 NumPy array. N is `batch_size`, and the columns are [azimuth, zenith] angles of each scanning ray. Azimuth is the ray’s horizontal angle measured from the x-axis, and zenith angle is the vertical angle measured from the z-axis.
+* **origin\_offsets:** Optional Nx3 NumPy array. N is the batch size, and each row is the individual ray’s offset from origin in [x, y, z] coordinates.
 
 **Example scanning patterns**
 

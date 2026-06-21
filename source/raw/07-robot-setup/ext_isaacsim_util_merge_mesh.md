@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/ext_isaacsim_
 title: "Merge Mesh Utility"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "12068b9892b50443"
-fetched: "2026-06-21T13:05:33"
+checksum: "45071ac96add937d"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:05:33"
 
 # Mesh merge tool
 
-Deprecated since version 6.0: The standalone `isaacsim.util.merge_mesh` extension is deprecated and will be removed in a future release. Use the **Scene Optimizer** `merge` operation instead, through the URDF/MJCF importerâs **Merge Mesh** option, the **Scene Optimizer** panel (**Window > Utilities > Scene Optimizer**), the [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) `MergeMeshRule`, or by calling the operation directly from Python.
+Deprecated since version 6.0: The standalone `isaacsim.util.merge_mesh` extension is deprecated and will be removed in a future release. Use the **Scene Optimizer** `merge` operation instead, through the URDF/MJCF importer’s **Merge Mesh** option, the **Scene Optimizer** panel (**Window > Utilities > Scene Optimizer**), the [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) `MergeMeshRule`, or by calling the operation directly from Python.
 
 ## About
 
@@ -36,9 +36,9 @@ Four integration paths expose the Scene Optimizer merge operation in NVIDIA Isaa
 
 Both the URDF and MJCF importers expose a **Merge Mesh** checkbox under the **Options** section of the importer UI. Enabling this option runs three Scene Optimizer operations in sequence on the converted USD stage:
 
-1. `meshCleanup` â merges duplicate vertices, removes degenerate faces, fixes non-manifold geometry.
-2. `generateNormals` and `generateProjectionUVs` â regenerates vertex normals and projected UVs.
-3. `merge` â for each rigid body in the stage, merges all child visual mesh prims (those with `default` or `render` purpose) into a single mesh under that body.
+1. `meshCleanup` — merges duplicate vertices, removes degenerate faces, fixes non-manifold geometry.
+2. `generateNormals` and `generateProjectionUVs` — regenerates vertex normals and projected UVs.
+3. `merge` — for each rigid body in the stage, merges all child visual mesh prims (those with `default` or `render` purpose) into a single mesh under that body.
 
 The importer determines merge groups automatically by traversing each `UsdPhysics.RigidBodyAPI` prim and collecting its child geometry, stopping at nested rigid-body boundaries. No additional configuration is required.
 
@@ -59,15 +59,15 @@ Use the Scene Optimizer panel to merge meshes interactively.
 
    * To use a bundled preset, click **Load Preset** and pick one of the merge-related presets:
 
-     + **Modify Stage - Merge Meshes** â flatten the hierarchy and merge meshes by material into `/World/Geometry/merged`.
-     + **Modify Stage - Spatial Merge Meshes** â merge all meshes regardless of material based on a spatial bounding volume; useful for very dense scenes.
-     + **Modify Instances - Merge Meshes** â merge meshes inside each prototype while preserving the instance hierarchy. Best when the asset uses scenegraph instancing.
+     + **Modify Stage - Merge Meshes** — flatten the hierarchy and merge meshes by material into `/World/Geometry/merged`.
+     + **Modify Stage - Spatial Merge Meshes** — merge all meshes regardless of material based on a spatial bounding volume; useful for very dense scenes.
+     + **Modify Instances - Merge Meshes** — merge meshes inside each prototype while preserving the instance hierarchy. Best when the asset uses scenegraph instancing.
    * To merge a hand-picked set of meshes, click **Add Scene Optimizer Process** and select **Merge Meshes** (the operation registered as `merge`). Configure:
 
-     + **Mesh Prim Paths**: enter prim paths or path expressions (for example, `/World/Robot/left_wheel//Mesh*` â the leading `//` matches descendants at any depth under `left_wheel`). Click the **pencil** icon to pick paths from the stage, or click **Add** with prims selected in the viewport.
+     + **Mesh Prim Paths**: enter prim paths or path expressions (for example, `/World/Robot/left_wheel//Mesh*` — the leading `//` matches descendants at any depth under `left_wheel`). Click the **pencil** icon to pick paths from the stage, or click **Add** with prims selected in the viewport.
      + **Consider Materials**: enable to preserve per-material `GeomSubset` partitions on the merged mesh (Scene Optimizer equivalent of the legacy **Combine Materials** option).
      + **Original Geom Option**: `0` to keep the source meshes, `1` to deactivate them, `2` to delete them.
-     + **Merge Point**: `0` to place the merged mesh at world origin, `1` to use the root primâs transform.
+     + **Merge Point**: `0` to place the merged mesh at world origin, `1` to use the root prim’s transform.
      + **Root Path**: optional explicit path for the merged result; defaults to the first entry in **Mesh Prim Paths**.
      + **Spatial Mode** / **Spatial Threshold** / **Spatial Vertex Count**: leave at defaults unless you need spatial grouping.
 5. **Add prerequisite cleanup steps (optional but recommended).** Click **Add Scene Optimizer Process** twice more and add **Mesh Cleanup** (`meshCleanup`) followed by **Generate Normals** (`generateNormals`). Drag the handles in the top-left of each process card so they execute before **Merge Meshes**. This matches the pipeline the URDF/MJCF importer runs internally.
@@ -80,11 +80,11 @@ Use the Scene Optimizer panel to merge meshes interactively.
 
 Note
 
-The Scene Optimizer UI executes operations directly on the **active stage** in memory. Save the stage explicitly after merging â the panel does not write to disk on its own.
+The Scene Optimizer UI executes operations directly on the **active stage** in memory. Save the stage explicitly after merging — the panel does not write to disk on its own.
 
 JSON preset (Scene Optimizer)
 
-The Scene Optimizer panel reads and writes its own JSON preset format. A minimal preset that mirrors the importerâs pipeline (cleanup, normals + UVs, merge) looks like this:
+The Scene Optimizer panel reads and writes its own JSON preset format. A minimal preset that mirrors the importer’s pipeline (cleanup, normals + UVs, merge) looks like this:
 
 ```python
 [
@@ -137,15 +137,15 @@ The Scene Optimizer panel reads and writes its own JSON preset format. A minimal
 ]
 ```
 
-Edit `meshPrimPaths` to target the meshes to merge. Use [USD path expressions](https://openusd.org/release/api/class_sdf_path_expression.html) â the `//` operator matches descendants at any depth, so `/World/Robot//Mesh*` finds every prim named `Mesh*` anywhere under `/World/Robot`.
+Edit `meshPrimPaths` to target the meshes to merge. Use [USD path expressions](https://openusd.org/release/api/class_sdf_path_expression.html) — the `//` operator matches descendants at any depth, so `/World/Robot//Mesh*` finds every prim named `Mesh*` anywhere under `/World/Robot`.
 
-Load this file via the Scene Optimizer panelâs **Load Preset > Browseâ¦** button.
+Load this file via the Scene Optimizer panel’s **Load Preset > Browse…** button.
 
 Refer to the [Scene Optimizer extension documentation](https://docs.omniverse.nvidia.com/extensions/latest/ext_scene-optimizer.html) for the full operation catalog, the bundled preset descriptions, and the Scene Optimizer CLI usage.
 
 ## Using the asset transformer
 
-If you need to chain mesh merging with other USD restructuring rules â schema routing, geometry deduplication, material routing, interface generation â wrap the merge step in an Asset Transformer profile. The [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) ships a **Merge Mesh** profile (`source/extensions/isaacsim.asset.transformer.rules/data/merge_mesh.json`) that runs the same rigid-body-aware merge as the importer:
+If you need to chain mesh merging with other USD restructuring rules — schema routing, geometry deduplication, material routing, interface generation — wrap the merge step in an Asset Transformer profile. The [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) ships a **Merge Mesh** profile (`source/extensions/isaacsim.asset.transformer.rules/data/merge_mesh.json`) that runs the same rigid-body-aware merge as the importer:
 
 ```python
 {
@@ -167,7 +167,7 @@ If you need to chain mesh merging with other USD restructuring rules â sche
 }
 ```
 
-The `MergeMeshRule` walks all rigid bodies in the stage and applies the Scene Optimizer `merge` operation to each bodyâs child visual meshes â no parameters required.
+The `MergeMeshRule` walks all rigid bodies in the stage and applies the Scene Optimizer `merge` operation to each body’s child visual meshes — no parameters required.
 
 Chain it with `GeometriesRoutingRule` and `MaterialsRoutingRule` for a full cleanup + merge + dedupe pipeline:
 
@@ -216,9 +216,9 @@ Load the profile via **Tools > Robotics > Asset Editors > Asset Transformer > Lo
 
 ## Using the Python API
 
-The `isaacsim.asset.importer.utils.merge_mesh_utils` module wraps the Scene Optimizer operations used by the importer. Use it for headless asset preparation, batch processing, or custom asset âmassagingâ that does not fit the importer or transformer flows.
+The `isaacsim.asset.importer.utils.merge_mesh_utils` module wraps the Scene Optimizer operations used by the importer. Use it for headless asset preparation, batch processing, or custom asset “massaging” that does not fit the importer or transformer flows.
 
-The code blocks below are taken from a single runnable script, `docs/isaacsim/snippets/robot_setup/merge_mesh.py`, which you can execute with Isaac Simâs `python.sh`. Pass `--test` to import the bundled `carter.urdf` test asset and exercise every snippet end-to-end.
+The code blocks below are taken from a single runnable script, `docs/isaacsim/snippets/robot_setup/merge_mesh.py`, which you can execute with Isaac Sim’s `python.sh`. Pass `--test` to import the bundled `carter.urdf` test asset and exercise every snippet end-to-end.
 
 Note
 
@@ -236,7 +236,7 @@ Available helpers:
 | --- | --- |
 | `clean_mesh_operation(stage)` | Run `meshCleanup`: merge duplicate vertices, remove degenerate faces, make manifold. |
 | `generate_mesh_uv_normals_operation(stage)` | Run `generateNormals` and `generateProjectionUVs` to regenerate per-vertex normals and projected UVs. |
-| `merge_meshes_operation(stage)` | Walk all rigid bodies and merge each bodyâs child visual meshes (returns the number of merged groups). |
+| `merge_meshes_operation(stage)` | Walk all rigid bodies and merge each body’s child visual meshes (returns the number of merged groups). |
 | `merge_mesh(stage, mesh_paths)` | Merge an explicit list of mesh prim paths into a single mesh. |
 
 Example: full importer-equivalent pipeline applied to an existing stage
@@ -256,7 +256,7 @@ print(f"Merged {merged_groups} rigid-body mesh group(s)")
 stage.Save()
 ```
 
-Example: merge a hand-picked set of meshes (replaces the legacy âselect prims, click Mergeâ workflow)
+Example: merge a hand-picked set of meshes (replaces the legacy “select prims, click Merge” workflow)
 
 ```python
 from isaacsim.asset.importer.utils import merge_mesh_utils
@@ -274,7 +274,7 @@ merge_mesh_utils.merge_mesh(stage, mesh_paths)
 stage.Save()
 ```
 
-The first prim in the list is used as the merge root and origin, matching the legacy toolâs âfirst selection winsâ behavior.
+The first prim in the list is used as the merge root and origin, matching the legacy tool’s “first selection wins” behavior.
 
 ## Scene Optimizer operation reference
 
@@ -367,25 +367,25 @@ MERGE_CONFIG = {
 }
 ```
 
-The importer sets `considerMaterials` to `False` because material routing is handled separately by the asset transformerâs `MaterialsRoutingRule`. Set it to `True` when running `merge` standalone to preserve per-material `GeomSubset` partitioning on the merged mesh â this is the Scene Optimizer equivalent of the legacy toolâs **Combine Materials** option.
+The importer sets `considerMaterials` to `False` because material routing is handled separately by the asset transformer’s `MaterialsRoutingRule`. Set it to `True` when running `merge` standalone to preserve per-material `GeomSubset` partitioning on the merged mesh — this is the Scene Optimizer equivalent of the legacy tool’s **Combine Materials** option.
 
 ## Migrating from the legacy mesh merge tool
 
 | Legacy option | Scene Optimizer equivalent |
 | --- | --- |
 | **Source Prim** (first selection = origin) | Pass mesh paths to `merge_mesh(stage, paths)`; first path is used as `rootPath`. |
-| **Clear Parent Transform** | Set `mergePoint` to `0` (world origin) or `1` (root primâs transform) in the `merge` config. |
+| **Clear Parent Transform** | Set `mergePoint` to `0` (world origin) or `1` (root prim’s transform) in the `merge` config. |
 | **Deactivate source assets** | Controlled by `originalGeomOption`: `0` keeps originals, `1` deactivates them, `2` deletes them. |
 | **Combine Materials** | Set `considerMaterials = True` in the `merge` config. Material assignments are preserved as `GeomSubset` entries on the merged mesh. |
 | Selecting an empty Xform first to set origin | Use `rootPath` to specify any prim path as the merge target/origin. |
 
 ## See also
 
-* [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) â URDF importer with built-in **Merge Mesh** option.
-* [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) â MJCF importer with built-in **Merge Mesh** option.
-* [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) â Rule-based asset transformation framework.
-* [Asset Transformer Rules Reference](asset_transformer_rules.html#isaac-sim-app-asset-transformer-rules) â `MergeMeshRule` reference and other available rules.
-* [Scene Optimizer extension documentation](https://docs.omniverse.nvidia.com/extensions/latest/ext_scene-optimizer.html) â Full operation reference for `omni.scene.optimizer.core`.
+* [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) — URDF importer with built-in **Merge Mesh** option.
+* [MJCF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_mjcf.html#isaac-sim-mjcf-importer) — MJCF importer with built-in **Merge Mesh** option.
+* [Asset Transformer](asset_transformer.html#isaac-sim-app-asset-transformer) — Rule-based asset transformation framework.
+* [Asset Transformer Rules Reference](asset_transformer_rules.html#isaac-sim-app-asset-transformer-rules) — `MergeMeshRule` reference and other available rules.
+* [Scene Optimizer extension documentation](https://docs.omniverse.nvidia.com/extensions/latest/ext_scene-optimizer.html) — Full operation reference for `omni.scene.optimizer.core`.
 
 On this page
 

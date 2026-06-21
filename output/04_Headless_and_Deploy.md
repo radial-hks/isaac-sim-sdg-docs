@@ -2,7 +2,7 @@
 
 > 无头模式运行、容器化、云端部署、远程可视化
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:05 UTC
+> 最后组装: 2026-06-21 13:40 UTC
 > 来源页数: 8
 
 ---
@@ -90,7 +90,7 @@ docker run --rm --runtime=nvidia --gpus all nvcr.io/nvidia/cuda:12.8.0-base-ubun
 Note
 
 * Install the latest version of [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit) to get security fixes.
-* The validation step uses the NGC-hosted CUDA base image (`nvcr.io/nvidia/cuda`), which is public and avoids Docker Hubâs anonymous pull rate limits (HTTP `429 Too Many Requests`). The image is multi-arch, so the same tag runs on Linux x86\_64 and aarch64.
+* The validation step uses the NGC-hosted CUDA base image (`nvcr.io/nvidia/cuda`), which is public and avoids Docker Hub’s anonymous pull rate limits (HTTP `429 Too Many Requests`). The image is multi-arch, so the same tag runs on Linux x86\_64 and aarch64.
 * If a step that pulls from Docker Hub (for example `docker run hello-world`) fails with `429 Too Many Requests`, run `docker login` first or retry later, since Docker Hub enforces rate limits on anonymous pulls.
 
 ## Container Deployment
@@ -146,7 +146,7 @@ Important
 `--network=host` is required for WebRTC livestreaming. The NVIDIA streaming SDK binds its UDP media
 socket to the `ISAACSIM_HOST` address, which must be a real network interface inside the container.
 Docker bridge networking (`-p` port publishing) does not work because the host IP is not available
-inside the containerâs network namespace â signaling may connect, but the video stream will not.
+inside the container’s network namespace — signaling may connect, but the video stream will not.
 
 Note
 
@@ -194,7 +194,7 @@ docker run --entrypoint bash -it --gpus all --rm --network=host \
     nvcr.io/nvidia/isaac-sim:6.0.0 ./isaac-sim.compatibility_check.sh --/app/quitAfter=10 --no-window
 ```
 
-* You should see the text âSystem checking result: PASSEDâ if your system is compaitble.
+* You should see the text “System checking result: PASSED” if your system is compaitble.
 
 7. Start Isaac Sim with native livestream mode:
 
@@ -278,7 +278,7 @@ Hub should also run as a container on the same host so that all Kit-based client
 
 Note
 
-Hub Workstation Cache is designed for **local workstation use only** â for example, bare-metal runs or containers
+Hub Workstation Cache is designed for **local workstation use only** — for example, bare-metal runs or containers
 on a local workstation. It is not intended for multi-user servers or cloud deployments. For distributed or cloud
 caching, see [Derived Data Cache Service (DDCS)](https://docs.nvidia.com/cloud-functions/current/latest/ddcs.html).
 
@@ -603,9 +603,9 @@ Note
 
 There are two ways to connect to a livestreaming Isaac Sim instance:
 
-* **Isaac Sim WebRTC Streaming Client** â A native desktop application available for Windows, macOS, and Linux.
+* **Isaac Sim WebRTC Streaming Client** — A native desktop application available for Windows, macOS, and Linux.
   Download it from the [Latest Release](download.html#isaac-sim-latest-release) section. Best suited for local or same-network connections.
-* **Web-based viewer (Docker Compose)** â A browser-based client deployed alongside Isaac Sim using Docker Compose.
+* **Web-based viewer (Docker Compose)** — A browser-based client deployed alongside Isaac Sim using Docker Compose.
   Runs in any Chromium-based browser with no installation required. Recommended for cloud
   and remote deployments. See [Web-Based Streaming Client (Docker Compose)](#isaac-sim-web-streaming-client) below.
 
@@ -646,7 +646,7 @@ Important
 
 The container must be started with `--network=host` for livestreaming to work.
 Docker bridge networking (`-p` port mapping) does not work with WebRTC because
-the host IP is not reachable from inside the containerâs network namespace.
+the host IP is not reachable from inside the container’s network namespace.
 
 For a simpler setup, Docker Compose is recommended for containerized streaming. It handles volume mounts, GPU assignment, networking, and health checks automatically. See [Web-Based Streaming Client (Docker Compose)](#isaac-sim-web-streaming-client) below or the [Docker README](https://github.com/isaac-sim/IsaacSim/blob/main/tools/docker/README.md) for details.
 
@@ -718,7 +718,7 @@ Note
   > + No FUSE or AppImage runtime is required by the package; it runs on Ubuntu 22.04,
   >   24.04, and later without additional system libraries beyond a standard desktop
   >   environment.
-  > + On Ubuntu 24.04 or later, Electronâs sandbox requires unprivileged user namespaces.
+  > + On Ubuntu 24.04 or later, Electron’s sandbox requires unprivileged user namespaces.
   >   If the client fails to launch with a SUID sandbox error, enable them with:
   >
   >   ```python
@@ -929,7 +929,7 @@ The requirements for running NVIDIA Isaac Sim on Amazon Web Services (AWS) are:
 
 Follow these steps to launch an AWS EC2 instance:
 
-1. Navigate to the [AWS Marketplace](https://aws.amazon.com/marketplace/search/results?searchTerms=isaac+sim) and search for âisaac simâ.
+1. Navigate to the [AWS Marketplace](https://aws.amazon.com/marketplace/search/results?searchTerms=isaac+sim) and search for “isaac sim”.
 2. Select one of the instance type below:
 
 Linux Instance
@@ -957,7 +957,7 @@ Windows Instance
 10. Set the *Key Pair (login)* to use your pre-configured [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html).
 11. In the *Network settings* section, select the **Select existing security group** option. In the **Common security groups** dropdown, select your [security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html).
 12. In the **Summary** section on the right side of the page, click **Launch instance**.
-13. Locate your named instance in the table. It will take a few moments for the instance state to change from *Initializing* to *Running*. Once itâs running, itâs available to be connected to.
+13. Locate your named instance in the table. It will take a few moments for the instance state to change from *Initializing* to *Running*. Once it’s running, it’s available to be connected to.
 
 ## Connect
 
@@ -994,7 +994,7 @@ Linux Instance
    The password needs to be set via SSH each time a new instance is created, this is by design for security.
 
    * Enter a new password.
-   * Check your session is running by using the following command: `sudo dcv list-sessions`. (There should be a âconsoleâ session running.)
+   * Check your session is running by using the following command: `sudo dcv list-sessions`. (There should be a ‘console’ session running.)
 
 Windows Instance
 
@@ -1298,7 +1298,7 @@ Adjust the physics step size in your script using the `SimulationManager.set_phy
 * **Raising the clamp** (for example to `60`) keeps the app frame rate up under load at the cost of physics-time accuracy: when an app update is slow, PhysX truncates the substep budget, so simulated time falls behind wall-clock and the simulation appears to run in slow motion (or, equivalently, some physics work is effectively dropped). Use this when responsiveness / rendering throughput matters more than 1:1 sim-time-to-wall-time playback.
 * **Lowering the clamp** (for example to `15`) lets PhysX run more catch-up substeps after a slow frame, keeping simulated time closer to wall-clock at the cost of further reducing the visible frame rate. Use this when sim-time accuracy or determinism matters more than smoothness.
 
-This setting is **not** the same as the timelineâs `targetFrameRate` (set via `isaacsim.core.rendering_manager.RenderingManager.set_dt()`) or the loop runnerâs `/app/runLoops/main/rateLimitFrequency`. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the three-clock architecture.
+This setting is **not** the same as the timeline’s `targetFrameRate` (set via `isaacsim.core.rendering_manager.RenderingManager.set_dt()`) or the loop runner’s `/app/runLoops/main/rateLimitFrequency`. See [Architecture: Timeline, Physics, and the Renderer](../sensors/isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-clock-relationships) for the three-clock architecture.
 
 Note
 
@@ -1349,7 +1349,7 @@ Instancing inherently carries some limitations related to attributes as children
 
 3. **Simplify Colliders**: Colliders have high computational costs. The simpler, the collision shape, the more performant the simulation behaves.
 
-   * A reduction in contact points brings substantial performance improvements. For wheel colliders, itâs recommended to use a simple cylinder or sphere collider instead of a mesh collider. This greatly simplifies contact with the ground plane, increasing performance and allows the robot to drive smoothly over terrain.
+   * A reduction in contact points brings substantial performance improvements. For wheel colliders, it’s recommended to use a simple cylinder or sphere collider instead of a mesh collider. This greatly simplifies contact with the ground plane, increasing performance and allows the robot to drive smoothly over terrain.
    * For a robot, use the simplest approximations possible that provide the needed level of precision. For example, for a mobile robot, a cube approximation is often sufficient for the body.
    * Reducing the total number of colliders is also beneficial. Consider whether every collider added to the asset needs to be enabled. Selectively disabling/enabling colliders can greatly reduce computational cost.
 
@@ -1443,7 +1443,7 @@ Setting `disable_viewport_updates` in SimulationApp is only supported if running
 
 6. **Disabling texture streaming**: Texture streaming is a feature that helps minimize GPU memory consumption, particularly in large scenes.
 
-   > * Disabling texture streaming can have positive performance benefits but will result in increased GPU memory consumption. Thereâs also possible negative UX impacts if memory is running low - leading to crashes or missing some textures.
+   > * Disabling texture streaming can have positive performance benefits but will result in increased GPU memory consumption. There’s also possible negative UX impacts if memory is running low - leading to crashes or missing some textures.
    > * To disable texture streaming, modify the value of the `/rtx-transient/resourcemanager/texturestreaming/enabled` setting.
    >
    >   > ```python
@@ -1458,9 +1458,9 @@ This is not recommended for all use cases. It should be used on a case-by-case b
 
 Three settings control the number of CPU threads used by Isaac Sim. When left unset (the default behavior), Isaac Sim will use all available threads on the system. Standalone Python workflows are limited to 32 threads by default and can be modified by changing the `limit_cpu_threads` argument in the `SimulationApp` constructor.
 
-1. `--/plugins/carb.tasking.plugin/threadCount`: Sets Carboniteâs maximum worker thread count.
+1. `--/plugins/carb.tasking.plugin/threadCount`: Sets Carbonite’s maximum worker thread count.
 2. `--/persistent/physics/numThreads`: Sets how many Carbonite worker threads to use for physics simulation.
-3. `--/plugins/omni.tbb.globalcontrol/maxThreadCount`: Sets Omniverse TBB schedulerâs maximmum worker thread count.
+3. `--/plugins/omni.tbb.globalcontrol/maxThreadCount`: Sets Omniverse TBB scheduler’s maximmum worker thread count.
 
 Spawning too many worker threads may lead to CPU bottlenecking. Consider limiting the number of CPU threads used by Isaac Sim to fewer than the number of virtual cores on the system. Current testing indicates that 32 threads is optimal for most use cases.
 
@@ -1532,7 +1532,7 @@ Note
 Exact Isaac Sim performance metrics when using multiple data-center-grade GPUs can be found [here](benchmarks.html#isaac-sim-benchmarks-gpu-dependent).
 
 1. **Add as many GPUs as cameras being rendered - but no more.** When rendering 2 720p cameras with 2 GPUs, we saw a speed up of 72% to 89% compared to single GPU performance, but using 4 GPUs yielded only 61 - 81% improvement.
-2. **Performance scales better the more cameras youâre rendering.** Our 4 camera with 4x GPUs test scaled well with an overall speed up of about 213% - 233%, but our 8 camera with 4 GPUs test scaled even better with an overall speedup of 271% - 281%.
+2. **Performance scales better the more cameras you’re rendering.** Our 4 camera with 4x GPUs test scaled well with an overall speed up of about 213% - 233%, but our 8 camera with 4 GPUs test scaled even better with an overall speedup of 271% - 281%.
 3. **Single high-resolution cameras render faster on multiple GPUs.** An exception to our earlier rules - if you are rendering a single high-resolution (4K or higher) camera, multiple GPUs can help accelerate rendering.
 4. **Increasing GPU count does not improve scene load time.** GPU count does not influence the amount of time it takes to load a USD, or the maximum USD scene size that can be loaded.
 5. **GPU Physics simulation only utilizes 1 GPU.** Increasing GPU count will not improve GPU physics simulation performance.
@@ -1580,8 +1580,8 @@ Experimental suggestion to help reduce Isaac Sim RAM consumption in the event of
 Task Manager is a great resource for giving nice clean graphs and can show peak usage on a variety of system information regarding performance.
 
 1. Click on the Start icon
-2. Type âTask Managerâ
-3. In Task Manager, Select the âPerformanceâ Tab
+2. Type “Task Manager”
+3. In Task Manager, Select the “Performance” Tab
 
 On the left side of this pane you will see various graphs like CPU, Memory and GPU. Select any of these to get a more detailed view of the data. Generally speaking if any of these are spiking and peaking out, you should look into its cause and begin to troubleshoot.
 

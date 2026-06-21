@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/
 title: "Tutorial 03: Inspect Asset"
 section: "USD Tuning"
 module: "09-advanced-optionals"
-checksum: "985e424058459d4a"
-fetched: "2026-06-21T13:05:45"
+checksum: "da6b3d2e1ea0e409"
+fetched: "2026-06-21T13:40:14"
 ---
 
 * [Robot Setup](../robot_setup/index.html)
@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:05:45"
 
 # Tutorial 3: Inspect Asset
 
-Youâve seen how the Inspire Hand is built from multiple USD files (Tutorial 2). Next we **inspect and validate** that asset: joints, mass and inertia, and collision meshes. Skipping this step means youâre tuning in the darkâwrong masses or misaligned inertia can cause unstable or unrealistic motion even when joint parameters look correct, and the wrong collider type can slow the simulation or produce confusing contact behavior. Isaac Simâs **joint visualizer**, **Robot Inspector**, **Physics Debugger**, and **collider visualization** give you a clear picture of the asset before you filter collision pairs or tune drives.
+You’ve seen how the Inspire Hand is built from multiple USD files (Tutorial 2). Next we **inspect and validate** that asset: joints, mass and inertia, and collision meshes. Skipping this step means you’re tuning in the dark—wrong masses or misaligned inertia can cause unstable or unrealistic motion even when joint parameters look correct, and the wrong collider type can slow the simulation or produce confusing contact behavior. Isaac Sim’s **joint visualizer**, **Robot Inspector**, **Physics Debugger**, and **collider visualization** give you a clear picture of the asset before you filter collision pairs or tune drives.
 
 ## Learning Objectives
 
@@ -32,7 +32,7 @@ In this tutorial, you will:
 
 ## Module 2.1: Enable Joint Visualizer
 
-Because weâre tuning for the PhysX backend, load the hand with the PhysX variant. Then enable joint visualization to see joint locations and types at a glance.
+Because we’re tuning for the PhysX backend, load the hand with the PhysX variant. Then enable joint visualization to see joint locations and types at a glance.
 
 **Viewport Navigation in Isaac Sim**
 
@@ -52,18 +52,18 @@ Use these controls to efficiently explore and inspect the Inspire Hand model as 
 
 In the viewport, the Inspire Hand should now have gizmos identifying the locations and types of each joint.
 
-**Examine the joints** â In the *Stage* panel, under the `/Physics` scope, find `right_index_1_joint`âa **Revolute** joint responsible for the base motion of the index finger, represented by a circular icon in the viewport. Also locate `right_index_rubber_1_joint`, which is a **Fixed** joint attaching the lower index rubber pad to its link, shown as a rectangular icon in the visualization. The `right_index_2_joint` is a mimic joint that references the movement of `right_index_1_joint` (weâll cover mimic joints in more detail in Tutorial 5). Understanding how these joints function and their naming conventions will be valuable when tuning the drives in Tutorials 5 and 6.
+**Examine the joints** — In the *Stage* panel, under the `/Physics` scope, find `right_index_1_joint`—a **Revolute** joint responsible for the base motion of the index finger, represented by a circular icon in the viewport. Also locate `right_index_rubber_1_joint`, which is a **Fixed** joint attaching the lower index rubber pad to its link, shown as a rectangular icon in the visualization. The `right_index_2_joint` is a mimic joint that references the movement of `right_index_1_joint` (we’ll cover mimic joints in more detail in Tutorial 5). Understanding how these joints function and their naming conventions will be valuable when tuning the drives in Tutorials 5 and 6.
 
 ## Module 2.2: Robot Inspector (hierarchy and session masking)
 
-With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link â joint** treeâoften easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
+With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link â joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
 
 1. Open **Window > Robot Inspector**. The window docks next to *Stage* by default.
 2. In the robot list, select the entry for the **Inspire Hand**.
 3. Set the hierarchy mode to **Tree** (default): parent link â joint â child link.
 4. Optionally switch to **Flat** (all links, then all joints) or **MuJoCo** (base-rooted body tree) to compare layouts; the same underlying articulation can be shown in three different ways.
 
-The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayerâthey are **not** saved to your USD files. That is useful for quick isolation during debugging.
+The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayer—they are **not** saved to your USD files. That is useful for quick isolation during debugging.
 
 See also
 
@@ -111,7 +111,7 @@ This method lets you quickly inspect and debug mass distribution for any body in
 
 ## Module 2.4: Verify Collision Meshes
 
-The shapes you see in the viewport arenât necessarily what the physics engine uses for contactâthatâs determined by the **collision meshes** (colliders). Before we filter collision pairs in Tutorial 4, we inspect and verify the colliders: colliders are color-coded **green** for rigid bodies and **magenta** for static bodies.
+The shapes you see in the viewport aren’t necessarily what the physics engine uses for contact—that’s determined by the **collision meshes** (colliders). Before we filter collision pairs in Tutorial 4, we inspect and verify the colliders: colliders are color-coded **green** for rigid bodies and **magenta** for static bodies.
 
 1. Go to **Eye > Show by Type > Physics > Colliders > All** to visualize all collision shapes.
 
@@ -121,8 +121,8 @@ Setting collider types affects performance and fidelity. You can mix types on on
 
 This tutorial covered:
 
-* Enabling the **joint visualizer** and identifying joint types (Fixed, Revolute, Mimic) in the Stageâthe same structure youâll tune in Tutorials 5 and 6.
-* Opening **Robot Inspector** to review the handâs kinematic hierarchy (Flat / Tree / MuJoCo modes) and understanding **session masking**.
+* Enabling the **joint visualizer** and identifying joint types (Fixed, Revolute, Mimic) in the Stage—the same structure you’ll tune in Tutorials 5 and 6.
+* Opening **Robot Inspector** to review the hand’s kinematic hierarchy (Flat / Tree / MuJoCo modes) and understanding **session masking**.
 * Using the **Physics Debugger** to visualize body axes and principal inertia and verifying that mass centers and inertia alignment look correct for each link.
 * Turning on **collider visualization** and confirming the collider strategy (Convex Hull for this series), so you know what shapes will collide when self-collisions are enabled in Tutorial 4.
 

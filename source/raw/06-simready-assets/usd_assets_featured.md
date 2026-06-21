@@ -4,7 +4,7 @@ title: "Featured"
 section: "资产库"
 module: "06-simready-assets"
 checksum: "86962a3a7c1fb5c8"
-fetched: "2026-06-21T11:55:34"
+fetched: "2026-06-21T13:40:29"
 ---
 
 * [Isaac Sim Assets](usd_assets_overview.html)

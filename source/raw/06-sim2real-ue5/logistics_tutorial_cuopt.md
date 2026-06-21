@@ -4,7 +4,7 @@ title: "cuOpt Logistics Tutorial"
 section: "数字孪生"
 module: "06-sim2real-ue5"
 checksum: "eaef23cf7d4a2bce"
-fetched: "2026-06-21T12:48:20"
+fetched: "2026-06-21T13:40:03"
 ---
 
 * [Digital Twin](../index.html)

@@ -4,7 +4,7 @@ title: "BT Required Inputs"
 section: "BehaviorTree"
 module: "03-replicator-agent"
 checksum: "d70647598010b898"
-fetched: "2026-06-21T11:55:27"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)

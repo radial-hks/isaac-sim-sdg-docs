@@ -4,7 +4,7 @@ title: "Cloud: Tencent"
 section: "云厂商"
 module: "04-headless-deploy"
 checksum: "feccad118ef3ecb7"
-fetched: "2026-06-21T12:48:13"
+fetched: "2026-06-21T13:39:58"
 ---
 
 * [Installation](index.html)

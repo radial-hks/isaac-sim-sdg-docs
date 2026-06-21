@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
-"""Compare Isaac_Sim_Main_Docs.md URLs vs collected URLs in isaac-sim-sdg-docs/source/raw/"""
+"""对比参考 URL 列表 vs 已采集 URL（按模块分类）
+使用项目本地的 source/reference_urls.txt。
+"""
 import re
 from pathlib import Path
 from collections import defaultdict
 
-DESKTOP = Path.home() / "Desktop"
-DOCS_FILE = DESKTOP / "Isaac_Sim_Main_Docs.md"
-RAW_DIR = DESKTOP / "isaac-sim-sdg-docs" / "source" / "raw"
+BASE_DIR = Path(__file__).resolve().parent.parent
+REF_URLS_FILE = BASE_DIR / "source" / "reference_urls.txt"
+RAW_DIR = BASE_DIR / "source" / "raw"
 
-# Read Main Docs
-raw = DOCS_FILE.read_text(encoding="utf-8")
-urls_in_docs = set(re.findall(r'https://docs\.isaacsim\.omniverse\.nvidia\.com[^\s\)\]]*', raw))
-print(f"Main_Docs URLs: {len(urls_in_docs)}")
+if not REF_URLS_FILE.exists():
+    print(f"❌ 未找到 {REF_URLS_FILE}")
+    exit(1)
 
-# Read collected
+urls_in_docs = set(REF_URLS_FILE.read_text().splitlines())
+urls_in_docs.discard("")
+
 collected_urls = {}
 for mdir in sorted(RAW_DIR.iterdir()):
     if not mdir.is_dir():
@@ -27,7 +30,6 @@ for mdir in sorted(RAW_DIR.iterdir()):
             url_match = re.search(r"url:\s*(.+)", m.group(1))
             if url_match:
                 collected_urls[url_match.group(1).strip()] = f"{mdir.name}/{f.name}"
-print(f"Collected URLs: {len(collected_urls)}")
 
 def norm(u):
     return u.rstrip("/").split("?")[0].split("#")[0]
@@ -39,9 +41,10 @@ covered = set(norm_docs) & set(norm_coll)
 missing = set(norm_docs) - set(norm_coll)
 
 pct = int(100 * len(covered) / len(norm_docs)) if norm_docs else 0
-print(f"\nMain Docs unique: {len(norm_docs)}")
-print(f"Covered:          {len(covered)} ({pct}%)")
-print(f"Missing:          {len(missing)}")
+print(f"Reference URLs: {len(norm_docs)}")
+print(f"Collected:      {len(norm_coll)}")
+print(f"Covered:        {len(covered)} ({pct}%)")
+print(f"Missing:        {len(missing)}")
 
 def get_cat(u):
     m2 = re.search(r"/latest/([^/]+)", u)
@@ -55,18 +58,14 @@ for k in sorted(norm_docs):
         missing_by_cat[cat].append(page)
 
 print("\n" + "=" * 60)
-print("Missing pages by module (" + str(len(missing)) + " total)")
+print(f"未采集页面按模块分类 ({len(missing)} 页)")
 print("=" * 60)
 for cat in sorted(missing_by_cat):
     pages = missing_by_cat[cat]
-    print(f"\n  [{cat}] {len(pages)} pages missing")
+    print(f"\n  [{cat}] {len(pages)} pages")
     for p in pages:
         print(f"    - {p}")
 
-# Also show covered summary
-print("\n" + "=" * 60)
-print("Covered pages breakdown")
-print("=" * 60)
 covered_by_cat = defaultdict(list)
 for k in sorted(norm_docs):
     if k in norm_coll:
@@ -74,8 +73,11 @@ for k in sorted(norm_docs):
         page = norm_docs[k].split("/")[-1].replace(".html", "").replace("_", " ")
         covered_by_cat[cat].append(page)
 
+print("\n" + "=" * 60)
+print(f"已采集页面 ({len(covered)} 页)")
+print("=" * 60)
 for cat in sorted(covered_by_cat):
     pages = covered_by_cat[cat]
-    print(f"\n  [{cat}] {len(pages)} pages collected")
+    print(f"\n  [{cat}] {len(pages)} pages")
     for p in pages:
         print(f"    + {p}")

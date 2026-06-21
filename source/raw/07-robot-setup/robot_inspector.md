@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/robot_inspect
 title: "Robot Inspector"
 section: "Setup 工具"
 module: "07-robot-setup"
-checksum: "4ac391def5733f30"
-fetched: "2026-06-21T13:05:34"
+checksum: "90674984a250beeb"
+fetched: "2026-06-21T13:40:06"
 ---
 
 * [Robot Setup](index.html)
@@ -28,7 +28,7 @@ A mode selector at the top of the window controls how the robot hierarchy is dis
 | --- | --- |
 | **Flat** | Links and joints are listed as two flat scopes (`Links`, `Joints`) under each robot, ordered as they appear in the schema relationships. Useful for quickly reviewing the complete lists. |
 | **Tree** (default) | Parent link â joint â child link chain. Matches the kinematic traversal order and is the most natural representation for articulated robots. |
-| **MuJoCo** | Tree rooted at the base link. Each linkâs children appear first, and the joint connecting the link to its own parent appears as the last child entry. Mirrors the body-centric layout used by MuJoCo MJCF files. |
+| **MuJoCo** | Tree rooted at the base link. Each link’s children appear first, and the joint connecting the link to its own parent appears as the last child entry. Mirrors the body-centric layout used by MuJoCo MJCF files. |
 
 |  |  |  |
 | --- | --- | --- |

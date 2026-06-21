@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_gen
 title: "BT Three API Functions"
 section: "BehaviorTree"
 module: "03-replicator-agent"
-checksum: "38d17613884199e2"
-fetched: "2026-06-21T11:55:27"
+checksum: "aea9c9a40b5733bc"
+fetched: "2026-06-21T13:40:23"
 ---
 
 * [Synthetic Data Generation](../../synthetic_data_generation/index.html)
@@ -96,7 +96,7 @@ node_to_model_map_path = resolve_example_scene_file_path(
 )
 ```
 
-## Step 1: setup\_workspace(â¦)
+## Step 1: setup\_workspace(…)
 
 Use this function to create a reusable `PlannerSession` and load input data into the workspace.
 
@@ -138,7 +138,7 @@ print(session.workspace_ready)
 print(session.actors_loaded, session.objects_loaded, session.nodes_loaded)
 ```
 
-## Step 2: prepare\_runtime(â¦)
+## Step 2: prepare\_runtime(…)
 
 Use this function after workspace setup to configure model access, retrievers, and Action IR for
 the session.
@@ -190,7 +190,7 @@ print(runtime_result.chat_model_name)
 print(runtime_result.retriever_ready, runtime_result.action_ir_ready)
 ```
 
-## Step 3: generate\_behavior\_tree(â¦)
+## Step 3: generate\_behavior\_tree(…)
 
 Use this function only after the session has a ready workspace and a prepared runtime.
 
@@ -349,8 +349,8 @@ asyncio.ensure_future(run_planner_example())
 On this page
 
 * [Shared Example Setup](#shared-example-setup)
-* [Step 1: setup\_workspace(â¦)](#step-1-setup-workspace)
-* [Step 2: prepare\_runtime(â¦)](#step-2-prepare-runtime)
-* [Step 3: generate\_behavior\_tree(â¦)](#step-3-generate-behavior-tree)
+* [Step 1: setup\_workspace(…)](#step-1-setup-workspace)
+* [Step 2: prepare\_runtime(…)](#step-2-prepare-runtime)
+* [Step 3: generate\_behavior\_tree(…)](#step-3-generate-behavior-tree)
 * [Async Execution Note](#async-execution-note)
 * [Practical Notes](#practical-notes)

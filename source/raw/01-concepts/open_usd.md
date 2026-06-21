@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/omniverse_usd/open_usd.ht
 title: "OpenUSD"
 section: "OpenUSD"
 module: "01-concepts"
-checksum: "efc215a277699dca"
-fetched: "2026-06-21T12:48:04"
+checksum: "37ad0a35bb76cdfd"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * [Omniverse and USD](index.html)
@@ -18,7 +18,7 @@ The language used in Isaac Sim to describe the robot and its environment is the 
 
 ## Why USD?
 
-USD enables seamless interchange of 3D content among diverse content creation apps with its rich, extensible language. With concepts of layering and variants, itâs a powerful tool that enables live collaboration on the same asset and scene. And when properly used, it permits working on assets without overwriting and erasing someone elseâs work.
+USD enables seamless interchange of 3D content among diverse content creation apps with its rich, extensible language. With concepts of layering and variants, it’s a powerful tool that enables live collaboration on the same asset and scene. And when properly used, it permits working on assets without overwriting and erasing someone else’s work.
 
 USD provides a text-based format for direct editing (*.usda). For higher performance and space optimization, there is a binary-encoded format (*.usd). All aspects of USD can be accessed through coding in C++ or Python.
 
@@ -26,7 +26,7 @@ APIs are available for you to set up a scene or tune a robot directly in USD, bu
 
 ## Hello World
 
-Letâs start by creating a basic USD file from code:
+Let’s start by creating a basic USD file from code:
 
 ```python
 xformPrim = UsdGeom.Xform.Define(stage, "/hello")
@@ -92,11 +92,11 @@ radiusAttr.Set(0.50)
 print(radiusAttr.Get())
 ```
 
-Because the stage was still open from the previous sample, youâll see the sphere reducing from radius 1.0 to 0.5, but it also prints these values in the console.
+Because the stage was still open from the previous sample, you’ll see the sphere reducing from radius 1.0 to 0.5, but it also prints these values in the console.
 
 To move the sphere to a new position use `xformOpOrder`, which is common to `Xform` and `Sphere`. Many different transforms can be applied to a prim, each from potentially different layers. The `xformOpOrder` tracks and manages the different transforms, it is like a list of `Xform` operations, applied in the order specified from first to last.
 
-Our sphere doesnât have its own, so to create a new one:
+Our sphere doesn’t have its own, so to create a new one:
 
 ```python
 translation = Gf.Vec3d(1, 0, 0)
@@ -153,7 +153,7 @@ with Sdf.ChangeBlock():
     )
 ```
 
-Material color shading is complicated. After creating the prim and appropriate attributes, you must link those attributes and properties together to form a `shader graph` that is processed to produce the desired material effect. After itâs created, the material can then be bound to the prim, thus changing its apparent color in the viewport.
+Material color shading is complicated. After creating the prim and appropriate attributes, you must link those attributes and properties together to form a `shader graph` that is processed to produce the desired material effect. After it’s created, the material can then be bound to the prim, thus changing its apparent color in the viewport.
 
 ```python
 # bind the material

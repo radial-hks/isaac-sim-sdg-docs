@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tuto
 title: "Custom OG Randomizer"
 section: "教程"
 module: "01-replicator-core"
-checksum: "fc94f66305525aba"
-fetched: "2026-06-21T11:55:18"
+checksum: "1efe6ef1d1a065e0"
+fetched: "2026-06-21T13:40:17"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)
@@ -25,7 +25,7 @@ This tutorial will showcase how to:
 
 * Create custom scene randomization Python scripts.
 * Wrap the scripts as OmniGraph nodes and manually add them to an existing SDG pipeline graph.
-* Encapsulate the OmniGraph nodes as **ReplicatorItems** to be automatically added to the SDG pipeline graph using Replicatorâs API.
+* Encapsulate the OmniGraph nodes as **ReplicatorItems** to be automatically added to the SDG pipeline graph using Replicator’s API.
 
 ## Prerequisites
 

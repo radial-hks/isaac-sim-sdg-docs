@@ -4,7 +4,7 @@ title: "Sensors RTX Placement Tutorial"
 section: "传感器配置"
 module: "05-sensors-annotators"
 checksum: "b25fea46eaa26f8e"
-fetched: "2026-06-21T11:55:31"
+fetched: "2026-06-21T13:40:27"
 ---
 
 * [Synthetic Data Generation](../synthetic_data_generation/index.html)

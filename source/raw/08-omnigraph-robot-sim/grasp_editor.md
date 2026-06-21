@@ -3,8 +3,8 @@ url: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/grasp_ed
 title: "Grasp Editor"
 section: "Robot Simulation"
 module: "08-omnigraph-robot-sim"
-checksum: "04d4c6fb3c1463f6"
-fetched: "2026-06-21T13:05:39"
+checksum: "23c3f92bad572039"
+fetched: "2026-06-21T13:40:10"
 ---
 
 * [Robot Simulation](index.html)
@@ -73,7 +73,7 @@ The Grasp Editor handles these frames in two distinct ways:
   under the object\_frame and gripper\_frame fields.
 * On import, the object\_frame and gripper\_frame fields are ignored, because isaac\_grasp
   files may be authored externally (possibly without going through USD at all).
-* As a result, identifying the correct USD frames is the userâs responsibility when using the
+* As a result, identifying the correct USD frames is the user’s responsibility when using the
   Grasp Editor for importing.
 
 Each grasp in an isaac\_grasp file has a unique name (e.g. grasp\_0). The fields for a named
@@ -89,7 +89,7 @@ grasp are:
 
 All together, a grasp may be applied in practice by moving the gripper to the correct relative position and orientation
 while in the pregrasp\_cspace\_position, then closing the gripper until the joints are in cspace\_position.
-If the objectâs position and orientation in the world frame of reference is given by \(T\_o, R\_o\), with
+If the object’s position and orientation in the world frame of reference is given by \(T\_o, R\_o\), with
 the position and orientation fields specifying relative transformation \(^oT\_g, ^o\!\!R\_g\)
 (i.e. the translation and rotation of the gripper according to the object frame of reference),
 the desired position of the gripper in the world frame \(T\_g , R\_g\) is given by:
@@ -110,8 +110,8 @@ non-Articulation that has an associated mesh.
 To fill in the Selection Frame:
 
 1. Select the Articulation and object of interest. The prim path for the object can be copied by
-   right clicking on the desired prim and selecting âCopy Prim Pathâ.
-2. Choose an export path for the isaac\_grasp file. This should end in â.yamlâ.
+   right clicking on the desired prim and selecting “Copy Prim Path”.
+2. Choose an export path for the isaac\_grasp file. This should end in ‘.yaml’.
 
 A few rules apply to the export file:
 
@@ -121,7 +121,7 @@ A few rules apply to the export file:
   new isaac\_grasp file.
 
 This tutorial will author grasps between the Panda hand gripper (isolated from the Franka Emika Panda
-robot) and a mug. When âReadyâ is clicked, the Grasp Editor will:
+robot) and a mug. When “Ready” is clicked, the Grasp Editor will:
 
 * Validate each field in the panel.
 * Perform all necessary conversions of the selected object prim (the mug) to make it graspable.
@@ -134,7 +134,7 @@ The Grasp Editor does not revert these changes to the object asset, and so it is
 
 Warning
 
-There is a known issue that the mug may âdisappearâ, this is a visual bug. You can press âSTOPâ, then âPLAYâ again to make it reappear.
+There is a known issue that the mug may “disappear”, this is a visual bug. You can press “STOP”, then “PLAY” again to make it reappear.
 
 ### Select Frames of Reference
 
@@ -152,11 +152,11 @@ must correspond to the existing pipeline in which the object is being manipulate
 camera is being used to identify object pose, there is an implicit frame of reference for the object
 associated with that vision system. In this case, the selected frame for the object must correspond to this
 implicit frame of reference. If there is not already a frame in the USD that represents the correct frame of
-reference, a new one should be authored on the stage under the selected object path (e.g. nested under â/World/mugâ).
+reference, a new one should be authored on the stage under the selected object path (e.g. nested under “/World/mug”).
 
 In this tutorial, the base frames for the gripper and object are used. If the entire Franka Panda robot
 were being used, the correct frame of reference for the gripper would still be the panda\_hand frame.
-Once âFinalizeâ is clicked, these frames of reference become global to the output isaac\_grasp file and
+Once “Finalize” is clicked, these frames of reference become global to the output isaac\_grasp file and
 cannot be changed.
 
 **The Grasp Editor will write the USD paths for the frames of reference to the output isaac\_grasp file,
@@ -169,7 +169,7 @@ the gripper. The Panda hand is a two finger gripper, but one of the joints is a 
 in the figure below that changing the value of panda\_finger\_joint1 causes panda\_finger\_joint\_2 to
 move at the same time. This means that the Panda hand gripper is effectively controlled by a single DOF.
 
-Each active DOF in the gripper should be checked as âPart of Gripperâ. This will open a new menu of
+Each active DOF in the gripper should be checked as “Part of Gripper”. This will open a new menu of
 joint settings that define how the grasp will be simulated and what gets written to the output isaac\_grasp file.
 
 * Position When Open: The position of DOF that is considered to be open. Each grasp will be simulated
@@ -190,7 +190,7 @@ when moving the object into place in order to test a grasp. Masked collisions ar
 is simulated. When importing a grasp, collisions are masked automatically.
 
 If the simulated grasp does not appear to have complete contact between the object and gripper,
-you can use the âShow Physics Collidersâ button to visualize the collision geometry associated
+you can use the “Show Physics Colliders” button to visualize the collision geometry associated
 with your assets. It is outside of the scope of this extension to fix incorrect collider geometry,
 but the Grasp Editor does allow you to author grasps without simulating them. In this situation
 you can mask collisions and move things into place visually.
@@ -201,7 +201,7 @@ A grasp may be authored with the aid of simulation, since moving assets by hand 
 be the right position is imprecise. The figure below demonstrates the simulated authoring workflow:
 
 1. Move the object into roughly the right position to be grasped.
-2. Click the âSimulateâ button to close the gripper according to its joint settings. In the figure,
+2. Click the “Simulate” button to close the gripper according to its joint settings. In the figure,
    this causes the lip of the mug to be pushed into the exact center of the gripper fingers and leaves
    the gripper fingers in the exact position of contact with the object.
 3. Once the simulation is complete, the export panel will populate, and the grasp may be written
@@ -216,7 +216,7 @@ There may be reasons that the grasp simulation does not support your use-case su
 * The mechanics for opening and closing the gripper are more complicated than is represented in the Grasp Editor.
 
 In either case, the best way to make use of the Grasp Editor is to move things into place through
-external means and export the grasp without simulating by clicking the âSkip Simâ button. For example,
+external means and export the grasp without simulating by clicking the “Skip Sim” button. For example,
 some real robot grippers have heavily coupled degrees of freedom with somewhat complicated mechanics.
 For such a gripper, you would want to replicate the exact movement programmatically and send joint
 commands to the USD asset accordingly. In this case, you could turn on collisions and use an external
@@ -227,7 +227,7 @@ Grasp Editor to export the current state of grasp on the USD stage to your isaac
 
 An extra feature of the Grasp Editor is that you can apply external forces and torques as part of the
 grasp simulation. This may help to discern which grasps have the best force closure over the object.
-The amount of force and torque applied may be selected in the âAdd External Rigid Body Forcesâ panel.
+The amount of force and torque applied may be selected in the “Add External Rigid Body Forces” panel.
 A single scalar value may be chosen for force and for torque. A non-zero value \(v\) for force will cause
 a force of \(\pm v\) N along each axis, centered at the base frame of the rigid body.
 Likewise for torque, a value \(v\) will cause a torque of \(\pm v\) N\*m to be applied about each axis, centered
@@ -240,16 +240,16 @@ chosen, and the mug moves under the force, but the grasp is maintained.
 ### Exporting Grasps
 
 The export frame becomes available once a grasp has been fully simulated, or the option to simulate has been declined.
-On clicking âExportâ, the current state of the stage is used to fill in the relevant fields of the
+On clicking “Export”, the current state of the stage is used to fill in the relevant fields of the
 isaac\_grasp file.
 
-* The confidence field takes on the value of the âConfidenceâ field in the Export panel.
+* The confidence field takes on the value of the “Confidence” field in the Export panel.
 * The position and orientation fields for the grasp are determined by finding the relative position
-  of the gripper in the objectâs frame of reference. This uses the frames defined in
+  of the gripper in the object’s frame of reference. This uses the frames defined in
   [Select Frames of Reference](#isaac-sim-app-tutorial-grasp-editor-reference-frames).
 * The cspace\_position field is determined based on the current positions of the DOFs that have been marked as
   part of the gripper.
-* The pregrasp\_cspace\_position field is taken from the âPosition When Openâ field of Joint Settings for each
+* The pregrasp\_cspace\_position field is taken from the “Position When Open” field of Joint Settings for each
   DOF that has been marked as part of the gripper.
 
 At this stage, multiple grasps may be authored in a row and sequentially exported to the same isaac\_grasp file.
@@ -273,7 +273,7 @@ to execute one of the authored grasps.
 
 The following function snippet imports a grasp file demonstrated in [Importing Grasps](#isaac-sim-app-tutorial-grasp-editor-import) and
 determines where the panda\_hand frame should be in order to duplicate grasp\_1. To try this function, copy it into the
-[Script Editor](../development_tools/omniverse_script_editor.html#script-editor), and pass the import\_file\_path=âpath/to/your/isaac\_grasp.yamlâ argument to the function.
+[Script Editor](../development_tools/omniverse_script_editor.html#script-editor), and pass the import\_file\_path=”path/to/your/isaac\_grasp.yaml” argument to the function.
 
 ```python
 import isaacsim.core.experimental.utils.xform as xform_utils

@@ -4,7 +4,7 @@ title: "Synthetic Data Generation Index"
 section: "SDG概念"
 module: "01-concepts"
 checksum: "937396dc6d36e811"
-fetched: "2026-06-21T12:48:04"
+fetched: "2026-06-21T13:39:51"
 ---
 
 * Synthetic Data Generation
