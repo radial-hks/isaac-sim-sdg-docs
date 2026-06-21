@@ -10,7 +10,7 @@
 ## 目录结构
 
 ```
-Isaac_Sim_SDG_Component/
+isaac-sim-sdg-docs/
 ├── collect.py              # 主采集脚本（并发抓取 + defuddle 提取 + 组装）
 ├── pyproject.toml          # uv 项目配置
 ├── .gitignore
@@ -45,7 +45,7 @@ Isaac_Sim_SDG_Component/
 ## 用法
 
 ```bash
-cd ~/Desktop/Isaac_Sim_SDG_Component
+cd ~/Desktop/isaac-sim-sdg-docs
 uv sync
 
 # 全量采集 + 组装
