@@ -2,7 +2,7 @@
 
 > Isaac Sim 架构总览、核心概念、工作流、UI、资产结构、OpenUSD 基础
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:58 UTC
+> 最后组装: 2026-06-21 14:14 UTC
 > 来源页数: 20
 
 ---
@@ -1028,98 +1028,410 @@ On this page
 ---
 
 
-## SDG概念
+## 入门
 
-### Synthetic Data Generation Index
+### What Is Isaac Sim?
 
 > 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/index.html
 
-* Synthetic Data Generation
-
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Synthetic Data Generation
+# What Is Isaac Sim?
 
-Synthetic Data Generation (SDG) is a collection of tools and workflows for generating synthetic data in Isaac Sim.
+Import robots and scenes from URDF, MJCF, Onshape CAD, or USD. Simulate with PhysX or Newton, add RTX and physics-based sensors, generate synthetic data, prepare robots for Isaac Lab, and validate robot stacks with ROS 2.
 
-* [Perception Data Generation (Replicator)](../replicator_tutorials/index.html)
-* [Action and Event Data Generation](../action_and_event_data_generation/index.html)
-* [Grasping Synthetic Data Generation](tutorial_replicator_grasping_sdg.html)
-* [Data Generation with MobilityGen](tutorial_replicator_mobility_gen.html)
-* [Teleoperation Synthetic Data Generation](tutorial_replicator_teleop_sdg.html)
+[Quick Install](installation/quick-install.html)
+[Browse Tutorials](#tutorials)
+
+* [Open source on GitHub](https://github.com/isaac-sim)
+
+## Getting Started
+
+Pick the setup that matches how you work. Most users should start
+with **Quick Install**. Choose Python or containers when you need
+pip, conda, CI, or remote workflows.
+
+Quick Install
+
+Fastest path to a working local setup
+
+[Quick Install](installation/quick-install.html#isaac-sim-quick-install)
+
+Workstation Setup
+
+Install the full app and local dependencies
+
+[Workstation Installation](installation/install_workstation.html#isaac-sim-app-install-workstation)
+
+Container Setup
+
+Run Isaac Sim in Docker for repeatable setups
+
+[Container Installation](installation/install_container.html#isaac-sim-app-install-container)
+
+Python Environment
+
+Use pip or conda for Python-first workflows
+
+[Python Environment Installation](installation/install_python.html#isaac-sim-app-install-python)
+
+Tip
+
+**Running into issues?** See [Setup Tips](installation/install_faq.html) for common fixes or the [Troubleshooting](overview/troubleshooting.html#isaac-sim-troubleshooting) page.
 
 ---
 
-### Synthetic Data Generation Index
+## Tutorials
 
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/synthetic_data_generation/index.html
+Start with the topics users look for most: first simulation, robot
+import, sensors, ROS 2, synthetic data, and robot learning.
 
-* Synthetic Data Generation
+BeginnerLearn the app, scenes, and core robot workflows
 
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+Basic Usage Tutorial
 
-# Synthetic Data Generation
+First steps: navigate the UI, load a scene, and run your first simulation.
 
-Synthetic Data Generation (SDG) is a collection of tools and workflows for generating synthetic data in Isaac Sim.
+[Isaac Sim Basic Usage Tutorial](introduction/quickstart_isaacsim.html#isaac-sim-app-intro-quickstart)
 
-* [Perception Data Generation (Replicator)](../replicator_tutorials/index.html)
-* [Action and Event Data Generation](../action_and_event_data_generation/index.html)
-* [Grasping Synthetic Data Generation](tutorial_replicator_grasping_sdg.html)
-* [Data Generation with MobilityGen](tutorial_replicator_mobility_gen.html)
-* [Teleoperation Synthetic Data Generation](tutorial_replicator_teleop_sdg.html)
+Python Scripting Intro
+
+Write your first standalone script to control robots and environments.
+
+[Python Scripting and Tutorials](python_scripting/index.html#isaac-sim-app-python-scripting-overview)
+
+Import Your First URDF
+
+Bring a URDF robot into Isaac Sim, configure it, and simulate it on a stage.
+
+[Tutorial: Import URDF](importer_exporter/import_urdf.html#isaac-sim-app-tutorial-advanced-import-urdf)
+
+IntermediateConnect ROS 2, control simulations, and build data generation workflows
+
+ROS 2 TurtleBot Series
+
+Follow the TurtleBot flow from import and driving to sensors, timing, and transforms.
+
+[URDF Import: Turtlebot](ros2_tutorials/tutorial_ros2_turtlebot.html#isaac-sim-app-tutorial-ros2-turtlebot)
+
+Synthetic Data with Replicator
+
+Generate labeled training data from Isaac Sim scenes with Replicator.
+
+[SDG Workflows](replicator_tutorials/tutorial_replicator_sdg_workflows.html#isaac-sim-app-tutorial-replicator-sdg-workflows)
+
+ROS 2 Simulation Control
+
+Use ROS 2 services and actions to load worlds, spawn entities, and step simulations.
+
+[ROS2 Simulation Control](ros2_tutorials/tutorial_ros2_simulation_control.html#isaac-sim-app-tutorial-ros2-simulation-control)
+
+AdvancedTrain policies, randomize scenes, and deploy results
+
+Prep a Robot for Isaac Lab
+
+Rig your robot and stage a scene in Isaac Sim so Isaac Lab can train policies on it.
+
+[Isaac Lab](isaac_lab_tutorials/index.html#isaac-lab-tutorials-page)
+
+AMR Navigation Synthetic Data
+
+Drive an AMR through randomized warehouse scenes and capture stereo camera data when it nears objects of interest.
+
+[Randomization in Simulation – AMR Navigation](replicator_tutorials/tutorial_replicator_amr_navigation.html#isaac-sim-app-tutorial-replicator-amr-navigation)
+
+ROS 2 Policy Evaluation
+
+Run a reinforcement learning policy through ROS 2 while Isaac Sim publishes observations and receives actions.
+
+[Running a Reinforcement Learning Policy through ROS 2 and Isaac Sim](ros2_tutorials/tutorial_ros2_rl_controller.html#isaac-sim-app-tutorial-ros2-rl-controller)
 
 ---
 
-### Replicator Overview
+## Isaac Sim Workflow Overview
 
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tutorial_replicator_overview.html
+Isaac Sim
 
-* [Synthetic Data Generation](../synthetic_data_generation/index.html)
-* [Perception Data Generation (Replicator)](index.html)
-* Overview
+[RTX](https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer.html)
+[Newton](https://developer.nvidia.com/newton-physics)
+[PhysX](https://nvidia-omniverse.github.io/PhysX/)
+[OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html)
+[Replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html)
+[OpenUSD](https://openusd.org/)
 
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+Simulation Development Loop
 
-# Overview
+Bring assets in, configure the robot and scene, simulate behavior, then connect external stacks.
 
-Isaac Sim Replicator offers various tools and workflows for synthetic data generation (SDG), with its core functionalities mostly provided by, but not limited to, the [omni.replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html "(in Omniverse Extensions)") extension. This page provides an overview of these tools and extensions, including semantic labeling, sensor visualization, GUI-based data recording, config file-based SDG workflows, and getting started scripts (examples). To enable SDG relevant UI panels you can use the [Synthetic Data Generation Layout](../gui/layouts.html#isaac-sim-app-gui-layouts).
+Overview
 
-## The Semantics Schema Editor
+Synthetic Data Generation
 
-The [Semantics Schema Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/semantics_schema_editor.html "(in Omniverse Extensions)") is a GUI-based extension that enables you to view, add, edit, or remove semantic labels on prims in a stage. Semantically labeling prims is necessary for annotators like semantic segmentation or bounding boxes to include semantic information in the synthetic data. You can access the editor through **Tools > Replicator > Semantics Schema Editor**. To programmatically label prims in a stage, see the following [example snippet](../python_scripting/environment_setup.html#apply-semantic-data-on-entire-stage).
+Software-in-the-loop Testing
 
-## The Synthetic Data Visualizer
+Each stage stays reusable: asset prep, robot and scene configuration, simulation, and stack connection all operate on the shared Isaac Sim scene.
 
-The [Synthetic Data Visualizer](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/visualization.html "(in Omniverse Extensions)") tool enables sensor output visualization directly in the Viewport window, it can be accessed using the  icon and selecting the desired output formats.
+For SDG, label the scene, vary conditions, simulate behavior, and render sensor outputs for downstream datasets.
 
-Note
+For SIL, configure robot physics, sensors, and communication graphs, then validate the external robot stack before hardware.
 
-* Cross Correspondence visualization requires a specific two-camera setup explained in the Cross Correspondence section of the [annotator details](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") page.
+01
+**Import**
 
-## The Synthetic Data Recorder
+Scenes, robots, sensors, assets
 
-The [Synthetic Data Recorder](tutorial_replicator_recorder.html#isaac-sim-app-tutorial-replicator-recorder) is a GUI-based tool that allows you to record synthetic data directly from the editor. It is built on top of `omni.replicator` using `BasicWriter` as its default writer, it is useful for rapid iterations of synthetic data recordings for testing purposes. You can access the recorder via **Tools > Replicator > Synthetic Data Recorder**.
+Scene assets
 
-## Replicator YAML
+Target objects
 
-[Replicator YAML](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/yaml_workflow.html "(in Omniverse Extensions)") is a configuration file-based workflow built on top of the Replicator API. It allows you to define randomizations and data capture pipelines as configuration files. These configurations are transformed through the Replicator API into an [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)") workflow for synthetic data generation. You can access the YAML workflow using **Tools > Replicator > Replicator YAML**.
+Sensor assets
 
-## Getting Started Scripts
+Robot assets
 
-The [Getting Started Scripts](tutorial_replicator_getting_started.html#isaac-sim-app-tutorial-replicator-getting-started) provides a starting point for typical Isaac Sim Replicator workflows. These tutorials cover basic topics such as accessing data from [annotators](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") or [writers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)"), and using Replicator randomizers together with custom USD/Isaac Sim API randomizers triggered independently from the data capture.
+Robot descriptions
+
+CAD / USD / NuRec
+
+02
+**Configure**
+
+Shared setup, then workflow-specific wiring
+
+Materials
+
+Sensors
+
+Scenarios
+
+Semantics
+
+Randomization
+
+Tune robot physics
+
+Communication graph
+
+03
+**Simulate**
+
+Run the world and capture evidence
+
+Physics stepping
+
+Sensor output
+
+Randomization
+
+Annotation capture
+
+Rendered frames
+
+Control loop
+
+Stack behavior
+
+04
+**Connect / Deploy**
+
+Send results to training or robot stacks
+
+Dataset writers
+
+Training pipelines
+
+Model evaluation
+
+Failure-case tests
+
+Robot stack
+
+Pre-hardware tests
+
+Shared Isaac Sim Scene
+
+USD scene, physics state, sensors, semantics, and graphs in one runtime.
+
+**01
+Import**
+Bring robot, scene, sensor, CAD, DCC, and reconstructed assets into a shared USD workspace.
+
+**02
+Configure**
+Set materials, sensors, scenarios, semantics, robot physics, and communication graphs.
+
+**03
+Simulate**
+Run physics, sensor output, Replicator capture, and stack behavior on the assembled scene.
+
+**04
+Connect / Deploy**
+Export datasets to training pipelines or connect external robot stacks for pre-hardware validation.
+
+---
+
+## Robotics Ecosystem
+
+Understanding the components of the NVIDIA robotics ecosystem and
+where Isaac Sim fits among them.
+
+Software-in-the-Loop Testing
+
+Each row shows the workflow step and the NVIDIA component that supports it.
+
+1. 01
+
+   **Build the scene & rig the robot**
+
+   **Isaac Sim**
+
+   Robotics simulator
+
+   [Open docs](https://docs.isaacsim.omniverse.nvidia.com/)
+
+   Assemble USD scenes, run physics and sensors, connect external robot stacks.
+2. 02
+
+   **Train an RL or IL policy**
+
+   Optional
+
+   **Isaac Lab**
+
+   RL / IL framework
+
+   [Open docs](https://isaac-sim.github.io/IsaacLab/)
+
+   Train RL and imitation-learning policies with parallel environments.
+3. 03
+
+   **Evaluate policy at scale**
+
+   Optional
+
+   **Lab - Arena**
+
+   Policy benchmark
+
+   [Open docs](https://developer.nvidia.com/isaac/lab-arena)
+
+   Benchmark and compare trained policies across many scenes and seeds.
+4. 04
+
+   **Run the integrated SIL test**
+
+   **Isaac Sim**
+
+   SIL test stack
+
+   [Open docs](https://docs.isaacsim.omniverse.nvidia.com/)
+
+   Run software-in-the-loop tests with your ROS 2 or Isaac ROS robot stack.
+
+Synthetic Data Generation
+
+Each row shows the workflow step and the NVIDIA component that supports it.
+
+1. 01
+
+   **Bring in real-world environments**
+
+   Optional
+
+   **NuRec**
+
+   Reconstructed scenes
+
+   [Open docs](https://developer.nvidia.com/omniverse/nurec)
+
+   Gaussian-splat reconstructions of real environments, loaded as USD assets.
+2. 02
+
+   **Assemble & configure the scene**
+
+   **Isaac Sim**
+
+   Robotics simulator
+
+   [Open docs](https://docs.isaacsim.omniverse.nvidia.com/)
+
+   Assemble USD scenes, configure robots and sensors, run physics and rendering.
+3. 03
+
+   **Define variation, simulate, & write annotations**
+
+   **Replicator**
+
+   SDG framework in Isaac Sim
+
+   [Open docs](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html)
+
+   Script randomization, capture sensor outputs, and write labeled datasets.
+4. 04
+
+   **Photoreal augmentation**
+
+   Optional
+
+   **Cosmos Transfer**
+
+   Photoreal augmentation
+
+   [Open docs](https://docs.nvidia.com/cosmos/latest/transfer2.5/index.html)
+
+   Convert rendered RGB plus a text prompt into varied photoreal images, offline.
+
+---
+
+## Open Source & Community
+
+Isaac Sim is open source and built to fit into existing robotics
+stacks. Use the shipped tools, read the code, or extend the
+simulator with Python and Kit.
+
+Open-source platform
+
+Read the code, extend the simulator, and fit it into your stack.
+
+Start with the built-in tools, then automate with Python, build custom Kit apps, or integrate Isaac Sim into your own ROS 2 and ML workflows.
+
+[Browse GitHub](https://github.com/isaac-sim)
+[Install via pip](https://pypi.org/project/isaacsim/)
+
+**Apache 2.0**
+
+Open-source licensing for the simulator stack.
+
+**USD-native**
+
+One scene representation from asset import to deployment.
+
+**PhysX + Newton**
+
+Switch between supported physics backends in one simulator.
+
+**RTX + Physics Sensors**
+
+Use rendering and physics-based sensor models in one place.
+
+[Forum
+
+Ask questions and get help from the NVIDIA developer community.](https://forums.developer.nvidia.com/c/omniverse/simulation/69)[Discord
+
+Chat with other Isaac Sim users and developers in real time.](https://discord.gg/4ZsTFksGh8)[Release Notes
+
+Track the latest features, fixes, and version changes across Isaac Sim releases.](overview/release_notes.html)[Help & FAQ
+
+Start with common installation fixes, troubleshooting, and support guidance.](overview/help.html)
 
 On this page
 
-* [The Semantics Schema Editor](#the-semantics-schema-editor)
-* [The Synthetic Data Visualizer](#the-synthetic-data-visualizer)
-* [The Synthetic Data Recorder](#the-synthetic-data-recorder)
-* [Replicator YAML](#replicator-yaml)
-* [Getting Started Scripts](#getting-started-scripts)
+* [Getting Started](#getting-started)
+* [Tutorials](#tutorials)
+* [Isaac Sim Workflow Overview](#isaac-sim-workflow-overview)
+* [Robotics Ecosystem](#robotics-ecosystem)
+* [Open Source & Community](#open-source-community)
 
 ---
-
-
-## 入门
 
 ### Quick Start Isaac Sim
 
@@ -3001,6 +3313,77 @@ On this page
 * [IMU Sensor (`IsaacImuSensor`)](#imu-sensor-isaacimusensor)
 * [Raycast Sensor (`IsaacRaycastSensor`)](#raycast-sensor-isaacraycastsensor)
 * [Deprecated Sensor Schemas](#deprecated-sensor-schemas)
+
+---
+
+
+## SDG概念
+
+### Synthetic Data Generation Index
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/synthetic_data_generation/index.html
+
+* Synthetic Data Generation
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Synthetic Data Generation
+
+Synthetic Data Generation (SDG) is a collection of tools and workflows for generating synthetic data in Isaac Sim.
+
+* [Perception Data Generation (Replicator)](../replicator_tutorials/index.html)
+* [Action and Event Data Generation](../action_and_event_data_generation/index.html)
+* [Grasping Synthetic Data Generation](tutorial_replicator_grasping_sdg.html)
+* [Data Generation with MobilityGen](tutorial_replicator_mobility_gen.html)
+* [Teleoperation Synthetic Data Generation](tutorial_replicator_teleop_sdg.html)
+
+---
+
+### Replicator Overview
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/replicator_tutorials/tutorial_replicator_overview.html
+
+* [Synthetic Data Generation](../synthetic_data_generation/index.html)
+* [Perception Data Generation (Replicator)](index.html)
+* Overview
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Overview
+
+Isaac Sim Replicator offers various tools and workflows for synthetic data generation (SDG), with its core functionalities mostly provided by, but not limited to, the [omni.replicator](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator.html "(in Omniverse Extensions)") extension. This page provides an overview of these tools and extensions, including semantic labeling, sensor visualization, GUI-based data recording, config file-based SDG workflows, and getting started scripts (examples). To enable SDG relevant UI panels you can use the [Synthetic Data Generation Layout](../gui/layouts.html#isaac-sim-app-gui-layouts).
+
+## The Semantics Schema Editor
+
+The [Semantics Schema Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/semantics_schema_editor.html "(in Omniverse Extensions)") is a GUI-based extension that enables you to view, add, edit, or remove semantic labels on prims in a stage. Semantically labeling prims is necessary for annotators like semantic segmentation or bounding boxes to include semantic information in the synthetic data. You can access the editor through **Tools > Replicator > Semantics Schema Editor**. To programmatically label prims in a stage, see the following [example snippet](../python_scripting/environment_setup.html#apply-semantic-data-on-entire-stage).
+
+## The Synthetic Data Visualizer
+
+The [Synthetic Data Visualizer](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/visualization.html "(in Omniverse Extensions)") tool enables sensor output visualization directly in the Viewport window, it can be accessed using the  icon and selecting the desired output formats.
+
+Note
+
+* Cross Correspondence visualization requires a specific two-camera setup explained in the Cross Correspondence section of the [annotator details](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") page.
+
+## The Synthetic Data Recorder
+
+The [Synthetic Data Recorder](tutorial_replicator_recorder.html#isaac-sim-app-tutorial-replicator-recorder) is a GUI-based tool that allows you to record synthetic data directly from the editor. It is built on top of `omni.replicator` using `BasicWriter` as its default writer, it is useful for rapid iterations of synthetic data recordings for testing purposes. You can access the recorder via **Tools > Replicator > Synthetic Data Recorder**.
+
+## Replicator YAML
+
+[Replicator YAML](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/yaml_workflow.html "(in Omniverse Extensions)") is a configuration file-based workflow built on top of the Replicator API. It allows you to define randomizations and data capture pipelines as configuration files. These configurations are transformed through the Replicator API into an [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)") workflow for synthetic data generation. You can access the YAML workflow using **Tools > Replicator > Replicator YAML**.
+
+## Getting Started Scripts
+
+The [Getting Started Scripts](tutorial_replicator_getting_started.html#isaac-sim-app-tutorial-replicator-getting-started) provides a starting point for typical Isaac Sim Replicator workflows. These tutorials cover basic topics such as accessing data from [annotators](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/annotators_details.html "(in Omniverse Extensions)") or [writers](https://docs.omniverse.nvidia.com/extensions/latest/ext_replicator/writer_examples.html "(in Omniverse Extensions)"), and using Replicator randomizers together with custom USD/Isaac Sim API randomizers triggered independently from the data capture.
+
+On this page
+
+* [The Semantics Schema Editor](#the-semantics-schema-editor)
+* [The Synthetic Data Visualizer](#the-synthetic-data-visualizer)
+* [The Synthetic Data Recorder](#the-synthetic-data-recorder)
+* [Replicator YAML](#replicator-yaml)
+* [Getting Started Scripts](#getting-started-scripts)
 
 ---
 

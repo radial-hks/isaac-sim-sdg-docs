@@ -2,7 +2,7 @@
 
 > Manipulators motion planning + Physics/RTX sensors + OpenUSD tuning (按需采集)
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:58 UTC
+> 最后组装: 2026-06-21 14:14 UTC
 > 来源页数: 44
 
 ---
@@ -57,1218 +57,74 @@
 ---
 
 
-## USD Tuning
+## Manipulators
 
-### OpenUSD Tuning Index
+### Manipulators Concepts
 
 > 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/index.html
 
-* [Robot Setup](../robot_setup/index.html)
-* OpenUSD and Tuning Best Practices Tutorial Series
+* [Robot Simulation](../../robot_simulation/index.html)
+* [Motion Generation (Deprecated)](../motion_generation_overview.html)
+* Motion Generation
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# OpenUSD and Tuning Best Practices Tutorial Series
+# Motion Generation
 
-This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assets—such as a dexterous hand—is foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
+Deprecated
 
-Over this series, you work hands-on with the Inspire Hand asset in Isaac Sim to inspect the robot USD and asset structure, apply OpenUSD best practices for performance and stability, and tune joint parameters and control gains for stable, critically damped motion.
+For new development, consider using the newer [Robot Motion (Experimental)](../../robot_motion_experimental/index.html) API, which provides improved interfaces and additional features.
 
-This series takes approximately 60–90 minutes to complete as a hands-on lab.
+The [Motion Generation](#isaac-sim-motion-generation) provides an API that you can use to control objects within Isaac Sim.
+The API is made up of abstract interfaces for adding motion control algorithms to Isaac Sim.
+The interfaces in the [Motion Generation](#isaac-sim-motion-generation) provide two basic utilities:
 
-## Learning Objectives
+> * Simplify the integration of new robotics algorithms into NVIDIA Isaac Sim.
+> * Provide a standard structure with which to compare similar robotics algorithms.
 
-By the end of this series, you will be able to:
+For example, if you have a robot that has not previously been described to Isaac Sim, you can use these APIs to define that robot and how it moves.
 
-* **Explain** the end-to-end process for inspecting and preparing robot USD assets for simulation.
-* **Apply** best practices to optimize the robot USD for performance and stability.
-* **Tune** joint parameters and control gains to achieve stable, critically damped, and realistic robot motion in simulation.
+> * Simplify the integration of new robotics algorithms into NVIDIA Isaac Sim.
+> * Provide a standard structure with which to compare similar robotics algorithms.
 
-We start by inspecting the robot USD, then configuring collision filters to manage self-collision, and finally tuning joint parameters: drive limits (max force, max velocity) and stiffness and damping with the Gain Tuner. By the end, you will have a stable, functioning robotic hand ready to attach to an arm for a grasping controller.
+For example, if you have a robot that has not previously been described to Isaac Sim, you can use these APIs to define that robot and how it moves.
 
-## Tutorials in This Series
+Three interfaces are provided in the Motion Generation Extension:
 
-* [Tutorial 1: Setup](tutorial_01_setup.html)
-* [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html)
-* [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html)
-* [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html)
-* [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html)
-* [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html)
-* [Tutorial 7: Using the Dexterous Hand in Practice](tutorial_07_practice.html)
+* [Motion Policy Algorithm](motion_policy.html)
+* [Path Planner](path_planner.html#isaac-sim-path-planner)
+* [Kinematics Solvers](kinematics_solver.html)
 
-To get started, see [Tutorial 1: Setup](tutorial_01_setup.html#isaac-sim-tutorial-tuning-openusd-setup).
+In Isaac Sim, the robot is specified using a USD file that gets added to the stage. However, we expect that robotics algorithms will have their
+own way of specifying the robot’s kinematic structure and custom parameters. To avoid interfering with any particular robot description format, the interfaces
+in the Motion Generation Extension include functions that facilitate the translation between the USD robot and a specific algorithm. Specifically,
+an algorithm can specify which joints in the robot it cares about, and the order in which it expects those joints to be listed. The helper classes provided in this extension,
+[Articulation Motion Policy](motion_policy.html#isaac-sim-articulation-motion-policy), [Path Planner Visualizer](path_planner.html#isaac-sim-path-planner-visualizer), and [Articulation Kinematics Solver](kinematics_solver.html#isaac-sim-articulation-kinematics-solver), use the interface
+functions to appropriately map robot joint states between the USD robot articulation and an interface implementation.
 
-On this page
+In Isaac Sim, we use the word [Articulation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/articulations.html "(in Omni Physics)") to refer to the simulated robot represented through USD.
+The word “Articulation” is used as a prefix in the
+Motion Generation Extension to indicate utility classes that handle interfacing an algorithm with the simulated robot.
 
-* [Learning Objectives](#learning-objectives)
-* [Tutorials in This Series](#tutorials-in-this-series)
+In addition, the **Motion Generation extension** includes a handful of special-purpose
+controllers that do not leverage MotionPolicy or PathPlanner.
 
----
+* [Motion Generation Extension API Documentation](motion_gen_api.html)
+* [Kinematics Solvers](kinematics_solver.html)
+* [Trajectory Generation](trajectory_interface.html)
+* [Path Planner Algorithm](path_planner.html)
+* [Lula RRT](lula_rrt.html)
+* [Motion Policy Algorithm](motion_policy.html)
+* [RMPflow](rmpflow.html)
+* [RMPflow Tuning Guide](rmpflow_tuning_guide.html)
 
-### OpenUSD Tuning Index
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/index.html
-
-* [Robot Setup](../robot_setup/index.html)
-* OpenUSD and Tuning Best Practices Tutorial Series
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# OpenUSD and Tuning Best Practices Tutorial Series
-
-This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assets—such as a dexterous hand—is foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
-
-Over this series, you work hands-on with the Inspire Hand asset in Isaac Sim to inspect the robot USD and asset structure, apply OpenUSD best practices for performance and stability, and tune joint parameters and control gains for stable, critically damped motion.
-
-This series takes approximately 60–90 minutes to complete as a hands-on lab.
-
-## Learning Objectives
-
-By the end of this series, you will be able to:
-
-* **Explain** the end-to-end process for inspecting and preparing robot USD assets for simulation.
-* **Apply** best practices to optimize the robot USD for performance and stability.
-* **Tune** joint parameters and control gains to achieve stable, critically damped, and realistic robot motion in simulation.
-
-We start by inspecting the robot USD, then configuring collision filters to manage self-collision, and finally tuning joint parameters: drive limits (max force, max velocity) and stiffness and damping with the Gain Tuner. By the end, you will have a stable, functioning robotic hand ready to attach to an arm for a grasping controller.
-
-## Tutorials in This Series
-
-* [Tutorial 1: Setup](tutorial_01_setup.html)
-* [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html)
-* [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html)
-* [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html)
-* [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html)
-* [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html)
-* [Tutorial 7: Using the Dexterous Hand in Practice](tutorial_07_practice.html)
-
-To get started, see [Tutorial 1: Setup](tutorial_01_setup.html#isaac-sim-tutorial-tuning-openusd-setup).
+## References
 
 On this page
 
-* [Learning Objectives](#learning-objectives)
-* [Tutorials in This Series](#tutorials-in-this-series)
+* [References](#references)
 
 ---
-
-### Tutorial 01: Setup
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_01_setup.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 1: Setup
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 1: Setup
-
-This tutorial runs in NVIDIA Isaac Sim with the Inspire Hand USD asset. Complete the following setup before starting the tutorials in this series.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* Understand the hardware and software requirements for the OpenUSD and Tuning Best Practices series.
-* Download the course USD files from **Content** to a local directory `/path/to/Inspire/`.
-* Open the starting Inspire Hand scene in Isaac Sim.
-
-## Prerequisites
-
-* Basic familiarity with USD and Isaac Sim (stage, prims, layers).
-* Understanding of rigid-body physics (mass, inertia, joints) is helpful but not required.
-
-## Get the Course USD Files
-
-In the file paths used in this tutorial series, replace `/path/to` with the directory that contains your copied `Inspire` folder.
-
-1. In the **Content** browser, go to `IsaacSim/Samples/Rigging/Inspire/`.
-2. In the **Content** browser, right-click on the `Inspire` folder and select “Download” to save it to your local machine. Place the downloaded folder so that its path is `/path/to/Inspire/`, replacing `/path/to` with your chosen directory.
-
-In the Content browser, right-click the `Inspire` folder and select “Download” to save the course files locally.
-
-Within `/path/to/Inspire/`, the course files are organized into multiple checkpoint folders:
-
-* `/path/to/Inspire/module_1_start` — Initial Inspire Hand USD `inspire_hand.usda`.
-* `/path/to/Inspire/module_3_end-checkpoint_1` — Checkpoint with collision filters configured.
-* `/path/to/Inspire/module_4_end-checkpoint_2` — Checkpoint with mimic joints, joint drive maximums, and tuned gains for the finger joints configured.
-* `/path/to/Inspire/module_5_end-checkpoint_3` — Checkpoint with all finger and thumb joint gains tuned and authored.
-
-## Open the Starting Scene
-
-1. Open `/path/to/Inspire/module_1_start/inspire_hand.usda` in Isaac Sim.
-2. Select the `inspire_hand` prim.
-
-## Summary
-
-This tutorial covered:
-
-* Where the samples live in **Content** and how to copy them so the course root is `/path/to/Inspire/`.
-* How the checkpoint folders are laid out under `/path/to/Inspire/`.
-* How to open the starting Inspire Hand scene in Isaac Sim.
-
-### Next Steps
-
-Continue to [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html#isaac-sim-tutorial-tuning-openusd-module-1) to learn the USD Asset Structure 3.0 layout for the Inspire Hand.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Get the Course USD Files](#get-the-course-usd-files)
-* [Open the Starting Scene](#open-the-starting-scene)
-* [Summary](#summary)
-  + [Next Steps](#next-steps)
-
----
-
-### Tutorial 02: Asset Structure
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_02_asset_structure.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 2: Asset Structure
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 2: Asset Structure
-
-Before you inspect, filter, or tune a robot in Isaac Sim, you need to know **where everything lives**. **USD Asset Structure 3.0** in Isaac Sim 6.0 is the standard layout for robot assets: it organizes geometry, materials, collision meshes, and physics into dedicated files and layers so that the same asset can be used with multiple physics backends (e.g. PhysX, MuJoCo) without clashing or duplication. Once you know this structure, you can open the right file for each task and keep the asset maintainable.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* **Understand** how Asset Structure 3.0 separates geometry, materials, metadata, instances, and physics into dedicated files.
-* **See** how layers, payloads, and variants let you switch between no physics, generic physics, or PhysX without duplicating the asset.
-* **Walk through** the Inspire Hand file hierarchy so you know exactly which file to open for inspection and tuning in later tutorials.
-
-## Prerequisites
-
-* Complete [Tutorial 1: Setup](tutorial_01_setup.html#isaac-sim-tutorial-tuning-openusd-setup) and have the Inspire Hand scene open in Isaac Sim.
-
-## Module 1.1: USD Asset Structure 3.0
-
-Isaac Sim 6.0 introduces multi-physics backend support (e.g., MuJoCo and PhysX). **USD Asset Structure 3.0** is the reference format for robot asset structure and organization. It provides:
-
-* **Separation of USD components** into multiple files for easier reviewing and maintenance.
-* **Use of layers, payloads, and variants** for different robot use cases (e.g., animation vs. simulation, different physics engines).
-* **Isolation of attributes** for different physics engines to prevent clashing when the same asset is used with MuJoCo, PhysX, or other runtimes.
-* **Storage of different physics tuning parameters** per physics engine in separate layers or payloads, so you can switch runtimes without overwriting shared geometry or metadata.
-
-The result is a multi-layered structure where geometry, materials, and metadata are shared, while physics-specific data lives in dedicated files and is composed via payloads and variants. Once you know this layout, you can confidently open the right file for collision filtering (e.g. `physics.usda`) or PhysX-specific joint tuning (e.g. `physx.usda`) without touching the base geometry.
-
-## Module 1.2: Inspire Hand Overview
-
-The **Inspire Hand** (RH56DFX from Inspire Robotics) is the example digital twin used in this tutorial: a compact, underactuated dexterous hand with 6 actuated DOF and 12 joints, specifically chosen for its complexity compared to fully actuated dexterous hands.
-
-| Property | Value |
-| --- | --- |
-| Model | RH56DFX |
-| Degrees of Freedom | 6 |
-| Number of joints | 12 |
-| Weight | 540 g |
-| Max thumb grip | 15 N |
-| Max palm grip | 10 N |
-| Thumb lateral rot. | 107 deg/s |
-| Palm finger bend | 260 deg/s |
-
-Below we see how this robot is represented in USD using the Asset Structure 3.0 layout: file hierarchy, asset stack, and physics stack.
-
-### File Hierarchy and Stacks
-
-* **Inspire Hand File Hierarchy** — The asset is split into multiple USD files (geometry, materials, robot metadata, instances, base scene, physics, and PhysX overrides), each with a clear role.
-* **Inspire Hand Asset Stack** — Layers and references compose the visual and structural representation (meshes, materials, transforms, robot API).
-* **Inspire Hand Physics Stack** — Payloads and variants add physics (rigid bodies, joints, drives) and engine-specific tuning (e.g., PhysX) without modifying the base asset.
-
-Together, the **combined** stack gives a single `inspire_hand` prim that is simulation-ready and can switch between no physics, generic USD physics, or PhysX via a variant.
-
-## Module 1.3: Asset Structure Walkthrough
-
-Here we walk through each file in the Inspire Hand and how it contributes to the final asset. Knowing each file’s **role** and **format** (e.g. binary for geometry, ASCII for readability) will help you know where to author changes in later modules.
-
-geometries.usd — Mesh file
-geometries.usd — Mesh file
-————————–
-
-* **Role:** Stores all the **meshes** used by the robot.
-* **Format:** Binary (`.usd` or `.usdc`) for efficiency.
-* Contains only geometry (mesh data); no materials or physics.
-
-### materials.usda — Material file
-
-* **Role:** Stores all **materials** used by the robot (e.g., Plastic\_ABS).
-* **Format:** ASCII (`.usda`) for readability.
-* Defines materials and their MDL shader connections (e.g., `info:mdl:sourceAsset`, `inputs:diffuse_tint`). These materials are referenced by the instance file for both visual and collision meshes.
-
-```python
-def Material "Plastic_ABS"
-{
-token outputs:displacement (
-    displayGroup = "Outputs"
-)
-prepend token outputs:mdl:displacement.connect = </Materials/Plastic_ABS/Shader.outputs:out>
-prepend token outputs:mdl:surface.connect = </Materials/Plastic_ABS/Shader.outputs:out>
-prepend token outputs:mdl:volume.connect = </Materials/Plastic_ABS/Shader.outputs:out>
-token outputs:surface (
-    displayGroup = "Outputs"
-)
-token outputs:volume (
-    displayGroup = "Outputs"
-)
-
-def Shader "Shader" (
-    apiSchemas = ["NodeDefAPI"]
-)
-{
-    token info:implementationSource = "sourceAsset"
-    asset info:mdl:sourceAsset = @../Materials/Plastic_ABS.mdl@
-    token info:mdl:sourceAsset:subIdentifier = "Plastic_ABS"
-    color3f inputs:diffuse_tint = (1, 1, 1)
-    token outputs:out (
-        renderType = "material"
-    )
-}
-```
-
-### robot.usda — Robot metadata
-
-* **Role:** Contains **robot metadata** and the Isaac Robot API.
-* Applied as an overlay over the `inspire_hand` prim with `apiSchemas = ["IsaacRobotAPI"]`.
-* Typical attributes include: `isaac:changelog`, `isaac:description`, `isaac:license`, `isaac:namespace` (namespace of the prim in Isaac Sim), `isaac:physics:robotJoints` (relationship to robot joints).
-
-This file does not define geometry or physics; it identifies the asset as a robot and attaches metadata.
-
-```python
-over "inspire_hand" (
-    prepend apiSchemas = ["IsaacRobotAPI"]
-)
-{
-    string[] isaac:changelog (
-        displayName = "Changelog"
-    )
-    string isaac:description (
-        displayName = "Description"
-    )
-    token isaac:license (
-        displayName = "License"
-    )
-    string isaac:namespace (
-        displayName = "Namespace"
-        doc = "Namespace of the prim in Isaac Sim"
-    )
-    rel isaac:physics:robotJoints (
-        displayName = "Robot Joints"
-    )
-
-...
-}
-```
-
-### instances.usda — Mesh + materials + colliders
-
-* **Role:** Builds **visual and collision** meshes by combining `materials.usda` and `geometries.usd`.
-* References geometry from the mesh file and applies materials; adds collision by applying `PhysicsCollisionAPI` and `PhysicsMeshCollisionAPI` (or other collider APIs) on the same or child prims.
-* Example pattern for a link (e.g., `r_base_link_1`): an `Xform` references the geometry prim, and a child over adds `physics:approximation` (e.g., `"convexHull"`) and `purpose = "guide"` for collision.
-
-So this file is where “mesh + materials + colliders” are assembled per link.
-
-```python
-r_base_link_1 collision definition:
-
-    def Xform "r_base_link_1" (
-        prepend references = @geometries.usd@</Geometries/r_base_link>
-    )
-    {
-        over "r_base_link" (
-            apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
-        )
-        {
-            token physics:approximation = "convexHull"
-            token purpose = "guide"
-        }
-    }
-```
-
-### base.usda — Animation-ready scene
-
-* **Role:** **Animation-ready** scene: loads visual/collision meshes as **instanceable** references and applies **transforms** (translate, orient, scale) for each link.
-* References `instances.usda` (e.g., `@instances.usda@</Instances/right_thumb_1>`) and uses `instanceable = true` for efficiency.
-* Typically sublayers or references `robot.usda` so the root has the robot metadata.
-* Defines the kinematic tree and mesh placement; no joint or drive data here.
-
-```python
-Right thumb transform and mesh definition:
-
-    def Xform "right_thumb_1"
-    {
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0.01696, 0.02045, 0.0667)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def Xform "right_thumb_1" (
-            instanceable = true
-            prepend references = @instances.usda@</Instances/right_thumb_1>
-        )
-}
-```
-
-### physics.usda — USD physics file
-
-* **Role:** Stores **USD physics attributes**: rigid bodies, mass, and **joints** (with drive and state APIs).
-* Links prims to: **PhysicsRigidBodyAPI**, **PhysicsMassAPI**, etc., for bodies; **PhysicsRevoluteJoint** (or other joint types) with **PhysicsDriveAPI** and **PhysicsJointStateAPI** for actuated joints.
-* Example: a revolute joint defines `physics:axis`, `physics:body0`/`body1`, `physics:localPos0`/`localPos1`, `physics:localRot0`/`localRot1`, `physics:lowerLimit`/`upperLimit`, `state:angular:physics:position`/`velocity`, and optional URDF-style limits (`urdf:limit:effort`, `urdf:limit:velocity`).
-
-This file is the engine-agnostic physics representation.
-
-```python
-def PhysicsRevoluteJoint "right_thumb_1_joint" (
-    prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
-)
-{
-    uniform token physics:axis = "Z"
-    custom rel physics:body0
-    prepend rel physics:body0 = </inspire_hand/r_base_link>
-    custom rel physics:body1
-    prepend rel physics:body1 = </inspire_hand/right_thumb_1>
-    point3f physics:localPos0 = (0.01696, 0.02045, 0.0667)
-    point3f physics:localPos1 = (6.192923e-10, -2.8014183e-10, -3.4093857e-9)
-    quatf physics:localRot0 = (-1.6081226e-16, 1, 0, 0)
-    quatf physics:localRot1 = (-1.6081226e-16, 1, 0, 0)
-    float physics:lowerLimit = 0
-    float physics:upperLimit = 75.000175
-    float state:angular:physics:position = 0
-    float state:angular:physics:velocity = 0
-    custom float urdf:limit:effort = 1
-    custom float urdf:limit:velocity = 2
-}
-}
-```
-
-### physx.usda — PhysX file
-
-* **Role:** Stores **PhysX-specific** attributes so the same asset can be tuned for PhysX without changing the generic physics file.
-* Adds APIs such as **PhysxJointAPI** and **PhysxMimicJointAPI** on top of the joints defined in `physics.usda`.
-* Example: a mimic joint uses `physxMimicJoint:rotX:dampingRatio`, `gearing`, `naturalFrequency`, `offset`, `referenceJoint`, and `referenceJointAxis` to drive one joint from another.
-
-Keeps PhysX-only tuning (mimic ratios, solver settings, etc.) in one place and avoids clashing with other physics engines.
-
-```python
-over "right_thumb_4_joint" (
-    prepend apiSchemas = ["PhysxJointAPI", "PhysxMimicJointAPI:rotX"]
-)
-{
-    bool[] isaac:actuator (
-        displayName = "Actuator"
-    )
-    string isaac:NameOverride (
-        displayName = "Joint Name Override"
-    )
-    token[] isaac:physics:DofOffsetOpOrder (
-        displayName = "Dof Offset Op Order"
-    )
-    float physxMimicJoint:rotX:dampingRatio = 0.005
-    float physxMimicJoint:rotX:gearing = -0.7508
-    float physxMimicJoint:rotX:naturalFrequency = 25
-    float physxMimicJoint:rotX:offset = 0.1
-    rel physxMimicJoint:rotX:referenceJoint = </inspire_hand/Physics/right_thumb_3_joint>
-    uniform token physxMimicJoint:rotX:referenceJointAxis = "rotZ"
-}
-}
-```
-
-### inspire\_hand.usda — The interface
-
-* **Role:** **The interface** that ties everything together: references the base scene and selects physics via **variants**.
-* Root prim references the base (e.g., `prepend references = @payloads/base.usda@`) and declares `variantSet "Physics"` with options such as: `"none"` (no physics payload), `"physics"` (payload `payloads/Physics/physics.usda`), `"physx"` (payload `payloads/Physics/physx.usda`).
-
-So a single asset can be loaded as animation-only, with generic physics, or with PhysX, by switching the variant.
-
-```python
-def Xform "inspire_hand" (
-    prepend references = @payloads/base.usda@
-    append variantSets = "Physics"
-)
-{
-    variantSet "Physics" = {
-        "none" {
-        }
-        "physics" (
-            prepend payload = @payloads/Physics/physics.usda@
-        ) {
-
-        }
-        "physx" (
-            prepend payload = @payloads/Physics/physx.usda@
-        ) {
-
-        }
-    }
-}
-}
-```
-
-## Summary
-
-This tutorial covered:
-
-* **USD Asset Structure 3.0**: geometry, materials, metadata, instances, base scene, and physics live in dedicated files so you can find and edit the right layer without clashing with others.
-* How **layers, payloads, and variants** compose the Inspire Hand and let you switch between no physics, generic physics, or PhysX from a single asset.
-* The role of each file—from **geometries.usd** and **materials.usda** through **physics.usda** and **physx.usda**—so you know where to author collision filters and joint parameters in later tutorials.
-
-## Next Steps
-
-Continue to [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html#isaac-sim-tutorial-tuning-openusd-module-2) to enable the joint visualizer and verify mass, inertia, and collision meshes before collision filtering.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Module 1.1: USD Asset Structure 3.0](#module-1-1-usd-asset-structure-3-0)
-* [Module 1.2: Inspire Hand Overview](#module-1-2-inspire-hand-overview)
-  + [File Hierarchy and Stacks](#file-hierarchy-and-stacks)
-* [Module 1.3: Asset Structure Walkthrough](#module-1-3-asset-structure-walkthrough)
-  + [materials.usda — Material file](#materials-usda-material-file)
-  + [robot.usda — Robot metadata](#robot-usda-robot-metadata)
-  + [instances.usda — Mesh + materials + colliders](#instances-usda-mesh-materials-colliders)
-  + [base.usda — Animation-ready scene](#base-usda-animation-ready-scene)
-  + [physics.usda — USD physics file](#physics-usda-usd-physics-file)
-  + [physx.usda — PhysX file](#physx-usda-physx-file)
-  + [inspire\_hand.usda — The interface](#inspire-hand-usda-the-interface)
-* [Summary](#summary)
-* [Next Steps](#next-steps)
-
----
-
-### Tutorial 03: Inspect Asset
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_03_inspect_asset.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 3: Inspect Asset
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 3: Inspect Asset
-
-You’ve seen how the Inspire Hand is built from multiple USD files (Tutorial 2). Next we **inspect and validate** that asset: joints, mass and inertia, and collision meshes. Skipping this step means you’re tuning in the dark—wrong masses or misaligned inertia can cause unstable or unrealistic motion even when joint parameters look correct, and the wrong collider type can slow the simulation or produce confusing contact behavior. Isaac Sim’s **joint visualizer**, **Robot Inspector**, **Physics Debugger**, and **collider visualization** give you a clear picture of the asset before you filter collision pairs or tune drives.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* **Enable** the joint visualizer and interpret joint types.
-* **Enable** mass and inertia visualization.
-* **Verify** collision meshes and collider types.
-
-## Prerequisites
-
-* Complete [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html#isaac-sim-tutorial-tuning-openusd-module-1).
-* Have the Inspire Hand scene open in Isaac Sim with the PhysX variant selected.
-
-## Module 2.1: Enable Joint Visualizer
-
-Because we’re tuning for the PhysX backend, load the hand with the PhysX variant. Then enable joint visualization to see joint locations and types at a glance.
-
-**Viewport Navigation in Isaac Sim**
-
-* **Orbit the camera:** Hold **Alt** and left mouse button, then drag.
-* **Rotate in place (look around):** Hold right mouse button and move the mouse.
-* **Zoom:** Hold **Alt** and right mouse button (or use the scroll wheel).
-* **Pan:** Hold the middle mouse button and drag.
-* **Focus the camera on a prim:** Select the desired prim in the *Stage* panel, then press **F**.
-
-Use these controls to efficiently explore and inspect the Inspire Hand model as you follow the instructions below.
-
-1. Open `/path/to/Inspire/module_1_start/inspire_hand.usda` in Isaac Sim.
-2. Select the top-level `inspire_hand` prim.
-3. In the *Property* panel, scroll to **Variants** and select **PhysX**.
-
-1. Go to **Eye > Show by Type > Physics > Joints** to enable joint visualization.
-
-In the viewport, the Inspire Hand should now have gizmos identifying the locations and types of each joint.
-
-**Examine the joints** — In the *Stage* panel, under the `/Physics` scope, find `right_index_1_joint`—a **Revolute** joint responsible for the base motion of the index finger, represented by a circular icon in the viewport. Also locate `right_index_rubber_1_joint`, which is a **Fixed** joint attaching the lower index rubber pad to its link, shown as a rectangular icon in the visualization. The `right_index_2_joint` is a mimic joint that references the movement of `right_index_1_joint` (we’ll cover mimic joints in more detail in Tutorial 5). Understanding how these joints function and their naming conventions will be valuable when tuning the drives in Tutorials 5 and 6.
-
-## Module 2.2: Robot Inspector (hierarchy and session masking)
-
-With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link → joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
-
-1. Open **Window > Robot Inspector**. The window docks next to *Stage* by default.
-2. In the robot list, select the entry for the **Inspire Hand**.
-3. Set the hierarchy mode to **Tree** (default): parent link → joint → child link.
-4. Optionally switch to **Flat** (all links, then all joints) or **MuJoCo** (base-rooted body tree) to compare layouts; the same underlying articulation can be shown in three different ways.
-
-The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayer—they are **not** saved to your USD files. That is useful for quick isolation during debugging.
-
-See also
-
-Icons and behavior for **Deactivate**, **Bypass**, and **Anchor** are documented under [Component Masking](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-masking).
-
-When Robot Inspector is open, **joint connection lines** (parent to child, with direction cues) will appear in the viewport when the **Eye Icon > Show by Type > Physics > Joints** is enabled; they are hidden during simulation playback as described in [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window).
-
-## Module 2.3: Verify Mass and Inertia Properties
-
-Mass and inertia define how each link responds to forces. If the principal inertia axes are misaligned with the link geometry, or if mass values are too small or too large, the hand can behave unrealistically. The **Physics Debugger** lets you visualize body axes and **Body Mass Axes** (principal inertia) so you can spot problems before running the simulation.
-
-1. Open **Utilities > Physics Debugger**. The *Physics Debug* panel appears.
-
-1. In **Simulation Debug Visualization**:
-
-   * Check **Enabled**.
-   * Check **Body Axes** to show coordinate frames.
-   * Check **Body Mass Axes** to show principal inertia axes.
-2. In **Simulation Control**, click **Step** to run one simulation frame and display the visualization.
-
-Warning
-
-Avoid pressing **Play** at this stage, as it may cause Isaac Sim to crash. Instead, use **Simulation Control** to either **Run** the physics simulation or **Step** through it one frame at a time.
-
-1. For each link, you can now verify:
-
-   * Mass centers sit appropriately within the link.
-   * Principal inertia axes align with the link geometry.
-   * Inertia values look plausible (not excessively small or large).
-
-Note
-
-Misaligned principal inertia axes can cause unstable or unrealistic motion. The image below shows an example of misalignment.
-
-### Alternative Method: Inspecting Mass and Inertia via the Physics Toolbar
-
-You can also inspect mass and inertia properties using the Physics Toolbar:
-
-1. Go to **Tools > Physics Toolbar**.
-
-1. In the toolbar, toggle on both the **Rigid Body Selection Mode** (cube icon) and the **Mass Distribution Manipulator** (balance icon).
-2. In the viewport, select any rigid body prim on the hand. The **Mass Properties Info** will be displayed, providing details about the total mass, center of mass, principal axis, and diagonal inertia directly in the viewport.
-
-This method lets you quickly inspect and debug mass distribution for any body in the scene without navigating to the *Property* panel.
-
-## Module 2.4: Verify Collision Meshes
-
-The shapes you see in the viewport aren’t necessarily what the physics engine uses for contact—that’s determined by the **collision meshes** (colliders). Before we filter collision pairs in Tutorial 4, we inspect and verify the colliders: colliders are color-coded **green** for rigid bodies and **magenta** for static bodies.
-
-1. Go to **Eye > Show by Type > Physics > Colliders > All** to visualize all collision shapes.
-
-Setting collider types affects performance and fidelity. You can mix types on one asset. For dexterous hands, **Convex Hull** is often used for parts that do not need high accuracy (e.g. palm), and **Convex Decomposition** for parts that need accurate contact (e.g. fingertips). Convex Decomposition gives the best shapes but costs more than Convex Hull or geometry-based colliders. In this tutorial we use **Convex Hull** for all parts.
-
-## Summary
-
-This tutorial covered:
-
-* Enabling the **joint visualizer** and identifying joint types (Fixed, Revolute, Mimic) in the Stage—the same structure you’ll tune in Tutorials 5 and 6.
-* Opening **Robot Inspector** to review the hand’s kinematic hierarchy (Flat / Tree / MuJoCo modes) and understanding **session masking**.
-* Using the **Physics Debugger** to visualize body axes and principal inertia and verifying that mass centers and inertia alignment look correct for each link.
-* Turning on **collider visualization** and confirming the collider strategy (Convex Hull for this series), so you know what shapes will collide when self-collisions are enabled in Tutorial 4.
-
-## Next Steps
-
-Continue to [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html#isaac-sim-tutorial-tuning-openusd-module-3) to work through self-collision pairs with the Robot Self-Collision Detector, inspect collision geometry with the Physics Debugger as needed, and add filtered pairs.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Module 2.1: Enable Joint Visualizer](#module-2-1-enable-joint-visualizer)
-* [Module 2.2: Robot Inspector (hierarchy and session masking)](#module-2-2-robot-inspector-hierarchy-and-session-masking)
-* [Module 2.3: Verify Mass and Inertia Properties](#module-2-3-verify-mass-and-inertia-properties)
-  + [Alternative Method: Inspecting Mass and Inertia via the Physics Toolbar](#alternative-method-inspecting-mass-and-inertia-via-the-physics-toolbar)
-* [Module 2.4: Verify Collision Meshes](#module-2-4-verify-collision-meshes)
-* [Summary](#summary)
-* [Next Steps](#next-steps)
-
----
-
-### Tutorial 04: Collider Pairs
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_04_collider_pairs.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 4: Collider Pairs
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 4: Collider Pairs
-
-We inspected the asset structure and collision meshes. Now we tackle a question that makes or breaks this dexterous hand simulation: **which parts of the hand are allowed to collide with each other?** In the real world, a finger can’t pass through the palm, but in simulation, overlapping collision geometry between links can create phantom contacts, jitter, and forces that blow the hand apart. **Filtered Pairs** in Isaac Sim let you turn off collision between specific rigid bodies so you keep the contacts that matter (finger on object, intentional finger-to-finger) and remove the ones that cause instability.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* **Explain** how **Filtered Pairs** work and when to use them.
-* **Identify** overlapping self-collision pairs with the **Robot Self-Collision Detector** and inspect collision geometry with the **Physics Debugger** as needed.
-* **Add** filtered pairs for the palm and pinky using **Filtered Pair** in the detector or **Filtered Pairs** on the *Property* panel, on the **physics.usda** layer.
-
-## Prerequisites
-
-* Complete [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html#isaac-sim-tutorial-tuning-openusd-module-2).
-* Have the Inspire Hand scene open in Isaac Sim with joint and collider visualization familiar from the previous tutorial.
-
-## Module 3.1: Understanding Filtered Pairs
-
-**Filtered Pairs** explicitly tell the physics engine: “Do not detect collision between these two rigid bodies.” In Isaac Sim, adjacent links (two links connected by a joint) in an articulation don’t self-collide by default, but **non-adjacent** links do. As you will see, many of those non-adjacent links can have overlapping or very close collision geometry. In these scenarios, you can get:
-
-* **Unrealistic forces** — The solver tries to resolve interpenetration between links that would never actually touch in the real mechanism.
-* **Instability** — The hand can jitter, jump, or blow apart as conflicting contacts fight each other.
-* **Wasted compute** — Simulating every anatomically possible self-contact is rarely necessary for grasping or manipulation.
-
-So the goal is to **filter the problematic pairs** while keeping contacts that you care about (e.g. finger–object, or specific finger–finger contacts). Use filtered pairs judiciously: over-filtering can allow unrealistic interpenetration; under-filtering can cause instability. We’ll turn on self-collisions, run the [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector) to see which links overlap at rest, then author filters on **physics.usda**. The Physics Debugger is also available to view solid collision meshes in the viewport while you reason about a pair.
-
-## Module 3.2: Enable self-collision and inspect pairs
-
-**Which pairs should you filter?** At the current configuration, the self-collision detector queries the physics engine for overlapping colliders, maps them to rigid-body links, and shows them in a sortable, searchable table.
-
-Note
-
-For this tutorial we focus on the **pinky** (little finger) as a clear example; the same workflow applies to other fingers or links.
-
-### Step 1: Reproduce the problem
-
-1. Press **Play**. With self-collisions disabled, the simulation is stable. Press **Stop**.
-
-1. Because enabling **Articulation Root** is a PhysX-specific API, we want to make sure we are authoring on the **physx.usda** layer. In the **Layer** tab, click the **Insert Sublayer** icon to add a new sublayer beneath the current layer stack.
-
-1. In the file dialog, navigate to `/path/to/Inspire/module_1_start/payloads/Physics/`, select `physx.usda`, and click **Open** to insert it as a sublayer.
-
-1. Once **physx.usda** appears in the layer stack, **Right-click on physx.usda** and select **Set Authoring Layer**.
-
-You should now see the **physx.usda** layer highlighted green, indicating it is the active authoring layer.
-
-1. In the *Stage* panel, select `r_base_link`. In the *Property* panel, scroll to **Articulation Root** and check **Self Collisions Enabled**.
-
-1. Press **Play** again. Links move erratically as overlapping collision geometry between non-adjacent links is now colliding, and the solver can’t resolve it cleanly.
-
-### Step 2: Run the Robot Self-Collision Detector
-
-With **Self Collisions Enabled** on the articulation root, the physics engine can evaluate which collider pairs overlap in the hand’s current configuration. The detector surfaces those pairs in a docked panel so you can inspect them and conveniently toggle **Filtered Pair**.
-
-Note
-
-If **Self Collisions** on the articulation root are **disabled**, the tool reports no overlapping pairs from the collision engine—see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui). Keep self-collisions **on** for this tutorial.
-
-1. Press **Stop** if the simulation is still running so the hand returns to a stable pose for analysis.
-2. Open **Tools > Robotics > Asset Editors > Robot Self-Collision Detector**.
-3. In the **Robot** dropdown, select the **Inspire Hand**.
-4. Leave **Include environment collisions** off unless you have added props; we only need self-pairs for this exercise.
-5. Click **Check Collisions**. The table fills with **Rigid Body A** and **Rigid Body B** for each overlapping pair.
-
-1. Use the **search** field or column sort to find rows that involve the pinky and palm—for example pairs that include `r_base_link` with `right_little_rubber_1`, and `right_little_1` with `right_little_rubber_2`. You will enable **Filtered Pair** on those rows in the next module.
-2. Click a row to **highlight both bodies** in the viewport with distinct outline colors so you can confirm which links the table refers to.
-
-1. Use the **focal** (crosshair) icons next to a body name to select that body’s collision prims in the *Stage* when you need a closer look.
-
-Sorting, batch checkbox toggles, multi-row selection, and keyboard navigation are described in [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector).
-
-### Solid collision meshes (Physics Debugger)
-
-The steps below walk through **Solid Collision Mesh Visualization** for the Inspire Hand so you can relate detector rows to concrete shapes in the viewport. Follow them when that extra view helps; otherwise continue to the next module.
-
-We use the pinky as the example: visualize its collision meshes and relate them to the overlaps you saw in the detector.
-
-1. Open **Utilities > Physics Debugger** to show the *Physics Debug* panel.
-
-1. Have the root prim `inspire_hand` selected. In **Collision Mesh Debug Visualization**, enable **Solid Collision Mesh Visualization**.
-
-Tip
-
-**Solid Collision Mesh Visualization** shows only the collision meshes for the currently selected prim. Ensure the `inspire_hand` prim is selected in the *Stage* panel so all collision meshes are visible.
-
-1. Open **Eye > Show by Type > Meshes** and turn **Meshes** off so the solid collision meshes are easier to see.
-
-1. In the *Stage* panel, deactivate the `right_little_1` link (lower pinky) to expose the overlapping collision shapes underneath—the rubber pad and surrounding links.
-
-1. Identify where `right_little_rubber_1` (lower pinky rubber pad) overlaps with `r_base_link` (palm)—that is where a problematic self-collision is likely to occur.
-
-In the image above, with the lower pinky link hidden, the lower pinky rubber pad (tan/sand color) overlaps and collides with the palm (yellow). This is an example of a pair we will filter out to ensure stable simulation.
-
-The schematic below shows which rigid body pairs of the pinky we will filter in this tutorial:
-
-1. Open **Eye > Show by Type > Meshes** and toggle **Meshes** on to re-enable mesh visualization.
-
-## Module 3.3: Adding Filtered Pairs
-
-Next, we filter two specific self-collision pairs that drive pinky instability: (1) the palm `r_base_link` and the pinky’s lower rubber pad `right_little_rubber_1`, and (2) the lower pinky link `right_little_1` and the upper rubber pad `right_little_rubber_2`.
-
-Note
-
-It doesn’t matter whether the filtered pair is a parent or child link; USD’s Physics Filtered Pairs block collisions between the specified pairs in both directions.
-
-To follow Asset Structure 3.0, filtered pairs use the neutral Physics API—author on **physics.usda**.
-
-### Set **physics.usda** as the authoring layer
-
-1. In the **Layer** tab, expand **physx.usda**. You should see **physics.usda** listed in the hierarchy.
-
-1. **Right-click on physics.usda** and select **Set Authoring Layer**.
-
-You should now see the **physics.usda** layer highlighted green, indicating it is the active authoring layer.
-
-### Robot Self-Collision Detector: **Filtered Pair**
-
-1. Open **Tools > Robotics > Asset Editors > Robot Self-Collision Detector** (or bring the panel forward if it is already open).
-2. Click **Check Collisions** so the table matches the current stage.
-3. Find the row whose two bodies are `r_base_link` and `right_little_rubber_1` (column order may vary). Enable **Filtered Pair** for that row.
-4. Find the row for `right_little_1` and `right_little_rubber_2`. Enable **Filtered Pair** for that row.
-
-Tip
-
-Multi-select rows and toggle one **Filtered Pair** checkbox to apply the same state to every selected row; see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui).
-
-Toggling **Filtered Pair** authors `UsdPhysics.FilteredPairsAPI` on the active layer—the **physics.usda** authoring layer you set above.
-
-Note
-
-If you use the detector checkboxes in this section, skip the *Property* panel subsection that follows.
-
-### Verify and save
-
-1. Click on the blue files icon next to **physics.usda (Authoring Layer)** to save the changes to **physics.usda**.
-
-1. Press **Play**. The pinky (little finger) should move more stably; the other fingers will still be unstable until their collision pairs are filtered the same way.
-
-Note
-
-Before starting Tutorial 5, open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda`. It includes all collision filters for stability, plus additional filtered pairs (e.g. finger tips and pads) for computational performance.
-
-### *Property* panel: **Filtered Pairs** on each prim
-
-The following steps add the same two relationships by editing **Filtered Pairs** on `r_base_link` and `right_little_1`. Use them if you prefer prim-by-prim authoring or want to see where the targets appear in the *Property* panel. If you already enabled both pairs in the Robot Self-Collision Detector, skip this subsection.
-
-#### Palm and lower pinky rubber pad
-
-1. In the *Stage* tab, select the `r_base_link` prim. In the *Property* panel, click **Add > Physics > Filtered Pairs**.
-
-1. With `r_base_link` still selected, go to the *Property* panel. Find the **Filtered Pairs** section and click **Add Target** to add a new filtered collision pair.
-
-1. In the pop-up that appears, browse or type to select `right_little_rubber_1`.
-
-After these steps, collisions between the palm (`r_base_link`) and the pinky’s lower rubber pad (`right_little_rubber_1`) are filtered out.
-
-#### Lower pinky link and upper rubber pad
-
-1. In the *Stage* panel, select the `right_little_1` prim (lower link of the pinky). In the *Property* panel, click **Add > Physics > Filtered Pairs**.
-
-1. With `right_little_1` still selected, go to the *Property* panel. Find the **Filtered Pairs** section and click **Add Target** to add a new filtered collision pair.
-2. In the pop-up window, browse or type to select `right_little_rubber_2` (the upper pinky rubber pad), and confirm the selection.
-
-Save the layers as in **Verify and save** above and then press **Play** again to confirm the pinky moves more stably.
-
-## Summary
-
-This tutorial covered:
-
-* How **Filtered Pairs** work and when to use them to prevent invalid self-collisions.
-* Enabling self-collisions, running the **Robot Self-Collision Detector** to list overlapping pairs and mark **Filtered Pair**, and using the **Physics Debugger** for solid collision mesh visualization when helpful.
-* Authoring the pinky’s two filters on **physics.usda** via the detector or the *Property* panel on `r_base_link` and `right_little_1`.
-
-## Next Steps
-
-Continue to [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html#isaac-sim-tutorial-tuning-openusd-module-4) to set drive limits (max force, max velocity) from the Inspire Hand specs, then to [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html#isaac-sim-tutorial-tuning-openusd-module-5) for stiffness and damping with the Gain Tuner.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Module 3.1: Understanding Filtered Pairs](#module-3-1-understanding-filtered-pairs)
-* [Module 3.2: Enable self-collision and inspect pairs](#module-3-2-enable-self-collision-and-inspect-pairs)
-  + [Step 1: Reproduce the problem](#step-1-reproduce-the-problem)
-  + [Step 2: Run the Robot Self-Collision Detector](#step-2-run-the-robot-self-collision-detector)
-  + [Solid collision meshes (Physics Debugger)](#solid-collision-meshes-physics-debugger)
-* [Module 3.3: Adding Filtered Pairs](#module-3-3-adding-filtered-pairs)
-  + [Set **physics.usda** as the authoring layer](#set-physics-usda-as-the-authoring-layer)
-  + [Robot Self-Collision Detector: **Filtered Pair**](#robot-self-collision-detector-filtered-pair)
-  + [Verify and save](#verify-and-save)
-  + [*Property* panel: **Filtered Pairs** on each prim](#property-panel-filtered-pairs-on-each-prim)
-    - [Palm and lower pinky rubber pad](#palm-and-lower-pinky-rubber-pad)
-    - [Lower pinky link and upper rubber pad](#lower-pinky-link-and-upper-rubber-pad)
-* [Summary](#summary)
-* [Next Steps](#next-steps)
-
----
-
-### Tutorial 05: Joint Drive Tuning
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_05_joint_drive_tuning.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 5: Joint Drive Tuning
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 5: Joint Drive Tuning
-
-Collision pairs are filtered (Tutorial 4). The next question: **with how much torque and velocity can each joint move?** If the simulated hand can apply more torque than the real hardware, or spin faster than the real motors, your grasps and controllers will behave differently in sim than on the robot. Conversely, limits that are too low make the hand feel weak or sluggish. In this tutorial we set the **drive limits**—max torque and max velocity—from the Inspire Hand specs. Stiffness and damping (how the joint *responds* to position commands) are tuned in Tutorial 6.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* **Configure** mimic joints to be non-compliant for initial gains tuning.
-* **Compute and set** max joint torque derived from Inspire specifications.
-* **Set** max joint velocity directly from Inspire specifications.
-
-Inspire Hand specs used in this tutorial (palm fingers): Max palm finger grip force 10 N; max palm finger bend speed 260 deg/s.
-
-## Prerequisites
-
-* Complete [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html#isaac-sim-tutorial-tuning-openusd-module-3).
-* Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim (or have your own filtered-pairs version open).
-
-## Module 4.1: Mimic Joints
-
-In the Inspire Hand model, the fingers use PhysX **mimic joints** to replicate the underactuated mechanism found in the real robotic hand. In this approach, a single motor drives multiple joints using a fixed gear ratio, allowing for coordinated finger movement and more realistic simulation of the physical hand.
-
-A mimic joint links two degrees of freedom, establishing a relationship (via gear ratio and offset) so that when one joint moves, the other follows accordingly. These mimic joints can be either **compliant** (allowing some “softness” or flexibility, like a spring) or **non-compliant** (rigidly enforcing the kinematic constraint). For this tutorial, we’ll configure **non-compliant** mimic joints to initially tune the driven joints. (You can add compliance for “softer” mimic behavior later, if needed.)
-
-Follow these steps to configure the mimic joints:
-
-1. Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim if you haven’t already.
-2. Mimic joints are a PhysX-specific feature, so set your authoring layer to **physx.usda**. In the **Layer** tab, click the **Insert Sublayer** icon if the sublayer is not already there.
-
-1. In the file dialog, navigate to `/path/to/Inspire/module_3_end-checkpoint_1/payloads/Physics/`, select `physx.usda`, and click **Open**.
-
-1. Once **physx.usda** appears in the layer stack, **Right-click on physx.usda** and select **Set Authoring Layer**.
-
-You should now see the **physx.usda** layer highlighted green, indicating it is the active authoring layer.
-
-1. In the *Stage* panel, multi-select the mimic joints for the Inspire Hand palm fingers (hold **CTRL** and left-click each):
-
-   * `right_thumb_3_joint`
-   * `right_thumb_4_joint`
-   * `right_index_2_joint`
-   * `right_middle_2_joint`
-   * `right_ring_2_joint`
-   * `right_little_2_joint`
-
-1. With the joints selected, go to the *Property* panel. Find the **Mimic Joint** section and set **Damping Ratio** to **0.0** and **Natural Frequency** to **0.0** to make the constraint non-compliant.
-
-Tip
-
-Setting natural frequency or damping ratio to **0.0** tells PhysX to make this a non-compliant mimic joint. Setting both of them to **0.0** makes the intent clear.
-
-1. Click on the blue files icon next to **physx.usda (Authoring Layer)** to save the changes to **physx.usda**.
-
-After these steps, the mimic joints in your Inspire Hand model will behave as a stiff, non-compliant mechanism, giving you precise control for gains tuning in the next module.
-
-## Module 4.2: Configure Max Joint Torque
-
-The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturer’s grip force and the distance from joint to fingertip so the sim matches the real hand’s capability.
-
-**Torque = Force × Distance**
-
-For the palm finger, max force is 10 N. The distance between `right_little_1_joint` and the tip of the little finger is 0.045 m + 0.039 m.
-
-**Little finger:** Torque = 10 × (0.045 + 0.039) = 0.84 Nm
-
-There are two joints in the mimic chain, so multiply by 2:
-
-**Little finger max drive force:** 0.84 × 2 = 1.68 Nm
-
-1. Max Force drive parameters are a neutral physics attribute, so author on the **physics.usda** layer. In the **Layer** tab, expand the **physx.usda** layer.
-
-1. **Right-click on physics.usda** and select **Set Authoring Layer**.
-
-You should now see the **physics.usda** layer highlighted green, indicating it is the active authoring layer.
-
-1. In the *Stage* panel, find and select `inspire_hand/Physics/right_little_1_joint`.
-2. In the *Property* panel, scroll to **Drive** and set **Max Force** to **1.68** based on our calculations.
-
-1. Click on the blue files icon next to **physics.usda (Authoring Layer)** to save the changes to **physics.usda**.
-
-## Module 4.3: Apply Max Velocity
-
-Maximum joint velocity limits how fast the joint can move. Without a cap, the solver can command velocities that no real motor could achieve, leading to unrealistic motion or numerical instability. We set the limit from the Inspire Hand’s palm finger bend speed (260 deg/s) so the simulated hand moves within the same envelope as the hardware.
-
-* **Realism** — Simulated motion matches real hardware.
-* **Stability** — Avoids velocity spikes that cause instability.
-
-1. Maximum joint velocity is a PhysX-specific attribute, so author on the **physx.usda** layer. In the **Layer** tab, **Right-click on physx.usda** and select **Set Authoring Layer**.
-
-You should now see the **physx.usda** layer highlighted green, indicating it is the active authoring layer.
-
-1. In the *Stage* panel, find and select `inspire_hand/Physics/right_little_1_joint`.
-2. In the *Property* panel, scroll to **Raw USD Properties**, expand **Advanced**, and set **Maximum Joint Velocity** to **260** (deg/s).
-
-1. Click on the blue files icon next to **physx.usda (Authoring Layer)** to save the changes to **physx.usda**.
-
-Note
-
-A checkpoint file with drive limits for all 6 joints derived using the same process is provided at `/path/to/Inspire/module_4_end-checkpoint_2/inspire_hand.usda`. Open this file before starting Tutorial 6.
-
-## Summary
-
-This tutorial covered:
-
-* Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding compliance—setting you up for clean gain tuning in Tutorial 6.
-* **Computing and setting max joint torque** from Inspire Hand specs (force × distance, then × 2 for the mimic chain) so the hand’s grip capability matches the real robot.
-* Setting **max joint velocity** from specs (260 deg/s) so motion is realistic and the simulation stays stable.
-
-### Next Steps
-
-Continue to [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html#isaac-sim-tutorial-tuning-openusd-module-5) to tune drive stiffness and damping with the Gain Tuner and analyze the results.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Module 4.1: Mimic Joints](#module-4-1-mimic-joints)
-* [Module 4.2: Configure Max Joint Torque](#module-4-2-configure-max-joint-torque)
-* [Module 4.3: Apply Max Velocity](#module-4-3-apply-max-velocity)
-* [Summary](#summary)
-  + [Next Steps](#next-steps)
-
----
-
-### Tutorial 06: Joint Gains Tuning
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_06_joint_gains_tuning.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 6: Joint Gains Tuning
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 6: Joint Gains Tuning
-
-Max torque and max velocity are set (Tutorial 5). The remaining question: **how does each joint respond when you command a new position?** Too stiff and the hand can jitter or overshoot; too soft and it lags or never reaches the target. Stiffness and damping form a PD (Proportional-Derivative) controller: stiffness pulls the joint toward the target, damping resists velocity and reduces oscillation. This tutorial uses the **Gain Tuner** in Isaac Sim to tune these gains for the thumb, run step and sinewave tests, and analyze position and velocity with the built-in charts—so you can see underdamped, critically damped, and overdamped behavior and aim for responsive, stable motion.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* **Tune** drive stiffness and damping for the thumb using the Gain Tuner.
-* **Run** step and sinewave tests and interpret underdamped, critically damped, and overdamped behavior.
-* **Analyze** tuning results with the Gain Tuner charts and save gains to the physics layer.
-
-## Prerequisites
-
-* Complete [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html#isaac-sim-tutorial-tuning-openusd-module-4).
-* Open `/path/to/Inspire/module_4_end-checkpoint_2/inspire_hand.usda` in Isaac Sim if not already open.
-
-## Module 5.1: Understanding Joint Drive Stiffness and Damping
-
-Position control in Isaac Sim uses stiffness and damping:
-
-**Force = (Stiffness × delta\_position) + (Damping × delta\_velocity)**
-
-* **Stiffness** — Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
-* **Damping** — Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
-
-Together they form a PD (Proportional-Derivative) controller.
-
-### Why Tuning Stiffness and Damping Matters
-
-Stiffness and damping directly determine how the joint responds to position commands and how it behaves in contact. Poor tuning leads to:
-
-* **Unrealistic motion** — Too stiff can look robotic or cause jitter; too soft makes the hand feel sluggish or weak.
-* **Instability** — High stiffness with low damping causes oscillation and overshoot; in contact, this can produce chatter or unstable grasps.
-* **Poor tracking** — If gains are too low, the joint never reaches the target in time or drifts under load.
-
-The ratio of stiffness to damping defines the **damping regime** of the response. For a step to a target position, you will see one of three behaviors:
-
-| Regime | What it looks like | Cause |
-| --- | --- | --- |
-| **Underdamped** | The joint overshoots the target, then oscillates (rings) before settling. You may see multiple overshoots. | Stiffness is high relative to damping; the “spring” dominates and there isn’t enough “shock absorber” to dissipate energy. |
-| **Critically damped** | The joint approaches the target smoothly and reaches it in the shortest time **without** overshooting. | Stiffness and damping are balanced so that the system neither rings nor moves slowly. Often the goal for responsive, stable motion. |
-| **Overdamped** | The joint approaches the target slowly and never overshoots. Response is sluggish; it may take a long time to settle. | Damping is high relative to stiffness; motion is heavily resisted. |
-
-In the Gain Tuner, if you see **oscillation or overshoot** in the position chart, you are underdamped—increase damping (or reduce stiffness). If the joint **barely moves or creeps** toward the target, you are overdamped—increase stiffness or reduce damping. Aim for a response that reaches the target quickly with little or no overshoot (near critically damped).
-
-## Module 5.2: Using Gain Tuner to Tune Joint Drive Stiffness and Damping
-
-1. Open `/path/to/Inspire/module_4_end-checkpoint_2/inspire_hand.usda` in Isaac Sim if not already open.
-2. Go to **Tools > Robotics > Asset Editors > Gain Tuner**.
-
-1. In **Tune Gains**, set **Mode** to **Position** and **Type** to **Force**.
-
-Note
-
-In the **module\_4\_end-checkpoint\_2** file, the finger joints already have stiffness and damping set for you. We focus on tuning and verifying the **thumb** joints (`right_thumb_1_joint`, `right_thumb_2_joint`) in this tutorial.
-
-### Tuning Guidelines (PhysX)
-
-1. Set damping to zero and tune only stiffness to see the basic position response.
-2. Increase stiffness until the joint converges close to the target.
-3. Set damping one order of magnitude lower than stiffness as a baseline (should not overshoot); for a faster response, reduce damping.
-4. Fine-tune both around this baseline for stability, response time, and overshoot.
-
-### Run a Test
-
-1. In the **Stiffness** column, set initial values for `right_thumb_1_joint` and `right_thumb_2_joint` (e.g. **0.01**).
-
-1. In **Test Gains Settings**, enable the **Test** checkbox for `right_thumb_1_joint` and `right_thumb_2_joint`.
-
-1. Set **Step Function** min and max so the thumb moves through a useful range: set `right_thumb_1_joint` **Step Min** to **10°** and **Step Max** to **60°**, and set `right_thumb_2_joint` **Step Min** to **5°** and **Step Max** to **20°**. Increase **Duration** to **2.0** so the joints can reach their targets within their maximum velocity limits.
-
-Tip
-
-The step function ranges (min/max) for the thumb joints are chosen to move through a substantial portion of their range of motion, but purposely avoid extreme or problematic poses (such as excessive curling without lateral movement, which could cause unrealistic contact).
-
-If you want to precisely inspect and interactively move any joint through its full range, use the **Physics Inspector** tool:
-
-1. Go to **Tools > Physics > Physics Inspector**.
-2. In the Inspector window, select `r_base_link` as the **Articulation** in the dropdown.
-3. Use the interface to directly set drive target positions for any joint and observe their behavior in the viewport.
-
-Before commanding targets, make sure the joint’s stiffness is set to a nonzero value—otherwise the joint may not respond to target changes.
-
-1. Press **Play**, then **Run Test** to apply the gains and run the evaluation.
-
-Tip
-
-If you see instabilities at higher stiffness values, open the *Property* panel, select **PhysicsScene**, and try increasing **Time Steps Per Second**.
-
-## Module 5.3: Analyze Tuning Results
-
-The Gain Tuner’s **Charts** let you compare actual position and velocity to the commanded values. Use them to spot overshoot, lag, or coupling: for example, `right_thumb_2_joint` tested alone can behave differently than when both thumb joints move together. We’ll adjust gains, run parallel tests for both thumb joints, then run all fingers in parallel to confirm the full hand tracks commands before saving to the physics layer.
-
-1. Once the tests from *Run a Test* are completed, expand the **Charts** section and multi-select (**CTRL** + left-click) `right_thumb_1_joint` and `right_thumb_2_joint`.
-
-You should see that `right_thumb_1_joint` is oscillating around the target and `right_thumb_2_joint` is struggling to reach the target.
-
-1. To improve tracking, increase stiffness to **0.07** for `right_thumb_2_joint`.
-
-1. Add damping **0.0001** to reduce oscillation. Set **Sequence** to **1** for both `right_thumb_1_joint` and `right_thumb_2_joint` so they run at the same time (parallel tests let the thumb’s lateral motion create space for the curling motion). Set **Step Min** to **0.0** and **Step Max** to **15** for `right_thumb_2_joint` to observe the effect of the range change.
-
-1. Press **Play** if the simulation is not already playing. Click **Run Test**.
-
-1. Once the tests are finished, expand the **Charts** section and multi-select (**CTRL** + left-click) `right_thumb_1_joint` and `right_thumb_2_joint`.
-
-1. Run the **Sinewave** test to evaluate how each joint responds to a smooth, continuous motion command. Set the **Amplitude** parameter to **50** for `right_thumb_1_joint` and **30** for `right_thumb_2_joint` (feel free to experiment with these values to observe effects), then click **Run Test**.
-
-1. Continue tuning by experimenting with different gain values (stiffness and damping) and various test parameters. As you tune, **monitor joint velocities** during the test to ensure none exceed the maximum joint velocity limits defined earlier. To do this:
-
-   * Select any joint in the *Property* panel.
-   * Scroll down to **Extra Properties > Velocity** to view its current velocity while the test is running.
-
-If velocities approach or exceed the maximums, reduce gain values or adjust test parameters.
-
-1. To evaluate the **entire hand’s coordinated tracking**, run a parallel step function test:
-
-   * Enable **Test** for all joints in the Gain Tuner.
-   * Set **Sequence** to **1** for each joint (this runs tests in parallel for all fingers).
-   * Set **Step Min** and **Step Max** to **10** and **30**, respectively, for each joint.
-
-Click **Run Test**. The resulting charts will reveal how well your current **Stiffness** and **Damping** settings allow the full hand to execute simultaneous step commands. You should see coordinated, stable motion across all joints. The expected results might look similar to the example below:
-
-| Joint | Test | Sequencer | Step Min | Step Max | Period | Phase |
-| --- | --- | --- | --- | --- | --- | --- |
-| right\_thumb\_1\_joint | 1 | 1 | 10.0 deg | 60.0 deg | 2.0 s | 0.0 s |
-| right\_index\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
-| right\_middle\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
-| right\_ring\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
-| right\_little\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
-| right\_thumb\_2\_joint | 1 | 1 | 0.0 deg | 10.0 deg | 2.0 s | 0.0 s |
-
-Note
-
-In the Gain Tuner, open `/path/to/Inspire/module_5_end-checkpoint_3/inspire_hand.usda` to review the final tuned stiffness and damping values.
-
-## Summary
-
-This tutorial covered:
-
-* Using the **Gain Tuner** to tune stiffness and damping (Position, Force) for the thumb joints and saving gains to the **physics.usda** layer so the hand responds to position commands with stable, near–critically damped motion.
-* Running **step** and **sinewave** tests and interpreting damping regimes (underdamped, critically damped, overdamped) in the Charts to diagnose overshoot or sluggishness.
-* Verifying **parallel tests** for all joints; the same workflow applies to other digits or custom hands. The **module\_5\_end-checkpoint\_3** checkpoint contains the final tuned values.
-
-## Next Steps
-
-Continue to [Tutorial 7: Using the Dexterous Hand in Practice](tutorial_07_practice.html#isaac-sim-tutorial-tuning-openusd-practice) for next steps and further resources.
-
-## Further Learning
-
-* Read [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) for more details on the physical mechanics relating joint gains to derived motions and how the Gain Tuner works.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Module 5.1: Understanding Joint Drive Stiffness and Damping](#module-5-1-understanding-joint-drive-stiffness-and-damping)
-  + [Why Tuning Stiffness and Damping Matters](#why-tuning-stiffness-and-damping-matters)
-* [Module 5.2: Using Gain Tuner to Tune Joint Drive Stiffness and Damping](#module-5-2-using-gain-tuner-to-tune-joint-drive-stiffness-and-damping)
-  + [Tuning Guidelines (PhysX)](#tuning-guidelines-physx)
-  + [Run a Test](#run-a-test)
-* [Module 5.3: Analyze Tuning Results](#module-5-3-analyze-tuning-results)
-* [Summary](#summary)
-* [Next Steps](#next-steps)
-* [Further Learning](#further-learning)
-
----
-
-### Tutorial 07: Practice
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_07_practice.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
-* Tutorial 7: Using the Dexterous Hand in Practice
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 7: Using the Dexterous Hand in Practice
-
-With asset structure verified, collision pairs filtered, and joint parameters tuned, the Inspire Hand in Isaac Sim is stable and ready for downstream use.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* **Review** what you accomplished across the OpenUSD and Tuning Best Practices series.
-* **Learn** next steps for using the tuned Inspire Hand (attach to an arm, watch demos, fine tune, extend to other hands).
-* **Find** additional documentation and resources for PhysX and articulation.
-
-## Prerequisites
-
-* Complete [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html#isaac-sim-tutorial-tuning-openusd-module-5). You should have a tuned, stable Inspire Hand USD.
-
-## What You Accomplished
-
-* **Tutorial 2** — You inspected the multi-physics asset structure.
-* **Tutorial 3** — You enabled joint and mass/inertia visualization, and verified collision meshes.
-* **Tutorial 4** — You identified problematic self-collisions and added filtered pairs so the hand simulates without artifacts.
-* **Tutorial 5** — You set mimic joints, max joint torque, and max velocity from specs.
-* **Tutorial 6** — You tuned drive stiffness and damping with the Gain Tuner and analyzed results with the built-in charts.
-
-You now have a tuned, stable robotic hand USD that can be attached to an arm and used with a grasping controller in Isaac Sim or Isaac Lab.
-
-## Next Steps
-
-* **Attach to an arm** — Use the hand as an end effector on a manipulator (e.g. Kuka) in Isaac Sim or Isaac Lab and run grasping or manipulation tasks.
-* **Watch applied demos** — Look for Isaac Lab Kuka + Inspire Hand demos (e.g. from GTC) to see the same hand used in full workflows.
-* **Fine Tune in Simple Scene Setups** — Bring the hand into simple scenes involving contact. Tune mimic joint compliance as needed for realistic and stable behavior in contact scenarios.
-* **Extend tuning** — Apply the same process (collision filters, max force/velocity, stiffness/damping) to other digits or to custom dexterous hands.
-
-## Additional Resources
-
-* [NVIDIA Isaac Sim Documentation](https://docs.omniverse.nvidia.com/isaacsim/latest/)
-* [Physics and Rigid Body Dynamics](https://docs.omniverse.nvidia.com/isaacsim/latest/core/physics_tutorials/tutorial_rigid_body_dynamics.html) — For deeper coverage of PhysX and articulation.
-
-## Summary
-
-This tutorial reviewed what you accomplished in the series, outlined next steps for using the tuned Inspire Hand (attach to an arm, demos, fine tuning, extending to other hands), and pointed to additional resources for further learning.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [What You Accomplished](#what-you-accomplished)
-* [Next Steps](#next-steps)
-* [Additional Resources](#additional-resources)
-* [Summary](#summary)
-
----
-
-
-## Manipulators
 
 ### Kinematics Solver
 
@@ -7919,6 +6775,1171 @@ On this page
   + [Doppler Effects](#doppler-effects)
 * [Sensor Materials](#sensor-materials)
 * [Standalone Examples](#standalone-examples)
+
+---
+
+
+## USD Tuning
+
+### OpenUSD Tuning Index
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/index.html
+
+* [Robot Setup](../robot_setup/index.html)
+* OpenUSD and Tuning Best Practices Tutorial Series
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# OpenUSD and Tuning Best Practices Tutorial Series
+
+This tutorial series gives you the intuition and science of physics tuning for robotic assets in NVIDIA Isaac Sim so that your simulated robots behave realistically. Rigging and tuning complex assets—such as a dexterous hand—is foundational to successful robot learning and simulation. If the asset is not properly configured (collision meshes, mass properties, joint parameters), the simulation will be unstable, inaccurate, and unusable for training and validation.
+
+Over this series, you work hands-on with the Inspire Hand asset in Isaac Sim to inspect the robot USD and asset structure, apply OpenUSD best practices for performance and stability, and tune joint parameters and control gains for stable, critically damped motion.
+
+This series takes approximately 60–90 minutes to complete as a hands-on lab.
+
+## Learning Objectives
+
+By the end of this series, you will be able to:
+
+* **Explain** the end-to-end process for inspecting and preparing robot USD assets for simulation.
+* **Apply** best practices to optimize the robot USD for performance and stability.
+* **Tune** joint parameters and control gains to achieve stable, critically damped, and realistic robot motion in simulation.
+
+We start by inspecting the robot USD, then configuring collision filters to manage self-collision, and finally tuning joint parameters: drive limits (max force, max velocity) and stiffness and damping with the Gain Tuner. By the end, you will have a stable, functioning robotic hand ready to attach to an arm for a grasping controller.
+
+## Tutorials in This Series
+
+* [Tutorial 1: Setup](tutorial_01_setup.html)
+* [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html)
+* [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html)
+* [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html)
+* [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html)
+* [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html)
+* [Tutorial 7: Using the Dexterous Hand in Practice](tutorial_07_practice.html)
+
+To get started, see [Tutorial 1: Setup](tutorial_01_setup.html#isaac-sim-tutorial-tuning-openusd-setup).
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Tutorials in This Series](#tutorials-in-this-series)
+
+---
+
+### Tutorial 01: Setup
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_01_setup.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 1: Setup
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 1: Setup
+
+This tutorial runs in NVIDIA Isaac Sim with the Inspire Hand USD asset. Complete the following setup before starting the tutorials in this series.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* Understand the hardware and software requirements for the OpenUSD and Tuning Best Practices series.
+* Download the course USD files from **Content** to a local directory `/path/to/Inspire/`.
+* Open the starting Inspire Hand scene in Isaac Sim.
+
+## Prerequisites
+
+* Basic familiarity with USD and Isaac Sim (stage, prims, layers).
+* Understanding of rigid-body physics (mass, inertia, joints) is helpful but not required.
+
+## Get the Course USD Files
+
+In the file paths used in this tutorial series, replace `/path/to` with the directory that contains your copied `Inspire` folder.
+
+1. In the **Content** browser, go to `IsaacSim/Samples/Rigging/Inspire/`.
+2. In the **Content** browser, right-click on the `Inspire` folder and select “Download” to save it to your local machine. Place the downloaded folder so that its path is `/path/to/Inspire/`, replacing `/path/to` with your chosen directory.
+
+In the Content browser, right-click the `Inspire` folder and select “Download” to save the course files locally.
+
+Within `/path/to/Inspire/`, the course files are organized into multiple checkpoint folders:
+
+* `/path/to/Inspire/module_1_start` — Initial Inspire Hand USD `inspire_hand.usda`.
+* `/path/to/Inspire/module_3_end-checkpoint_1` — Checkpoint with collision filters configured.
+* `/path/to/Inspire/module_4_end-checkpoint_2` — Checkpoint with mimic joints, joint drive maximums, and tuned gains for the finger joints configured.
+* `/path/to/Inspire/module_5_end-checkpoint_3` — Checkpoint with all finger and thumb joint gains tuned and authored.
+
+## Open the Starting Scene
+
+1. Open `/path/to/Inspire/module_1_start/inspire_hand.usda` in Isaac Sim.
+2. Select the `inspire_hand` prim.
+
+## Summary
+
+This tutorial covered:
+
+* Where the samples live in **Content** and how to copy them so the course root is `/path/to/Inspire/`.
+* How the checkpoint folders are laid out under `/path/to/Inspire/`.
+* How to open the starting Inspire Hand scene in Isaac Sim.
+
+### Next Steps
+
+Continue to [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html#isaac-sim-tutorial-tuning-openusd-module-1) to learn the USD Asset Structure 3.0 layout for the Inspire Hand.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Get the Course USD Files](#get-the-course-usd-files)
+* [Open the Starting Scene](#open-the-starting-scene)
+* [Summary](#summary)
+  + [Next Steps](#next-steps)
+
+---
+
+### Tutorial 02: Asset Structure
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_02_asset_structure.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 2: Asset Structure
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 2: Asset Structure
+
+Before you inspect, filter, or tune a robot in Isaac Sim, you need to know **where everything lives**. **USD Asset Structure 3.0** in Isaac Sim 6.0 is the standard layout for robot assets: it organizes geometry, materials, collision meshes, and physics into dedicated files and layers so that the same asset can be used with multiple physics backends (e.g. PhysX, MuJoCo) without clashing or duplication. Once you know this structure, you can open the right file for each task and keep the asset maintainable.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* **Understand** how Asset Structure 3.0 separates geometry, materials, metadata, instances, and physics into dedicated files.
+* **See** how layers, payloads, and variants let you switch between no physics, generic physics, or PhysX without duplicating the asset.
+* **Walk through** the Inspire Hand file hierarchy so you know exactly which file to open for inspection and tuning in later tutorials.
+
+## Prerequisites
+
+* Complete [Tutorial 1: Setup](tutorial_01_setup.html#isaac-sim-tutorial-tuning-openusd-setup) and have the Inspire Hand scene open in Isaac Sim.
+
+## Module 1.1: USD Asset Structure 3.0
+
+Isaac Sim 6.0 introduces multi-physics backend support (e.g., MuJoCo and PhysX). **USD Asset Structure 3.0** is the reference format for robot asset structure and organization. It provides:
+
+* **Separation of USD components** into multiple files for easier reviewing and maintenance.
+* **Use of layers, payloads, and variants** for different robot use cases (e.g., animation vs. simulation, different physics engines).
+* **Isolation of attributes** for different physics engines to prevent clashing when the same asset is used with MuJoCo, PhysX, or other runtimes.
+* **Storage of different physics tuning parameters** per physics engine in separate layers or payloads, so you can switch runtimes without overwriting shared geometry or metadata.
+
+The result is a multi-layered structure where geometry, materials, and metadata are shared, while physics-specific data lives in dedicated files and is composed via payloads and variants. Once you know this layout, you can confidently open the right file for collision filtering (e.g. `physics.usda`) or PhysX-specific joint tuning (e.g. `physx.usda`) without touching the base geometry.
+
+## Module 1.2: Inspire Hand Overview
+
+The **Inspire Hand** (RH56DFX from Inspire Robotics) is the example digital twin used in this tutorial: a compact, underactuated dexterous hand with 6 actuated DOF and 12 joints, specifically chosen for its complexity compared to fully actuated dexterous hands.
+
+| Property | Value |
+| --- | --- |
+| Model | RH56DFX |
+| Degrees of Freedom | 6 |
+| Number of joints | 12 |
+| Weight | 540 g |
+| Max thumb grip | 15 N |
+| Max palm grip | 10 N |
+| Thumb lateral rot. | 107 deg/s |
+| Palm finger bend | 260 deg/s |
+
+Below we see how this robot is represented in USD using the Asset Structure 3.0 layout: file hierarchy, asset stack, and physics stack.
+
+### File Hierarchy and Stacks
+
+* **Inspire Hand File Hierarchy** — The asset is split into multiple USD files (geometry, materials, robot metadata, instances, base scene, physics, and PhysX overrides), each with a clear role.
+* **Inspire Hand Asset Stack** — Layers and references compose the visual and structural representation (meshes, materials, transforms, robot API).
+* **Inspire Hand Physics Stack** — Payloads and variants add physics (rigid bodies, joints, drives) and engine-specific tuning (e.g., PhysX) without modifying the base asset.
+
+Together, the **combined** stack gives a single `inspire_hand` prim that is simulation-ready and can switch between no physics, generic USD physics, or PhysX via a variant.
+
+## Module 1.3: Asset Structure Walkthrough
+
+Here we walk through each file in the Inspire Hand and how it contributes to the final asset. Knowing each file’s **role** and **format** (e.g. binary for geometry, ASCII for readability) will help you know where to author changes in later modules.
+
+geometries.usd — Mesh file
+geometries.usd — Mesh file
+————————–
+
+* **Role:** Stores all the **meshes** used by the robot.
+* **Format:** Binary (`.usd` or `.usdc`) for efficiency.
+* Contains only geometry (mesh data); no materials or physics.
+
+### materials.usda — Material file
+
+* **Role:** Stores all **materials** used by the robot (e.g., Plastic\_ABS).
+* **Format:** ASCII (`.usda`) for readability.
+* Defines materials and their MDL shader connections (e.g., `info:mdl:sourceAsset`, `inputs:diffuse_tint`). These materials are referenced by the instance file for both visual and collision meshes.
+
+```python
+def Material "Plastic_ABS"
+{
+token outputs:displacement (
+    displayGroup = "Outputs"
+)
+prepend token outputs:mdl:displacement.connect = </Materials/Plastic_ABS/Shader.outputs:out>
+prepend token outputs:mdl:surface.connect = </Materials/Plastic_ABS/Shader.outputs:out>
+prepend token outputs:mdl:volume.connect = </Materials/Plastic_ABS/Shader.outputs:out>
+token outputs:surface (
+    displayGroup = "Outputs"
+)
+token outputs:volume (
+    displayGroup = "Outputs"
+)
+
+def Shader "Shader" (
+    apiSchemas = ["NodeDefAPI"]
+)
+{
+    token info:implementationSource = "sourceAsset"
+    asset info:mdl:sourceAsset = @../Materials/Plastic_ABS.mdl@
+    token info:mdl:sourceAsset:subIdentifier = "Plastic_ABS"
+    color3f inputs:diffuse_tint = (1, 1, 1)
+    token outputs:out (
+        renderType = "material"
+    )
+}
+```
+
+### robot.usda — Robot metadata
+
+* **Role:** Contains **robot metadata** and the Isaac Robot API.
+* Applied as an overlay over the `inspire_hand` prim with `apiSchemas = ["IsaacRobotAPI"]`.
+* Typical attributes include: `isaac:changelog`, `isaac:description`, `isaac:license`, `isaac:namespace` (namespace of the prim in Isaac Sim), `isaac:physics:robotJoints` (relationship to robot joints).
+
+This file does not define geometry or physics; it identifies the asset as a robot and attaches metadata.
+
+```python
+over "inspire_hand" (
+    prepend apiSchemas = ["IsaacRobotAPI"]
+)
+{
+    string[] isaac:changelog (
+        displayName = "Changelog"
+    )
+    string isaac:description (
+        displayName = "Description"
+    )
+    token isaac:license (
+        displayName = "License"
+    )
+    string isaac:namespace (
+        displayName = "Namespace"
+        doc = "Namespace of the prim in Isaac Sim"
+    )
+    rel isaac:physics:robotJoints (
+        displayName = "Robot Joints"
+    )
+
+...
+}
+```
+
+### instances.usda — Mesh + materials + colliders
+
+* **Role:** Builds **visual and collision** meshes by combining `materials.usda` and `geometries.usd`.
+* References geometry from the mesh file and applies materials; adds collision by applying `PhysicsCollisionAPI` and `PhysicsMeshCollisionAPI` (or other collider APIs) on the same or child prims.
+* Example pattern for a link (e.g., `r_base_link_1`): an `Xform` references the geometry prim, and a child over adds `physics:approximation` (e.g., `"convexHull"`) and `purpose = "guide"` for collision.
+
+So this file is where “mesh + materials + colliders” are assembled per link.
+
+```python
+r_base_link_1 collision definition:
+
+    def Xform "r_base_link_1" (
+        prepend references = @geometries.usd@</Geometries/r_base_link>
+    )
+    {
+        over "r_base_link" (
+            apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+        )
+        {
+            token physics:approximation = "convexHull"
+            token purpose = "guide"
+        }
+    }
+```
+
+### base.usda — Animation-ready scene
+
+* **Role:** **Animation-ready** scene: loads visual/collision meshes as **instanceable** references and applies **transforms** (translate, orient, scale) for each link.
+* References `instances.usda` (e.g., `@instances.usda@</Instances/right_thumb_1>`) and uses `instanceable = true` for efficiency.
+* Typically sublayers or references `robot.usda` so the root has the robot metadata.
+* Defines the kinematic tree and mesh placement; no joint or drive data here.
+
+```python
+Right thumb transform and mesh definition:
+
+    def Xform "right_thumb_1"
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.01696, 0.02045, 0.0667)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "right_thumb_1" (
+            instanceable = true
+            prepend references = @instances.usda@</Instances/right_thumb_1>
+        )
+}
+```
+
+### physics.usda — USD physics file
+
+* **Role:** Stores **USD physics attributes**: rigid bodies, mass, and **joints** (with drive and state APIs).
+* Links prims to: **PhysicsRigidBodyAPI**, **PhysicsMassAPI**, etc., for bodies; **PhysicsRevoluteJoint** (or other joint types) with **PhysicsDriveAPI** and **PhysicsJointStateAPI** for actuated joints.
+* Example: a revolute joint defines `physics:axis`, `physics:body0`/`body1`, `physics:localPos0`/`localPos1`, `physics:localRot0`/`localRot1`, `physics:lowerLimit`/`upperLimit`, `state:angular:physics:position`/`velocity`, and optional URDF-style limits (`urdf:limit:effort`, `urdf:limit:velocity`).
+
+This file is the engine-agnostic physics representation.
+
+```python
+def PhysicsRevoluteJoint "right_thumb_1_joint" (
+    prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysicsJointStateAPI:angular"]
+)
+{
+    uniform token physics:axis = "Z"
+    custom rel physics:body0
+    prepend rel physics:body0 = </inspire_hand/r_base_link>
+    custom rel physics:body1
+    prepend rel physics:body1 = </inspire_hand/right_thumb_1>
+    point3f physics:localPos0 = (0.01696, 0.02045, 0.0667)
+    point3f physics:localPos1 = (6.192923e-10, -2.8014183e-10, -3.4093857e-9)
+    quatf physics:localRot0 = (-1.6081226e-16, 1, 0, 0)
+    quatf physics:localRot1 = (-1.6081226e-16, 1, 0, 0)
+    float physics:lowerLimit = 0
+    float physics:upperLimit = 75.000175
+    float state:angular:physics:position = 0
+    float state:angular:physics:velocity = 0
+    custom float urdf:limit:effort = 1
+    custom float urdf:limit:velocity = 2
+}
+}
+```
+
+### physx.usda — PhysX file
+
+* **Role:** Stores **PhysX-specific** attributes so the same asset can be tuned for PhysX without changing the generic physics file.
+* Adds APIs such as **PhysxJointAPI** and **PhysxMimicJointAPI** on top of the joints defined in `physics.usda`.
+* Example: a mimic joint uses `physxMimicJoint:rotX:dampingRatio`, `gearing`, `naturalFrequency`, `offset`, `referenceJoint`, and `referenceJointAxis` to drive one joint from another.
+
+Keeps PhysX-only tuning (mimic ratios, solver settings, etc.) in one place and avoids clashing with other physics engines.
+
+```python
+over "right_thumb_4_joint" (
+    prepend apiSchemas = ["PhysxJointAPI", "PhysxMimicJointAPI:rotX"]
+)
+{
+    bool[] isaac:actuator (
+        displayName = "Actuator"
+    )
+    string isaac:NameOverride (
+        displayName = "Joint Name Override"
+    )
+    token[] isaac:physics:DofOffsetOpOrder (
+        displayName = "Dof Offset Op Order"
+    )
+    float physxMimicJoint:rotX:dampingRatio = 0.005
+    float physxMimicJoint:rotX:gearing = -0.7508
+    float physxMimicJoint:rotX:naturalFrequency = 25
+    float physxMimicJoint:rotX:offset = 0.1
+    rel physxMimicJoint:rotX:referenceJoint = </inspire_hand/Physics/right_thumb_3_joint>
+    uniform token physxMimicJoint:rotX:referenceJointAxis = "rotZ"
+}
+}
+```
+
+### inspire\_hand.usda — The interface
+
+* **Role:** **The interface** that ties everything together: references the base scene and selects physics via **variants**.
+* Root prim references the base (e.g., `prepend references = @payloads/base.usda@`) and declares `variantSet "Physics"` with options such as: `"none"` (no physics payload), `"physics"` (payload `payloads/Physics/physics.usda`), `"physx"` (payload `payloads/Physics/physx.usda`).
+
+So a single asset can be loaded as animation-only, with generic physics, or with PhysX, by switching the variant.
+
+```python
+def Xform "inspire_hand" (
+    prepend references = @payloads/base.usda@
+    append variantSets = "Physics"
+)
+{
+    variantSet "Physics" = {
+        "none" {
+        }
+        "physics" (
+            prepend payload = @payloads/Physics/physics.usda@
+        ) {
+
+        }
+        "physx" (
+            prepend payload = @payloads/Physics/physx.usda@
+        ) {
+
+        }
+    }
+}
+}
+```
+
+## Summary
+
+This tutorial covered:
+
+* **USD Asset Structure 3.0**: geometry, materials, metadata, instances, base scene, and physics live in dedicated files so you can find and edit the right layer without clashing with others.
+* How **layers, payloads, and variants** compose the Inspire Hand and let you switch between no physics, generic physics, or PhysX from a single asset.
+* The role of each file—from **geometries.usd** and **materials.usda** through **physics.usda** and **physx.usda**—so you know where to author collision filters and joint parameters in later tutorials.
+
+## Next Steps
+
+Continue to [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html#isaac-sim-tutorial-tuning-openusd-module-2) to enable the joint visualizer and verify mass, inertia, and collision meshes before collision filtering.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Module 1.1: USD Asset Structure 3.0](#module-1-1-usd-asset-structure-3-0)
+* [Module 1.2: Inspire Hand Overview](#module-1-2-inspire-hand-overview)
+  + [File Hierarchy and Stacks](#file-hierarchy-and-stacks)
+* [Module 1.3: Asset Structure Walkthrough](#module-1-3-asset-structure-walkthrough)
+  + [materials.usda — Material file](#materials-usda-material-file)
+  + [robot.usda — Robot metadata](#robot-usda-robot-metadata)
+  + [instances.usda — Mesh + materials + colliders](#instances-usda-mesh-materials-colliders)
+  + [base.usda — Animation-ready scene](#base-usda-animation-ready-scene)
+  + [physics.usda — USD physics file](#physics-usda-usd-physics-file)
+  + [physx.usda — PhysX file](#physx-usda-physx-file)
+  + [inspire\_hand.usda — The interface](#inspire-hand-usda-the-interface)
+* [Summary](#summary)
+* [Next Steps](#next-steps)
+
+---
+
+### Tutorial 03: Inspect Asset
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_03_inspect_asset.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 3: Inspect Asset
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 3: Inspect Asset
+
+You’ve seen how the Inspire Hand is built from multiple USD files (Tutorial 2). Next we **inspect and validate** that asset: joints, mass and inertia, and collision meshes. Skipping this step means you’re tuning in the dark—wrong masses or misaligned inertia can cause unstable or unrealistic motion even when joint parameters look correct, and the wrong collider type can slow the simulation or produce confusing contact behavior. Isaac Sim’s **joint visualizer**, **Robot Inspector**, **Physics Debugger**, and **collider visualization** give you a clear picture of the asset before you filter collision pairs or tune drives.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* **Enable** the joint visualizer and interpret joint types.
+* **Enable** mass and inertia visualization.
+* **Verify** collision meshes and collider types.
+
+## Prerequisites
+
+* Complete [Tutorial 2: Asset Structure](tutorial_02_asset_structure.html#isaac-sim-tutorial-tuning-openusd-module-1).
+* Have the Inspire Hand scene open in Isaac Sim with the PhysX variant selected.
+
+## Module 2.1: Enable Joint Visualizer
+
+Because we’re tuning for the PhysX backend, load the hand with the PhysX variant. Then enable joint visualization to see joint locations and types at a glance.
+
+**Viewport Navigation in Isaac Sim**
+
+* **Orbit the camera:** Hold **Alt** and left mouse button, then drag.
+* **Rotate in place (look around):** Hold right mouse button and move the mouse.
+* **Zoom:** Hold **Alt** and right mouse button (or use the scroll wheel).
+* **Pan:** Hold the middle mouse button and drag.
+* **Focus the camera on a prim:** Select the desired prim in the *Stage* panel, then press **F**.
+
+Use these controls to efficiently explore and inspect the Inspire Hand model as you follow the instructions below.
+
+1. Open `/path/to/Inspire/module_1_start/inspire_hand.usda` in Isaac Sim.
+2. Select the top-level `inspire_hand` prim.
+3. In the *Property* panel, scroll to **Variants** and select **PhysX**.
+
+1. Go to **Eye > Show by Type > Physics > Joints** to enable joint visualization.
+
+In the viewport, the Inspire Hand should now have gizmos identifying the locations and types of each joint.
+
+**Examine the joints** — In the *Stage* panel, under the `/Physics` scope, find `right_index_1_joint`—a **Revolute** joint responsible for the base motion of the index finger, represented by a circular icon in the viewport. Also locate `right_index_rubber_1_joint`, which is a **Fixed** joint attaching the lower index rubber pad to its link, shown as a rectangular icon in the visualization. The `right_index_2_joint` is a mimic joint that references the movement of `right_index_1_joint` (we’ll cover mimic joints in more detail in Tutorial 5). Understanding how these joints function and their naming conventions will be valuable when tuning the drives in Tutorials 5 and 6.
+
+## Module 2.2: Robot Inspector (hierarchy and session masking)
+
+With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link → joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
+
+1. Open **Window > Robot Inspector**. The window docks next to *Stage* by default.
+2. In the robot list, select the entry for the **Inspire Hand**.
+3. Set the hierarchy mode to **Tree** (default): parent link → joint → child link.
+4. Optionally switch to **Flat** (all links, then all joints) or **MuJoCo** (base-rooted body tree) to compare layouts; the same underlying articulation can be shown in three different ways.
+
+The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayer—they are **not** saved to your USD files. That is useful for quick isolation during debugging.
+
+See also
+
+Icons and behavior for **Deactivate**, **Bypass**, and **Anchor** are documented under [Component Masking](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-masking).
+
+When Robot Inspector is open, **joint connection lines** (parent to child, with direction cues) will appear in the viewport when the **Eye Icon > Show by Type > Physics > Joints** is enabled; they are hidden during simulation playback as described in [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window).
+
+## Module 2.3: Verify Mass and Inertia Properties
+
+Mass and inertia define how each link responds to forces. If the principal inertia axes are misaligned with the link geometry, or if mass values are too small or too large, the hand can behave unrealistically. The **Physics Debugger** lets you visualize body axes and **Body Mass Axes** (principal inertia) so you can spot problems before running the simulation.
+
+1. Open **Utilities > Physics Debugger**. The *Physics Debug* panel appears.
+
+1. In **Simulation Debug Visualization**:
+
+   * Check **Enabled**.
+   * Check **Body Axes** to show coordinate frames.
+   * Check **Body Mass Axes** to show principal inertia axes.
+2. In **Simulation Control**, click **Step** to run one simulation frame and display the visualization.
+
+Warning
+
+Avoid pressing **Play** at this stage, as it may cause Isaac Sim to crash. Instead, use **Simulation Control** to either **Run** the physics simulation or **Step** through it one frame at a time.
+
+1. For each link, you can now verify:
+
+   * Mass centers sit appropriately within the link.
+   * Principal inertia axes align with the link geometry.
+   * Inertia values look plausible (not excessively small or large).
+
+Note
+
+Misaligned principal inertia axes can cause unstable or unrealistic motion. The image below shows an example of misalignment.
+
+### Alternative Method: Inspecting Mass and Inertia via the Physics Toolbar
+
+You can also inspect mass and inertia properties using the Physics Toolbar:
+
+1. Go to **Tools > Physics Toolbar**.
+
+1. In the toolbar, toggle on both the **Rigid Body Selection Mode** (cube icon) and the **Mass Distribution Manipulator** (balance icon).
+2. In the viewport, select any rigid body prim on the hand. The **Mass Properties Info** will be displayed, providing details about the total mass, center of mass, principal axis, and diagonal inertia directly in the viewport.
+
+This method lets you quickly inspect and debug mass distribution for any body in the scene without navigating to the *Property* panel.
+
+## Module 2.4: Verify Collision Meshes
+
+The shapes you see in the viewport aren’t necessarily what the physics engine uses for contact—that’s determined by the **collision meshes** (colliders). Before we filter collision pairs in Tutorial 4, we inspect and verify the colliders: colliders are color-coded **green** for rigid bodies and **magenta** for static bodies.
+
+1. Go to **Eye > Show by Type > Physics > Colliders > All** to visualize all collision shapes.
+
+Setting collider types affects performance and fidelity. You can mix types on one asset. For dexterous hands, **Convex Hull** is often used for parts that do not need high accuracy (e.g. palm), and **Convex Decomposition** for parts that need accurate contact (e.g. fingertips). Convex Decomposition gives the best shapes but costs more than Convex Hull or geometry-based colliders. In this tutorial we use **Convex Hull** for all parts.
+
+## Summary
+
+This tutorial covered:
+
+* Enabling the **joint visualizer** and identifying joint types (Fixed, Revolute, Mimic) in the Stage—the same structure you’ll tune in Tutorials 5 and 6.
+* Opening **Robot Inspector** to review the hand’s kinematic hierarchy (Flat / Tree / MuJoCo modes) and understanding **session masking**.
+* Using the **Physics Debugger** to visualize body axes and principal inertia and verifying that mass centers and inertia alignment look correct for each link.
+* Turning on **collider visualization** and confirming the collider strategy (Convex Hull for this series), so you know what shapes will collide when self-collisions are enabled in Tutorial 4.
+
+## Next Steps
+
+Continue to [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html#isaac-sim-tutorial-tuning-openusd-module-3) to work through self-collision pairs with the Robot Self-Collision Detector, inspect collision geometry with the Physics Debugger as needed, and add filtered pairs.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Module 2.1: Enable Joint Visualizer](#module-2-1-enable-joint-visualizer)
+* [Module 2.2: Robot Inspector (hierarchy and session masking)](#module-2-2-robot-inspector-hierarchy-and-session-masking)
+* [Module 2.3: Verify Mass and Inertia Properties](#module-2-3-verify-mass-and-inertia-properties)
+  + [Alternative Method: Inspecting Mass and Inertia via the Physics Toolbar](#alternative-method-inspecting-mass-and-inertia-via-the-physics-toolbar)
+* [Module 2.4: Verify Collision Meshes](#module-2-4-verify-collision-meshes)
+* [Summary](#summary)
+* [Next Steps](#next-steps)
+
+---
+
+### Tutorial 04: Collider Pairs
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_04_collider_pairs.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 4: Collider Pairs
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 4: Collider Pairs
+
+We inspected the asset structure and collision meshes. Now we tackle a question that makes or breaks this dexterous hand simulation: **which parts of the hand are allowed to collide with each other?** In the real world, a finger can’t pass through the palm, but in simulation, overlapping collision geometry between links can create phantom contacts, jitter, and forces that blow the hand apart. **Filtered Pairs** in Isaac Sim let you turn off collision between specific rigid bodies so you keep the contacts that matter (finger on object, intentional finger-to-finger) and remove the ones that cause instability.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* **Explain** how **Filtered Pairs** work and when to use them.
+* **Identify** overlapping self-collision pairs with the **Robot Self-Collision Detector** and inspect collision geometry with the **Physics Debugger** as needed.
+* **Add** filtered pairs for the palm and pinky using **Filtered Pair** in the detector or **Filtered Pairs** on the *Property* panel, on the **physics.usda** layer.
+
+## Prerequisites
+
+* Complete [Tutorial 3: Inspect Asset](tutorial_03_inspect_asset.html#isaac-sim-tutorial-tuning-openusd-module-2).
+* Have the Inspire Hand scene open in Isaac Sim with joint and collider visualization familiar from the previous tutorial.
+
+## Module 3.1: Understanding Filtered Pairs
+
+**Filtered Pairs** explicitly tell the physics engine: “Do not detect collision between these two rigid bodies.” In Isaac Sim, adjacent links (two links connected by a joint) in an articulation don’t self-collide by default, but **non-adjacent** links do. As you will see, many of those non-adjacent links can have overlapping or very close collision geometry. In these scenarios, you can get:
+
+* **Unrealistic forces** — The solver tries to resolve interpenetration between links that would never actually touch in the real mechanism.
+* **Instability** — The hand can jitter, jump, or blow apart as conflicting contacts fight each other.
+* **Wasted compute** — Simulating every anatomically possible self-contact is rarely necessary for grasping or manipulation.
+
+So the goal is to **filter the problematic pairs** while keeping contacts that you care about (e.g. finger–object, or specific finger–finger contacts). Use filtered pairs judiciously: over-filtering can allow unrealistic interpenetration; under-filtering can cause instability. We’ll turn on self-collisions, run the [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector) to see which links overlap at rest, then author filters on **physics.usda**. The Physics Debugger is also available to view solid collision meshes in the viewport while you reason about a pair.
+
+## Module 3.2: Enable self-collision and inspect pairs
+
+**Which pairs should you filter?** At the current configuration, the self-collision detector queries the physics engine for overlapping colliders, maps them to rigid-body links, and shows them in a sortable, searchable table.
+
+Note
+
+For this tutorial we focus on the **pinky** (little finger) as a clear example; the same workflow applies to other fingers or links.
+
+### Step 1: Reproduce the problem
+
+1. Press **Play**. With self-collisions disabled, the simulation is stable. Press **Stop**.
+
+1. Because enabling **Articulation Root** is a PhysX-specific API, we want to make sure we are authoring on the **physx.usda** layer. In the **Layer** tab, click the **Insert Sublayer** icon to add a new sublayer beneath the current layer stack.
+
+1. In the file dialog, navigate to `/path/to/Inspire/module_1_start/payloads/Physics/`, select `physx.usda`, and click **Open** to insert it as a sublayer.
+
+1. Once **physx.usda** appears in the layer stack, **Right-click on physx.usda** and select **Set Authoring Layer**.
+
+You should now see the **physx.usda** layer highlighted green, indicating it is the active authoring layer.
+
+1. In the *Stage* panel, select `r_base_link`. In the *Property* panel, scroll to **Articulation Root** and check **Self Collisions Enabled**.
+
+1. Press **Play** again. Links move erratically as overlapping collision geometry between non-adjacent links is now colliding, and the solver can’t resolve it cleanly.
+
+### Step 2: Run the Robot Self-Collision Detector
+
+With **Self Collisions Enabled** on the articulation root, the physics engine can evaluate which collider pairs overlap in the hand’s current configuration. The detector surfaces those pairs in a docked panel so you can inspect them and conveniently toggle **Filtered Pair**.
+
+Note
+
+If **Self Collisions** on the articulation root are **disabled**, the tool reports no overlapping pairs from the collision engine—see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui). Keep self-collisions **on** for this tutorial.
+
+1. Press **Stop** if the simulation is still running so the hand returns to a stable pose for analysis.
+2. Open **Tools > Robotics > Asset Editors > Robot Self-Collision Detector**.
+3. In the **Robot** dropdown, select the **Inspire Hand**.
+4. Leave **Include environment collisions** off unless you have added props; we only need self-pairs for this exercise.
+5. Click **Check Collisions**. The table fills with **Rigid Body A** and **Rigid Body B** for each overlapping pair.
+
+1. Use the **search** field or column sort to find rows that involve the pinky and palm—for example pairs that include `r_base_link` with `right_little_rubber_1`, and `right_little_1` with `right_little_rubber_2`. You will enable **Filtered Pair** on those rows in the next module.
+2. Click a row to **highlight both bodies** in the viewport with distinct outline colors so you can confirm which links the table refers to.
+
+1. Use the **focal** (crosshair) icons next to a body name to select that body’s collision prims in the *Stage* when you need a closer look.
+
+Sorting, batch checkbox toggles, multi-row selection, and keyboard navigation are described in [Robot Self-Collision Detector](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector).
+
+### Solid collision meshes (Physics Debugger)
+
+The steps below walk through **Solid Collision Mesh Visualization** for the Inspire Hand so you can relate detector rows to concrete shapes in the viewport. Follow them when that extra view helps; otherwise continue to the next module.
+
+We use the pinky as the example: visualize its collision meshes and relate them to the overlaps you saw in the detector.
+
+1. Open **Utilities > Physics Debugger** to show the *Physics Debug* panel.
+
+1. Have the root prim `inspire_hand` selected. In **Collision Mesh Debug Visualization**, enable **Solid Collision Mesh Visualization**.
+
+Tip
+
+**Solid Collision Mesh Visualization** shows only the collision meshes for the currently selected prim. Ensure the `inspire_hand` prim is selected in the *Stage* panel so all collision meshes are visible.
+
+1. Open **Eye > Show by Type > Meshes** and turn **Meshes** off so the solid collision meshes are easier to see.
+
+1. In the *Stage* panel, deactivate the `right_little_1` link (lower pinky) to expose the overlapping collision shapes underneath—the rubber pad and surrounding links.
+
+1. Identify where `right_little_rubber_1` (lower pinky rubber pad) overlaps with `r_base_link` (palm)—that is where a problematic self-collision is likely to occur.
+
+In the image above, with the lower pinky link hidden, the lower pinky rubber pad (tan/sand color) overlaps and collides with the palm (yellow). This is an example of a pair we will filter out to ensure stable simulation.
+
+The schematic below shows which rigid body pairs of the pinky we will filter in this tutorial:
+
+1. Open **Eye > Show by Type > Meshes** and toggle **Meshes** on to re-enable mesh visualization.
+
+## Module 3.3: Adding Filtered Pairs
+
+Next, we filter two specific self-collision pairs that drive pinky instability: (1) the palm `r_base_link` and the pinky’s lower rubber pad `right_little_rubber_1`, and (2) the lower pinky link `right_little_1` and the upper rubber pad `right_little_rubber_2`.
+
+Note
+
+It doesn’t matter whether the filtered pair is a parent or child link; USD’s Physics Filtered Pairs block collisions between the specified pairs in both directions.
+
+To follow Asset Structure 3.0, filtered pairs use the neutral Physics API—author on **physics.usda**.
+
+### Set **physics.usda** as the authoring layer
+
+1. In the **Layer** tab, expand **physx.usda**. You should see **physics.usda** listed in the hierarchy.
+
+1. **Right-click on physics.usda** and select **Set Authoring Layer**.
+
+You should now see the **physics.usda** layer highlighted green, indicating it is the active authoring layer.
+
+### Robot Self-Collision Detector: **Filtered Pair**
+
+1. Open **Tools > Robotics > Asset Editors > Robot Self-Collision Detector** (or bring the panel forward if it is already open).
+2. Click **Check Collisions** so the table matches the current stage.
+3. Find the row whose two bodies are `r_base_link` and `right_little_rubber_1` (column order may vary). Enable **Filtered Pair** for that row.
+4. Find the row for `right_little_1` and `right_little_rubber_2`. Enable **Filtered Pair** for that row.
+
+Tip
+
+Multi-select rows and toggle one **Filtered Pair** checkbox to apply the same state to every selected row; see [User Interface](../robot_setup/ext_isaacsim_robot_setup_collision_detector.html#isaac-collision-detector-ui).
+
+Toggling **Filtered Pair** authors `UsdPhysics.FilteredPairsAPI` on the active layer—the **physics.usda** authoring layer you set above.
+
+Note
+
+If you use the detector checkboxes in this section, skip the *Property* panel subsection that follows.
+
+### Verify and save
+
+1. Click on the blue files icon next to **physics.usda (Authoring Layer)** to save the changes to **physics.usda**.
+
+1. Press **Play**. The pinky (little finger) should move more stably; the other fingers will still be unstable until their collision pairs are filtered the same way.
+
+Note
+
+Before starting Tutorial 5, open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda`. It includes all collision filters for stability, plus additional filtered pairs (e.g. finger tips and pads) for computational performance.
+
+### *Property* panel: **Filtered Pairs** on each prim
+
+The following steps add the same two relationships by editing **Filtered Pairs** on `r_base_link` and `right_little_1`. Use them if you prefer prim-by-prim authoring or want to see where the targets appear in the *Property* panel. If you already enabled both pairs in the Robot Self-Collision Detector, skip this subsection.
+
+#### Palm and lower pinky rubber pad
+
+1. In the *Stage* tab, select the `r_base_link` prim. In the *Property* panel, click **Add > Physics > Filtered Pairs**.
+
+1. With `r_base_link` still selected, go to the *Property* panel. Find the **Filtered Pairs** section and click **Add Target** to add a new filtered collision pair.
+
+1. In the pop-up that appears, browse or type to select `right_little_rubber_1`.
+
+After these steps, collisions between the palm (`r_base_link`) and the pinky’s lower rubber pad (`right_little_rubber_1`) are filtered out.
+
+#### Lower pinky link and upper rubber pad
+
+1. In the *Stage* panel, select the `right_little_1` prim (lower link of the pinky). In the *Property* panel, click **Add > Physics > Filtered Pairs**.
+
+1. With `right_little_1` still selected, go to the *Property* panel. Find the **Filtered Pairs** section and click **Add Target** to add a new filtered collision pair.
+2. In the pop-up window, browse or type to select `right_little_rubber_2` (the upper pinky rubber pad), and confirm the selection.
+
+Save the layers as in **Verify and save** above and then press **Play** again to confirm the pinky moves more stably.
+
+## Summary
+
+This tutorial covered:
+
+* How **Filtered Pairs** work and when to use them to prevent invalid self-collisions.
+* Enabling self-collisions, running the **Robot Self-Collision Detector** to list overlapping pairs and mark **Filtered Pair**, and using the **Physics Debugger** for solid collision mesh visualization when helpful.
+* Authoring the pinky’s two filters on **physics.usda** via the detector or the *Property* panel on `r_base_link` and `right_little_1`.
+
+## Next Steps
+
+Continue to [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html#isaac-sim-tutorial-tuning-openusd-module-4) to set drive limits (max force, max velocity) from the Inspire Hand specs, then to [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html#isaac-sim-tutorial-tuning-openusd-module-5) for stiffness and damping with the Gain Tuner.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Module 3.1: Understanding Filtered Pairs](#module-3-1-understanding-filtered-pairs)
+* [Module 3.2: Enable self-collision and inspect pairs](#module-3-2-enable-self-collision-and-inspect-pairs)
+  + [Step 1: Reproduce the problem](#step-1-reproduce-the-problem)
+  + [Step 2: Run the Robot Self-Collision Detector](#step-2-run-the-robot-self-collision-detector)
+  + [Solid collision meshes (Physics Debugger)](#solid-collision-meshes-physics-debugger)
+* [Module 3.3: Adding Filtered Pairs](#module-3-3-adding-filtered-pairs)
+  + [Set **physics.usda** as the authoring layer](#set-physics-usda-as-the-authoring-layer)
+  + [Robot Self-Collision Detector: **Filtered Pair**](#robot-self-collision-detector-filtered-pair)
+  + [Verify and save](#verify-and-save)
+  + [*Property* panel: **Filtered Pairs** on each prim](#property-panel-filtered-pairs-on-each-prim)
+    - [Palm and lower pinky rubber pad](#palm-and-lower-pinky-rubber-pad)
+    - [Lower pinky link and upper rubber pad](#lower-pinky-link-and-upper-rubber-pad)
+* [Summary](#summary)
+* [Next Steps](#next-steps)
+
+---
+
+### Tutorial 05: Joint Drive Tuning
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_05_joint_drive_tuning.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 5: Joint Drive Tuning
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 5: Joint Drive Tuning
+
+Collision pairs are filtered (Tutorial 4). The next question: **with how much torque and velocity can each joint move?** If the simulated hand can apply more torque than the real hardware, or spin faster than the real motors, your grasps and controllers will behave differently in sim than on the robot. Conversely, limits that are too low make the hand feel weak or sluggish. In this tutorial we set the **drive limits**—max torque and max velocity—from the Inspire Hand specs. Stiffness and damping (how the joint *responds* to position commands) are tuned in Tutorial 6.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* **Configure** mimic joints to be non-compliant for initial gains tuning.
+* **Compute and set** max joint torque derived from Inspire specifications.
+* **Set** max joint velocity directly from Inspire specifications.
+
+Inspire Hand specs used in this tutorial (palm fingers): Max palm finger grip force 10 N; max palm finger bend speed 260 deg/s.
+
+## Prerequisites
+
+* Complete [Tutorial 4: Collider Pairs](tutorial_04_collider_pairs.html#isaac-sim-tutorial-tuning-openusd-module-3).
+* Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim (or have your own filtered-pairs version open).
+
+## Module 4.1: Mimic Joints
+
+In the Inspire Hand model, the fingers use PhysX **mimic joints** to replicate the underactuated mechanism found in the real robotic hand. In this approach, a single motor drives multiple joints using a fixed gear ratio, allowing for coordinated finger movement and more realistic simulation of the physical hand.
+
+A mimic joint links two degrees of freedom, establishing a relationship (via gear ratio and offset) so that when one joint moves, the other follows accordingly. These mimic joints can be either **compliant** (allowing some “softness” or flexibility, like a spring) or **non-compliant** (rigidly enforcing the kinematic constraint). For this tutorial, we’ll configure **non-compliant** mimic joints to initially tune the driven joints. (You can add compliance for “softer” mimic behavior later, if needed.)
+
+Follow these steps to configure the mimic joints:
+
+1. Open `/path/to/Inspire/module_3_end-checkpoint_1/inspire_hand.usda` in Isaac Sim if you haven’t already.
+2. Mimic joints are a PhysX-specific feature, so set your authoring layer to **physx.usda**. In the **Layer** tab, click the **Insert Sublayer** icon if the sublayer is not already there.
+
+1. In the file dialog, navigate to `/path/to/Inspire/module_3_end-checkpoint_1/payloads/Physics/`, select `physx.usda`, and click **Open**.
+
+1. Once **physx.usda** appears in the layer stack, **Right-click on physx.usda** and select **Set Authoring Layer**.
+
+You should now see the **physx.usda** layer highlighted green, indicating it is the active authoring layer.
+
+1. In the *Stage* panel, multi-select the mimic joints for the Inspire Hand palm fingers (hold **CTRL** and left-click each):
+
+   * `right_thumb_3_joint`
+   * `right_thumb_4_joint`
+   * `right_index_2_joint`
+   * `right_middle_2_joint`
+   * `right_ring_2_joint`
+   * `right_little_2_joint`
+
+1. With the joints selected, go to the *Property* panel. Find the **Mimic Joint** section and set **Damping Ratio** to **0.0** and **Natural Frequency** to **0.0** to make the constraint non-compliant.
+
+Tip
+
+Setting natural frequency or damping ratio to **0.0** tells PhysX to make this a non-compliant mimic joint. Setting both of them to **0.0** makes the intent clear.
+
+1. Click on the blue files icon next to **physx.usda (Authoring Layer)** to save the changes to **physx.usda**.
+
+After these steps, the mimic joints in your Inspire Hand model will behave as a stiff, non-compliant mechanism, giving you precise control for gains tuning in the next module.
+
+## Module 4.2: Configure Max Joint Torque
+
+The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturer’s grip force and the distance from joint to fingertip so the sim matches the real hand’s capability.
+
+**Torque = Force × Distance**
+
+For the palm finger, max force is 10 N. The distance between `right_little_1_joint` and the tip of the little finger is 0.045 m + 0.039 m.
+
+**Little finger:** Torque = 10 × (0.045 + 0.039) = 0.84 Nm
+
+There are two joints in the mimic chain, so multiply by 2:
+
+**Little finger max drive force:** 0.84 × 2 = 1.68 Nm
+
+1. Max Force drive parameters are a neutral physics attribute, so author on the **physics.usda** layer. In the **Layer** tab, expand the **physx.usda** layer.
+
+1. **Right-click on physics.usda** and select **Set Authoring Layer**.
+
+You should now see the **physics.usda** layer highlighted green, indicating it is the active authoring layer.
+
+1. In the *Stage* panel, find and select `inspire_hand/Physics/right_little_1_joint`.
+2. In the *Property* panel, scroll to **Drive** and set **Max Force** to **1.68** based on our calculations.
+
+1. Click on the blue files icon next to **physics.usda (Authoring Layer)** to save the changes to **physics.usda**.
+
+## Module 4.3: Apply Max Velocity
+
+Maximum joint velocity limits how fast the joint can move. Without a cap, the solver can command velocities that no real motor could achieve, leading to unrealistic motion or numerical instability. We set the limit from the Inspire Hand’s palm finger bend speed (260 deg/s) so the simulated hand moves within the same envelope as the hardware.
+
+* **Realism** — Simulated motion matches real hardware.
+* **Stability** — Avoids velocity spikes that cause instability.
+
+1. Maximum joint velocity is a PhysX-specific attribute, so author on the **physx.usda** layer. In the **Layer** tab, **Right-click on physx.usda** and select **Set Authoring Layer**.
+
+You should now see the **physx.usda** layer highlighted green, indicating it is the active authoring layer.
+
+1. In the *Stage* panel, find and select `inspire_hand/Physics/right_little_1_joint`.
+2. In the *Property* panel, scroll to **Raw USD Properties**, expand **Advanced**, and set **Maximum Joint Velocity** to **260** (deg/s).
+
+1. Click on the blue files icon next to **physx.usda (Authoring Layer)** to save the changes to **physx.usda**.
+
+Note
+
+A checkpoint file with drive limits for all 6 joints derived using the same process is provided at `/path/to/Inspire/module_4_end-checkpoint_2/inspire_hand.usda`. Open this file before starting Tutorial 6.
+
+## Summary
+
+This tutorial covered:
+
+* Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding compliance—setting you up for clean gain tuning in Tutorial 6.
+* **Computing and setting max joint torque** from Inspire Hand specs (force × distance, then × 2 for the mimic chain) so the hand’s grip capability matches the real robot.
+* Setting **max joint velocity** from specs (260 deg/s) so motion is realistic and the simulation stays stable.
+
+### Next Steps
+
+Continue to [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html#isaac-sim-tutorial-tuning-openusd-module-5) to tune drive stiffness and damping with the Gain Tuner and analyze the results.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Module 4.1: Mimic Joints](#module-4-1-mimic-joints)
+* [Module 4.2: Configure Max Joint Torque](#module-4-2-configure-max-joint-torque)
+* [Module 4.3: Apply Max Velocity](#module-4-3-apply-max-velocity)
+* [Summary](#summary)
+  + [Next Steps](#next-steps)
+
+---
+
+### Tutorial 06: Joint Gains Tuning
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_06_joint_gains_tuning.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 6: Joint Gains Tuning
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 6: Joint Gains Tuning
+
+Max torque and max velocity are set (Tutorial 5). The remaining question: **how does each joint respond when you command a new position?** Too stiff and the hand can jitter or overshoot; too soft and it lags or never reaches the target. Stiffness and damping form a PD (Proportional-Derivative) controller: stiffness pulls the joint toward the target, damping resists velocity and reduces oscillation. This tutorial uses the **Gain Tuner** in Isaac Sim to tune these gains for the thumb, run step and sinewave tests, and analyze position and velocity with the built-in charts—so you can see underdamped, critically damped, and overdamped behavior and aim for responsive, stable motion.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* **Tune** drive stiffness and damping for the thumb using the Gain Tuner.
+* **Run** step and sinewave tests and interpret underdamped, critically damped, and overdamped behavior.
+* **Analyze** tuning results with the Gain Tuner charts and save gains to the physics layer.
+
+## Prerequisites
+
+* Complete [Tutorial 5: Joint Drive Tuning](tutorial_05_joint_drive_tuning.html#isaac-sim-tutorial-tuning-openusd-module-4).
+* Open `/path/to/Inspire/module_4_end-checkpoint_2/inspire_hand.usda` in Isaac Sim if not already open.
+
+## Module 5.1: Understanding Joint Drive Stiffness and Damping
+
+Position control in Isaac Sim uses stiffness and damping:
+
+**Force = (Stiffness × delta\_position) + (Damping × delta\_velocity)**
+
+* **Stiffness** — Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
+* **Damping** — Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
+
+Together they form a PD (Proportional-Derivative) controller.
+
+### Why Tuning Stiffness and Damping Matters
+
+Stiffness and damping directly determine how the joint responds to position commands and how it behaves in contact. Poor tuning leads to:
+
+* **Unrealistic motion** — Too stiff can look robotic or cause jitter; too soft makes the hand feel sluggish or weak.
+* **Instability** — High stiffness with low damping causes oscillation and overshoot; in contact, this can produce chatter or unstable grasps.
+* **Poor tracking** — If gains are too low, the joint never reaches the target in time or drifts under load.
+
+The ratio of stiffness to damping defines the **damping regime** of the response. For a step to a target position, you will see one of three behaviors:
+
+| Regime | What it looks like | Cause |
+| --- | --- | --- |
+| **Underdamped** | The joint overshoots the target, then oscillates (rings) before settling. You may see multiple overshoots. | Stiffness is high relative to damping; the “spring” dominates and there isn’t enough “shock absorber” to dissipate energy. |
+| **Critically damped** | The joint approaches the target smoothly and reaches it in the shortest time **without** overshooting. | Stiffness and damping are balanced so that the system neither rings nor moves slowly. Often the goal for responsive, stable motion. |
+| **Overdamped** | The joint approaches the target slowly and never overshoots. Response is sluggish; it may take a long time to settle. | Damping is high relative to stiffness; motion is heavily resisted. |
+
+In the Gain Tuner, if you see **oscillation or overshoot** in the position chart, you are underdamped—increase damping (or reduce stiffness). If the joint **barely moves or creeps** toward the target, you are overdamped—increase stiffness or reduce damping. Aim for a response that reaches the target quickly with little or no overshoot (near critically damped).
+
+## Module 5.2: Using Gain Tuner to Tune Joint Drive Stiffness and Damping
+
+1. Open `/path/to/Inspire/module_4_end-checkpoint_2/inspire_hand.usda` in Isaac Sim if not already open.
+2. Go to **Tools > Robotics > Asset Editors > Gain Tuner**.
+
+1. In **Tune Gains**, set **Mode** to **Position** and **Type** to **Force**.
+
+Note
+
+In the **module\_4\_end-checkpoint\_2** file, the finger joints already have stiffness and damping set for you. We focus on tuning and verifying the **thumb** joints (`right_thumb_1_joint`, `right_thumb_2_joint`) in this tutorial.
+
+### Tuning Guidelines (PhysX)
+
+1. Set damping to zero and tune only stiffness to see the basic position response.
+2. Increase stiffness until the joint converges close to the target.
+3. Set damping one order of magnitude lower than stiffness as a baseline (should not overshoot); for a faster response, reduce damping.
+4. Fine-tune both around this baseline for stability, response time, and overshoot.
+
+### Run a Test
+
+1. In the **Stiffness** column, set initial values for `right_thumb_1_joint` and `right_thumb_2_joint` (e.g. **0.01**).
+
+1. In **Test Gains Settings**, enable the **Test** checkbox for `right_thumb_1_joint` and `right_thumb_2_joint`.
+
+1. Set **Step Function** min and max so the thumb moves through a useful range: set `right_thumb_1_joint` **Step Min** to **10°** and **Step Max** to **60°**, and set `right_thumb_2_joint` **Step Min** to **5°** and **Step Max** to **20°**. Increase **Duration** to **2.0** so the joints can reach their targets within their maximum velocity limits.
+
+Tip
+
+The step function ranges (min/max) for the thumb joints are chosen to move through a substantial portion of their range of motion, but purposely avoid extreme or problematic poses (such as excessive curling without lateral movement, which could cause unrealistic contact).
+
+If you want to precisely inspect and interactively move any joint through its full range, use the **Physics Inspector** tool:
+
+1. Go to **Tools > Physics > Physics Inspector**.
+2. In the Inspector window, select `r_base_link` as the **Articulation** in the dropdown.
+3. Use the interface to directly set drive target positions for any joint and observe their behavior in the viewport.
+
+Before commanding targets, make sure the joint’s stiffness is set to a nonzero value—otherwise the joint may not respond to target changes.
+
+1. Press **Play**, then **Run Test** to apply the gains and run the evaluation.
+
+Tip
+
+If you see instabilities at higher stiffness values, open the *Property* panel, select **PhysicsScene**, and try increasing **Time Steps Per Second**.
+
+## Module 5.3: Analyze Tuning Results
+
+The Gain Tuner’s **Charts** let you compare actual position and velocity to the commanded values. Use them to spot overshoot, lag, or coupling: for example, `right_thumb_2_joint` tested alone can behave differently than when both thumb joints move together. We’ll adjust gains, run parallel tests for both thumb joints, then run all fingers in parallel to confirm the full hand tracks commands before saving to the physics layer.
+
+1. Once the tests from *Run a Test* are completed, expand the **Charts** section and multi-select (**CTRL** + left-click) `right_thumb_1_joint` and `right_thumb_2_joint`.
+
+You should see that `right_thumb_1_joint` is oscillating around the target and `right_thumb_2_joint` is struggling to reach the target.
+
+1. To improve tracking, increase stiffness to **0.07** for `right_thumb_2_joint`.
+
+1. Add damping **0.0001** to reduce oscillation. Set **Sequence** to **1** for both `right_thumb_1_joint` and `right_thumb_2_joint` so they run at the same time (parallel tests let the thumb’s lateral motion create space for the curling motion). Set **Step Min** to **0.0** and **Step Max** to **15** for `right_thumb_2_joint` to observe the effect of the range change.
+
+1. Press **Play** if the simulation is not already playing. Click **Run Test**.
+
+1. Once the tests are finished, expand the **Charts** section and multi-select (**CTRL** + left-click) `right_thumb_1_joint` and `right_thumb_2_joint`.
+
+1. Run the **Sinewave** test to evaluate how each joint responds to a smooth, continuous motion command. Set the **Amplitude** parameter to **50** for `right_thumb_1_joint` and **30** for `right_thumb_2_joint` (feel free to experiment with these values to observe effects), then click **Run Test**.
+
+1. Continue tuning by experimenting with different gain values (stiffness and damping) and various test parameters. As you tune, **monitor joint velocities** during the test to ensure none exceed the maximum joint velocity limits defined earlier. To do this:
+
+   * Select any joint in the *Property* panel.
+   * Scroll down to **Extra Properties > Velocity** to view its current velocity while the test is running.
+
+If velocities approach or exceed the maximums, reduce gain values or adjust test parameters.
+
+1. To evaluate the **entire hand’s coordinated tracking**, run a parallel step function test:
+
+   * Enable **Test** for all joints in the Gain Tuner.
+   * Set **Sequence** to **1** for each joint (this runs tests in parallel for all fingers).
+   * Set **Step Min** and **Step Max** to **10** and **30**, respectively, for each joint.
+
+Click **Run Test**. The resulting charts will reveal how well your current **Stiffness** and **Damping** settings allow the full hand to execute simultaneous step commands. You should see coordinated, stable motion across all joints. The expected results might look similar to the example below:
+
+| Joint | Test | Sequencer | Step Min | Step Max | Period | Phase |
+| --- | --- | --- | --- | --- | --- | --- |
+| right\_thumb\_1\_joint | 1 | 1 | 10.0 deg | 60.0 deg | 2.0 s | 0.0 s |
+| right\_index\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
+| right\_middle\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
+| right\_ring\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
+| right\_little\_1\_joint | 1 | 1 | 10.0 deg | 30.0 deg | 2.0 s | 0.0 s |
+| right\_thumb\_2\_joint | 1 | 1 | 0.0 deg | 10.0 deg | 2.0 s | 0.0 s |
+
+Note
+
+In the Gain Tuner, open `/path/to/Inspire/module_5_end-checkpoint_3/inspire_hand.usda` to review the final tuned stiffness and damping values.
+
+## Summary
+
+This tutorial covered:
+
+* Using the **Gain Tuner** to tune stiffness and damping (Position, Force) for the thumb joints and saving gains to the **physics.usda** layer so the hand responds to position commands with stable, near–critically damped motion.
+* Running **step** and **sinewave** tests and interpreting damping regimes (underdamped, critically damped, overdamped) in the Charts to diagnose overshoot or sluggishness.
+* Verifying **parallel tests** for all joints; the same workflow applies to other digits or custom hands. The **module\_5\_end-checkpoint\_3** checkpoint contains the final tuned values.
+
+## Next Steps
+
+Continue to [Tutorial 7: Using the Dexterous Hand in Practice](tutorial_07_practice.html#isaac-sim-tutorial-tuning-openusd-practice) for next steps and further resources.
+
+## Further Learning
+
+* Read [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) for more details on the physical mechanics relating joint gains to derived motions and how the Gain Tuner works.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Module 5.1: Understanding Joint Drive Stiffness and Damping](#module-5-1-understanding-joint-drive-stiffness-and-damping)
+  + [Why Tuning Stiffness and Damping Matters](#why-tuning-stiffness-and-damping-matters)
+* [Module 5.2: Using Gain Tuner to Tune Joint Drive Stiffness and Damping](#module-5-2-using-gain-tuner-to-tune-joint-drive-stiffness-and-damping)
+  + [Tuning Guidelines (PhysX)](#tuning-guidelines-physx)
+  + [Run a Test](#run-a-test)
+* [Module 5.3: Analyze Tuning Results](#module-5-3-analyze-tuning-results)
+* [Summary](#summary)
+* [Next Steps](#next-steps)
+* [Further Learning](#further-learning)
+
+---
+
+### Tutorial 07: Practice
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_07_practice.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](index.html)
+* Tutorial 7: Using the Dexterous Hand in Practice
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 7: Using the Dexterous Hand in Practice
+
+With asset structure verified, collision pairs filtered, and joint parameters tuned, the Inspire Hand in Isaac Sim is stable and ready for downstream use.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* **Review** what you accomplished across the OpenUSD and Tuning Best Practices series.
+* **Learn** next steps for using the tuned Inspire Hand (attach to an arm, watch demos, fine tune, extend to other hands).
+* **Find** additional documentation and resources for PhysX and articulation.
+
+## Prerequisites
+
+* Complete [Tutorial 6: Joint Gains Tuning](tutorial_06_joint_gains_tuning.html#isaac-sim-tutorial-tuning-openusd-module-5). You should have a tuned, stable Inspire Hand USD.
+
+## What You Accomplished
+
+* **Tutorial 2** — You inspected the multi-physics asset structure.
+* **Tutorial 3** — You enabled joint and mass/inertia visualization, and verified collision meshes.
+* **Tutorial 4** — You identified problematic self-collisions and added filtered pairs so the hand simulates without artifacts.
+* **Tutorial 5** — You set mimic joints, max joint torque, and max velocity from specs.
+* **Tutorial 6** — You tuned drive stiffness and damping with the Gain Tuner and analyzed results with the built-in charts.
+
+You now have a tuned, stable robotic hand USD that can be attached to an arm and used with a grasping controller in Isaac Sim or Isaac Lab.
+
+## Next Steps
+
+* **Attach to an arm** — Use the hand as an end effector on a manipulator (e.g. Kuka) in Isaac Sim or Isaac Lab and run grasping or manipulation tasks.
+* **Watch applied demos** — Look for Isaac Lab Kuka + Inspire Hand demos (e.g. from GTC) to see the same hand used in full workflows.
+* **Fine Tune in Simple Scene Setups** — Bring the hand into simple scenes involving contact. Tune mimic joint compliance as needed for realistic and stable behavior in contact scenarios.
+* **Extend tuning** — Apply the same process (collision filters, max force/velocity, stiffness/damping) to other digits or to custom dexterous hands.
+
+## Additional Resources
+
+* [NVIDIA Isaac Sim Documentation](https://docs.omniverse.nvidia.com/isaacsim/latest/)
+* [Physics and Rigid Body Dynamics](https://docs.omniverse.nvidia.com/isaacsim/latest/core/physics_tutorials/tutorial_rigid_body_dynamics.html) — For deeper coverage of PhysX and articulation.
+
+## Summary
+
+This tutorial reviewed what you accomplished in the series, outlined next steps for using the tuned Inspire Hand (attach to an arm, demos, fine tuning, extending to other hands), and pointed to additional resources for further learning.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [What You Accomplished](#what-you-accomplished)
+* [Next Steps](#next-steps)
+* [Additional Resources](#additional-resources)
+* [Summary](#summary)
 
 ---
 

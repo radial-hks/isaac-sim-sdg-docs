@@ -2,7 +2,7 @@
 
 > 合成数据生成工作流：Object-Based / Scene-Based / Grab / Mobility / Teleop
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:58 UTC
+> 最后组装: 2026-06-21 14:14 UTC
 > 来源页数: 9
 
 ---

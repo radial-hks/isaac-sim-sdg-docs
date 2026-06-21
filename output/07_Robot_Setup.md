@@ -2,7 +2,7 @@
 
 > Robot Setup 工具链（Wizard/Poser/Inspector/GainTuner）+ 配置实战教程
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:58 UTC
+> 最后组装: 2026-06-21 14:14 UTC
 > 来源页数: 32
 
 ---
@@ -45,3623 +45,77 @@
 ---
 
 
-## Setup 教程
+## Setup 概览
 
-### Setup Tutorials Index
+### Robot Setup Index
 
 > 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/index.html
 
-* [Robot Setup](../robot_setup/index.html)
-* Robot Setup Tutorials Series
+* Robot Setup
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Robot Setup Tutorials Series
+# Robot Setup
 
-The GUI tutorials walk you through setting up your virtual world and building robot digital twins with various NVIDIA Isaac Sim features. In the process, you will learn where to find frequently used properties, settings, and tools, and familiarize yourself with the toolbars, icons, and OpenUSD standards.
+These tools and tutorials details the different importer and exporter for converting assets to and from the USD (Universal Scene Description) format and how you can build custom robots in the simulator.
 
-**Important:** These tutorials are designed as a progressive learning path from beginner to advanced. We recommend starting with the *Setup a Wheeled Robot* section, as it covers essential beginner concepts like environment setup, basic robot assembly, and fundamental rigging techniques that are required for all robot types.
+## Tools
 
-## **Beginner Level** - Setup a Wheeled Robot
+* [Robot Wizard [Deprecated]](robot_wizard.html)
+* [Robot Wizard Tutorial [Deprecated]](robot_wizard_tutorials.html)
+* [Robot Inspector Window](robot_inspector.html)
+* [UI Utility Functions](robot_inspector.html#ui-utility-functions)
+* [Masking Operations API](robot_inspector.html#masking-operations-api)
+* [Robot Poser](robot_poser.html)
+* [Robot Poser Window](robot_poser.html#robot-poser-window)
+* [Named Pose Properties Panel](robot_poser.html#named-pose-properties-panel)
+* [Example: Authoring Named Poses](robot_poser.html#example-authoring-named-poses)
+* [Named Pose Schema Reference](robot_poser.html#named-pose-schema-reference)
 
-Start here to learn fundamental concepts that apply to all robot types:
+* [Editor Tools](editing_tools.html)
+  + [Mesh merge tool](ext_isaacsim_util_merge_mesh.html)
+  + [Gain Tuner Extension](ext_isaacsim_robot_setup_gain_tuner.html)
+  + [Robot Self-Collision Detector](ext_isaacsim_robot_setup_collision_detector.html)
+  + [Robot Assembler](assemble_robots.html)
+* [Inspector Tools](inspector_tools.html)
+  + [Joint Inspector](joint_inspector.html)
+  + [Physics Inspector](../physics/joint_inspector.html)
+  + [Simulation Data Visualizer](../physics/ext_isaacsim_inspect_physics.html)
 
-* [Tutorial 1: Stage Setup](tutorial_intro_environment_setup.html)
-* [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html)
-* [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html)
-* [Tutorial 4: Add Camera and Sensors to a Robot](tutorial_gui_camera_sensors.html)
-* [Tutorial 5: Rig a Mobile Robot](rig_mobile_robot.html)
+## Asset Structure
 
-## **Intermediate Level** - Setup a Manipulator
+* [Asset Structure](asset_structure.html)
+* [Asset Transformer](asset_transformer.html)
+* [Asset Transformer API](asset_transformer_api.html)
+* [Asset Transformer Rules Reference](asset_transformer_rules.html)
 
-Build upon the foundational knowledge to work with more complex robot structures:
+## Tutorials
 
-* [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html)
-* [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html)
-* [Tutorial 8: Generate Robot Configuration File](tutorial_generate_robot_config.html)
-* [Tutorial 9: Pick and Place Example](tutorial_pickplace_example.html)
+* [Robot Setup Tutorials Series](../robot_setup_tutorials/index.html)
+* [OpenUSD and Tuning Best Practices Tutorial Series](../openusd_tuning_tutorials/index.html)
+* [Asset Transformer Tutorials](asset_transformer_tutorials.html)
 
-## **Advanced Level** - Asset Tuning and Optimization
+## Troubleshooting
 
-Master advanced techniques for complex robot configurations:
+* [Robot Setup Troubleshooting](troubleshooting.html)
 
-* [Tutorial 10: Rig Closed-Loop Structures](rig_closed_loop_structures.html)
-* [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html)
-* [Tutorial 12: Asset Optimization](optimizing_asset.html)
-* [Tutorial 13: Rigging a Legged Robot for a Locomotion Policy](tutorial_rig_legged_robot.html)
+## Validation
 
-On this page
-
-* [**Beginner Level** - Setup a Wheeled Robot](#beginner-level-setup-a-wheeled-robot)
-* [**Intermediate Level** - Setup a Manipulator](#intermediate-level-setup-a-manipulator)
-* [**Advanced Level** - Asset Tuning and Optimization](#advanced-level-asset-tuning-and-optimization)
-
----
-
-### Setup Tutorials Index
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/index.html
-
-* [Robot Setup](../robot_setup/index.html)
-* Robot Setup Tutorials Series
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Robot Setup Tutorials Series
-
-The GUI tutorials walk you through setting up your virtual world and building robot digital twins with various NVIDIA Isaac Sim features. In the process, you will learn where to find frequently used properties, settings, and tools, and familiarize yourself with the toolbars, icons, and OpenUSD standards.
-
-**Important:** These tutorials are designed as a progressive learning path from beginner to advanced. We recommend starting with the *Setup a Wheeled Robot* section, as it covers essential beginner concepts like environment setup, basic robot assembly, and fundamental rigging techniques that are required for all robot types.
-
-## **Beginner Level** - Setup a Wheeled Robot
-
-Start here to learn fundamental concepts that apply to all robot types:
-
-* [Tutorial 1: Stage Setup](tutorial_intro_environment_setup.html)
-* [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html)
-* [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html)
-* [Tutorial 4: Add Camera and Sensors to a Robot](tutorial_gui_camera_sensors.html)
-* [Tutorial 5: Rig a Mobile Robot](rig_mobile_robot.html)
-
-## **Intermediate Level** - Setup a Manipulator
-
-Build upon the foundational knowledge to work with more complex robot structures:
-
-* [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html)
-* [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html)
-* [Tutorial 8: Generate Robot Configuration File](tutorial_generate_robot_config.html)
-* [Tutorial 9: Pick and Place Example](tutorial_pickplace_example.html)
-
-## **Advanced Level** - Asset Tuning and Optimization
-
-Master advanced techniques for complex robot configurations:
-
-* [Tutorial 10: Rig Closed-Loop Structures](rig_closed_loop_structures.html)
-* [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html)
-* [Tutorial 12: Asset Optimization](optimizing_asset.html)
-* [Tutorial 13: Rigging a Legged Robot for a Locomotion Policy](tutorial_rig_legged_robot.html)
+* [Asset Validation](asset_validation.html)
+* [IsaacSim.PhysicsRules](asset_validation.html#isaacsim-physicsrules)
+* [IsaacSim.RobotRules](asset_validation.html#isaacsim-robotrules)
+* [IsaacSim.SimReadyAssetRules](asset_validation.html#isaacsim-simreadyassetrules)
+* [Running the Validation Rules](asset_validation.html#running-the-validation-rules)
 
 On this page
 
-* [**Beginner Level** - Setup a Wheeled Robot](#beginner-level-setup-a-wheeled-robot)
-* [**Intermediate Level** - Setup a Manipulator](#intermediate-level-setup-a-manipulator)
-* [**Advanced Level** - Asset Tuning and Optimization](#advanced-level-asset-tuning-and-optimization)
+* [Tools](#tools)
+* [Asset Structure](#asset-structure)
+* [Tutorials](#tutorials)
+* [Troubleshooting](#troubleshooting)
+* [Validation](#validation)
 
 ---
-
-### Joint Tuning
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/joint_tuning.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 11: Tuning Joint Drive Gains
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 11: Tuning Joint Drive Gains
-
-## Learning Objectives
-
-In this tutorial, you use the Gain Tuner to bring an un-tuned UR10 manipulator from zero gains to a working set of stiffness and damping values. Along the way you learn how to:
-
-* Diagnose missing or insufficient gains with the **Snap-to-Limits** test.
-* Distinguish **Fail** from **Blocked** results using the **Disable Self-Collisions** toggle.
-* Validate tuned gains with the **Stress Test** and observe how velocity limits contribute to solver stability.
-
-For a full explanation of how the Gain Tuner works, the physics behind joint drives, and the complete parameter reference for each test, see [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner).
-
-*10-15 Minute Tutorial*
-
-## Prerequisites
-
-* Complete the [Tutorial: Import URDF](../importer_exporter/import_urdf.html#isaac-sim-app-tutorial-advanced-import-urdf) tutorial to import the UR10 onto the stage. The URDF importer sets all joint stiffness and damping to zero by default, so the robot has no active drives.
-* Read the [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) reference for background on the parameters, physics, and detailed result interpretation guide.
-
-## Step 1: Open the Gain Tuner and observe zero gains
-
-1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
-2. Select the UR10 from the **Select Robot** dropdown.
-3. Ensure that **Mode** is set to **Position** for each joint.
-4. Observe that all six joints — `shoulder_pan_joint`, `shoulder_lift_joint`, `elbow_joint`, `wrist_1_joint`, `wrist_2_joint`, `wrist_3_joint` — have **Stiffness** and **Damping** set to `0`. With zero gains the robot has no active drives and will collapse under gravity when the simulation is played.
-
-## Step 2: Snap-to-Limits with weak gains
-
-Set initial gains to see how the robot responds with deliberately low stiffness and no damping:
-
-1. In the **Stiffness** column, set all six joints to `10`. Leave **Damping** at `0`.
-2. Select the **Snap-to-Limits** test mode (the default).
-3. Enable the **Test** checkbox for all joints.
-4. Press **Play**, then press **Run Test**.
-
-With stiffness at only 10 Nm/rad and no damping, expect:
-
-* `shoulder_lift_joint` and `elbow_joint` are likely to **Fail**. These joints bear the full weight of the arm and 10 Nm/rad of stiffness is far too low to drive them to their limits.
-* Wrist joints may also **Fail** or show long settling times with oscillation, since there is no damping to absorb overshoot.
-* Some joints may report **Blocked** if the collision geometry prevents them from reaching a limit.
-
-Note
-
-If a joint reports **Blocked**, re-run with **Disable Self-Collisions** enabled. If the joint then passes, the joint limit extends beyond what the collision geometry allows — tighten the joint limit in USD rather than adjusting gains.
-
-## Step 3: Tuned parameters
-
-Before adjusting gains, check the joint force limits. The UR10’s URDF defines max effort values (330 Nm for the shoulder joints, 150 Nm for the elbow, 56 Nm for the wrist joints) that are imported as the joint **Max Force** in USD. With high stiffness, the PD controller may need to apply forces that exceed these limits to drive the heavy shoulder and elbow links to their targets. If a joint still fails Snap-to-Limits after increasing stiffness, select the joint in the **Properties** panel and set **Max Force** to a higher value or to `inf` (infinite) under **Joint** > **Advanced** > **Maximum Force**. For the UR10, `shoulder_pan_joint` and `shoulder_lift_joint` require infinite max force to pass.
-
-The following gains produce a UR10 that passes Snap-to-Limits. They were found using the position-drive tuning heuristic described in the [Tuning Workflow](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-tuning-workflow) section of the Gain Tuner reference:
-
-| Joint | Stiffness | Damping |
-| --- | --- | --- |
-| `shoulder_pan_joint` | 500000 | 50 |
-| `shoulder_lift_joint` | 500000 | 50 |
-| `elbow_joint` | 50000 | 50 |
-| `wrist_1_joint` | 500 | 0.5 |
-| `wrist_2_joint` | 500 | 0.5 |
-| `wrist_3_joint` | 50 | 0.0 |
-
-Note
-
-These values are starting-point examples. Fine-tune them for your specific application by iterating with the Gain Tuner tests. The shoulder and elbow joints require higher gains because they bear the weight of the full arm, while the lighter wrist joints respond well at lower values.
-
-Enter these values, re-run the Snap-to-Limits test, and confirm that all joints now **Pass**.
-
-You can further validate tracking quality with the **Sinusoidal** and **Step Function** test modes. For configuration details and result interpretation, see [Sinusoidal](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-sinusoidal) and [Step Function](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-step-function).
-
-## Step 4: Stress Test with tuned gains
-
-With the tuned gains from [Step 3: Tuned parameters](#tuned-ur10-gains-table) applied, run the Stress Test to verify the robot is stable under the extreme commands typical of reinforcement learning training:
-
-1. Select the **Stress Test** mode and choose the **Random Walk** sub-mode.
-2. Set **Sequence** for all joints to `1` so that the joints are tested in parallel.
-3. Leave **Disable Velocity Limits** off (the default).
-4. Press **Play**, then press **Run Test**.
-5. All joints should report **Stable**.
-
-Now observe what happens without velocity limits:
-
-1. Enable **Disable Velocity Limits**.
-2. Press **Run Test** again.
-3. Some joints now report **Unstable**.
-
-Without velocity limits, the PD controller responds to the stress test’s large position errors by generating forces that accelerate joints to extreme speeds within a single simulation timestep. At these speeds the discrete-time solver can fail to converge, leading to energy blowup or NaN values.
-
-Velocity limits serve two purposes:
-
-* **Physical fidelity** — real actuators have maximum speeds defined by the manufacturer. The UR10’s URDF specifies velocity limits of approximately 2–3 rad/s per joint. Setting these in simulation reproduces the real robot’s motion envelope.
-* **Solver stability** — by capping joint speed, velocity limits keep per-step displacements within the range where the PhysX implicit integrator remains numerically stable.
-
-If your application requires higher velocity limits than the manufacturer specification, increase them incrementally and re-run the Stress Test after each change to confirm the solver remains stable at the new limits.
-
-Repeat the comparison in **Adversarial** sub-mode to confirm the same behavior under worst-case correlated configurations.
-
-Note
-
-A **Stable** result is meaningful only at the sigma and snap interval values used. When assessing readiness for Isaac Lab training, record these parameters alongside results. See [Stress Test](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-stress-test) for a full explanation of how to interpret each result combination.
-
-### Summary
-
-This tutorial covered:
-
-1. Starting from an un-tuned UR10 imported from URDF with zero gains.
-2. Using Snap-to-Limits to identify joints with insufficient stiffness and distinguishing Fail from Blocked results.
-3. Applying tuned gains and confirming all joints pass Snap-to-Limits.
-4. Using the Stress Test to demonstrate why velocity limits are important for solver stability.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Step 1: Open the Gain Tuner and observe zero gains](#step-1-open-the-gain-tuner-and-observe-zero-gains)
-* [Step 2: Snap-to-Limits with weak gains](#step-2-snap-to-limits-with-weak-gains)
-* [Step 3: Tuned parameters](#step-3-tuned-parameters)
-* [Step 4: Stress Test with tuned gains](#step-4-stress-test-with-tuned-gains)
-  + [Summary](#summary)
-
----
-
-### Optimizing Asset
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/optimizing_asset.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 12: Asset Optimization
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 12: Asset Optimization
-
-## Learning Objectives
-
-This tutorial details how to make robot assets more performant and where to find tradeoffs to achieve a faster simulation or rendering time.
-
-*30 Minutes Tutorial*
-
-## Getting Started
-
-**Prerequisites**
-
-* Complete the [Quick Tutorials](../introduction/quickstart_index.html#isaac-sim-intro-quickstart-series) series to learn the basic core concepts of how to navigate inside NVIDIA Isaac Sim.
-* Complete the [Assemble a Simple Robots](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) tutorial to learn the concepts of rigid body API, collision API, joints, drives, and articulations.
-* Read [Onshape importer](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html "(in Omniverse Extensions)") and watch the videos on rigging the robot in Onshape.
-* Familiarity with [Mesh Merge Tool](../robot_setup/ext_isaacsim_util_merge_mesh.html#isaac-merge-mesh).
-
-**Loading the Robot**
-
-This tutorial explores the NVIDIA Jetbot Robot asset which improve performance.
-If you import the asset from a different source, for example from custom CAD, you might end up with numerous meshes per rigid body and this can severely impact performance.
-
-From the recording of this Jetbot asset imported from CAD that on the right side we have an unoptimized asset, and it’s achieving 40 FPS, while the asset on the left was optimized, and now achieves 64 FPS.
-
-## Asset Structure Optimization
-
-In this activity, you use a workflow with the multi-layered asset structure introduced in an earlier module,
-and create an optimized version of an asset.
-Use the Jetbot robot as a starting place. This model was imported from a CAD model made in Onshape.
-Although the physics layer is already in place, the bodies contain a significant number of meshes, which leads to suboptimal simulation performance.
-Begin with an empty stage to learn several useful tricks for asset authoring.
-By the end of this activity, you transform the initial Jetbot model into a well-structured, optimized asset ready for efficient simulation.
-
-### Set Up Reparenting and Layers
-
-1. In Isaac Sim, go to **Edit** > **Preferences** to open the Preferences panel.
-2. Under **Stage** > **Authoring**, next to the \*\* Keep Prim World Transform When reparenting\*\*, ensure that **Inherit Parent Transform** is selected.
-3. Open the Jetbot located at `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized.usd`, verify that you have an empty USD.
-4. Select the **Layers** panel, click the **Insert Sublayer** button at the bottom of the tab, select `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Base/Jetbot_base.usd`, and click **Open**.
-
-### Create Asset Structure
-
-The Jetbot asset is already close to the final goal, but to work on a retargeting of the structure to get the merged meshes,
-create a new prim to be set as default.
-
-1. On the right side menu of the Stage panel, select **Show Root**.
-2. Create a new Xform called `Jetbot_Sim` and drag it onto Root.
-3. Right click on `Jetbot_Sim` and choose **Set as Default Prim**.
-4. Right click and choose **Create** > **Scope** and name it `Visuals`.
-5. Drag this scope onto Root so it’s unparented from `Jetbot_Sim`.
-6. Select the prims under `Jetbot` and drag them onto `Jetbot_Sim`.
-
-   > Note
-   >
-   > To select multiple prims, use shift-select or control-select standards. For example: select one prim, then hold shift and another to choose all prims listed between them.
-7. Verify that instead of being deleted from Jetbot, they were instead deactivated.
-8. Select them all, then right-click and choose **Activate**.
-9. Delete the contents inside the prims in `Jetbot_Sim`.
-
-### Merge Meshes
-
-With the stage ready, you can begin merging the meshes.
-
-Note
-
-The Mesh Merge Tool is deprecated and will be removed in a future release. Use the Scene Optimizer extension instead.
-
-First, enable the merge mesh tool by going to **Window** > **Extensions** and search for **Isaac Sim Mesh Merge** or **isaacsim.util.merge\_mesh** in the deprecated extensions and toggle it on.
-
-1. Open the Mesh Merge Tool by going to **Tools** > **Robotics** > **Asset Editors** > **Mesh Merge Tool**.
-2. Select `Jetbot/left_wheel` prim.
-3. Check the **Combine Materials** box, insert `Jetbot_Sim/Looks` to save the material in the Jetbot Sim xform.
-4. Click on **Merge**.
-5. Select the resulting mesh on `/Merged/left_wheel` and clear the transform on the properties panel.
-6. Right-click on the **Visuals** scope, create an xform called `left_wheel` and drag the resulting mesh into it. Remove the `/Merged` xform from the stage.
-7. To create an internal reference to the wheel, create a **Visuals** Xform inside `left_wheel`, then right-click it and choose **Add** > **Reference**.
-8. Select `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Base/Jetbot_base.usd` in the dialog.
-9. For `prim_path`, type in `/Visuals/left_wheel`.
-10. Back in the **Stage** panel, select the `/Jetbot_Sim/Visuals/left_wheel` prim, which you just added a reference onto. Then in the **Property** panel, scroll down to the **References** section. The prim path is in red, select the Asset Path entry and **clear** it.
-11. This will make the reference point to the internal `/Jetbot_Sim/Visuals/left_wheel` prim. The mesh for `left_wheel` shows as a child. Verify that a **Looks** scope was created in `Jetbot_Sim`, with the materials for this mesh.
-12. Verify that the wheel is referenced correctly in place, along with the base mesh that is at the origin. You can hide the Visuals scope so base meshes won’t be visible.
-13. Save the file with CTRL+S.
-14. To complete the mesh optimization, repeat the previous steps for other bodies.
-
-Note
-
-The finished USD with all mesh merges is available for you at `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_post_merge.usd`.
-
-## Scenegraph Instancing
-
-Scenegraph instancing enables sharable, composed representations of subgraphs of prims. It is a directive that instructs the scene composer that a certain component of the scene is a repeatable pattern. While this allows for a leaner overall scene, it does require a few rules to be followed.
-
-Any children of an instance cannot have attributes modified, because they all inherit from the same asset in memory.
-Instances must be applied on Referenced assets, so that the scenegraph composer knows that from the reference and downwards, things are expected to remain the same and it needs to create a pointer to the asset data to be used anywhere it’s referenced.
-
-1. Start by opening the USD file `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_post_merge.usd`, if you have not merged all the meshes.
-2. The left and right wheel meshes are identical. Further simplify the asset by having left and right wheel reference the same mesh. Select `Visuals/left_wheel` and rename it to `Visuals/wheel`.
-3. Delete `Visuals/right_wheel`. Verify that the Jetbot wheel disappears.
-4. Select `Jetbot_Sim/right_wheel/Visuals`.
-5. Under the References section of the **Property** panel, replace the reference Prim Path from `/Visuals/right_wheel` to `/Visuals/wheel`.
-
-   At this point, all meshes are still considered unique elements because the assets are only defined as a reference.
-6. To leverage memory savings, shift-select all Visuals prims under `/Jetbot_Sim` and check **Instanceable** in the Property panel.
-7. On the Visuals prims, notice the reference icon now has a blue “I” on it. This indicates they are instantiable meshes and effectively applying any memory savings.
-8. Save the file with CTRL+S.
-
-Note
-
-The finished USD with all mesh merges and scenegraph instancing is available for you at `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_final.usd`.
-
-## Other Considerations
-
-* **Minimize Number of Lights**: Each light negatively impacts the performance of the rendering. By default, if the scene has more than 10 lights, the rendering reverts to sample-based lighting to avoid severe slowdown in performance.
-* **Reduce Translucent Materials**: Each translucent material generates a larger performance bottleneck than the default OmniPBR material.
-* **Optimize Physics Performance**: Search for simulation aspects that you can modify to reduce computational cost. Typically, colliders have high computational costs. The more basic that you can make a collision shape, the more performant the simulation behaves. Reducing the number of contact points can also bring huge performance benefits. Tuning this can take several experiments to achieve the best precision versus performance point for your situation.
-* **Approximate Wheel Colliders**: If you have a wheel collider, consider using a simple cylinder or sphere collider instead of a mesh collider. This can significantly improve performance and allows the robot to drive smoothly over terrains.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Getting Started](#getting-started)
-* [Asset Structure Optimization](#asset-structure-optimization)
-  + [Set Up Reparenting and Layers](#set-up-reparenting-and-layers)
-  + [Create Asset Structure](#create-asset-structure)
-  + [Merge Meshes](#merge-meshes)
-* [Scenegraph Instancing](#scenegraph-instancing)
-* [Other Considerations](#other-considerations)
-
----
-
-### Rig Closed Loop Structures
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig_closed_loop_structures.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 10: Rig Closed-Loop Structures
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 10: Rig Closed-Loop Structures
-
-Some models are challenging to represent. Robots and grippers still have unique features and structures that are uncommon. In this document you learn some techniques to model these unique features and learn a general approach for managing these unique configurations.
-
-## Learning Objectives
-
-In this tutorial, you will:
-
-* Use USD Layers to edit and test assets
-* Add materials and adjust joints post CAD import
-* Break a closed loop articulation chain
-* Add joint drives, including mimic joints
-* Adjust collision shapes
-* Test grippers by building a test setup and using a gripper controller OmniGraph
-
-*30 Minutes Tutorial*
-
-Start with a [Robotiq 2F-85 Parallel Gripper](https://robotiq.com/products/2f85-140-adaptive-robot-gripper) STP file imported into an [Onshape document](https://cad.onshape.com/documents/02712153b53a69118b4e5c99/w/e4160a7cfa8bb14f2585a92f/e/6d63d85251b40eee71da6b56) and with joints modeled. This tutorial does not directly cover tuning the joints. Instead, tuned parameters are provided when configuring the asset. To learn more about gains tuning see [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html#isaac-sim-app-tutorial-advanced-joint-tuning) and [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner).
-
-## Getting Started
-
-**Prerequisite**
-
-* Complete the [Quick Tutorials](../introduction/quickstart_index.html#isaac-sim-intro-quickstart-series) series to learn the basic core concepts of how to navigate inside NVIDIA Isaac Sim.
-* Complete the [Assemble a Simple Robot](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) and [Adding Sensors and Cameras](tutorial_gui_camera_sensors.html#isaac-sim-app-tutorial-gui-camera-sensors) tutorials to learn the concepts of rigid body API, collision API, joints, drives, and articulations.
-* Read [Onshape importer](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html "(in Omniverse Extensions)") and watch the videos on rigging the robot in Onshape.
-* Have a version of the Robotiq 2F-85 Gripper imported in Onshape and model the joints that connect the fingers together and to the body.
-
-Note
-
-The Onshape document used in this tutorial is publicly available. The imported USD asset is located at `Samples/Rigging/Gripper/Robotiq 2F-85` to get started.
-
-## Rigging the Robot
-
-### Using Layers to Edit and Test an Asset
-
-All the rigid body, masses, and joint definition are done in [Onshape](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html#configuring-mates-for-physics). After they are imported to Isaac Sim, the asset contains basic joint information and rigid body setup. You must complete a few additional steps to make the asset fully functional.
-
-Instead of opening the original asset, edit the asset using **layers**. Layers allow for building a scene on top of a root asset and saving it without changing the underlying root layer assets. For example, you can add a ground plane and objects used to test the gripper, save the testing setup in the layers, while keeping the original gripper asset free of any extraneous items used for testing.
-
-1. Create a new stage without the reference added during import.
-2. Save this stage with the name `Robotiq_2F_85_config.usd` at the same folder as the imported assets (you can locate the source file in the Reference or Payload section on the Property panel, and click the “Locate file” icon).
-3. Open the layer tab and drag the `Robotiq_2F_85_edit.usd` in the **Root Layer**.
-
-There is also a file named `Robotiq_2F_85_base.usd` in the source folder. This is the clean stage post import from Onshape and must not be directly edited to facilitate updates when the asset is re-imported from Onshape.
-
-The *Authoring layer* is where changes are saved. To switch between layers, double-click on the choice.
-
-If changes are made in the wrong authoring layer, you can drag the prims with the delta between layers to merge them into the receiving layer. Use this to your benefit by first authoring everything in the Root layer. After you are satisfied, you can drag your updates to the `Robotiq_2F_85_edit.usd` layer.
-
-This is how the joints were named for this asset:
-
-Note
-
-Remember to combine parts that make rigid bodies on Group Mates before importing, to simplify the rigid bodies on stage (also useful for renaming the fingers to `left_finger_...` and `right_finger_...`).
-
-## Adjusting Joints Post Import
-
-Sometimes a limitation with the Onshape Client API causes the joints to become flipped 180 degrees from the drawing. To fix that, select the joints that are flipped, and apply an equal 180 degrees offset in Rotation 0 and Rotation 1 X axis. With the asset you imported, this was the case on the four joints.
-
-The joints `[left, right]_outer_finger_joint` require limits [0,180] and `[finger_joint, right_outer_knuckle_joint]` require limits [0, 75]. Leave all other joints unconstrained.
-
-Add fingertip physics material to increase the friction contact:
-
-1. Open the Menu **Create** > **Physics** > **Physics Material**.
-2. Select **Rigid Body Material**.
-3. Rename the material to `fingertip_material`.
-4. Set both friction coefficients to 0.8 (default rubber) and **Friction Combine Mode** `max`.
-5. Select `right_inner_finger` and `left_inner_finger`. In the **Property** tab, in **Materials on selected models** pick the created material.
-
-Note
-
-you may need to de-select instanceable for the two xforms in `right/left_inner_finger`, and set the physics materials on the mesh `Defeatured_2F_85_PAD_OPEN_fingertipsstep` directly.
-
-## Breaking the Articulation Loop
-
-If you try to simulate this asset now, you’ll get two big warnings on the screen:
-
-For more information, see [Physics Simulation Fundamentals](../physics/simulation_fundamentals.html#simulation-fundamentals). Articulations must be kinematic trees, but there is no need to delete any joints. To eliminate those warnings, you must choose one joint to exclude from the Articulation and have it be treated as a maximal coordinate joint. Because maximal coordinate joints are treated with a lower priority by the solver, it is the joint that accumulates the most error in simulation.
-
-In terms of simulation efficiency, the best choice of joint to exclude from articulation is the one that minimizes the length of articulations. However, you must also consider utility. The best joint to remove is the one that interferes the least with the robot functionality. In an ideal scenario, the joint to exclude from articulation only serves as a spatial constraint. Identify a joint with no limits, no resistance, and no drive. If there are no joints that meet this criterion, transfer these attributes to the adjacent joints before removing it from articulation.
-
-In the case of this gripper, the best options to remove from the articulation are the joints that connect the inner shafts to the gripper body (the `inner_knuckle_joint`, highlighted in orange in the image).
-
-1. To remove the joints from the articulation, select the `left_inner_knuckle_joint` and `right_inner_knuckle_joint` prims.
-2. In the Joint section under physics, select **Exclude From Articulation**.
-
-Note
-
-The fully completed asset is located in the `Samples/Rigging/Gripper/Robotiq 2F-85_complete` folder.
-
-## Preparing For Tests
-
-Because the gripper is not connected to anything to move it and test its physical properties, add a structure to later help us test the stability of the gripper:
-
-1. Create two Xforms and add the Rigid Body API to them.
-2. Add a fixed joint from world to the first Xform.
-3. Add a Prismatic Joint from the first Xform to the second Xform.
-4. Add a second prismatic joint from the second Xform to base\_link.
-5. Add a drive to the prismatic joints so that you can lift and move forward with a position command.
-6. In the drives set the following:
-
-   > * In the Advanced properties for the joint, set a maximum joint velocity of 5.0.
-   > * Set the joint limits to [0, 1].
-   > * In the joint drive, set the following:
-   >
-   >   > + Damping: 10000.0
-   >   > + Stiffness: 10000.0
-
-Make sure to move all joints that were just created outside of the Robotiq\_2f\_85 prim.
-
-To assist in checking the grip:
-
-1. Create a Cylinder and scale it to `[0.05, 0.05, 0.2]`.
-2. Place the cylinder at `X=0.12`.
-3. Set the cylinder collider to `Convex Hull`.
-4. Create a ground plane and move it to `Z=-0.1`.
-
-To assist in creating these prims, use the following script. You can run them by opening a Script Editor (**Window > Script Editor**) and pasting the code below.
-
-```python
-import omni.usd
-from pxr import Gf, PhysicsSchemaTools, PhysxSchema, Sdf, Usd, UsdGeom, UsdPhysics
-
-stage = omni.usd.get_context().get_stage()
-
-# Create Xform nodes
-xform = UsdGeom.Xform.Define(stage, "/World/Xform")
-xform_1 = UsdGeom.Xform.Define(stage, "/World/Xform_1")
-
-# Add Physics Rigid Body API to Xform nodes
-for node in [xform, xform_1]:
-    UsdPhysics.RigidBodyAPI.Apply(node.GetPrim())
-    mass_api = UsdPhysics.MassAPI.Apply(node.GetPrim())
-    mass_api.CreateMassAttr(0.1)
-
-# Create Fixed Joint from Xform to Xform_1
-fixed_joint = UsdPhysics.FixedJoint.Define(stage, xform.GetPath().AppendChild("fixed_joint"))
-fixed_joint.CreateBody1Rel().SetTargets([str(xform.GetPath())])
-
-# Create Prismatic Joints
-prismatic_joint_1 = UsdPhysics.PrismaticJoint.Define(stage, "/World/Joint_Z")
-prismatic_joint_1.CreateAxisAttr("Z")
-prismatic_joint_1.CreateLowerLimitAttr(0.0)
-prismatic_joint_1.CreateUpperLimitAttr(1.0)
-prismatic_joint_1.CreateBody0Rel().SetTargets([str(xform.GetPath())])
-prismatic_joint_1.CreateBody1Rel().SetTargets([str(xform_1.GetPath())])
-
-prismatic_joint_2 = UsdPhysics.PrismaticJoint.Define(stage, "/World/Joint_X")
-prismatic_joint_2.CreateAxisAttr("X")
-prismatic_joint_2.CreateLowerLimitAttr(0.0)
-prismatic_joint_2.CreateUpperLimitAttr(1.0)
-prismatic_joint_2.CreateBody0Rel().SetTargets([str(xform_1.GetPath())])
-prismatic_joint_2.CreateBody1Rel().SetTargets(
-    ["/World/Robotiq_2F_85/base_link"]
-)  # update this to match your robot's base_link prim path
-
-# Add Prismatic Joint Drive with damping and stiffness
-for joint in [prismatic_joint_1, prismatic_joint_2]:
-    drive = UsdPhysics.DriveAPI.Apply(joint.GetPrim(), "linear")
-    drive.CreateDampingAttr(10000)
-    drive.CreateStiffnessAttr(10000)
-    px_joint = PhysxSchema.PhysxJointAPI.Get(stage, str(joint.GetPath()))
-    px_joint.CreateMaxJointVelocityAttr().Set(5.0)
-
-# Add Ground Plane
-PhysicsSchemaTools.addGroundPlane(stage, "/World/groundPlane", "Z", 100, Gf.Vec3f(0, 0, -0.1), Gf.Vec3f(1.0))
-
-# Create cylinder mesh
-result, path = omni.kit.commands.execute("CreateMeshPrimCommand", prim_type="Cylinder")
-# Get the prim
-cylinder_prim = stage.GetPrimAtPath(path)
-cylinder_prim.GetAttribute("xformOp:scale").Set(
-    (0.05, 0.05, 0.2)
-)  # if your gripper is oriented differently, you may need to update the position and orientation of this cylinder or gripper accordingly to align them.  You can also do this post-creation.
-cylinder_prim.GetAttribute("xformOp:translate").Set((0.12, 0, 0))
-
-# Add Rigid Body and Mass API to cylinder
-cylinder_body = UsdPhysics.RigidBodyAPI.Apply(cylinder_prim)
-UsdPhysics.CollisionAPI.Apply(cylinder_prim)
-mesh_collision = UsdPhysics.MeshCollisionAPI.Apply(cylinder_prim)
-mesh_collision.CreateApproximationAttr().Set("convexHull")
-massAPI = UsdPhysics.MassAPI.Apply(cylinder_body.GetPrim())
-massAPI.CreateMassAttr(0.20)
-
-# Create a Physics Scene
-scene = UsdPhysics.Scene.Define(stage, Sdf.Path("/physicsScene"))
-physxSceneAPI = PhysxSchema.PhysxSceneAPI.Apply(scene.GetPrim())
-# This is a Small test scene, no need for GPU Dynamics
-physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
-```
-
-1. Set the target position for Joint X to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
-2. Set the target position for Joint Z to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
-3. Verify that you see the fingers ragdoll on the screen. It’s still necessary to Tune the Joint Drives for the fingers.
-
-You can see in the video below that the gripper will move forward and lift up.
-
-Until this point, if you start the simulation, you will see the fingers rotate freely, and also you will notice collision clipping between the fingers. This is because the fingers do not have drivers that tell them how to move, and because the finger components are connected with joints, there is a natural collision filter between them. This is normal and expected, and you fix it in the next sections.
-
-## Adding Joint Drives
-
-Add the Joint Drive API to all joints:
-
-1. Select all joints on the gripper, then, in the Properties panel, **Add** > **Physics** > **Angular Drive** (or **Linear Drive** for prismatic joints).
-
-   > * In this gripper, the joints that drive the fingers are `finger_joint` and `right_outer_knuckle_joint`.
-   > * Additionally, you have to flip the direction of `finger_joint` and `right_outer_knuckle_joint`, by setting the lower limit to -75, and the upper limit to 0.
-2. Select all the joints on the gripper, then, in the Properties panel, **Add** > **Physics** > **Joint State** (or **Joint State Linear** for prismatic joints).
-3. Model this gripper as a force-driven grasp. For that, position control must be disabled. Select `finger_joint` and `right_outer_knuckle_joint`, then set **Stiffness** to 10. The **Damping** is set to 0.1.
-4. To control how much pressure is applied when the grippers close, set the `Max Force` to 16.5 (N).
-
-   > * These grippers also have a maximum speed at which they can operate. Converting from the data sheet to angular speed at the fingertips, the angular limit speed is 130 degrees per second.
-5. In the joint section, under the **Advanced** tab, set the **Maximum Joint Velocity** to 130.0 (deg/s).
-
-Summarizing the changes:
-
-> * Maximum Joint Velocity: 130
-> * Max Force: 16.5 (N)
-> * Damping: 0.1
-> * Stiffness: 10
-
-When trying to control the fingers now, notice that they instantly bulge inwards instead of moving in parallel. The system still needs stability to maintain the parallel motion when closing without resistance.
-
-The Robotiq hand has a spring mechanism at the outer knuckle to keep the fingers parallel until an object is grasped.
-
-1. Set the stiffness of `[left, right]_inner_finger_joint` to 0.0002, damping to 0.00001 and max force to 0.5 (N) to achieve this behavior.
-
-## Adding Mimic Joint
-
-This gripper is controlled with a single input command that moves both fingers concurrently. This is achieved by combining the drive joints together with a Mimic Joint specification.
-
-1. Select `right_outer_knuckle_joint`.
-2. Remove or set all values to zero in the joint drive we just added.
-3. On the Properties Panel, click on **Add** > **Physics** > **Mimic Joint**.
-
-   > Note
-   >
-   > Because this is a single degree of freedom revolute joint, the schema axis is not relevant. The UI will show rotX as the default axis, despite the joint being defined in the Z axis.
-4. In the Mimic settings, set gearing to -1.0 to make it act in the opposite direction of the reference joint.
-5. Set the reference Joint to `finger_joint`.
-
-   > All drive features are copied over from the reference joint, and having an authored joint drive would negatively impact the drive outcome.
-   >
-   > Note
-   >
-   > The Rotation Axis for the mimic joint only makes a difference, if the joint where mimic is applied contains multiple Degrees of Freedom (for Example Spherical Joint). For Prismatic and Revolute joints any selection will work just the same. It is still recommended to maintain it aligned with the DOF axis.
-6. Run the simulation again.
-
-## Collision Meshes
-
-The default setting for collision meshes at import is Convex Hull. This is a good balance between performance and accuracy. However, for grippers, you often want the fingertips to have a collision mesh that closely follows the contour of the fingertip geometry, so that there won’t be any gaps between the fingertips and the objects being grasped.
-
-To visualize the collision meshes:
-
-1. Find the eye icon on top of the viewport, and click **Show By Type** > **Physics** > **Colliders** > **All**.
-2. Verify that outlines show up surrounding any objects that have collision meshes.
-3. Optionally, to change any collision meshes, select the part of the object associated with that mesh by clicking on it in the viewport, and then in the Physics section of the Property panel, change the Collider Approximation type to Convex Decomposition, or any other type that’s appropriate for your use case.
-4. If you don’t see a Physics or Collider section, then you might need to go down or up the stage tree from the selected item.
-5. The collision API can be applied to a nested child Xform, or the parent of the selected object.
-
-### Self-Collision
-
-During your tests you may notice that the fingers are not colliding against each other. This is the default behavior when importing from Onshape. To disable that:
-
-1. Select `/World/Robotiq_2F85`.
-2. Check **Self-Collision Enabled** in the Articulation Root Options.
-
-Note
-
-For more details on how to tune the articulation, refer to [Joint Parameter Tuning Example: 2F-85](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/dev_guide/guides/gripper_tuning_example.html).
-
-## Saving Results
-
-After you are satisfied with the configuration, push the changes to the original asset:
-
-1. Open the **Layer** tab.
-2. Select the `Robotiq_2F_85` prim, and all child prims in it.
-3. Drag the selection into `Robotiq_2F_85_edit.usd`.
-4. Click the **Save Layer** button on both Layers.
-
-Note
-
-The fully completed asset is located in the `Samples/Rigging/Gripper/Robotiq 2F-85_complete` folder.
-
-## Test the Gripper
-
-Now we can test the gripping by lifting the gripper and moving it forward, while closing the gripper to grasp the cylinder.
-
-1. Set the target position for
-   :   * Joint X to 0.1 in the property panel, by going to the Joint Drive section and setting the target position to 0.1.
-       * Joint Z to 0.1 in the property panel, by going to the Joint Drive section and setting the target position to 0.1.
-       * Finger joints to -40 degrees in the property panel, by going to the Joint Drive section and setting the target position to -40.
-
-You can see in the video below that the gripper will move forward and lift up.
-
-## Control the Gripper with OmniGraph
-
-We can also use an OmniGraph to control the gripper, by writing the target position of the finger joints directly in the graph.
-
-We have already prepared the graph in the `Samples/Rigging/Gripper/Robotiq 2F-85/Robotiq_2F_85_complete/Robotiq_2F_75_controller.usd` file, insert it as a layer to your Robotiq\_2F\_85\_config.usd layer.
-
-1. Open the **Layer** tab.
-2. Select the Insert Sub-Layer layer.
-3. Find the `Robotiq_2F_75_controller.usd` file in the `Samples/Rigging/Gripper/Robotiq 2F-85/Robotiq_2F_85_complete` folder, and click `Open`.
-
-Explaining the graph:
-
-In this graph, the upper and lower limits of the finger joints are used to calculate the range of motion of the gripper to map the input signal to the joint target position in degrees. The target position is set to the prim using the `Write Prim Attribute` (Write Target) node.
-
-Variables:
-
-> * `input_signal`: An input signal (float) where 1 means open the gripper and 0 means close the gripper.
-
-Nodes:
-:   * `Read Upper Limit` / `Read Lower Limit`: A node that reads the upper and lower limits of the finger joint.
-    * `Isaac Read Simulation Time`: A node that reads the simulation time, with reset on stop enabled.
-    * `On Playback Tick`: A node that ticks the graph on every frame.
-    * `Write Prim Attribute`: A node that writes the target position to the finger joint prim.
-
-Set the input signal to 0.5 and press the **Play** button to start the simulation. You should see the gripper move forward and lift up.
-
-Note
-
-The fully completed asset is located in the `Samples/Rigging/Gripper/Robotiq 2F-85_complete` folder.
-
-## Summary
-
-In this tutorial, you experienced a comprehensive workflow for importing assets from a rigged Onshape document, performed post-processing adjustments to enable correct simulation hierarchy, and configured effort drives with Mimic Joints. You conducted validation and troubleshooting to address simulation behavior issues, and optimized performance. Additionally, you utilized layered editing to prepare a ready-to-use asset while retaining a test environment for validating gripper functionality.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Getting Started](#getting-started)
-* [Rigging the Robot](#rigging-the-robot)
-  + [Using Layers to Edit and Test an Asset](#using-layers-to-edit-and-test-an-asset)
-* [Adjusting Joints Post Import](#adjusting-joints-post-import)
-* [Breaking the Articulation Loop](#breaking-the-articulation-loop)
-* [Preparing For Tests](#preparing-for-tests)
-* [Adding Joint Drives](#adding-joint-drives)
-* [Adding Mimic Joint](#adding-mimic-joint)
-* [Collision Meshes](#collision-meshes)
-  + [Self-Collision](#self-collision)
-* [Saving Results](#saving-results)
-* [Test the Gripper](#test-the-gripper)
-* [Control the Gripper with OmniGraph](#control-the-gripper-with-omnigraph)
-* [Summary](#summary)
-
----
-
-### Rig Mobile Robot
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig_mobile_robot.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 5: Rig a Mobile Robot
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 5: Rig a Mobile Robot
-
-If you built a robot inside Omniverse USD Composer or used importers that do not carry over joint information, you’ll need to rig the robot before it can move like an articulated robot and be controlled by Isaac Sim APIs. This involves defining the types of joints between the body parts and setting the parameters that governs the joints’ behavior, such as stiffness and damping. This tutorial covers step-by-step instruction on how to rig a forklift.
-
-## Learning Objectives
-
-In this tutorial, an unrigged forklift USD asset is turned into a forklift that can move and be driven by Isaac Sim commands.
-
-*30 Minutes Tutorial*
-
-## Getting Started
-
-**Prerequisite**
-
-* Complete the [Quick Tutorials](../introduction/quickstart_index.html#isaac-sim-intro-quickstart-series) series to learn the basic core concepts of how to navigate inside Isaac Sim.
-* Complete the [Assemble a Simple Robots](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) and [Adding Sensors and Cameras](tutorial_gui_camera_sensors.html#isaac-sim-app-tutorial-gui-camera-sensors) tutorials to learn the concepts of rigid body API, collision API, joints, drives, and articulations.
-
-**Reference USDs**
-
-We provide USD assets relating to this tutorial in [Isaac Sim Assets](../assets/usd_assets_overview.html#isaac-assets-overview), and can be found in the Content Browser.
-
-* Unrigged Forklift: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_unrigged_cm.usd`
-* Rigged Forklift: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_rigged_cm.usd`
-
-This tutorial guides you through the steps for going from file to file. The rigged assets serve as a reference for the final goal.
-
-## Rigging the Robot
-
-### Identify the Joints
-
-Before making any modifications to the asset, the first step of rigging a robot is to identify the joints on the robot, both actuated and unactuated ones. The joints govern how all the mesh components are organized, and identifying the type and their degrees of freedom (DOF) are key in making sure the robot moves as expected once rigged.
-
-For the forklift, there are seven DOF in total:
-
-* There are four smaller roller wheels at the front. They have unactuated, revolute joints, and each has one degree of freedom for rotation about a single axis.
-* The fork has linear motion relative to the main body of the forklift as it moves up and down to pick up objects stacked on the pellet, which means there is one actuated, prismatic joint between the fork and the body.
-* The bigger wheel at the rear end is responsible for propelling the forklift and turning it. There are two actuated joints related to this wheel:
-
-  > + A revolute joint that spins the wheel around its central axis to provide the forward and backward movement.
-  > + A revolute joint between the rear wheelbase and the forklift body that provides the pivot to turn the forklift.
-
-### Organize the Hierarchy
-
-Open the unrigged forklift asset from the Content Browser: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_unrigged_cm.usd`.
-Depending on the importer used and the original asset’s setup, the unrigged structure of the USD could have no hierarchy in terms of how parts are organized. It could have every single component listed independently on the stage tree. This makes it difficult to read and navigate, but more importantly, it does not define which objects are moving as a group and how these groups are related to each other.
-
-All meshes that are children of a parent prim are expected to move together when the parent prim moves. For example, the sticker and chains on the meshes are a part of the forklift body, and the entire body, no matter how many screws or blocks are used to make up the body, can be considered as a single link of this robot. Organize them all under a single parent ‘body’ prim. This ensures that when the ‘body’ moves, that all child parts that make up the body are moving together.
-
-To organize prims for the forklift:
-
-1. Create two XForms called `body` and `lift`.
-2. Move all the meshes that make up the forklift body under the `body` Xform, and the operator cab meshes under the `lift` Xform. For ease of use, the meshes provided in the USD file are sorted according to their hierarchy. All meshes above `Looks` are a part of the `lift` XForm. Meshes below `Looks` (Right Chain Wheel to Body Glass) are a part of the `body` XForm. Remaining are for the wheelbase and wheels.
-3. Create new Xforms for the `back wheel`, `back wheel swivel`, and separate prims for each of the front roller supports.
-4. Create a new Xform for each of the four front roller wheels. Name them `roller_front_left`, `roller_front_right`, `roller_back_left`, and `roller_back_right`. Move the correct lead wheel mesh and cylinder collider under them.
-5. Ensure that all the Xforms mentioned above have physics set to rigid body by clicking **Add** > **Physics > Rigid Body**.
-   :   Note
-
-       Rigid body prims cannot have children that are also rigid bodies.
-6. It is easier to set the joints if they align the frame of the Xform to the frames of the respective wheels. To do so, for each wheel, select the mesh, and in its property tab under **Transform**, there are two components `Translate` and `Translate:pivot`. The newly created Xform’s transform must be the sum of those two components. For example, if `translate` is at \(X=x\_1, Y=y\_1, Z=z\_1\), and `translate:pivot` is at \(X=x\_p, Y=y\_p, Z=z\_p\), then the transform of the newly created Xform must be set to: \(X = x\_1+ x\_p , Y = y\_1 + y\_p , Z = z\_1 + z\_p\).
-7. `Translate` of the wheel mesh needs to be set to the inverse of the `Translate:pivot` property of the corresponding mesh. For example, if `Translate` is \(X, Y, Z\) and `Translate:pivot` is \(X\_p, Y\_p, Z\_p\), so now, set the translate to \(-X\_p, -Y\_p, -Z\_p\).
-8. Move the corresponding mesh under the XForm, this will define the parent-child relationship between them.
-
-Verify that the resultant hierarchy looks like this:
-
-Note
-
-If you got stuck in this this section, review the Rigged Forklift from the Content Browser, `Isaac Sim/Samples/Rigging/Forklift/forklift_b_rigged_cm.usd`, for reference.
-
-### Assign Collision Meshes
-
-To ensure that the collision properties are set correctly for the meshes. If no collision properties are set, then as the robot moves, it can self penetrate depending on the joint configuration.
-
-**The correct collision meshes for the body and the lift are already set for the USD provided, so you do not need to set them up manually.** But for reference, the steps to set the collision for the `SM_Forklift_Body_B01_01` are:
-
-1. Select the `SM_Forklift_OperatorCab_B01_01` mesh under the `lift` Xform, right click and **Add > Physics > Collider Preset**. The default collision approximation is through Convex Hull, which can be found when you scroll under the property tab for the mesh selected and find the collision section.
-2. To visualize the colliders, click on the **eye** icon near the top right of the Viewport, select Show By **Type > Physics > Colliders > Selected**. Verify that you can see a Pink outline when you select the mesh that was just added to the collision. This approximation is not suitable because the collision region covers large areas that are not part of the fork and are regions that are necessary to allow other objects to exist.
-3. Different approximations can be used to define different collision meshes. To see this, select one of the meshes with a collision and navigate to the colliders section of its property pane. Select the **Convex Decomposition** approximation. Update the visualization for the collision mesh. Verify that the mesh generated, this time, covers more of the collidable surface because it has a tighter approximation. Try other approximations and to see what works best for you.
-
-Follow the same process for other meshes that interact with each other using joints. Set the **Convex Decomposition** approximation for the `SM_Forklift_BackWheelbase_B01_01` mesh that is a part of the swivel.
-
-The process for the wheels is a little different, any collision approximation that is not smooth and captures the exact shape and curvature of the wheel causes bumpy motion when attempting to drive the wheel. This can be avoided by using a cylinder to approximate the collision mesh.
-
-1. Go to **Create > Shape > Cylinder**.
-2. Set the scale to `X=0.16`, `Y=0.16`, ``` Z=0.08`,` and Orient along ``Y=90 ```.
-3. Right click and create four duplicates of this cylinder, one for each of the four front roller wheels.
-4. Drag the cylinders under the respective wheel’s Xform and change their transform about all axes to `0`. This aligns the cylinder axis and the Xform axis completely.
-5. Right click on the cylinder and **Add > Physics > Collider**.
-6. Following the same process for the back wheel, modify the cylinder scale to `X=0.3`, `Y=0.3`, `Z=0.1`, orient along `Y=90` because of its bigger size.
-
-All the appropriate collision meshes and properties are set up and you can move on to adding the joints.
-
-### Add Joints and Drives
-
-In this step, add appropriate joints for the Forklift.
-
-**Prismatic Joint**
-
-The first joint is the joint between the forklift body and the fork. It needs linear motion between the two bodies, and the fork must move up and down relative to the body of the forklift.
-
-1. Select the `lift` Xform and while holding the **Ctrl** key select the `body` Xform. While the two prims are highlighted, right click and **Create > Physics > Joints > Prismatic Joint**.
-2. Find the newly created prismatic joint, select it. Under the properties tab, set the axis to **Z** axis, this denotes that the linear motion between the two bodies is in along the Z-axis.
-3. Set the lower and upper limits for the joint in the **Property > Physics > Prismatic Joint** tab, for now set it to `-15` and `200`.
-4. Add a Linear Drive for this joint by left clicking on the joint, and selecting **Add > Physics > Linear Drive**.
-5. In the **Property > Physics > Drive > Linear** tab, set target position to `-15` so that the fork can start its initial position close to the ground, and set the Damping to `10000` and Stiffness to `100000`.
-6. Create a Scope by right clicking on the stage and name it `lift_joint`. Drag the prismatic joint under the scope.
-
-**Revolute Joints**
-
-For all the roller support wheels, create revolute joints:
-
-1. Select the `body` XForm, holding the **Ctrl** key select any of the roller wheel XForms. Right click **Create > Physics > Joint > Revolute Joint**. Verify that you see a Revolute joint added under the Xform for the wheel.
-2. Verify that the joints appear in the expected location. If not, make sure that the location of the joint matches the with the rotation axis of the wheel, and make sure to set the rotation axis to “X”.
-3. Follow the same process for the three remaining roller supports of the forklift.
-4. Create a Scope by right clicking on the stage and name it `roller_joints`. Drag the roller joints under the scope.
-
-Next, add the last two joints, which are responsible for driving and turning the forklift:
-
-1. Select the `back_wheel_swivel` and `back_wheel` XForms and add a revolute joint between them. The location of this joint must match with the center of the back wheel.
-2. Add an angular drive to this joint with the following properties: `Damping=10000`, `stiffness = 100`.
-3. Select the `body` and `back_wheel_swivel` XForm and add a revolute joint between them. Make sure the axis of rotation is set to `Z`.
-4. Change the axis of the joint to Z axis and lower with upper limits as `-60` and `60`, because this joint enables turning of the forklift. This is the range of the angles in degrees that the wheelbase would rotate.
-5. Add an angular drive with the following properties: Damping = 100, stiffness = 100000.
-6. Go to **Create > Scope**, name it `back_wheel_joints` and drag the rear wheel joints under the scope.
-7. Remember to add a Physics Scene and Ground Plane before pressing **Play**.
-
-### Add Articulations
-
-The last step is adding articulation to the Forklift and putting all the joints into a single articulation chain, which makes it easier for the physics solver when solving for articulated objects such as a robot. **This has already been added for the prim in the reference USD assets**. But if not, to put select and right click on the ‘SMV\_Forklift\_B01\_01’ Xform and **Add > Physics > Articulation Root**. Under properties, disable the **Self collision** check box.
-
-There are a few caveats for the placement of the articulation root.
-
-If you place the articulation root on the root Xform prim of the asset, which is the standard for all Isaac Sim assets, then the simulation automatically assigns the articulation root to a rigid body in the robot, which minimizes the depth of the articulation tree.
-
-However, if you want to manually determine the location of the articulation root, assign it to a rigid body component of the robot. It is recommended that you place the articulation root on the base or the chassis of a mobile robot or the fixed joint on a robotics arm.
-
-Verify that the asset you have is similar to the Rigged Forklift asset provided.
-
-### Converting Asset to a Different Unit
-
-The original asset is in centimeters. The asset is automatically converted to meters when it is added into a scene that is in meters (see [Metrics Assembler](https://docs.omniverse.nvidia.com/extensions/latest/ext_metrics_assembler.html "(in Omniverse Extensions)")). When the asset is added to a stage, it must match the Rigged Forklift in Meters asset provided.
-
-You can now try the Forklift, set the back wheel velocity to `-200` in the Angular Drive section for the joint. After pressing **play**, verify that you can see the forklift move forward.
-
-## Summary
-
-In this tutorial, you took an unrigged forklift USD asset:
-
-* organized its structure
-* added collision, joints, and drives
-* turned it into a forklift that can move and driven by Isaac Sim commands
-
-### Troubleshooting Tips
-
-If when playing the simulation or after some movements, your robot explodes, check if any of the collision meshes are colliding with each other.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Getting Started](#getting-started)
-* [Rigging the Robot](#rigging-the-robot)
-  + [Identify the Joints](#identify-the-joints)
-  + [Organize the Hierarchy](#organize-the-hierarchy)
-  + [Assign Collision Meshes](#assign-collision-meshes)
-  + [Add Joints and Drives](#add-joints-and-drives)
-  + [Add Articulations](#add-articulations)
-  + [Converting Asset to a Different Unit](#converting-asset-to-a-different-unit)
-* [Summary](#summary)
-  + [Troubleshooting Tips](#troubleshooting-tips)
-
----
-
-### Configure Manipulator
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_configure_manipulator.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 7: Configure a Manipulator
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 7: Configure a Manipulator
-
-## Learning Objectives
-
-This is the second manipulator tutorial in a series of four tutorials. This tutorial shows how to configure physics, joint effort limits, and gains for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq.
-
-*30 Minutes Tutorial*
-
-## Prerequisites
-
-* Review [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html) tutorial prior to beginning this tutorial. The steps here continue from the asset built in the previous tutorial.
-
-Note
-
-If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur_gripper/ur.usda`.
-We highly recommend downloading the prebuilt asset to your local machine for easier access.
-
-## Adjust the Articulation for Manipulation Tasks
-
-Adjust the articulation for the UR10e robot to make it more stable and accurate for manipulation tasks. Let’s first open the physx layer, and create a physx articulation root.
-
-1. Open the interface file, `ur.usda`, and select the layer lab on the top right corner
-2. Click “Insert Sublayer” icon at the bottom of the layer panel. (orange arrow with stacked layers icon)
-3. In the file dialog, navigate to `path/to/Manipulator/configure_manipulator/ur10e/ur_gripper/payloads/Physics/`, select `physx.usda`, and click **Open** to insert it as a sublayer.
-
-1. Left click on physx.usda layer, then right click to select “Set Authoring Layer”. Now all your changes will be saved to the physx.usda layer.
-
-1. In the Stage panel, select the **ur/Geometry/World** prim.
-2. In the Property Editor at the bottom right, scroll down to the **Physics/Articulation** section. If you do not see an Articulation(PhysX), create a new one by clicking the **add** > **Physics** > **Articulation(PhysX)**.
-3. Select **Articulation Enabled**.
-4. Increase the **Solver Position Iterations Count** to `64`.
-5. Increase the **Solver Velocity Iterations Count** to `4`.
-
-   Note
-
-   The **Solver Position Iterations Count** and **Solver Velocity Iterations Count** are used to control the accuracy of the simulation.
-
-   For a complex robot with many degrees of freedoms and mimic joints, increasing these values will make the simulation more accurate at the cost of performance.
-   See [articulation documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/Articulations.html#articulation-drive-stability) for more information.
-6. Decrease **Sleep Threshold** to `0.00005`, this lowers the threshold for the robot to go to sleep when it is not moving. see [rigid body dynamics documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/RigidBodyDynamics.html#sleeping) for more information.
-7. Decrease the **Stabilization Threshold** to `0.00001`, this lowers the threshold for the robot to start stabilizing itself when it is not moving. see [articulation documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/Articulations.html#articulation-drive-stability) for more information.
-8. Next to the physx.usda (Authoring Layer) label, click the blue files icon to save the changes to the physx.usda layer.
-9. Verify that in physx.usda layer, the Articulation(PhysX) prim is created and the properties are set correctly.
-
-```python
-over "Geometry"
- {
-     over "world" (
-         prepend apiSchemas = ["PhysxArticulationAPI"]
-     )
-     {
-         float physxArticulation:sleepThreshold = 0.00005
-         int physxArticulation:solverPositionIterationCount = 64
-         int physxArticulation:solverVelocityIterationCount = 4
-         float physxArticulation:stabilizationThreshold = 0.00001
-
-         over "base_link"
-         {
-             string isaac:nameOverride (
-                 displayName = "Name Override"
-             )
-         }
-     }
- }
-```
-
-Note
-
-See [PhysX Best Practice Guide](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/BestPractices.html#jointed-objects-are-unstable) for tuning the articulation for manipulation tasks.
-
-## Add Physics Materials
-
-Add physics materials to the robot gripper to make it more realistic and stable for manipulation tasks.
-
-1. Open the physics layer from the 2F-140 gripper asset from the last tutorial. It is located in the `configuration` folder with suffix `_physics`.
-
-   Note
-
-   If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/robotiq_2f_140/configuration/robotiq_2f_140_physics.usd`.
-2. Right click on the **robotiq\_arg2f\_140\_model** prim and select **Create** > **Physics** > **Physics Material**, select **Rigid Body Material**. This will add a physics material attribute to the gripper.
-3. In the properties panel, scroll down to the **Physics/Rigid Body Material** section and set the **static friction** to **1.0** and **dynamic friction** to **1.0**. For your robot, match the friction values to the robot’s surface friction coefficients.
-4. Apply the physics material to the gripper finger tip.
-   - Select the `colliders/left_inner_finger/mesh_1/box` and in the properties panel, scroll down to the **Physics/Physics material on selected Material** section.
-   - Select the **Physics Material** you just created at `/World/robotiq_arg2f_140_model/Looks/finger`.
-5. Repeat the same process for the `colliders/right_inner_finger/mesh_1/box` prim.
-
-Note
-
-See [Adding Props](../core_api_tutorials/tutorial_core_adding_props.html#isaac-sim-app-tutorial-core-adding-props) for more information on how to add physics materials to the robot.
-
-## Configure Joint Effort Limits
-
-In the physics layer of the robotiq\_arg2f\_140\_model asset from the previous step, let’s configure the joint effort limits for the gripper.
-
-1. In the **Stage** panel, select the `robotiq_arg2f_140_model/joints/finger_joint` prim. This is the joint that controls the gripper fingers, all other gripper joints are `Mimic` joints.
-2. In the **Property Editor** at the bottom right, scroll down to the `Drive/Angular/Max Force` section.
-3. Set the **Max Force** to `200`. This is the maximum force that can be applied to the gripper fingers. For your robot, match the max force to the robot’s joint torque limits.
-4. **Ctrl + S** to save the changes.
-
-Note
-
-When the max force is very high, you might need to increase the physics step frequency (`Time Step per Second`) to avoid penetration and instabilities.
-
-## Inspect the Robot Articulation
-
-Let’s inspect the robot articulation to verify the joint effort limits are applied correctly. Open the top level `ur` asset that you built in the previous tutorial.
-This asset references the physics layers that you modified, so all the changes you made to the physics layer will be reflected in this asset.
-
-Note
-
-You can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur_set_physx/ur.usda`.
-
-1. Open the **Physics Inspector** through **Tools** > **Physics** > **Physics Inspector**.
-2. Select the UR articulation in the stage, click on the circular arrow icon to refresh the articulation.
-3. Try changing the target position with the blue slider and verify that the DOF position reaches the target specified.
-4. Close the **Physics Inspector** window/panel (discarding any changes authored by this tool, if prompted).
-
-   Warning
-
-   Since the Physics Inspector partially initializes `omni.physx`, it is expected for general simulations to not behave properly when the tool is opened.
-
-## Summary
-
-In this tutorial, you learned how to configure the physics, joint effort limits, and gains for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq using the Gain Tuner.
-You added physics materials to the robot gripper to make it more realistic and stable for manipulation tasks.
-You inspected the robot articulation and tuned the gains for the robot and the gripper fingers joints using the Physics Inspector.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Adjust the Articulation for Manipulation Tasks](#adjust-the-articulation-for-manipulation-tasks)
-* [Add Physics Materials](#add-physics-materials)
-* [Configure Joint Effort Limits](#configure-joint-effort-limits)
-* [Inspect the Robot Articulation](#inspect-the-robot-articulation)
-* [Summary](#summary)
-
----
-
-### Generate Robot Config
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_generate_robot_config.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 8: Generate Robot Configuration File
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 8: Generate Robot Configuration File
-
-## Learning Objectives
-
-This is the third manipulator tutorial in a series of four tutorials. This tutorial will show you how to generate the robot configuration file for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq.
-These robot configuration files provide information about the robot’s kinematics, dynamics, and other properties that are used in RMPFlow and [cuMotion](https://nvidia-isaac.github.io/cumotion/) motion planners.
-
-*30 Minutes Tutorial*
-
-## Prerequisites
-
-* Review [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html) tutorial prior to beginning this tutorial, continue the following steps from the asset built in the previous tutorial.
-
-Note
-
-If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd`.
-
-## Generate Robot URDF
-
-Generate the robot URDF file from the UR10e robot and the 2F-140 gripper.
-
-### Enable the Isaac Sim USD to URDF Exporter Extension
-
-1. Go to **Window** > **Extensions**.
-2. Type **URDF** in the search box, and find the **Isaac Sim USD to URDF Exporter Extension**.
-3. If you can’t find it, remove the **@feature** filter from the search box.
-4. Enable the extension by clicking the toggle button labeled **ENABLE**.
-5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
-
-### Export the URDF File
-
-1. Open the `ur_gripper.usd` asset you made in the previous tutorial, or use the completed asset provided above.
-2. Click **File** > **Export URDF**.
-3. In File name on the bottom left corner, save the file name to `robot.urdf`.
-
-   Tip
-
-   Using `robot.urdf` matches the default `--urdf` value in the pick-and-place tutorial scripts, so you won’t need to pass `--urdf` explicitly when running them.
-4. In the **Mesh Directory Path** field, select the correct folder path to save the URDF meshes.
-5. Click **Export**.
-
-Note
-
-Learn more about the USD to URDF Exporter Extension in the [USD to URDF Exporter Extension](../importer_exporter/ext_omni_exporter_urdf.html#isaac-sim-app-extension-urdf-exporter) manual.
-
-## Generate Robot Description Files and Collision Spheres
-
-Generate the XRDF file and collision spheres for the UR10e robot and the 2F-140 gripper.
-
-### Enable the Robot Description Editor Extension
-
-1. Go to **Window** > **Extensions**.
-2. Search for `isaacsim.robot_setup.xrdf_editor` and find the **cuMotion/Lula Robot Description Editor** extension.
-3. If you can’t find it, remove the **@feature** filter from the search box.
-4. Enable the extension by clicking the toggle button labeled **ENABLE**.
-5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
-
-### Prepare the Robot Asset
-
-The Robot Description Editor does not support instanceable meshes. You must prepare the robot asset by disabling instanceable meshes.
-
-1. Open the `ur_gripper.usd` asset you made in the previous tutorial, or use the completed asset provided above.
-2. Select all `visuals` and `collisions` prims on the stage.
-3. In the **Property** panel, uncheck the **Instanceable** checkbox for each.
-
-   Hint
-
-   You can use the search feature to find the `visuals` and `collisions` prims by searching for `visuals` and `collisions` respectively.
-
-The **Instanceable** checkbox (highlighted in red) should be unchecked for all geometry prims.
-
-### Configure Joint Properties
-
-1. Press **Play** to start the simulation.
-2. Open the editor via **Tools** > **Robotics** > **cuMotion/Lula Robot Description Editor**.
-3. In the **Selection Panel**, set **Select Articulation** to the **ur** articulation prim path.
-4. In **Set Joint Properties**, assign each joint a **Joint Status**:
-
-   * Mark each Universal Robots arm joint as **Active Joint**. These joints are directly controlled by cuMotion.
-   * Keep the Robotiq 2F-140 gripper joints as **Fixed Joint**. cuMotion holds these joints at the specified default position.
-
-Important
-
-**Do not stop the simulation**, you will need it to generate the collision spheres.
-
-Pay attention to the default joint positions for fixed joints. They should match the initial pose defined in the manipulator USD, or you will need to reset the robot to those positions during task initialization.
-
-### Generate Collision Spheres
-
-Important
-
-**Do not stop the simulation** or exit the Robot Description Editor during this step, or you will need to redo the previous steps.
-
-Repeat the following for each link in the **ur** articulation, including gripper links:
-
-1. In the **Selection Panel**, select the link under **Select Link**. Use **upper\_arm\_link** as an example.
-2. In **Link Sphere Editor** > **Generate Spheres**, select a mesh from the **Select Mesh** dropdown (e.g. `/collisions/upperarm/mesh`).
-3. Set the **Radius Offset** and **Number of Spheres** (e.g. `0.03` and `8` respectively).
-4. Optionally adjust sphere positions by clicking and dragging them in the viewport.
-5. Click **GENERATE SPHERES**. The spheres will turn cyan when finalized.
-
-Suggested per-link sphere settings (ur10e + Robotiq 2F-140)
-
-For links with multiple mesh entries, generate spheres for each mesh and combine them on the same link.
-
-| Select Link | Number of Spheres | Radius Offset | Select Mesh |
-| --- | --- | --- | --- |
-| `/shoulder_link` | 1 | 0.03 | `/collisions/shoulder/mesh` |
-| `/upper_arm_link` | 8 | 0.03 | `/visuals/upperarm/mesh` |
-| `/forearm_link` | 8 | 0.03 | `/visuals/forearm/mesh` |
-| `/wrist_1_link` | 1 | 0.03 | `/visuals/wrist1/mesh` |
-| `/wrist_2_link` | 1 | 0.02 | `/visuals/wrist3/mesh` |
-| `/wrist_3_link` | 1 | 0.02 | `/visuals/wrist3/mesh` |
-| `/ee_link/robotiq_arg2f_base_link` | 1 | 0.02 | `/visuals/robotiq_arg2f_base_link/mesh` |
-| `/ee_link/left_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_knuckle/mesh` |
-| `/ee_link/left_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_finger/mesh` |
-| `/ee_link/left_inner_finger` | 2 | 0.02 | `/collisions/robotiq_arg2f_140_inner_finger/mesh` |
-| `/ee_link/right_inner_finger` | 2 | 0.02 | `/collisions/robotiq_arg2f_140_inner_finger/mesh` |
-| `/ee_link/left_inner_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_inner_knuckle/mesh` |
-| `/ee_link/right_inner_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_inner_knuckle/mesh` |
-| `/ee_link/right_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_knuckle/mesh` |
-| `/ee_link/right_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_finger/mesh` |
-
-Spheres generated for the upper\_arm\_link.
-
-Spheres generated for the full ur10e robot.
-
-General tuning tips
-
-* Size spheres to cover the link without being oversized — large spheres cause solver conservatism.
-* More spheres improves collision accuracy but reduces solver performance.
-* For long cylindrical links, generate spheres on the ends and use **Connect Spheres** to fill the middle evenly.
-* Use **Scale Spheres in Link** to resize spheres uniformly across a link.
-* The auto-generator requires water-tight triangle meshes. If it fails for a link, add and connect spheres manually.
-
-### Export to XRDF
-
-Important
-
-**Do not stop the simulation** before exporting.
-
-1. At the bottom of the Robot Description Editor, expand **Export To File** > **Export to cuMotion XRDF**.
-2. Click the file icon and specify the file name as `robot.xrdf`.
-3. Select the XRDF version to export (version 2.0 is recommended).
-4. Click **Save**. Save to the same directory as the robot URDF file.
-5. Stop the simulation after the file is exported.
-
-### Adding a Tool to the Robot Configuration
-
-[cuMotion](https://nvidia-isaac.github.io/cumotion/) requires a tool frame defined in the XRDF file. The tool frame is used to specify the end-effector frame for the robot.
-
-1. Open the `robot.xrdf` file in a text editor.
-2. Add the following line to the file:
-
-   ```python
-   tool_frames: ["wrist_3_link"]
-   ```
-
-See [Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) for more information on XRDF files and loading robot configurations into cuMotion.
-
-## Assemble the Robot Configuration Directory
-
-The pick-and-place tutorial scripts and the `load_cumotion_robot` API expect all robot configuration files to live in a single directory. After completing the export steps above, your directory should look like this:
-
-```python
-/path/to/robot/config/
-├── robot.urdf
-├── robot.xrdf
-├── rmp_flow.yaml
-└── meshes/
-    └── ...
-```
-
-Pass this directory to the tutorial scripts with `--xrdf-dir /path/to/robot/config`. For a full description of these files and how they are used by cuMotion, see the [Robot Configuration Files](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) section of the cuMotion tutorial.
-
-The `rmp_flow.yaml` file configures the RMPflow reactive motion controller. Save the text below in a file named `rmp_flow.yaml` and save it to the same directory as your `robot.urdf` and `robot.xrdf` files.
-
-rmp\_flow.yaml — RMPflow configuration example
-
-```python
-format: rmpflow
-api_version: 2.0
-
-joint_limit_buffers: [.01, .01, .01, .01, .01, .01]
-
-rmp_params:
-    cspace_target_rmp:
-        metric_scalar: 50.
-        position_gain: 100.
-        damping_gain: 50.
-        robust_position_term_thresh: .5
-        inertia: 1.
-    cspace_trajectory_rmp:
-        p_gain: 80.
-        d_gain: 10.
-        ff_gain: .25
-        weight: 50.
-    cspace_affine_rmp:
-        final_handover_time_std_dev: .25
-        weight: 2000.
-    joint_limit_rmp:
-        metric_scalar: 1000.
-        metric_length_scale: .01
-        metric_exploder_eps: 1e-3
-        metric_velocity_gate_length_scale: .01
-        accel_damper_gain: 200.
-        accel_potential_gain: 1.
-        accel_potential_exploder_length_scale: .1
-        accel_potential_exploder_eps: 1e-2
-    joint_velocity_cap_rmp:
-        max_velocity: 2.15
-        velocity_damping_region: 0.5
-        damping_gain: 300.
-        metric_weight: 100.
-    target_rmp:
-        accel_p_gain: 80.
-        accel_d_gain: 120.
-        accel_norm_eps: .075
-        metric_alpha_length_scale: .05
-        min_metric_alpha: .01
-        max_metric_scalar: 10000.
-        min_metric_scalar: 2500.
-        proximity_metric_boost_scalar: 20.
-        proximity_metric_boost_length_scale: .02
-        accept_user_weights: false
-    axis_target_rmp:
-        accel_p_gain: 200.
-        accel_d_gain: 40.
-        metric_scalar: 10.
-        proximity_metric_boost_scalar: 3000.
-        proximity_metric_boost_length_scale: .05
-        accept_user_weights: false
-    collision_rmp:
-        damping_gain: 50.
-        damping_std_dev: .04
-        damping_robustness_eps: 1e-2
-        damping_velocity_gate_length_scale: .01
-        repulsion_gain: 1000.
-        repulsion_std_dev: .01
-        metric_modulation_radius: .5
-        metric_scalar: 500.
-        metric_exploder_std_dev: .02
-        metric_exploder_eps: .001
-    damping_rmp:
-        accel_d_gain: 30.
-        metric_scalar: 50.
-        inertia: 100.
-
-canonical_resolve:
-    max_acceleration_norm: 50.
-    projection_tolerance: .01
-    verbose: false
-
-body_capsules:
-    - name: base_link
-      pt1: [0, 0, 0.22]
-      pt2: [0, 0, 0]
-      radius: .09
-
-body_collision_controllers:
-  - name: wrist_2_link
-    radius: .04
-  - name: wrist_3_link
-    radius: .04
-```
-
-## Summary
-
-In this tutorial, you have learned how to generate the robot configuration files for the UR10e robot and the 2F-140 gripper using the [Robot Description Editor](../manipulators/manipulators_robot_description_editor.html#isaac-sim-app-tutorial-motion-generation-robot-description-editor) and the [USD to URDF Exporter Extension](../importer_exporter/ext_omni_exporter_urdf.html#isaac-sim-app-extension-urdf-exporter) extensions. The resulting XRDF file can be loaded directly into cuMotion motion planners as described in [Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration).
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Generate Robot URDF](#generate-robot-urdf)
-  + [Enable the Isaac Sim USD to URDF Exporter Extension](#enable-the-isaac-sim-usd-to-urdf-exporter-extension)
-  + [Export the URDF File](#export-the-urdf-file)
-* [Generate Robot Description Files and Collision Spheres](#generate-robot-description-files-and-collision-spheres)
-  + [Enable the Robot Description Editor Extension](#enable-the-robot-description-editor-extension)
-  + [Prepare the Robot Asset](#prepare-the-robot-asset)
-  + [Configure Joint Properties](#configure-joint-properties)
-  + [Generate Collision Spheres](#generate-collision-spheres)
-  + [Export to XRDF](#export-to-xrdf)
-  + [Adding a Tool to the Robot Configuration](#adding-a-tool-to-the-robot-configuration)
-* [Assemble the Robot Configuration Directory](#assemble-the-robot-configuration-directory)
-* [Summary](#summary)
-
----
-
-### GUI Camera Sensors
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_gui_camera_sensors.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 4: Add Camera and Sensors to a Robot
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 4: Add Camera and Sensors to a Robot
-
-Isaac Sim provides a variety of sensors that can be used to sense the environment and robot’s state.
-This tutorial guides you through attaching a camera sensor to a mock robot, a process that can be generalized to other sensors.
-Details regarding the camera and other types of sensors can be found in our Advanced Tutorials and Sensor Extensions.
-
-## Learning Objectives
-
-This tutorial details how to:
-
-* Add cameras
-* Attach cameras to geometries
-
-## Prerequisites
-
-* Complete [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot).
-* Review the [introduction to camera frames and axes](../reference_material/reference_conventions.html#isaac-sim-cameras).
-
-Start this tutorial using the `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_rigged.usd` file provided, to have a standardized setup.
-
-## Adding a Camera
-
-To add a camera:
-
-1. Go to the Menu Bar and select **Create > Camera**. A camera appears on the stage tree, and a grey wireframe representing the camera’s view appears on the stage.
-2. You can move and rotate the camera’s transform just like any other objects on the stage.
-
-Note
-
-The camera icon is hidden by default in the viewport. To see the camera icon, go to the **eye** menu on the top edge of the viewport, and select **Show By Type > Cameras**. The camera icon appears in the viewport.
-
-You can also add a camera by moving the current view in the viewport to a view of your choosing, and then go to the **Camera** button on the upper left hand corner of the viewport display, and select **Camera > Create from View**.
-A new camera appears on the Stage tree, and the list of cameras that can be selected in the **Camera** button is provided.
-
-## Inspect the Camera
-
-Use the [Camera Inspector Extension](../sensors/isaacsim_sensors_camera.html#isaac-sim-app-tutorial-camera-inspector-extension) to inspect the camera image and modify the camera’s states as needed.
-
-1. Select **Tools > Robotics > Camera Inspector**.
-2. Verify that you can see the camera in the dropdown. Click the **Refresh** button to find new cameras.
-3. Select the camera you want to inspect. Create new viewports if necessary, and get and set camera poses as needed.
-
-## Attach a Camera to Robot
-
-1. Rename the newly added camera to `car_camera`.
-2. It is easier to place the camera if you can see the desired camera input stream and where it is relative to the robot from an outside camera.
-   Open up a second viewport window by going to the Menu Bar and click **Window > Viewports > Viewport 2**. A new viewport appears. Dock it wherever you’d like.
-3. Keep one of the viewports in **Perspective** camera view, and change the other one to *car\_camera* view. Find the **Cameras** menu on the top edge of the viewport, and switch to **Camera > car\_camera**.
-4. Validate that you have a view of the onboard camera and an overview of the scene.
-5. Attach the camera to the robot’s body by dragging the prim under `body`. The camera moves together with the body. You may need to switch the camera view for the viewport again.
-6. Point the camera slightly down and make it face forward so you can see the car and the ground. Set the camera transform translation to `x=-6,y=0,z=2.2`, orientation to `x=0,y=-80,z=-90`, and scale to `x=1,y=1,z=1`.
-7. Verify that you see the viewport showing the onboard camera view splitting the window between the robot’s body and the ground and the relative position and orientation of the camera to the robot in the *Perspective* camera viewport.
-8. Press **Play**. The camera onboard the robot moves with the robot.
-
-A similar strategy is used to apply other onboard sensors.
-
-Note
-
-If the view of the camera is moved while displaying, it changes the camera’s properties. Instead, affix a prim to the parent with the correct offset and affix the camera to that new prim. Then, if the camera position is accidentally moved, it can be reset by zeroing all its position and orientation parameters relative to the prim, which cannot be easily changed.
-
-## Summary
-
-In this tutorial, you learned how to use the Camera Inspector Extension. Additionally, you also learned how to add a camera to the robot.
-
-### Next Steps
-
-* Continue on to [Omniverse Script Editor](../development_tools/omniverse_script_editor.html#isaac-sim-app-omniverse-script-editor) to learn how to run Python APIs inside the GUI.
-* For rigging a more complex robot, go to [Tutorial 5: Rig a Mobile Robot](rig_mobile_robot.html#isaac-sim-app-tutorial-advanced-rigging-robot).
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Adding a Camera](#adding-a-camera)
-* [Inspect the Camera](#inspect-the-camera)
-* [Attach a Camera to Robot](#attach-a-camera-to-robot)
-* [Summary](#summary)
-  + [Next Steps](#next-steps)
-
----
-
-### GUI Simple Robot
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_gui_simple_robot.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 3: Articulate a Basic Robot
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 3: Articulate a Basic Robot
-
-NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverse™ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
-
-You will rig a basic “robot” with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
-
-This is not needed for robots that are imported from [Importing your Onshape Document](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html#isaac-onshape-importer-tutorials-importing "(in Omniverse Extensions)") or [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer), these are important concepts to understand for tuning your robots and assembling objects with articulations.
-
-## Learning Objectives
-
-This tutorial details how to rig a two-wheel mobile robot and covers how to:
-
-* Organize stage tree hierarchy
-* Add joints between two rigid bodies
-* Add joint drives and joint properties
-* Add articulations
-* Move the robot via a Articulation Velocity Controller
-
-## Prerequisites
-
-* Complete [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot).
-* Or load the checkpoint asset provided in the Content Browser at `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_no_joints`. Do not load it as a reference because you must make permanent modifications to the file.
-
-## Add Joints
-
-1. If you are continuing from the GUI Tutorials and have your own `mock_robot.usd` saved, open it using **File > Open**. Otherwise, load the asset provided in the Content Browser at `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_no_joints`. Do not load it as a reference because you must make permanent modifications to the file.
-2. For organization, create a Scope to store the joints by right clicking **Create > Scope**, rename it to **Joints**.
-3. To add a joint between two bodies, you must first select them both. Begin by clicking on the body and wheel parent transforms in the context tree window. For our mock robot, select the the cube object `body`, then while holding `Ctrl`, select the cylinder object `wheel_left`.
-4. With both bodies highlighted, right-click and select **Create > Physics > Joints > Revolute Joint**. `RevoluteJoint` appears under `wheel_left` on the stage tree. Rename it to `wheel_joint_left`.
-5. Verify in the **Property** tab that **body0** is `/mock_robot/body/body` (the cube) and **body1** is `/mock_robot/wheel_left/wheel_left` (the cylinder).
-6. Set the X axis of the joint to **Local Rotation 0** to `0.0` and **Local Rotation 1** to `-90.0` to account for the transformation between the body and the cylinder. This is because the cylinder is rotated 90 degrees in the X axis compared to the body.
-7. Change the **Axis** of the joint to **Y**. Because there is no local rotation `0` for the robot, the joint is in the same pose as the body.
-8. For organization, drag the joint you just created into the **Joints** scope.
-9. Repeat the previous five steps with the right wheel joint.
-
-Before the joints were added, the three rigid bodies fell to the ground separately after pressing **Play**. Now that there are joints attached, the bodies fall as if they are connected.
-To see that they move together like they are connected with revolute joints, you can drag the robot around by holding down the `Shift` key and clicking and dragging on any part of the robot in the viewport.
-
-## Add a Joint Drive
-
-Adding the joint adds the mechanical connection. To be able to control and drive the joints, you must add a joint drive API.
-Select both joints and click the `+ Add` button in the **Property** tab, and select **Physics > Angular Drive** to add drive to both joints simultaneously.
-
-* **Position Control:** For position controlled joints, set a high stiffness and relatively low or zero damping.
-* **Velocity Control:** For velocity controller joints, set a high damping and zero stiffness.
-
-For joints on a wheel, it makes more sense to be velocity controlled, so set both wheels’ **Damping** to **1e4** and **Target Velocity** to **200** **rad/s**.
-If you are working with joints with limited range, those can be set in the **Property** tab, under the **Raw USD Properties > Lower (Upper) Limit**.
-Press **Play** to see the mock mobile robot drive off.
-
-## Add Articulation
-
-Even though directly driving the joints can move the robot, it is not the most computationally efficient way. Making things into *articulations* can achieve higher simulation fidelity, fewer joint errors, and can handle larger mass ratios between the jointed bodies. For more information on the physics simulation behind it, see [Physics Core: Articulation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/articulations.html "(in Omni Physics)").
-
-To turn a series of connected rigid bodies and joints into articulation, set an *articulation root* to anchor the articulation tree. According to instructions on defining articulation trees in [Physics Core: Articulation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/articulations.html "(in Omni Physics)"):
-
-> > > For a fixed-base articulation, add the Articulation Root Component either to:
-> >
-> > * the fixed joint that connects the articulation base to the world.
-> > * an ancestor of the fixed joint in the USD hierarchy. This allows creating multiple articulations from a single root component added to the scene.
->
-> Each descendant fixed joint defines an articulation base link.
->
-> > > For a floating-base articulation, add the Articulation Root Component to either:
-> >
-> > * the root rigid-body link
-> > * an ancestor of the root link in the USD hierarchy
-
-For this tutorial, add the articulation root to the robot:
-
-1. Select `mock_robot` on the tree.
-2. Open **+ Add** in the **Property** tab.
-3. Add **Physics > Articulation Root**.
-
-Validate that the resulting robot matches the asset that is provided in the Content Browser at `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_rigged`.
-
-## Add Controller
-
-After the joints are part of an articulation, you can use tools to test the robot’s movement.
-
-1. Create another scope by right clicking **Create > Scope**, rename it to **Graphs**. This will be used to store the ActionGraphs.
-2. Drag the **Graphs** scope under the `mock_robot` Xform in the stage tree.
-3. Go to **Tools > Robotics > OmniGraph Controllers > Joint Velocity** to add a velocity controller graph to the stage. This graph will allow you to control the robot’s movement by setting the target velocity for each joint.
-4. Click the **Add** button for “Robot Prim” and select the prim with the Articulation Root API, in this case, it’s `/mock_robot`.
-5. For Graph Path, write `mock_robot/Graphs/Velocity_Controller` to place the ActionGraph in the **Graphs** scope above.
-6. Click **OK** to create the graph.
-7. To move the robot, press **Play** to start the simulation. If you have any default position or velocity targets set, the robot starts moving towards those targets immediately. To change the joint commands, select the `JointCommandArray` on the stage tree under **/Graphs/velocity\_controller**, and change the parameters `input0` and `input1` in the properties window.
-
-Note
-
-The articulation controllers use **radians**, the default USD properties you find under Drive API when you select the individual joints on the stage tree are in **degrees**.
-
-For this particular robot, it can also be controlled using a Differential Controller. For more information about OmniGraph Controller shortcuts, go to [Commonly Used OmniGraph Shortcuts](../omnigraph/omnigraph_shortcuts.html#isaac-sim-app-tutorial-advanced-omnigraph-shortcuts).
-
-Note
-
-The Differential Controller outputs wheel velocities in left-wheel, right-wheel order. In the Articulation Controller joint names or indices array, place `wheel_joint_left` before `wheel_joint_right`.
-
-## Summary
-
-In this tutorial, you learned to connect rigid bodies using joints, add a joint drive to control the joints, turn a chain of joints into an articulation, and control the robot using an Articulation Velocity Controller.
-
-By the end of this tutorial, you have a robot with a body and two wheels, similar to the `mock_robot_rigged` asset, located in the `Samples/Rigging/MockRobot` folder.
-
-### Next Steps
-
-* Continue on to [Tutorial 4: Add Camera and Sensors to a Robot](tutorial_gui_camera_sensors.html#isaac-sim-app-tutorial-gui-camera-sensors) to learn how to add a camera to the car.
-
-### Further Reading
-
-[Physics Core](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html "(in Omni Physics)") for more details regarding joints and articulations.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Add Joints](#add-joints)
-* [Add a Joint Drive](#add-a-joint-drive)
-* [Add Articulation](#add-articulation)
-* [Add Controller](#add-controller)
-* [Summary](#summary)
-  + [Next Steps](#next-steps)
-  + [Further Reading](#further-reading)
-
----
-
-### Import & Assemble Manipulator
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_import_assemble_manipulator.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 6: Setup a Manipulator
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 6: Setup a Manipulator
-
-## Learning Objectives
-
-This is the first manipulator tutorial in a series of four tutorials. This tutorial shows how to import the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq into NVIDIA Isaac Sim from URDF files and connect them together under one articulation.
-
-*30 Minutes Tutorial*
-
-Isaac Sim always uses Python 3.12, so the UR description package and any ROS packages used in this tutorial must be available in a Python 3.12 environment. How you obtain the package depends on your platform:
-
-* **Ubuntu 24.04 + ROS 2 Jazzy** — install the prebuilt `ros-jazzy-ur-description` apt package; the system Python (3.12) already matches Isaac Sim.
-* **Ubuntu 22.04 + ROS 2 Humble or Jazzy** — the system Python is 3.10, so the workspace must be cloned and rebuilt against Python 3.12 using the included `build_ros.sh` script.
-* **Windows + Pixi-based ROS 2 Jazzy** — add the UR description package to your Pixi environment (`pixi add ros-jazzy-ur-description`); Pixi-managed ROS 2 Jazzy already runs on Python 3.12. See [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Pixi setup. WSL2 is not supported for the ROS-based URDF import workflow — use the prebuilt USD files in the content browser instead.
-
-Attention
-
-ROS 2 Humble on Windows (Pixi) is not a supported configuration for this tutorial. On Windows, only ROS 2 Jazzy with Pixi is supported. Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written.
-
-Verify or choose your configuration in the **Build Environment** banner at the top of this page to see the steps for your setup. Your selection drives the platform-specific commands throughout the rest of this page.
-
-.config-selector {
-position: fixed;
-top: var(--pst-header-height, 60px);
-left: 0;
-right: 0;
-z-index: 1020;
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-justify-content: center;
-gap: 12px 18px;
-background-color: var(--pst-color-surface, rgba(248, 249, 250, 0.95));
-border-bottom: 1px solid var(--pst-color-border, var(--color-border, #dee2e6));
-border-radius: 0;
-padding: 10px 24px;
-margin: 0;
-box-shadow: 0 4px 12px var(--pst-color-shadow, rgba(0,0,0,0.08));
-backdrop-filter: saturate(180%) blur(6px);
--webkit-backdrop-filter: saturate(180%) blur(6px);
-}
-[data-theme="dark"] .config-selector {
-background-color: var(--pst-color-surface, rgba(30, 30, 30, 0.92));
-border-color: var(--pst-color-border, #404040);
-box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-.config-selector h3 {
-display: inline-block;
-margin: 0 16px 0 0;
-color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
-font-size: 0.95em;
-font-weight: 600;
-vertical-align: middle;
-}
-[data-theme="dark"] .config-selector h3 {
-color: var(--pst-color-text-base, #ffffff);
-}
-.config-options {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-gap: 10px 18px;
-align-items: center;
-}
-.config-row {
-display: flex;
-flex-direction: row;
-align-items: center;
-gap: 8px;
-}
-.config-label {
-font-weight: 600;
-color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
-font-size: 13px;
-white-space: nowrap;
-}
-[data-theme="dark"] .config-label {
-color: var(--pst-color-text-base, #ffffff);
-}
-.config-buttons {
-display: flex;
-flex-wrap: wrap;
-gap: 6px;
-}
-.config-btn {
-padding: 5px 10px;
-border: 2px solid var(--pst-color-border, var(--color-border, #dee2e6));
-border-radius: 6px;
-background-color: var(--pst-color-surface, var(--color-background-primary, #ffffff));
-color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
-font-size: 12px;
-font-weight: 500;
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-cursor: pointer;
-transition: all 0.2s ease-in-out;
-white-space: nowrap;
-user-select: none;
-outline: none;
-}
-[data-theme="dark"] .config-btn {
-border-color: var(--pst-color-border, #404040);
-background-color: var(--pst-color-surface, #2d2d2d);
-color: var(--pst-color-text-base, #cccccc);
-}
-.config-btn:hover {
-border-color: var(--pst-color-primary, var(--color-brand-primary, #0d6efd));
-background-color: var(--pst-color-primary-bg, var(--color-background-hover, #e9ecef));
-color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
-}
-[data-theme="dark"] .config-btn:hover {
-border-color: #666666;
-background-color: #3d3d3d;
-color: #ffffff;
-}
-.config-btn.active {
-border-color: #76b900;
-background-color: #76b900;
-color: #ffffff;
-font-weight: 600;
-}
-.config-btn.active:hover {
-border-color: #669900;
-background-color: #669900;
-color: #ffffff;
-}
-.config-btn:focus {
-box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.2);
-}
-.config-content {
-transition: opacity 0.3s ease-in-out;
-}
-.config-content.hidden {
-display: none;
-}
-@media (max-width: 768px) {
-.config-selector {
-padding: 8px 10px;
-}
-.config-options {
-flex-direction: column;
-align-items: stretch;
-gap: 8px;
-}
-}
-@media print {
-.config-selector {
-position: static;
-backdrop-filter: none;
-}
-}
-
-### Build Environment
-
-Platform:
-
-LinuxWindows
-
-Ubuntu Version:
-
-Ubuntu 24.04Ubuntu 22.04
-
-Ros Distro:
-
-JazzyHumble
-
-document.addEventListener('DOMContentLoaded', function() {
-const buttons = document.querySelectorAll('.config-btn');
-const contents = document.querySelectorAll('.config-content');
-// Returns the active value for each visible config row.
-// Rows hidden by a data-show-when dependency are excluded so their
-// value does not accidentally filter out content blocks.
-function getCurrentConfig() {
-const config = {};
-const buttonGroups = document.querySelectorAll('.config-buttons');
-buttonGroups.forEach(group => {
-const row = group.closest('.config-row');
-if (row && row.style.display === 'none') return;
-const activeBtn = group.querySelector('.config-btn.active');
-if (activeBtn) {
-config[group.dataset.configKey] = activeBtn.dataset.value;
-}
-});
-return config;
-}
-// Show or hide config rows that have a data-show-when dependency.
-// Must be called before updateVisibility() so getCurrentConfig() is correct.
-function updateRowVisibility() {
-const config = getCurrentConfig();
-document.querySelectorAll('.config-row[data-show-when]').forEach(row => {
-try {
-const showWhen = JSON.parse(row.dataset.showWhen || '{}');
-const visible = Object.entries(showWhen).every(([k, v]) => config[k] === v);
-row.style.display = visible ? '' : 'none';
-} catch (e) {
-console.warn('Error parsing data-show-when for row:', e);
-}
-});
-}
-function updateVisibility() {
-const currentConfig = getCurrentConfig();
-contents.forEach(content => {
-try {
-const conditions = JSON.parse(content.dataset.conditions || '{}');
-const shouldShow = Object.entries(conditions).every(
-([key, value]) => currentConfig[key] === value
-);
-if (shouldShow) {
-content.classList.remove('hidden');
-content.style.display = 'block';
-} else {
-content.classList.add('hidden');
-content.style.display = 'none';
-}
-} catch (e) {
-console.warn('Error parsing conditions for content block:', e);
-}
-});
-}
-// Add click event listeners to buttons
-buttons.forEach(button => {
-button.addEventListener('click', function() {
-this.parentNode.querySelectorAll('.config-btn').forEach(s => s.classList.remove('active'));
-this.classList.add('active');
-// Row visibility must be updated before content visibility.
-updateRowVisibility();
-updateVisibility();
-});
-button.addEventListener('keydown', function(e) {
-if (e.key === 'Enter' || e.key === ' ') {
-e.preventDefault();
-this.click();
-}
-});
-});
-const banner = document.querySelector('.config-selector');
-// Position the banner just below whatever is currently pinned to
-// the top of the viewport (PyData navbar + version-warning + any
-// announcement). Recomputed on scroll/resize so the banner shifts
-// down when the version-warning is visible and up after it scrolls
-// out of view.
-const topElements = [
-document.querySelector('.bd-header-announcement'),
-document.querySelector('#bd-header-version-warning'),
-document.querySelector('.bd-header.navbar'),
-].filter(Boolean);
-// Element that holds article content; padded down so its content
-// is never overlapped by the fixed banner regardless of wrap.
-const contentRoot = document.querySelector('.bd-main') ||
-document.querySelector('main') ||
-document.body;
-function updateBannerTop() {
-if (!banner) return;
-let bottom = 0;
-topElements.forEach(el => {
-const rect = el.getBoundingClientRect();
-if (rect.bottom > bottom) bottom = rect.bottom;
-});
-banner.style.top = Math.max(0, bottom) + 'px';
-}
-function updateContentOffset() {
-if (!banner || !contentRoot) return;
-const h = banner.offsetHeight;
-contentRoot.style.paddingTop = h + 'px';
-// Anchor links should land below the banner, not behind it.
-document.documentElement.style.scrollPaddingTop = (h + 16) + 'px';
-}
-if (banner && 'ResizeObserver' in window) {
-new ResizeObserver(() => {
-updateContentOffset();
-updateBannerTop();
-}).observe(banner);
-}
-window.addEventListener('resize', () => {
-updateContentOffset();
-updateBannerTop();
-});
-window.addEventListener('scroll', updateBannerTop, { passive: true });
-// Initial update
-setTimeout(function() {
-updateRowVisibility();
-updateVisibility();
-updateContentOffset();
-updateBannerTop();
-}, 100);
-// Watch for theme changes
-});
-
-## Prerequisites
-
-* If you are new to NVIDIA Isaac Sim, complete the [Wheeled Robot Set Up Tutorials](tutorial_intro_environment_setup.html#isaac-sim-app-tutorial-intro-environment-setup) tutorial prior to beginning this tutorial.
-* Review the ROS 2 installations [ROS 2 Installation (Default)](../installation/install_ros.html#isaac-sim-app-install-ros) prior to beginning this tutorial.
-* Review the URDF importer [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) tutorial.
-* In a ROS sourced terminal, install xacro for your selected configuration (see the **Build Environment** banner at the top of the page):
-
-  ```python
-  sudo apt install ros-$ROS_DISTRO-xacro
-  ```
-
-  ```python
-  pixi add ros-$ROS_DISTRO-xacro
-  ```
-
-  Attention
-
-  ROS 2 Humble on Windows (Pixi) is not a supported configuration. Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written.
-* Locate the `import_manipulator` folder in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/`.
-
-## Build and Install the UR Description Package
-
-Follow the steps for the configuration you selected in the **Build Environment** selector at the top of this page.
-
-Install the prebuilt UR description package and source ROS 2 Jazzy:
-
-```python
-sudo apt install ros-jazzy-ur-description
-source /opt/ros/jazzy/setup.bash
-```
-
-Then launch Isaac Sim from the same terminal:
-
-```python
-./isaac-sim.sh
-```
-
-On Ubuntu 22.04, the system Python (3.10) does not match the Python 3.12 used by Isaac Sim, and the UR description package is not natively available for Python 3.12. Clone the package and rebuild it with the included `build_ros.sh` script.
-
-Note
-
-See [Isaac Sim ROS Workspaces](../installation/install_ros.html#isaac-sim-ros-workspace) for more information on setting up your custom ROS 2 package in your ROS workspace.
-
-1. Change into your Isaac Sim ROS Workspace, then into the distro-specific workspace’s `src` folder:
-
-   ```python
-   cd <path to Isaac Sim ROS Workspace>
-   cd jazzy_ws/src
-   ```
-
-   ```python
-   cd <path to Isaac Sim ROS Workspace>
-   cd humble_ws/src
-   ```
-2. Clone the branch of the [Universal Robots ROS 2 Description repository](https://github.com/UniversalRobots/Universal_Robots_ROS2_Description) that matches your ROS distribution:
-
-   ```python
-   git clone --branch jazzy https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
-   ```
-
-   ```python
-   git clone --branch humble https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
-   ```
-3. Return to the Isaac Sim ROS Workspace root and build against Python 3.12:
-
-   ```python
-   cd ../..
-   ./build_ros.sh
-   ```
-4. Source the Python 3.12 ROS environment and launch Isaac Sim.
-
-   ```python
-   source build_ws/jazzy/jazzy_ws/install/local_setup.bash
-   source build_ws/jazzy/isaac_sim_ros_ws/install/local_setup.bash
-   ./isaac-sim.sh
-   ```
-
-   ```python
-   source build_ws/humble/humble_ws/install/local_setup.bash
-   source build_ws/humble/isaac_sim_ros_ws/install/local_setup.bash
-   ./isaac-sim.sh
-   ```
-
-Attention
-
-ROS 2 Humble on Ubuntu 24.04 is not an officially supported configuration in [ROS 2 Installation (Default)](../installation/install_ros.html#isaac-sim-app-install-ros). Switch to ROS 2 Jazzy on Ubuntu 24.04, or move to ROS 2 Humble on Ubuntu 22.04, to follow this tutorial as written.
-
-On Windows, the URDF import workflow in this tutorial is supported only with a [Pixi-based](https://pixi.sh/) ROS 2 Jazzy installation. Follow [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Windows ROS 2 setup and to install or build the UR description package against the Pixi environment. If you are using WSL2, skip the ROS-based import steps and use the prebuilt USD files in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/`.
-
-Attention
-
-ROS 2 Humble on Windows (Pixi) is not a supported configuration in [ROS 2 Installation (Default)](../installation/install_ros.html#isaac-sim-app-install-ros). Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written. If you need to use the UR10e on Windows without ROS, use the prebuilt USD files in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/`.
-
-## Import the UR10e Robot
-
-### Enable the ROS 2 Robot Description URDF Importer Extension
-
-1. Go to `Window` > `Extensions`.
-2. Type `URDF` in the search box, and find the `ROS 2 Robot Description URDF Importer Extension`.
-3. If you can’t find it, remove the `@feature` filter from the search box.
-4. If you still can’t find it, make sure Isaac Sim was launched from the same terminal where ROS was sourced.
-5. Enable the extension by clicking the toggle button labeled `ENABLE`.
-6. Check the box for `AUTOLOAD`, just to the right of `ENABLE`.
-
-### Launch the URDF Publisher Topic
-
-1. Open a new terminal with a **native** ROS 2 environment, source ROS 2 for your configuration, and launch the UR10e description.
-
-   Important
-
-   Do not reuse the Python 3.12 `build_ws` shell used to launch Isaac Sim above. The `build_ws` paths exist only to source the matching ROS 2 bridge into Isaac Sim; for `ros2 launch` commands, use your OS-native ROS 2 install (or a Docker container for distros that are not natively available on your OS).
-
-   ```python
-   source /opt/ros/jazzy/setup.bash
-   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
-   ```
-
-   Source your native ROS 2 Humble install. If `ur_description` is not already available, install it from apt:
-
-   ```python
-   sudo apt install ros-humble-ur-description
-   source /opt/ros/humble/setup.bash
-   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
-   ```
-
-   Alternatively, build `ur_description` natively (Python 3.10) into `humble_ws` with `colcon build`, then source `humble_ws/install/local_setup.bash` instead of using the apt package.
-
-   ROS 2 Jazzy is not natively available on Ubuntu 22.04, so run the launch command from a ROS 2 Jazzy Docker container with `jazzy_ws` mounted and built natively. Follow [Running ROS in Docker Containers](../installation/install_ros_other_platforms.html#isaac-ros-docker-other-platforms) to start an `osrf/ros:jazzy-desktop` container, build `jazzy_ws` inside it, then from inside the container run:
-
-   ```python
-   source /jazzy_ws/install/local_setup.bash
-   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
-   ```
-
-   Activate the Pixi environment, then run:
-
-   ```python
-   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
-   ```
-
-   Attention
-
-   ROS 2 Humble on Windows (Pixi) is not a supported configuration. Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written.
-2. Verify that you see a window similar to the image below:
-3. Set up one more terminal for `rqt_graph`, to see ROS nodes and topics being published:
-
-   ```python
-   rqt_graph
-   ```
-4. Verify that you see a window similar to the image below:
-
-Hint
-
-If the nodes are not showing up in `rqt_graph`, press the refresh button next to the drop down menu.
-
-### Import the UR10e Robot into Isaac Sim
-
-1. Go to Isaac Sim.
-2. Navigate to **File** > **Import from the ROS 2 URDF Node**.
-
-   * In the **ROS2 Node** field, type `robot_state_publisher`, click **Find Node**.
-   * In the **USD Output** field, select the desired output (for example, `~/Desktop/`).
-   * In the **Robot Type** field, select `Manipulator`.
-   * In the **Base Type** field, select `Fixed`.
-3. Click **Import**, the importer should automatically open the ur robot.
-
-For reference, the resulting USD file is available in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/ur10e/ur/ur.usda`.
-
-## Set Gains Using the Gain Tuner
-
-The importer does not set the gains for the UR robot automatically. You can use the Gain Tuner to set the gains for the UR robot.
-In this tutorial, we will use the gain tuner to set the natural frequency and damping ratio for the UR robot, which are defined as:
-
-\[ \begin{align}\begin{aligned}\omega\_n = \sqrt{\frac{K\_p}{m}}\\\zeta = \frac{K\_d}{2 m \omega\_n}\end{aligned}\end{align} \]
-
-Where \(\omega\_n\) is the natural frequency and \(\zeta\) is the damping ratio, and \(m\) is the computed joint inertia based on the mass of the robot at both sides of the joint.
-The damping ratio is such that \(\zeta = 1.0\) is a critically damped system, \(\zeta < 1.0\) is underdamped, and \(\zeta > 1.0\) is overdamped.
-
-Use the [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) to set and verify the gains for the UR robot.
-
-1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
-2. On the **Gain Tuner** window, on the **Robot Selection** dropdown, select the **ur** articulation in the stage.
-3. In the **Tune Gains** panel, you can adjust the gains for the robot and the gripper fingers joints. Test it with the **Test Gains Settings** panel. let’s start by setting the natural frequency to `300` and the damping ratio to `1.0`.
-
-Hint
-
-We recommend determining the gains for a small group of joints first, if it is difficult to tune the gains for the whole robot. Below are some tips for tuning the gains:
-
-* Higher the natural frequency, the faster the robot will respond to the target position. Lower the damping ratio, the faster the robot will reach the target position.
-* If the resulting plot shows the robot is undershooting the target position, you can increase the `Nat. Freq.` slightly.
-* If the resulting plot shows the robot is overshooting the target position, you can decrease the `Nat. Freq.` slightly and increase the `Damping Ratio`.
-* Disabling gravity can help you see the gains more clearly.
-* Only gain test the joints that are expected to be moving together, the gain test order can be selected by the **Sequence** dropdown.
-* Reduce the maximum speed of a joint that you are tuning, if it is not expected to be commanded to move that fast in practice. The default values in the Gains Test are the maximum velocity written into the USD.
-
-Note
-
-See [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) for more information on the Gain Tuner and [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html#isaac-sim-app-tutorial-advanced-joint-tuning) for more information on how to tune the gains for the robot.
-
-For reference, the resulting USD file is available in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/ur10e/ur_gains_tuner/ur.usda`.
-
-## 2F-140 Gripper Parameters
-
-In the next section of the tutorial, we will be connecting the UR10e robot with the 2F-140 gripper. Let’s review the expected parameters for the gripper joints.
-
-### Expected Parameters for Finger and Knuckle Joints
-
-| Joint Name | Lower Limit | Upper Limit | Gearing | Stiffness | Damping | Max Force |
-| --- | --- | --- | --- | --- | --- | --- |
-| Finger Joint | 0 | 40.107 | N/A | 37.51957 | 0.00125 | 1000 |
-| Left inner Finger | -8.021 | 48.128 | -1 | N/A | N/A | N/A |
-| Left Inner Knuckle | -48.128 | 8.021 | 1 | N/A | N/A | N/A |
-| Right inner Knuckle | -48.128 | 8.021 | 1 | N/A | N/A | N/A |
-| Right outer knuckle | -48.128 | 8.021 | 1 | N/A | N/A | N/A |
-| Right inner Finger | -8.021 | 48.128 | -1 | N/A | N/A | N/A |
-
-### Expected Parameters for Mimic Joints
-
-* Reference Joint: `/robotiq_arg2f_140_model/joints/finger_joint`
-* Reference Joint Axis: `rotX`
-* Natural Frequency: `2500`
-* Damping Ratio: `0.005`
-
-## Connect the UR10e Robot with the Robotiq 2F-140 Gripper
-
-Much like a real robot can have its tools changed for different tasks, simulated robots benefit from the same capability. This section outlines two methods to connect the UR10e robot with the Robotiq 2F-140 gripper
-
-We will use the Robot Assembler to connect the UR10e robot with the 2F-140 gripper.
-
-1. Open the UR10e USD file created from the last activity (`ur.usda`).
-2. Drag and drop the `robotiq_2f_140.usd` file we created earlier into the stage.
-3. Open the robot assembler by going to **Tools** > **Robotics** > **Asset Editor** > **Robot Assembler**.
-
-   * In **Base Robot**, set **Select Base Robot** to `/ur`, **Attach Point** to `wrist_3_link`.
-   * In **Attach Robot**, set **Select Attach Robot** to `/ur/robotiq_2f_140`, **Attach Point** to `robotiq_arg2f_base_link`.
-   * Set **Assembly Namespace** to `Gripper`.
-4. Click **Begin Assembling Process** to start the process.
-5. Adjust the attachment point orientation to make sure the end effector is attached to the gripper correctly. Rotate the gripper 90 degrees around the z-axis by clicking **Z +90**.
-6. Click **Assemble and Simulate** to test the process.
-7. Click **End Simulation And Finish** to complete the process.
-8. Save the asset by going to **File** > **Save** or press **Ctrl+S**.
-
-### Run the Simulation
-
-1. In the Stage panel, select the **ur** prim.
-2. In the Property Editor at the bottom right, find the **Variants** section.
-3. Beside **Gripper**, select **None** and the gripper will be removed from the robot.
-4. Beside **Gripper**, select **robotiq\_2f\_140** and the gripper will be added to the robot.
-5. Save the asset by going to **File** > **Save** or press **Ctrl+S**.
-
-Note
-
-The completed robotics arm asset with the gripper is available in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/ur10e/ur_gripper/ur.usda`.
-
-## Summary
-
-In this tutorial, you took the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq and imported them into NVIDIA Isaac Sim from URDF files and connected them together under one articulation using the GUI and Robot Assembler.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Build and Install the UR Description Package](#build-and-install-the-ur-description-package)
-* [Import the UR10e Robot](#import-the-ur10e-robot)
-  + [Enable the ROS 2 Robot Description URDF Importer Extension](#enable-the-ros-2-robot-description-urdf-importer-extension)
-  + [Launch the URDF Publisher Topic](#launch-the-urdf-publisher-topic)
-  + [Import the UR10e Robot into Isaac Sim](#import-the-ur10e-robot-into-isaac-sim)
-* [Set Gains Using the Gain Tuner](#set-gains-using-the-gain-tuner)
-* [2F-140 Gripper Parameters](#f-140-gripper-parameters)
-  + [Expected Parameters for Finger and Knuckle Joints](#expected-parameters-for-finger-and-knuckle-joints)
-  + [Expected Parameters for Mimic Joints](#expected-parameters-for-mimic-joints)
-* [Connect the UR10e Robot with the Robotiq 2F-140 Gripper](#connect-the-ur10e-robot-with-the-robotiq-2f-140-gripper)
-  + [Run the Simulation](#run-the-simulation)
-* [Summary](#summary)
-
----
-
-### Intro: Assemble Robot
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_intro_assemble_robot.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 2: Assemble a Simple Robot
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 2: Assemble a Simple Robot
-
-This tutorial guides you through the basic GUI functions that add objects to the stage. It also introduces inspecting and modifying their physics and material properties.
-
-## Learning Objectives
-
-This tutorial covers how to:
-
-* Add and manipulate basic shapes
-* Enable physics properties in objects
-* Examine collision properties
-* Edit physics properties such as friction
-* Edit material properties such as color and reflectivity
-
-## Prerequisites
-
-* Complete [Tutorial 1: Stage Setup](tutorial_intro_environment_setup.html#isaac-sim-app-tutorial-intro-environment-setup) prior to beginning this tutorial.
-
-## Adding Objects to the Scene
-
-There are many ways to “add objects” to the stage, but all of them fundamentally do the same thing, which is to define a USD primitive in the stage context tree. The goal is to create a basic, two wheeled robot. Start by creating some basic shapes and modifying their properties. For the body, use a cube and for the wheels use cylinders.
-
-To create the body of the robot:
-
-1. Create an Xform by right clicking on the stage, selecting **Create > Xform**.
-2. Rename it to **body** by right clicking on it and selecting **Rename**.
-3. Fix the translation of the Xform to `(0, 0, 1)` by clicking on the **Translate** section in the property panel and setting the **X** to `0`, **Y** to `0`, and **Z** to `1`.
-4. Create a cube clicking **Create > Shape > Cube** in the top menu bar. You should see the cube and the **Move** **gizmo** (the red, blue, and green arrows) appear in the viewport window
-5. Click and drag on the blue arrow to raise the cube above the ground plane.
-6. On the left side of the app, click the Scale icon (or press the R key while the cube is selected) to activate the scale widget.
-7. Click and drag on the red part of the widget to scale the cube in the x direction
-8. Place the cube in a specific location. Navigate to **Transform > Scale** in the property pane, and set the scale to `(2, 1, 0.5)`.
-9. Drag the cube to the **Body** Xform.
-
-To create the wheels of the robot:
-
-1. Create a Xform by right clicking on the stage, selecting **Create > Xform**. Set the **Translate** to `(0, 1.5, 1)` and the **Orient** to `90, 0, 0` to rotate the wheel Xform 90 degrees around the x axis.
-2. Rename it to **wheel\_left** by right clicking on it and selecting **Rename**.
-3. Create a cylinder by clicking **Create > Shape > Cylinder** in the top menu bar.
-4. In the property panel on the bottom right corner, scroll down to the **Geometry** section. Change its **Radius** to `0.5` and **Height** to `1.0`.
-5. Drag the cylinder to the **wheel\_left** Xform.
-6. Rename the cylinder to **wheel\_left** by right clicking on it and selecting **Rename**.
-7. Duplicate the `wheel_left` by right clicking the `wheel_left` Xform on the stage tree, select **Duplicate**, and move it to `y = -1.5` while keeping all other parameters the same.
-8. Rename the duplicated Xform to **wheel\_right** by right clicking on it and selecting **Rename**.
-9. Rename the duplicated cylinder to **wheel\_right** by right clicking on it and selecting **Rename**.
-
-## Adding Physics Properties
-
-The cubes and cylinders added so far are strictly visual prims, with no physics or collision properties attached to them.
-When you start the simulation by pressing **Play** and gravity is applied, these objects do not move because they are unaffected by physics.
-
-To make the robot have physics, turn it into a rigid body with collision properties:
-
-1. Select the Cube and both Cylinders on the stage tree by clicking while holding down the `Ctrl + Shift` key to select each object, or just `Shift` if they are consecutively listed on the tree.
-2. In the **Property** tab, click on the `+ Add` button.
-3. Select **Physics > Rigid Body with Colliders Preset**.
-4. Press **Play** and verify that all three objects fall to the ground.
-
-**Rigid Body with Colliders Preset** automatically adds the Rigid Body API and the Collision API to the objects.
-These two APIs can be applied separately because you can have objects that:
-
-* have mass and are affected by gravity, but have no collision properties so you can pass through them
-* can be run into but hang in the air and are not affected by gravity
-
-To validate, add, or remove APIs assigned to the selected object:
-
-1. Go to its **Property** tab, and scroll down to find sections labeled **Rigid Body** and **Collider**.
-2. To add the APIs separately, find them under the same **+ Add** button.
-3. To remove APIs, click on the `X` to delete the section.
-
-Hint
-
-Dynamic objects can only select from Convex Hull, Convex Decomposition, Sphere Approximation, SDF mesh (GPU backend only) for collision shapes.
-Triangle mesh collision shapes are only available for static objects.
-
-### Examine Collision Meshes
-
-To visually examine the outlines of collision meshes for the objects:
-
-1. Find the eye icon on top of the viewport.
-2. Click **Show By Type > Physics > Colliders > All**.
-3. Verify that purple outlines show up surrounding any objects that have collision APIs applied. For example, verify that it is the cuboid, the cylinders, and the ground plane.
-
-### Adding Contact and Friction Parameters
-
-For modifying frictional properties, you must create a different physics material and then assign it to the desired object.
-
-1. Go to the Menu Bar and click **Create > Physics > Physics Material**.
-2. Select **Rigid Body Material** in the popup box. A new `PhysicsMaterial` appears on the stage tree.
-3. Tune the parameters such as friction coefficients and restitution in its property tab.
-
-To apply the assigned physics material to an object:
-
-1. Select the object in the stage tree.
-2. Find the menu item **Materials on Selected Model** in the **Property** tab.
-3. Select the desired material in the drop-down menu.
-
-## Material Properties
-
-The objects may reflect the color of the spotlight added earlier, but it doesn’t actually have any colors assigned. You can confirm this by turning off the spotlight.
-
-To change the color of the object, create a different material and then assign it to the objects, just like with the physics materials.
-For example, create two different materials, one for the body of the car and one for the wheels.
-
-1. Click **Create > Materials > OmniPBR** twice.
-2. Right-click on the newly added materials on the stage tree and rename them to **body** and **wheel**.
-3. Assign the corresponding rigid bodies to the newly created materials by going to the **Materials on selected models** item in its **Property** tab, and select the matching material from the dropdown.
-4. Change the property of the new materials. Select one of them on the stage tree, change its base color in *Material and Shader/Albedo* and play with its reflectivity roughness and whatever else you find interesting.
-5. Verify that you see the color of the corresponding parts on the car change accordingly.
-
-## Summary
-
-By the end of this tutorial, you should have a robot with a body and two wheels, similar to the `mock_robot_no_joints` asset, located in the **Samples > Rigging > MockRobot** folder.
-
-This tutorial explained how to add and manipulate object properties in the GUI, including:
-
-> 1. Adding primitive shapes onto the [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage).
-> 2. Editing material properties, physics properties, and collision properties.
-
-### Next Steps
-
-* Continue to [Working with USD](../omniverse_usd/intro_to_usd.html#isaac-sim-app-tutorial-intro-usd) to learn how to save your world and load assets in USD format inside Isaac Sim.
-* Go to [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) to learn how to turn these geometries into a moving car.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Adding Objects to the Scene](#adding-objects-to-the-scene)
-* [Adding Physics Properties](#adding-physics-properties)
-  + [Examine Collision Meshes](#examine-collision-meshes)
-  + [Adding Contact and Friction Parameters](#adding-contact-and-friction-parameters)
-* [Material Properties](#material-properties)
-* [Summary](#summary)
-  + [Next Steps](#next-steps)
-
----
-
-### Intro: Environment Setup
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_intro_environment_setup.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 1: Stage Setup
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 1: Stage Setup
-
-Isaac Sim is built on [NVIDIA Omniverse](https://docs.omniverse.nvidia.com/) using tools provided in [Omniverse Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/index.html "(in Omniverse Developer Guide)"). Omniverse Kit comes with a default UI that
-allows you to edit a USD stage with ease. In this tutorial, you learn the basic steps for setting up an environment, adding and editing simple objects and their properties on a USD stage,
-rigging rigid bodies with joints and articulations, and adding cameras and sensors.
-The goal is to build your basic skills in navigating Isaac Sim, becoming familiar with frequently used terms, and using the GUI to build an environment and set up your robots.
-
-## Learning Objectives
-
-This tutorial teaches you to build a physics-enabled virtual world using the tools provided in the Isaac Sim GUI, including:
-
-* Setup global stage properties
-* Setup global physics properties
-* Add ground plane
-* Add lighting
-
-## Prerequisites
-
-To start with a clean Isaac Sim stage, go to the File menu and click on **New**.
-The stage provided has a default `World` [Xform](https://docs.omniverse.nvidia.com/utilities/latest/common/glossary-of-terms.html#term-XForm "(in Omniverse Utilities)"), and a `defaultLight`. Both can be found on the stage tree on the right of the viewport.
-
-## Setting up Stage Properties
-
-Before anything is added onto the stage, verify that the current stage property setup matches the your expected conventions.
-
-1. Go to **Edit > Preferences** to open up the Preference panel.
-2. Browse the many types of settings inside Omniverse Kit grouped into categories in the column on the left of the panel.
-3. Select **Stage** from the left column and review the properties such as:
-
-   * The axis that determines *Up*. The default in Isaac Sim is Z. If your asset is created in a program with a different up-axis, it causes your assets to be imported rotated.
-   * Stage units. Isaac Sim versions prior to 2022.1 have stage units in centimeters, but the default is now meters. However, the default units for Omniverse Kit is still in centimeters. Keep that in mind if you see USD units that are seemingly off by 100x.
-   * Default rotation order. The default is set to execute rotation in Z, then Y, and last X.
-
-## Creating the Physics Scene
-
-To add a **Physics Scene** to simulate real world physics, including gravity and physics time steps:
-
-1. Go to the Menu Bar and click **Create > Physics > Physics Scene**.
-2. Validate that a **PhysicsScene** is added to the stage tree.
-3. Click on it to examine its properties.
-   You can see that gravity is set to the magnitude of `Earth Gravity`, or `9.8` meters per second squared. Remember that the default unit of length is meters.
-4. Unless you are simulating hundreds of rigid bodies and robots, it is more efficient to use CPU physics
-   :   * Open Physics Scene’s **Property** tab
-       * Uncheck **Enable GPU dynamics**
-       * Set the **Broadphase** type to **MBP**.
-
-## Adding a Ground Plane
-
-The ground plane prevents any physics-enabled objects from falling below it.
-The ground plane’s collision property extends indefinitely even though the plane is only visible up to 25 meters in each direction.
-
-To add a ground plane to the virtual environment:
-
-1. Go to the top Menu Bar and click **Create > Physics > Ground Plane**.
-2. Turn on the grid by clicking on  and selecting **Grid** to make the ground plane easier to see.
-
-## Lighting
-
-Every new [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) is pre-populated with a `defaultLight`, otherwise you wouldn’t see anything. This default light is a child of the `Environment` Xform in the stage and can be found in the stage context tree.
-
-To create additional spotlights:
-
-1. Add a ground plane, if there isn’t already one, so we can see the reflection of the light. **Create > Physics > Ground Plane**.
-2. Go to **Create > Light > Sphere Light**.
-3. Pose the light on the stage.
-   - In the **Stage** tab on the top right, select the newly created light in the stage tree.
-   - In the **Property** tab on the bottom , in the **Transform** section use the **Translate** tool to move it to a position above the ground plane, such as `(0, 0, 7)`.
-   - In the **Property** tab, in the **Transform** section, use the **Orient** tool to set the rotation to `(0, 0, 0)`.
-4. Modify light color, brightness, and scope properties:
-   - Inside the **Property** tab, change its color in **Main > Color** by clicking on the color bar and pick a color of your choice. For example a light green color `(RGB: 0.5, 1.0, 0.5)`.
-   - Also inside the **Property** tab, change its intensity **Main > Intensity** to **1e6**; **Main > Radius** to **0.05**
-   - In the **Shaping** section, change the **cone:angle** to **45** degrees and **cone:softness** to **0.05**.
-5. To make the new spotlight easier to see, we will reduce the intensity of the default light by going to its **Property** tab and set **Main > Intensity** to **300**.
-
-## Summary
-
-This tutorial begins the necessary steps to create a virtual world suitable for physics simulation and testing Isaac Sim.
-The following topics were covered:
-
-* Adding a ground plane, lighting, and physics scene.
-
-### Next Steps
-
-Continue on to [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) to learn how to add simple objects to Isaac Sim and edit their properties.
-
-### Further Learning
-
-For more in-depth and creative world-building tools, refer to our sister Omniverse tool [Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Setting up Stage Properties](#setting-up-stage-properties)
-* [Creating the Physics Scene](#creating-the-physics-scene)
-* [Adding a Ground Plane](#adding-a-ground-plane)
-* [Lighting](#lighting)
-* [Summary](#summary)
-  + [Next Steps](#next-steps)
-  + [Further Learning](#further-learning)
-
----
-
-### Pick-Place Example
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_pickplace_example.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 9: Pick and Place Example
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 9: Pick and Place Example
-
-## Learning Objectives
-
-This is the final manipulator tutorial in a series of four tutorials. It ties everything together by showing how to use the UR10e robot and the 2F-140 gripper to control the gripper, follow a Cartesian target, and perform a pick-and-place sequence.
-We will be using the robot imported in [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html) and the URDF and XRDF robot configuration files described in [Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration).
-
-This tutorial builds on top of the [Robot Motion (Experimental)](../robot_motion_experimental/index.html#isaac-sim-robot-motion-experimental) extension and demonstrates two motion controllers:
-
-* **cuMotion RMPflow** — a GPU-accelerated reactive motion planner with collision avoidance. See the [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) overview and the [RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) for full details.
-* **PINK differential IK** — a CPU-based inverse kinematics solver using the [PINK](https://github.com/stephane-caron/pink) library. See the [PINK Integration](../pink/index.html#isaac-sim-pink) overview and the [IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) for full details.
-
-*30 Minutes Tutorial*
-
-## Prerequisites
-
-* Review [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html) and [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html) prior to beginning this tutorial to generate robot and the URDF and XRDF files required by the pick-and-place examples.
-
-Note
-
-If you have not completed the previous tutorial(s), you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd`.
-
-Additionally, pre-generated URDF, XRDF, and `rmp_flow.yaml` files can be found at `source/extensions/isaacsim.robot_motion.cumotion/robot_configurations/ur10/`.
-
-## Overview
-
-This tutorial is divided into four parts, each corresponding to a standalone example script:
-
-| Part | Script | Description |
-| --- | --- | --- |
-| 1 | `tutorial_9_gripper_control.py` | Gripper control using the Articulation API |
-| 2 | `tutorial_9_arm_trajectory.py` | Joint-space trajectory planning and execution |
-| 3 | `tutorial_9_follow_target.py` | Real-time Cartesian target following with cuMotion RMPflow |
-| 4 | `tutorial_9_pick_place_cumotion.py` / `tutorial_9_pick_place_pink.py` | Full pick-and-place sequence with cuMotion RMPflow or PINK differential IK |
-
-All scripts are located at `standalone_examples/tutorials/manipulation/`.
-
-## Part 1: Gripper Control
-
-This example introduces the Articulation API by controlling the 2F-140 gripper joints directly with `set_dof_position_targets`. The gripper closes fully and then opens again.
-
-```python
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_gripper_control.py
-```
-
-**Key concepts:**
-
-* `Articulation.dof_names` returns the list of all degrees of freedom in order. The gripper joint is named `finger_joint`.
-* `set_dof_position_targets` sends a position target to one or more DOFs by index. Passing `dof_indices` restricts the command to only those joints.
-
-tutorial\_9\_gripper\_control.py — gripper control loop
-
-```python
-    finger_idx = robot.dof_names.index("finger_joint")
-    frame_count = 0
-
-    while app.is_running():
-        for target_pos, label in [(_CLOSED_POS, "closing"), (_OPEN_POS, "opening")]:
-            print(f"Gripper {label}...")
-            for _ in range(_HOLD_STEPS):
-                robot.set_dof_position_targets(target_pos, dof_indices=finger_idx)
-                app.update()
-                frame_count += 1
-                if args.test and frame_count >= _HOLD_STEPS * 2:
-                    return
-```
-
-## Part 2: Arm Trajectory Following
-
-This example plans and executes a joint-space trajectory using `mg.Path` and `mg.TrajectoryFollower` from the motion generation API. The robot follows a sequence of waypoints in minimal time subject to velocity and acceleration limits.
-
-```python
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_arm_trajectory.py
-```
-
-**Key concepts:**
-
-* `mg.Path(waypoints)` wraps a sequence of joint-space configurations.
-* `.to_minimal_time_joint_trajectory(max_velocities, max_accelerations, ...)` computes a time-optimal trajectory that respects joint limits.
-* `mg.TrajectoryFollower` tracks the planned trajectory, calling `.forward(estimated_state, setpoint, t)` each physics step to obtain the desired joint state.
-* `get_estimated_state` packages the current joint positions, velocities, and efforts into an `mg.RobotState`.
-* `apply_desired_state` applies the position, velocity, and effort targets from the desired state back to the articulation.
-
-tutorial\_9\_arm\_trajectory.py — trajectory setup
-
-```python
-    waypoints = np.array(
-        [
-            [0.00, -1.57, 1.57, -1.57, -1.57, 0.00],  # home
-            [0.50, -1.00, 0.80, -1.30, -1.57, 0.00],  # reach-out
-            [0.00, -1.57, 1.57, -1.57, -1.57, 0.00],  # back to home
-        ],
-    )
-
-    max_velocities = np.array([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
-    max_accelerations = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
-
-    trajectory = mg.Path(waypoints).to_minimal_time_joint_trajectory(
-        max_velocities=max_velocities,
-        max_accelerations=max_accelerations,
-        robot_joint_space=robot_joint_space,
-        active_joints=arm_joints,
-    )
-    print(f"Trajectory duration: {trajectory.duration:.2f} s")
-
-    follower = mg.TrajectoryFollower()
-    follower.set_trajectory(trajectory)
-
-    simulation_time = 0.0
-    if not follower.reset(get_estimated_state(robot, robot_joint_space), None, simulation_time):
-        raise RuntimeError("Failed to reset TrajectoryFollower")
-```
-
-tutorial\_9\_arm\_trajectory.py — trajectory execution loop
-
-```python
-    dt = SimulationManager.get_physics_dt()
-    max_steps = int((trajectory.duration + 1.0) / dt)
-    frame_count = 0
-
-    while app.is_running():
-        app.update()
-        if not (app_utils.is_playing() and SimulationManager.is_simulating()):
-            continue
-        simulation_time = 0.0
-        follower.reset(get_estimated_state(robot, robot_joint_space), None, simulation_time)
-        for _ in range(max_steps):
-            app.update()
-            if not (app_utils.is_playing() and SimulationManager.is_simulating()):
-                break
-            simulation_time += dt
-            desired_state = follower.forward(get_estimated_state(robot, robot_joint_space), None, simulation_time)
-            if desired_state is None:
-                print("Trajectory complete.")
-                break
-            apply_desired_state(robot, desired_state)
-            frame_count += 1
-            if args.test and frame_count >= 100:
-                return
-```
-
-See also
-
-* [Trajectory Planning and Execution](../motion_generation/trajectory_planning.html) — the `mg.Path` and `mg.TrajectoryFollower` API used in this part.
-* [cuMotion Trajectory Generator Tutorial](../cumotion/tutorial_trajectory_generator.html#isaac-sim-cumotion-tutorial-trajectory-generator) — generating collision-aware trajectories with cuMotion.
-
-## Part 3: Follow Target using cuMotion RMPflow
-
-This example shows how to use the cuMotion `RmpFlowController` to make the robot track a draggable target cube in real time, with optional obstacle avoidance.
-
-```python
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_follow_target.py
-```
-
-To enable obstacle avoidance, pass `--with-obstacle`:
-
-```python
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_follow_target.py --with-obstacle
-```
-
-**Key concepts:**
-
-* `load_cumotion_supported_robot("ur10")` loads the built-in cuMotion robot model for the UR10, which includes the kinematic chain and collision spheres.
-* `mg.WorldBinding` connects the cuMotion world interface to the Isaac Sim stage. It uses `mg.SceneQuery` to find collision objects in the scene and registers them as obstacles.
-* `RmpFlowController` is initialized with the robot model, world interface, joint space, and tool frame. It accepts an estimated robot state and a Cartesian setpoint each step, and returns desired joint positions.
-* `create_setpoint_state` packages a target position and orientation into an `mg.RobotState` that the controller can track.
-* `world_binding.synchronize_transforms()` must be called each step to update obstacle transforms before planning.
-
-tutorial\_9\_follow\_target.py — scene and controller setup
-
-```python
-async def setup_scene_and_controller(
-    with_obstacle: bool,
-) -> tuple[RmpFlowController, CumotionRobot, Articulation, mg.WorldBinding, GeomPrim]:
-    assets_root_path = await get_assets_root_path_async()
-    stage_utils.add_reference_to_stage(
-        usd_path=assets_root_path + "/Isaac/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd",
-        path=_ROBOT_PRIM_PATH,
-    )
-
-    GroundPlane("/World/GroundPlane")
-    DomeLight("/World/DomeLight").set_intensities(1000)
-
-    target_cube = Cube(paths=_TARGET_PATH, positions=[[0.35, 0.25, 0.3]], sizes=1.0, scales=[0.05, 0.05, 0.05])
-    target_object = GeomPrim(paths=target_cube.paths)
-
-    await omni.kit.app.get_app().next_update_async()
-    set_camera_view(eye=[1.5, 1.5, 1.0], target=[0.5, 0.0, 0.2], camera_prim_path="/OmniverseKit_Persp")
-
-    articulation = Articulation(_ROBOT_PRIM_PATH)
-    await omni.kit.app.get_app().next_update_async()
-
-    if with_obstacle:
-        Cube("/World/obstacle", sizes=0.05, positions=[0.35, 0.0, 0.55], colors=(1.0, 0.0, 0.0))
-        GeomPrim("/World/obstacle", apply_collision_apis=True)
-
-    robot_pos, robot_ori = articulation.get_world_poses()
-    objects = mg.SceneQuery().get_prims_in_aabb(
-        search_box_origin=robot_pos.numpy()[0],
-        search_box_minimum=[-10.0, -10.0, -10.0],
-        search_box_maximum=[10.0, 10.0, 10.0],
-        tracked_api=mg.TrackableApi.PHYSICS_COLLISION,
-        exclude_prim_paths=[_ROBOT_PRIM_PATH, _TARGET_PATH],
-    )
-
-    obstacle_strategy = mg.ObstacleStrategy()
-    for prim_type in (Mesh, Cone, Cylinder, Cube):
-        obstacle_strategy.set_default_configuration(prim_type, mg.ObstacleConfiguration("obb", 0.05))
-
-    world_binding = mg.WorldBinding(
-        world_interface=CumotionWorldInterface(),
-        obstacle_strategy=obstacle_strategy,
-        tracked_prims=objects,
-        tracked_collision_api=mg.TrackableApi.PHYSICS_COLLISION,
-    )
-    world_binding.initialize()
-    world_binding.get_world_interface().update_world_to_robot_root_transforms(poses=(robot_pos, robot_ori))
-    world_binding.synchronize_transforms()
-
-    if args.xrdf_dir is not None:
-        cumotion_robot = load_cumotion_robot(
-            directory=args.xrdf_dir,
-            urdf_filename=args.urdf,
-            xrdf_filename=args.xrdf,
-        )
-    else:
-        cumotion_robot = load_cumotion_supported_robot("ur10")
-    site_space = cumotion_robot.robot_description.tool_frame_names()
-    controller = RmpFlowController(
-        cumotion_robot=cumotion_robot,
-        cumotion_world_interface=world_binding.get_world_interface(),
-        robot_joint_space=articulation.dof_names,
-        robot_site_space=site_space,
-        tool_frame=site_space[0],
-    )
-    controller.get_rmp_flow_config().set_param("cspace_target_rmp/metric_scalar", 1.0)
-    controller.get_rmp_flow_config().set_param("collision_rmp/metric_scalar", 10000.0)
-
-    return controller, cumotion_robot, articulation, world_binding, target_object
-```
-
-tutorial\_9\_follow\_target.py — per-step control loop
-
-```python
-def run_step(
-    controller: RmpFlowController,
-    cumotion_robot: CumotionRobot,
-    articulation: Articulation,
-    world_binding: mg.WorldBinding,
-    target_object: GeomPrim,
-    t: float,
-) -> None:
-    world_binding.get_world_interface().update_world_to_robot_root_transforms(articulation.get_world_poses())
-    world_binding.synchronize_transforms()
-
-    estimated = get_estimated_state(articulation)
-    setpoint = create_setpoint_state(cumotion_robot, target_object)
-    desired = controller.forward(estimated, setpoint, t)
-
-    if desired is not None and desired.joints.positions is not None:
-        articulation.set_dof_position_targets(
-            positions=desired.joints.positions,
-            dof_indices=desired.joints.position_indices,
-        )
-```
-
-See also
-
-* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — in-depth walkthrough of `RmpFlowController` configuration and tuning.
-* [cuMotion World Interface Tutorial](../cumotion/tutorial_world_interface.html#isaac-sim-cumotion-tutorial-world-interface) — details on `CumotionWorldInterface`, `SceneQuery`, and `WorldBinding`.
-* [Scene Interaction](../motion_generation/scene_interaction.html) — the underlying Motion Generation API for discovering and synchronizing obstacles from the USD scene.
-
-## Part 4: Pick and Place
-
-This example puts it all together by implementing a pick-and-place sequence. Two example scripts are provided: one using cuMotion RMPflow and one using PINK differential IK.
-
-### cuMotion RMPflow
-
-Important
-
-cuMotion requires a `tool_frames` entry in the XRDF. See [Adding a Tool to the Robot Configuration](tutorial_generate_robot_config.html#isaac-sim-app-tutorial-generate-robot-config-adding-tool).
-
-```python
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_pick_place_cumotion.py \
-    --xrdf-dir /path/to/robot/config
-```
-
-Note
-
-`--xrdf-dir` should point to the directory containing the robot URDF and XRDF files made in the previous tutorial. `--urdf` and `--xrdf` select the filenames within that directory and default to `robot.urdf` and `robot.xrdf`, respectively.
-
-If no `--xrdf-dir` is provided, `load_cumotion_supported_robot("ur10")` will be used to load the built-in UR10 robot configuration.
-
-**Key concepts:**
-
-* `--xrdf-dir` (optional) points to the directory containing custom robot config files. `load_cumotion_robot` loads the URDF and XRDF from that directory using the filenames given by `--urdf` and `--xrdf`. If omitted, the built-in UR10 configuration is used via `load_cumotion_supported_robot("ur10")`.
-* `RmpFlowController.get_rmp_flow_config().set_param(key, value)` allows tuning RMPflow parameters at runtime. For this example, `cspace_target_rmp/metric_scalar` is reduced to 1.0 to reduce the influence of the initial position error on the motion planning.
-* `controller.reset(estimated_state, setpoint, t)` must be called at the start of each arm motion segment to re-initialize the planner from the current robot state.
-
-tutorial\_9\_pick\_place\_cumotion.py — UR10ePickPlace state machine class
-
-```python
-class UR10ePickPlace:
-    """Pick-and-place controller for the UR10e + 2F-140 gripper using cuMotion RMPflow.
-
-    Phases:
-        0  Pre-grasp  — arm moves above the cube
-        1  Approach   — arm descends to grasp height
-        2  Grasp      — gripper closes
-        3  Lift       — arm rises with the cube
-        4  Transport  — arm moves above the target location
-        5  Lower      — arm descends to place height
-        6  Release    — gripper opens
-        7  Retract    — arm lifts away
-    """
-
-    _ROBOT_PRIM_PATH = "/World/ur10e_robot"
-    _CUBE_PRIM_PATH = "/World/cube"
-    _EE_LINK_NAME = "right_inner_finger"
-    _GRIPPER_JOINT = "finger_joint"
-
-    _OPEN_POS: float = 0.0
-    _CLOSED_POS: float = 0.5
-
-    _ABOVE_HEIGHT: float = 0.50
-    _NEAR_HEIGHT: float = 0.185
-    _TOOL_OFFSET: dict[str, float] = {
-        "tool0": 0.0,
-        "wrist_3_link": 0.04,
-    }
-    _EE_THRESHOLD: float = 0.02
-    _GRIPPER_THRESHOLD: float = 0.04
-    _MIN_STEPS: int = 60
-    _WARMUP_FRAMES: int = 120
-    _PHYSICS_DT: float = 1.0 / 60.0
-
-    _DOWN_ORI: np.ndarray = transform_utils.euler_angles_to_quaternion(np.array([0.0, np.pi, 0.0])).numpy()
-
-    _PHASE_LABELS: tuple[str, ...] = (
-        "Pre-grasp: moving above cube",
-        "Approach: descending to cube",
-        "Grasp: closing gripper",
-        "Lift: raising arm",
-        "Transport: moving to target",
-        "Lower: descending to place",
-        "Release: opening gripper",
-        "Retract: lifting arm away",
-    )
-
-    def __init__(
-        self,
-        xrdf_dir: str | None = None,
-        urdf_filename: str = "robot.urdf",
-        xrdf_filename: str = "robot.xrdf",
-        cube_position: np.ndarray | None = None,
-        target_position: np.ndarray | None = None,
-        events_dt: list[int] | None = None,
-    ) -> None:
-        self._xrdf_dir = xrdf_dir
-        self._urdf_filename = urdf_filename
-        self._xrdf_filename = xrdf_filename
-
-        self.cube_position = cube_position if cube_position is not None else np.array([0.5, 0.0, 0.025])
-        self.target_position = target_position if target_position is not None else np.array([0.5, 0.5, 0.05])
-        self.events_dt = events_dt or [250, 150, 100, 50, 150, 100, 100, 100]
-
-        self._event: int = 0
-        self._step: int = 0
-        self._t: float = 0.0
-        self._warmup_remaining: int = self._WARMUP_FRAMES
-
-        self._articulation: Articulation | None = None
-        self._ee_prim: GeomPrim | None = None
-        self._finger_idx: int | None = None
-        self._cumotion_robot: CumotionRobot | None = None
-        self._controller: RmpFlowController | None = None
-        self._world_binding: mg.WorldBinding | None = None
-        self._tool_frame: str | None = None
-        self._site_space: list[str] | None = None
-
-    async def setup_scene(self) -> None:
-        """Build the scene and initialize the RMPflow controller."""
-        assets_root_path = await get_assets_root_path_async()
-        stage_utils.add_reference_to_stage(
-            usd_path=assets_root_path
-            + "/Isaac/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd",
-            path=self._ROBOT_PRIM_PATH,
-        )
-
-        GroundPlane("/World/GroundPlane")
-        DomeLight("/World/DomeLight").set_intensities(1000)
-
-        cube_obj = Cube(
-            paths=self._CUBE_PRIM_PATH, positions=[self.cube_position], sizes=1.0, scales=[0.05, 0.05, 0.05]
-        )
-        RigidPrim(paths=cube_obj.paths)
-        GeomPrim(paths=cube_obj.paths, apply_collision_apis=True)
-
-        await omni.kit.app.get_app().next_update_async()
-        set_camera_view(eye=[1.5, 1.5, 1.0], target=[0.5, 0.0, 0.2], camera_prim_path="/OmniverseKit_Persp")
-
-        self._articulation = Articulation(self._ROBOT_PRIM_PATH)
-        await omni.kit.app.get_app().next_update_async()
-
-        robot_pos, robot_ori = self._articulation.get_world_poses()
-        objects = mg.SceneQuery().get_prims_in_aabb(
-            search_box_origin=robot_pos.numpy()[0],
-            search_box_minimum=[-10.0, -10.0, -10.0],
-            search_box_maximum=[10.0, 10.0, 10.0],
-            tracked_api=mg.TrackableApi.PHYSICS_COLLISION,
-            exclude_prim_paths=[self._ROBOT_PRIM_PATH, self._CUBE_PRIM_PATH],
-        )
-
-        obstacle_strategy = mg.ObstacleStrategy()
-        for prim_type in (Mesh, Cone, Cylinder):
-            obstacle_strategy.set_default_configuration(prim_type, mg.ObstacleConfiguration("obb", 0.01))
-
-        self._world_binding = mg.WorldBinding(
-            world_interface=CumotionWorldInterface(),
-            obstacle_strategy=obstacle_strategy,
-            tracked_prims=objects,
-            tracked_collision_api=mg.TrackableApi.PHYSICS_COLLISION,
-        )
-        self._world_binding.initialize()
-        self._world_binding.get_world_interface().update_world_to_robot_root_transforms(poses=(robot_pos, robot_ori))
-        self._world_binding.synchronize_transforms()
-
-        if self._xrdf_dir is not None:
-            self._cumotion_robot = load_cumotion_robot(
-                directory=self._xrdf_dir,
-                urdf_filename=self._urdf_filename,
-                xrdf_filename=self._xrdf_filename,
-            )
-        else:
-            self._cumotion_robot = load_cumotion_supported_robot("ur10")
-        tool_frames = self._cumotion_robot.robot_description.tool_frame_names()
-        if len(tool_frames) == 0:
-            raise ValueError("No tool frames found in the robot description.")
-        self._tool_frame = tool_frames[0]
-        if self._tool_frame not in self._TOOL_OFFSET:
-            raise ValueError(
-                f"Tool frame '{self._tool_frame}' has no entry in _TOOL_OFFSET. "
-                f"Add it: {list(self._TOOL_OFFSET.keys())}"
-            )
-        self._site_space = tool_frames
-
-        self._controller = RmpFlowController(
-            cumotion_robot=self._cumotion_robot,
-            cumotion_world_interface=self._world_binding.get_world_interface(),
-            robot_joint_space=self._articulation.dof_names,
-            robot_site_space=self._site_space,
-            tool_frame=self._tool_frame,
-        )
-        cfg = self._controller.get_rmp_flow_config()
-        # cspace_target_rmp weights delta error from initial position
-        # doesn't really matter in our case so decrease from default 50 to 1.0
-        cfg.set_param("cspace_target_rmp/metric_scalar", 1.0)
-
-    def initialize_after_play(self) -> None:
-        """Resolve EE link and gripper DOF index. Call once after physics starts."""
-        link_names = self._articulation.link_names
-        if self._EE_LINK_NAME in link_names:
-            self._ee_prim = GeomPrim(paths=self._articulation.link_paths[0][link_names.index(self._EE_LINK_NAME)])
-        else:
-            print(f"WARNING: '{self._EE_LINK_NAME}' not found. Available: {link_names}")
-
-        dof_names = self._articulation.dof_names
-        if self._GRIPPER_JOINT in dof_names:
-            self._finger_idx = dof_names.index(self._GRIPPER_JOINT)
-        else:
-            print(f"WARNING: '{self._GRIPPER_JOINT}' not found. Available: {dof_names}")
-
-        n_dofs = len(dof_names)
-        init_pos = np.zeros(n_dofs)
-        self._articulation.set_dof_positions(init_pos.tolist())
-        self._articulation.set_dof_position_targets(init_pos.tolist())
-
-    def _phase_ee_target(self) -> np.ndarray:
-        c, p = self.cube_position, self.target_position
-        offset = self._TOOL_OFFSET[self._tool_frame]
-        hi = self._ABOVE_HEIGHT + offset
-        lo = self._NEAR_HEIGHT + offset
-        targets = {
-            0: [c[0], c[1], c[2] + hi],
-            1: [c[0], c[1], c[2] + lo],
-            2: [c[0], c[1], c[2] + lo],
-            3: [c[0], c[1], c[2] + hi],
-            4: [p[0], p[1], p[2] + hi],
-            5: [p[0], p[1], p[2] + lo],
-            6: [p[0], p[1], p[2] + lo],
-            7: [p[0], p[1], p[2] + hi],
-        }
-        return np.array(targets[self._event], dtype=np.float32)
-
-    def _make_setpoint(self, position: np.ndarray) -> mg.RobotState:
-        return mg.RobotState(
-            sites=mg.SpatialState.from_name(
-                spatial_space=self._site_space,
-                positions=([self._tool_frame], wp.array([position.tolist()], dtype=wp.float32)),
-                orientations=([self._tool_frame], wp.array([self._DOWN_ORI.tolist()], dtype=wp.float32)),
-            ),
-        )
-
-    def _estimated_state(self) -> mg.RobotState:
-        names = self._articulation.dof_names
-        return mg.RobotState(
-            joints=mg.JointState.from_name(
-                robot_joint_space=names,
-                positions=(names, self._articulation.get_dof_positions()),
-                velocities=(names, self._articulation.get_dof_velocities()),
-            )
-        )
-
-    def _set_gripper(self, pos: float) -> None:
-        if self._finger_idx is not None:
-            self._articulation.set_dof_position_targets(
-                wp.array([pos], dtype=wp.float32), dof_indices=[self._finger_idx]
-            )
-
-    def _ee_near_target(self) -> bool:
-        if self._ee_prim is None:
-            return False
-        ee_pos = self._ee_prim.get_world_poses()[0].numpy()[0]
-        return bool(np.linalg.norm(ee_pos - self._phase_ee_target()) < self._EE_THRESHOLD)
-
-    def _gripper_at(self, target: float) -> bool:
-        if self._finger_idx is None:
-            return False
-        pos = float(self._articulation.get_dof_positions().numpy().flatten()[self._finger_idx])
-        return abs(pos - target) < self._GRIPPER_THRESHOLD
-
-    def _phase_converged(self) -> bool:
-        if self._step < self._MIN_STEPS:
-            return False
-        if self._event == 2:
-            return self._gripper_at(self._CLOSED_POS)
-        if self._event == 6:
-            return self._gripper_at(self._OPEN_POS)
-        return self._ee_near_target()
-
-    def forward(self) -> bool:
-        """Advance one simulation step. Returns False when the sequence is complete."""
-        if self.is_done():
-            return False
-
-        if self._warmup_remaining > 0:
-            n_dofs = len(self._articulation.dof_names)
-            targets = np.zeros(n_dofs)
-            self._articulation.set_dof_position_targets(
-                wp.array(targets, dtype=wp.float32), dof_indices=list(range(n_dofs))
-            )
-            self._warmup_remaining -= 1
-            if np.abs(self._articulation.get_dof_positions().numpy().flatten() - targets).max() < 0.1:
-                self._warmup_remaining = 0
-            return True
-
-        if self._step == 0:
-            print(f"  Phase {self._event}: {self._PHASE_LABELS[self._event]}")
-            if self._event in (0, 3, 7):
-                if not self._controller.reset(
-                    self._estimated_state(), self._make_setpoint(self._phase_ee_target()), t=0.0
-                ):
-                    raise RuntimeError("RmpFlowController reset failed.")
-                self._t = 0.0
-
-        if self._event == 2:
-            self._set_gripper(self._CLOSED_POS)
-        elif self._event == 6:
-            self._set_gripper(self._OPEN_POS)
-        else:
-            self._world_binding.get_world_interface().update_world_to_robot_root_transforms(
-                self._articulation.get_world_poses()
-            )
-            self._world_binding.synchronize_transforms()
-            desired = self._controller.forward(
-                self._estimated_state(), self._make_setpoint(self._phase_ee_target()), self._t
-            )
-            if desired is not None and desired.joints.positions is not None:
-                self._articulation.set_dof_position_targets(
-                    positions=desired.joints.positions, dof_indices=desired.joints.position_indices
-                )
-
-        self._t += self._PHYSICS_DT
-        self._step += 1
-        if self._phase_converged() or self._step >= self.events_dt[self._event]:
-            if self._step >= self.events_dt[self._event]:
-                print(f"  Phase {self._event} timed out after {self.events_dt[self._event]} frames")
-            self._event += 1
-            self._step = 0
-
-        return True
-
-    def is_done(self) -> bool:
-        return self._event >= len(self.events_dt)
-
-    def reset(self) -> None:
-        self._event = 0
-        self._step = 0
-        self._t = 0.0
-        self._warmup_remaining = self._WARMUP_FRAMES
-```
-
-See also
-
-* [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) — overview of the [cuMotion](https://nvidia-isaac.github.io/cumotion/) integration and its components.
-* [cuMotion Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) — generating the URDF and XRDF files used by `--xrdf-dir`, including `tool_frames`.
-* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — full tutorial on `RmpFlowController`, including parameter tuning via `get_rmp_flow_config().set_param`.
-
-### PINK Differential IK
-
-This example demonstrates an alternative motion controller: **PINK differential IK**. The same pick-and-place sequence is implemented using the `PinkIKController`, which solves inverse kinematics using [PINK](https://github.com/stephane-caron/pink) and [Pinocchio](https://github.com/stack-of-tasks/pinocchio).
-
-Run this example with:
-
-```python
-# Load the built-in PINK robot model for the UR10
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_pick_place_pink.py
-# Load a custom URDF
-./python.sh standalone_examples/tutorials/manipulation/tutorial_9_pick_place_pink.py --urdf <path_to_urdf>
-```
-
-**Key concepts:**
-
-* `load_pink_supported_robot("ur10")` loads the built-in PINK robot model for the UR10, backed by a Pinocchio model. Alternatively, a custom URDF can be loaded using `load_pink_robot` by passing in `--urdf <path_to_urdf>`.
-* `PinkIKController` accepts a tool frame name, position and orientation costs, a posture cost, and a QP solver (`"osqp"`). It integrates Cartesian velocity commands into joint positions each step.
-* `_init_pink_q0` sets `pink_robot.q0` to the elbow-up configuration. PINK’s PostureTask regularizes the IK solution toward this reference, steering the solver away from elbow-down or degenerate configurations.
-
-tutorial\_9\_pick\_place\_pink.py — UR10ePickPlace state machine class
-
-```python
-class UR10ePickPlace:
-    """Pick-and-place controller for the UR10e + 2F-140 gripper using PINK differential IK.
-
-    Phases:
-        0  Pre-grasp  — arm moves above the cube
-        1  Approach   — arm descends to grasp height
-        2  Grasp      — gripper closes
-        3  Lift       — arm rises with the cube
-        4  Transport  — arm moves above the target location
-        5  Lower      — arm descends to place height
-        6  Release    — gripper opens
-        7  Retract    — arm lifts away
-    """
-
-    _ROBOT_PRIM_PATH = "/World/ur10e_robot"
-    _CUBE_PRIM_PATH = "/World/cube"
-    _EE_LINK_NAME = "tool0" if args.urdf is None else "wrist_3_link"
-    _GRIPPER_JOINT = "finger_joint"
-    _TOOL_FRAME = "tool0" if args.urdf is None else "wrist_3_link"
-
-    _OPEN_POS: float = 0.0
-    _CLOSED_POS: float = 0.5
-
-    _ABOVE_HEIGHT: float = 0.30
-    _NEAR_HEIGHT: float = 0.185
-    _TOOL_OFFSET: dict[str, float] = {
-        "tool0": 0.0,
-        "wrist_3_link": 0.035,
-    }
-    _EE_THRESHOLD: float = 0.05
-    _GRIPPER_THRESHOLD: float = 0.05
-    _MIN_STEPS: int = 30
-    _WARMUP_FRAMES: int = 120
-    _PHYSICS_DT: float = 1.0 / 60.0
-
-    _POSITION_COST: float = 0.5
-    _ORIENTATION_COST: float = 1.0
-    _POSTURE_COST: float = 1e-3
-
-    _ELBOW_UP_ARM: np.ndarray = np.array([-np.pi, -np.pi / 2, -np.pi / 2, -np.pi / 2, np.pi / 2, 0.0])
-    _DOWN_ORI: np.ndarray = np.array([0.0, 0.0, 1.0, 0.0])
-
-    _PHASE_LABELS: tuple[str, ...] = (
-        "Pre-grasp: moving above cube",
-        "Approach: descending to cube",
-        "Grasp: closing gripper",
-        "Lift: raising arm",
-        "Transport: moving to target",
-        "Lower: descending to place",
-        "Release: opening gripper",
-        "Retract: lifting arm away",
-    )
-
-    def __init__(
-        self,
-        urdf_path: str | None = None,
-        cube_position: np.ndarray | None = None,
-        target_position: np.ndarray | None = None,
-        events_dt: list[int] | None = None,
-    ) -> None:
-        self._urdf_path = urdf_path
-        self.cube_position = cube_position if cube_position is not None else np.array([0.5, 0.0, 0.025])
-        self.target_position = target_position if target_position is not None else np.array([0.5, 0.5, 0.05])
-        self.events_dt = events_dt or [80, 80, 20, 40, 130, 40, 20, 40]
-
-        self._event: int = 0
-        self._step: int = 0
-        self._t: float = 0.0
-        self._warmup_remaining: int = self._WARMUP_FRAMES
-
-        self._articulation: Articulation | None = None
-        self._ee_prim: GeomPrim | None = None
-        self._finger_idx: int | None = None
-        self._pink_robot: PinkRobot | None = None
-        self._controller: PinkIKController | None = None
-        self._tool_frame: str | None = None
-
-    async def setup_scene(self) -> None:
-        """Build the scene and initialize the PINK IK controller."""
-        assets_root_path = await get_assets_root_path_async()
-        stage_utils.add_reference_to_stage(
-            usd_path=assets_root_path
-            + "/Isaac/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd",
-            path=self._ROBOT_PRIM_PATH,
-        )
-
-        GroundPlane("/World/GroundPlane")
-        DomeLight("/World/DomeLight").set_intensities(1000)
-
-        cube_obj = Cube(
-            paths=self._CUBE_PRIM_PATH, positions=[self.cube_position], sizes=1.0, scales=[0.05, 0.05, 0.05]
-        )
-        RigidPrim(paths=cube_obj.paths)
-        GeomPrim(paths=cube_obj.paths, apply_collision_apis=True)
-
-        await omni.kit.app.get_app().next_update_async()
-        set_camera_view(eye=[1.5, 1.5, 1.0], target=[0.5, 0.0, 0.2], camera_prim_path="/OmniverseKit_Persp")
-
-        self._articulation = Articulation(self._ROBOT_PRIM_PATH)
-        await omni.kit.app.get_app().next_update_async()
-
-        n_dofs = len(self._articulation.dof_names)
-        self._articulation.set_default_state(
-            dof_positions=np.concatenate([self._ELBOW_UP_ARM, np.zeros(max(0, n_dofs - 6))])
-        )
-
-        if self._urdf_path is not None:
-            self._pink_robot = load_pink_robot(urdf_path=self._urdf_path)
-        else:
-            self._pink_robot = load_pink_supported_robot("ur10")
-        if self._TOOL_FRAME not in self._TOOL_OFFSET:
-            raise ValueError(
-                f"Tool frame '{self._TOOL_FRAME}' has no entry in _TOOL_OFFSET. "
-                f"Add it: {list(self._TOOL_OFFSET.keys())}"
-            )
-        self._init_pink_q0()
-
-        self._controller = PinkIKController(
-            pink_robot=self._pink_robot,
-            robot_joint_space=self._articulation.dof_names,
-            robot_site_space=[self._TOOL_FRAME],
-            tool_frame=self._TOOL_FRAME,
-            position_cost=self._POSITION_COST,
-            orientation_cost=self._ORIENTATION_COST,
-            posture_cost=self._POSTURE_COST,
-            solver="osqp",
-            dt=self._PHYSICS_DT,
-        )
-
-    def initialize_after_play(self) -> None:
-        """Resolve EE link and gripper DOF index. Call once after physics starts."""
-        link_names = self._articulation.link_names
-        if self._EE_LINK_NAME in link_names:
-            self._ee_prim = GeomPrim(paths=self._articulation.link_paths[0][link_names.index(self._EE_LINK_NAME)])
-        else:
-            print(f"WARNING: '{self._EE_LINK_NAME}' not found. Available: {link_names}")
-
-        dof_names = self._articulation.dof_names
-        if self._GRIPPER_JOINT in dof_names:
-            self._finger_idx = dof_names.index(self._GRIPPER_JOINT)
-        else:
-            print(f"WARNING: '{self._GRIPPER_JOINT}' not found. Available: {dof_names}")
-
-        self._articulation.reset_to_default_state()
-
-    def _init_pink_q0(self) -> None:
-        """Set pink_robot.q0 to elbow-up for PostureTask regularization."""
-        import pinocchio as pin
-
-        elbow_up_map = {
-            "shoulder_pan_joint": -np.pi / 2,
-            "shoulder_lift_joint": -np.pi / 2,
-            "elbow_joint": -np.pi / 2,
-            "wrist_1_joint": -np.pi / 2,
-            "wrist_2_joint": np.pi / 2,
-            "wrist_3_joint": 0.0,
-        }
-        q0 = pin.neutral(self._pink_robot.model)
-        for name, angle in elbow_up_map.items():
-            if self._pink_robot.model.existJointName(name):
-                jid = self._pink_robot.model.getJointId(name)
-                q0[self._pink_robot.model.joints[jid].idx_q] = angle
-        self._pink_robot.q0 = q0
-
-    def _phase_ee_target(self) -> np.ndarray:
-        c, p = self.cube_position, self.target_position
-        offset = self._TOOL_OFFSET[self._TOOL_FRAME]
-        hi = self._ABOVE_HEIGHT + offset
-        lo = self._NEAR_HEIGHT + offset
-        targets = {
-            0: [c[0], c[1], c[2] + hi],
-            1: [c[0], c[1], c[2] + lo],
-            2: [c[0], c[1], c[2] + lo],
-            3: [c[0], c[1], c[2] + hi],
-            4: [p[0], p[1], p[2] + hi],
-            5: [p[0], p[1], p[2] + lo],
-            6: [p[0], p[1], p[2] + lo],
-            7: [p[0], p[1], p[2] + hi],
-        }
-        return np.array(targets[self._event], dtype=np.float32)
-
-    def _make_setpoint(self, position: np.ndarray) -> mg.RobotState:
-        return mg.RobotState(
-            sites=mg.SpatialState.from_name(
-                spatial_space=[self._TOOL_FRAME],
-                positions=([self._TOOL_FRAME], wp.array([position.tolist()], dtype=wp.float32)),
-                orientations=([self._TOOL_FRAME], wp.array([self._DOWN_ORI.tolist()], dtype=wp.float32)),
-            ),
-        )
-
-    def _estimated_state(self) -> mg.RobotState:
-        names = self._articulation.dof_names
-        return mg.RobotState(
-            joints=mg.JointState.from_name(
-                robot_joint_space=names,
-                positions=(names, self._articulation.get_dof_positions()),
-                velocities=(names, self._articulation.get_dof_velocities()),
-            )
-        )
-
-    def _set_gripper(self, pos: float) -> None:
-        if self._finger_idx is not None:
-            self._articulation.set_dof_position_targets(
-                wp.array([pos], dtype=wp.float32), dof_indices=[self._finger_idx]
-            )
-
-    def _ee_near_target(self) -> bool:
-        if self._ee_prim is None:
-            return False
-        ee_pos = self._ee_prim.get_world_poses()[0].numpy()[0]
-        return bool(np.linalg.norm(ee_pos - self._phase_ee_target()) < self._EE_THRESHOLD)
-
-    def _gripper_at(self, target: float) -> bool:
-        if self._finger_idx is None:
-            return False
-        pos = float(self._articulation.get_dof_positions().numpy().flatten()[self._finger_idx])
-        return abs(pos - target) < self._GRIPPER_THRESHOLD
-
-    def _phase_converged(self) -> bool:
-        if self._step < self._MIN_STEPS:
-            return False
-        if self._event == 2:
-            return self._gripper_at(self._CLOSED_POS)
-        if self._event == 6:
-            return self._gripper_at(self._OPEN_POS)
-        return self._ee_near_target()
-
-    def forward(self) -> bool:
-        """Advance one simulation step. Returns False when the sequence is complete."""
-        if self.is_done():
-            return False
-
-        if self._warmup_remaining > 0:
-            n_dofs = len(self._articulation.dof_names)
-            targets = np.concatenate([self._ELBOW_UP_ARM, np.zeros(max(0, n_dofs - 6))])
-            self._articulation.set_dof_position_targets(
-                wp.array(targets, dtype=wp.float32), dof_indices=list(range(n_dofs))
-            )
-            self._warmup_remaining -= 1
-            if np.abs(self._articulation.get_dof_positions().numpy().flatten()[:6] - self._ELBOW_UP_ARM).max() < 0.1:
-                self._warmup_remaining = 0
-            return True
-
-        if self._step == 0:
-            print(f"  Phase {self._event}: {self._PHASE_LABELS[self._event]}")
-            if self._event in (0, 3, 7):
-                if not self._controller.reset(
-                    self._estimated_state(), self._make_setpoint(self._phase_ee_target()), t=0.0
-                ):
-                    raise RuntimeError("PinkIKController reset failed.")
-                self._t = 0.0
-
-        if self._event == 2:
-            self._set_gripper(self._CLOSED_POS)
-        elif self._event == 6:
-            self._set_gripper(self._OPEN_POS)
-        else:
-            desired = self._controller.forward(
-                self._estimated_state(), self._make_setpoint(self._phase_ee_target()), self._t
-            )
-            if desired is not None and desired.joints.positions is not None:
-                self._articulation.set_dof_position_targets(
-                    positions=desired.joints.positions, dof_indices=desired.joints.position_indices
-                )
-
-        self._t += self._PHYSICS_DT
-        self._step += 1
-        if self._phase_converged() or self._step >= self.events_dt[self._event]:
-            if self._step >= self.events_dt[self._event]:
-                print(f"  Phase {self._event} timed out after {self.events_dt[self._event]} frames")
-            self._event += 1
-            self._step = 0
-
-        return True
-
-    def is_done(self) -> bool:
-        return self._event >= len(self.events_dt)
-
-    def reset(self) -> None:
-        self._event = 0
-        self._step = 0
-        self._t = 0.0
-        self._warmup_remaining = self._WARMUP_FRAMES
-```
-
-See also
-
-* [PINK Integration](../pink/index.html#isaac-sim-pink) — overview of the PINK integration and its weighted multi-task IK approach.
-* [PINK IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) — in-depth walkthrough of `PinkIKController`, task weights, posture regularization, and QP solver selection.
-* [PINK Robot Configuration Tutorial](../pink/tutorial_robot_configuration.html#isaac-sim-pink-tutorial-robot-configuration) — loading PINK robot models with `load_pink_supported_robot()` and `load_pink_robot()`.
-
-## Summary
-
-In this tutorial, you learned how to:
-
-* Control the 2F-140 gripper using the Articulation API and `set_dof_position_targets`.
-* Plan and execute joint-space trajectories using `mg.Path` and `mg.TrajectoryFollower`.
-* Use the cuMotion `RmpFlowController` to track a Cartesian target in real time with obstacle avoidance.
-* Implement an 8-phase pick-and-place sequence with cuMotion RMPflow.
-* Implement the same sequence with PINK differential IK as an alternative CPU-based solver.
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Prerequisites](#prerequisites)
-* [Overview](#overview)
-* [Part 1: Gripper Control](#part-1-gripper-control)
-* [Part 2: Arm Trajectory Following](#part-2-arm-trajectory-following)
-* [Part 3: Follow Target using cuMotion RMPflow](#part-3-follow-target-using-cumotion-rmpflow)
-* [Part 4: Pick and Place](#part-4-pick-and-place)
-  + [cuMotion RMPflow](#cumotion-rmpflow)
-  + [PINK Differential IK](#pink-differential-ik)
-* [Summary](#summary)
-
----
-
-### Rig Legged Robot
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_rig_legged_robot.html
-
-* [Robot Setup](../robot_setup/index.html)
-* [Robot Setup Tutorials Series](index.html)
-* Tutorial 13: Rigging a Legged Robot for a Locomotion Policy
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Tutorial 13: Rigging a Legged Robot for a Locomotion Policy
-
-This tutorial explains how to rig a legged robot to match the configuration specified by a locomotion policy.
-The Isaac Sim [Policy Controller Class](../isaac_lab_tutorials/tutorial_policy_deployment.html#isaac-sim-policy-controller-class) already handles robot rigging at runtime for inference in Isaac Sim,
-so this tutorial is only relevant when you want to run the robot policy from an external process, such as ROS.
-
-## Learning Objectives
-
-In this tutorial, you will walk through the process of rigging an H1 humanoid robot to match the configuration specified by the H1 flat terrain locomotion policy.
-
-1. Setting the initial robot position
-2. Setting the joint configuration
-3. Verifying the joint configuration
-
-Note
-
-The H1 flat terrain policy environment definition file is available [here](https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Samples/Policies/H1_Policies/h1_env.yaml).
-
-## Setting the Initial Robot Position
-
-The initial joint position of the robot is specified under the `robot:init_state:joint_pos` section of the environment definition file. The joint names are specified using the `.*` wildcard.
-
-```python
- 1robot:
- 2  init_state:
- 3    joint_pos:
- 4      .*_hip_yaw: 0.0
- 5      .*_hip_roll: 0.0
- 6      .*_hip_pitch: -0.28
- 7      .*_knee: 0.79
- 8      .*_ankle: -0.52
- 9      torso: 0.0
-10      .*_shoulder_pitch: 0.28
-11      .*_shoulder_roll: 0.0
-12      .*_shoulder_yaw: 0.0
-13      .*_elbow: 0.52
-14    joint_vel:
-15      .*: 0.0
-```
-
-Note
-
-The joint positions are specified in radians, whereas USD joint positions are specified in degrees.
-
-To store the initial state of the robot:
-
-1. Open the `h1.usd` file from the Content Browser at `Isaac Sim/Robots/Unitree/H1`.
-2. In the upper-right corner of the stage, select the `funnel` icon and click `Physics Joints` to filter the joint list.
-3. Left-click the first joint (`left_hip_yaw`), then Shift-left-click the last joint (`right_elbow`) to select all joints.
-4. Right-click any selected joint and click **Add** > **Physics** > **Joint State Angular** to create a Joint State API attribute on the joints.
-5. Right-click any selected joint and click **Add** > **Physics** > **Angular drive** to create a joint drive API attribute on the joints.
-
-Note
-
-The `Joint State Angular` API reports the joint position and velocity, and the `Angular drive` API drives the joint. If the joint already has a `Joint State Angular` API or `Angular drive` API, you can skip the previous two steps.
-
-6. For each active joint, convert the `joint_pos` and `joint_vel` values from radians to degrees.
-7. Left-click the joint you are changing.
-8. In the Property panel, scroll down to the `Target Position` attribute.
-9. Set the `Target Position` attribute to the converted value from the `joint_pos` attribute in the environment definition file.
-10. Set the `Target Velocity` attribute to the converted value from the `joint_vel` attribute in the environment definition file.
-11. Repeat the previous steps for each active joint.
-12. Press play.
-
-Note
-
-When using Newton, physics initialization might fail because reversed joints are not supported for `/h1/Joints/torso`. If this happens, select the `torso` joint. In the Property panel, go to **Physics** > **Joint** and swap the joint bodies so `Body 0` is `/h1/torso_link` and `Body 1` is `/h1/pelvis`.
-
-13. Verify that the robot moves to the initial position specified in the environment definition file. To make the robot start in the initial position when the simulation starts, store the data in the Joint State API.
-14. To prevent the robot from falling indefinitely, add a fixed joint between the robot and the world by right-clicking `/h1/torso_link` and selecting **Create** > **Physics** > **Joint** > **Fixed Joint**.
-
-To save the robot pose:
-
-1. In the upper-left corner of the stage, click **Edit** > **Preferences**.
-2. In the **Preferences** window, click the **Physics** tab in the left sidebar.
-3. Uncheck **Reset Simulation on Stop**.
-4. Play the simulation and stop it when the robot reaches the desired initial pose. Repeat this step once more to ensure the pose is saved even after reset.
-5. Delete the fixed joint between the robot and the world.
-6. Press **Ctrl+S** to save the USD file.
-7. Check **Reset Simulation on Stop** again.
-
-## Setting the Joint Configuration
-
-Set the joint configuration to match the policy’s robot configuration. This may be different from the values stored in the USD file.
-The joint drive configuration is specified under the `scene:robot:actuators` section of the environment definition file.
-
-The following snippet shows the actuator configuration for the H1 robot legs.
-
-```python
- 1actuators:k
- 2  legs:
- 3    class_type: omni.isaac.lab.actuators.actuator_pd:ImplicitActuator
- 4    joint_names_expr:
- 5    - .*_hip_yaw
- 6    - .*_hip_roll
- 7    - .*_hip_pitch
- 8    - .*_knee
- 9    - torso
-10    effort_limit: 300
-11    velocity_limit: 100.0
-12    stiffness:
-13      .*_hip_yaw: 150.0
-14      .*_hip_roll: 150.0
-15      .*_hip_pitch: 200.0
-16      .*_knee: 200.0
-17      torso: 200.0
-18    damping:
-19      .*_hip_yaw: 5.0
-20      .*_hip_roll: 5.0
-21      .*_hip_pitch: 5.0
-22      .*_knee: 5.0
-23      torso: 5.0
-24    armature: null
-25    friction: null
-```
-
-The `joint_names_expr` is a list of joint names to be controlled by the actuator. The `class_type` is the actuator type.
-The `effort_limit` is the maximum effort that can be applied to the joint. The `velocity_limit` is the maximum velocity that can be applied to the joint.
-The `stiffness` defines the joint stiffness. The `damping` defines the joint damping. The `armature` defines the joint armature, and the `friction` defines the joint friction.
-
-To set the joint configurations:
-
-1. Left-click a joint, such as `left_hip_yaw`.
-2. In the Property panel, scroll down to the `Joint Drive` attribute and set `stiffness` and `damping` to the values specified in the environment definition file.
-
-Note
-
-Remember to convert stiffness and damping to degree-based units.
-
-The USD file stiffness is in \(\frac{kg \cdot m^2}{deg \cdot s^2}\) and the damping is in \(\frac{kg \cdot m^2}{deg \cdot s}\).
-To convert radians to degrees, you can use the following formulas:
-
-\[S\_{deg} = S\_{rad} \times \frac{\pi}{180}\]
-
-\[D\_{deg} = D\_{rad} \times \frac{\pi}{180}\]
-
-The `effort_limit` is the maximum effort that can be applied to the joint. Set that value to the `Max Force` attribute of the joint drive API.
-
-Scroll down to **Raw USD Properties** under the **Advanced** tab, and set the **Armature** and **Joint Friction** attributes to the values specified in the environment definition file.
-
-For the **Maximum Joint Velocity** attribute, set it to the **velocity\_limit** value specified in the environment definition file. Remember to convert it to degrees.
-
-\[\omega\_{deg} = \omega\_{rad} \times \frac{180}{\pi}\]
-
-Note
-
-Remember to set the joint configurations for all active joints in the robot, such as the arms and legs.
-
-## Verifying the Joint Configuration
-
-To verify the joint configuration, you can play the simulation and run the following snippet in Script Editor to print the joint configuration.
-
-1. Play the simulation.
-2. Open Script Editor by clicking **Window** > **Script Editor**.
-3. Copy and paste the following snippet into Script Editor.
-4. Run the snippet by clicking the **Run** button.
-
-   ```python
-   from isaacsim.core.experimental.prims import Articulation
-
-   prim = Articulation("/h1")
-   print(prim.dof_names)
-   lower, upper = prim.get_dof_limits()
-   stiffnesses, dampings = prim.get_dof_gains()
-   max_velocities = prim.get_dof_max_velocities()
-   max_efforts = prim.get_dof_max_efforts()
-   for i, name in enumerate(prim.dof_names):
-       print(
-           f"  {name}: lower={lower.numpy()[0][i]:.4f}, upper={upper.numpy()[0][i]:.4f}, "
-           f"maxVelocity={max_velocities.numpy()[0][i]:.2f}, maxEffort={max_efforts.numpy()[0][i]:.0f}, "
-           f"stiffness={stiffnesses.numpy()[0][i]:.2f}, damping={dampings.numpy()[0][i]:.2f}"
-       )
-   ```
-5. Verify that you see console output similar to the following:
-
-```python
-['left_hip_yaw', 'right_hip_yaw', 'torso', 'left_hip_roll', 'right_hip_roll', 'left_shoulder_pitch', 'right_shoulder_pitch', 'left_hip_pitch', 'right_hip_pitch', 'left_shoulder_roll', 'right_shoulder_roll', 'left_knee', 'right_knee', 'left_shoulder_yaw', 'right_shoulder_yaw', 'left_ankle', 'right_ankle', 'left_elbow', 'right_elbow']
-  left_hip_yaw: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
-  right_hip_yaw: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
-  torso: lower=-2.3500, upper=2.3500, maxVelocity=100.00, maxEffort=300, stiffness=200.00, damping=4.98
-  left_hip_roll: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
-  right_hip_roll: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
-  left_shoulder_pitch: lower=-2.8700, upper=2.8700, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  right_shoulder_pitch: lower=-2.8700, upper=2.8700, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  left_hip_pitch: lower=-3.1400, upper=2.5300, maxVelocity=100.00, maxEffort=300, stiffness=199.96, damping=5.00
-  right_hip_pitch: lower=-3.1400, upper=2.5300, maxVelocity=100.00, maxEffort=300, stiffness=199.96, damping=5.00
-  left_shoulder_roll: lower=-0.3400, upper=3.1100, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  right_shoulder_roll: lower=-3.1100, upper=0.3400, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  left_knee: lower=-0.2600, upper=2.0500, maxVelocity=100.00, maxEffort=300, stiffness=200.00, damping=4.98
-  right_knee: lower=-0.2600, upper=2.0500, maxVelocity=100.00, maxEffort=300, stiffness=200.00, damping=4.98
-  left_shoulder_yaw: lower=-1.3000, upper=4.4500, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  right_shoulder_yaw: lower=-4.4500, upper=1.3000, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  left_ankle: lower=-0.8700, upper=0.5200, maxVelocity=100.00, maxEffort=100, stiffness=20.00, damping=4.00
-  right_ankle: lower=-0.8700, upper=0.5200, maxVelocity=100.00, maxEffort=100, stiffness=20.00, damping=4.00
-  left_elbow: lower=-1.2500, upper=2.6100, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-  right_elbow: lower=-1.2500, upper=2.6100, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
-```
-
-The limit values in the console output are in radians. Each line shows the properties for a single DOF.
-Verify that the `maxVelocity`, `maxEffort`, `stiffness`, and `damping` values match the values specified in the environment definition file.
-
-For example, for `left_hip_yaw`, the max velocity is `100.0`, the max effort is `300.0`, the stiffness is `150.0`, and the damping is `5.0`.
-
-Note
-
-The rigged H1 robot is available in the Content Browser at `Isaac/Samples/Rigging/H1/h1_rigged.usd`.
-
-## Summary
-
-This tutorial covers the following topics:
-
-* Setting the initial robot position
-* Setting the joint configuration
-* Verifying the joint configuration
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Setting the Initial Robot Position](#setting-the-initial-robot-position)
-* [Setting the Joint Configuration](#setting-the-joint-configuration)
-* [Verifying the Joint Configuration](#verifying-the-joint-configuration)
-* [Summary](#summary)
-
----
-
-
-## Setup 概览
 
 ### Assemble Robots
 
@@ -7381,6 +3835,3571 @@ On this page
 * [Closed Loop Structure Issues](#closed-loop-structure-issues)
 * [Robot Importing tips](#robot-importing-tips)
 * [Common Issues](#common-issues)
+
+---
+
+
+## Setup 教程
+
+### Setup Tutorials Index
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/index.html
+
+* [Robot Setup](../robot_setup/index.html)
+* Robot Setup Tutorials Series
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Robot Setup Tutorials Series
+
+The GUI tutorials walk you through setting up your virtual world and building robot digital twins with various NVIDIA Isaac Sim features. In the process, you will learn where to find frequently used properties, settings, and tools, and familiarize yourself with the toolbars, icons, and OpenUSD standards.
+
+**Important:** These tutorials are designed as a progressive learning path from beginner to advanced. We recommend starting with the *Setup a Wheeled Robot* section, as it covers essential beginner concepts like environment setup, basic robot assembly, and fundamental rigging techniques that are required for all robot types.
+
+## **Beginner Level** - Setup a Wheeled Robot
+
+Start here to learn fundamental concepts that apply to all robot types:
+
+* [Tutorial 1: Stage Setup](tutorial_intro_environment_setup.html)
+* [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html)
+* [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html)
+* [Tutorial 4: Add Camera and Sensors to a Robot](tutorial_gui_camera_sensors.html)
+* [Tutorial 5: Rig a Mobile Robot](rig_mobile_robot.html)
+
+## **Intermediate Level** - Setup a Manipulator
+
+Build upon the foundational knowledge to work with more complex robot structures:
+
+* [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html)
+* [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html)
+* [Tutorial 8: Generate Robot Configuration File](tutorial_generate_robot_config.html)
+* [Tutorial 9: Pick and Place Example](tutorial_pickplace_example.html)
+
+## **Advanced Level** - Asset Tuning and Optimization
+
+Master advanced techniques for complex robot configurations:
+
+* [Tutorial 10: Rig Closed-Loop Structures](rig_closed_loop_structures.html)
+* [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html)
+* [Tutorial 12: Asset Optimization](optimizing_asset.html)
+* [Tutorial 13: Rigging a Legged Robot for a Locomotion Policy](tutorial_rig_legged_robot.html)
+
+On this page
+
+* [**Beginner Level** - Setup a Wheeled Robot](#beginner-level-setup-a-wheeled-robot)
+* [**Intermediate Level** - Setup a Manipulator](#intermediate-level-setup-a-manipulator)
+* [**Advanced Level** - Asset Tuning and Optimization](#advanced-level-asset-tuning-and-optimization)
+
+---
+
+### Joint Tuning
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/joint_tuning.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 11: Tuning Joint Drive Gains
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 11: Tuning Joint Drive Gains
+
+## Learning Objectives
+
+In this tutorial, you use the Gain Tuner to bring an un-tuned UR10 manipulator from zero gains to a working set of stiffness and damping values. Along the way you learn how to:
+
+* Diagnose missing or insufficient gains with the **Snap-to-Limits** test.
+* Distinguish **Fail** from **Blocked** results using the **Disable Self-Collisions** toggle.
+* Validate tuned gains with the **Stress Test** and observe how velocity limits contribute to solver stability.
+
+For a full explanation of how the Gain Tuner works, the physics behind joint drives, and the complete parameter reference for each test, see [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner).
+
+*10-15 Minute Tutorial*
+
+## Prerequisites
+
+* Complete the [Tutorial: Import URDF](../importer_exporter/import_urdf.html#isaac-sim-app-tutorial-advanced-import-urdf) tutorial to import the UR10 onto the stage. The URDF importer sets all joint stiffness and damping to zero by default, so the robot has no active drives.
+* Read the [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) reference for background on the parameters, physics, and detailed result interpretation guide.
+
+## Step 1: Open the Gain Tuner and observe zero gains
+
+1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
+2. Select the UR10 from the **Select Robot** dropdown.
+3. Ensure that **Mode** is set to **Position** for each joint.
+4. Observe that all six joints — `shoulder_pan_joint`, `shoulder_lift_joint`, `elbow_joint`, `wrist_1_joint`, `wrist_2_joint`, `wrist_3_joint` — have **Stiffness** and **Damping** set to `0`. With zero gains the robot has no active drives and will collapse under gravity when the simulation is played.
+
+## Step 2: Snap-to-Limits with weak gains
+
+Set initial gains to see how the robot responds with deliberately low stiffness and no damping:
+
+1. In the **Stiffness** column, set all six joints to `10`. Leave **Damping** at `0`.
+2. Select the **Snap-to-Limits** test mode (the default).
+3. Enable the **Test** checkbox for all joints.
+4. Press **Play**, then press **Run Test**.
+
+With stiffness at only 10 Nm/rad and no damping, expect:
+
+* `shoulder_lift_joint` and `elbow_joint` are likely to **Fail**. These joints bear the full weight of the arm and 10 Nm/rad of stiffness is far too low to drive them to their limits.
+* Wrist joints may also **Fail** or show long settling times with oscillation, since there is no damping to absorb overshoot.
+* Some joints may report **Blocked** if the collision geometry prevents them from reaching a limit.
+
+Note
+
+If a joint reports **Blocked**, re-run with **Disable Self-Collisions** enabled. If the joint then passes, the joint limit extends beyond what the collision geometry allows — tighten the joint limit in USD rather than adjusting gains.
+
+## Step 3: Tuned parameters
+
+Before adjusting gains, check the joint force limits. The UR10’s URDF defines max effort values (330 Nm for the shoulder joints, 150 Nm for the elbow, 56 Nm for the wrist joints) that are imported as the joint **Max Force** in USD. With high stiffness, the PD controller may need to apply forces that exceed these limits to drive the heavy shoulder and elbow links to their targets. If a joint still fails Snap-to-Limits after increasing stiffness, select the joint in the **Properties** panel and set **Max Force** to a higher value or to `inf` (infinite) under **Joint** > **Advanced** > **Maximum Force**. For the UR10, `shoulder_pan_joint` and `shoulder_lift_joint` require infinite max force to pass.
+
+The following gains produce a UR10 that passes Snap-to-Limits. They were found using the position-drive tuning heuristic described in the [Tuning Workflow](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-tuning-workflow) section of the Gain Tuner reference:
+
+| Joint | Stiffness | Damping |
+| --- | --- | --- |
+| `shoulder_pan_joint` | 500000 | 50 |
+| `shoulder_lift_joint` | 500000 | 50 |
+| `elbow_joint` | 50000 | 50 |
+| `wrist_1_joint` | 500 | 0.5 |
+| `wrist_2_joint` | 500 | 0.5 |
+| `wrist_3_joint` | 50 | 0.0 |
+
+Note
+
+These values are starting-point examples. Fine-tune them for your specific application by iterating with the Gain Tuner tests. The shoulder and elbow joints require higher gains because they bear the weight of the full arm, while the lighter wrist joints respond well at lower values.
+
+Enter these values, re-run the Snap-to-Limits test, and confirm that all joints now **Pass**.
+
+You can further validate tracking quality with the **Sinusoidal** and **Step Function** test modes. For configuration details and result interpretation, see [Sinusoidal](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-sinusoidal) and [Step Function](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-step-function).
+
+## Step 4: Stress Test with tuned gains
+
+With the tuned gains from [Step 3: Tuned parameters](#tuned-ur10-gains-table) applied, run the Stress Test to verify the robot is stable under the extreme commands typical of reinforcement learning training:
+
+1. Select the **Stress Test** mode and choose the **Random Walk** sub-mode.
+2. Set **Sequence** for all joints to `1` so that the joints are tested in parallel.
+3. Leave **Disable Velocity Limits** off (the default).
+4. Press **Play**, then press **Run Test**.
+5. All joints should report **Stable**.
+
+Now observe what happens without velocity limits:
+
+1. Enable **Disable Velocity Limits**.
+2. Press **Run Test** again.
+3. Some joints now report **Unstable**.
+
+Without velocity limits, the PD controller responds to the stress test’s large position errors by generating forces that accelerate joints to extreme speeds within a single simulation timestep. At these speeds the discrete-time solver can fail to converge, leading to energy blowup or NaN values.
+
+Velocity limits serve two purposes:
+
+* **Physical fidelity** — real actuators have maximum speeds defined by the manufacturer. The UR10’s URDF specifies velocity limits of approximately 2–3 rad/s per joint. Setting these in simulation reproduces the real robot’s motion envelope.
+* **Solver stability** — by capping joint speed, velocity limits keep per-step displacements within the range where the PhysX implicit integrator remains numerically stable.
+
+If your application requires higher velocity limits than the manufacturer specification, increase them incrementally and re-run the Stress Test after each change to confirm the solver remains stable at the new limits.
+
+Repeat the comparison in **Adversarial** sub-mode to confirm the same behavior under worst-case correlated configurations.
+
+Note
+
+A **Stable** result is meaningful only at the sigma and snap interval values used. When assessing readiness for Isaac Lab training, record these parameters alongside results. See [Stress Test](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner-stress-test) for a full explanation of how to interpret each result combination.
+
+### Summary
+
+This tutorial covered:
+
+1. Starting from an un-tuned UR10 imported from URDF with zero gains.
+2. Using Snap-to-Limits to identify joints with insufficient stiffness and distinguishing Fail from Blocked results.
+3. Applying tuned gains and confirming all joints pass Snap-to-Limits.
+4. Using the Stress Test to demonstrate why velocity limits are important for solver stability.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Step 1: Open the Gain Tuner and observe zero gains](#step-1-open-the-gain-tuner-and-observe-zero-gains)
+* [Step 2: Snap-to-Limits with weak gains](#step-2-snap-to-limits-with-weak-gains)
+* [Step 3: Tuned parameters](#step-3-tuned-parameters)
+* [Step 4: Stress Test with tuned gains](#step-4-stress-test-with-tuned-gains)
+  + [Summary](#summary)
+
+---
+
+### Optimizing Asset
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/optimizing_asset.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 12: Asset Optimization
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 12: Asset Optimization
+
+## Learning Objectives
+
+This tutorial details how to make robot assets more performant and where to find tradeoffs to achieve a faster simulation or rendering time.
+
+*30 Minutes Tutorial*
+
+## Getting Started
+
+**Prerequisites**
+
+* Complete the [Quick Tutorials](../introduction/quickstart_index.html#isaac-sim-intro-quickstart-series) series to learn the basic core concepts of how to navigate inside NVIDIA Isaac Sim.
+* Complete the [Assemble a Simple Robots](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) tutorial to learn the concepts of rigid body API, collision API, joints, drives, and articulations.
+* Read [Onshape importer](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html "(in Omniverse Extensions)") and watch the videos on rigging the robot in Onshape.
+* Familiarity with [Mesh Merge Tool](../robot_setup/ext_isaacsim_util_merge_mesh.html#isaac-merge-mesh).
+
+**Loading the Robot**
+
+This tutorial explores the NVIDIA Jetbot Robot asset which improve performance.
+If you import the asset from a different source, for example from custom CAD, you might end up with numerous meshes per rigid body and this can severely impact performance.
+
+From the recording of this Jetbot asset imported from CAD that on the right side we have an unoptimized asset, and it’s achieving 40 FPS, while the asset on the left was optimized, and now achieves 64 FPS.
+
+## Asset Structure Optimization
+
+In this activity, you use a workflow with the multi-layered asset structure introduced in an earlier module,
+and create an optimized version of an asset.
+Use the Jetbot robot as a starting place. This model was imported from a CAD model made in Onshape.
+Although the physics layer is already in place, the bodies contain a significant number of meshes, which leads to suboptimal simulation performance.
+Begin with an empty stage to learn several useful tricks for asset authoring.
+By the end of this activity, you transform the initial Jetbot model into a well-structured, optimized asset ready for efficient simulation.
+
+### Set Up Reparenting and Layers
+
+1. In Isaac Sim, go to **Edit** > **Preferences** to open the Preferences panel.
+2. Under **Stage** > **Authoring**, next to the \*\* Keep Prim World Transform When reparenting\*\*, ensure that **Inherit Parent Transform** is selected.
+3. Open the Jetbot located at `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized.usd`, verify that you have an empty USD.
+4. Select the **Layers** panel, click the **Insert Sublayer** button at the bottom of the tab, select `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Base/Jetbot_base.usd`, and click **Open**.
+
+### Create Asset Structure
+
+The Jetbot asset is already close to the final goal, but to work on a retargeting of the structure to get the merged meshes,
+create a new prim to be set as default.
+
+1. On the right side menu of the Stage panel, select **Show Root**.
+2. Create a new Xform called `Jetbot_Sim` and drag it onto Root.
+3. Right click on `Jetbot_Sim` and choose **Set as Default Prim**.
+4. Right click and choose **Create** > **Scope** and name it `Visuals`.
+5. Drag this scope onto Root so it’s unparented from `Jetbot_Sim`.
+6. Select the prims under `Jetbot` and drag them onto `Jetbot_Sim`.
+
+   > Note
+   >
+   > To select multiple prims, use shift-select or control-select standards. For example: select one prim, then hold shift and another to choose all prims listed between them.
+7. Verify that instead of being deleted from Jetbot, they were instead deactivated.
+8. Select them all, then right-click and choose **Activate**.
+9. Delete the contents inside the prims in `Jetbot_Sim`.
+
+### Merge Meshes
+
+With the stage ready, you can begin merging the meshes.
+
+Note
+
+The Mesh Merge Tool is deprecated and will be removed in a future release. Use the Scene Optimizer extension instead.
+
+First, enable the merge mesh tool by going to **Window** > **Extensions** and search for **Isaac Sim Mesh Merge** or **isaacsim.util.merge\_mesh** in the deprecated extensions and toggle it on.
+
+1. Open the Mesh Merge Tool by going to **Tools** > **Robotics** > **Asset Editors** > **Mesh Merge Tool**.
+2. Select `Jetbot/left_wheel` prim.
+3. Check the **Combine Materials** box, insert `Jetbot_Sim/Looks` to save the material in the Jetbot Sim xform.
+4. Click on **Merge**.
+5. Select the resulting mesh on `/Merged/left_wheel` and clear the transform on the properties panel.
+6. Right-click on the **Visuals** scope, create an xform called `left_wheel` and drag the resulting mesh into it. Remove the `/Merged` xform from the stage.
+7. To create an internal reference to the wheel, create a **Visuals** Xform inside `left_wheel`, then right-click it and choose **Add** > **Reference**.
+8. Select `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Base/Jetbot_base.usd` in the dialog.
+9. For `prim_path`, type in `/Visuals/left_wheel`.
+10. Back in the **Stage** panel, select the `/Jetbot_Sim/Visuals/left_wheel` prim, which you just added a reference onto. Then in the **Property** panel, scroll down to the **References** section. The prim path is in red, select the Asset Path entry and **clear** it.
+11. This will make the reference point to the internal `/Jetbot_Sim/Visuals/left_wheel` prim. The mesh for `left_wheel` shows as a child. Verify that a **Looks** scope was created in `Jetbot_Sim`, with the materials for this mesh.
+12. Verify that the wheel is referenced correctly in place, along with the base mesh that is at the origin. You can hide the Visuals scope so base meshes won’t be visible.
+13. Save the file with CTRL+S.
+14. To complete the mesh optimization, repeat the previous steps for other bodies.
+
+Note
+
+The finished USD with all mesh merges is available for you at `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_post_merge.usd`.
+
+## Scenegraph Instancing
+
+Scenegraph instancing enables sharable, composed representations of subgraphs of prims. It is a directive that instructs the scene composer that a certain component of the scene is a repeatable pattern. While this allows for a leaner overall scene, it does require a few rules to be followed.
+
+Any children of an instance cannot have attributes modified, because they all inherit from the same asset in memory.
+Instances must be applied on Referenced assets, so that the scenegraph composer knows that from the reference and downwards, things are expected to remain the same and it needs to create a pointer to the asset data to be used anywhere it’s referenced.
+
+1. Start by opening the USD file `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_post_merge.usd`, if you have not merged all the meshes.
+2. The left and right wheel meshes are identical. Further simplify the asset by having left and right wheel reference the same mesh. Select `Visuals/left_wheel` and rename it to `Visuals/wheel`.
+3. Delete `Visuals/right_wheel`. Verify that the Jetbot wheel disappears.
+4. Select `Jetbot_Sim/right_wheel/Visuals`.
+5. Under the References section of the **Property** panel, replace the reference Prim Path from `/Visuals/right_wheel` to `/Visuals/wheel`.
+
+   At this point, all meshes are still considered unique elements because the assets are only defined as a reference.
+6. To leverage memory savings, shift-select all Visuals prims under `/Jetbot_Sim` and check **Instanceable** in the Property panel.
+7. On the Visuals prims, notice the reference icon now has a blue “I” on it. This indicates they are instantiable meshes and effectively applying any memory savings.
+8. Save the file with CTRL+S.
+
+Note
+
+The finished USD with all mesh merges and scenegraph instancing is available for you at `Isaac Sim/Samples/Rigging/Jetbot/Jetbot_Optimized/Jetbot_optimized_final.usd`.
+
+## Other Considerations
+
+* **Minimize Number of Lights**: Each light negatively impacts the performance of the rendering. By default, if the scene has more than 10 lights, the rendering reverts to sample-based lighting to avoid severe slowdown in performance.
+* **Reduce Translucent Materials**: Each translucent material generates a larger performance bottleneck than the default OmniPBR material.
+* **Optimize Physics Performance**: Search for simulation aspects that you can modify to reduce computational cost. Typically, colliders have high computational costs. The more basic that you can make a collision shape, the more performant the simulation behaves. Reducing the number of contact points can also bring huge performance benefits. Tuning this can take several experiments to achieve the best precision versus performance point for your situation.
+* **Approximate Wheel Colliders**: If you have a wheel collider, consider using a simple cylinder or sphere collider instead of a mesh collider. This can significantly improve performance and allows the robot to drive smoothly over terrains.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Getting Started](#getting-started)
+* [Asset Structure Optimization](#asset-structure-optimization)
+  + [Set Up Reparenting and Layers](#set-up-reparenting-and-layers)
+  + [Create Asset Structure](#create-asset-structure)
+  + [Merge Meshes](#merge-meshes)
+* [Scenegraph Instancing](#scenegraph-instancing)
+* [Other Considerations](#other-considerations)
+
+---
+
+### Rig Closed Loop Structures
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig_closed_loop_structures.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 10: Rig Closed-Loop Structures
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 10: Rig Closed-Loop Structures
+
+Some models are challenging to represent. Robots and grippers still have unique features and structures that are uncommon. In this document you learn some techniques to model these unique features and learn a general approach for managing these unique configurations.
+
+## Learning Objectives
+
+In this tutorial, you will:
+
+* Use USD Layers to edit and test assets
+* Add materials and adjust joints post CAD import
+* Break a closed loop articulation chain
+* Add joint drives, including mimic joints
+* Adjust collision shapes
+* Test grippers by building a test setup and using a gripper controller OmniGraph
+
+*30 Minutes Tutorial*
+
+Start with a [Robotiq 2F-85 Parallel Gripper](https://robotiq.com/products/2f85-140-adaptive-robot-gripper) STP file imported into an [Onshape document](https://cad.onshape.com/documents/02712153b53a69118b4e5c99/w/e4160a7cfa8bb14f2585a92f/e/6d63d85251b40eee71da6b56) and with joints modeled. This tutorial does not directly cover tuning the joints. Instead, tuned parameters are provided when configuring the asset. To learn more about gains tuning see [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html#isaac-sim-app-tutorial-advanced-joint-tuning) and [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner).
+
+## Getting Started
+
+**Prerequisite**
+
+* Complete the [Quick Tutorials](../introduction/quickstart_index.html#isaac-sim-intro-quickstart-series) series to learn the basic core concepts of how to navigate inside NVIDIA Isaac Sim.
+* Complete the [Assemble a Simple Robot](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) and [Adding Sensors and Cameras](tutorial_gui_camera_sensors.html#isaac-sim-app-tutorial-gui-camera-sensors) tutorials to learn the concepts of rigid body API, collision API, joints, drives, and articulations.
+* Read [Onshape importer](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html "(in Omniverse Extensions)") and watch the videos on rigging the robot in Onshape.
+* Have a version of the Robotiq 2F-85 Gripper imported in Onshape and model the joints that connect the fingers together and to the body.
+
+Note
+
+The Onshape document used in this tutorial is publicly available. The imported USD asset is located at `Samples/Rigging/Gripper/Robotiq 2F-85` to get started.
+
+## Rigging the Robot
+
+### Using Layers to Edit and Test an Asset
+
+All the rigid body, masses, and joint definition are done in [Onshape](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html#configuring-mates-for-physics). After they are imported to Isaac Sim, the asset contains basic joint information and rigid body setup. You must complete a few additional steps to make the asset fully functional.
+
+Instead of opening the original asset, edit the asset using **layers**. Layers allow for building a scene on top of a root asset and saving it without changing the underlying root layer assets. For example, you can add a ground plane and objects used to test the gripper, save the testing setup in the layers, while keeping the original gripper asset free of any extraneous items used for testing.
+
+1. Create a new stage without the reference added during import.
+2. Save this stage with the name `Robotiq_2F_85_config.usd` at the same folder as the imported assets (you can locate the source file in the Reference or Payload section on the Property panel, and click the “Locate file” icon).
+3. Open the layer tab and drag the `Robotiq_2F_85_edit.usd` in the **Root Layer**.
+
+There is also a file named `Robotiq_2F_85_base.usd` in the source folder. This is the clean stage post import from Onshape and must not be directly edited to facilitate updates when the asset is re-imported from Onshape.
+
+The *Authoring layer* is where changes are saved. To switch between layers, double-click on the choice.
+
+If changes are made in the wrong authoring layer, you can drag the prims with the delta between layers to merge them into the receiving layer. Use this to your benefit by first authoring everything in the Root layer. After you are satisfied, you can drag your updates to the `Robotiq_2F_85_edit.usd` layer.
+
+This is how the joints were named for this asset:
+
+Note
+
+Remember to combine parts that make rigid bodies on Group Mates before importing, to simplify the rigid bodies on stage (also useful for renaming the fingers to `left_finger_...` and `right_finger_...`).
+
+## Adjusting Joints Post Import
+
+Sometimes a limitation with the Onshape Client API causes the joints to become flipped 180 degrees from the drawing. To fix that, select the joints that are flipped, and apply an equal 180 degrees offset in Rotation 0 and Rotation 1 X axis. With the asset you imported, this was the case on the four joints.
+
+The joints `[left, right]_outer_finger_joint` require limits [0,180] and `[finger_joint, right_outer_knuckle_joint]` require limits [0, 75]. Leave all other joints unconstrained.
+
+Add fingertip physics material to increase the friction contact:
+
+1. Open the Menu **Create** > **Physics** > **Physics Material**.
+2. Select **Rigid Body Material**.
+3. Rename the material to `fingertip_material`.
+4. Set both friction coefficients to 0.8 (default rubber) and **Friction Combine Mode** `max`.
+5. Select `right_inner_finger` and `left_inner_finger`. In the **Property** tab, in **Materials on selected models** pick the created material.
+
+Note
+
+you may need to de-select instanceable for the two xforms in `right/left_inner_finger`, and set the physics materials on the mesh `Defeatured_2F_85_PAD_OPEN_fingertipsstep` directly.
+
+## Breaking the Articulation Loop
+
+If you try to simulate this asset now, you’ll get two big warnings on the screen:
+
+For more information, see [Physics Simulation Fundamentals](../physics/simulation_fundamentals.html#simulation-fundamentals). Articulations must be kinematic trees, but there is no need to delete any joints. To eliminate those warnings, you must choose one joint to exclude from the Articulation and have it be treated as a maximal coordinate joint. Because maximal coordinate joints are treated with a lower priority by the solver, it is the joint that accumulates the most error in simulation.
+
+In terms of simulation efficiency, the best choice of joint to exclude from articulation is the one that minimizes the length of articulations. However, you must also consider utility. The best joint to remove is the one that interferes the least with the robot functionality. In an ideal scenario, the joint to exclude from articulation only serves as a spatial constraint. Identify a joint with no limits, no resistance, and no drive. If there are no joints that meet this criterion, transfer these attributes to the adjacent joints before removing it from articulation.
+
+In the case of this gripper, the best options to remove from the articulation are the joints that connect the inner shafts to the gripper body (the `inner_knuckle_joint`, highlighted in orange in the image).
+
+1. To remove the joints from the articulation, select the `left_inner_knuckle_joint` and `right_inner_knuckle_joint` prims.
+2. In the Joint section under physics, select **Exclude From Articulation**.
+
+Note
+
+The fully completed asset is located in the `Samples/Rigging/Gripper/Robotiq 2F-85_complete` folder.
+
+## Preparing For Tests
+
+Because the gripper is not connected to anything to move it and test its physical properties, add a structure to later help us test the stability of the gripper:
+
+1. Create two Xforms and add the Rigid Body API to them.
+2. Add a fixed joint from world to the first Xform.
+3. Add a Prismatic Joint from the first Xform to the second Xform.
+4. Add a second prismatic joint from the second Xform to base\_link.
+5. Add a drive to the prismatic joints so that you can lift and move forward with a position command.
+6. In the drives set the following:
+
+   > * In the Advanced properties for the joint, set a maximum joint velocity of 5.0.
+   > * Set the joint limits to [0, 1].
+   > * In the joint drive, set the following:
+   >
+   >   > + Damping: 10000.0
+   >   > + Stiffness: 10000.0
+
+Make sure to move all joints that were just created outside of the Robotiq\_2f\_85 prim.
+
+To assist in checking the grip:
+
+1. Create a Cylinder and scale it to `[0.05, 0.05, 0.2]`.
+2. Place the cylinder at `X=0.12`.
+3. Set the cylinder collider to `Convex Hull`.
+4. Create a ground plane and move it to `Z=-0.1`.
+
+To assist in creating these prims, use the following script. You can run them by opening a Script Editor (**Window > Script Editor**) and pasting the code below.
+
+```python
+import omni.usd
+from pxr import Gf, PhysicsSchemaTools, PhysxSchema, Sdf, Usd, UsdGeom, UsdPhysics
+
+stage = omni.usd.get_context().get_stage()
+
+# Create Xform nodes
+xform = UsdGeom.Xform.Define(stage, "/World/Xform")
+xform_1 = UsdGeom.Xform.Define(stage, "/World/Xform_1")
+
+# Add Physics Rigid Body API to Xform nodes
+for node in [xform, xform_1]:
+    UsdPhysics.RigidBodyAPI.Apply(node.GetPrim())
+    mass_api = UsdPhysics.MassAPI.Apply(node.GetPrim())
+    mass_api.CreateMassAttr(0.1)
+
+# Create Fixed Joint from Xform to Xform_1
+fixed_joint = UsdPhysics.FixedJoint.Define(stage, xform.GetPath().AppendChild("fixed_joint"))
+fixed_joint.CreateBody1Rel().SetTargets([str(xform.GetPath())])
+
+# Create Prismatic Joints
+prismatic_joint_1 = UsdPhysics.PrismaticJoint.Define(stage, "/World/Joint_Z")
+prismatic_joint_1.CreateAxisAttr("Z")
+prismatic_joint_1.CreateLowerLimitAttr(0.0)
+prismatic_joint_1.CreateUpperLimitAttr(1.0)
+prismatic_joint_1.CreateBody0Rel().SetTargets([str(xform.GetPath())])
+prismatic_joint_1.CreateBody1Rel().SetTargets([str(xform_1.GetPath())])
+
+prismatic_joint_2 = UsdPhysics.PrismaticJoint.Define(stage, "/World/Joint_X")
+prismatic_joint_2.CreateAxisAttr("X")
+prismatic_joint_2.CreateLowerLimitAttr(0.0)
+prismatic_joint_2.CreateUpperLimitAttr(1.0)
+prismatic_joint_2.CreateBody0Rel().SetTargets([str(xform_1.GetPath())])
+prismatic_joint_2.CreateBody1Rel().SetTargets(
+    ["/World/Robotiq_2F_85/base_link"]
+)  # update this to match your robot's base_link prim path
+
+# Add Prismatic Joint Drive with damping and stiffness
+for joint in [prismatic_joint_1, prismatic_joint_2]:
+    drive = UsdPhysics.DriveAPI.Apply(joint.GetPrim(), "linear")
+    drive.CreateDampingAttr(10000)
+    drive.CreateStiffnessAttr(10000)
+    px_joint = PhysxSchema.PhysxJointAPI.Get(stage, str(joint.GetPath()))
+    px_joint.CreateMaxJointVelocityAttr().Set(5.0)
+
+# Add Ground Plane
+PhysicsSchemaTools.addGroundPlane(stage, "/World/groundPlane", "Z", 100, Gf.Vec3f(0, 0, -0.1), Gf.Vec3f(1.0))
+
+# Create cylinder mesh
+result, path = omni.kit.commands.execute("CreateMeshPrimCommand", prim_type="Cylinder")
+# Get the prim
+cylinder_prim = stage.GetPrimAtPath(path)
+cylinder_prim.GetAttribute("xformOp:scale").Set(
+    (0.05, 0.05, 0.2)
+)  # if your gripper is oriented differently, you may need to update the position and orientation of this cylinder or gripper accordingly to align them.  You can also do this post-creation.
+cylinder_prim.GetAttribute("xformOp:translate").Set((0.12, 0, 0))
+
+# Add Rigid Body and Mass API to cylinder
+cylinder_body = UsdPhysics.RigidBodyAPI.Apply(cylinder_prim)
+UsdPhysics.CollisionAPI.Apply(cylinder_prim)
+mesh_collision = UsdPhysics.MeshCollisionAPI.Apply(cylinder_prim)
+mesh_collision.CreateApproximationAttr().Set("convexHull")
+massAPI = UsdPhysics.MassAPI.Apply(cylinder_body.GetPrim())
+massAPI.CreateMassAttr(0.20)
+
+# Create a Physics Scene
+scene = UsdPhysics.Scene.Define(stage, Sdf.Path("/physicsScene"))
+physxSceneAPI = PhysxSchema.PhysxSceneAPI.Apply(scene.GetPrim())
+# This is a Small test scene, no need for GPU Dynamics
+physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
+```
+
+1. Set the target position for Joint X to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
+2. Set the target position for Joint Z to 1 in the property panel, by going to the Joint Drive section and setting the target position to 1.
+3. Verify that you see the fingers ragdoll on the screen. It’s still necessary to Tune the Joint Drives for the fingers.
+
+You can see in the video below that the gripper will move forward and lift up.
+
+Until this point, if you start the simulation, you will see the fingers rotate freely, and also you will notice collision clipping between the fingers. This is because the fingers do not have drivers that tell them how to move, and because the finger components are connected with joints, there is a natural collision filter between them. This is normal and expected, and you fix it in the next sections.
+
+## Adding Joint Drives
+
+Add the Joint Drive API to all joints:
+
+1. Select all joints on the gripper, then, in the Properties panel, **Add** > **Physics** > **Angular Drive** (or **Linear Drive** for prismatic joints).
+
+   > * In this gripper, the joints that drive the fingers are `finger_joint` and `right_outer_knuckle_joint`.
+   > * Additionally, you have to flip the direction of `finger_joint` and `right_outer_knuckle_joint`, by setting the lower limit to -75, and the upper limit to 0.
+2. Select all the joints on the gripper, then, in the Properties panel, **Add** > **Physics** > **Joint State** (or **Joint State Linear** for prismatic joints).
+3. Model this gripper as a force-driven grasp. For that, position control must be disabled. Select `finger_joint` and `right_outer_knuckle_joint`, then set **Stiffness** to 10. The **Damping** is set to 0.1.
+4. To control how much pressure is applied when the grippers close, set the `Max Force` to 16.5 (N).
+
+   > * These grippers also have a maximum speed at which they can operate. Converting from the data sheet to angular speed at the fingertips, the angular limit speed is 130 degrees per second.
+5. In the joint section, under the **Advanced** tab, set the **Maximum Joint Velocity** to 130.0 (deg/s).
+
+Summarizing the changes:
+
+> * Maximum Joint Velocity: 130
+> * Max Force: 16.5 (N)
+> * Damping: 0.1
+> * Stiffness: 10
+
+When trying to control the fingers now, notice that they instantly bulge inwards instead of moving in parallel. The system still needs stability to maintain the parallel motion when closing without resistance.
+
+The Robotiq hand has a spring mechanism at the outer knuckle to keep the fingers parallel until an object is grasped.
+
+1. Set the stiffness of `[left, right]_inner_finger_joint` to 0.0002, damping to 0.00001 and max force to 0.5 (N) to achieve this behavior.
+
+## Adding Mimic Joint
+
+This gripper is controlled with a single input command that moves both fingers concurrently. This is achieved by combining the drive joints together with a Mimic Joint specification.
+
+1. Select `right_outer_knuckle_joint`.
+2. Remove or set all values to zero in the joint drive we just added.
+3. On the Properties Panel, click on **Add** > **Physics** > **Mimic Joint**.
+
+   > Note
+   >
+   > Because this is a single degree of freedom revolute joint, the schema axis is not relevant. The UI will show rotX as the default axis, despite the joint being defined in the Z axis.
+4. In the Mimic settings, set gearing to -1.0 to make it act in the opposite direction of the reference joint.
+5. Set the reference Joint to `finger_joint`.
+
+   > All drive features are copied over from the reference joint, and having an authored joint drive would negatively impact the drive outcome.
+   >
+   > Note
+   >
+   > The Rotation Axis for the mimic joint only makes a difference, if the joint where mimic is applied contains multiple Degrees of Freedom (for Example Spherical Joint). For Prismatic and Revolute joints any selection will work just the same. It is still recommended to maintain it aligned with the DOF axis.
+6. Run the simulation again.
+
+## Collision Meshes
+
+The default setting for collision meshes at import is Convex Hull. This is a good balance between performance and accuracy. However, for grippers, you often want the fingertips to have a collision mesh that closely follows the contour of the fingertip geometry, so that there won’t be any gaps between the fingertips and the objects being grasped.
+
+To visualize the collision meshes:
+
+1. Find the eye icon on top of the viewport, and click **Show By Type** > **Physics** > **Colliders** > **All**.
+2. Verify that outlines show up surrounding any objects that have collision meshes.
+3. Optionally, to change any collision meshes, select the part of the object associated with that mesh by clicking on it in the viewport, and then in the Physics section of the Property panel, change the Collider Approximation type to Convex Decomposition, or any other type that’s appropriate for your use case.
+4. If you don’t see a Physics or Collider section, then you might need to go down or up the stage tree from the selected item.
+5. The collision API can be applied to a nested child Xform, or the parent of the selected object.
+
+### Self-Collision
+
+During your tests you may notice that the fingers are not colliding against each other. This is the default behavior when importing from Onshape. To disable that:
+
+1. Select `/World/Robotiq_2F85`.
+2. Check **Self-Collision Enabled** in the Articulation Root Options.
+
+Note
+
+For more details on how to tune the articulation, refer to [Joint Parameter Tuning Example: 2F-85](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/dev_guide/guides/gripper_tuning_example.html).
+
+## Saving Results
+
+After you are satisfied with the configuration, push the changes to the original asset:
+
+1. Open the **Layer** tab.
+2. Select the `Robotiq_2F_85` prim, and all child prims in it.
+3. Drag the selection into `Robotiq_2F_85_edit.usd`.
+4. Click the **Save Layer** button on both Layers.
+
+Note
+
+The fully completed asset is located in the `Samples/Rigging/Gripper/Robotiq 2F-85_complete` folder.
+
+## Test the Gripper
+
+Now we can test the gripping by lifting the gripper and moving it forward, while closing the gripper to grasp the cylinder.
+
+1. Set the target position for
+   :   * Joint X to 0.1 in the property panel, by going to the Joint Drive section and setting the target position to 0.1.
+       * Joint Z to 0.1 in the property panel, by going to the Joint Drive section and setting the target position to 0.1.
+       * Finger joints to -40 degrees in the property panel, by going to the Joint Drive section and setting the target position to -40.
+
+You can see in the video below that the gripper will move forward and lift up.
+
+## Control the Gripper with OmniGraph
+
+We can also use an OmniGraph to control the gripper, by writing the target position of the finger joints directly in the graph.
+
+We have already prepared the graph in the `Samples/Rigging/Gripper/Robotiq 2F-85/Robotiq_2F_85_complete/Robotiq_2F_75_controller.usd` file, insert it as a layer to your Robotiq\_2F\_85\_config.usd layer.
+
+1. Open the **Layer** tab.
+2. Select the Insert Sub-Layer layer.
+3. Find the `Robotiq_2F_75_controller.usd` file in the `Samples/Rigging/Gripper/Robotiq 2F-85/Robotiq_2F_85_complete` folder, and click `Open`.
+
+Explaining the graph:
+
+In this graph, the upper and lower limits of the finger joints are used to calculate the range of motion of the gripper to map the input signal to the joint target position in degrees. The target position is set to the prim using the `Write Prim Attribute` (Write Target) node.
+
+Variables:
+
+> * `input_signal`: An input signal (float) where 1 means open the gripper and 0 means close the gripper.
+
+Nodes:
+:   * `Read Upper Limit` / `Read Lower Limit`: A node that reads the upper and lower limits of the finger joint.
+    * `Isaac Read Simulation Time`: A node that reads the simulation time, with reset on stop enabled.
+    * `On Playback Tick`: A node that ticks the graph on every frame.
+    * `Write Prim Attribute`: A node that writes the target position to the finger joint prim.
+
+Set the input signal to 0.5 and press the **Play** button to start the simulation. You should see the gripper move forward and lift up.
+
+Note
+
+The fully completed asset is located in the `Samples/Rigging/Gripper/Robotiq 2F-85_complete` folder.
+
+## Summary
+
+In this tutorial, you experienced a comprehensive workflow for importing assets from a rigged Onshape document, performed post-processing adjustments to enable correct simulation hierarchy, and configured effort drives with Mimic Joints. You conducted validation and troubleshooting to address simulation behavior issues, and optimized performance. Additionally, you utilized layered editing to prepare a ready-to-use asset while retaining a test environment for validating gripper functionality.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Getting Started](#getting-started)
+* [Rigging the Robot](#rigging-the-robot)
+  + [Using Layers to Edit and Test an Asset](#using-layers-to-edit-and-test-an-asset)
+* [Adjusting Joints Post Import](#adjusting-joints-post-import)
+* [Breaking the Articulation Loop](#breaking-the-articulation-loop)
+* [Preparing For Tests](#preparing-for-tests)
+* [Adding Joint Drives](#adding-joint-drives)
+* [Adding Mimic Joint](#adding-mimic-joint)
+* [Collision Meshes](#collision-meshes)
+  + [Self-Collision](#self-collision)
+* [Saving Results](#saving-results)
+* [Test the Gripper](#test-the-gripper)
+* [Control the Gripper with OmniGraph](#control-the-gripper-with-omnigraph)
+* [Summary](#summary)
+
+---
+
+### Rig Mobile Robot
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig_mobile_robot.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 5: Rig a Mobile Robot
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 5: Rig a Mobile Robot
+
+If you built a robot inside Omniverse USD Composer or used importers that do not carry over joint information, you’ll need to rig the robot before it can move like an articulated robot and be controlled by Isaac Sim APIs. This involves defining the types of joints between the body parts and setting the parameters that governs the joints’ behavior, such as stiffness and damping. This tutorial covers step-by-step instruction on how to rig a forklift.
+
+## Learning Objectives
+
+In this tutorial, an unrigged forklift USD asset is turned into a forklift that can move and be driven by Isaac Sim commands.
+
+*30 Minutes Tutorial*
+
+## Getting Started
+
+**Prerequisite**
+
+* Complete the [Quick Tutorials](../introduction/quickstart_index.html#isaac-sim-intro-quickstart-series) series to learn the basic core concepts of how to navigate inside Isaac Sim.
+* Complete the [Assemble a Simple Robots](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) and [Adding Sensors and Cameras](tutorial_gui_camera_sensors.html#isaac-sim-app-tutorial-gui-camera-sensors) tutorials to learn the concepts of rigid body API, collision API, joints, drives, and articulations.
+
+**Reference USDs**
+
+We provide USD assets relating to this tutorial in [Isaac Sim Assets](../assets/usd_assets_overview.html#isaac-assets-overview), and can be found in the Content Browser.
+
+* Unrigged Forklift: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_unrigged_cm.usd`
+* Rigged Forklift: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_rigged_cm.usd`
+
+This tutorial guides you through the steps for going from file to file. The rigged assets serve as a reference for the final goal.
+
+## Rigging the Robot
+
+### Identify the Joints
+
+Before making any modifications to the asset, the first step of rigging a robot is to identify the joints on the robot, both actuated and unactuated ones. The joints govern how all the mesh components are organized, and identifying the type and their degrees of freedom (DOF) are key in making sure the robot moves as expected once rigged.
+
+For the forklift, there are seven DOF in total:
+
+* There are four smaller roller wheels at the front. They have unactuated, revolute joints, and each has one degree of freedom for rotation about a single axis.
+* The fork has linear motion relative to the main body of the forklift as it moves up and down to pick up objects stacked on the pellet, which means there is one actuated, prismatic joint between the fork and the body.
+* The bigger wheel at the rear end is responsible for propelling the forklift and turning it. There are two actuated joints related to this wheel:
+
+  > + A revolute joint that spins the wheel around its central axis to provide the forward and backward movement.
+  > + A revolute joint between the rear wheelbase and the forklift body that provides the pivot to turn the forklift.
+
+### Organize the Hierarchy
+
+Open the unrigged forklift asset from the Content Browser: `Isaac Sim/Samples/Rigging/Forklift/forklift_b_unrigged_cm.usd`.
+Depending on the importer used and the original asset’s setup, the unrigged structure of the USD could have no hierarchy in terms of how parts are organized. It could have every single component listed independently on the stage tree. This makes it difficult to read and navigate, but more importantly, it does not define which objects are moving as a group and how these groups are related to each other.
+
+All meshes that are children of a parent prim are expected to move together when the parent prim moves. For example, the sticker and chains on the meshes are a part of the forklift body, and the entire body, no matter how many screws or blocks are used to make up the body, can be considered as a single link of this robot. Organize them all under a single parent ‘body’ prim. This ensures that when the ‘body’ moves, that all child parts that make up the body are moving together.
+
+To organize prims for the forklift:
+
+1. Create two XForms called `body` and `lift`.
+2. Move all the meshes that make up the forklift body under the `body` Xform, and the operator cab meshes under the `lift` Xform. For ease of use, the meshes provided in the USD file are sorted according to their hierarchy. All meshes above `Looks` are a part of the `lift` XForm. Meshes below `Looks` (Right Chain Wheel to Body Glass) are a part of the `body` XForm. Remaining are for the wheelbase and wheels.
+3. Create new Xforms for the `back wheel`, `back wheel swivel`, and separate prims for each of the front roller supports.
+4. Create a new Xform for each of the four front roller wheels. Name them `roller_front_left`, `roller_front_right`, `roller_back_left`, and `roller_back_right`. Move the correct lead wheel mesh and cylinder collider under them.
+5. Ensure that all the Xforms mentioned above have physics set to rigid body by clicking **Add** > **Physics > Rigid Body**.
+   :   Note
+
+       Rigid body prims cannot have children that are also rigid bodies.
+6. It is easier to set the joints if they align the frame of the Xform to the frames of the respective wheels. To do so, for each wheel, select the mesh, and in its property tab under **Transform**, there are two components `Translate` and `Translate:pivot`. The newly created Xform’s transform must be the sum of those two components. For example, if `translate` is at \(X=x\_1, Y=y\_1, Z=z\_1\), and `translate:pivot` is at \(X=x\_p, Y=y\_p, Z=z\_p\), then the transform of the newly created Xform must be set to: \(X = x\_1+ x\_p , Y = y\_1 + y\_p , Z = z\_1 + z\_p\).
+7. `Translate` of the wheel mesh needs to be set to the inverse of the `Translate:pivot` property of the corresponding mesh. For example, if `Translate` is \(X, Y, Z\) and `Translate:pivot` is \(X\_p, Y\_p, Z\_p\), so now, set the translate to \(-X\_p, -Y\_p, -Z\_p\).
+8. Move the corresponding mesh under the XForm, this will define the parent-child relationship between them.
+
+Verify that the resultant hierarchy looks like this:
+
+Note
+
+If you got stuck in this this section, review the Rigged Forklift from the Content Browser, `Isaac Sim/Samples/Rigging/Forklift/forklift_b_rigged_cm.usd`, for reference.
+
+### Assign Collision Meshes
+
+To ensure that the collision properties are set correctly for the meshes. If no collision properties are set, then as the robot moves, it can self penetrate depending on the joint configuration.
+
+**The correct collision meshes for the body and the lift are already set for the USD provided, so you do not need to set them up manually.** But for reference, the steps to set the collision for the `SM_Forklift_Body_B01_01` are:
+
+1. Select the `SM_Forklift_OperatorCab_B01_01` mesh under the `lift` Xform, right click and **Add > Physics > Collider Preset**. The default collision approximation is through Convex Hull, which can be found when you scroll under the property tab for the mesh selected and find the collision section.
+2. To visualize the colliders, click on the **eye** icon near the top right of the Viewport, select Show By **Type > Physics > Colliders > Selected**. Verify that you can see a Pink outline when you select the mesh that was just added to the collision. This approximation is not suitable because the collision region covers large areas that are not part of the fork and are regions that are necessary to allow other objects to exist.
+3. Different approximations can be used to define different collision meshes. To see this, select one of the meshes with a collision and navigate to the colliders section of its property pane. Select the **Convex Decomposition** approximation. Update the visualization for the collision mesh. Verify that the mesh generated, this time, covers more of the collidable surface because it has a tighter approximation. Try other approximations and to see what works best for you.
+
+Follow the same process for other meshes that interact with each other using joints. Set the **Convex Decomposition** approximation for the `SM_Forklift_BackWheelbase_B01_01` mesh that is a part of the swivel.
+
+The process for the wheels is a little different, any collision approximation that is not smooth and captures the exact shape and curvature of the wheel causes bumpy motion when attempting to drive the wheel. This can be avoided by using a cylinder to approximate the collision mesh.
+
+1. Go to **Create > Shape > Cylinder**.
+2. Set the scale to `X=0.16`, `Y=0.16`, ``` Z=0.08`,` and Orient along ``Y=90 ```.
+3. Right click and create four duplicates of this cylinder, one for each of the four front roller wheels.
+4. Drag the cylinders under the respective wheel’s Xform and change their transform about all axes to `0`. This aligns the cylinder axis and the Xform axis completely.
+5. Right click on the cylinder and **Add > Physics > Collider**.
+6. Following the same process for the back wheel, modify the cylinder scale to `X=0.3`, `Y=0.3`, `Z=0.1`, orient along `Y=90` because of its bigger size.
+
+All the appropriate collision meshes and properties are set up and you can move on to adding the joints.
+
+### Add Joints and Drives
+
+In this step, add appropriate joints for the Forklift.
+
+**Prismatic Joint**
+
+The first joint is the joint between the forklift body and the fork. It needs linear motion between the two bodies, and the fork must move up and down relative to the body of the forklift.
+
+1. Select the `lift` Xform and while holding the **Ctrl** key select the `body` Xform. While the two prims are highlighted, right click and **Create > Physics > Joints > Prismatic Joint**.
+2. Find the newly created prismatic joint, select it. Under the properties tab, set the axis to **Z** axis, this denotes that the linear motion between the two bodies is in along the Z-axis.
+3. Set the lower and upper limits for the joint in the **Property > Physics > Prismatic Joint** tab, for now set it to `-15` and `200`.
+4. Add a Linear Drive for this joint by left clicking on the joint, and selecting **Add > Physics > Linear Drive**.
+5. In the **Property > Physics > Drive > Linear** tab, set target position to `-15` so that the fork can start its initial position close to the ground, and set the Damping to `10000` and Stiffness to `100000`.
+6. Create a Scope by right clicking on the stage and name it `lift_joint`. Drag the prismatic joint under the scope.
+
+**Revolute Joints**
+
+For all the roller support wheels, create revolute joints:
+
+1. Select the `body` XForm, holding the **Ctrl** key select any of the roller wheel XForms. Right click **Create > Physics > Joint > Revolute Joint**. Verify that you see a Revolute joint added under the Xform for the wheel.
+2. Verify that the joints appear in the expected location. If not, make sure that the location of the joint matches the with the rotation axis of the wheel, and make sure to set the rotation axis to “X”.
+3. Follow the same process for the three remaining roller supports of the forklift.
+4. Create a Scope by right clicking on the stage and name it `roller_joints`. Drag the roller joints under the scope.
+
+Next, add the last two joints, which are responsible for driving and turning the forklift:
+
+1. Select the `back_wheel_swivel` and `back_wheel` XForms and add a revolute joint between them. The location of this joint must match with the center of the back wheel.
+2. Add an angular drive to this joint with the following properties: `Damping=10000`, `stiffness = 100`.
+3. Select the `body` and `back_wheel_swivel` XForm and add a revolute joint between them. Make sure the axis of rotation is set to `Z`.
+4. Change the axis of the joint to Z axis and lower with upper limits as `-60` and `60`, because this joint enables turning of the forklift. This is the range of the angles in degrees that the wheelbase would rotate.
+5. Add an angular drive with the following properties: Damping = 100, stiffness = 100000.
+6. Go to **Create > Scope**, name it `back_wheel_joints` and drag the rear wheel joints under the scope.
+7. Remember to add a Physics Scene and Ground Plane before pressing **Play**.
+
+### Add Articulations
+
+The last step is adding articulation to the Forklift and putting all the joints into a single articulation chain, which makes it easier for the physics solver when solving for articulated objects such as a robot. **This has already been added for the prim in the reference USD assets**. But if not, to put select and right click on the ‘SMV\_Forklift\_B01\_01’ Xform and **Add > Physics > Articulation Root**. Under properties, disable the **Self collision** check box.
+
+There are a few caveats for the placement of the articulation root.
+
+If you place the articulation root on the root Xform prim of the asset, which is the standard for all Isaac Sim assets, then the simulation automatically assigns the articulation root to a rigid body in the robot, which minimizes the depth of the articulation tree.
+
+However, if you want to manually determine the location of the articulation root, assign it to a rigid body component of the robot. It is recommended that you place the articulation root on the base or the chassis of a mobile robot or the fixed joint on a robotics arm.
+
+Verify that the asset you have is similar to the Rigged Forklift asset provided.
+
+### Converting Asset to a Different Unit
+
+The original asset is in centimeters. The asset is automatically converted to meters when it is added into a scene that is in meters (see [Metrics Assembler](https://docs.omniverse.nvidia.com/extensions/latest/ext_metrics_assembler.html "(in Omniverse Extensions)")). When the asset is added to a stage, it must match the Rigged Forklift in Meters asset provided.
+
+You can now try the Forklift, set the back wheel velocity to `-200` in the Angular Drive section for the joint. After pressing **play**, verify that you can see the forklift move forward.
+
+## Summary
+
+In this tutorial, you took an unrigged forklift USD asset:
+
+* organized its structure
+* added collision, joints, and drives
+* turned it into a forklift that can move and driven by Isaac Sim commands
+
+### Troubleshooting Tips
+
+If when playing the simulation or after some movements, your robot explodes, check if any of the collision meshes are colliding with each other.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Getting Started](#getting-started)
+* [Rigging the Robot](#rigging-the-robot)
+  + [Identify the Joints](#identify-the-joints)
+  + [Organize the Hierarchy](#organize-the-hierarchy)
+  + [Assign Collision Meshes](#assign-collision-meshes)
+  + [Add Joints and Drives](#add-joints-and-drives)
+  + [Add Articulations](#add-articulations)
+  + [Converting Asset to a Different Unit](#converting-asset-to-a-different-unit)
+* [Summary](#summary)
+  + [Troubleshooting Tips](#troubleshooting-tips)
+
+---
+
+### Configure Manipulator
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_configure_manipulator.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 7: Configure a Manipulator
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 7: Configure a Manipulator
+
+## Learning Objectives
+
+This is the second manipulator tutorial in a series of four tutorials. This tutorial shows how to configure physics, joint effort limits, and gains for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq.
+
+*30 Minutes Tutorial*
+
+## Prerequisites
+
+* Review [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html) tutorial prior to beginning this tutorial. The steps here continue from the asset built in the previous tutorial.
+
+Note
+
+If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur_gripper/ur.usda`.
+We highly recommend downloading the prebuilt asset to your local machine for easier access.
+
+## Adjust the Articulation for Manipulation Tasks
+
+Adjust the articulation for the UR10e robot to make it more stable and accurate for manipulation tasks. Let’s first open the physx layer, and create a physx articulation root.
+
+1. Open the interface file, `ur.usda`, and select the layer lab on the top right corner
+2. Click “Insert Sublayer” icon at the bottom of the layer panel. (orange arrow with stacked layers icon)
+3. In the file dialog, navigate to `path/to/Manipulator/configure_manipulator/ur10e/ur_gripper/payloads/Physics/`, select `physx.usda`, and click **Open** to insert it as a sublayer.
+
+1. Left click on physx.usda layer, then right click to select “Set Authoring Layer”. Now all your changes will be saved to the physx.usda layer.
+
+1. In the Stage panel, select the **ur/Geometry/World** prim.
+2. In the Property Editor at the bottom right, scroll down to the **Physics/Articulation** section. If you do not see an Articulation(PhysX), create a new one by clicking the **add** > **Physics** > **Articulation(PhysX)**.
+3. Select **Articulation Enabled**.
+4. Increase the **Solver Position Iterations Count** to `64`.
+5. Increase the **Solver Velocity Iterations Count** to `4`.
+
+   Note
+
+   The **Solver Position Iterations Count** and **Solver Velocity Iterations Count** are used to control the accuracy of the simulation.
+
+   For a complex robot with many degrees of freedoms and mimic joints, increasing these values will make the simulation more accurate at the cost of performance.
+   See [articulation documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/Articulations.html#articulation-drive-stability) for more information.
+6. Decrease **Sleep Threshold** to `0.00005`, this lowers the threshold for the robot to go to sleep when it is not moving. see [rigid body dynamics documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/RigidBodyDynamics.html#sleeping) for more information.
+7. Decrease the **Stabilization Threshold** to `0.00001`, this lowers the threshold for the robot to start stabilizing itself when it is not moving. see [articulation documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/Articulations.html#articulation-drive-stability) for more information.
+8. Next to the physx.usda (Authoring Layer) label, click the blue files icon to save the changes to the physx.usda layer.
+9. Verify that in physx.usda layer, the Articulation(PhysX) prim is created and the properties are set correctly.
+
+```python
+over "Geometry"
+ {
+     over "world" (
+         prepend apiSchemas = ["PhysxArticulationAPI"]
+     )
+     {
+         float physxArticulation:sleepThreshold = 0.00005
+         int physxArticulation:solverPositionIterationCount = 64
+         int physxArticulation:solverVelocityIterationCount = 4
+         float physxArticulation:stabilizationThreshold = 0.00001
+
+         over "base_link"
+         {
+             string isaac:nameOverride (
+                 displayName = "Name Override"
+             )
+         }
+     }
+ }
+```
+
+Note
+
+See [PhysX Best Practice Guide](https://nvidia-omniverse.github.io/PhysX/physx/5.6.0/docs/BestPractices.html#jointed-objects-are-unstable) for tuning the articulation for manipulation tasks.
+
+## Add Physics Materials
+
+Add physics materials to the robot gripper to make it more realistic and stable for manipulation tasks.
+
+1. Open the physics layer from the 2F-140 gripper asset from the last tutorial. It is located in the `configuration` folder with suffix `_physics`.
+
+   Note
+
+   If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/robotiq_2f_140/configuration/robotiq_2f_140_physics.usd`.
+2. Right click on the **robotiq\_arg2f\_140\_model** prim and select **Create** > **Physics** > **Physics Material**, select **Rigid Body Material**. This will add a physics material attribute to the gripper.
+3. In the properties panel, scroll down to the **Physics/Rigid Body Material** section and set the **static friction** to **1.0** and **dynamic friction** to **1.0**. For your robot, match the friction values to the robot’s surface friction coefficients.
+4. Apply the physics material to the gripper finger tip.
+   - Select the `colliders/left_inner_finger/mesh_1/box` and in the properties panel, scroll down to the **Physics/Physics material on selected Material** section.
+   - Select the **Physics Material** you just created at `/World/robotiq_arg2f_140_model/Looks/finger`.
+5. Repeat the same process for the `colliders/right_inner_finger/mesh_1/box` prim.
+
+Note
+
+See [Adding Props](../core_api_tutorials/tutorial_core_adding_props.html#isaac-sim-app-tutorial-core-adding-props) for more information on how to add physics materials to the robot.
+
+## Configure Joint Effort Limits
+
+In the physics layer of the robotiq\_arg2f\_140\_model asset from the previous step, let’s configure the joint effort limits for the gripper.
+
+1. In the **Stage** panel, select the `robotiq_arg2f_140_model/joints/finger_joint` prim. This is the joint that controls the gripper fingers, all other gripper joints are `Mimic` joints.
+2. In the **Property Editor** at the bottom right, scroll down to the `Drive/Angular/Max Force` section.
+3. Set the **Max Force** to `200`. This is the maximum force that can be applied to the gripper fingers. For your robot, match the max force to the robot’s joint torque limits.
+4. **Ctrl + S** to save the changes.
+
+Note
+
+When the max force is very high, you might need to increase the physics step frequency (`Time Step per Second`) to avoid penetration and instabilities.
+
+## Inspect the Robot Articulation
+
+Let’s inspect the robot articulation to verify the joint effort limits are applied correctly. Open the top level `ur` asset that you built in the previous tutorial.
+This asset references the physics layers that you modified, so all the changes you made to the physics layer will be reflected in this asset.
+
+Note
+
+You can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur_set_physx/ur.usda`.
+
+1. Open the **Physics Inspector** through **Tools** > **Physics** > **Physics Inspector**.
+2. Select the UR articulation in the stage, click on the circular arrow icon to refresh the articulation.
+3. Try changing the target position with the blue slider and verify that the DOF position reaches the target specified.
+4. Close the **Physics Inspector** window/panel (discarding any changes authored by this tool, if prompted).
+
+   Warning
+
+   Since the Physics Inspector partially initializes `omni.physx`, it is expected for general simulations to not behave properly when the tool is opened.
+
+## Summary
+
+In this tutorial, you learned how to configure the physics, joint effort limits, and gains for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq using the Gain Tuner.
+You added physics materials to the robot gripper to make it more realistic and stable for manipulation tasks.
+You inspected the robot articulation and tuned the gains for the robot and the gripper fingers joints using the Physics Inspector.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Adjust the Articulation for Manipulation Tasks](#adjust-the-articulation-for-manipulation-tasks)
+* [Add Physics Materials](#add-physics-materials)
+* [Configure Joint Effort Limits](#configure-joint-effort-limits)
+* [Inspect the Robot Articulation](#inspect-the-robot-articulation)
+* [Summary](#summary)
+
+---
+
+### Generate Robot Config
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_generate_robot_config.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 8: Generate Robot Configuration File
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 8: Generate Robot Configuration File
+
+## Learning Objectives
+
+This is the third manipulator tutorial in a series of four tutorials. This tutorial will show you how to generate the robot configuration file for the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq.
+These robot configuration files provide information about the robot’s kinematics, dynamics, and other properties that are used in RMPFlow and [cuMotion](https://nvidia-isaac.github.io/cumotion/) motion planners.
+
+*30 Minutes Tutorial*
+
+## Prerequisites
+
+* Review [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html) tutorial prior to beginning this tutorial, continue the following steps from the asset built in the previous tutorial.
+
+Note
+
+If you have not completed the previous tutorial, you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd`.
+
+## Generate Robot URDF
+
+Generate the robot URDF file from the UR10e robot and the 2F-140 gripper.
+
+### Enable the Isaac Sim USD to URDF Exporter Extension
+
+1. Go to **Window** > **Extensions**.
+2. Type **URDF** in the search box, and find the **Isaac Sim USD to URDF Exporter Extension**.
+3. If you can’t find it, remove the **@feature** filter from the search box.
+4. Enable the extension by clicking the toggle button labeled **ENABLE**.
+5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
+
+### Export the URDF File
+
+1. Open the `ur_gripper.usd` asset you made in the previous tutorial, or use the completed asset provided above.
+2. Click **File** > **Export URDF**.
+3. In File name on the bottom left corner, save the file name to `robot.urdf`.
+
+   Tip
+
+   Using `robot.urdf` matches the default `--urdf` value in the pick-and-place tutorial scripts, so you won’t need to pass `--urdf` explicitly when running them.
+4. In the **Mesh Directory Path** field, select the correct folder path to save the URDF meshes.
+5. Click **Export**.
+
+Note
+
+Learn more about the USD to URDF Exporter Extension in the [USD to URDF Exporter Extension](../importer_exporter/ext_omni_exporter_urdf.html#isaac-sim-app-extension-urdf-exporter) manual.
+
+## Generate Robot Description Files and Collision Spheres
+
+Generate the XRDF file and collision spheres for the UR10e robot and the 2F-140 gripper.
+
+### Enable the Robot Description Editor Extension
+
+1. Go to **Window** > **Extensions**.
+2. Search for `isaacsim.robot_setup.xrdf_editor` and find the **cuMotion/Lula Robot Description Editor** extension.
+3. If you can’t find it, remove the **@feature** filter from the search box.
+4. Enable the extension by clicking the toggle button labeled **ENABLE**.
+5. Check the box for **AUTOLOAD**, just to the right of **ENABLE**.
+
+### Prepare the Robot Asset
+
+The Robot Description Editor does not support instanceable meshes. You must prepare the robot asset by disabling instanceable meshes.
+
+1. Open the `ur_gripper.usd` asset you made in the previous tutorial, or use the completed asset provided above.
+2. Select all `visuals` and `collisions` prims on the stage.
+3. In the **Property** panel, uncheck the **Instanceable** checkbox for each.
+
+   Hint
+
+   You can use the search feature to find the `visuals` and `collisions` prims by searching for `visuals` and `collisions` respectively.
+
+The **Instanceable** checkbox (highlighted in red) should be unchecked for all geometry prims.
+
+### Configure Joint Properties
+
+1. Press **Play** to start the simulation.
+2. Open the editor via **Tools** > **Robotics** > **cuMotion/Lula Robot Description Editor**.
+3. In the **Selection Panel**, set **Select Articulation** to the **ur** articulation prim path.
+4. In **Set Joint Properties**, assign each joint a **Joint Status**:
+
+   * Mark each Universal Robots arm joint as **Active Joint**. These joints are directly controlled by cuMotion.
+   * Keep the Robotiq 2F-140 gripper joints as **Fixed Joint**. cuMotion holds these joints at the specified default position.
+
+Important
+
+**Do not stop the simulation**, you will need it to generate the collision spheres.
+
+Pay attention to the default joint positions for fixed joints. They should match the initial pose defined in the manipulator USD, or you will need to reset the robot to those positions during task initialization.
+
+### Generate Collision Spheres
+
+Important
+
+**Do not stop the simulation** or exit the Robot Description Editor during this step, or you will need to redo the previous steps.
+
+Repeat the following for each link in the **ur** articulation, including gripper links:
+
+1. In the **Selection Panel**, select the link under **Select Link**. Use **upper\_arm\_link** as an example.
+2. In **Link Sphere Editor** > **Generate Spheres**, select a mesh from the **Select Mesh** dropdown (e.g. `/collisions/upperarm/mesh`).
+3. Set the **Radius Offset** and **Number of Spheres** (e.g. `0.03` and `8` respectively).
+4. Optionally adjust sphere positions by clicking and dragging them in the viewport.
+5. Click **GENERATE SPHERES**. The spheres will turn cyan when finalized.
+
+Suggested per-link sphere settings (ur10e + Robotiq 2F-140)
+
+For links with multiple mesh entries, generate spheres for each mesh and combine them on the same link.
+
+| Select Link | Number of Spheres | Radius Offset | Select Mesh |
+| --- | --- | --- | --- |
+| `/shoulder_link` | 1 | 0.03 | `/collisions/shoulder/mesh` |
+| `/upper_arm_link` | 8 | 0.03 | `/visuals/upperarm/mesh` |
+| `/forearm_link` | 8 | 0.03 | `/visuals/forearm/mesh` |
+| `/wrist_1_link` | 1 | 0.03 | `/visuals/wrist1/mesh` |
+| `/wrist_2_link` | 1 | 0.02 | `/visuals/wrist3/mesh` |
+| `/wrist_3_link` | 1 | 0.02 | `/visuals/wrist3/mesh` |
+| `/ee_link/robotiq_arg2f_base_link` | 1 | 0.02 | `/visuals/robotiq_arg2f_base_link/mesh` |
+| `/ee_link/left_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_knuckle/mesh` |
+| `/ee_link/left_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_finger/mesh` |
+| `/ee_link/left_inner_finger` | 2 | 0.02 | `/collisions/robotiq_arg2f_140_inner_finger/mesh` |
+| `/ee_link/right_inner_finger` | 2 | 0.02 | `/collisions/robotiq_arg2f_140_inner_finger/mesh` |
+| `/ee_link/left_inner_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_inner_knuckle/mesh` |
+| `/ee_link/right_inner_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_inner_knuckle/mesh` |
+| `/ee_link/right_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_knuckle/mesh` |
+| `/ee_link/right_outer_knuckle` | 2 | 0.02 | `/visuals/robotiq_arg2f_140_outer_finger/mesh` |
+
+Spheres generated for the upper\_arm\_link.
+
+Spheres generated for the full ur10e robot.
+
+General tuning tips
+
+* Size spheres to cover the link without being oversized — large spheres cause solver conservatism.
+* More spheres improves collision accuracy but reduces solver performance.
+* For long cylindrical links, generate spheres on the ends and use **Connect Spheres** to fill the middle evenly.
+* Use **Scale Spheres in Link** to resize spheres uniformly across a link.
+* The auto-generator requires water-tight triangle meshes. If it fails for a link, add and connect spheres manually.
+
+### Export to XRDF
+
+Important
+
+**Do not stop the simulation** before exporting.
+
+1. At the bottom of the Robot Description Editor, expand **Export To File** > **Export to cuMotion XRDF**.
+2. Click the file icon and specify the file name as `robot.xrdf`.
+3. Select the XRDF version to export (version 2.0 is recommended).
+4. Click **Save**. Save to the same directory as the robot URDF file.
+5. Stop the simulation after the file is exported.
+
+### Adding a Tool to the Robot Configuration
+
+[cuMotion](https://nvidia-isaac.github.io/cumotion/) requires a tool frame defined in the XRDF file. The tool frame is used to specify the end-effector frame for the robot.
+
+1. Open the `robot.xrdf` file in a text editor.
+2. Add the following line to the file:
+
+   ```python
+   tool_frames: ["wrist_3_link"]
+   ```
+
+See [Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) for more information on XRDF files and loading robot configurations into cuMotion.
+
+## Assemble the Robot Configuration Directory
+
+The pick-and-place tutorial scripts and the `load_cumotion_robot` API expect all robot configuration files to live in a single directory. After completing the export steps above, your directory should look like this:
+
+```python
+/path/to/robot/config/
+├── robot.urdf
+├── robot.xrdf
+├── rmp_flow.yaml
+└── meshes/
+    └── ...
+```
+
+Pass this directory to the tutorial scripts with `--xrdf-dir /path/to/robot/config`. For a full description of these files and how they are used by cuMotion, see the [Robot Configuration Files](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) section of the cuMotion tutorial.
+
+The `rmp_flow.yaml` file configures the RMPflow reactive motion controller. Save the text below in a file named `rmp_flow.yaml` and save it to the same directory as your `robot.urdf` and `robot.xrdf` files.
+
+rmp\_flow.yaml — RMPflow configuration example
+
+```python
+format: rmpflow
+api_version: 2.0
+
+joint_limit_buffers: [.01, .01, .01, .01, .01, .01]
+
+rmp_params:
+    cspace_target_rmp:
+        metric_scalar: 50.
+        position_gain: 100.
+        damping_gain: 50.
+        robust_position_term_thresh: .5
+        inertia: 1.
+    cspace_trajectory_rmp:
+        p_gain: 80.
+        d_gain: 10.
+        ff_gain: .25
+        weight: 50.
+    cspace_affine_rmp:
+        final_handover_time_std_dev: .25
+        weight: 2000.
+    joint_limit_rmp:
+        metric_scalar: 1000.
+        metric_length_scale: .01
+        metric_exploder_eps: 1e-3
+        metric_velocity_gate_length_scale: .01
+        accel_damper_gain: 200.
+        accel_potential_gain: 1.
+        accel_potential_exploder_length_scale: .1
+        accel_potential_exploder_eps: 1e-2
+    joint_velocity_cap_rmp:
+        max_velocity: 2.15
+        velocity_damping_region: 0.5
+        damping_gain: 300.
+        metric_weight: 100.
+    target_rmp:
+        accel_p_gain: 80.
+        accel_d_gain: 120.
+        accel_norm_eps: .075
+        metric_alpha_length_scale: .05
+        min_metric_alpha: .01
+        max_metric_scalar: 10000.
+        min_metric_scalar: 2500.
+        proximity_metric_boost_scalar: 20.
+        proximity_metric_boost_length_scale: .02
+        accept_user_weights: false
+    axis_target_rmp:
+        accel_p_gain: 200.
+        accel_d_gain: 40.
+        metric_scalar: 10.
+        proximity_metric_boost_scalar: 3000.
+        proximity_metric_boost_length_scale: .05
+        accept_user_weights: false
+    collision_rmp:
+        damping_gain: 50.
+        damping_std_dev: .04
+        damping_robustness_eps: 1e-2
+        damping_velocity_gate_length_scale: .01
+        repulsion_gain: 1000.
+        repulsion_std_dev: .01
+        metric_modulation_radius: .5
+        metric_scalar: 500.
+        metric_exploder_std_dev: .02
+        metric_exploder_eps: .001
+    damping_rmp:
+        accel_d_gain: 30.
+        metric_scalar: 50.
+        inertia: 100.
+
+canonical_resolve:
+    max_acceleration_norm: 50.
+    projection_tolerance: .01
+    verbose: false
+
+body_capsules:
+    - name: base_link
+      pt1: [0, 0, 0.22]
+      pt2: [0, 0, 0]
+      radius: .09
+
+body_collision_controllers:
+  - name: wrist_2_link
+    radius: .04
+  - name: wrist_3_link
+    radius: .04
+```
+
+## Summary
+
+In this tutorial, you have learned how to generate the robot configuration files for the UR10e robot and the 2F-140 gripper using the [Robot Description Editor](../manipulators/manipulators_robot_description_editor.html#isaac-sim-app-tutorial-motion-generation-robot-description-editor) and the [USD to URDF Exporter Extension](../importer_exporter/ext_omni_exporter_urdf.html#isaac-sim-app-extension-urdf-exporter) extensions. The resulting XRDF file can be loaded directly into cuMotion motion planners as described in [Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration).
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Generate Robot URDF](#generate-robot-urdf)
+  + [Enable the Isaac Sim USD to URDF Exporter Extension](#enable-the-isaac-sim-usd-to-urdf-exporter-extension)
+  + [Export the URDF File](#export-the-urdf-file)
+* [Generate Robot Description Files and Collision Spheres](#generate-robot-description-files-and-collision-spheres)
+  + [Enable the Robot Description Editor Extension](#enable-the-robot-description-editor-extension)
+  + [Prepare the Robot Asset](#prepare-the-robot-asset)
+  + [Configure Joint Properties](#configure-joint-properties)
+  + [Generate Collision Spheres](#generate-collision-spheres)
+  + [Export to XRDF](#export-to-xrdf)
+  + [Adding a Tool to the Robot Configuration](#adding-a-tool-to-the-robot-configuration)
+* [Assemble the Robot Configuration Directory](#assemble-the-robot-configuration-directory)
+* [Summary](#summary)
+
+---
+
+### GUI Camera Sensors
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_gui_camera_sensors.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 4: Add Camera and Sensors to a Robot
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 4: Add Camera and Sensors to a Robot
+
+Isaac Sim provides a variety of sensors that can be used to sense the environment and robot’s state.
+This tutorial guides you through attaching a camera sensor to a mock robot, a process that can be generalized to other sensors.
+Details regarding the camera and other types of sensors can be found in our Advanced Tutorials and Sensor Extensions.
+
+## Learning Objectives
+
+This tutorial details how to:
+
+* Add cameras
+* Attach cameras to geometries
+
+## Prerequisites
+
+* Complete [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot).
+* Review the [introduction to camera frames and axes](../reference_material/reference_conventions.html#isaac-sim-cameras).
+
+Start this tutorial using the `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_rigged.usd` file provided, to have a standardized setup.
+
+## Adding a Camera
+
+To add a camera:
+
+1. Go to the Menu Bar and select **Create > Camera**. A camera appears on the stage tree, and a grey wireframe representing the camera’s view appears on the stage.
+2. You can move and rotate the camera’s transform just like any other objects on the stage.
+
+Note
+
+The camera icon is hidden by default in the viewport. To see the camera icon, go to the **eye** menu on the top edge of the viewport, and select **Show By Type > Cameras**. The camera icon appears in the viewport.
+
+You can also add a camera by moving the current view in the viewport to a view of your choosing, and then go to the **Camera** button on the upper left hand corner of the viewport display, and select **Camera > Create from View**.
+A new camera appears on the Stage tree, and the list of cameras that can be selected in the **Camera** button is provided.
+
+## Inspect the Camera
+
+Use the [Camera Inspector Extension](../sensors/isaacsim_sensors_camera.html#isaac-sim-app-tutorial-camera-inspector-extension) to inspect the camera image and modify the camera’s states as needed.
+
+1. Select **Tools > Robotics > Camera Inspector**.
+2. Verify that you can see the camera in the dropdown. Click the **Refresh** button to find new cameras.
+3. Select the camera you want to inspect. Create new viewports if necessary, and get and set camera poses as needed.
+
+## Attach a Camera to Robot
+
+1. Rename the newly added camera to `car_camera`.
+2. It is easier to place the camera if you can see the desired camera input stream and where it is relative to the robot from an outside camera.
+   Open up a second viewport window by going to the Menu Bar and click **Window > Viewports > Viewport 2**. A new viewport appears. Dock it wherever you’d like.
+3. Keep one of the viewports in **Perspective** camera view, and change the other one to *car\_camera* view. Find the **Cameras** menu on the top edge of the viewport, and switch to **Camera > car\_camera**.
+4. Validate that you have a view of the onboard camera and an overview of the scene.
+5. Attach the camera to the robot’s body by dragging the prim under `body`. The camera moves together with the body. You may need to switch the camera view for the viewport again.
+6. Point the camera slightly down and make it face forward so you can see the car and the ground. Set the camera transform translation to `x=-6,y=0,z=2.2`, orientation to `x=0,y=-80,z=-90`, and scale to `x=1,y=1,z=1`.
+7. Verify that you see the viewport showing the onboard camera view splitting the window between the robot’s body and the ground and the relative position and orientation of the camera to the robot in the *Perspective* camera viewport.
+8. Press **Play**. The camera onboard the robot moves with the robot.
+
+A similar strategy is used to apply other onboard sensors.
+
+Note
+
+If the view of the camera is moved while displaying, it changes the camera’s properties. Instead, affix a prim to the parent with the correct offset and affix the camera to that new prim. Then, if the camera position is accidentally moved, it can be reset by zeroing all its position and orientation parameters relative to the prim, which cannot be easily changed.
+
+## Summary
+
+In this tutorial, you learned how to use the Camera Inspector Extension. Additionally, you also learned how to add a camera to the robot.
+
+### Next Steps
+
+* Continue on to [Omniverse Script Editor](../development_tools/omniverse_script_editor.html#isaac-sim-app-omniverse-script-editor) to learn how to run Python APIs inside the GUI.
+* For rigging a more complex robot, go to [Tutorial 5: Rig a Mobile Robot](rig_mobile_robot.html#isaac-sim-app-tutorial-advanced-rigging-robot).
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Adding a Camera](#adding-a-camera)
+* [Inspect the Camera](#inspect-the-camera)
+* [Attach a Camera to Robot](#attach-a-camera-to-robot)
+* [Summary](#summary)
+  + [Next Steps](#next-steps)
+
+---
+
+### GUI Simple Robot
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_gui_simple_robot.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 3: Articulate a Basic Robot
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 3: Articulate a Basic Robot
+
+NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverse™ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
+
+You will rig a basic “robot” with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
+
+This is not needed for robots that are imported from [Importing your Onshape Document](https://docs.omniverse.nvidia.com/extensions/latest/ext_onshape.html#isaac-onshape-importer-tutorials-importing "(in Omniverse Extensions)") or [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer), these are important concepts to understand for tuning your robots and assembling objects with articulations.
+
+## Learning Objectives
+
+This tutorial details how to rig a two-wheel mobile robot and covers how to:
+
+* Organize stage tree hierarchy
+* Add joints between two rigid bodies
+* Add joint drives and joint properties
+* Add articulations
+* Move the robot via a Articulation Velocity Controller
+
+## Prerequisites
+
+* Complete [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot).
+* Or load the checkpoint asset provided in the Content Browser at `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_no_joints`. Do not load it as a reference because you must make permanent modifications to the file.
+
+## Add Joints
+
+1. If you are continuing from the GUI Tutorials and have your own `mock_robot.usd` saved, open it using **File > Open**. Otherwise, load the asset provided in the Content Browser at `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_no_joints`. Do not load it as a reference because you must make permanent modifications to the file.
+2. For organization, create a Scope to store the joints by right clicking **Create > Scope**, rename it to **Joints**.
+3. To add a joint between two bodies, you must first select them both. Begin by clicking on the body and wheel parent transforms in the context tree window. For our mock robot, select the the cube object `body`, then while holding `Ctrl`, select the cylinder object `wheel_left`.
+4. With both bodies highlighted, right-click and select **Create > Physics > Joints > Revolute Joint**. `RevoluteJoint` appears under `wheel_left` on the stage tree. Rename it to `wheel_joint_left`.
+5. Verify in the **Property** tab that **body0** is `/mock_robot/body/body` (the cube) and **body1** is `/mock_robot/wheel_left/wheel_left` (the cylinder).
+6. Set the X axis of the joint to **Local Rotation 0** to `0.0` and **Local Rotation 1** to `-90.0` to account for the transformation between the body and the cylinder. This is because the cylinder is rotated 90 degrees in the X axis compared to the body.
+7. Change the **Axis** of the joint to **Y**. Because there is no local rotation `0` for the robot, the joint is in the same pose as the body.
+8. For organization, drag the joint you just created into the **Joints** scope.
+9. Repeat the previous five steps with the right wheel joint.
+
+Before the joints were added, the three rigid bodies fell to the ground separately after pressing **Play**. Now that there are joints attached, the bodies fall as if they are connected.
+To see that they move together like they are connected with revolute joints, you can drag the robot around by holding down the `Shift` key and clicking and dragging on any part of the robot in the viewport.
+
+## Add a Joint Drive
+
+Adding the joint adds the mechanical connection. To be able to control and drive the joints, you must add a joint drive API.
+Select both joints and click the `+ Add` button in the **Property** tab, and select **Physics > Angular Drive** to add drive to both joints simultaneously.
+
+* **Position Control:** For position controlled joints, set a high stiffness and relatively low or zero damping.
+* **Velocity Control:** For velocity controller joints, set a high damping and zero stiffness.
+
+For joints on a wheel, it makes more sense to be velocity controlled, so set both wheels’ **Damping** to **1e4** and **Target Velocity** to **200** **rad/s**.
+If you are working with joints with limited range, those can be set in the **Property** tab, under the **Raw USD Properties > Lower (Upper) Limit**.
+Press **Play** to see the mock mobile robot drive off.
+
+## Add Articulation
+
+Even though directly driving the joints can move the robot, it is not the most computationally efficient way. Making things into *articulations* can achieve higher simulation fidelity, fewer joint errors, and can handle larger mass ratios between the jointed bodies. For more information on the physics simulation behind it, see [Physics Core: Articulation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/articulations.html "(in Omni Physics)").
+
+To turn a series of connected rigid bodies and joints into articulation, set an *articulation root* to anchor the articulation tree. According to instructions on defining articulation trees in [Physics Core: Articulation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/dev_guide/rigid_bodies_articulations/articulations.html "(in Omni Physics)"):
+
+> > > For a fixed-base articulation, add the Articulation Root Component either to:
+> >
+> > * the fixed joint that connects the articulation base to the world.
+> > * an ancestor of the fixed joint in the USD hierarchy. This allows creating multiple articulations from a single root component added to the scene.
+>
+> Each descendant fixed joint defines an articulation base link.
+>
+> > > For a floating-base articulation, add the Articulation Root Component to either:
+> >
+> > * the root rigid-body link
+> > * an ancestor of the root link in the USD hierarchy
+
+For this tutorial, add the articulation root to the robot:
+
+1. Select `mock_robot` on the tree.
+2. Open **+ Add** in the **Property** tab.
+3. Add **Physics > Articulation Root**.
+
+Validate that the resulting robot matches the asset that is provided in the Content Browser at `Isaac Sim/Samples/Rigging/MockRobot/mock_robot_rigged`.
+
+## Add Controller
+
+After the joints are part of an articulation, you can use tools to test the robot’s movement.
+
+1. Create another scope by right clicking **Create > Scope**, rename it to **Graphs**. This will be used to store the ActionGraphs.
+2. Drag the **Graphs** scope under the `mock_robot` Xform in the stage tree.
+3. Go to **Tools > Robotics > OmniGraph Controllers > Joint Velocity** to add a velocity controller graph to the stage. This graph will allow you to control the robot’s movement by setting the target velocity for each joint.
+4. Click the **Add** button for “Robot Prim” and select the prim with the Articulation Root API, in this case, it’s `/mock_robot`.
+5. For Graph Path, write `mock_robot/Graphs/Velocity_Controller` to place the ActionGraph in the **Graphs** scope above.
+6. Click **OK** to create the graph.
+7. To move the robot, press **Play** to start the simulation. If you have any default position or velocity targets set, the robot starts moving towards those targets immediately. To change the joint commands, select the `JointCommandArray` on the stage tree under **/Graphs/velocity\_controller**, and change the parameters `input0` and `input1` in the properties window.
+
+Note
+
+The articulation controllers use **radians**, the default USD properties you find under Drive API when you select the individual joints on the stage tree are in **degrees**.
+
+For this particular robot, it can also be controlled using a Differential Controller. For more information about OmniGraph Controller shortcuts, go to [Commonly Used OmniGraph Shortcuts](../omnigraph/omnigraph_shortcuts.html#isaac-sim-app-tutorial-advanced-omnigraph-shortcuts).
+
+Note
+
+The Differential Controller outputs wheel velocities in left-wheel, right-wheel order. In the Articulation Controller joint names or indices array, place `wheel_joint_left` before `wheel_joint_right`.
+
+## Summary
+
+In this tutorial, you learned to connect rigid bodies using joints, add a joint drive to control the joints, turn a chain of joints into an articulation, and control the robot using an Articulation Velocity Controller.
+
+By the end of this tutorial, you have a robot with a body and two wheels, similar to the `mock_robot_rigged` asset, located in the `Samples/Rigging/MockRobot` folder.
+
+### Next Steps
+
+* Continue on to [Tutorial 4: Add Camera and Sensors to a Robot](tutorial_gui_camera_sensors.html#isaac-sim-app-tutorial-gui-camera-sensors) to learn how to add a camera to the car.
+
+### Further Reading
+
+[Physics Core](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html "(in Omni Physics)") for more details regarding joints and articulations.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Add Joints](#add-joints)
+* [Add a Joint Drive](#add-a-joint-drive)
+* [Add Articulation](#add-articulation)
+* [Add Controller](#add-controller)
+* [Summary](#summary)
+  + [Next Steps](#next-steps)
+  + [Further Reading](#further-reading)
+
+---
+
+### Import & Assemble Manipulator
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_import_assemble_manipulator.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 6: Setup a Manipulator
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 6: Setup a Manipulator
+
+## Learning Objectives
+
+This is the first manipulator tutorial in a series of four tutorials. This tutorial shows how to import the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq into NVIDIA Isaac Sim from URDF files and connect them together under one articulation.
+
+*30 Minutes Tutorial*
+
+Isaac Sim always uses Python 3.12, so the UR description package and any ROS packages used in this tutorial must be available in a Python 3.12 environment. How you obtain the package depends on your platform:
+
+* **Ubuntu 24.04 + ROS 2 Jazzy** — install the prebuilt `ros-jazzy-ur-description` apt package; the system Python (3.12) already matches Isaac Sim.
+* **Ubuntu 22.04 + ROS 2 Humble or Jazzy** — the system Python is 3.10, so the workspace must be cloned and rebuilt against Python 3.12 using the included `build_ros.sh` script.
+* **Windows + Pixi-based ROS 2 Jazzy** — add the UR description package to your Pixi environment (`pixi add ros-jazzy-ur-description`); Pixi-managed ROS 2 Jazzy already runs on Python 3.12. See [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Pixi setup. WSL2 is not supported for the ROS-based URDF import workflow — use the prebuilt USD files in the content browser instead.
+
+Attention
+
+ROS 2 Humble on Windows (Pixi) is not a supported configuration for this tutorial. On Windows, only ROS 2 Jazzy with Pixi is supported. Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written.
+
+Verify or choose your configuration in the **Build Environment** banner at the top of this page to see the steps for your setup. Your selection drives the platform-specific commands throughout the rest of this page.
+
+.config-selector {
+position: fixed;
+top: var(--pst-header-height, 60px);
+left: 0;
+right: 0;
+z-index: 1020;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+gap: 12px 18px;
+background-color: var(--pst-color-surface, rgba(248, 249, 250, 0.95));
+border-bottom: 1px solid var(--pst-color-border, var(--color-border, #dee2e6));
+border-radius: 0;
+padding: 10px 24px;
+margin: 0;
+box-shadow: 0 4px 12px var(--pst-color-shadow, rgba(0,0,0,0.08));
+backdrop-filter: saturate(180%) blur(6px);
+-webkit-backdrop-filter: saturate(180%) blur(6px);
+}
+[data-theme="dark"] .config-selector {
+background-color: var(--pst-color-surface, rgba(30, 30, 30, 0.92));
+border-color: var(--pst-color-border, #404040);
+box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.config-selector h3 {
+display: inline-block;
+margin: 0 16px 0 0;
+color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
+font-size: 0.95em;
+font-weight: 600;
+vertical-align: middle;
+}
+[data-theme="dark"] .config-selector h3 {
+color: var(--pst-color-text-base, #ffffff);
+}
+.config-options {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+gap: 10px 18px;
+align-items: center;
+}
+.config-row {
+display: flex;
+flex-direction: row;
+align-items: center;
+gap: 8px;
+}
+.config-label {
+font-weight: 600;
+color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
+font-size: 13px;
+white-space: nowrap;
+}
+[data-theme="dark"] .config-label {
+color: var(--pst-color-text-base, #ffffff);
+}
+.config-buttons {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+}
+.config-btn {
+padding: 5px 10px;
+border: 2px solid var(--pst-color-border, var(--color-border, #dee2e6));
+border-radius: 6px;
+background-color: var(--pst-color-surface, var(--color-background-primary, #ffffff));
+color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
+font-size: 12px;
+font-weight: 500;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+white-space: nowrap;
+user-select: none;
+outline: none;
+}
+[data-theme="dark"] .config-btn {
+border-color: var(--pst-color-border, #404040);
+background-color: var(--pst-color-surface, #2d2d2d);
+color: var(--pst-color-text-base, #cccccc);
+}
+.config-btn:hover {
+border-color: var(--pst-color-primary, var(--color-brand-primary, #0d6efd));
+background-color: var(--pst-color-primary-bg, var(--color-background-hover, #e9ecef));
+color: var(--pst-color-text-base, var(--color-foreground-primary, #212529));
+}
+[data-theme="dark"] .config-btn:hover {
+border-color: #666666;
+background-color: #3d3d3d;
+color: #ffffff;
+}
+.config-btn.active {
+border-color: #76b900;
+background-color: #76b900;
+color: #ffffff;
+font-weight: 600;
+}
+.config-btn.active:hover {
+border-color: #669900;
+background-color: #669900;
+color: #ffffff;
+}
+.config-btn:focus {
+box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.2);
+}
+.config-content {
+transition: opacity 0.3s ease-in-out;
+}
+.config-content.hidden {
+display: none;
+}
+@media (max-width: 768px) {
+.config-selector {
+padding: 8px 10px;
+}
+.config-options {
+flex-direction: column;
+align-items: stretch;
+gap: 8px;
+}
+}
+@media print {
+.config-selector {
+position: static;
+backdrop-filter: none;
+}
+}
+
+### Build Environment
+
+Platform:
+
+LinuxWindows
+
+Ubuntu Version:
+
+Ubuntu 24.04Ubuntu 22.04
+
+Ros Distro:
+
+JazzyHumble
+
+document.addEventListener('DOMContentLoaded', function() {
+const buttons = document.querySelectorAll('.config-btn');
+const contents = document.querySelectorAll('.config-content');
+// Returns the active value for each visible config row.
+// Rows hidden by a data-show-when dependency are excluded so their
+// value does not accidentally filter out content blocks.
+function getCurrentConfig() {
+const config = {};
+const buttonGroups = document.querySelectorAll('.config-buttons');
+buttonGroups.forEach(group => {
+const row = group.closest('.config-row');
+if (row && row.style.display === 'none') return;
+const activeBtn = group.querySelector('.config-btn.active');
+if (activeBtn) {
+config[group.dataset.configKey] = activeBtn.dataset.value;
+}
+});
+return config;
+}
+// Show or hide config rows that have a data-show-when dependency.
+// Must be called before updateVisibility() so getCurrentConfig() is correct.
+function updateRowVisibility() {
+const config = getCurrentConfig();
+document.querySelectorAll('.config-row[data-show-when]').forEach(row => {
+try {
+const showWhen = JSON.parse(row.dataset.showWhen || '{}');
+const visible = Object.entries(showWhen).every(([k, v]) => config[k] === v);
+row.style.display = visible ? '' : 'none';
+} catch (e) {
+console.warn('Error parsing data-show-when for row:', e);
+}
+});
+}
+function updateVisibility() {
+const currentConfig = getCurrentConfig();
+contents.forEach(content => {
+try {
+const conditions = JSON.parse(content.dataset.conditions || '{}');
+const shouldShow = Object.entries(conditions).every(
+([key, value]) => currentConfig[key] === value
+);
+if (shouldShow) {
+content.classList.remove('hidden');
+content.style.display = 'block';
+} else {
+content.classList.add('hidden');
+content.style.display = 'none';
+}
+} catch (e) {
+console.warn('Error parsing conditions for content block:', e);
+}
+});
+}
+// Add click event listeners to buttons
+buttons.forEach(button => {
+button.addEventListener('click', function() {
+this.parentNode.querySelectorAll('.config-btn').forEach(s => s.classList.remove('active'));
+this.classList.add('active');
+// Row visibility must be updated before content visibility.
+updateRowVisibility();
+updateVisibility();
+});
+button.addEventListener('keydown', function(e) {
+if (e.key === 'Enter' || e.key === ' ') {
+e.preventDefault();
+this.click();
+}
+});
+});
+const banner = document.querySelector('.config-selector');
+// Position the banner just below whatever is currently pinned to
+// the top of the viewport (PyData navbar + version-warning + any
+// announcement). Recomputed on scroll/resize so the banner shifts
+// down when the version-warning is visible and up after it scrolls
+// out of view.
+const topElements = [
+document.querySelector('.bd-header-announcement'),
+document.querySelector('#bd-header-version-warning'),
+document.querySelector('.bd-header.navbar'),
+].filter(Boolean);
+// Element that holds article content; padded down so its content
+// is never overlapped by the fixed banner regardless of wrap.
+const contentRoot = document.querySelector('.bd-main') ||
+document.querySelector('main') ||
+document.body;
+function updateBannerTop() {
+if (!banner) return;
+let bottom = 0;
+topElements.forEach(el => {
+const rect = el.getBoundingClientRect();
+if (rect.bottom > bottom) bottom = rect.bottom;
+});
+banner.style.top = Math.max(0, bottom) + 'px';
+}
+function updateContentOffset() {
+if (!banner || !contentRoot) return;
+const h = banner.offsetHeight;
+contentRoot.style.paddingTop = h + 'px';
+// Anchor links should land below the banner, not behind it.
+document.documentElement.style.scrollPaddingTop = (h + 16) + 'px';
+}
+if (banner && 'ResizeObserver' in window) {
+new ResizeObserver(() => {
+updateContentOffset();
+updateBannerTop();
+}).observe(banner);
+}
+window.addEventListener('resize', () => {
+updateContentOffset();
+updateBannerTop();
+});
+window.addEventListener('scroll', updateBannerTop, { passive: true });
+// Initial update
+setTimeout(function() {
+updateRowVisibility();
+updateVisibility();
+updateContentOffset();
+updateBannerTop();
+}, 100);
+// Watch for theme changes
+});
+
+## Prerequisites
+
+* If you are new to NVIDIA Isaac Sim, complete the [Wheeled Robot Set Up Tutorials](tutorial_intro_environment_setup.html#isaac-sim-app-tutorial-intro-environment-setup) tutorial prior to beginning this tutorial.
+* Review the ROS 2 installations [ROS 2 Installation (Default)](../installation/install_ros.html#isaac-sim-app-install-ros) prior to beginning this tutorial.
+* Review the URDF importer [URDF Importer Extension](../importer_exporter/ext_isaacsim_asset_importer_urdf.html#isaac-sim-urdf-importer) tutorial.
+* In a ROS sourced terminal, install xacro for your selected configuration (see the **Build Environment** banner at the top of the page):
+
+  ```python
+  sudo apt install ros-$ROS_DISTRO-xacro
+  ```
+
+  ```python
+  pixi add ros-$ROS_DISTRO-xacro
+  ```
+
+  Attention
+
+  ROS 2 Humble on Windows (Pixi) is not a supported configuration. Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written.
+* Locate the `import_manipulator` folder in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/`.
+
+## Build and Install the UR Description Package
+
+Follow the steps for the configuration you selected in the **Build Environment** selector at the top of this page.
+
+Install the prebuilt UR description package and source ROS 2 Jazzy:
+
+```python
+sudo apt install ros-jazzy-ur-description
+source /opt/ros/jazzy/setup.bash
+```
+
+Then launch Isaac Sim from the same terminal:
+
+```python
+./isaac-sim.sh
+```
+
+On Ubuntu 22.04, the system Python (3.10) does not match the Python 3.12 used by Isaac Sim, and the UR description package is not natively available for Python 3.12. Clone the package and rebuild it with the included `build_ros.sh` script.
+
+Note
+
+See [Isaac Sim ROS Workspaces](../installation/install_ros.html#isaac-sim-ros-workspace) for more information on setting up your custom ROS 2 package in your ROS workspace.
+
+1. Change into your Isaac Sim ROS Workspace, then into the distro-specific workspace’s `src` folder:
+
+   ```python
+   cd <path to Isaac Sim ROS Workspace>
+   cd jazzy_ws/src
+   ```
+
+   ```python
+   cd <path to Isaac Sim ROS Workspace>
+   cd humble_ws/src
+   ```
+2. Clone the branch of the [Universal Robots ROS 2 Description repository](https://github.com/UniversalRobots/Universal_Robots_ROS2_Description) that matches your ROS distribution:
+
+   ```python
+   git clone --branch jazzy https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
+   ```
+
+   ```python
+   git clone --branch humble https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
+   ```
+3. Return to the Isaac Sim ROS Workspace root and build against Python 3.12:
+
+   ```python
+   cd ../..
+   ./build_ros.sh
+   ```
+4. Source the Python 3.12 ROS environment and launch Isaac Sim.
+
+   ```python
+   source build_ws/jazzy/jazzy_ws/install/local_setup.bash
+   source build_ws/jazzy/isaac_sim_ros_ws/install/local_setup.bash
+   ./isaac-sim.sh
+   ```
+
+   ```python
+   source build_ws/humble/humble_ws/install/local_setup.bash
+   source build_ws/humble/isaac_sim_ros_ws/install/local_setup.bash
+   ./isaac-sim.sh
+   ```
+
+Attention
+
+ROS 2 Humble on Ubuntu 24.04 is not an officially supported configuration in [ROS 2 Installation (Default)](../installation/install_ros.html#isaac-sim-app-install-ros). Switch to ROS 2 Jazzy on Ubuntu 24.04, or move to ROS 2 Humble on Ubuntu 22.04, to follow this tutorial as written.
+
+On Windows, the URDF import workflow in this tutorial is supported only with a [Pixi-based](https://pixi.sh/) ROS 2 Jazzy installation. Follow [ROS 2 Installation (Other Platforms)](../installation/install_ros_other_platforms.html#isaac-sim-app-install-ros-other-platforms) for Windows ROS 2 setup and to install or build the UR description package against the Pixi environment. If you are using WSL2, skip the ROS-based import steps and use the prebuilt USD files in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/`.
+
+Attention
+
+ROS 2 Humble on Windows (Pixi) is not a supported configuration in [ROS 2 Installation (Default)](../installation/install_ros.html#isaac-sim-app-install-ros). Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written. If you need to use the UR10e on Windows without ROS, use the prebuilt USD files in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/`.
+
+## Import the UR10e Robot
+
+### Enable the ROS 2 Robot Description URDF Importer Extension
+
+1. Go to `Window` > `Extensions`.
+2. Type `URDF` in the search box, and find the `ROS 2 Robot Description URDF Importer Extension`.
+3. If you can’t find it, remove the `@feature` filter from the search box.
+4. If you still can’t find it, make sure Isaac Sim was launched from the same terminal where ROS was sourced.
+5. Enable the extension by clicking the toggle button labeled `ENABLE`.
+6. Check the box for `AUTOLOAD`, just to the right of `ENABLE`.
+
+### Launch the URDF Publisher Topic
+
+1. Open a new terminal with a **native** ROS 2 environment, source ROS 2 for your configuration, and launch the UR10e description.
+
+   Important
+
+   Do not reuse the Python 3.12 `build_ws` shell used to launch Isaac Sim above. The `build_ws` paths exist only to source the matching ROS 2 bridge into Isaac Sim; for `ros2 launch` commands, use your OS-native ROS 2 install (or a Docker container for distros that are not natively available on your OS).
+
+   ```python
+   source /opt/ros/jazzy/setup.bash
+   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
+   ```
+
+   Source your native ROS 2 Humble install. If `ur_description` is not already available, install it from apt:
+
+   ```python
+   sudo apt install ros-humble-ur-description
+   source /opt/ros/humble/setup.bash
+   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
+   ```
+
+   Alternatively, build `ur_description` natively (Python 3.10) into `humble_ws` with `colcon build`, then source `humble_ws/install/local_setup.bash` instead of using the apt package.
+
+   ROS 2 Jazzy is not natively available on Ubuntu 22.04, so run the launch command from a ROS 2 Jazzy Docker container with `jazzy_ws` mounted and built natively. Follow [Running ROS in Docker Containers](../installation/install_ros_other_platforms.html#isaac-ros-docker-other-platforms) to start an `osrf/ros:jazzy-desktop` container, build `jazzy_ws` inside it, then from inside the container run:
+
+   ```python
+   source /jazzy_ws/install/local_setup.bash
+   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
+   ```
+
+   Activate the Pixi environment, then run:
+
+   ```python
+   ros2 launch ur_description view_ur.launch.py ur_type:=ur10e
+   ```
+
+   Attention
+
+   ROS 2 Humble on Windows (Pixi) is not a supported configuration. Switch to ROS 2 Jazzy on Windows, or move to a Linux configuration, to follow this tutorial as written.
+2. Verify that you see a window similar to the image below:
+3. Set up one more terminal for `rqt_graph`, to see ROS nodes and topics being published:
+
+   ```python
+   rqt_graph
+   ```
+4. Verify that you see a window similar to the image below:
+
+Hint
+
+If the nodes are not showing up in `rqt_graph`, press the refresh button next to the drop down menu.
+
+### Import the UR10e Robot into Isaac Sim
+
+1. Go to Isaac Sim.
+2. Navigate to **File** > **Import from the ROS 2 URDF Node**.
+
+   * In the **ROS2 Node** field, type `robot_state_publisher`, click **Find Node**.
+   * In the **USD Output** field, select the desired output (for example, `~/Desktop/`).
+   * In the **Robot Type** field, select `Manipulator`.
+   * In the **Base Type** field, select `Fixed`.
+3. Click **Import**, the importer should automatically open the ur robot.
+
+For reference, the resulting USD file is available in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/ur10e/ur/ur.usda`.
+
+## Set Gains Using the Gain Tuner
+
+The importer does not set the gains for the UR robot automatically. You can use the Gain Tuner to set the gains for the UR robot.
+In this tutorial, we will use the gain tuner to set the natural frequency and damping ratio for the UR robot, which are defined as:
+
+\[ \begin{align}\begin{aligned}\omega\_n = \sqrt{\frac{K\_p}{m}}\\\zeta = \frac{K\_d}{2 m \omega\_n}\end{aligned}\end{align} \]
+
+Where \(\omega\_n\) is the natural frequency and \(\zeta\) is the damping ratio, and \(m\) is the computed joint inertia based on the mass of the robot at both sides of the joint.
+The damping ratio is such that \(\zeta = 1.0\) is a critically damped system, \(\zeta < 1.0\) is underdamped, and \(\zeta > 1.0\) is overdamped.
+
+Use the [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) to set and verify the gains for the UR robot.
+
+1. Go to **Tools** > **Robotics** > **Asset Editors** > **Gain Tuner**.
+2. On the **Gain Tuner** window, on the **Robot Selection** dropdown, select the **ur** articulation in the stage.
+3. In the **Tune Gains** panel, you can adjust the gains for the robot and the gripper fingers joints. Test it with the **Test Gains Settings** panel. let’s start by setting the natural frequency to `300` and the damping ratio to `1.0`.
+
+Hint
+
+We recommend determining the gains for a small group of joints first, if it is difficult to tune the gains for the whole robot. Below are some tips for tuning the gains:
+
+* Higher the natural frequency, the faster the robot will respond to the target position. Lower the damping ratio, the faster the robot will reach the target position.
+* If the resulting plot shows the robot is undershooting the target position, you can increase the `Nat. Freq.` slightly.
+* If the resulting plot shows the robot is overshooting the target position, you can decrease the `Nat. Freq.` slightly and increase the `Damping Ratio`.
+* Disabling gravity can help you see the gains more clearly.
+* Only gain test the joints that are expected to be moving together, the gain test order can be selected by the **Sequence** dropdown.
+* Reduce the maximum speed of a joint that you are tuning, if it is not expected to be commanded to move that fast in practice. The default values in the Gains Test are the maximum velocity written into the USD.
+
+Note
+
+See [Gain Tuner Extension](../robot_setup/ext_isaacsim_robot_setup_gain_tuner.html#isaac-gain-tuner) for more information on the Gain Tuner and [Tutorial 11: Tuning Joint Drive Gains](joint_tuning.html#isaac-sim-app-tutorial-advanced-joint-tuning) for more information on how to tune the gains for the robot.
+
+For reference, the resulting USD file is available in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/ur10e/ur_gains_tuner/ur.usda`.
+
+## 2F-140 Gripper Parameters
+
+In the next section of the tutorial, we will be connecting the UR10e robot with the 2F-140 gripper. Let’s review the expected parameters for the gripper joints.
+
+### Expected Parameters for Finger and Knuckle Joints
+
+| Joint Name | Lower Limit | Upper Limit | Gearing | Stiffness | Damping | Max Force |
+| --- | --- | --- | --- | --- | --- | --- |
+| Finger Joint | 0 | 40.107 | N/A | 37.51957 | 0.00125 | 1000 |
+| Left inner Finger | -8.021 | 48.128 | -1 | N/A | N/A | N/A |
+| Left Inner Knuckle | -48.128 | 8.021 | 1 | N/A | N/A | N/A |
+| Right inner Knuckle | -48.128 | 8.021 | 1 | N/A | N/A | N/A |
+| Right outer knuckle | -48.128 | 8.021 | 1 | N/A | N/A | N/A |
+| Right inner Finger | -8.021 | 48.128 | -1 | N/A | N/A | N/A |
+
+### Expected Parameters for Mimic Joints
+
+* Reference Joint: `/robotiq_arg2f_140_model/joints/finger_joint`
+* Reference Joint Axis: `rotX`
+* Natural Frequency: `2500`
+* Damping Ratio: `0.005`
+
+## Connect the UR10e Robot with the Robotiq 2F-140 Gripper
+
+Much like a real robot can have its tools changed for different tasks, simulated robots benefit from the same capability. This section outlines two methods to connect the UR10e robot with the Robotiq 2F-140 gripper
+
+We will use the Robot Assembler to connect the UR10e robot with the 2F-140 gripper.
+
+1. Open the UR10e USD file created from the last activity (`ur.usda`).
+2. Drag and drop the `robotiq_2f_140.usd` file we created earlier into the stage.
+3. Open the robot assembler by going to **Tools** > **Robotics** > **Asset Editor** > **Robot Assembler**.
+
+   * In **Base Robot**, set **Select Base Robot** to `/ur`, **Attach Point** to `wrist_3_link`.
+   * In **Attach Robot**, set **Select Attach Robot** to `/ur/robotiq_2f_140`, **Attach Point** to `robotiq_arg2f_base_link`.
+   * Set **Assembly Namespace** to `Gripper`.
+4. Click **Begin Assembling Process** to start the process.
+5. Adjust the attachment point orientation to make sure the end effector is attached to the gripper correctly. Rotate the gripper 90 degrees around the z-axis by clicking **Z +90**.
+6. Click **Assemble and Simulate** to test the process.
+7. Click **End Simulation And Finish** to complete the process.
+8. Save the asset by going to **File** > **Save** or press **Ctrl+S**.
+
+### Run the Simulation
+
+1. In the Stage panel, select the **ur** prim.
+2. In the Property Editor at the bottom right, find the **Variants** section.
+3. Beside **Gripper**, select **None** and the gripper will be removed from the robot.
+4. Beside **Gripper**, select **robotiq\_2f\_140** and the gripper will be added to the robot.
+5. Save the asset by going to **File** > **Save** or press **Ctrl+S**.
+
+Note
+
+The completed robotics arm asset with the gripper is available in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/import_manipulator/ur10e/ur_gripper/ur.usda`.
+
+## Summary
+
+In this tutorial, you took the UR10e robot from Universal Robots and the 2F-140 gripper from Robotiq and imported them into NVIDIA Isaac Sim from URDF files and connected them together under one articulation using the GUI and Robot Assembler.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Build and Install the UR Description Package](#build-and-install-the-ur-description-package)
+* [Import the UR10e Robot](#import-the-ur10e-robot)
+  + [Enable the ROS 2 Robot Description URDF Importer Extension](#enable-the-ros-2-robot-description-urdf-importer-extension)
+  + [Launch the URDF Publisher Topic](#launch-the-urdf-publisher-topic)
+  + [Import the UR10e Robot into Isaac Sim](#import-the-ur10e-robot-into-isaac-sim)
+* [Set Gains Using the Gain Tuner](#set-gains-using-the-gain-tuner)
+* [2F-140 Gripper Parameters](#f-140-gripper-parameters)
+  + [Expected Parameters for Finger and Knuckle Joints](#expected-parameters-for-finger-and-knuckle-joints)
+  + [Expected Parameters for Mimic Joints](#expected-parameters-for-mimic-joints)
+* [Connect the UR10e Robot with the Robotiq 2F-140 Gripper](#connect-the-ur10e-robot-with-the-robotiq-2f-140-gripper)
+  + [Run the Simulation](#run-the-simulation)
+* [Summary](#summary)
+
+---
+
+### Intro: Assemble Robot
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_intro_assemble_robot.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 2: Assemble a Simple Robot
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 2: Assemble a Simple Robot
+
+This tutorial guides you through the basic GUI functions that add objects to the stage. It also introduces inspecting and modifying their physics and material properties.
+
+## Learning Objectives
+
+This tutorial covers how to:
+
+* Add and manipulate basic shapes
+* Enable physics properties in objects
+* Examine collision properties
+* Edit physics properties such as friction
+* Edit material properties such as color and reflectivity
+
+## Prerequisites
+
+* Complete [Tutorial 1: Stage Setup](tutorial_intro_environment_setup.html#isaac-sim-app-tutorial-intro-environment-setup) prior to beginning this tutorial.
+
+## Adding Objects to the Scene
+
+There are many ways to “add objects” to the stage, but all of them fundamentally do the same thing, which is to define a USD primitive in the stage context tree. The goal is to create a basic, two wheeled robot. Start by creating some basic shapes and modifying their properties. For the body, use a cube and for the wheels use cylinders.
+
+To create the body of the robot:
+
+1. Create an Xform by right clicking on the stage, selecting **Create > Xform**.
+2. Rename it to **body** by right clicking on it and selecting **Rename**.
+3. Fix the translation of the Xform to `(0, 0, 1)` by clicking on the **Translate** section in the property panel and setting the **X** to `0`, **Y** to `0`, and **Z** to `1`.
+4. Create a cube clicking **Create > Shape > Cube** in the top menu bar. You should see the cube and the **Move** **gizmo** (the red, blue, and green arrows) appear in the viewport window
+5. Click and drag on the blue arrow to raise the cube above the ground plane.
+6. On the left side of the app, click the Scale icon (or press the R key while the cube is selected) to activate the scale widget.
+7. Click and drag on the red part of the widget to scale the cube in the x direction
+8. Place the cube in a specific location. Navigate to **Transform > Scale** in the property pane, and set the scale to `(2, 1, 0.5)`.
+9. Drag the cube to the **Body** Xform.
+
+To create the wheels of the robot:
+
+1. Create a Xform by right clicking on the stage, selecting **Create > Xform**. Set the **Translate** to `(0, 1.5, 1)` and the **Orient** to `90, 0, 0` to rotate the wheel Xform 90 degrees around the x axis.
+2. Rename it to **wheel\_left** by right clicking on it and selecting **Rename**.
+3. Create a cylinder by clicking **Create > Shape > Cylinder** in the top menu bar.
+4. In the property panel on the bottom right corner, scroll down to the **Geometry** section. Change its **Radius** to `0.5` and **Height** to `1.0`.
+5. Drag the cylinder to the **wheel\_left** Xform.
+6. Rename the cylinder to **wheel\_left** by right clicking on it and selecting **Rename**.
+7. Duplicate the `wheel_left` by right clicking the `wheel_left` Xform on the stage tree, select **Duplicate**, and move it to `y = -1.5` while keeping all other parameters the same.
+8. Rename the duplicated Xform to **wheel\_right** by right clicking on it and selecting **Rename**.
+9. Rename the duplicated cylinder to **wheel\_right** by right clicking on it and selecting **Rename**.
+
+## Adding Physics Properties
+
+The cubes and cylinders added so far are strictly visual prims, with no physics or collision properties attached to them.
+When you start the simulation by pressing **Play** and gravity is applied, these objects do not move because they are unaffected by physics.
+
+To make the robot have physics, turn it into a rigid body with collision properties:
+
+1. Select the Cube and both Cylinders on the stage tree by clicking while holding down the `Ctrl + Shift` key to select each object, or just `Shift` if they are consecutively listed on the tree.
+2. In the **Property** tab, click on the `+ Add` button.
+3. Select **Physics > Rigid Body with Colliders Preset**.
+4. Press **Play** and verify that all three objects fall to the ground.
+
+**Rigid Body with Colliders Preset** automatically adds the Rigid Body API and the Collision API to the objects.
+These two APIs can be applied separately because you can have objects that:
+
+* have mass and are affected by gravity, but have no collision properties so you can pass through them
+* can be run into but hang in the air and are not affected by gravity
+
+To validate, add, or remove APIs assigned to the selected object:
+
+1. Go to its **Property** tab, and scroll down to find sections labeled **Rigid Body** and **Collider**.
+2. To add the APIs separately, find them under the same **+ Add** button.
+3. To remove APIs, click on the `X` to delete the section.
+
+Hint
+
+Dynamic objects can only select from Convex Hull, Convex Decomposition, Sphere Approximation, SDF mesh (GPU backend only) for collision shapes.
+Triangle mesh collision shapes are only available for static objects.
+
+### Examine Collision Meshes
+
+To visually examine the outlines of collision meshes for the objects:
+
+1. Find the eye icon on top of the viewport.
+2. Click **Show By Type > Physics > Colliders > All**.
+3. Verify that purple outlines show up surrounding any objects that have collision APIs applied. For example, verify that it is the cuboid, the cylinders, and the ground plane.
+
+### Adding Contact and Friction Parameters
+
+For modifying frictional properties, you must create a different physics material and then assign it to the desired object.
+
+1. Go to the Menu Bar and click **Create > Physics > Physics Material**.
+2. Select **Rigid Body Material** in the popup box. A new `PhysicsMaterial` appears on the stage tree.
+3. Tune the parameters such as friction coefficients and restitution in its property tab.
+
+To apply the assigned physics material to an object:
+
+1. Select the object in the stage tree.
+2. Find the menu item **Materials on Selected Model** in the **Property** tab.
+3. Select the desired material in the drop-down menu.
+
+## Material Properties
+
+The objects may reflect the color of the spotlight added earlier, but it doesn’t actually have any colors assigned. You can confirm this by turning off the spotlight.
+
+To change the color of the object, create a different material and then assign it to the objects, just like with the physics materials.
+For example, create two different materials, one for the body of the car and one for the wheels.
+
+1. Click **Create > Materials > OmniPBR** twice.
+2. Right-click on the newly added materials on the stage tree and rename them to **body** and **wheel**.
+3. Assign the corresponding rigid bodies to the newly created materials by going to the **Materials on selected models** item in its **Property** tab, and select the matching material from the dropdown.
+4. Change the property of the new materials. Select one of them on the stage tree, change its base color in *Material and Shader/Albedo* and play with its reflectivity roughness and whatever else you find interesting.
+5. Verify that you see the color of the corresponding parts on the car change accordingly.
+
+## Summary
+
+By the end of this tutorial, you should have a robot with a body and two wheels, similar to the `mock_robot_no_joints` asset, located in the **Samples > Rigging > MockRobot** folder.
+
+This tutorial explained how to add and manipulate object properties in the GUI, including:
+
+> 1. Adding primitive shapes onto the [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage).
+> 2. Editing material properties, physics properties, and collision properties.
+
+### Next Steps
+
+* Continue to [Working with USD](../omniverse_usd/intro_to_usd.html#isaac-sim-app-tutorial-intro-usd) to learn how to save your world and load assets in USD format inside Isaac Sim.
+* Go to [Tutorial 3: Articulate a Basic Robot](tutorial_gui_simple_robot.html#isaac-sim-app-tutorial-gui-simple-robot) to learn how to turn these geometries into a moving car.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Adding Objects to the Scene](#adding-objects-to-the-scene)
+* [Adding Physics Properties](#adding-physics-properties)
+  + [Examine Collision Meshes](#examine-collision-meshes)
+  + [Adding Contact and Friction Parameters](#adding-contact-and-friction-parameters)
+* [Material Properties](#material-properties)
+* [Summary](#summary)
+  + [Next Steps](#next-steps)
+
+---
+
+### Intro: Environment Setup
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_intro_environment_setup.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 1: Stage Setup
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 1: Stage Setup
+
+Isaac Sim is built on [NVIDIA Omniverse](https://docs.omniverse.nvidia.com/) using tools provided in [Omniverse Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/index.html "(in Omniverse Developer Guide)"). Omniverse Kit comes with a default UI that
+allows you to edit a USD stage with ease. In this tutorial, you learn the basic steps for setting up an environment, adding and editing simple objects and their properties on a USD stage,
+rigging rigid bodies with joints and articulations, and adding cameras and sensors.
+The goal is to build your basic skills in navigating Isaac Sim, becoming familiar with frequently used terms, and using the GUI to build an environment and set up your robots.
+
+## Learning Objectives
+
+This tutorial teaches you to build a physics-enabled virtual world using the tools provided in the Isaac Sim GUI, including:
+
+* Setup global stage properties
+* Setup global physics properties
+* Add ground plane
+* Add lighting
+
+## Prerequisites
+
+To start with a clean Isaac Sim stage, go to the File menu and click on **New**.
+The stage provided has a default `World` [Xform](https://docs.omniverse.nvidia.com/utilities/latest/common/glossary-of-terms.html#term-XForm "(in Omniverse Utilities)"), and a `defaultLight`. Both can be found on the stage tree on the right of the viewport.
+
+## Setting up Stage Properties
+
+Before anything is added onto the stage, verify that the current stage property setup matches the your expected conventions.
+
+1. Go to **Edit > Preferences** to open up the Preference panel.
+2. Browse the many types of settings inside Omniverse Kit grouped into categories in the column on the left of the panel.
+3. Select **Stage** from the left column and review the properties such as:
+
+   * The axis that determines *Up*. The default in Isaac Sim is Z. If your asset is created in a program with a different up-axis, it causes your assets to be imported rotated.
+   * Stage units. Isaac Sim versions prior to 2022.1 have stage units in centimeters, but the default is now meters. However, the default units for Omniverse Kit is still in centimeters. Keep that in mind if you see USD units that are seemingly off by 100x.
+   * Default rotation order. The default is set to execute rotation in Z, then Y, and last X.
+
+## Creating the Physics Scene
+
+To add a **Physics Scene** to simulate real world physics, including gravity and physics time steps:
+
+1. Go to the Menu Bar and click **Create > Physics > Physics Scene**.
+2. Validate that a **PhysicsScene** is added to the stage tree.
+3. Click on it to examine its properties.
+   You can see that gravity is set to the magnitude of `Earth Gravity`, or `9.8` meters per second squared. Remember that the default unit of length is meters.
+4. Unless you are simulating hundreds of rigid bodies and robots, it is more efficient to use CPU physics
+   :   * Open Physics Scene’s **Property** tab
+       * Uncheck **Enable GPU dynamics**
+       * Set the **Broadphase** type to **MBP**.
+
+## Adding a Ground Plane
+
+The ground plane prevents any physics-enabled objects from falling below it.
+The ground plane’s collision property extends indefinitely even though the plane is only visible up to 25 meters in each direction.
+
+To add a ground plane to the virtual environment:
+
+1. Go to the top Menu Bar and click **Create > Physics > Ground Plane**.
+2. Turn on the grid by clicking on  and selecting **Grid** to make the ground plane easier to see.
+
+## Lighting
+
+Every new [Stage](../reference_material/reference_glossary.html#isaac-sim-glossary-stage) is pre-populated with a `defaultLight`, otherwise you wouldn’t see anything. This default light is a child of the `Environment` Xform in the stage and can be found in the stage context tree.
+
+To create additional spotlights:
+
+1. Add a ground plane, if there isn’t already one, so we can see the reflection of the light. **Create > Physics > Ground Plane**.
+2. Go to **Create > Light > Sphere Light**.
+3. Pose the light on the stage.
+   - In the **Stage** tab on the top right, select the newly created light in the stage tree.
+   - In the **Property** tab on the bottom , in the **Transform** section use the **Translate** tool to move it to a position above the ground plane, such as `(0, 0, 7)`.
+   - In the **Property** tab, in the **Transform** section, use the **Orient** tool to set the rotation to `(0, 0, 0)`.
+4. Modify light color, brightness, and scope properties:
+   - Inside the **Property** tab, change its color in **Main > Color** by clicking on the color bar and pick a color of your choice. For example a light green color `(RGB: 0.5, 1.0, 0.5)`.
+   - Also inside the **Property** tab, change its intensity **Main > Intensity** to **1e6**; **Main > Radius** to **0.05**
+   - In the **Shaping** section, change the **cone:angle** to **45** degrees and **cone:softness** to **0.05**.
+5. To make the new spotlight easier to see, we will reduce the intensity of the default light by going to its **Property** tab and set **Main > Intensity** to **300**.
+
+## Summary
+
+This tutorial begins the necessary steps to create a virtual world suitable for physics simulation and testing Isaac Sim.
+The following topics were covered:
+
+* Adding a ground plane, lighting, and physics scene.
+
+### Next Steps
+
+Continue on to [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) to learn how to add simple objects to Isaac Sim and edit their properties.
+
+### Further Learning
+
+For more in-depth and creative world-building tools, refer to our sister Omniverse tool [Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Setting up Stage Properties](#setting-up-stage-properties)
+* [Creating the Physics Scene](#creating-the-physics-scene)
+* [Adding a Ground Plane](#adding-a-ground-plane)
+* [Lighting](#lighting)
+* [Summary](#summary)
+  + [Next Steps](#next-steps)
+  + [Further Learning](#further-learning)
+
+---
+
+### Pick-Place Example
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_pickplace_example.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 9: Pick and Place Example
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 9: Pick and Place Example
+
+## Learning Objectives
+
+This is the final manipulator tutorial in a series of four tutorials. It ties everything together by showing how to use the UR10e robot and the 2F-140 gripper to control the gripper, follow a Cartesian target, and perform a pick-and-place sequence.
+We will be using the robot imported in [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html) and the URDF and XRDF robot configuration files described in [Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration).
+
+This tutorial builds on top of the [Robot Motion (Experimental)](../robot_motion_experimental/index.html#isaac-sim-robot-motion-experimental) extension and demonstrates two motion controllers:
+
+* **cuMotion RMPflow** — a GPU-accelerated reactive motion planner with collision avoidance. See the [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) overview and the [RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) for full details.
+* **PINK differential IK** — a CPU-based inverse kinematics solver using the [PINK](https://github.com/stephane-caron/pink) library. See the [PINK Integration](../pink/index.html#isaac-sim-pink) overview and the [IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) for full details.
+
+*30 Minutes Tutorial*
+
+## Prerequisites
+
+* Review [Tutorial 6: Setup a Manipulator](tutorial_import_assemble_manipulator.html) and [Tutorial 7: Configure a Manipulator](tutorial_configure_manipulator.html) prior to beginning this tutorial to generate robot and the URDF and XRDF files required by the pick-and-place examples.
+
+Note
+
+If you have not completed the previous tutorial(s), you can find the prebuilt asset in the content browser at `Isaac Sim/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd`.
+
+Additionally, pre-generated URDF, XRDF, and `rmp_flow.yaml` files can be found at `source/extensions/isaacsim.robot_motion.cumotion/robot_configurations/ur10/`.
+
+## Overview
+
+This tutorial is divided into four parts, each corresponding to a standalone example script:
+
+| Part | Script | Description |
+| --- | --- | --- |
+| 1 | `tutorial_9_gripper_control.py` | Gripper control using the Articulation API |
+| 2 | `tutorial_9_arm_trajectory.py` | Joint-space trajectory planning and execution |
+| 3 | `tutorial_9_follow_target.py` | Real-time Cartesian target following with cuMotion RMPflow |
+| 4 | `tutorial_9_pick_place_cumotion.py` / `tutorial_9_pick_place_pink.py` | Full pick-and-place sequence with cuMotion RMPflow or PINK differential IK |
+
+All scripts are located at `standalone_examples/tutorials/manipulation/`.
+
+## Part 1: Gripper Control
+
+This example introduces the Articulation API by controlling the 2F-140 gripper joints directly with `set_dof_position_targets`. The gripper closes fully and then opens again.
+
+```python
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_gripper_control.py
+```
+
+**Key concepts:**
+
+* `Articulation.dof_names` returns the list of all degrees of freedom in order. The gripper joint is named `finger_joint`.
+* `set_dof_position_targets` sends a position target to one or more DOFs by index. Passing `dof_indices` restricts the command to only those joints.
+
+tutorial\_9\_gripper\_control.py — gripper control loop
+
+```python
+    finger_idx = robot.dof_names.index("finger_joint")
+    frame_count = 0
+
+    while app.is_running():
+        for target_pos, label in [(_CLOSED_POS, "closing"), (_OPEN_POS, "opening")]:
+            print(f"Gripper {label}...")
+            for _ in range(_HOLD_STEPS):
+                robot.set_dof_position_targets(target_pos, dof_indices=finger_idx)
+                app.update()
+                frame_count += 1
+                if args.test and frame_count >= _HOLD_STEPS * 2:
+                    return
+```
+
+## Part 2: Arm Trajectory Following
+
+This example plans and executes a joint-space trajectory using `mg.Path` and `mg.TrajectoryFollower` from the motion generation API. The robot follows a sequence of waypoints in minimal time subject to velocity and acceleration limits.
+
+```python
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_arm_trajectory.py
+```
+
+**Key concepts:**
+
+* `mg.Path(waypoints)` wraps a sequence of joint-space configurations.
+* `.to_minimal_time_joint_trajectory(max_velocities, max_accelerations, ...)` computes a time-optimal trajectory that respects joint limits.
+* `mg.TrajectoryFollower` tracks the planned trajectory, calling `.forward(estimated_state, setpoint, t)` each physics step to obtain the desired joint state.
+* `get_estimated_state` packages the current joint positions, velocities, and efforts into an `mg.RobotState`.
+* `apply_desired_state` applies the position, velocity, and effort targets from the desired state back to the articulation.
+
+tutorial\_9\_arm\_trajectory.py — trajectory setup
+
+```python
+    waypoints = np.array(
+        [
+            [0.00, -1.57, 1.57, -1.57, -1.57, 0.00],  # home
+            [0.50, -1.00, 0.80, -1.30, -1.57, 0.00],  # reach-out
+            [0.00, -1.57, 1.57, -1.57, -1.57, 0.00],  # back to home
+        ],
+    )
+
+    max_velocities = np.array([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+    max_accelerations = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+
+    trajectory = mg.Path(waypoints).to_minimal_time_joint_trajectory(
+        max_velocities=max_velocities,
+        max_accelerations=max_accelerations,
+        robot_joint_space=robot_joint_space,
+        active_joints=arm_joints,
+    )
+    print(f"Trajectory duration: {trajectory.duration:.2f} s")
+
+    follower = mg.TrajectoryFollower()
+    follower.set_trajectory(trajectory)
+
+    simulation_time = 0.0
+    if not follower.reset(get_estimated_state(robot, robot_joint_space), None, simulation_time):
+        raise RuntimeError("Failed to reset TrajectoryFollower")
+```
+
+tutorial\_9\_arm\_trajectory.py — trajectory execution loop
+
+```python
+    dt = SimulationManager.get_physics_dt()
+    max_steps = int((trajectory.duration + 1.0) / dt)
+    frame_count = 0
+
+    while app.is_running():
+        app.update()
+        if not (app_utils.is_playing() and SimulationManager.is_simulating()):
+            continue
+        simulation_time = 0.0
+        follower.reset(get_estimated_state(robot, robot_joint_space), None, simulation_time)
+        for _ in range(max_steps):
+            app.update()
+            if not (app_utils.is_playing() and SimulationManager.is_simulating()):
+                break
+            simulation_time += dt
+            desired_state = follower.forward(get_estimated_state(robot, robot_joint_space), None, simulation_time)
+            if desired_state is None:
+                print("Trajectory complete.")
+                break
+            apply_desired_state(robot, desired_state)
+            frame_count += 1
+            if args.test and frame_count >= 100:
+                return
+```
+
+See also
+
+* [Trajectory Planning and Execution](../motion_generation/trajectory_planning.html) — the `mg.Path` and `mg.TrajectoryFollower` API used in this part.
+* [cuMotion Trajectory Generator Tutorial](../cumotion/tutorial_trajectory_generator.html#isaac-sim-cumotion-tutorial-trajectory-generator) — generating collision-aware trajectories with cuMotion.
+
+## Part 3: Follow Target using cuMotion RMPflow
+
+This example shows how to use the cuMotion `RmpFlowController` to make the robot track a draggable target cube in real time, with optional obstacle avoidance.
+
+```python
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_follow_target.py
+```
+
+To enable obstacle avoidance, pass `--with-obstacle`:
+
+```python
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_follow_target.py --with-obstacle
+```
+
+**Key concepts:**
+
+* `load_cumotion_supported_robot("ur10")` loads the built-in cuMotion robot model for the UR10, which includes the kinematic chain and collision spheres.
+* `mg.WorldBinding` connects the cuMotion world interface to the Isaac Sim stage. It uses `mg.SceneQuery` to find collision objects in the scene and registers them as obstacles.
+* `RmpFlowController` is initialized with the robot model, world interface, joint space, and tool frame. It accepts an estimated robot state and a Cartesian setpoint each step, and returns desired joint positions.
+* `create_setpoint_state` packages a target position and orientation into an `mg.RobotState` that the controller can track.
+* `world_binding.synchronize_transforms()` must be called each step to update obstacle transforms before planning.
+
+tutorial\_9\_follow\_target.py — scene and controller setup
+
+```python
+async def setup_scene_and_controller(
+    with_obstacle: bool,
+) -> tuple[RmpFlowController, CumotionRobot, Articulation, mg.WorldBinding, GeomPrim]:
+    assets_root_path = await get_assets_root_path_async()
+    stage_utils.add_reference_to_stage(
+        usd_path=assets_root_path + "/Isaac/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd",
+        path=_ROBOT_PRIM_PATH,
+    )
+
+    GroundPlane("/World/GroundPlane")
+    DomeLight("/World/DomeLight").set_intensities(1000)
+
+    target_cube = Cube(paths=_TARGET_PATH, positions=[[0.35, 0.25, 0.3]], sizes=1.0, scales=[0.05, 0.05, 0.05])
+    target_object = GeomPrim(paths=target_cube.paths)
+
+    await omni.kit.app.get_app().next_update_async()
+    set_camera_view(eye=[1.5, 1.5, 1.0], target=[0.5, 0.0, 0.2], camera_prim_path="/OmniverseKit_Persp")
+
+    articulation = Articulation(_ROBOT_PRIM_PATH)
+    await omni.kit.app.get_app().next_update_async()
+
+    if with_obstacle:
+        Cube("/World/obstacle", sizes=0.05, positions=[0.35, 0.0, 0.55], colors=(1.0, 0.0, 0.0))
+        GeomPrim("/World/obstacle", apply_collision_apis=True)
+
+    robot_pos, robot_ori = articulation.get_world_poses()
+    objects = mg.SceneQuery().get_prims_in_aabb(
+        search_box_origin=robot_pos.numpy()[0],
+        search_box_minimum=[-10.0, -10.0, -10.0],
+        search_box_maximum=[10.0, 10.0, 10.0],
+        tracked_api=mg.TrackableApi.PHYSICS_COLLISION,
+        exclude_prim_paths=[_ROBOT_PRIM_PATH, _TARGET_PATH],
+    )
+
+    obstacle_strategy = mg.ObstacleStrategy()
+    for prim_type in (Mesh, Cone, Cylinder, Cube):
+        obstacle_strategy.set_default_configuration(prim_type, mg.ObstacleConfiguration("obb", 0.05))
+
+    world_binding = mg.WorldBinding(
+        world_interface=CumotionWorldInterface(),
+        obstacle_strategy=obstacle_strategy,
+        tracked_prims=objects,
+        tracked_collision_api=mg.TrackableApi.PHYSICS_COLLISION,
+    )
+    world_binding.initialize()
+    world_binding.get_world_interface().update_world_to_robot_root_transforms(poses=(robot_pos, robot_ori))
+    world_binding.synchronize_transforms()
+
+    if args.xrdf_dir is not None:
+        cumotion_robot = load_cumotion_robot(
+            directory=args.xrdf_dir,
+            urdf_filename=args.urdf,
+            xrdf_filename=args.xrdf,
+        )
+    else:
+        cumotion_robot = load_cumotion_supported_robot("ur10")
+    site_space = cumotion_robot.robot_description.tool_frame_names()
+    controller = RmpFlowController(
+        cumotion_robot=cumotion_robot,
+        cumotion_world_interface=world_binding.get_world_interface(),
+        robot_joint_space=articulation.dof_names,
+        robot_site_space=site_space,
+        tool_frame=site_space[0],
+    )
+    controller.get_rmp_flow_config().set_param("cspace_target_rmp/metric_scalar", 1.0)
+    controller.get_rmp_flow_config().set_param("collision_rmp/metric_scalar", 10000.0)
+
+    return controller, cumotion_robot, articulation, world_binding, target_object
+```
+
+tutorial\_9\_follow\_target.py — per-step control loop
+
+```python
+def run_step(
+    controller: RmpFlowController,
+    cumotion_robot: CumotionRobot,
+    articulation: Articulation,
+    world_binding: mg.WorldBinding,
+    target_object: GeomPrim,
+    t: float,
+) -> None:
+    world_binding.get_world_interface().update_world_to_robot_root_transforms(articulation.get_world_poses())
+    world_binding.synchronize_transforms()
+
+    estimated = get_estimated_state(articulation)
+    setpoint = create_setpoint_state(cumotion_robot, target_object)
+    desired = controller.forward(estimated, setpoint, t)
+
+    if desired is not None and desired.joints.positions is not None:
+        articulation.set_dof_position_targets(
+            positions=desired.joints.positions,
+            dof_indices=desired.joints.position_indices,
+        )
+```
+
+See also
+
+* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — in-depth walkthrough of `RmpFlowController` configuration and tuning.
+* [cuMotion World Interface Tutorial](../cumotion/tutorial_world_interface.html#isaac-sim-cumotion-tutorial-world-interface) — details on `CumotionWorldInterface`, `SceneQuery`, and `WorldBinding`.
+* [Scene Interaction](../motion_generation/scene_interaction.html) — the underlying Motion Generation API for discovering and synchronizing obstacles from the USD scene.
+
+## Part 4: Pick and Place
+
+This example puts it all together by implementing a pick-and-place sequence. Two example scripts are provided: one using cuMotion RMPflow and one using PINK differential IK.
+
+### cuMotion RMPflow
+
+Important
+
+cuMotion requires a `tool_frames` entry in the XRDF. See [Adding a Tool to the Robot Configuration](tutorial_generate_robot_config.html#isaac-sim-app-tutorial-generate-robot-config-adding-tool).
+
+```python
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_pick_place_cumotion.py \
+    --xrdf-dir /path/to/robot/config
+```
+
+Note
+
+`--xrdf-dir` should point to the directory containing the robot URDF and XRDF files made in the previous tutorial. `--urdf` and `--xrdf` select the filenames within that directory and default to `robot.urdf` and `robot.xrdf`, respectively.
+
+If no `--xrdf-dir` is provided, `load_cumotion_supported_robot("ur10")` will be used to load the built-in UR10 robot configuration.
+
+**Key concepts:**
+
+* `--xrdf-dir` (optional) points to the directory containing custom robot config files. `load_cumotion_robot` loads the URDF and XRDF from that directory using the filenames given by `--urdf` and `--xrdf`. If omitted, the built-in UR10 configuration is used via `load_cumotion_supported_robot("ur10")`.
+* `RmpFlowController.get_rmp_flow_config().set_param(key, value)` allows tuning RMPflow parameters at runtime. For this example, `cspace_target_rmp/metric_scalar` is reduced to 1.0 to reduce the influence of the initial position error on the motion planning.
+* `controller.reset(estimated_state, setpoint, t)` must be called at the start of each arm motion segment to re-initialize the planner from the current robot state.
+
+tutorial\_9\_pick\_place\_cumotion.py — UR10ePickPlace state machine class
+
+```python
+class UR10ePickPlace:
+    """Pick-and-place controller for the UR10e + 2F-140 gripper using cuMotion RMPflow.
+
+    Phases:
+        0  Pre-grasp  — arm moves above the cube
+        1  Approach   — arm descends to grasp height
+        2  Grasp      — gripper closes
+        3  Lift       — arm rises with the cube
+        4  Transport  — arm moves above the target location
+        5  Lower      — arm descends to place height
+        6  Release    — gripper opens
+        7  Retract    — arm lifts away
+    """
+
+    _ROBOT_PRIM_PATH = "/World/ur10e_robot"
+    _CUBE_PRIM_PATH = "/World/cube"
+    _EE_LINK_NAME = "right_inner_finger"
+    _GRIPPER_JOINT = "finger_joint"
+
+    _OPEN_POS: float = 0.0
+    _CLOSED_POS: float = 0.5
+
+    _ABOVE_HEIGHT: float = 0.50
+    _NEAR_HEIGHT: float = 0.185
+    _TOOL_OFFSET: dict[str, float] = {
+        "tool0": 0.0,
+        "wrist_3_link": 0.04,
+    }
+    _EE_THRESHOLD: float = 0.02
+    _GRIPPER_THRESHOLD: float = 0.04
+    _MIN_STEPS: int = 60
+    _WARMUP_FRAMES: int = 120
+    _PHYSICS_DT: float = 1.0 / 60.0
+
+    _DOWN_ORI: np.ndarray = transform_utils.euler_angles_to_quaternion(np.array([0.0, np.pi, 0.0])).numpy()
+
+    _PHASE_LABELS: tuple[str, ...] = (
+        "Pre-grasp: moving above cube",
+        "Approach: descending to cube",
+        "Grasp: closing gripper",
+        "Lift: raising arm",
+        "Transport: moving to target",
+        "Lower: descending to place",
+        "Release: opening gripper",
+        "Retract: lifting arm away",
+    )
+
+    def __init__(
+        self,
+        xrdf_dir: str | None = None,
+        urdf_filename: str = "robot.urdf",
+        xrdf_filename: str = "robot.xrdf",
+        cube_position: np.ndarray | None = None,
+        target_position: np.ndarray | None = None,
+        events_dt: list[int] | None = None,
+    ) -> None:
+        self._xrdf_dir = xrdf_dir
+        self._urdf_filename = urdf_filename
+        self._xrdf_filename = xrdf_filename
+
+        self.cube_position = cube_position if cube_position is not None else np.array([0.5, 0.0, 0.025])
+        self.target_position = target_position if target_position is not None else np.array([0.5, 0.5, 0.05])
+        self.events_dt = events_dt or [250, 150, 100, 50, 150, 100, 100, 100]
+
+        self._event: int = 0
+        self._step: int = 0
+        self._t: float = 0.0
+        self._warmup_remaining: int = self._WARMUP_FRAMES
+
+        self._articulation: Articulation | None = None
+        self._ee_prim: GeomPrim | None = None
+        self._finger_idx: int | None = None
+        self._cumotion_robot: CumotionRobot | None = None
+        self._controller: RmpFlowController | None = None
+        self._world_binding: mg.WorldBinding | None = None
+        self._tool_frame: str | None = None
+        self._site_space: list[str] | None = None
+
+    async def setup_scene(self) -> None:
+        """Build the scene and initialize the RMPflow controller."""
+        assets_root_path = await get_assets_root_path_async()
+        stage_utils.add_reference_to_stage(
+            usd_path=assets_root_path
+            + "/Isaac/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd",
+            path=self._ROBOT_PRIM_PATH,
+        )
+
+        GroundPlane("/World/GroundPlane")
+        DomeLight("/World/DomeLight").set_intensities(1000)
+
+        cube_obj = Cube(
+            paths=self._CUBE_PRIM_PATH, positions=[self.cube_position], sizes=1.0, scales=[0.05, 0.05, 0.05]
+        )
+        RigidPrim(paths=cube_obj.paths)
+        GeomPrim(paths=cube_obj.paths, apply_collision_apis=True)
+
+        await omni.kit.app.get_app().next_update_async()
+        set_camera_view(eye=[1.5, 1.5, 1.0], target=[0.5, 0.0, 0.2], camera_prim_path="/OmniverseKit_Persp")
+
+        self._articulation = Articulation(self._ROBOT_PRIM_PATH)
+        await omni.kit.app.get_app().next_update_async()
+
+        robot_pos, robot_ori = self._articulation.get_world_poses()
+        objects = mg.SceneQuery().get_prims_in_aabb(
+            search_box_origin=robot_pos.numpy()[0],
+            search_box_minimum=[-10.0, -10.0, -10.0],
+            search_box_maximum=[10.0, 10.0, 10.0],
+            tracked_api=mg.TrackableApi.PHYSICS_COLLISION,
+            exclude_prim_paths=[self._ROBOT_PRIM_PATH, self._CUBE_PRIM_PATH],
+        )
+
+        obstacle_strategy = mg.ObstacleStrategy()
+        for prim_type in (Mesh, Cone, Cylinder):
+            obstacle_strategy.set_default_configuration(prim_type, mg.ObstacleConfiguration("obb", 0.01))
+
+        self._world_binding = mg.WorldBinding(
+            world_interface=CumotionWorldInterface(),
+            obstacle_strategy=obstacle_strategy,
+            tracked_prims=objects,
+            tracked_collision_api=mg.TrackableApi.PHYSICS_COLLISION,
+        )
+        self._world_binding.initialize()
+        self._world_binding.get_world_interface().update_world_to_robot_root_transforms(poses=(robot_pos, robot_ori))
+        self._world_binding.synchronize_transforms()
+
+        if self._xrdf_dir is not None:
+            self._cumotion_robot = load_cumotion_robot(
+                directory=self._xrdf_dir,
+                urdf_filename=self._urdf_filename,
+                xrdf_filename=self._xrdf_filename,
+            )
+        else:
+            self._cumotion_robot = load_cumotion_supported_robot("ur10")
+        tool_frames = self._cumotion_robot.robot_description.tool_frame_names()
+        if len(tool_frames) == 0:
+            raise ValueError("No tool frames found in the robot description.")
+        self._tool_frame = tool_frames[0]
+        if self._tool_frame not in self._TOOL_OFFSET:
+            raise ValueError(
+                f"Tool frame '{self._tool_frame}' has no entry in _TOOL_OFFSET. "
+                f"Add it: {list(self._TOOL_OFFSET.keys())}"
+            )
+        self._site_space = tool_frames
+
+        self._controller = RmpFlowController(
+            cumotion_robot=self._cumotion_robot,
+            cumotion_world_interface=self._world_binding.get_world_interface(),
+            robot_joint_space=self._articulation.dof_names,
+            robot_site_space=self._site_space,
+            tool_frame=self._tool_frame,
+        )
+        cfg = self._controller.get_rmp_flow_config()
+        # cspace_target_rmp weights delta error from initial position
+        # doesn't really matter in our case so decrease from default 50 to 1.0
+        cfg.set_param("cspace_target_rmp/metric_scalar", 1.0)
+
+    def initialize_after_play(self) -> None:
+        """Resolve EE link and gripper DOF index. Call once after physics starts."""
+        link_names = self._articulation.link_names
+        if self._EE_LINK_NAME in link_names:
+            self._ee_prim = GeomPrim(paths=self._articulation.link_paths[0][link_names.index(self._EE_LINK_NAME)])
+        else:
+            print(f"WARNING: '{self._EE_LINK_NAME}' not found. Available: {link_names}")
+
+        dof_names = self._articulation.dof_names
+        if self._GRIPPER_JOINT in dof_names:
+            self._finger_idx = dof_names.index(self._GRIPPER_JOINT)
+        else:
+            print(f"WARNING: '{self._GRIPPER_JOINT}' not found. Available: {dof_names}")
+
+        n_dofs = len(dof_names)
+        init_pos = np.zeros(n_dofs)
+        self._articulation.set_dof_positions(init_pos.tolist())
+        self._articulation.set_dof_position_targets(init_pos.tolist())
+
+    def _phase_ee_target(self) -> np.ndarray:
+        c, p = self.cube_position, self.target_position
+        offset = self._TOOL_OFFSET[self._tool_frame]
+        hi = self._ABOVE_HEIGHT + offset
+        lo = self._NEAR_HEIGHT + offset
+        targets = {
+            0: [c[0], c[1], c[2] + hi],
+            1: [c[0], c[1], c[2] + lo],
+            2: [c[0], c[1], c[2] + lo],
+            3: [c[0], c[1], c[2] + hi],
+            4: [p[0], p[1], p[2] + hi],
+            5: [p[0], p[1], p[2] + lo],
+            6: [p[0], p[1], p[2] + lo],
+            7: [p[0], p[1], p[2] + hi],
+        }
+        return np.array(targets[self._event], dtype=np.float32)
+
+    def _make_setpoint(self, position: np.ndarray) -> mg.RobotState:
+        return mg.RobotState(
+            sites=mg.SpatialState.from_name(
+                spatial_space=self._site_space,
+                positions=([self._tool_frame], wp.array([position.tolist()], dtype=wp.float32)),
+                orientations=([self._tool_frame], wp.array([self._DOWN_ORI.tolist()], dtype=wp.float32)),
+            ),
+        )
+
+    def _estimated_state(self) -> mg.RobotState:
+        names = self._articulation.dof_names
+        return mg.RobotState(
+            joints=mg.JointState.from_name(
+                robot_joint_space=names,
+                positions=(names, self._articulation.get_dof_positions()),
+                velocities=(names, self._articulation.get_dof_velocities()),
+            )
+        )
+
+    def _set_gripper(self, pos: float) -> None:
+        if self._finger_idx is not None:
+            self._articulation.set_dof_position_targets(
+                wp.array([pos], dtype=wp.float32), dof_indices=[self._finger_idx]
+            )
+
+    def _ee_near_target(self) -> bool:
+        if self._ee_prim is None:
+            return False
+        ee_pos = self._ee_prim.get_world_poses()[0].numpy()[0]
+        return bool(np.linalg.norm(ee_pos - self._phase_ee_target()) < self._EE_THRESHOLD)
+
+    def _gripper_at(self, target: float) -> bool:
+        if self._finger_idx is None:
+            return False
+        pos = float(self._articulation.get_dof_positions().numpy().flatten()[self._finger_idx])
+        return abs(pos - target) < self._GRIPPER_THRESHOLD
+
+    def _phase_converged(self) -> bool:
+        if self._step < self._MIN_STEPS:
+            return False
+        if self._event == 2:
+            return self._gripper_at(self._CLOSED_POS)
+        if self._event == 6:
+            return self._gripper_at(self._OPEN_POS)
+        return self._ee_near_target()
+
+    def forward(self) -> bool:
+        """Advance one simulation step. Returns False when the sequence is complete."""
+        if self.is_done():
+            return False
+
+        if self._warmup_remaining > 0:
+            n_dofs = len(self._articulation.dof_names)
+            targets = np.zeros(n_dofs)
+            self._articulation.set_dof_position_targets(
+                wp.array(targets, dtype=wp.float32), dof_indices=list(range(n_dofs))
+            )
+            self._warmup_remaining -= 1
+            if np.abs(self._articulation.get_dof_positions().numpy().flatten() - targets).max() < 0.1:
+                self._warmup_remaining = 0
+            return True
+
+        if self._step == 0:
+            print(f"  Phase {self._event}: {self._PHASE_LABELS[self._event]}")
+            if self._event in (0, 3, 7):
+                if not self._controller.reset(
+                    self._estimated_state(), self._make_setpoint(self._phase_ee_target()), t=0.0
+                ):
+                    raise RuntimeError("RmpFlowController reset failed.")
+                self._t = 0.0
+
+        if self._event == 2:
+            self._set_gripper(self._CLOSED_POS)
+        elif self._event == 6:
+            self._set_gripper(self._OPEN_POS)
+        else:
+            self._world_binding.get_world_interface().update_world_to_robot_root_transforms(
+                self._articulation.get_world_poses()
+            )
+            self._world_binding.synchronize_transforms()
+            desired = self._controller.forward(
+                self._estimated_state(), self._make_setpoint(self._phase_ee_target()), self._t
+            )
+            if desired is not None and desired.joints.positions is not None:
+                self._articulation.set_dof_position_targets(
+                    positions=desired.joints.positions, dof_indices=desired.joints.position_indices
+                )
+
+        self._t += self._PHYSICS_DT
+        self._step += 1
+        if self._phase_converged() or self._step >= self.events_dt[self._event]:
+            if self._step >= self.events_dt[self._event]:
+                print(f"  Phase {self._event} timed out after {self.events_dt[self._event]} frames")
+            self._event += 1
+            self._step = 0
+
+        return True
+
+    def is_done(self) -> bool:
+        return self._event >= len(self.events_dt)
+
+    def reset(self) -> None:
+        self._event = 0
+        self._step = 0
+        self._t = 0.0
+        self._warmup_remaining = self._WARMUP_FRAMES
+```
+
+See also
+
+* [cuMotion Integration](../cumotion/index.html#isaac-sim-cumotion) — overview of the [cuMotion](https://nvidia-isaac.github.io/cumotion/) integration and its components.
+* [cuMotion Robot Configuration Tutorial](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) — generating the URDF and XRDF files used by `--xrdf-dir`, including `tool_frames`.
+* [cuMotion RMPflow Tutorial](../cumotion/tutorial_rmpflow.html#isaac-sim-cumotion-tutorial-rmpflow) — full tutorial on `RmpFlowController`, including parameter tuning via `get_rmp_flow_config().set_param`.
+
+### PINK Differential IK
+
+This example demonstrates an alternative motion controller: **PINK differential IK**. The same pick-and-place sequence is implemented using the `PinkIKController`, which solves inverse kinematics using [PINK](https://github.com/stephane-caron/pink) and [Pinocchio](https://github.com/stack-of-tasks/pinocchio).
+
+Run this example with:
+
+```python
+# Load the built-in PINK robot model for the UR10
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_pick_place_pink.py
+# Load a custom URDF
+./python.sh standalone_examples/tutorials/manipulation/tutorial_9_pick_place_pink.py --urdf <path_to_urdf>
+```
+
+**Key concepts:**
+
+* `load_pink_supported_robot("ur10")` loads the built-in PINK robot model for the UR10, backed by a Pinocchio model. Alternatively, a custom URDF can be loaded using `load_pink_robot` by passing in `--urdf <path_to_urdf>`.
+* `PinkIKController` accepts a tool frame name, position and orientation costs, a posture cost, and a QP solver (`"osqp"`). It integrates Cartesian velocity commands into joint positions each step.
+* `_init_pink_q0` sets `pink_robot.q0` to the elbow-up configuration. PINK’s PostureTask regularizes the IK solution toward this reference, steering the solver away from elbow-down or degenerate configurations.
+
+tutorial\_9\_pick\_place\_pink.py — UR10ePickPlace state machine class
+
+```python
+class UR10ePickPlace:
+    """Pick-and-place controller for the UR10e + 2F-140 gripper using PINK differential IK.
+
+    Phases:
+        0  Pre-grasp  — arm moves above the cube
+        1  Approach   — arm descends to grasp height
+        2  Grasp      — gripper closes
+        3  Lift       — arm rises with the cube
+        4  Transport  — arm moves above the target location
+        5  Lower      — arm descends to place height
+        6  Release    — gripper opens
+        7  Retract    — arm lifts away
+    """
+
+    _ROBOT_PRIM_PATH = "/World/ur10e_robot"
+    _CUBE_PRIM_PATH = "/World/cube"
+    _EE_LINK_NAME = "tool0" if args.urdf is None else "wrist_3_link"
+    _GRIPPER_JOINT = "finger_joint"
+    _TOOL_FRAME = "tool0" if args.urdf is None else "wrist_3_link"
+
+    _OPEN_POS: float = 0.0
+    _CLOSED_POS: float = 0.5
+
+    _ABOVE_HEIGHT: float = 0.30
+    _NEAR_HEIGHT: float = 0.185
+    _TOOL_OFFSET: dict[str, float] = {
+        "tool0": 0.0,
+        "wrist_3_link": 0.035,
+    }
+    _EE_THRESHOLD: float = 0.05
+    _GRIPPER_THRESHOLD: float = 0.05
+    _MIN_STEPS: int = 30
+    _WARMUP_FRAMES: int = 120
+    _PHYSICS_DT: float = 1.0 / 60.0
+
+    _POSITION_COST: float = 0.5
+    _ORIENTATION_COST: float = 1.0
+    _POSTURE_COST: float = 1e-3
+
+    _ELBOW_UP_ARM: np.ndarray = np.array([-np.pi, -np.pi / 2, -np.pi / 2, -np.pi / 2, np.pi / 2, 0.0])
+    _DOWN_ORI: np.ndarray = np.array([0.0, 0.0, 1.0, 0.0])
+
+    _PHASE_LABELS: tuple[str, ...] = (
+        "Pre-grasp: moving above cube",
+        "Approach: descending to cube",
+        "Grasp: closing gripper",
+        "Lift: raising arm",
+        "Transport: moving to target",
+        "Lower: descending to place",
+        "Release: opening gripper",
+        "Retract: lifting arm away",
+    )
+
+    def __init__(
+        self,
+        urdf_path: str | None = None,
+        cube_position: np.ndarray | None = None,
+        target_position: np.ndarray | None = None,
+        events_dt: list[int] | None = None,
+    ) -> None:
+        self._urdf_path = urdf_path
+        self.cube_position = cube_position if cube_position is not None else np.array([0.5, 0.0, 0.025])
+        self.target_position = target_position if target_position is not None else np.array([0.5, 0.5, 0.05])
+        self.events_dt = events_dt or [80, 80, 20, 40, 130, 40, 20, 40]
+
+        self._event: int = 0
+        self._step: int = 0
+        self._t: float = 0.0
+        self._warmup_remaining: int = self._WARMUP_FRAMES
+
+        self._articulation: Articulation | None = None
+        self._ee_prim: GeomPrim | None = None
+        self._finger_idx: int | None = None
+        self._pink_robot: PinkRobot | None = None
+        self._controller: PinkIKController | None = None
+        self._tool_frame: str | None = None
+
+    async def setup_scene(self) -> None:
+        """Build the scene and initialize the PINK IK controller."""
+        assets_root_path = await get_assets_root_path_async()
+        stage_utils.add_reference_to_stage(
+            usd_path=assets_root_path
+            + "/Isaac/Samples/Rigging/Manipulator/configure_manipulator/ur10e/ur/ur_gripper.usd",
+            path=self._ROBOT_PRIM_PATH,
+        )
+
+        GroundPlane("/World/GroundPlane")
+        DomeLight("/World/DomeLight").set_intensities(1000)
+
+        cube_obj = Cube(
+            paths=self._CUBE_PRIM_PATH, positions=[self.cube_position], sizes=1.0, scales=[0.05, 0.05, 0.05]
+        )
+        RigidPrim(paths=cube_obj.paths)
+        GeomPrim(paths=cube_obj.paths, apply_collision_apis=True)
+
+        await omni.kit.app.get_app().next_update_async()
+        set_camera_view(eye=[1.5, 1.5, 1.0], target=[0.5, 0.0, 0.2], camera_prim_path="/OmniverseKit_Persp")
+
+        self._articulation = Articulation(self._ROBOT_PRIM_PATH)
+        await omni.kit.app.get_app().next_update_async()
+
+        n_dofs = len(self._articulation.dof_names)
+        self._articulation.set_default_state(
+            dof_positions=np.concatenate([self._ELBOW_UP_ARM, np.zeros(max(0, n_dofs - 6))])
+        )
+
+        if self._urdf_path is not None:
+            self._pink_robot = load_pink_robot(urdf_path=self._urdf_path)
+        else:
+            self._pink_robot = load_pink_supported_robot("ur10")
+        if self._TOOL_FRAME not in self._TOOL_OFFSET:
+            raise ValueError(
+                f"Tool frame '{self._TOOL_FRAME}' has no entry in _TOOL_OFFSET. "
+                f"Add it: {list(self._TOOL_OFFSET.keys())}"
+            )
+        self._init_pink_q0()
+
+        self._controller = PinkIKController(
+            pink_robot=self._pink_robot,
+            robot_joint_space=self._articulation.dof_names,
+            robot_site_space=[self._TOOL_FRAME],
+            tool_frame=self._TOOL_FRAME,
+            position_cost=self._POSITION_COST,
+            orientation_cost=self._ORIENTATION_COST,
+            posture_cost=self._POSTURE_COST,
+            solver="osqp",
+            dt=self._PHYSICS_DT,
+        )
+
+    def initialize_after_play(self) -> None:
+        """Resolve EE link and gripper DOF index. Call once after physics starts."""
+        link_names = self._articulation.link_names
+        if self._EE_LINK_NAME in link_names:
+            self._ee_prim = GeomPrim(paths=self._articulation.link_paths[0][link_names.index(self._EE_LINK_NAME)])
+        else:
+            print(f"WARNING: '{self._EE_LINK_NAME}' not found. Available: {link_names}")
+
+        dof_names = self._articulation.dof_names
+        if self._GRIPPER_JOINT in dof_names:
+            self._finger_idx = dof_names.index(self._GRIPPER_JOINT)
+        else:
+            print(f"WARNING: '{self._GRIPPER_JOINT}' not found. Available: {dof_names}")
+
+        self._articulation.reset_to_default_state()
+
+    def _init_pink_q0(self) -> None:
+        """Set pink_robot.q0 to elbow-up for PostureTask regularization."""
+        import pinocchio as pin
+
+        elbow_up_map = {
+            "shoulder_pan_joint": -np.pi / 2,
+            "shoulder_lift_joint": -np.pi / 2,
+            "elbow_joint": -np.pi / 2,
+            "wrist_1_joint": -np.pi / 2,
+            "wrist_2_joint": np.pi / 2,
+            "wrist_3_joint": 0.0,
+        }
+        q0 = pin.neutral(self._pink_robot.model)
+        for name, angle in elbow_up_map.items():
+            if self._pink_robot.model.existJointName(name):
+                jid = self._pink_robot.model.getJointId(name)
+                q0[self._pink_robot.model.joints[jid].idx_q] = angle
+        self._pink_robot.q0 = q0
+
+    def _phase_ee_target(self) -> np.ndarray:
+        c, p = self.cube_position, self.target_position
+        offset = self._TOOL_OFFSET[self._TOOL_FRAME]
+        hi = self._ABOVE_HEIGHT + offset
+        lo = self._NEAR_HEIGHT + offset
+        targets = {
+            0: [c[0], c[1], c[2] + hi],
+            1: [c[0], c[1], c[2] + lo],
+            2: [c[0], c[1], c[2] + lo],
+            3: [c[0], c[1], c[2] + hi],
+            4: [p[0], p[1], p[2] + hi],
+            5: [p[0], p[1], p[2] + lo],
+            6: [p[0], p[1], p[2] + lo],
+            7: [p[0], p[1], p[2] + hi],
+        }
+        return np.array(targets[self._event], dtype=np.float32)
+
+    def _make_setpoint(self, position: np.ndarray) -> mg.RobotState:
+        return mg.RobotState(
+            sites=mg.SpatialState.from_name(
+                spatial_space=[self._TOOL_FRAME],
+                positions=([self._TOOL_FRAME], wp.array([position.tolist()], dtype=wp.float32)),
+                orientations=([self._TOOL_FRAME], wp.array([self._DOWN_ORI.tolist()], dtype=wp.float32)),
+            ),
+        )
+
+    def _estimated_state(self) -> mg.RobotState:
+        names = self._articulation.dof_names
+        return mg.RobotState(
+            joints=mg.JointState.from_name(
+                robot_joint_space=names,
+                positions=(names, self._articulation.get_dof_positions()),
+                velocities=(names, self._articulation.get_dof_velocities()),
+            )
+        )
+
+    def _set_gripper(self, pos: float) -> None:
+        if self._finger_idx is not None:
+            self._articulation.set_dof_position_targets(
+                wp.array([pos], dtype=wp.float32), dof_indices=[self._finger_idx]
+            )
+
+    def _ee_near_target(self) -> bool:
+        if self._ee_prim is None:
+            return False
+        ee_pos = self._ee_prim.get_world_poses()[0].numpy()[0]
+        return bool(np.linalg.norm(ee_pos - self._phase_ee_target()) < self._EE_THRESHOLD)
+
+    def _gripper_at(self, target: float) -> bool:
+        if self._finger_idx is None:
+            return False
+        pos = float(self._articulation.get_dof_positions().numpy().flatten()[self._finger_idx])
+        return abs(pos - target) < self._GRIPPER_THRESHOLD
+
+    def _phase_converged(self) -> bool:
+        if self._step < self._MIN_STEPS:
+            return False
+        if self._event == 2:
+            return self._gripper_at(self._CLOSED_POS)
+        if self._event == 6:
+            return self._gripper_at(self._OPEN_POS)
+        return self._ee_near_target()
+
+    def forward(self) -> bool:
+        """Advance one simulation step. Returns False when the sequence is complete."""
+        if self.is_done():
+            return False
+
+        if self._warmup_remaining > 0:
+            n_dofs = len(self._articulation.dof_names)
+            targets = np.concatenate([self._ELBOW_UP_ARM, np.zeros(max(0, n_dofs - 6))])
+            self._articulation.set_dof_position_targets(
+                wp.array(targets, dtype=wp.float32), dof_indices=list(range(n_dofs))
+            )
+            self._warmup_remaining -= 1
+            if np.abs(self._articulation.get_dof_positions().numpy().flatten()[:6] - self._ELBOW_UP_ARM).max() < 0.1:
+                self._warmup_remaining = 0
+            return True
+
+        if self._step == 0:
+            print(f"  Phase {self._event}: {self._PHASE_LABELS[self._event]}")
+            if self._event in (0, 3, 7):
+                if not self._controller.reset(
+                    self._estimated_state(), self._make_setpoint(self._phase_ee_target()), t=0.0
+                ):
+                    raise RuntimeError("PinkIKController reset failed.")
+                self._t = 0.0
+
+        if self._event == 2:
+            self._set_gripper(self._CLOSED_POS)
+        elif self._event == 6:
+            self._set_gripper(self._OPEN_POS)
+        else:
+            desired = self._controller.forward(
+                self._estimated_state(), self._make_setpoint(self._phase_ee_target()), self._t
+            )
+            if desired is not None and desired.joints.positions is not None:
+                self._articulation.set_dof_position_targets(
+                    positions=desired.joints.positions, dof_indices=desired.joints.position_indices
+                )
+
+        self._t += self._PHYSICS_DT
+        self._step += 1
+        if self._phase_converged() or self._step >= self.events_dt[self._event]:
+            if self._step >= self.events_dt[self._event]:
+                print(f"  Phase {self._event} timed out after {self.events_dt[self._event]} frames")
+            self._event += 1
+            self._step = 0
+
+        return True
+
+    def is_done(self) -> bool:
+        return self._event >= len(self.events_dt)
+
+    def reset(self) -> None:
+        self._event = 0
+        self._step = 0
+        self._t = 0.0
+        self._warmup_remaining = self._WARMUP_FRAMES
+```
+
+See also
+
+* [PINK Integration](../pink/index.html#isaac-sim-pink) — overview of the PINK integration and its weighted multi-task IK approach.
+* [PINK IK Controller Tutorial](../pink/tutorial_ik_controller.html#isaac-sim-pink-tutorial-ik-controller) — in-depth walkthrough of `PinkIKController`, task weights, posture regularization, and QP solver selection.
+* [PINK Robot Configuration Tutorial](../pink/tutorial_robot_configuration.html#isaac-sim-pink-tutorial-robot-configuration) — loading PINK robot models with `load_pink_supported_robot()` and `load_pink_robot()`.
+
+## Summary
+
+In this tutorial, you learned how to:
+
+* Control the 2F-140 gripper using the Articulation API and `set_dof_position_targets`.
+* Plan and execute joint-space trajectories using `mg.Path` and `mg.TrajectoryFollower`.
+* Use the cuMotion `RmpFlowController` to track a Cartesian target in real time with obstacle avoidance.
+* Implement an 8-phase pick-and-place sequence with cuMotion RMPflow.
+* Implement the same sequence with PINK differential IK as an alternative CPU-based solver.
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Prerequisites](#prerequisites)
+* [Overview](#overview)
+* [Part 1: Gripper Control](#part-1-gripper-control)
+* [Part 2: Arm Trajectory Following](#part-2-arm-trajectory-following)
+* [Part 3: Follow Target using cuMotion RMPflow](#part-3-follow-target-using-cumotion-rmpflow)
+* [Part 4: Pick and Place](#part-4-pick-and-place)
+  + [cuMotion RMPflow](#cumotion-rmpflow)
+  + [PINK Differential IK](#pink-differential-ik)
+* [Summary](#summary)
+
+---
+
+### Rig Legged Robot
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_rig_legged_robot.html
+
+* [Robot Setup](../robot_setup/index.html)
+* [Robot Setup Tutorials Series](index.html)
+* Tutorial 13: Rigging a Legged Robot for a Locomotion Policy
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Tutorial 13: Rigging a Legged Robot for a Locomotion Policy
+
+This tutorial explains how to rig a legged robot to match the configuration specified by a locomotion policy.
+The Isaac Sim [Policy Controller Class](../isaac_lab_tutorials/tutorial_policy_deployment.html#isaac-sim-policy-controller-class) already handles robot rigging at runtime for inference in Isaac Sim,
+so this tutorial is only relevant when you want to run the robot policy from an external process, such as ROS.
+
+## Learning Objectives
+
+In this tutorial, you will walk through the process of rigging an H1 humanoid robot to match the configuration specified by the H1 flat terrain locomotion policy.
+
+1. Setting the initial robot position
+2. Setting the joint configuration
+3. Verifying the joint configuration
+
+Note
+
+The H1 flat terrain policy environment definition file is available [here](https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Samples/Policies/H1_Policies/h1_env.yaml).
+
+## Setting the Initial Robot Position
+
+The initial joint position of the robot is specified under the `robot:init_state:joint_pos` section of the environment definition file. The joint names are specified using the `.*` wildcard.
+
+```python
+ 1robot:
+ 2  init_state:
+ 3    joint_pos:
+ 4      .*_hip_yaw: 0.0
+ 5      .*_hip_roll: 0.0
+ 6      .*_hip_pitch: -0.28
+ 7      .*_knee: 0.79
+ 8      .*_ankle: -0.52
+ 9      torso: 0.0
+10      .*_shoulder_pitch: 0.28
+11      .*_shoulder_roll: 0.0
+12      .*_shoulder_yaw: 0.0
+13      .*_elbow: 0.52
+14    joint_vel:
+15      .*: 0.0
+```
+
+Note
+
+The joint positions are specified in radians, whereas USD joint positions are specified in degrees.
+
+To store the initial state of the robot:
+
+1. Open the `h1.usd` file from the Content Browser at `Isaac Sim/Robots/Unitree/H1`.
+2. In the upper-right corner of the stage, select the `funnel` icon and click `Physics Joints` to filter the joint list.
+3. Left-click the first joint (`left_hip_yaw`), then Shift-left-click the last joint (`right_elbow`) to select all joints.
+4. Right-click any selected joint and click **Add** > **Physics** > **Joint State Angular** to create a Joint State API attribute on the joints.
+5. Right-click any selected joint and click **Add** > **Physics** > **Angular drive** to create a joint drive API attribute on the joints.
+
+Note
+
+The `Joint State Angular` API reports the joint position and velocity, and the `Angular drive` API drives the joint. If the joint already has a `Joint State Angular` API or `Angular drive` API, you can skip the previous two steps.
+
+6. For each active joint, convert the `joint_pos` and `joint_vel` values from radians to degrees.
+7. Left-click the joint you are changing.
+8. In the Property panel, scroll down to the `Target Position` attribute.
+9. Set the `Target Position` attribute to the converted value from the `joint_pos` attribute in the environment definition file.
+10. Set the `Target Velocity` attribute to the converted value from the `joint_vel` attribute in the environment definition file.
+11. Repeat the previous steps for each active joint.
+12. Press play.
+
+Note
+
+When using Newton, physics initialization might fail because reversed joints are not supported for `/h1/Joints/torso`. If this happens, select the `torso` joint. In the Property panel, go to **Physics** > **Joint** and swap the joint bodies so `Body 0` is `/h1/torso_link` and `Body 1` is `/h1/pelvis`.
+
+13. Verify that the robot moves to the initial position specified in the environment definition file. To make the robot start in the initial position when the simulation starts, store the data in the Joint State API.
+14. To prevent the robot from falling indefinitely, add a fixed joint between the robot and the world by right-clicking `/h1/torso_link` and selecting **Create** > **Physics** > **Joint** > **Fixed Joint**.
+
+To save the robot pose:
+
+1. In the upper-left corner of the stage, click **Edit** > **Preferences**.
+2. In the **Preferences** window, click the **Physics** tab in the left sidebar.
+3. Uncheck **Reset Simulation on Stop**.
+4. Play the simulation and stop it when the robot reaches the desired initial pose. Repeat this step once more to ensure the pose is saved even after reset.
+5. Delete the fixed joint between the robot and the world.
+6. Press **Ctrl+S** to save the USD file.
+7. Check **Reset Simulation on Stop** again.
+
+## Setting the Joint Configuration
+
+Set the joint configuration to match the policy’s robot configuration. This may be different from the values stored in the USD file.
+The joint drive configuration is specified under the `scene:robot:actuators` section of the environment definition file.
+
+The following snippet shows the actuator configuration for the H1 robot legs.
+
+```python
+ 1actuators:k
+ 2  legs:
+ 3    class_type: omni.isaac.lab.actuators.actuator_pd:ImplicitActuator
+ 4    joint_names_expr:
+ 5    - .*_hip_yaw
+ 6    - .*_hip_roll
+ 7    - .*_hip_pitch
+ 8    - .*_knee
+ 9    - torso
+10    effort_limit: 300
+11    velocity_limit: 100.0
+12    stiffness:
+13      .*_hip_yaw: 150.0
+14      .*_hip_roll: 150.0
+15      .*_hip_pitch: 200.0
+16      .*_knee: 200.0
+17      torso: 200.0
+18    damping:
+19      .*_hip_yaw: 5.0
+20      .*_hip_roll: 5.0
+21      .*_hip_pitch: 5.0
+22      .*_knee: 5.0
+23      torso: 5.0
+24    armature: null
+25    friction: null
+```
+
+The `joint_names_expr` is a list of joint names to be controlled by the actuator. The `class_type` is the actuator type.
+The `effort_limit` is the maximum effort that can be applied to the joint. The `velocity_limit` is the maximum velocity that can be applied to the joint.
+The `stiffness` defines the joint stiffness. The `damping` defines the joint damping. The `armature` defines the joint armature, and the `friction` defines the joint friction.
+
+To set the joint configurations:
+
+1. Left-click a joint, such as `left_hip_yaw`.
+2. In the Property panel, scroll down to the `Joint Drive` attribute and set `stiffness` and `damping` to the values specified in the environment definition file.
+
+Note
+
+Remember to convert stiffness and damping to degree-based units.
+
+The USD file stiffness is in \(\frac{kg \cdot m^2}{deg \cdot s^2}\) and the damping is in \(\frac{kg \cdot m^2}{deg \cdot s}\).
+To convert radians to degrees, you can use the following formulas:
+
+\[S\_{deg} = S\_{rad} \times \frac{\pi}{180}\]
+
+\[D\_{deg} = D\_{rad} \times \frac{\pi}{180}\]
+
+The `effort_limit` is the maximum effort that can be applied to the joint. Set that value to the `Max Force` attribute of the joint drive API.
+
+Scroll down to **Raw USD Properties** under the **Advanced** tab, and set the **Armature** and **Joint Friction** attributes to the values specified in the environment definition file.
+
+For the **Maximum Joint Velocity** attribute, set it to the **velocity\_limit** value specified in the environment definition file. Remember to convert it to degrees.
+
+\[\omega\_{deg} = \omega\_{rad} \times \frac{180}{\pi}\]
+
+Note
+
+Remember to set the joint configurations for all active joints in the robot, such as the arms and legs.
+
+## Verifying the Joint Configuration
+
+To verify the joint configuration, you can play the simulation and run the following snippet in Script Editor to print the joint configuration.
+
+1. Play the simulation.
+2. Open Script Editor by clicking **Window** > **Script Editor**.
+3. Copy and paste the following snippet into Script Editor.
+4. Run the snippet by clicking the **Run** button.
+
+   ```python
+   from isaacsim.core.experimental.prims import Articulation
+
+   prim = Articulation("/h1")
+   print(prim.dof_names)
+   lower, upper = prim.get_dof_limits()
+   stiffnesses, dampings = prim.get_dof_gains()
+   max_velocities = prim.get_dof_max_velocities()
+   max_efforts = prim.get_dof_max_efforts()
+   for i, name in enumerate(prim.dof_names):
+       print(
+           f"  {name}: lower={lower.numpy()[0][i]:.4f}, upper={upper.numpy()[0][i]:.4f}, "
+           f"maxVelocity={max_velocities.numpy()[0][i]:.2f}, maxEffort={max_efforts.numpy()[0][i]:.0f}, "
+           f"stiffness={stiffnesses.numpy()[0][i]:.2f}, damping={dampings.numpy()[0][i]:.2f}"
+       )
+   ```
+5. Verify that you see console output similar to the following:
+
+```python
+['left_hip_yaw', 'right_hip_yaw', 'torso', 'left_hip_roll', 'right_hip_roll', 'left_shoulder_pitch', 'right_shoulder_pitch', 'left_hip_pitch', 'right_hip_pitch', 'left_shoulder_roll', 'right_shoulder_roll', 'left_knee', 'right_knee', 'left_shoulder_yaw', 'right_shoulder_yaw', 'left_ankle', 'right_ankle', 'left_elbow', 'right_elbow']
+  left_hip_yaw: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
+  right_hip_yaw: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
+  torso: lower=-2.3500, upper=2.3500, maxVelocity=100.00, maxEffort=300, stiffness=200.00, damping=4.98
+  left_hip_roll: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
+  right_hip_roll: lower=-0.4300, upper=0.4300, maxVelocity=100.00, maxEffort=300, stiffness=149.54, damping=5.00
+  left_shoulder_pitch: lower=-2.8700, upper=2.8700, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  right_shoulder_pitch: lower=-2.8700, upper=2.8700, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  left_hip_pitch: lower=-3.1400, upper=2.5300, maxVelocity=100.00, maxEffort=300, stiffness=199.96, damping=5.00
+  right_hip_pitch: lower=-3.1400, upper=2.5300, maxVelocity=100.00, maxEffort=300, stiffness=199.96, damping=5.00
+  left_shoulder_roll: lower=-0.3400, upper=3.1100, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  right_shoulder_roll: lower=-3.1100, upper=0.3400, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  left_knee: lower=-0.2600, upper=2.0500, maxVelocity=100.00, maxEffort=300, stiffness=200.00, damping=4.98
+  right_knee: lower=-0.2600, upper=2.0500, maxVelocity=100.00, maxEffort=300, stiffness=200.00, damping=4.98
+  left_shoulder_yaw: lower=-1.3000, upper=4.4500, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  right_shoulder_yaw: lower=-4.4500, upper=1.3000, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  left_ankle: lower=-0.8700, upper=0.5200, maxVelocity=100.00, maxEffort=100, stiffness=20.00, damping=4.00
+  right_ankle: lower=-0.8700, upper=0.5200, maxVelocity=100.00, maxEffort=100, stiffness=20.00, damping=4.00
+  left_elbow: lower=-1.2500, upper=2.6100, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+  right_elbow: lower=-1.2500, upper=2.6100, maxVelocity=100.00, maxEffort=300, stiffness=40.00, damping=10.00
+```
+
+The limit values in the console output are in radians. Each line shows the properties for a single DOF.
+Verify that the `maxVelocity`, `maxEffort`, `stiffness`, and `damping` values match the values specified in the environment definition file.
+
+For example, for `left_hip_yaw`, the max velocity is `100.0`, the max effort is `300.0`, the stiffness is `150.0`, and the damping is `5.0`.
+
+Note
+
+The rigged H1 robot is available in the Content Browser at `Isaac/Samples/Rigging/H1/h1_rigged.usd`.
+
+## Summary
+
+This tutorial covers the following topics:
+
+* Setting the initial robot position
+* Setting the joint configuration
+* Verifying the joint configuration
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Setting the Initial Robot Position](#setting-the-initial-robot-position)
+* [Setting the Joint Configuration](#setting-the-joint-configuration)
+* [Verifying the Joint Configuration](#verifying-the-joint-configuration)
+* [Summary](#summary)
 
 ---
 

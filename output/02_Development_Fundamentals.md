@@ -2,7 +2,7 @@
 
 > 开发工具、Python 脚本、Core API 教程 — 日常开发必备
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:58 UTC
+> 最后组装: 2026-06-21 14:14 UTC
 > 来源页数: 21
 
 ---
@@ -34,51 +34,2220 @@
 ---
 
 
-## Core API
+## 开发工具
 
-### Core API Tutorials Index
+### Development Tools Index
 
 > 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/index.html
 
-* [Python Scripting and Tutorials](../python_scripting/index.html)
-* Core API Tutorial Series
+* Development Tools
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Core API Tutorial Series
+# Development Tools
 
-The Core API tutorials is for beginner NVIDIA Isaac Sim users. This tutorial series details how to control wheeled robots and manipulators with controllers while logging robot and environment data.
+The development tools tutorials series is for intermediate users who wants to create Python and C++ extensions, use Jupyter notebooks, debug Python scripts, and create OmniGraph nodes.
 
-* [Hello World](tutorial_core_hello_world.html)
-* [Hello Robot](tutorial_core_hello_robot.html)
-* [Adding a Manipulator Robot](tutorial_core_adding_manipulator.html)
-* [Adding Multiple Robots](tutorial_core_adding_multiple_robots.html)
-* [Multiple Robot Scenarios](tutorial_core_multiple_tasks.html)
-* [Adding Props](tutorial_core_adding_props.html)
+## Tools
+
+* [Visual Studio Code (VS Code)](vscode.html)
+* [Python Server (Remote Code Execution)](python_server.html)
+* [Jupyter Notebook](jupyter_notebook.html)
+* [Omniverse Script Editor](omniverse_script_editor.html)
+* [Isaac Sim MCP Server](isaac_sim_mcp.html)
+
+## Tutorials
+
+* [Modify Carb Settings](carb_settings.html)
+
+On this page
+
+* [Tools](#tools)
+* [Tutorials](#tutorials)
 
 ---
 
-### Core API Tutorials Index
+### VS Code
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/vscode.html
+
+* [Development Tools](index.html)
+* Visual Studio Code (VS Code)
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Visual Studio Code (VS Code)
+
+## Isaac Sim VS Code Edition
+
+[Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) is an extension for Visual Studio Code that provides development support for NVIDIA Omniverse in general and Isaac Sim in particular.
+
+Key Features:
+
+* Execute Python code, in the Python environment of a running application, locally or remotely from VS Code and show the output in the *Isaac Sim VS Code Edition* panel.
+* Browse and insert snippets of code related to Isaac Sim, Omniverse Kit and Universal Scene Description (USD).
+* Create templates for Omniverse/Isaac Sim extensions and other development approaches.
+* Quick access to the most relevant Omniverse/Isaac Sim documentation sources and resources without leaving the editor.
+
+**Install it now to get started**: [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition)
+
+---
+
+## Interactive Scripting
+
+The `isaacsim.code_editor.vscode` extension adds VS Code launcher and menu integration to Isaac Sim.
+It depends on the `isaacsim.code_editor.python_server` extension which provides the TCP server for remote Python code execution (see [Python Server (Remote Code Execution)](python_server.html#isaac-sim-app-python-server) for full protocol details and usage examples).
+
+Both extensions can be enabled or disabled using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.vscode`.
+Enabling the VS Code extension automatically enables the Python server.
+
+> Note
+>
+> This extension requires its Visual Studio Code pair extension: [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) to be installed and enabled, in the VS Code editor, in order to execute Python scripts on a running Isaac Sim instance.
+
+1. To begin, enable this extension using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.vscode`.
+2. Once the extension is enabled, go to the top menu bar and click on Window > VS Code to open the Isaac Sim folder in a VS Code application.
+3. Open a stored file or write the code you want to run in a VS Code editor tab.
+4. From the VS Code editor, click on the *Isaac Sim VS Code Edition* container in the Activity Bar (the one with the Isaac Sim logo) to open it.
+   Then, click on *Run* (or *Run selected text* if you have selected code statements), in the *Commands* tree view, to execute it.
+5. Inspect the execution output, if any, in the *Isaac Sim VS Code Edition* output panel.
+
+Tip
+
+The Python server can also be used independently of VS Code, for example by LLM agents or custom scripts.
+See [Python Server (Remote Code Execution)](python_server.html#isaac-sim-app-python-server) for details on the wire protocol and programmatic usage.
+
+---
+
+## VS Code Configuration Files
+
+The Isaac Sim installation provides a `.vscode` workspace with a pre-configured environment under the following three files:
+
+```python
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+```
+
+### launch.json
+
+This file provides three different configurations that can be executed using the `Run & Debug` section in VSCode.
+
+* **Python: Current File**: Debug the currently open standalone Python file, should not be used with extension examples/code.
+* **Python: Attach**: Attach to a running Isaac Sim application for debugging purposes, most useful when running an interactive GUI application. See [Attaching the Debugger to a Running App](../utilities/debugging/tutorial_advanced_python_debugging.html#isaac-sim-app-tutorial-advanced-attach-debugger) for usage information.
+* **(Linux) isaac-sim** Run the main Isaac Sim application with an attached debugger.
+
+### settings.json
+
+This file sets the default Python executable that comes with Isaac Sim:
+
+```python
+# "python.pythonPath": "${workspaceFolder}/kit/python/bin/python3",
+```
+
+As well as a configuration for `"python.analysis.extraPaths"` which by default includes all of the extensions that are provided by default. You can add additional paths here if needed.
+
+### tasks.json
+
+This is a helper file that contains a task used to automatically setup the Python environment when using the `Python: Current File` option in `Run & Debug`.
+
+```python
+# "tasks": [
+#     {
+#         "label": "setup_python_env",
+#         "type": "shell",
+#         "linux": {
+#             "command": "source ${workspaceFolder}/setup_python_env.sh && printenv >${workspaceFolder}/.vscode/.standalone_examples.env"
+#         }
+#     }
+# ]
+```
+
+Once executed, the task generates the `.standalone_examples.env` file used by VS Code to launch the Python debug process.
+Refer to [Debugging With Visual Studio Code](../utilities/debugging/tutorial_advanced_python_debugging.html#isaac-sim-app-tutorial-advanced-debug-vscode) for more details.
+
+On this page
+
+* [Isaac Sim VS Code Edition](#id1)
+* [Interactive Scripting](#interactive-scripting)
+* [VS Code Configuration Files](#vs-code-configuration-files)
+  + [launch.json](#launch-json)
+  + [settings.json](#settings-json)
+  + [tasks.json](#tasks-json)
+
+---
+
+### Python Server
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/python_server.html
+
+* [Development Tools](index.html)
+* Python Server (Remote Code Execution)
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Python Server (Remote Code Execution)
+
+## Overview
+
+The `isaacsim.code_editor.python_server` extension provides a TCP socket server that enables remote Python code execution within a running Isaac Sim instance.
+Any client — VS Code, LLM agents, custom automation scripts — can connect over TCP, send Python source code, and receive structured JSON results.
+
+The extension is automatically loaded as a dependency of `isaacsim.code_editor.vscode`, but it can also be enabled independently for headless or programmatic workflows.
+
+---
+
+## Enabling the Extension
+
+Enable the extension using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.python_server`.
+
+By default the server listens on `127.0.0.1:8226`.
+These values can be changed through the Carbonite settings (see [Settings](#python-server-settings) below).
+
+---
+
+## Wire Protocol
+
+The wire protocol is intentionally simple so that any TCP client can use it:
+
+**Request**
+
+Send raw UTF-8 Python source code over a TCP connection to the configured host and port.
+After sending all code, the client **must** signal end-of-input by performing a TCP half-close
+(`write_eof()` in Python, `shutdown(SHUT_WR)` at the socket level, or `-q 0` with netcat).
+The server buffers incoming data until EOF is received, ensuring that TCP-fragmented payloads
+are fully reassembled before execution.
+
+Warning
+
+If the client does not signal EOF, the server will wait indefinitely for more data and
+the connection will hang until the client disconnects or a timeout occurs.
+
+**Response**
+
+A single JSON object is returned, then the connection is closed by the server.
+
+| Field | Description |
+| --- | --- |
+| `status` | `"ok"` on success, `"error"` on failure. |
+| `output` | Captured standard output (`stdout`) from the executed code. |
+| `result` | *(present only for expression evaluation)* The evaluated expression value. JSON-native types (`str`, `int`, `float`, `bool`, `None`, `list`, `dict`) are returned directly. Non-serializable objects fall back to their `repr()` string. |
+| `traceback` | *(present only on error)* List of traceback strings. |
+| `ename` | *(present only on error)* Exception class name. |
+| `evalue` | *(present only on error)* Exception message string. |
+
+---
+
+## Usage Examples
+
+### Python Client
+
+Connect from any Python script or LLM tool to execute code in the running Isaac Sim instance:
+
+```python
+import asyncio
+import json
+
+async def execute_in_isaac(source: str, host: str = "127.0.0.1", port: int = 8226) -> dict:
+    """Send Python source to a running Isaac Sim instance and return the result."""
+    reader, writer = await asyncio.open_connection(host, port)
+    writer.write(source.encode())
+    writer.write_eof()
+    data = await reader.read()
+    writer.close()
+    return json.loads(data.decode())
+
+# Execute a statement
+result = asyncio.run(execute_in_isaac('print("Hello from Isaac Sim!")'))
+print(result)
+# {'status': 'ok', 'output': 'Hello from Isaac Sim!'}
+
+# Evaluate an expression
+result = asyncio.run(execute_in_isaac("1 + 1"))
+print(result)
+# {'status': 'ok', 'output': '', 'result': 2}
+
+# Handle errors
+result = asyncio.run(execute_in_isaac("1 / 0"))
+print(result["status"])   # 'error'
+print(result["ename"])    # 'ZeroDivisionError'
+```
+
+### Command-line (netcat)
+
+For quick testing, use `netcat` or similar tools:
+
+```python
+echo 'print("Hello")' | nc 127.0.0.1 8226
+```
+
+---
+
+## Async Code Support
+
+The server supports top-level `await` expressions.
+When submitted code contains `await`, the server compiles it as an async coroutine,
+schedules it on the Kit event loop, and awaits the result before sending the JSON response.
+
+```python
+# Top-level await is supported
+import asyncio
+await asyncio.sleep(0.1)
+print("this output is captured")
+```
+
+Standard output from `print()` calls inside awaited coroutines is captured and included in the
+JSON response `output` field, just like synchronous code.
+
+---
+
+## State Persistence
+
+The server maintains a shared Python globals dictionary across all connections within a session.
+Variables, imports, and function definitions from one request are available in subsequent requests.
+This enables incremental workflows such as building a scene step by step:
+
+```python
+# Request 1: Create a stage
+import isaacsim.core.experimental.utils.stage as stage_utils
+await stage_utils.create_new_stage_async(template="empty")
+
+# Request 2: Uses stage_utils from the previous request
+stage_utils.define_prim("/World", "Xform")
+```
+
+Each new TCP connection reuses the same globals, so there is no need to re-import modules
+or re-define variables between calls.
+
+---
+
+## LLM Integration
+
+The Python server is designed to be easy for LLM agents to use.
+An LLM tool implementation needs only to:
+
+1. Open a TCP connection to the configured host and port.
+2. Send the Python code as UTF-8 bytes.
+3. Signal end-of-input by calling `write_eof()` (required — the server buffers until EOF).
+4. Read the JSON response.
+5. Parse `status` to determine success or failure, `output` for printed text, and `result` for expression values.
+
+Because the protocol is a single request/response per connection, there is no connection-level state to manage.
+However, Python-level state (variables, imports) persists across connections within a session
+(see [State Persistence](#python-server-state-persistence) above).
+
+---
+
+## Settings
+
+The extension is configured through Carbonite settings under `/exts/isaacsim.code_editor.python_server/`.
+
+| Setting | Default | Description |
+| --- | --- | --- |
+| `host` | `"127.0.0.1"` | IP address the server listens on. Set to `"0.0.0.0"` to accept remote connections. |
+| `port` | `8226` | TCP port number. |
+| `carb_logs` | `false` | Enable UDP broadcasting of Carbonite log messages to connected clients. May cause the application to freeze in certain circumstances. |
+
+Warning
+
+Setting `host` to `"0.0.0.0"` allows **any** machine on the network to execute arbitrary Python code
+in your Isaac Sim session. Only do this in trusted network environments.
+
+---
+
+## Carbonite Log Broadcasting (UDP)
+
+When `carb_logs` is enabled, the extension opens a UDP socket on the same host and port.
+Clients register by sending any datagram to that address, after which all Carbonite log messages
+(Info, Warning, Error, Fatal) are broadcast to registered clients as UTF-8 strings in the format:
+
+```python
+[Level][Source] Message
+```
+
+This is primarily used by the [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) extension to display Isaac Sim logs in the VS Code output panel.
+
+On this page
+
+* [Overview](#overview)
+* [Enabling the Extension](#enabling-the-extension)
+* [Wire Protocol](#wire-protocol)
+* [Usage Examples](#usage-examples)
+  + [Python Client](#python-client)
+  + [Command-line (netcat)](#command-line-netcat)
+* [Async Code Support](#async-code-support)
+* [State Persistence](#state-persistence)
+* [LLM Integration](#llm-integration)
+* [Settings](#settings)
+* [Carbonite Log Broadcasting (UDP)](#carbonite-log-broadcasting-udp)
+
+---
+
+### Jupyter Notebook
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/jupyter_notebook.html
+
+* [Development Tools](index.html)
+* Jupyter Notebook
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Jupyter Notebook
+
+## Interactive Scripting
+
+The `isaacsim.code_editor.jupyter` extension allows you to to open a [JupyterLab](https://jupyter.org) (or [Jupyter Notebook](https://jupyter.org)) app in the current Isaac Sim application scope and edit and execute Python code interactively.
+
+1. To begin, enable this extension using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.jupyter`.
+
+   > Note
+   >
+   > This may take several seconds (and Isaac Sim will freeze) if this is the first time the `isaacsim.code_editor.jupyter` is enabled.
+   > Several Python dependencies will be installed.
+2. Once the extension is enabled, go to the top menu bar and click on Window > Jupyter Notebook to open a Jupyter app in the default web browser.
+3. In the Jupyter app, click on the *Omniverse (Python 3)* kernel (the one with the Omniverse logo) to create a new Untitled notebook.
+4. Execute code by clicking the Run button at the top of the notebook. Try it yourself with the same code snippet from above!
+
+   > Warning
+   >
+   > * The *Omniverse (Python 3)* kernel is designed to run Python code, via the `isaacsim.code_editor.jupyter` extension, on a running Isaac Sim instance (where the Kit application has control over the update/simulation loop).
+   > * The *Isaac Sim Python 3* kernel is used to run standalone applications (see [Running Standalone Isaac Sim from Jupyter Notebook](#isaac-sim-python-jupyter-notebook-config) for more details).
+
+Warning
+
+Execution of blocking code freezes Isaac Sim.
+
+Hint
+
+* Use the Tab key for code autocompletion.
+* Use the Ctrl + I keys for code introspection (display docstring if available).
+
+Note
+
+The notebooks are saved, by default, in a folder within the extension itself: `exts/isaacsim.code_editor.jupyter/data/notebooks`. See the location for Isaac Sim packages/extensions in [Location for Isaac Sim app](../installation/install_faq.html#isaac-sim-misc-paths).
+
+**Limitations**
+
+* IPython magic commands are not available.
+* Matplotlib plotting is not available in the notebooks.
+* Printing, inside callbacks, is not displayed in the notebooks but in the Omniverse terminal.
+
+---
+
+## Running Standalone Isaac Sim from Jupyter Notebook
+
+Warning
+
+* This workflow is only supported on Linux.
+
+### Configuration Files
+
+In order for Isaac Sim to work inside of a Jupyter Notebook we provide a custom Jupyter kernel that is installed the first time you run `./jupyter_notebook.sh`.
+The kernel.json itself is fairly simple:
+
+```python
+{
+    "argv": ["AUTOMATICALLY_REPLACED", "-m", "ipykernel_launcher", "-f", "{connection_file}"],
+    "display_name": "Isaac Sim Python 3",
+    "language": "python",
+    "env": {"ISAAC_JUPYTER_KERNEL": "1"},
+    "metadata": {"debugger": true}
+}
+```
+
+The important part is that `AUTOMATICALLY_REPLACED` gets replaced by `jupyter_notebook.sh` with the absolute path to the Python executable that is located in the kit/python directory at runtime. Once the variable is replaced, the kernel is installed and the notebook is started. There is an extra variable `ISAAC_JUPYTER_KERNEL` that is used inside of Isaac Sim to setup for notebook usage properly.
+
+Because notebooks require asyncio support, and Isaac Sim itself uses asyncio internally, we automatically execute the following two lines when loading the `isaacsim` module (or the `isaacsim.simulation_app` extension) which provides the `SimulationApp` class:
+
+```python
+import nest_asyncio
+
+nest_asyncio.apply()
+```
+
+This ensures that asyncio calls can be nested inside of the Jupyter Notebook properly.
+
+When writing code in notebooks, it is necessary to first instantiate the `SimulationApp` class (from `isaacsim` or `isaacsim.simulation_app`) after perform any Isaac Sim / Omniverse imports:
+
+```python
+from isaacsim import SimulationApp
+
+simulation_app = SimulationApp({"headless": True})
+# perform any Isaac Sim / Omniverse imports after instantiating the class
+```
+
+Then, to run the notebook just execute the following commands and play the notebook cells:
+
+```python
+./jupyter_notebook.sh PATH_TO_NOTEBOOK.ipynb
+```
+
+On this page
+
+* [Interactive Scripting](#interactive-scripting)
+* [Running Standalone Isaac Sim from Jupyter Notebook](#running-standalone-isaac-sim-from-jupyter-notebook)
+  + [Configuration Files](#configuration-files)
+
+---
+
+### Script Editor
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/omniverse_script_editor.html
+
+* [Development Tools](index.html)
+* Omniverse Script Editor
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Omniverse Script Editor
+
+Script Editor is a Python editing environment internal to Omniverse Kit. It can be used to run snippets of Python code to interact with the stage.
+
+1. To open the Script Editor window, go to the Menu Bar and click *Window > Script Editor*.
+2. Open multiple tabs by going to the *Tab* Menu in the Script Editor window. All the tabs share the same environment, so libraries that are imported or variables defined in one environment can be accessed and used in other environments.
+
+Refer to [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)") in the Omniverse docs for more details.
+
+---
+
+### Isaac Sim MCP Server
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/isaac_sim_mcp.html
+
+* [Development Tools](index.html)
+* Isaac Sim MCP Server
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Isaac Sim MCP Server
+
+The Isaac Sim MCP Server is a Model Context Protocol (MCP) server that gives AI coding assistants deep knowledge of NVIDIA Isaac Sim — extensions, code examples, settings, and developer instructions — via semantic search.
+
+For installation, MCP client setup, deployment options, and troubleshooting, see the [Isaac Sim MCP Server README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/README.md).
+
+For developer documentation — key concepts, integration examples, performance notes, and pointers to the architecture and prompt-design references — see the [Isaac Sim MCP Server docs README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/docs/README.md).
+
+---
+
+### Carb Settings
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/carb_settings.html
+
+* [Development Tools](index.html)
+* Modify Carb Settings
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Modify Carb Settings
+
+[Carbonite (carb)](../reference_material/reference_glossary.html#isaac-sim-glossary-carb) settings are used to configure default behaviors of Omniverse and Isaac Sim. They can control a wide ranges of features, such as window properties, ROS versions, browser folders, and more. You may wish to change these settings to suit your needs. Here we show the four ways to change the Carb settings in Isaac Sim.
+
+For this tutorial, we will set a parameter inside extension `isaacsim.code_editor.python_server` named `keepalive_interval` to the value `5`. Replace these with your actual extension name, setting parameter, and value when you are working with your project.
+
+## Script Editor Snippet
+
+You can temporarily and quickly change the Carb settings in the [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)"). This is useful for testing and debugging, and can be done while Isaac Sim is open. The changes made this way will not be saved after you close the application, and relaunching the simulator will reset the settings.
+
+```python
+import carb.settings
+import omni.kit
+
+## Set Carb Setting
+settings = carb.settings.get_settings()
+settings.set("/exts/isaacsim.code_editor.python_server/keepalive_interval", 5)
+
+## Restart Extension to Apply Changes
+extension_manager = omni.kit.app.get_app().get_extension_manager()
+extension_manager.set_extension_enabled_immediate("isaacsim.code_editor.python_server", False)
+extension_manager.set_extension_enabled_immediate("isaacsim.code_editor.python_server", True)
+```
+
+## Command-Line Argument
+
+You can launch Isaac Sim with a command-line argument to change the Carb settings. The changes made this way will not be saved after you close the application, and relaunching the simulator without the arguments will reset the settings.
+
+At the root of your Isaac Sim installation, run the following command:
+
+> Linux
+>
+> ```python
+> ./isaac-sim.sh --/exts/isaacsim.code_editor.python_server/keepalive_interval=5
+> ```
+>
+>
+> Windows
+>
+> ```python
+> .\isaac-sim.bat --/exts/isaacsim.code_editor.python_server/keepalive_interval=5
+> ```
+
+## Edit .toml File
+
+For more permanent changes, you can edit the extension’s .toml file. The changes made this way will persist after you close the application.
+
+1. Navigate to the extension’s folder. For example, if you are changing the settings for the `isaacsim.code_editor.python_server` extension, navigate to `<isaac-sim-root_dir>/exts/isaacsim.code_editor.python_server/config`.
+2. Open the .toml file with a text editor, and add the following line to the file:
+
+   > ```python
+   > [settings]
+   > exts."isaacsim.code_editor.python_server".keepalive_interval = 5
+   > ```
+3. Launch Isaac Sim to see the changes.
+
+## Customize .kit File
+
+If you have multiple settings in multiple extensions that you want to change, you can edit the .kit file for your application. The changes made this way will persist after you close the application.
+
+1. From the root of your Isaac Sim installation, navigate to <isaac-sim-root\_dir>/apps/. Locate the Kit experience app file you are using in this folder. By default, it is the isaacsim.exp.full.kit.
+2. Open the app file and add the following line to the file:
+
+   > ```python
+   > [settings]
+   > exts."isaacsim.code_editor.python_server".keepalive_interval = 5
+   > ```
+3. Launch Isaac Sim to see the changes.
+
+On this page
+
+* [Script Editor Snippet](#script-editor-snippet)
+* [Command-Line Argument](#command-line-argument)
+* [Edit .toml File](#edit-toml-file)
+* [Customize .kit File](#customize-kit-file)
+
+---
+
+
+## Python 脚本
+
+### Python Scripting Index
 
 > 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/index.html
 
-* [Python Scripting and Tutorials](../python_scripting/index.html)
-* Core API Tutorial Series
+* Python Scripting and Tutorials
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Core API Tutorial Series
+# Python Scripting and Tutorials
 
-The Core API tutorials is for beginner NVIDIA Isaac Sim users. This tutorial series details how to control wheeled robots and manipulators with controllers while logging robot and environment data.
+## Concepts
 
-* [Hello World](tutorial_core_hello_world.html)
-* [Hello Robot](tutorial_core_hello_robot.html)
-* [Adding a Manipulator Robot](tutorial_core_adding_manipulator.html)
-* [Adding Multiple Robots](tutorial_core_adding_multiple_robots.html)
-* [Multiple Robot Scenarios](tutorial_core_multiple_tasks.html)
-* [Adding Props](tutorial_core_adding_props.html)
+* [Python Scripting Concepts](python_scripting_concepts.html)
+* [Core API Overview](core_api_overview.html)
+* [Python Environment](manual_standalone_python.html)
+
+## Snippets
+
+* [Scene Setup Snippets](environment_setup.html)
+* [Util Snippets](util_snippets.html)
+* [Robot Simulation Snippets](robots_simulation.html)
+
+## API Reference
+
+* [API Documentation](../reference_python_api.html)
+
+## Tutorials
+
+* [Core API Tutorial Series](../core_api_tutorials/index.html)
+
+On this page
+
+* [Concepts](#concepts)
+* [Snippets](#snippets)
+* [API Reference](#api-reference)
+* [Tutorials](#tutorials)
 
 ---
+
+### Scripting Concepts
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/python_scripting_concepts.html
+
+* [Python Scripting and Tutorials](index.html)
+* Python Scripting Concepts
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Python Scripting Concepts
+
+## Standalone vs Interactive Python
+
+Python scripting in NVIDIA Isaac Sim can be done in two ways: standalone and interactive. Standalone Python scripts are executed from the command line and are used to automate tasks or run simulations. Interactive Python scripts are executed in the Python console and are used to explore the NVIDIA Isaac Sim API and test code snippets. Both types of scripts can be used to create custom extensions, such as new robot controllers or sensors, and to interact with the Omniverse application.
+
+On this page
+
+* [Standalone vs Interactive Python](#standalone-vs-interactive-python)
+
+---
+
+### Core API Overview
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/core_api_overview.html
+
+* [Python Scripting and Tutorials](index.html)
+* Core API Overview
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Core API Overview
+
+Important
+
+Isaac Sim 5.0.0 has introduced the [Core Experimental API](../py/docs/overview/experimental.html): a rewritten implementation of the current Core API
+designed to be more robust, flexible, and powerful, yet still maintain the core utilities and wrapper concepts.
+
+Going forward, it will become the base API used in all Isaac Sim source code.
+The current Core API will be deprecated and removed in future releases.
+
+Therefore, **we strongly encourage early adoption and use of the Core Experimental API**.
+
+## Core API is a Wrapper
+
+Isaac Sim Core API are wrappers for raw USD and physics engine APIs, tailored to suit robotics applications. Here is adding a cube and apply physics properties to it using the raw USD
+
+```python
+import omni
+from pxr import Gf, PhysicsSchemaTools, PhysxSchema, UsdGeom, UsdPhysics
+
+stage = omni.usd.get_context().get_stage()
+
+# Setting up Physics Scene
+gravity = 9.8
+scene = UsdPhysics.Scene.Define(stage, "/World/physics")
+scene.CreateGravityDirectionAttr().Set(Gf.Vec3f(0.0, 0.0, -1.0))
+scene.CreateGravityMagnitudeAttr().Set(gravity)
+PhysxSchema.PhysxSceneAPI.Apply(stage.GetPrimAtPath("/World/physics"))
+physxSceneAPI = PhysxSchema.PhysxSceneAPI.Get(stage, "/World/physics")
+physxSceneAPI.CreateEnableCCDAttr(True)
+physxSceneAPI.CreateEnableStabilizationAttr(True)
+physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
+physxSceneAPI.CreateBroadphaseTypeAttr("MBP")
+physxSceneAPI.CreateSolverTypeAttr("TGS")
+
+# Setting up Ground Plane
+PhysicsSchemaTools.addGroundPlane(stage, "/World/groundPlane", "Z", 15, Gf.Vec3f(0, 0, 0), Gf.Vec3f(0.7))
+
+# Adding a Cube
+path = "/World/Cube"
+cubeGeom = UsdGeom.Cube.Define(stage, path)
+cubePrim = stage.GetPrimAtPath(path)
+size = 0.5
+offset = Gf.Vec3f(0.5, 0.2, 1.0)
+cubeGeom.CreateSizeAttr(size)
+cubeGeom.AddTranslateOp().Set(offset)
+
+# Attach Rigid Body and Collision Preset
+rigid_api = UsdPhysics.RigidBodyAPI.Apply(cubePrim)
+rigid_api.CreateRigidBodyEnabledAttr(True)
+UsdPhysics.CollisionAPI.Apply(cubePrim)
+```
+
+Here is adding a cube with physics and material properties to stage using Core API.
+
+```python
+import numpy as np
+from isaacsim.core.api.objects import DynamicCuboid
+
+DynamicCuboid(
+    prim_path="/new_cube_2",
+    name="cube_1",
+    position=np.array([0, 0, 1.0]),
+    scale=np.array([0.6, 0.5, 0.2]),
+    size=1.0,
+    color=np.array([255, 0, 0]),
+)
+```
+
+## Application vs Simulation vs World vs Scene vs Stage
+
+Everything in USD is a primitive (prim) with attributes.
+
+A **Simulation** (the sim) moves these prims forward through time by literally changing these attributes programmatically.
+
+The **Application** is the thing that manages the gross aspects of the simulation (how things are rendered, for example) and how the user interacts with it. If there is a GUI for the sim, it is a part of the application.
+
+A **Stage** is a USD concept, and defines the logical and relational context for prims in the simulation. If a mug prim is on a table prim then that relationship is expressed by the relative locations of those prims on the stage, and the specific attributes each has. In this way, the stage provides context for the application: prims cannot exist without a stage and so an application concerned with prims requires a stage to function.
+
+Similarly, the **World** is what provides context to the simulation, defining which prims are relevant to the ongoing flow of time, the **scene**, and managing the aspects of the simulation that are most important to the user.
+
+For example, imagine you are going to see a play at a theater. The theater is like the **application**, your gateway to the play, while the **simulation** is the play itself, defined by a program. You take your seat and you can see the **stage**, where the play will take place. When the play starts, the curtain rises and reveals a **scene** composed props and actors that then act out that part of the play. When it’s time to move to the next scene, the curtain falls, the scene is reset, and then the curtain rises again, revealing the next part of the play. The stage crew and all the mechanical devices behind the scene that manages the curtain and the props is the **world** of the play.
+
+On this page
+
+* [Core API is a Wrapper](#core-api-is-a-wrapper)
+* [Application vs Simulation vs World vs Scene vs Stage](#application-vs-simulation-vs-world-vs-scene-vs-stage)
+
+---
+
+### Environment Setup
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/environment_setup.html
+
+* [Python Scripting and Tutorials](index.html)
+* Scene Setup Snippets
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Scene Setup Snippets
+
+## Objects Creation and Manipulation
+
+Note
+
+The following scripts should only be run on the default new stage and only once. You can try these by creating a new stage via File > New and running from Window > Script Editor
+
+### Rigid Object Creation
+
+The following snippet adds a dynamic cube with given properties and a ground plane to the scene.
+
+```python
+import isaacsim.core.experimental.utils.stage as stage_utils
+import numpy as np
+from isaacsim.core.experimental.objects import Cube, GroundPlane
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
+GroundPlane("/World/groundPlane", sizes=10, colors=np.array([0.5, 0.5, 0.5]), templates=None)
+cube = Cube(
+    "/World/cube",
+    positions=np.array([-0.5, -0.2, 1.0]),
+    scales=np.array([0.5, 0.5, 0.5]),
+    colors=np.array([0.2, 0.3, 0.0]),
+)
+RigidPrim(cube.paths, masses=[1.0])
+GeomPrim(cube.paths, apply_collision_apis=True)
+```
+
+### View Objects
+
+View classes in this extension are collections of similar prims. View classes manipulate the underlying objects in a vectorized way.
+Many View APIs can operate directly on USD data after the wrapper is created.
+
+```python
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+cube = Cube("/World/cube_0")
+GeomPrim(cube.paths, apply_collision_apis=True)
+rigid_prim = RigidPrim("/World/cube_[0-100]", masses=[1.0])
+# rigid_prim can now be used for USD-backed batched operations
+```
+
+Tensor-backed physics APIs require the timeline to be playing before they can be queried. When using Window > Script Editor, initialize them asynchronously as follows:
+
+```python
+import asyncio
+
+import isaacsim.core.experimental.utils.app as app_utils
+import isaacsim.core.experimental.utils.stage as stage_utils
+from isaacsim.core.experimental.objects import Cube, GroundPlane
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+async def init():
+    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
+    GroundPlane("/World/groundPlane", positions=[0.0, 0.0, -1.0])
+    cube = Cube("/World/cube_0")
+    GeomPrim(cube.paths, apply_collision_apis=True)
+    rigid_prim = RigidPrim("/World/cube_[0-100]", masses=[1.0])
+    app_utils.play()
+    await app_utils.update_app_async()
+    print("Physics tensor view initialized:", rigid_prim.is_physics_tensor_entity_valid())
+    app_utils.stop()
+
+asyncio.ensure_future(init())
+```
+
+See [Workflows](../introduction/workflows.html#isaac-sim-app-tutorial-intro-workflows) tutorial for more details about various workflows for developing in Isaac Sim.
+
+### Create RigidPrim
+
+The following snippet adds three cubes to the scene and creates a RigidPrim (formerly RigidPrimView) to manipulate the batch.
+
+```python
+import asyncio
+
+import isaacsim.core.experimental.utils.stage as stage_utils
+import numpy as np
+from isaacsim.core.experimental.objects import Cube, GroundPlane
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+async def example():
+    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
+    GroundPlane("/World/groundPlane", positions=[0.0, 0.0, -1.0])
+
+    # create rigid cubes
+    cube_paths = [f"/World/cube_{i}" for i in range(3)]
+    Cube(cube_paths)
+    GeomPrim(cube_paths, apply_collision_apis=True)
+
+    # create the view object to batch manipulate the cubes
+    rigid_prim = RigidPrim("/World/cube_[0-2]", masses=[1.0])
+    # set world poses
+    rigid_prim.set_world_poses(positions=np.array([[0, 0, 2], [0, -2, 2], [0, 2, 2]]))
+
+asyncio.ensure_future(example())
+```
+
+See the [API Documentation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.RigidPrim) for all the possible operations supported by `RigidPrim`.
+
+### Create RigidPrim With Contact Filters
+
+There are scenarios where you are interested in net contact forces on each body and contact forces between specific bodies. This can be achieved by constructing a RigidPrim with contact filters.
+
+```python
+import asyncio
+
+import isaacsim.core.experimental.utils.app as app_utils
+import isaacsim.core.experimental.utils.stage as stage_utils
+import numpy as np
+from isaacsim.core.experimental.objects import Cube, GroundPlane
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+async def example():
+    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
+    GroundPlane("/World/groundPlane")
+
+    # create three rigid cubes sitting on top of three others
+    bottom_box_paths = [f"/World/bottom_box_{i+1}" for i in range(3)]
+    top_box_paths = [f"/World/top_box_{i+1}" for i in range(3)]
+    Cube(bottom_box_paths, sizes=2, colors=np.array([0.5, 0, 0]))
+    Cube(top_box_paths, sizes=2, colors=np.array([0, 0, 0.5]))
+    GeomPrim(bottom_box_paths + top_box_paths, apply_collision_apis=True)
+
+    # Specify top boxes as filters to receive contact forces between the bottom and top boxes.
+    bottom_box = RigidPrim(
+        bottom_box_paths,
+        masses=[1.0],
+        positions=np.array([[0, 0, 1.0], [-5.0, 0, 1.0], [5.0, 0, 1.0]]),
+        contact_filter_paths=top_box_paths,
+        max_contact_count=30,
+    )
+    top_box = RigidPrim(
+        top_box_paths,
+        masses=[1.0],
+        positions=np.array([[0.0, 0, 3.0], [-5.0, 0, 3.0], [5.0, 0, 3.0]]),
+    )
+    bottom_box.set_enabled_contact_tracking([True])
+    top_box.set_enabled_contact_tracking([True])
+
+    app_utils.play()
+    await app_utils.update_app_async(steps=10)
+
+    # net contact forces acting on the bottom boxes
+    print(bottom_box.get_net_contact_forces().numpy())
+    # contact forces between the top and the bottom boxes
+    print(bottom_box.get_contact_force_matrix().numpy())
+    app_utils.stop()
+
+asyncio.ensure_future(example())
+```
+
+More detailed information about the friction and contact forces can be obtained from the `get_friction_data` and `get_contact_force_data` respectively.
+These APIs provide all the contact forces and contact points between pairs of the sensor prims and filter prims. `get_contact_force_data` API provides the contact distances and contact normal vectors as well.
+
+In the example below, we add three boxes to the scene and apply a tangential force of magnitude 10 to each. Then we use the aforementioned APIs to receive all the contact information and sum across all the contact points to find the friction/normal forces between the boxes and the ground plane.
+
+```python
+import asyncio
+
+import isaacsim.core.experimental.utils.app as app_utils
+import isaacsim.core.experimental.utils.stage as stage_utils
+import numpy as np
+from isaacsim.core.experimental.materials import RigidBodyMaterial
+from isaacsim.core.experimental.objects import Cube, GroundPlane
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+from isaacsim.core.simulation_manager import SimulationManager
+from pxr import PhysxSchema
+
+async def contact_force_example():
+    g = 10
+    await stage_utils.create_new_stage_async()
+    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
+    ground_plane = GroundPlane("/World/GroundPlane")
+    material = RigidBodyMaterial(
+        "/World/PhysicsMaterials",
+        static_frictions=[0.5],
+        dynamic_frictions=[0.5],
+    )
+    # create three rigid cubes sitting on top of three others
+    cube_paths = [f"/World/Box_{i+1}" for i in range(3)]
+    Cube(cube_paths, sizes=2, colors=np.array([0, 0, 0.5]))
+    cube_geoms = GeomPrim(cube_paths, apply_collision_apis=True)
+    cube_geoms.apply_physics_materials(material)
+
+    # Creating RigidPrim with contact relevant keywords allows receiving contact information
+    # In the following we indicate that we are interested in receiving up to 30 contact points data between the boxes and the ground plane
+    box_view = RigidPrim(
+        cube_paths,
+        masses=[1.0],
+        positions=np.array([[0, 0, 1.0], [-5.0, 0, 1.0], [5.0, 0, 1.0]]),
+        contact_filter_paths=["/World/GroundPlane/collisionPlane"],
+        max_contact_count=3 * 10,  # we don't expect more than 10 contact points for each box
+    )
+    if SimulationManager.get_active_physics_engine() == "physx":
+        box_view.set_sleep_thresholds([0.0])
+        box_view.set_enabled_contact_tracking([True])
+        GeomPrim.ensure_api(ground_plane.planes.prims, PhysxSchema.PhysxContactReportAPI)
+
+    app_utils.play()
+    await app_utils.update_app_async()
+
+    forces = np.array([[g, 0, 0], [g, 0, 0], [g, 0, 0]])
+    box_view.apply_forces(forces)
+    await app_utils.update_app_async(steps=5)
+
+    # tangential forces
+    friction_forces, friction_points, friction_pair_contacts_count, friction_pair_contacts_start_indices = (
+        box_view.get_friction_data(dt=1 / 60)
+    )
+    # normal forces
+    forces, points, normals, distances, pair_contacts_count, pair_contacts_start_indices = (
+        box_view.get_contact_force_data(dt=1 / 60)
+    )
+    friction_forces = friction_forces.numpy()
+    forces = forces.numpy()
+    normals = normals.numpy()
+    pair_contacts_count = pair_contacts_count.numpy()
+    pair_contacts_start_indices = pair_contacts_start_indices.numpy()
+    friction_pair_contacts_count = friction_pair_contacts_count.numpy()
+    friction_pair_contacts_start_indices = friction_pair_contacts_start_indices.numpy()
+    # pair_contacts_count, pair_contacts_start_indices are tensors of size num_sensors x num_filters
+    # friction_pair_contacts_count, friction_pair_contacts_start_indices are tensors of size num_sensors x num_filters
+    # use the following tensors to sum across all the contact points
+    force_aggregate = np.zeros((len(box_view), box_view.num_contact_filters, 3))
+    friction_force_aggregate = np.zeros((len(box_view), box_view.num_contact_filters, 3))
+
+    # process contacts for each pair i, j
+    for i in range(pair_contacts_count.shape[0]):
+        for j in range(pair_contacts_count.shape[1]):
+            start_idx = pair_contacts_start_indices[i, j]
+            friction_start_idx = friction_pair_contacts_start_indices[i, j]
+            count = pair_contacts_count[i, j]
+            friction_count = friction_pair_contacts_count[i, j]
+            # sum/average across all the contact points for each pair
+            pair_forces = forces[start_idx : start_idx + count]
+            pair_normals = normals[start_idx : start_idx + count]
+            force_aggregate[i, j] = np.sum(pair_forces * pair_normals, axis=0)
+
+            # sum/average across all the friction pairs
+            pair_forces = friction_forces[friction_start_idx : friction_start_idx + friction_count]
+            friction_force_aggregate[i, j] = np.sum(pair_forces, axis=0)
+
+    print("friction forces: \n", friction_force_aggregate)
+    print("contact forces: \n", force_aggregate)
+    # get_contact_force_matrix API is equivalent to the summation of the individual contact forces computed above
+    print("contact force matrix: \n", box_view.get_contact_force_matrix(dt=1 / 60).numpy())
+    # get_net_contact_forces API is the summation of the all forces
+    # in the current example because all the potential contacts are captured by the choice of our filter prims (/World/GroundPlane/collisionPlane)
+    # the following is similar to the reduction of the contact force matrix above across the filters
+    print("net contact force: \n", box_view.get_net_contact_forces(dt=1 / 60).numpy())
+    app_utils.stop()
+
+asyncio.ensure_future(contact_force_example())
+```
+
+See the [API Documentation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.RigidPrim) for more information about contact APIs on `RigidPrim`.
+
+### Set Mass Properties for a Mesh
+
+The snippet below shows how to set the mass of a physics object. Density can also be specified as an alternative
+
+```python
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+cube = Cube("/World/Cube")
+# Make it a rigid body
+geom_prim = GeomPrim(cube.paths, apply_collision_apis=True)
+geom_prim.set_collision_approximations(["convexHull"])
+
+rigid_prim = RigidPrim(cube.paths)
+rigid_prim.set_masses([10.0])
+### Alternatively set the density
+rigid_prim.set_densities([1000.0])
+```
+
+### Get Size of a Mesh
+
+The snippet below shows how to get the size of a mesh.
+
+```python
+import isaacsim.core.experimental.utils.bounds as bounds_utils
+from isaacsim.core.experimental.objects import Cone
+
+cone = Cone("/World/Cone")
+# Get the size
+aabb = bounds_utils.compute_aabb(cone.paths[0])
+prim_size = aabb[3:] - aabb[:3]
+print(prim_size)
+```
+
+### Apply Semantic Data on Entire Stage
+
+The snippet below shows how to programmatically apply semantic data on objects by iterating the entire stage.
+
+```python
+import isaacsim.core.experimental.utils.semantics as semantics_utils
+import omni.usd
+
+def remove_prefix(name, prefix):
+    if name.startswith(prefix):
+        return name[len(prefix) :]
+    return name
+
+def remove_numerical_suffix(name):
+    suffix = name.split("_")[-1]
+    if suffix.isnumeric():
+        return name[: -len(suffix) - 1]
+    return name
+
+def remove_underscores(name):
+    return name.replace("_", "")
+
+stage = omni.usd.get_context().get_stage()
+for prim in stage.Traverse():
+    if prim.GetTypeName() == "Mesh":
+        label = str(prim.GetPrimPath()).split("/")[-1]
+        label = remove_prefix(label, "SM_")
+        label = remove_numerical_suffix(label)
+        label = remove_underscores(label)
+        semantics_utils.add_labels(prim, labels=[label], taxonomy="class")
+```
+
+### Convert Asset to USD
+
+The below script will convert a non-USD asset like OBJ/STL/FBX to USD. This is meant to be used inside the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor). For running it as a [Standalone Application](../introduction/workflows.html#standalone-application), Check [Python Environment](manual_standalone_python.html#isaac-sim-python-environment).
+The input mesh path is illustrative and should be replaced with the asset path you want to convert.
+
+```python
+import asyncio
+import tempfile
+from pathlib import Path
+
+import carb
+import omni
+
+async def convert_asset_to_usd(input_obj: str, output_usd: str):
+    import omni.kit.asset_converter
+
+    def progress_callback(progress, total_steps):
+        pass
+
+    converter_context = omni.kit.asset_converter.AssetConverterContext()
+    # setup converter and flags
+    # converter_context.ignore_material = False
+    # converter_context.ignore_animation = False
+    # converter_context.ignore_cameras = True
+    # converter_context.single_mesh = True
+    # converter_context.smooth_normals = True
+    # converter_context.preview_surface = False
+    # converter_context.support_point_instancer = False
+    # converter_context.embed_mdl_in_usd = False
+    # converter_context.use_meter_as_world_unit = True
+    # converter_context.create_world_as_default_root_prim = False
+    instance = omni.kit.asset_converter.get_instance()
+    task = instance.create_converter_task(input_obj, output_usd, progress_callback, converter_context)
+    success = await task.wait_until_finished()
+    if not success:
+        carb.log_error(f"{task.get_status()}, {task.get_error_message()}")
+    print("converting done")
+
+demo_dir = Path(tempfile.gettempdir()) / "isaacsim_asset_converter_demo"
+demo_dir.mkdir(parents=True, exist_ok=True)
+
+# This repo mesh path is illustrative; replace it with the path to your own OBJ/STL/FBX asset.
+input_asset = Path("source/standalone_examples/data/torus/torus.stl")
+output_usd = demo_dir / "torus.usd"
+asyncio.ensure_future(convert_asset_to_usd(str(input_asset), str(output_usd)))
+```
+
+The details about the optional import options in the converter context can be found [here](https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-converter.html "(in Omniverse Extensions)").
+
+## Physics How-Tos
+
+### Create A Physics Scene
+
+```python
+from isaacsim.core.simulation_manager import PhysxScene
+
+# Add a physics scene prim to stage
+physics_scene = PhysxScene("/World/physicsScene")
+# Set gravity vector
+physics_scene.set_gravity([0.0, 0.0, -9.81])
+```
+
+The following can be added to set specific settings, in this case use CPU physics and the TGS solver
+
+```python
+from isaacsim.core.simulation_manager import PhysxScene, SimulationManager
+
+physics_scene = PhysxScene("/World/physicsScene")
+physics_scene.set_gravity([0.0, 0.0, -9.81])
+
+SimulationManager.set_device("cpu")
+physics_scene.set_enabled_ccd(True)
+physics_scene.set_enabled_stabilization(True)
+physics_scene.set_enabled_gpu_dynamics(False)
+physics_scene.set_broadphase_type("MBP")
+physics_scene.set_solver_type("TGS")
+```
+
+Adding a ground plane to a stage can be done via the following code:
+It creates a Z up plane with a size of 100 cm at a Z coordinate of -100
+
+```python
+from isaacsim.core.experimental.objects import GroundPlane
+
+GroundPlane("/World/groundPlane", sizes=100.0, positions=[0.0, 0.0, -100.0], colors=[1.0, 1.0, 1.0], templates=None)
+```
+
+### Enable Physics And Collision For a Mesh
+
+The script below assumes there is a physics scene in the stage.
+
+```python
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+# Create a cube mesh in the stage
+cube = Cube("/World/Cube")
+# Enable physics on prim
+# If a tighter collision approximation is desired use convexDecomposition instead of convexHull
+geom_prim = GeomPrim(cube.paths, apply_collision_apis=True)
+geom_prim.set_collision_approximations(["convexHull"])
+RigidPrim(cube.paths)
+```
+
+If a tighter collision approximation is desired use convexDecomposition
+
+```python
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
+
+# Create a cube mesh in the stage
+cube = Cube("/World/Cube")
+# Enable physics on prim
+# If a tighter collision approximation is desired use convexDecomposition instead of convexHull
+geom_prim = GeomPrim(cube.paths, apply_collision_apis=True)
+geom_prim.set_collision_approximations(["convexDecomposition"])
+RigidPrim(cube.paths)
+```
+
+To verify that collision meshes have been successfully enabled, click the “eye” icon > “Show By Type” >
+“Physics Mesh” > “All”. This will show the collision meshes as pink outlines on the objects.
+
+### Traverse a stage and assign collision meshes to children
+
+```python
+import isaacsim.core.experimental.utils.stage as stage_utils
+from isaacsim.core.experimental.objects import Cube, Mesh
+from isaacsim.core.experimental.prims import GeomPrim
+from pxr import Usd, UsdGeom
+
+stage = stage_utils.get_current_stage()
+
+def add_cube(path, size: float = 10, offset=None):
+    if offset is None:
+        offset = [0.0, 0.0, 0.0]
+    Cube(path, sizes=size, positions=offset)
+
+### The following prims are added for illustrative purposes
+Mesh("/World/Torus", primitives="Torus")
+# all prims under AddCollision will get collisions assigned
+add_cube("/World/Cube_0", offset=[100.0, 100.0, 0.0])
+# create a prim nested under without a parent
+stage_utils.define_prim("/World/Nested", "Xform")
+add_cube("/World/Nested/Cube", offset=[100.0, 0.0, 100.0])
+###
+
+# Traverse all prims in the stage starting at this path
+curr_prim = stage.GetPrimAtPath("/")
+shape_types = (UsdGeom.Cylinder, UsdGeom.Capsule, UsdGeom.Cone, UsdGeom.Sphere, UsdGeom.Cube)
+
+for prim in Usd.PrimRange(curr_prim):
+    # only process shapes and meshes
+    if any(prim.IsA(shape_type) for shape_type in shape_types):
+        # use a ConvexHull for regular prims
+        geom_prim = GeomPrim(str(prim.GetPath()), apply_collision_apis=True)
+        geom_prim.set_collision_approximations(["convexHull"])
+    elif prim.IsA(UsdGeom.Mesh):
+        # "none" will use the base triangle mesh if available
+        # Can also use "convexDecomposition", "convexHull", "boundingSphere", "boundingCube"
+        geom_prim = GeomPrim(str(prim.GetPath()), apply_collision_apis=True)
+        geom_prim.set_collision_approximations(["none"])
+```
+
+### Do Overlap Test
+
+These snippets detect and report when objects overlap with a specified cubic/spherical region.
+The following is assumed: the stage contains a physics scene, all objects have collision meshes enabled,
+and the play button has been clicked.
+
+The parameters: extent, origin and rotation (or origin and radius) define the cubic/spherical region to check overlap against.
+The output of the physX query is the number of objects that overlaps with this cubic/spherical region.
+
+```python
+import carb
+import omni
+import omni.physx
+from omni.physx import get_physx_scene_query_interface
+from pxr import Gf, UsdGeom, Vt
+
+def report_hit(hit):
+    # When a collision is detected, the object color changes to red.
+    hitColor = Vt.Vec3fArray([Gf.Vec3f(180.0 / 255.0, 16.0 / 255.0, 0.0)])
+    usdGeom = UsdGeom.Mesh.Get(omni.usd.get_context().get_stage(), hit.rigid_body)
+    usdGeom.GetDisplayColorAttr().Set(hitColor)
+    return True
+
+def check_overlap():
+    # Defines a cubic region to check overlap with
+    extent = carb.Float3(20.0, 20.0, 20.0)
+    origin = carb.Float3(0.0, 0.0, 0.0)
+    rotation = carb.Float4(0.0, 0.0, 1.0, 0.0)
+    # physX query to detect number of hits for a cubic region
+    numHits = get_physx_scene_query_interface().overlap_box(extent, origin, rotation, report_hit, False)
+    # physX query to detect number of hits for a spherical region
+    # numHits = get_physx_scene_query_interface().overlap_sphere(radius, origin, report_hit, False)
+    return numHits > 0
+```
+
+### Do Raycast Test
+
+This snippet detects the closest object that intersects with a specified ray.
+The following is assumed: the stage contains a physics scene, all objects have collision meshes enabled,
+and the play button has been clicked.
+
+The parameters: origin, rayDir and distance define a ray along which a ray hit might be detected.
+The output of the query can be used to access the object’s reference, and its distance from the raycast origin.
+
+```python
+import carb
+import omni
+import omni.physx
+from omni.physx import get_physx_scene_query_interface
+from pxr import Gf, UsdGeom, Vt
+
+def check_raycast():
+    # Projects a raycast from 'origin', in the direction of 'rayDir', for a length of 'distance' cm
+    # Parameters can be replaced with real-time position and orientation data  (e.g. of a camera)
+    origin = carb.Float3(0.0, 0.0, 0.0)
+    rayDir = carb.Float3(1.0, 0.0, 0.0)
+    distance = 100.0
+    # physX query to detect closest hit
+    hit = get_physx_scene_query_interface().raycast_closest(origin, rayDir, distance)
+    if hit["hit"]:
+        # Change object color to yellow and record distance from origin
+        usdGeom = UsdGeom.Mesh.Get(omni.usd.get_context().get_stage(), hit["rigidBody"])
+        hitColor = Vt.Vec3fArray([Gf.Vec3f(255.0 / 255.0, 255.0 / 255.0, 0.0)])
+        usdGeom.GetDisplayColorAttr().Set(hitColor)
+        distance = hit["distance"]
+        return usdGeom.GetPath().pathString, distance
+    return None, 10000.0
+
+print(check_raycast())
+```
+
+## USD How-Tos
+
+### Creating, Modifying, Assigning Materials
+
+```python
+from isaacsim.core.experimental.materials import OmniGlassMaterial
+from isaacsim.core.experimental.objects import Cube
+
+# Create a new material using OmniGlass.mdl
+material = OmniGlassMaterial("/World/OmniGlassMaterial")
+# Set material inputs, these can be determined by looking at the .mdl file
+# or by selecting the Shader attached to the Material in the stage window and looking at the details panel
+material.set_input_values("glass_color", [0.0, 1.0, 0.0])
+material.set_input_values("glass_ior", [1.0])
+# Create a prim to apply the material to
+cube = Cube("/World/Cube")
+# Bind the material to the prim
+cube.apply_visual_materials(material)
+```
+
+Assigning a texture to a material that supports it can be done as follows:
+
+```python
+from isaacsim.core.experimental.materials import OmniPbrMaterial
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.storage.native import get_assets_root_path
+
+texture_path = get_assets_root_path(skip_check=True) + "/Isaac/Samples/DR/Materials/Textures/marble_tile.png"
+
+# Create a new material using OmniPBR.mdl
+material = OmniPbrMaterial("/World/OmniPBRMaterial")
+# Set material inputs, these can be determined by looking at the .mdl file
+# or by selecting the Shader attached to the Material in the stage window and looking at the details panel
+material.set_input_values("diffuse_texture", texture_path)
+# Create a prim to apply the material to
+cube = Cube("/World/Cube")
+# Bind the material to the prim
+cube.apply_visual_materials(material)
+```
+
+### Set World Pose on a Prim
+
+```python
+import isaacsim.core.experimental.utils.transform as transform_utils
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import XformPrim
+
+# Create a cube mesh in the stage to demonstrate setting a world pose on a prim
+cube = Cube("/World/Cube")
+
+# Get the prim and set its world pose
+orientation = transform_utils.euler_angles_to_quaternion([0.0, 290.0, 0.0], degrees=True)
+XformPrim(cube.paths).set_world_poses(positions=[[0.10, 1.0, 1.5]], orientations=orientation)
+```
+
+### Align two USD prims
+
+```python
+import isaacsim.core.experimental.utils.transform as transform_utils
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import XformPrim
+
+# Create a cube
+cube_a = Cube("/World/CubeA")
+# change the cube pose
+orientation = transform_utils.euler_angles_to_quaternion([0.0, 290.0, 0.0], degrees=True)
+prim_a = XformPrim(cube_a.paths)
+prim_a.set_world_poses(positions=[[0.10, 1.0, 1.5]], orientations=orientation)
+# Create a second cube
+cube_b = Cube("/World/CubeB")
+# Get the transform of the first cube
+positions, orientations = prim_a.get_world_poses()
+# Set the pose of prim_b to that of prim_a
+XformPrim(cube_b.paths).set_world_poses(positions=positions, orientations=orientations)
+```
+
+### Get World Transform At Current Timestamp For Selected Prims
+
+```python
+import isaacsim.core.experimental.utils.transform as transform_utils
+import omni
+from isaacsim.core.experimental.objects import Cube
+from isaacsim.core.experimental.prims import XformPrim
+
+usd_context = omni.usd.get_context()
+
+#### For testing purposes we create and select a prim
+#### This section can be removed if you already have a prim selected
+cube = Cube("/World/Cube")
+# change the cube pose
+orientation = transform_utils.euler_angles_to_quaternion([0.0, 290.0, 0.0], degrees=True)
+XformPrim(cube.paths).set_world_poses(positions=[[0.10, 1.0, 1.5]], orientations=orientation)
+omni.usd.get_context().get_selection().set_prim_path_selected(cube.paths[0], True, True, True, False)
+####
+
+# Get list of selected primitives
+selected_prims = usd_context.get_selection().get_selected_prim_paths()
+# Loop through all prims and print their transforms
+for prim_path in selected_prims:
+    print("Selected", prim_path)
+    positions, orientations = XformPrim(prim_path).get_world_poses()
+    rotation_matrices = transform_utils.quaternion_to_rotation_matrix(orientations)
+    print("Translation: ", positions.numpy()[0])
+    print("Rotation: ", orientations.numpy()[0])
+    print("Rotation matrix:", rotation_matrices.numpy()[0])
+```
+
+### Save current stage to USD
+
+This can be useful if generating a stage in Python and you want to store it to reload later for debugging.
+
+```python
+import tempfile
+from pathlib import Path
+
+import omni
+from isaacsim.core.experimental.objects import Cube
+
+# Create a prim
+Cube("/World/Cube")
+# Change the path as needed.
+output_path = Path(tempfile.gettempdir()) / "isaacsim_saved_stage.usd"
+omni.usd.get_context().save_as_stage(str(output_path), None)
+print(f"Saved stage to {output_path}")
+```
+
+On this page
+
+* [Objects Creation and Manipulation](#objects-creation-and-manipulation)
+  + [Rigid Object Creation](#rigid-object-creation)
+  + [View Objects](#view-objects)
+  + [Create RigidPrim](#create-rigidprim)
+  + [Create RigidPrim With Contact Filters](#create-rigidprim-with-contact-filters)
+  + [Set Mass Properties for a Mesh](#set-mass-properties-for-a-mesh)
+  + [Get Size of a Mesh](#get-size-of-a-mesh)
+  + [Apply Semantic Data on Entire Stage](#apply-semantic-data-on-entire-stage)
+  + [Convert Asset to USD](#convert-asset-to-usd)
+* [Physics How-Tos](#physics-how-tos)
+  + [Create A Physics Scene](#create-a-physics-scene)
+  + [Enable Physics And Collision For a Mesh](#enable-physics-and-collision-for-a-mesh)
+  + [Traverse a stage and assign collision meshes to children](#traverse-a-stage-and-assign-collision-meshes-to-children)
+  + [Do Overlap Test](#do-overlap-test)
+  + [Do Raycast Test](#do-raycast-test)
+* [USD How-Tos](#usd-how-tos)
+  + [Creating, Modifying, Assigning Materials](#creating-modifying-assigning-materials)
+  + [Set World Pose on a Prim](#set-world-pose-on-a-prim)
+  + [Align two USD prims](#align-two-usd-prims)
+  + [Get World Transform At Current Timestamp For Selected Prims](#get-world-transform-at-current-timestamp-for-selected-prims)
+  + [Save current stage to USD](#save-current-stage-to-usd)
+
+---
+
+### Standalone Python
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/manual_standalone_python.html
+
+* [Python Scripting and Tutorials](index.html)
+* Python Environment
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Python Environment
+
+This document will cover:
+
+* Details about how running standalone Python scripts works.
+* A short list of interesting/useful standalone Python scripts to try.
+* Resources to develop Python scripts for NVIDIA Isaac Sim, such as VSCode and Jupyter Notebook support.
+
+## Details: How `python.sh` works
+
+Note
+
+* On Windows use python.bat instead of python.sh
+* The details of how python.sh works below are similar to how python.bat works
+
+This script first defines the location of the apps folder so the contained .kit files can be located at runtime.
+
+```python
+# Get path to the script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# The apps directory is relative to where the script lives
+export EXP_PATH=$SCRIPT_DIR/apps
+```
+
+Then we source the NVIDIA Isaac Sim Python environment so all extension interfaces can be loaded correctly.
+
+```python
+source ${SCRIPT_DIR}/setup_python_env.sh
+```
+
+The setup\_python\_env.sh script update/defined the following environment variables:
+
+* ISAAC\_PATH: Path to the main isaac folder
+* PYTHONPATH: Paths to each extensions Python interfaces
+* LD\_LIBRARY\_PATH: Paths to binary interfaces required to find symbols at runtime
+* CARB\_APP\_PATH: path to the core Omniverse kit executable
+
+Finally, we execute the Python interpreter that is packaged with Omniverse:
+
+```python
+python_exe=${PYTHONEXE:-"${SCRIPT_DIR}/kit/python/bin/python3"}
+...
+$python_exe $@
+```
+
+## SimulationApp
+
+The [SimulationApp Class](../py/source/extensions/isaacsim.simulation_app/docs/index.html) provides convenience functions to manage the lifetime of a NVIDIA Isaac Sim application.
+
+### Usage Example:
+
+The following code provides a usage example for how SimulationApp can be used to create an app, step forward in time and then exit.
+
+Note
+
+Any Omniverse level imports **must** occur after the class is instantiated.
+Because APIs are provided by the extension/runtime plugin system, it must be loaded before they will be available to import.
+
+Important
+
+When running headless:
+
+* Set `"headless": True` in the config when initializing `SimulationApp`
+* Any calls that create/open a matplotlib window need to be commented out
+
+```python
+from isaacsim import SimulationApp
+
+# Simple example showing how to start and stop the helper
+simulation_app = SimulationApp({"headless": True})
+
+### Perform any omniverse imports here after the helper loads ###
+
+simulation_app.update()  # Render a single frame
+simulation_app.close()  # Cleanup application
+```
+
+### Details: How `SimulationApp` works
+
+Although `SimulationApp` further configures the application and exposes APIs, there are some fundamental steps in any Omniverse Kit-based implementation that must be executed.
+
+The first is to get the carbonite framework.
+Here the environment variables (e.g.: `CARB_APP_PATH`, `ISAAC_PATH` and `EXP_PATH`) were defined when running the python.sh script.
+
+```python
+import carb
+import omni.kit.app
+
+framework = carb.get_framework()
+framework.load_plugins(
+    loaded_file_wildcards=["omni.kit.app.plugin"],
+    search_paths=[os.path.abspath(f'{os.environ["CARB_APP_PATH"]}/kernel/plugins')],
+)
+```
+
+After loading the framework, it is possible to configure the start arguments before loading the application. For example:
+
+```python
+# Inject a experience config
+sys.argv.insert(1, f'{os.environ["EXP_PATH"]}/isaacsim.exp.base.python.kit')
+
+# Add paths to extensions
+sys.argv.append(f"--ext-folder")
+sys.argv.append(f'{os.path.abspath(os.environ["ISAAC_PATH"])}/exts')
+
+# Run headless
+sys.argv.append("--no-window")
+```
+
+And then start the application.
+
+```python
+app = omni.kit.app.get_app()
+app.startup("Isaac-Sim", os.environ["CARB_APP_PATH"], sys.argv)
+```
+
+Shutting down a running application is done by calling `shutdown` and then unloading the framework:
+
+```python
+app.shutdown()
+framework.unload_all_plugins()
+```
+
+### Enabling additional extensions
+
+There are two methods for adding additional extensions:
+
+1. Under `[dependencies]` section in an experience file (e.g.: `apps/isaacsim.exp.base.python.kit`):
+
+   > ```python
+   > # [dependencies]
+   > # # Enable the layers and stage windows in the UI
+   > # "omni.kit.window.stage" = {}
+   > # "omni.kit.widget.layers" = {}
+   > ```
+2. From Python code:
+
+   ```python
+   from isaacsim import SimulationApp
+
+   # Start the application
+   simulation_app = SimulationApp({"headless": False})
+
+   # Get the utility to enable extensions
+   from isaacsim.core.utils.extensions import enable_extension
+
+   # Enable the layers and stage windows in the UI
+   enable_extension("omni.kit.widget.stage")
+   enable_extension("omni.kit.widget.layers")
+
+   simulation_app.update()
+   ```
+
+## Standalone Example Scripts
+
+### Time Stepping
+
+This sample shows how to start an Omniverse Kit Python app and then create callbacks which get called each rendering frame and each physics timestep. It also shows the different ways to step physics and rendering.
+
+The sample can be executed by running the following:
+
+```python
+./python.sh standalone_examples/deprecated/api/isaacsim.core.api/time_stepping.py
+```
+
+### Load USD Stage
+
+This sample demonstrates how to load a USD stage and start simulating it.
+
+The sample can be executed by running the following, specify `usd_path` to a location on your nucleus server:
+
+```python
+./python.sh standalone_examples/api/isaacsim.simulation_app/load_stage.py --usd_path /Isaac/Environments/Simple_Room/simple_room.usd
+```
+
+### URDF Import
+
+This sample demonstrates how to use the URDF Python API, configure its physics and then simulate it for a fixed number of frames.
+
+The sample can be executed by running the following:
+
+```python
+./python.sh standalone_examples/api/isaacsim.asset.importer.urdf/urdf_import.py
+```
+
+### Change Resolution
+
+This sample demonstrates how to change the resolution of the viewport at runtime.
+
+The sample can be executed by running the following:
+
+```python
+./python.sh standalone_examples/api/isaacsim.simulation_app/change_resolution.py
+```
+
+### Convert Assets to USD
+
+This sample demonstrates how to batch convert OBJ/STL/FBX assets to USD.
+
+To execute it with sample data, run the following:
+
+```python
+./python.sh standalone_examples/api/omni.kit.asset_converter/asset_usd_converter.py --folders standalone_examples/data/cube standalone_examples/data/torus
+```
+
+The input folders containing OBJ/STL/FBX assets are specified as argument
+and it will output in terminal the path to converted USD files.
+
+```python
+Converting folder standalone_examples/data/cube...
+---Added standalone_examples/data/cube_converted/cube_fbx.usd
+
+Converting folder standalone_examples/data/torus...
+---Added standalone_examples/data/torus_converted/torus_stl.usd
+```
+
+This sample leverages Python APIs from the [Asset Importer](https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-converter.html "(in Omniverse Extensions)") extension.
+
+The details about the import options can be found [here](https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-importer.html "(in Omniverse Extensions)").
+
+### Livestream
+
+This sample demonstrates how to enable livestreaming when running in native Python.
+
+See [Isaac Sim WebRTC Streaming Client](../installation/manual_livestream_clients.html#isaac-sim-setup-livestream-webrtc) for more information on running the client.
+
+```python
+./python.sh standalone_examples/api/isaacsim.simulation_app/livestream.py
+```
+
+Note
+
+* Running livestream.py will not have all of the default Isaac Sim extensions enabled. See [enabling additional extensions](#isaac-sim-python-additional-extensions) for more information.
+
+On this page
+
+* [Details: How `python.sh` works](#details-how-python-sh-works)
+* [SimulationApp](#simulationapp)
+  + [Usage Example:](#usage-example)
+  + [Details: How `SimulationApp` works](#details-how-simulationapp-works)
+  + [Enabling additional extensions](#enabling-additional-extensions)
+* [Standalone Example Scripts](#standalone-example-scripts)
+  + [Time Stepping](#time-stepping)
+  + [Load USD Stage](#load-usd-stage)
+  + [URDF Import](#urdf-import)
+  + [Change Resolution](#change-resolution)
+  + [Convert Assets to USD](#convert-assets-to-usd)
+  + [Livestream](#livestream)
+
+---
+
+### Robots Simulation
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/robots_simulation.html
+
+* [Python Scripting and Tutorials](index.html)
+* Robot Simulation Snippets
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Robot Simulation Snippets
+
+Hint
+
+Refer to the [Articulation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.Articulation) class documentation for more details on the API.
+
+## Wrapping Articulations
+
+Note
+
+The following snippets should only be run once on a new stage.
+Create a new stage (File > New menu) and run the snippets in the Script Editor (Window > Script Editor menu).
+
+Adds two Franka robots to the stage and wraps them via an [Articulation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.Articulation) object to control them simultaneously.
+
+```python
+ 1import isaacsim.core.experimental.utils.app as app_utils
+ 2import isaacsim.core.experimental.utils.stage as stage_utils
+ 3from isaacsim.core.experimental.prims import Articulation
+ 4from isaacsim.storage.native import get_assets_root_path
+ 5
+ 6# Add Franka robots to the stage
+ 7usd_path = get_assets_root_path() + "/Isaac/Robots/FrankaRobotics/FrankaPanda/franka.usd"
+ 8variants = [("Gripper", "AlternateFinger"), ("Mesh", "Quality")]
+ 9stage_utils.add_reference_to_stage(usd_path, path="/World/Franka_1", variants=variants)
+10stage_utils.add_reference_to_stage(usd_path, path="/World/Franka_2", variants=variants)
+11
+12# Wrap Franka robots via an Articulation object
+13articulations = Articulation(
+14    "/World/Franka_.*",
+15    positions=[[-1, -1, 0], [1, 1, 0]],
+16    reset_xform_op_properties=True,
+17)
+```
+
+Play the simulation.
+Then, open a new tab in the Script Editor window (Tab > Add Tab menu) and execute the following code to set the DOF positions for each articulation.
+
+```python
+ 1
+ 2from isaacsim.core.experimental.prims import Articulation
+ 3
+ 4# Wrap the existing Franka robots while the simulation is playing
+ 5articulations = Articulation("/World/Franka_.*")
+ 6
+ 7# Set the joint positions for each articulation
+ 8articulations.set_dof_position_targets(
+ 9    [
+10        [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 0.0, 0.0],
+11        [-1.5, -1.5, -1.5, -1.5, -1.5, -1.5, -1.5, 0.04, 0.04],
+12    ]
+13)
+14
+```
+
+## DOF Control
+
+Note
+
+The following snippets should only be run once on a new stage that has the Franka robot at the `/Franka` prim path,
+and while the simulation is playing.
+
+Prepare the scene:
+
+1. Add a Franka robot to the stage via the Create > Robots > Franka Emika Panda Arm menu.
+2. Play the simulation.
+
+Warning
+
+The snippets are disparate examples, running them out of order may have unintended consequences.
+The resulting movements may not respect the robot’s kinematic limitations.
+
+Make sure there is a Franka robot at the `/Franka` prim path and that the simulation is playing.
+Then, open the Script Editor window (Window > Script Editor menu) and run the following snippets.
+
+### Query Articulation
+
+```python
+ 1from isaacsim.core.experimental.prims import Articulation
+ 2
+ 3articulation = Articulation("/Franka")
+ 4# Get articulation information
+ 5print("DOF count:", articulation.num_dofs)
+ 6print("DOF names:", articulation.dof_names)
+ 7print("DOF paths:", articulation.dof_paths)
+ 8print("DOF types:", articulation.dof_types)
+ 9print("Link count:", articulation.num_links)
+10print("Link names:", articulation.link_names)
+11print("Link paths:", articulation.link_paths)
+```
+
+### Read DOF States
+
+```python
+1from isaacsim.core.experimental.prims import Articulation
+2
+3articulation = Articulation("/Franka")
+4# Get all DOF states
+5print("DOF positions:", articulation.get_dof_positions())
+6print("DOF velocities:", articulation.get_dof_velocities())
+7print("DOF efforts:", articulation.get_dof_efforts())
+```
+
+### DOF Position Control
+
+```python
+1import numpy as np
+2from isaacsim.core.experimental.prims import Articulation
+3
+4articulation = Articulation("/Franka")
+5# Set all DOF positions to random values between -1 and 1
+6articulation.set_dof_position_targets(np.random.rand(9) * 2 - 1)
+```
+
+### Single DOF Position Control
+
+```python
+1from isaacsim.core.experimental.prims import Articulation
+2
+3articulation = Articulation("/Franka")
+4# Set the 'panda_finger_joint1' DOF position to 0.04.
+5# The 'panda_finger_joint2' will mimic the value, as they are linked
+6articulation.set_dof_position_targets(0.04, dof_indices=articulation.get_dof_indices("panda_finger_joint1"))
+```
+
+### DOF Velocity Control
+
+```python
+1import numpy as np
+2from isaacsim.core.experimental.prims import Articulation
+3
+4articulation = Articulation("/Franka")
+5# Switch to velocity control mode
+6articulation.switch_dof_control_mode("velocity")
+7# Set all DOF velocities to random values between -10 and 10
+8articulation.set_dof_velocity_targets(10 * (np.random.rand(9) * 2 - 1))
+```
+
+### Single DOF Velocity Control
+
+```python
+1from isaacsim.core.experimental.prims import Articulation
+2
+3articulation = Articulation("/Franka")
+4# Switch to velocity control mode
+5articulation.switch_dof_control_mode("velocity")
+6# Set the 'panda_joint4' DOF velocity to 0.25
+7articulation.set_dof_velocity_targets(0.25, dof_indices=articulation.get_dof_indices("panda_joint4"))
+```
+
+### DOF Effort Control
+
+```python
+1import numpy as np
+2from isaacsim.core.experimental.prims import Articulation
+3
+4articulation = Articulation("/Franka")
+5# Switch to effort control mode
+6articulation.switch_dof_control_mode("effort")
+7# Set all DOF efforts to random values between -100 and 100
+8articulation.set_dof_efforts(100 * (np.random.rand(9) * 2 - 1))
+```
+
+On this page
+
+* [Wrapping Articulations](#wrapping-articulations)
+* [DOF Control](#dof-control)
+  + [Query Articulation](#query-articulation)
+  + [Read DOF States](#read-dof-states)
+  + [DOF Position Control](#dof-position-control)
+  + [Single DOF Position Control](#single-dof-position-control)
+  + [DOF Velocity Control](#dof-velocity-control)
+  + [Single DOF Velocity Control](#single-dof-velocity-control)
+  + [DOF Effort Control](#dof-effort-control)
+
+---
+
+### Util Snippets
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/util_snippets.html
+
+* [Python Scripting and Tutorials](index.html)
+* Util Snippets
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Util Snippets
+
+## Simple Async Task
+
+```python
+import asyncio
+
+import omni
+
+# Async task that pauses simulation once the incoming task is complete
+async def pause_sim(task):
+    done, pending = await asyncio.wait({task})
+    if task in done:
+        print("Waited until next frame, pausing")
+        omni.timeline.get_timeline_interface().pause()
+
+# Start simulation, then wait a frame and run the pause_sim task
+omni.timeline.get_timeline_interface().play()
+task = asyncio.ensure_future(omni.kit.app.get_app().next_update_async())
+asyncio.ensure_future(pause_sim(task))
+```
+
+## Get Camera Parameters
+
+The below script show how to get the camera parameters associated with a viewport.
+
+```python
+import math
+
+import omni
+from omni.syntheticdata import helpers
+
+stage = omni.usd.get_context().get_stage()
+viewport_api = omni.kit.viewport.utility.get_active_viewport()
+# Set viewport resolution, changes will occur on next frame
+viewport_api.set_texture_resolution((512, 512))
+# get resolution
+width, height = viewport_api.get_texture_resolution()
+aspect_ratio = width / height
+# get camera prim attached to viewport
+camera = stage.GetPrimAtPath(viewport_api.get_active_camera())
+focal_length = camera.GetAttribute("focalLength").Get()
+horiz_aperture = camera.GetAttribute("horizontalAperture").Get()
+vert_aperture = camera.GetAttribute("verticalAperture").Get()
+# Pixels are square so we can also do:
+# vert_aperture = height / width * horiz_aperture
+near, far = camera.GetAttribute("clippingRange").Get()
+fov = 2 * math.atan(horiz_aperture / (2 * focal_length))
+# helper to compute projection matrix
+proj_mat = helpers.get_projection_matrix(fov, aspect_ratio, near, far)
+
+# compute focal point and center
+focal_x = height * focal_length / vert_aperture
+focal_y = width * focal_length / horiz_aperture
+center_x = height * 0.5
+center_y = width * 0.5
+```
+
+## Rendering
+
+There are three primary APIs you should use when making frequent updates to large amounts of geometry: `UsdGeom.Points`,
+`UsdGeom.PointInstancer`, and `DebugDraw`. The different advantages and limitations of each of these methods are explained
+below, and can help guide you on which method to use.
+
+### UsdGeom.Points
+
+Use the `UsdGeom.Points` API when the geometry needs to interact with the renderer.
+The `UsdGeom.Points` API is the most efficient method to render large amounts of point geometry.
+
+> ```python
+> import random
+>
+> import omni.usd
+> from pxr import UsdGeom
+>
+>
+> class Example:
+>     def create(self):
+>         # Create Point List
+>         N = 500
+>         self.point_list = [
+>             (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0)) for _ in range(N)
+>         ]
+>         self.sizes = [0.05 for _ in range(N)]
+>
+>         points_path = "/World/Points"
+>         stage = omni.usd.get_context().get_stage()
+>         self.points = UsdGeom.Points.Define(stage, points_path)
+>         self.points.CreatePointsAttr().Set(self.point_list)
+>         self.points.CreateWidthsAttr().Set(self.sizes)
+>         self.points.CreateDisplayColorPrimvar("constant").Set([(1, 0, 1)])
+>
+>     def update(self):
+>         # modify the point list
+>         for i in range(len(self.point_list)):
+>             self.point_list[i] = (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0))
+>         # update the points
+>         self.points.GetPointsAttr().Set(self.point_list)
+>
+>
+> import asyncio
+>
+> import omni
+>
+> example = Example()
+> example.create()
+>
+>
+> async def update_points():
+>     # Update 10 times, waiting 10 frames between each update
+>     for _ in range(10):
+>         for _ in range(10):
+>             await omni.kit.app.get_app().next_update_async()
+>         example.update()
+>
+>
+> asyncio.ensure_future(update_points())
+> ```
+
+### UsdGeom.PointInstancer
+
+Use the `UsdGeom.PointInstancer` API when the geometry needs to interact with the physics scene.
+The `UsdGeom.PointInstancer` API lets you efficiently replicate an instance of a prim — with all of its USD properties —
+and update all instances with a list of positions, colors, and sizes.
+
+See the [PointInstancer Reference](https://openusd.org/release/api/class_usd_geom_point_instancer.html) for more information regarding the PointInstancer API.
+
+Below are code snippets for how to create and update geometry with `UsdGeom.PointInstancer`:
+
+> ```python
+> import random
+>
+> import omni.usd
+> from pxr import Gf, UsdGeom
+>
+>
+> class Example:
+>     def create(self):
+>         # Create Point List
+>         N = 500
+>         scale = 0.05
+>         self.point_list = [
+>             (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0)) for _ in range(N)
+>         ]
+>         self.colors = [(1, 1, 1, 1) for _ in range(N)]
+>         self.sizes = [(1.0, 1.0, 1.0) for _ in range(N)]
+>
+>         # Set up Geometry to be Instanced
+>         cube_path = "/World/Cube"
+>         stage = omni.usd.get_context().get_stage()
+>         cube = UsdGeom.Cube(stage.DefinePrim(cube_path, "Cube"))
+>         cube.AddScaleOp().Set(Gf.Vec3d(1, 1, 1) * scale)
+>         cube.CreateDisplayColorPrimvar().Set([(0, 1, 1)])
+>         # Set up Point Instancer
+>
+>         instance_path = "/World/PointInstancer"
+>         self.point_instancer = UsdGeom.PointInstancer(stage.DefinePrim(instance_path, "PointInstancer"))
+>         # Create & Set the Positions Attribute
+>         self.positions_attr = self.point_instancer.CreatePositionsAttr()
+>         self.positions_attr.Set(self.point_list)
+>         self.scale_attr = self.point_instancer.CreateScalesAttr()
+>         self.scale_attr.Set(self.sizes)
+>         # Set the Instanced Geometry
+>         self.point_instancer.CreatePrototypesRel().SetTargets([cube.GetPath()])
+>
+>         self.proto_indices_attr = self.point_instancer.CreateProtoIndicesAttr()
+>         self.proto_indices_attr.Set([0] * len(self.point_list))
+>
+>     def update(self):
+>         # modify the point list
+>         for i in range(len(self.point_list)):
+>             self.point_list[i] = (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0))
+>         # update the points
+>         self.positions_attr.Set(self.point_list)
+>
+>
+> import asyncio
+>
+> import omni
+>
+> example = Example()
+> example.create()
+>
+>
+> async def update_points():
+>     # Update 10 times, waiting 10 frames between each update
+>     for _ in range(10):
+>         for _ in range(10):
+>             await omni.kit.app.get_app().next_update_async()
+>         example.update()
+>
+>
+> asyncio.ensure_future(update_points())
+> ```
+
+### DebugDraw
+
+The [Debug Drawing Extension API](../utilities/debugging/ext_isaacsim_util_debug_draw.html#isaac-debug-draw) API is useful for purely visualizing geometry in the Viewport. Geometry drawn with the `debug_draw_interface`
+cannot be rendered and does not interact with the physics scene. However, it is the most performance-efficient method of visualizing geometry.
+
+> See the [API documentation](../py/docs/extsbuild/isaacsim.util.debug_draw/docs/index.html) for complete usage information.
+
+Below are code snippets for how to create and update geometry visualed with `DebugDraw`:
+
+> ```python
+> import random
+>
+> from isaacsim.util.debug_draw import _debug_draw
+>
+>
+> class Example:
+>     def create(self):
+>         self.draw = _debug_draw.acquire_debug_draw_interface()
+>         N = 500
+>         self.point_list = [
+>             (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0)) for _ in range(N)
+>         ]
+>         self.color_list = [(random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1), 1) for _ in range(N)]
+>         self.size_list = [10.0 for _ in range(N)]
+>
+>     def update(self):
+>         # modify the point list
+>         for i in range(len(self.point_list)):
+>             self.point_list[i] = (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0))
+>
+>         # draw the points
+>         self.draw.clear_points()
+>         self.draw.draw_points(self.point_list, self.color_list, self.size_list)
+>
+>
+> import asyncio
+>
+> import omni
+>
+> example = Example()
+> example.create()
+>
+>
+> async def update_points():
+>     # Update 10 times, waiting 10 frames between each update
+>     for _ in range(10):
+>         for _ in range(10):
+>             await omni.kit.app.get_app().next_update_async()
+>         example.update()
+>
+>
+> asyncio.ensure_future(update_points())
+> ```
+
+### Rendering Frame Delay
+
+The default rendering pipeline in the app experiences have upto 3 frames in flight to be rendered, which results in higher FPS since the simulation is not blocked until the latest state is rendered completely.
+
+For applications that need the rendered data to correspond to the latest simulation state with no delay, the following experience file should be used `apps/omni.isaac.sim.zero_delay.python.kit`. Below is an example of how to use the experience file in a standlone workflow.
+
+```python
+import os
+
+from isaacsim import SimulationApp
+
+SimulationApp({"headless": True}, experience=f"{os.environ['EXP_PATH']}/isaacsim.exp.base.zero_delay.kit")
+```
+
+Alternatively, if you would like to use the specific settings instead, you can set them with extra\_args as well:
+
+```python
+from isaacsim import SimulationApp
+
+SimulationApp(
+    {
+        "headless": True,
+        "extra_args": [
+            "--/app/hydraEngine/waitIdle=1",
+            "--/app/updateOrder/checkForHydraRenderComplete=1000",
+            "--/exts/isaacsim.ros2.bridge/publish_multithreading_disabled=1",
+        ],
+    },
+)
+```
+
+On this page
+
+* [Simple Async Task](#simple-async-task)
+* [Get Camera Parameters](#get-camera-parameters)
+* [Rendering](#rendering)
+  + [UsdGeom.Points](#usdgeom-points)
+  + [UsdGeom.PointInstancer](#usdgeom-pointinstancer)
+  + [DebugDraw](#debugdraw)
+  + [Rendering Frame Delay](#rendering-frame-delay)
+
+---
+
+
+## Core API
 
 ### Core API Tutorials Index
 
@@ -2449,2149 +4618,6 @@ On this page
   + [Tips](#tips)
   + [What’s Next?](#what-s-next)
 * [Summary](#summary)
-
----
-
-
-## 开发工具
-
-### VS Code
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/vscode.html
-
-* [Development Tools](index.html)
-* Visual Studio Code (VS Code)
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Visual Studio Code (VS Code)
-
-## Isaac Sim VS Code Edition
-
-[Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) is an extension for Visual Studio Code that provides development support for NVIDIA Omniverse in general and Isaac Sim in particular.
-
-Key Features:
-
-* Execute Python code, in the Python environment of a running application, locally or remotely from VS Code and show the output in the *Isaac Sim VS Code Edition* panel.
-* Browse and insert snippets of code related to Isaac Sim, Omniverse Kit and Universal Scene Description (USD).
-* Create templates for Omniverse/Isaac Sim extensions and other development approaches.
-* Quick access to the most relevant Omniverse/Isaac Sim documentation sources and resources without leaving the editor.
-
-**Install it now to get started**: [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition)
-
----
-
-## Interactive Scripting
-
-The `isaacsim.code_editor.vscode` extension adds VS Code launcher and menu integration to Isaac Sim.
-It depends on the `isaacsim.code_editor.python_server` extension which provides the TCP server for remote Python code execution (see [Python Server (Remote Code Execution)](python_server.html#isaac-sim-app-python-server) for full protocol details and usage examples).
-
-Both extensions can be enabled or disabled using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.vscode`.
-Enabling the VS Code extension automatically enables the Python server.
-
-> Note
->
-> This extension requires its Visual Studio Code pair extension: [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) to be installed and enabled, in the VS Code editor, in order to execute Python scripts on a running Isaac Sim instance.
-
-1. To begin, enable this extension using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.vscode`.
-2. Once the extension is enabled, go to the top menu bar and click on Window > VS Code to open the Isaac Sim folder in a VS Code application.
-3. Open a stored file or write the code you want to run in a VS Code editor tab.
-4. From the VS Code editor, click on the *Isaac Sim VS Code Edition* container in the Activity Bar (the one with the Isaac Sim logo) to open it.
-   Then, click on *Run* (or *Run selected text* if you have selected code statements), in the *Commands* tree view, to execute it.
-5. Inspect the execution output, if any, in the *Isaac Sim VS Code Edition* output panel.
-
-Tip
-
-The Python server can also be used independently of VS Code, for example by LLM agents or custom scripts.
-See [Python Server (Remote Code Execution)](python_server.html#isaac-sim-app-python-server) for details on the wire protocol and programmatic usage.
-
----
-
-## VS Code Configuration Files
-
-The Isaac Sim installation provides a `.vscode` workspace with a pre-configured environment under the following three files:
-
-```python
-.vscode/launch.json
-.vscode/settings.json
-.vscode/tasks.json
-```
-
-### launch.json
-
-This file provides three different configurations that can be executed using the `Run & Debug` section in VSCode.
-
-* **Python: Current File**: Debug the currently open standalone Python file, should not be used with extension examples/code.
-* **Python: Attach**: Attach to a running Isaac Sim application for debugging purposes, most useful when running an interactive GUI application. See [Attaching the Debugger to a Running App](../utilities/debugging/tutorial_advanced_python_debugging.html#isaac-sim-app-tutorial-advanced-attach-debugger) for usage information.
-* **(Linux) isaac-sim** Run the main Isaac Sim application with an attached debugger.
-
-### settings.json
-
-This file sets the default Python executable that comes with Isaac Sim:
-
-```python
-# "python.pythonPath": "${workspaceFolder}/kit/python/bin/python3",
-```
-
-As well as a configuration for `"python.analysis.extraPaths"` which by default includes all of the extensions that are provided by default. You can add additional paths here if needed.
-
-### tasks.json
-
-This is a helper file that contains a task used to automatically setup the Python environment when using the `Python: Current File` option in `Run & Debug`.
-
-```python
-# "tasks": [
-#     {
-#         "label": "setup_python_env",
-#         "type": "shell",
-#         "linux": {
-#             "command": "source ${workspaceFolder}/setup_python_env.sh && printenv >${workspaceFolder}/.vscode/.standalone_examples.env"
-#         }
-#     }
-# ]
-```
-
-Once executed, the task generates the `.standalone_examples.env` file used by VS Code to launch the Python debug process.
-Refer to [Debugging With Visual Studio Code](../utilities/debugging/tutorial_advanced_python_debugging.html#isaac-sim-app-tutorial-advanced-debug-vscode) for more details.
-
-On this page
-
-* [Isaac Sim VS Code Edition](#id1)
-* [Interactive Scripting](#interactive-scripting)
-* [VS Code Configuration Files](#vs-code-configuration-files)
-  + [launch.json](#launch-json)
-  + [settings.json](#settings-json)
-  + [tasks.json](#tasks-json)
-
----
-
-### Python Server
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/python_server.html
-
-* [Development Tools](index.html)
-* Python Server (Remote Code Execution)
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Python Server (Remote Code Execution)
-
-## Overview
-
-The `isaacsim.code_editor.python_server` extension provides a TCP socket server that enables remote Python code execution within a running Isaac Sim instance.
-Any client — VS Code, LLM agents, custom automation scripts — can connect over TCP, send Python source code, and receive structured JSON results.
-
-The extension is automatically loaded as a dependency of `isaacsim.code_editor.vscode`, but it can also be enabled independently for headless or programmatic workflows.
-
----
-
-## Enabling the Extension
-
-Enable the extension using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.python_server`.
-
-By default the server listens on `127.0.0.1:8226`.
-These values can be changed through the Carbonite settings (see [Settings](#python-server-settings) below).
-
----
-
-## Wire Protocol
-
-The wire protocol is intentionally simple so that any TCP client can use it:
-
-**Request**
-
-Send raw UTF-8 Python source code over a TCP connection to the configured host and port.
-After sending all code, the client **must** signal end-of-input by performing a TCP half-close
-(`write_eof()` in Python, `shutdown(SHUT_WR)` at the socket level, or `-q 0` with netcat).
-The server buffers incoming data until EOF is received, ensuring that TCP-fragmented payloads
-are fully reassembled before execution.
-
-Warning
-
-If the client does not signal EOF, the server will wait indefinitely for more data and
-the connection will hang until the client disconnects or a timeout occurs.
-
-**Response**
-
-A single JSON object is returned, then the connection is closed by the server.
-
-| Field | Description |
-| --- | --- |
-| `status` | `"ok"` on success, `"error"` on failure. |
-| `output` | Captured standard output (`stdout`) from the executed code. |
-| `result` | *(present only for expression evaluation)* The evaluated expression value. JSON-native types (`str`, `int`, `float`, `bool`, `None`, `list`, `dict`) are returned directly. Non-serializable objects fall back to their `repr()` string. |
-| `traceback` | *(present only on error)* List of traceback strings. |
-| `ename` | *(present only on error)* Exception class name. |
-| `evalue` | *(present only on error)* Exception message string. |
-
----
-
-## Usage Examples
-
-### Python Client
-
-Connect from any Python script or LLM tool to execute code in the running Isaac Sim instance:
-
-```python
-import asyncio
-import json
-
-async def execute_in_isaac(source: str, host: str = "127.0.0.1", port: int = 8226) -> dict:
-    """Send Python source to a running Isaac Sim instance and return the result."""
-    reader, writer = await asyncio.open_connection(host, port)
-    writer.write(source.encode())
-    writer.write_eof()
-    data = await reader.read()
-    writer.close()
-    return json.loads(data.decode())
-
-# Execute a statement
-result = asyncio.run(execute_in_isaac('print("Hello from Isaac Sim!")'))
-print(result)
-# {'status': 'ok', 'output': 'Hello from Isaac Sim!'}
-
-# Evaluate an expression
-result = asyncio.run(execute_in_isaac("1 + 1"))
-print(result)
-# {'status': 'ok', 'output': '', 'result': 2}
-
-# Handle errors
-result = asyncio.run(execute_in_isaac("1 / 0"))
-print(result["status"])   # 'error'
-print(result["ename"])    # 'ZeroDivisionError'
-```
-
-### Command-line (netcat)
-
-For quick testing, use `netcat` or similar tools:
-
-```python
-echo 'print("Hello")' | nc 127.0.0.1 8226
-```
-
----
-
-## Async Code Support
-
-The server supports top-level `await` expressions.
-When submitted code contains `await`, the server compiles it as an async coroutine,
-schedules it on the Kit event loop, and awaits the result before sending the JSON response.
-
-```python
-# Top-level await is supported
-import asyncio
-await asyncio.sleep(0.1)
-print("this output is captured")
-```
-
-Standard output from `print()` calls inside awaited coroutines is captured and included in the
-JSON response `output` field, just like synchronous code.
-
----
-
-## State Persistence
-
-The server maintains a shared Python globals dictionary across all connections within a session.
-Variables, imports, and function definitions from one request are available in subsequent requests.
-This enables incremental workflows such as building a scene step by step:
-
-```python
-# Request 1: Create a stage
-import isaacsim.core.experimental.utils.stage as stage_utils
-await stage_utils.create_new_stage_async(template="empty")
-
-# Request 2: Uses stage_utils from the previous request
-stage_utils.define_prim("/World", "Xform")
-```
-
-Each new TCP connection reuses the same globals, so there is no need to re-import modules
-or re-define variables between calls.
-
----
-
-## LLM Integration
-
-The Python server is designed to be easy for LLM agents to use.
-An LLM tool implementation needs only to:
-
-1. Open a TCP connection to the configured host and port.
-2. Send the Python code as UTF-8 bytes.
-3. Signal end-of-input by calling `write_eof()` (required — the server buffers until EOF).
-4. Read the JSON response.
-5. Parse `status` to determine success or failure, `output` for printed text, and `result` for expression values.
-
-Because the protocol is a single request/response per connection, there is no connection-level state to manage.
-However, Python-level state (variables, imports) persists across connections within a session
-(see [State Persistence](#python-server-state-persistence) above).
-
----
-
-## Settings
-
-The extension is configured through Carbonite settings under `/exts/isaacsim.code_editor.python_server/`.
-
-| Setting | Default | Description |
-| --- | --- | --- |
-| `host` | `"127.0.0.1"` | IP address the server listens on. Set to `"0.0.0.0"` to accept remote connections. |
-| `port` | `8226` | TCP port number. |
-| `carb_logs` | `false` | Enable UDP broadcasting of Carbonite log messages to connected clients. May cause the application to freeze in certain circumstances. |
-
-Warning
-
-Setting `host` to `"0.0.0.0"` allows **any** machine on the network to execute arbitrary Python code
-in your Isaac Sim session. Only do this in trusted network environments.
-
----
-
-## Carbonite Log Broadcasting (UDP)
-
-When `carb_logs` is enabled, the extension opens a UDP socket on the same host and port.
-Clients register by sending any datagram to that address, after which all Carbonite log messages
-(Info, Warning, Error, Fatal) are broadcast to registered clients as UTF-8 strings in the format:
-
-```python
-[Level][Source] Message
-```
-
-This is primarily used by the [Isaac Sim VS Code Edition](https://marketplace.visualstudio.com/items?itemName=NVIDIA.isaacsim-vscode-edition) extension to display Isaac Sim logs in the VS Code output panel.
-
-On this page
-
-* [Overview](#overview)
-* [Enabling the Extension](#enabling-the-extension)
-* [Wire Protocol](#wire-protocol)
-* [Usage Examples](#usage-examples)
-  + [Python Client](#python-client)
-  + [Command-line (netcat)](#command-line-netcat)
-* [Async Code Support](#async-code-support)
-* [State Persistence](#state-persistence)
-* [LLM Integration](#llm-integration)
-* [Settings](#settings)
-* [Carbonite Log Broadcasting (UDP)](#carbonite-log-broadcasting-udp)
-
----
-
-### Jupyter Notebook
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/jupyter_notebook.html
-
-* [Development Tools](index.html)
-* Jupyter Notebook
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Jupyter Notebook
-
-## Interactive Scripting
-
-The `isaacsim.code_editor.jupyter` extension allows you to to open a [JupyterLab](https://jupyter.org) (or [Jupyter Notebook](https://jupyter.org)) app in the current Isaac Sim application scope and edit and execute Python code interactively.
-
-1. To begin, enable this extension using the [Extension Manager](https://docs.omniverse.nvidia.com/extensions/latest/ext_core/ext_extension-manager.html "(in Omniverse Extensions)") by searching for `isaacsim.code_editor.jupyter`.
-
-   > Note
-   >
-   > This may take several seconds (and Isaac Sim will freeze) if this is the first time the `isaacsim.code_editor.jupyter` is enabled.
-   > Several Python dependencies will be installed.
-2. Once the extension is enabled, go to the top menu bar and click on Window > Jupyter Notebook to open a Jupyter app in the default web browser.
-3. In the Jupyter app, click on the *Omniverse (Python 3)* kernel (the one with the Omniverse logo) to create a new Untitled notebook.
-4. Execute code by clicking the Run button at the top of the notebook. Try it yourself with the same code snippet from above!
-
-   > Warning
-   >
-   > * The *Omniverse (Python 3)* kernel is designed to run Python code, via the `isaacsim.code_editor.jupyter` extension, on a running Isaac Sim instance (where the Kit application has control over the update/simulation loop).
-   > * The *Isaac Sim Python 3* kernel is used to run standalone applications (see [Running Standalone Isaac Sim from Jupyter Notebook](#isaac-sim-python-jupyter-notebook-config) for more details).
-
-Warning
-
-Execution of blocking code freezes Isaac Sim.
-
-Hint
-
-* Use the Tab key for code autocompletion.
-* Use the Ctrl + I keys for code introspection (display docstring if available).
-
-Note
-
-The notebooks are saved, by default, in a folder within the extension itself: `exts/isaacsim.code_editor.jupyter/data/notebooks`. See the location for Isaac Sim packages/extensions in [Location for Isaac Sim app](../installation/install_faq.html#isaac-sim-misc-paths).
-
-**Limitations**
-
-* IPython magic commands are not available.
-* Matplotlib plotting is not available in the notebooks.
-* Printing, inside callbacks, is not displayed in the notebooks but in the Omniverse terminal.
-
----
-
-## Running Standalone Isaac Sim from Jupyter Notebook
-
-Warning
-
-* This workflow is only supported on Linux.
-
-### Configuration Files
-
-In order for Isaac Sim to work inside of a Jupyter Notebook we provide a custom Jupyter kernel that is installed the first time you run `./jupyter_notebook.sh`.
-The kernel.json itself is fairly simple:
-
-```python
-{
-    "argv": ["AUTOMATICALLY_REPLACED", "-m", "ipykernel_launcher", "-f", "{connection_file}"],
-    "display_name": "Isaac Sim Python 3",
-    "language": "python",
-    "env": {"ISAAC_JUPYTER_KERNEL": "1"},
-    "metadata": {"debugger": true}
-}
-```
-
-The important part is that `AUTOMATICALLY_REPLACED` gets replaced by `jupyter_notebook.sh` with the absolute path to the Python executable that is located in the kit/python directory at runtime. Once the variable is replaced, the kernel is installed and the notebook is started. There is an extra variable `ISAAC_JUPYTER_KERNEL` that is used inside of Isaac Sim to setup for notebook usage properly.
-
-Because notebooks require asyncio support, and Isaac Sim itself uses asyncio internally, we automatically execute the following two lines when loading the `isaacsim` module (or the `isaacsim.simulation_app` extension) which provides the `SimulationApp` class:
-
-```python
-import nest_asyncio
-
-nest_asyncio.apply()
-```
-
-This ensures that asyncio calls can be nested inside of the Jupyter Notebook properly.
-
-When writing code in notebooks, it is necessary to first instantiate the `SimulationApp` class (from `isaacsim` or `isaacsim.simulation_app`) after perform any Isaac Sim / Omniverse imports:
-
-```python
-from isaacsim import SimulationApp
-
-simulation_app = SimulationApp({"headless": True})
-# perform any Isaac Sim / Omniverse imports after instantiating the class
-```
-
-Then, to run the notebook just execute the following commands and play the notebook cells:
-
-```python
-./jupyter_notebook.sh PATH_TO_NOTEBOOK.ipynb
-```
-
-On this page
-
-* [Interactive Scripting](#interactive-scripting)
-* [Running Standalone Isaac Sim from Jupyter Notebook](#running-standalone-isaac-sim-from-jupyter-notebook)
-  + [Configuration Files](#configuration-files)
-
----
-
-### Script Editor
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/omniverse_script_editor.html
-
-* [Development Tools](index.html)
-* Omniverse Script Editor
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Omniverse Script Editor
-
-Script Editor is a Python editing environment internal to Omniverse Kit. It can be used to run snippets of Python code to interact with the stage.
-
-1. To open the Script Editor window, go to the Menu Bar and click *Window > Script Editor*.
-2. Open multiple tabs by going to the *Tab* Menu in the Script Editor window. All the tabs share the same environment, so libraries that are imported or variables defined in one environment can be accessed and used in other environments.
-
-Refer to [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)") in the Omniverse docs for more details.
-
----
-
-### Isaac Sim MCP Server
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/isaac_sim_mcp.html
-
-* [Development Tools](index.html)
-* Isaac Sim MCP Server
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Isaac Sim MCP Server
-
-The Isaac Sim MCP Server is a Model Context Protocol (MCP) server that gives AI coding assistants deep knowledge of NVIDIA Isaac Sim — extensions, code examples, settings, and developer instructions — via semantic search.
-
-For installation, MCP client setup, deployment options, and troubleshooting, see the [Isaac Sim MCP Server README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/README.md).
-
-For developer documentation — key concepts, integration examples, performance notes, and pointers to the architecture and prompt-design references — see the [Isaac Sim MCP Server docs README](https://github.com/NVIDIA-Omniverse/kit-usd-agents/blob/main/source/mcp/isaacsim_mcp/docs/README.md).
-
----
-
-### Carb Settings
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/development_tools/carb_settings.html
-
-* [Development Tools](index.html)
-* Modify Carb Settings
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Modify Carb Settings
-
-[Carbonite (carb)](../reference_material/reference_glossary.html#isaac-sim-glossary-carb) settings are used to configure default behaviors of Omniverse and Isaac Sim. They can control a wide ranges of features, such as window properties, ROS versions, browser folders, and more. You may wish to change these settings to suit your needs. Here we show the four ways to change the Carb settings in Isaac Sim.
-
-For this tutorial, we will set a parameter inside extension `isaacsim.code_editor.python_server` named `keepalive_interval` to the value `5`. Replace these with your actual extension name, setting parameter, and value when you are working with your project.
-
-## Script Editor Snippet
-
-You can temporarily and quickly change the Carb settings in the [Script Editor](https://docs.omniverse.nvidia.com/extensions/latest/ext_script-editor.html "(in Omniverse Extensions)"). This is useful for testing and debugging, and can be done while Isaac Sim is open. The changes made this way will not be saved after you close the application, and relaunching the simulator will reset the settings.
-
-```python
-import carb.settings
-import omni.kit
-
-## Set Carb Setting
-settings = carb.settings.get_settings()
-settings.set("/exts/isaacsim.code_editor.python_server/keepalive_interval", 5)
-
-## Restart Extension to Apply Changes
-extension_manager = omni.kit.app.get_app().get_extension_manager()
-extension_manager.set_extension_enabled_immediate("isaacsim.code_editor.python_server", False)
-extension_manager.set_extension_enabled_immediate("isaacsim.code_editor.python_server", True)
-```
-
-## Command-Line Argument
-
-You can launch Isaac Sim with a command-line argument to change the Carb settings. The changes made this way will not be saved after you close the application, and relaunching the simulator without the arguments will reset the settings.
-
-At the root of your Isaac Sim installation, run the following command:
-
-> Linux
->
-> ```python
-> ./isaac-sim.sh --/exts/isaacsim.code_editor.python_server/keepalive_interval=5
-> ```
->
->
-> Windows
->
-> ```python
-> .\isaac-sim.bat --/exts/isaacsim.code_editor.python_server/keepalive_interval=5
-> ```
-
-## Edit .toml File
-
-For more permanent changes, you can edit the extension’s .toml file. The changes made this way will persist after you close the application.
-
-1. Navigate to the extension’s folder. For example, if you are changing the settings for the `isaacsim.code_editor.python_server` extension, navigate to `<isaac-sim-root_dir>/exts/isaacsim.code_editor.python_server/config`.
-2. Open the .toml file with a text editor, and add the following line to the file:
-
-   > ```python
-   > [settings]
-   > exts."isaacsim.code_editor.python_server".keepalive_interval = 5
-   > ```
-3. Launch Isaac Sim to see the changes.
-
-## Customize .kit File
-
-If you have multiple settings in multiple extensions that you want to change, you can edit the .kit file for your application. The changes made this way will persist after you close the application.
-
-1. From the root of your Isaac Sim installation, navigate to <isaac-sim-root\_dir>/apps/. Locate the Kit experience app file you are using in this folder. By default, it is the isaacsim.exp.full.kit.
-2. Open the app file and add the following line to the file:
-
-   > ```python
-   > [settings]
-   > exts."isaacsim.code_editor.python_server".keepalive_interval = 5
-   > ```
-3. Launch Isaac Sim to see the changes.
-
-On this page
-
-* [Script Editor Snippet](#script-editor-snippet)
-* [Command-Line Argument](#command-line-argument)
-* [Edit .toml File](#edit-toml-file)
-* [Customize .kit File](#customize-kit-file)
-
----
-
-
-## Python 脚本
-
-### Scripting Concepts
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/python_scripting_concepts.html
-
-* [Python Scripting and Tutorials](index.html)
-* Python Scripting Concepts
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Python Scripting Concepts
-
-## Standalone vs Interactive Python
-
-Python scripting in NVIDIA Isaac Sim can be done in two ways: standalone and interactive. Standalone Python scripts are executed from the command line and are used to automate tasks or run simulations. Interactive Python scripts are executed in the Python console and are used to explore the NVIDIA Isaac Sim API and test code snippets. Both types of scripts can be used to create custom extensions, such as new robot controllers or sensors, and to interact with the Omniverse application.
-
-On this page
-
-* [Standalone vs Interactive Python](#standalone-vs-interactive-python)
-
----
-
-### Core API Overview
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/core_api_overview.html
-
-* [Python Scripting and Tutorials](index.html)
-* Core API Overview
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Core API Overview
-
-Important
-
-Isaac Sim 5.0.0 has introduced the [Core Experimental API](../py/docs/overview/experimental.html): a rewritten implementation of the current Core API
-designed to be more robust, flexible, and powerful, yet still maintain the core utilities and wrapper concepts.
-
-Going forward, it will become the base API used in all Isaac Sim source code.
-The current Core API will be deprecated and removed in future releases.
-
-Therefore, **we strongly encourage early adoption and use of the Core Experimental API**.
-
-## Core API is a Wrapper
-
-Isaac Sim Core API are wrappers for raw USD and physics engine APIs, tailored to suit robotics applications. Here is adding a cube and apply physics properties to it using the raw USD
-
-```python
-import omni
-from pxr import Gf, PhysicsSchemaTools, PhysxSchema, UsdGeom, UsdPhysics
-
-stage = omni.usd.get_context().get_stage()
-
-# Setting up Physics Scene
-gravity = 9.8
-scene = UsdPhysics.Scene.Define(stage, "/World/physics")
-scene.CreateGravityDirectionAttr().Set(Gf.Vec3f(0.0, 0.0, -1.0))
-scene.CreateGravityMagnitudeAttr().Set(gravity)
-PhysxSchema.PhysxSceneAPI.Apply(stage.GetPrimAtPath("/World/physics"))
-physxSceneAPI = PhysxSchema.PhysxSceneAPI.Get(stage, "/World/physics")
-physxSceneAPI.CreateEnableCCDAttr(True)
-physxSceneAPI.CreateEnableStabilizationAttr(True)
-physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
-physxSceneAPI.CreateBroadphaseTypeAttr("MBP")
-physxSceneAPI.CreateSolverTypeAttr("TGS")
-
-# Setting up Ground Plane
-PhysicsSchemaTools.addGroundPlane(stage, "/World/groundPlane", "Z", 15, Gf.Vec3f(0, 0, 0), Gf.Vec3f(0.7))
-
-# Adding a Cube
-path = "/World/Cube"
-cubeGeom = UsdGeom.Cube.Define(stage, path)
-cubePrim = stage.GetPrimAtPath(path)
-size = 0.5
-offset = Gf.Vec3f(0.5, 0.2, 1.0)
-cubeGeom.CreateSizeAttr(size)
-cubeGeom.AddTranslateOp().Set(offset)
-
-# Attach Rigid Body and Collision Preset
-rigid_api = UsdPhysics.RigidBodyAPI.Apply(cubePrim)
-rigid_api.CreateRigidBodyEnabledAttr(True)
-UsdPhysics.CollisionAPI.Apply(cubePrim)
-```
-
-Here is adding a cube with physics and material properties to stage using Core API.
-
-```python
-import numpy as np
-from isaacsim.core.api.objects import DynamicCuboid
-
-DynamicCuboid(
-    prim_path="/new_cube_2",
-    name="cube_1",
-    position=np.array([0, 0, 1.0]),
-    scale=np.array([0.6, 0.5, 0.2]),
-    size=1.0,
-    color=np.array([255, 0, 0]),
-)
-```
-
-## Application vs Simulation vs World vs Scene vs Stage
-
-Everything in USD is a primitive (prim) with attributes.
-
-A **Simulation** (the sim) moves these prims forward through time by literally changing these attributes programmatically.
-
-The **Application** is the thing that manages the gross aspects of the simulation (how things are rendered, for example) and how the user interacts with it. If there is a GUI for the sim, it is a part of the application.
-
-A **Stage** is a USD concept, and defines the logical and relational context for prims in the simulation. If a mug prim is on a table prim then that relationship is expressed by the relative locations of those prims on the stage, and the specific attributes each has. In this way, the stage provides context for the application: prims cannot exist without a stage and so an application concerned with prims requires a stage to function.
-
-Similarly, the **World** is what provides context to the simulation, defining which prims are relevant to the ongoing flow of time, the **scene**, and managing the aspects of the simulation that are most important to the user.
-
-For example, imagine you are going to see a play at a theater. The theater is like the **application**, your gateway to the play, while the **simulation** is the play itself, defined by a program. You take your seat and you can see the **stage**, where the play will take place. When the play starts, the curtain rises and reveals a **scene** composed props and actors that then act out that part of the play. When it’s time to move to the next scene, the curtain falls, the scene is reset, and then the curtain rises again, revealing the next part of the play. The stage crew and all the mechanical devices behind the scene that manages the curtain and the props is the **world** of the play.
-
-On this page
-
-* [Core API is a Wrapper](#core-api-is-a-wrapper)
-* [Application vs Simulation vs World vs Scene vs Stage](#application-vs-simulation-vs-world-vs-scene-vs-stage)
-
----
-
-### Environment Setup
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/environment_setup.html
-
-* [Python Scripting and Tutorials](index.html)
-* Scene Setup Snippets
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Scene Setup Snippets
-
-## Objects Creation and Manipulation
-
-Note
-
-The following scripts should only be run on the default new stage and only once. You can try these by creating a new stage via File > New and running from Window > Script Editor
-
-### Rigid Object Creation
-
-The following snippet adds a dynamic cube with given properties and a ground plane to the scene.
-
-```python
-import isaacsim.core.experimental.utils.stage as stage_utils
-import numpy as np
-from isaacsim.core.experimental.objects import Cube, GroundPlane
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
-GroundPlane("/World/groundPlane", sizes=10, colors=np.array([0.5, 0.5, 0.5]), templates=None)
-cube = Cube(
-    "/World/cube",
-    positions=np.array([-0.5, -0.2, 1.0]),
-    scales=np.array([0.5, 0.5, 0.5]),
-    colors=np.array([0.2, 0.3, 0.0]),
-)
-RigidPrim(cube.paths, masses=[1.0])
-GeomPrim(cube.paths, apply_collision_apis=True)
-```
-
-### View Objects
-
-View classes in this extension are collections of similar prims. View classes manipulate the underlying objects in a vectorized way.
-Many View APIs can operate directly on USD data after the wrapper is created.
-
-```python
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-cube = Cube("/World/cube_0")
-GeomPrim(cube.paths, apply_collision_apis=True)
-rigid_prim = RigidPrim("/World/cube_[0-100]", masses=[1.0])
-# rigid_prim can now be used for USD-backed batched operations
-```
-
-Tensor-backed physics APIs require the timeline to be playing before they can be queried. When using Window > Script Editor, initialize them asynchronously as follows:
-
-```python
-import asyncio
-
-import isaacsim.core.experimental.utils.app as app_utils
-import isaacsim.core.experimental.utils.stage as stage_utils
-from isaacsim.core.experimental.objects import Cube, GroundPlane
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-async def init():
-    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
-    GroundPlane("/World/groundPlane", positions=[0.0, 0.0, -1.0])
-    cube = Cube("/World/cube_0")
-    GeomPrim(cube.paths, apply_collision_apis=True)
-    rigid_prim = RigidPrim("/World/cube_[0-100]", masses=[1.0])
-    app_utils.play()
-    await app_utils.update_app_async()
-    print("Physics tensor view initialized:", rigid_prim.is_physics_tensor_entity_valid())
-    app_utils.stop()
-
-asyncio.ensure_future(init())
-```
-
-See [Workflows](../introduction/workflows.html#isaac-sim-app-tutorial-intro-workflows) tutorial for more details about various workflows for developing in Isaac Sim.
-
-### Create RigidPrim
-
-The following snippet adds three cubes to the scene and creates a RigidPrim (formerly RigidPrimView) to manipulate the batch.
-
-```python
-import asyncio
-
-import isaacsim.core.experimental.utils.stage as stage_utils
-import numpy as np
-from isaacsim.core.experimental.objects import Cube, GroundPlane
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-async def example():
-    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
-    GroundPlane("/World/groundPlane", positions=[0.0, 0.0, -1.0])
-
-    # create rigid cubes
-    cube_paths = [f"/World/cube_{i}" for i in range(3)]
-    Cube(cube_paths)
-    GeomPrim(cube_paths, apply_collision_apis=True)
-
-    # create the view object to batch manipulate the cubes
-    rigid_prim = RigidPrim("/World/cube_[0-2]", masses=[1.0])
-    # set world poses
-    rigid_prim.set_world_poses(positions=np.array([[0, 0, 2], [0, -2, 2], [0, 2, 2]]))
-
-asyncio.ensure_future(example())
-```
-
-See the [API Documentation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.RigidPrim) for all the possible operations supported by `RigidPrim`.
-
-### Create RigidPrim With Contact Filters
-
-There are scenarios where you are interested in net contact forces on each body and contact forces between specific bodies. This can be achieved by constructing a RigidPrim with contact filters.
-
-```python
-import asyncio
-
-import isaacsim.core.experimental.utils.app as app_utils
-import isaacsim.core.experimental.utils.stage as stage_utils
-import numpy as np
-from isaacsim.core.experimental.objects import Cube, GroundPlane
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-async def example():
-    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
-    GroundPlane("/World/groundPlane")
-
-    # create three rigid cubes sitting on top of three others
-    bottom_box_paths = [f"/World/bottom_box_{i+1}" for i in range(3)]
-    top_box_paths = [f"/World/top_box_{i+1}" for i in range(3)]
-    Cube(bottom_box_paths, sizes=2, colors=np.array([0.5, 0, 0]))
-    Cube(top_box_paths, sizes=2, colors=np.array([0, 0, 0.5]))
-    GeomPrim(bottom_box_paths + top_box_paths, apply_collision_apis=True)
-
-    # Specify top boxes as filters to receive contact forces between the bottom and top boxes.
-    bottom_box = RigidPrim(
-        bottom_box_paths,
-        masses=[1.0],
-        positions=np.array([[0, 0, 1.0], [-5.0, 0, 1.0], [5.0, 0, 1.0]]),
-        contact_filter_paths=top_box_paths,
-        max_contact_count=30,
-    )
-    top_box = RigidPrim(
-        top_box_paths,
-        masses=[1.0],
-        positions=np.array([[0.0, 0, 3.0], [-5.0, 0, 3.0], [5.0, 0, 3.0]]),
-    )
-    bottom_box.set_enabled_contact_tracking([True])
-    top_box.set_enabled_contact_tracking([True])
-
-    app_utils.play()
-    await app_utils.update_app_async(steps=10)
-
-    # net contact forces acting on the bottom boxes
-    print(bottom_box.get_net_contact_forces().numpy())
-    # contact forces between the top and the bottom boxes
-    print(bottom_box.get_contact_force_matrix().numpy())
-    app_utils.stop()
-
-asyncio.ensure_future(example())
-```
-
-More detailed information about the friction and contact forces can be obtained from the `get_friction_data` and `get_contact_force_data` respectively.
-These APIs provide all the contact forces and contact points between pairs of the sensor prims and filter prims. `get_contact_force_data` API provides the contact distances and contact normal vectors as well.
-
-In the example below, we add three boxes to the scene and apply a tangential force of magnitude 10 to each. Then we use the aforementioned APIs to receive all the contact information and sum across all the contact points to find the friction/normal forces between the boxes and the ground plane.
-
-```python
-import asyncio
-
-import isaacsim.core.experimental.utils.app as app_utils
-import isaacsim.core.experimental.utils.stage as stage_utils
-import numpy as np
-from isaacsim.core.experimental.materials import RigidBodyMaterial
-from isaacsim.core.experimental.objects import Cube, GroundPlane
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-from isaacsim.core.simulation_manager import SimulationManager
-from pxr import PhysxSchema
-
-async def contact_force_example():
-    g = 10
-    await stage_utils.create_new_stage_async()
-    stage_utils.define_prim("/World/physicsScene", "PhysicsScene")
-    ground_plane = GroundPlane("/World/GroundPlane")
-    material = RigidBodyMaterial(
-        "/World/PhysicsMaterials",
-        static_frictions=[0.5],
-        dynamic_frictions=[0.5],
-    )
-    # create three rigid cubes sitting on top of three others
-    cube_paths = [f"/World/Box_{i+1}" for i in range(3)]
-    Cube(cube_paths, sizes=2, colors=np.array([0, 0, 0.5]))
-    cube_geoms = GeomPrim(cube_paths, apply_collision_apis=True)
-    cube_geoms.apply_physics_materials(material)
-
-    # Creating RigidPrim with contact relevant keywords allows receiving contact information
-    # In the following we indicate that we are interested in receiving up to 30 contact points data between the boxes and the ground plane
-    box_view = RigidPrim(
-        cube_paths,
-        masses=[1.0],
-        positions=np.array([[0, 0, 1.0], [-5.0, 0, 1.0], [5.0, 0, 1.0]]),
-        contact_filter_paths=["/World/GroundPlane/collisionPlane"],
-        max_contact_count=3 * 10,  # we don't expect more than 10 contact points for each box
-    )
-    if SimulationManager.get_active_physics_engine() == "physx":
-        box_view.set_sleep_thresholds([0.0])
-        box_view.set_enabled_contact_tracking([True])
-        GeomPrim.ensure_api(ground_plane.planes.prims, PhysxSchema.PhysxContactReportAPI)
-
-    app_utils.play()
-    await app_utils.update_app_async()
-
-    forces = np.array([[g, 0, 0], [g, 0, 0], [g, 0, 0]])
-    box_view.apply_forces(forces)
-    await app_utils.update_app_async(steps=5)
-
-    # tangential forces
-    friction_forces, friction_points, friction_pair_contacts_count, friction_pair_contacts_start_indices = (
-        box_view.get_friction_data(dt=1 / 60)
-    )
-    # normal forces
-    forces, points, normals, distances, pair_contacts_count, pair_contacts_start_indices = (
-        box_view.get_contact_force_data(dt=1 / 60)
-    )
-    friction_forces = friction_forces.numpy()
-    forces = forces.numpy()
-    normals = normals.numpy()
-    pair_contacts_count = pair_contacts_count.numpy()
-    pair_contacts_start_indices = pair_contacts_start_indices.numpy()
-    friction_pair_contacts_count = friction_pair_contacts_count.numpy()
-    friction_pair_contacts_start_indices = friction_pair_contacts_start_indices.numpy()
-    # pair_contacts_count, pair_contacts_start_indices are tensors of size num_sensors x num_filters
-    # friction_pair_contacts_count, friction_pair_contacts_start_indices are tensors of size num_sensors x num_filters
-    # use the following tensors to sum across all the contact points
-    force_aggregate = np.zeros((len(box_view), box_view.num_contact_filters, 3))
-    friction_force_aggregate = np.zeros((len(box_view), box_view.num_contact_filters, 3))
-
-    # process contacts for each pair i, j
-    for i in range(pair_contacts_count.shape[0]):
-        for j in range(pair_contacts_count.shape[1]):
-            start_idx = pair_contacts_start_indices[i, j]
-            friction_start_idx = friction_pair_contacts_start_indices[i, j]
-            count = pair_contacts_count[i, j]
-            friction_count = friction_pair_contacts_count[i, j]
-            # sum/average across all the contact points for each pair
-            pair_forces = forces[start_idx : start_idx + count]
-            pair_normals = normals[start_idx : start_idx + count]
-            force_aggregate[i, j] = np.sum(pair_forces * pair_normals, axis=0)
-
-            # sum/average across all the friction pairs
-            pair_forces = friction_forces[friction_start_idx : friction_start_idx + friction_count]
-            friction_force_aggregate[i, j] = np.sum(pair_forces, axis=0)
-
-    print("friction forces: \n", friction_force_aggregate)
-    print("contact forces: \n", force_aggregate)
-    # get_contact_force_matrix API is equivalent to the summation of the individual contact forces computed above
-    print("contact force matrix: \n", box_view.get_contact_force_matrix(dt=1 / 60).numpy())
-    # get_net_contact_forces API is the summation of the all forces
-    # in the current example because all the potential contacts are captured by the choice of our filter prims (/World/GroundPlane/collisionPlane)
-    # the following is similar to the reduction of the contact force matrix above across the filters
-    print("net contact force: \n", box_view.get_net_contact_forces(dt=1 / 60).numpy())
-    app_utils.stop()
-
-asyncio.ensure_future(contact_force_example())
-```
-
-See the [API Documentation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.RigidPrim) for more information about contact APIs on `RigidPrim`.
-
-### Set Mass Properties for a Mesh
-
-The snippet below shows how to set the mass of a physics object. Density can also be specified as an alternative
-
-```python
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-cube = Cube("/World/Cube")
-# Make it a rigid body
-geom_prim = GeomPrim(cube.paths, apply_collision_apis=True)
-geom_prim.set_collision_approximations(["convexHull"])
-
-rigid_prim = RigidPrim(cube.paths)
-rigid_prim.set_masses([10.0])
-### Alternatively set the density
-rigid_prim.set_densities([1000.0])
-```
-
-### Get Size of a Mesh
-
-The snippet below shows how to get the size of a mesh.
-
-```python
-import isaacsim.core.experimental.utils.bounds as bounds_utils
-from isaacsim.core.experimental.objects import Cone
-
-cone = Cone("/World/Cone")
-# Get the size
-aabb = bounds_utils.compute_aabb(cone.paths[0])
-prim_size = aabb[3:] - aabb[:3]
-print(prim_size)
-```
-
-### Apply Semantic Data on Entire Stage
-
-The snippet below shows how to programmatically apply semantic data on objects by iterating the entire stage.
-
-```python
-import isaacsim.core.experimental.utils.semantics as semantics_utils
-import omni.usd
-
-def remove_prefix(name, prefix):
-    if name.startswith(prefix):
-        return name[len(prefix) :]
-    return name
-
-def remove_numerical_suffix(name):
-    suffix = name.split("_")[-1]
-    if suffix.isnumeric():
-        return name[: -len(suffix) - 1]
-    return name
-
-def remove_underscores(name):
-    return name.replace("_", "")
-
-stage = omni.usd.get_context().get_stage()
-for prim in stage.Traverse():
-    if prim.GetTypeName() == "Mesh":
-        label = str(prim.GetPrimPath()).split("/")[-1]
-        label = remove_prefix(label, "SM_")
-        label = remove_numerical_suffix(label)
-        label = remove_underscores(label)
-        semantics_utils.add_labels(prim, labels=[label], taxonomy="class")
-```
-
-### Convert Asset to USD
-
-The below script will convert a non-USD asset like OBJ/STL/FBX to USD. This is meant to be used inside the [Script Editor](../development_tools/omniverse_script_editor.html#script-editor). For running it as a [Standalone Application](../introduction/workflows.html#standalone-application), Check [Python Environment](manual_standalone_python.html#isaac-sim-python-environment).
-The input mesh path is illustrative and should be replaced with the asset path you want to convert.
-
-```python
-import asyncio
-import tempfile
-from pathlib import Path
-
-import carb
-import omni
-
-async def convert_asset_to_usd(input_obj: str, output_usd: str):
-    import omni.kit.asset_converter
-
-    def progress_callback(progress, total_steps):
-        pass
-
-    converter_context = omni.kit.asset_converter.AssetConverterContext()
-    # setup converter and flags
-    # converter_context.ignore_material = False
-    # converter_context.ignore_animation = False
-    # converter_context.ignore_cameras = True
-    # converter_context.single_mesh = True
-    # converter_context.smooth_normals = True
-    # converter_context.preview_surface = False
-    # converter_context.support_point_instancer = False
-    # converter_context.embed_mdl_in_usd = False
-    # converter_context.use_meter_as_world_unit = True
-    # converter_context.create_world_as_default_root_prim = False
-    instance = omni.kit.asset_converter.get_instance()
-    task = instance.create_converter_task(input_obj, output_usd, progress_callback, converter_context)
-    success = await task.wait_until_finished()
-    if not success:
-        carb.log_error(f"{task.get_status()}, {task.get_error_message()}")
-    print("converting done")
-
-demo_dir = Path(tempfile.gettempdir()) / "isaacsim_asset_converter_demo"
-demo_dir.mkdir(parents=True, exist_ok=True)
-
-# This repo mesh path is illustrative; replace it with the path to your own OBJ/STL/FBX asset.
-input_asset = Path("source/standalone_examples/data/torus/torus.stl")
-output_usd = demo_dir / "torus.usd"
-asyncio.ensure_future(convert_asset_to_usd(str(input_asset), str(output_usd)))
-```
-
-The details about the optional import options in the converter context can be found [here](https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-converter.html "(in Omniverse Extensions)").
-
-## Physics How-Tos
-
-### Create A Physics Scene
-
-```python
-from isaacsim.core.simulation_manager import PhysxScene
-
-# Add a physics scene prim to stage
-physics_scene = PhysxScene("/World/physicsScene")
-# Set gravity vector
-physics_scene.set_gravity([0.0, 0.0, -9.81])
-```
-
-The following can be added to set specific settings, in this case use CPU physics and the TGS solver
-
-```python
-from isaacsim.core.simulation_manager import PhysxScene, SimulationManager
-
-physics_scene = PhysxScene("/World/physicsScene")
-physics_scene.set_gravity([0.0, 0.0, -9.81])
-
-SimulationManager.set_device("cpu")
-physics_scene.set_enabled_ccd(True)
-physics_scene.set_enabled_stabilization(True)
-physics_scene.set_enabled_gpu_dynamics(False)
-physics_scene.set_broadphase_type("MBP")
-physics_scene.set_solver_type("TGS")
-```
-
-Adding a ground plane to a stage can be done via the following code:
-It creates a Z up plane with a size of 100 cm at a Z coordinate of -100
-
-```python
-from isaacsim.core.experimental.objects import GroundPlane
-
-GroundPlane("/World/groundPlane", sizes=100.0, positions=[0.0, 0.0, -100.0], colors=[1.0, 1.0, 1.0], templates=None)
-```
-
-### Enable Physics And Collision For a Mesh
-
-The script below assumes there is a physics scene in the stage.
-
-```python
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-# Create a cube mesh in the stage
-cube = Cube("/World/Cube")
-# Enable physics on prim
-# If a tighter collision approximation is desired use convexDecomposition instead of convexHull
-geom_prim = GeomPrim(cube.paths, apply_collision_apis=True)
-geom_prim.set_collision_approximations(["convexHull"])
-RigidPrim(cube.paths)
-```
-
-If a tighter collision approximation is desired use convexDecomposition
-
-```python
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import GeomPrim, RigidPrim
-
-# Create a cube mesh in the stage
-cube = Cube("/World/Cube")
-# Enable physics on prim
-# If a tighter collision approximation is desired use convexDecomposition instead of convexHull
-geom_prim = GeomPrim(cube.paths, apply_collision_apis=True)
-geom_prim.set_collision_approximations(["convexDecomposition"])
-RigidPrim(cube.paths)
-```
-
-To verify that collision meshes have been successfully enabled, click the “eye” icon > “Show By Type” >
-“Physics Mesh” > “All”. This will show the collision meshes as pink outlines on the objects.
-
-### Traverse a stage and assign collision meshes to children
-
-```python
-import isaacsim.core.experimental.utils.stage as stage_utils
-from isaacsim.core.experimental.objects import Cube, Mesh
-from isaacsim.core.experimental.prims import GeomPrim
-from pxr import Usd, UsdGeom
-
-stage = stage_utils.get_current_stage()
-
-def add_cube(path, size: float = 10, offset=None):
-    if offset is None:
-        offset = [0.0, 0.0, 0.0]
-    Cube(path, sizes=size, positions=offset)
-
-### The following prims are added for illustrative purposes
-Mesh("/World/Torus", primitives="Torus")
-# all prims under AddCollision will get collisions assigned
-add_cube("/World/Cube_0", offset=[100.0, 100.0, 0.0])
-# create a prim nested under without a parent
-stage_utils.define_prim("/World/Nested", "Xform")
-add_cube("/World/Nested/Cube", offset=[100.0, 0.0, 100.0])
-###
-
-# Traverse all prims in the stage starting at this path
-curr_prim = stage.GetPrimAtPath("/")
-shape_types = (UsdGeom.Cylinder, UsdGeom.Capsule, UsdGeom.Cone, UsdGeom.Sphere, UsdGeom.Cube)
-
-for prim in Usd.PrimRange(curr_prim):
-    # only process shapes and meshes
-    if any(prim.IsA(shape_type) for shape_type in shape_types):
-        # use a ConvexHull for regular prims
-        geom_prim = GeomPrim(str(prim.GetPath()), apply_collision_apis=True)
-        geom_prim.set_collision_approximations(["convexHull"])
-    elif prim.IsA(UsdGeom.Mesh):
-        # "none" will use the base triangle mesh if available
-        # Can also use "convexDecomposition", "convexHull", "boundingSphere", "boundingCube"
-        geom_prim = GeomPrim(str(prim.GetPath()), apply_collision_apis=True)
-        geom_prim.set_collision_approximations(["none"])
-```
-
-### Do Overlap Test
-
-These snippets detect and report when objects overlap with a specified cubic/spherical region.
-The following is assumed: the stage contains a physics scene, all objects have collision meshes enabled,
-and the play button has been clicked.
-
-The parameters: extent, origin and rotation (or origin and radius) define the cubic/spherical region to check overlap against.
-The output of the physX query is the number of objects that overlaps with this cubic/spherical region.
-
-```python
-import carb
-import omni
-import omni.physx
-from omni.physx import get_physx_scene_query_interface
-from pxr import Gf, UsdGeom, Vt
-
-def report_hit(hit):
-    # When a collision is detected, the object color changes to red.
-    hitColor = Vt.Vec3fArray([Gf.Vec3f(180.0 / 255.0, 16.0 / 255.0, 0.0)])
-    usdGeom = UsdGeom.Mesh.Get(omni.usd.get_context().get_stage(), hit.rigid_body)
-    usdGeom.GetDisplayColorAttr().Set(hitColor)
-    return True
-
-def check_overlap():
-    # Defines a cubic region to check overlap with
-    extent = carb.Float3(20.0, 20.0, 20.0)
-    origin = carb.Float3(0.0, 0.0, 0.0)
-    rotation = carb.Float4(0.0, 0.0, 1.0, 0.0)
-    # physX query to detect number of hits for a cubic region
-    numHits = get_physx_scene_query_interface().overlap_box(extent, origin, rotation, report_hit, False)
-    # physX query to detect number of hits for a spherical region
-    # numHits = get_physx_scene_query_interface().overlap_sphere(radius, origin, report_hit, False)
-    return numHits > 0
-```
-
-### Do Raycast Test
-
-This snippet detects the closest object that intersects with a specified ray.
-The following is assumed: the stage contains a physics scene, all objects have collision meshes enabled,
-and the play button has been clicked.
-
-The parameters: origin, rayDir and distance define a ray along which a ray hit might be detected.
-The output of the query can be used to access the object’s reference, and its distance from the raycast origin.
-
-```python
-import carb
-import omni
-import omni.physx
-from omni.physx import get_physx_scene_query_interface
-from pxr import Gf, UsdGeom, Vt
-
-def check_raycast():
-    # Projects a raycast from 'origin', in the direction of 'rayDir', for a length of 'distance' cm
-    # Parameters can be replaced with real-time position and orientation data  (e.g. of a camera)
-    origin = carb.Float3(0.0, 0.0, 0.0)
-    rayDir = carb.Float3(1.0, 0.0, 0.0)
-    distance = 100.0
-    # physX query to detect closest hit
-    hit = get_physx_scene_query_interface().raycast_closest(origin, rayDir, distance)
-    if hit["hit"]:
-        # Change object color to yellow and record distance from origin
-        usdGeom = UsdGeom.Mesh.Get(omni.usd.get_context().get_stage(), hit["rigidBody"])
-        hitColor = Vt.Vec3fArray([Gf.Vec3f(255.0 / 255.0, 255.0 / 255.0, 0.0)])
-        usdGeom.GetDisplayColorAttr().Set(hitColor)
-        distance = hit["distance"]
-        return usdGeom.GetPath().pathString, distance
-    return None, 10000.0
-
-print(check_raycast())
-```
-
-## USD How-Tos
-
-### Creating, Modifying, Assigning Materials
-
-```python
-from isaacsim.core.experimental.materials import OmniGlassMaterial
-from isaacsim.core.experimental.objects import Cube
-
-# Create a new material using OmniGlass.mdl
-material = OmniGlassMaterial("/World/OmniGlassMaterial")
-# Set material inputs, these can be determined by looking at the .mdl file
-# or by selecting the Shader attached to the Material in the stage window and looking at the details panel
-material.set_input_values("glass_color", [0.0, 1.0, 0.0])
-material.set_input_values("glass_ior", [1.0])
-# Create a prim to apply the material to
-cube = Cube("/World/Cube")
-# Bind the material to the prim
-cube.apply_visual_materials(material)
-```
-
-Assigning a texture to a material that supports it can be done as follows:
-
-```python
-from isaacsim.core.experimental.materials import OmniPbrMaterial
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.storage.native import get_assets_root_path
-
-texture_path = get_assets_root_path(skip_check=True) + "/Isaac/Samples/DR/Materials/Textures/marble_tile.png"
-
-# Create a new material using OmniPBR.mdl
-material = OmniPbrMaterial("/World/OmniPBRMaterial")
-# Set material inputs, these can be determined by looking at the .mdl file
-# or by selecting the Shader attached to the Material in the stage window and looking at the details panel
-material.set_input_values("diffuse_texture", texture_path)
-# Create a prim to apply the material to
-cube = Cube("/World/Cube")
-# Bind the material to the prim
-cube.apply_visual_materials(material)
-```
-
-### Set World Pose on a Prim
-
-```python
-import isaacsim.core.experimental.utils.transform as transform_utils
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import XformPrim
-
-# Create a cube mesh in the stage to demonstrate setting a world pose on a prim
-cube = Cube("/World/Cube")
-
-# Get the prim and set its world pose
-orientation = transform_utils.euler_angles_to_quaternion([0.0, 290.0, 0.0], degrees=True)
-XformPrim(cube.paths).set_world_poses(positions=[[0.10, 1.0, 1.5]], orientations=orientation)
-```
-
-### Align two USD prims
-
-```python
-import isaacsim.core.experimental.utils.transform as transform_utils
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import XformPrim
-
-# Create a cube
-cube_a = Cube("/World/CubeA")
-# change the cube pose
-orientation = transform_utils.euler_angles_to_quaternion([0.0, 290.0, 0.0], degrees=True)
-prim_a = XformPrim(cube_a.paths)
-prim_a.set_world_poses(positions=[[0.10, 1.0, 1.5]], orientations=orientation)
-# Create a second cube
-cube_b = Cube("/World/CubeB")
-# Get the transform of the first cube
-positions, orientations = prim_a.get_world_poses()
-# Set the pose of prim_b to that of prim_a
-XformPrim(cube_b.paths).set_world_poses(positions=positions, orientations=orientations)
-```
-
-### Get World Transform At Current Timestamp For Selected Prims
-
-```python
-import isaacsim.core.experimental.utils.transform as transform_utils
-import omni
-from isaacsim.core.experimental.objects import Cube
-from isaacsim.core.experimental.prims import XformPrim
-
-usd_context = omni.usd.get_context()
-
-#### For testing purposes we create and select a prim
-#### This section can be removed if you already have a prim selected
-cube = Cube("/World/Cube")
-# change the cube pose
-orientation = transform_utils.euler_angles_to_quaternion([0.0, 290.0, 0.0], degrees=True)
-XformPrim(cube.paths).set_world_poses(positions=[[0.10, 1.0, 1.5]], orientations=orientation)
-omni.usd.get_context().get_selection().set_prim_path_selected(cube.paths[0], True, True, True, False)
-####
-
-# Get list of selected primitives
-selected_prims = usd_context.get_selection().get_selected_prim_paths()
-# Loop through all prims and print their transforms
-for prim_path in selected_prims:
-    print("Selected", prim_path)
-    positions, orientations = XformPrim(prim_path).get_world_poses()
-    rotation_matrices = transform_utils.quaternion_to_rotation_matrix(orientations)
-    print("Translation: ", positions.numpy()[0])
-    print("Rotation: ", orientations.numpy()[0])
-    print("Rotation matrix:", rotation_matrices.numpy()[0])
-```
-
-### Save current stage to USD
-
-This can be useful if generating a stage in Python and you want to store it to reload later for debugging.
-
-```python
-import tempfile
-from pathlib import Path
-
-import omni
-from isaacsim.core.experimental.objects import Cube
-
-# Create a prim
-Cube("/World/Cube")
-# Change the path as needed.
-output_path = Path(tempfile.gettempdir()) / "isaacsim_saved_stage.usd"
-omni.usd.get_context().save_as_stage(str(output_path), None)
-print(f"Saved stage to {output_path}")
-```
-
-On this page
-
-* [Objects Creation and Manipulation](#objects-creation-and-manipulation)
-  + [Rigid Object Creation](#rigid-object-creation)
-  + [View Objects](#view-objects)
-  + [Create RigidPrim](#create-rigidprim)
-  + [Create RigidPrim With Contact Filters](#create-rigidprim-with-contact-filters)
-  + [Set Mass Properties for a Mesh](#set-mass-properties-for-a-mesh)
-  + [Get Size of a Mesh](#get-size-of-a-mesh)
-  + [Apply Semantic Data on Entire Stage](#apply-semantic-data-on-entire-stage)
-  + [Convert Asset to USD](#convert-asset-to-usd)
-* [Physics How-Tos](#physics-how-tos)
-  + [Create A Physics Scene](#create-a-physics-scene)
-  + [Enable Physics And Collision For a Mesh](#enable-physics-and-collision-for-a-mesh)
-  + [Traverse a stage and assign collision meshes to children](#traverse-a-stage-and-assign-collision-meshes-to-children)
-  + [Do Overlap Test](#do-overlap-test)
-  + [Do Raycast Test](#do-raycast-test)
-* [USD How-Tos](#usd-how-tos)
-  + [Creating, Modifying, Assigning Materials](#creating-modifying-assigning-materials)
-  + [Set World Pose on a Prim](#set-world-pose-on-a-prim)
-  + [Align two USD prims](#align-two-usd-prims)
-  + [Get World Transform At Current Timestamp For Selected Prims](#get-world-transform-at-current-timestamp-for-selected-prims)
-  + [Save current stage to USD](#save-current-stage-to-usd)
-
----
-
-### Standalone Python
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/manual_standalone_python.html
-
-* [Python Scripting and Tutorials](index.html)
-* Python Environment
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Python Environment
-
-This document will cover:
-
-* Details about how running standalone Python scripts works.
-* A short list of interesting/useful standalone Python scripts to try.
-* Resources to develop Python scripts for NVIDIA Isaac Sim, such as VSCode and Jupyter Notebook support.
-
-## Details: How `python.sh` works
-
-Note
-
-* On Windows use python.bat instead of python.sh
-* The details of how python.sh works below are similar to how python.bat works
-
-This script first defines the location of the apps folder so the contained .kit files can be located at runtime.
-
-```python
-# Get path to the script
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# The apps directory is relative to where the script lives
-export EXP_PATH=$SCRIPT_DIR/apps
-```
-
-Then we source the NVIDIA Isaac Sim Python environment so all extension interfaces can be loaded correctly.
-
-```python
-source ${SCRIPT_DIR}/setup_python_env.sh
-```
-
-The setup\_python\_env.sh script update/defined the following environment variables:
-
-* ISAAC\_PATH: Path to the main isaac folder
-* PYTHONPATH: Paths to each extensions Python interfaces
-* LD\_LIBRARY\_PATH: Paths to binary interfaces required to find symbols at runtime
-* CARB\_APP\_PATH: path to the core Omniverse kit executable
-
-Finally, we execute the Python interpreter that is packaged with Omniverse:
-
-```python
-python_exe=${PYTHONEXE:-"${SCRIPT_DIR}/kit/python/bin/python3"}
-...
-$python_exe $@
-```
-
-## SimulationApp
-
-The [SimulationApp Class](../py/source/extensions/isaacsim.simulation_app/docs/index.html) provides convenience functions to manage the lifetime of a NVIDIA Isaac Sim application.
-
-### Usage Example:
-
-The following code provides a usage example for how SimulationApp can be used to create an app, step forward in time and then exit.
-
-Note
-
-Any Omniverse level imports **must** occur after the class is instantiated.
-Because APIs are provided by the extension/runtime plugin system, it must be loaded before they will be available to import.
-
-Important
-
-When running headless:
-
-* Set `"headless": True` in the config when initializing `SimulationApp`
-* Any calls that create/open a matplotlib window need to be commented out
-
-```python
-from isaacsim import SimulationApp
-
-# Simple example showing how to start and stop the helper
-simulation_app = SimulationApp({"headless": True})
-
-### Perform any omniverse imports here after the helper loads ###
-
-simulation_app.update()  # Render a single frame
-simulation_app.close()  # Cleanup application
-```
-
-### Details: How `SimulationApp` works
-
-Although `SimulationApp` further configures the application and exposes APIs, there are some fundamental steps in any Omniverse Kit-based implementation that must be executed.
-
-The first is to get the carbonite framework.
-Here the environment variables (e.g.: `CARB_APP_PATH`, `ISAAC_PATH` and `EXP_PATH`) were defined when running the python.sh script.
-
-```python
-import carb
-import omni.kit.app
-
-framework = carb.get_framework()
-framework.load_plugins(
-    loaded_file_wildcards=["omni.kit.app.plugin"],
-    search_paths=[os.path.abspath(f'{os.environ["CARB_APP_PATH"]}/kernel/plugins')],
-)
-```
-
-After loading the framework, it is possible to configure the start arguments before loading the application. For example:
-
-```python
-# Inject a experience config
-sys.argv.insert(1, f'{os.environ["EXP_PATH"]}/isaacsim.exp.base.python.kit')
-
-# Add paths to extensions
-sys.argv.append(f"--ext-folder")
-sys.argv.append(f'{os.path.abspath(os.environ["ISAAC_PATH"])}/exts')
-
-# Run headless
-sys.argv.append("--no-window")
-```
-
-And then start the application.
-
-```python
-app = omni.kit.app.get_app()
-app.startup("Isaac-Sim", os.environ["CARB_APP_PATH"], sys.argv)
-```
-
-Shutting down a running application is done by calling `shutdown` and then unloading the framework:
-
-```python
-app.shutdown()
-framework.unload_all_plugins()
-```
-
-### Enabling additional extensions
-
-There are two methods for adding additional extensions:
-
-1. Under `[dependencies]` section in an experience file (e.g.: `apps/isaacsim.exp.base.python.kit`):
-
-   > ```python
-   > # [dependencies]
-   > # # Enable the layers and stage windows in the UI
-   > # "omni.kit.window.stage" = {}
-   > # "omni.kit.widget.layers" = {}
-   > ```
-2. From Python code:
-
-   ```python
-   from isaacsim import SimulationApp
-
-   # Start the application
-   simulation_app = SimulationApp({"headless": False})
-
-   # Get the utility to enable extensions
-   from isaacsim.core.utils.extensions import enable_extension
-
-   # Enable the layers and stage windows in the UI
-   enable_extension("omni.kit.widget.stage")
-   enable_extension("omni.kit.widget.layers")
-
-   simulation_app.update()
-   ```
-
-## Standalone Example Scripts
-
-### Time Stepping
-
-This sample shows how to start an Omniverse Kit Python app and then create callbacks which get called each rendering frame and each physics timestep. It also shows the different ways to step physics and rendering.
-
-The sample can be executed by running the following:
-
-```python
-./python.sh standalone_examples/deprecated/api/isaacsim.core.api/time_stepping.py
-```
-
-### Load USD Stage
-
-This sample demonstrates how to load a USD stage and start simulating it.
-
-The sample can be executed by running the following, specify `usd_path` to a location on your nucleus server:
-
-```python
-./python.sh standalone_examples/api/isaacsim.simulation_app/load_stage.py --usd_path /Isaac/Environments/Simple_Room/simple_room.usd
-```
-
-### URDF Import
-
-This sample demonstrates how to use the URDF Python API, configure its physics and then simulate it for a fixed number of frames.
-
-The sample can be executed by running the following:
-
-```python
-./python.sh standalone_examples/api/isaacsim.asset.importer.urdf/urdf_import.py
-```
-
-### Change Resolution
-
-This sample demonstrates how to change the resolution of the viewport at runtime.
-
-The sample can be executed by running the following:
-
-```python
-./python.sh standalone_examples/api/isaacsim.simulation_app/change_resolution.py
-```
-
-### Convert Assets to USD
-
-This sample demonstrates how to batch convert OBJ/STL/FBX assets to USD.
-
-To execute it with sample data, run the following:
-
-```python
-./python.sh standalone_examples/api/omni.kit.asset_converter/asset_usd_converter.py --folders standalone_examples/data/cube standalone_examples/data/torus
-```
-
-The input folders containing OBJ/STL/FBX assets are specified as argument
-and it will output in terminal the path to converted USD files.
-
-```python
-Converting folder standalone_examples/data/cube...
----Added standalone_examples/data/cube_converted/cube_fbx.usd
-
-Converting folder standalone_examples/data/torus...
----Added standalone_examples/data/torus_converted/torus_stl.usd
-```
-
-This sample leverages Python APIs from the [Asset Importer](https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-converter.html "(in Omniverse Extensions)") extension.
-
-The details about the import options can be found [here](https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-importer.html "(in Omniverse Extensions)").
-
-### Livestream
-
-This sample demonstrates how to enable livestreaming when running in native Python.
-
-See [Isaac Sim WebRTC Streaming Client](../installation/manual_livestream_clients.html#isaac-sim-setup-livestream-webrtc) for more information on running the client.
-
-```python
-./python.sh standalone_examples/api/isaacsim.simulation_app/livestream.py
-```
-
-Note
-
-* Running livestream.py will not have all of the default Isaac Sim extensions enabled. See [enabling additional extensions](#isaac-sim-python-additional-extensions) for more information.
-
-On this page
-
-* [Details: How `python.sh` works](#details-how-python-sh-works)
-* [SimulationApp](#simulationapp)
-  + [Usage Example:](#usage-example)
-  + [Details: How `SimulationApp` works](#details-how-simulationapp-works)
-  + [Enabling additional extensions](#enabling-additional-extensions)
-* [Standalone Example Scripts](#standalone-example-scripts)
-  + [Time Stepping](#time-stepping)
-  + [Load USD Stage](#load-usd-stage)
-  + [URDF Import](#urdf-import)
-  + [Change Resolution](#change-resolution)
-  + [Convert Assets to USD](#convert-assets-to-usd)
-  + [Livestream](#livestream)
-
----
-
-### Robots Simulation
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/robots_simulation.html
-
-* [Python Scripting and Tutorials](index.html)
-* Robot Simulation Snippets
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Robot Simulation Snippets
-
-Hint
-
-Refer to the [Articulation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.Articulation) class documentation for more details on the API.
-
-## Wrapping Articulations
-
-Note
-
-The following snippets should only be run once on a new stage.
-Create a new stage (File > New menu) and run the snippets in the Script Editor (Window > Script Editor menu).
-
-Adds two Franka robots to the stage and wraps them via an [Articulation](../py/source/extensions/isaacsim.core.experimental.prims/docs/index.html#isaacsim.core.experimental.prims.Articulation) object to control them simultaneously.
-
-```python
- 1import isaacsim.core.experimental.utils.app as app_utils
- 2import isaacsim.core.experimental.utils.stage as stage_utils
- 3from isaacsim.core.experimental.prims import Articulation
- 4from isaacsim.storage.native import get_assets_root_path
- 5
- 6# Add Franka robots to the stage
- 7usd_path = get_assets_root_path() + "/Isaac/Robots/FrankaRobotics/FrankaPanda/franka.usd"
- 8variants = [("Gripper", "AlternateFinger"), ("Mesh", "Quality")]
- 9stage_utils.add_reference_to_stage(usd_path, path="/World/Franka_1", variants=variants)
-10stage_utils.add_reference_to_stage(usd_path, path="/World/Franka_2", variants=variants)
-11
-12# Wrap Franka robots via an Articulation object
-13articulations = Articulation(
-14    "/World/Franka_.*",
-15    positions=[[-1, -1, 0], [1, 1, 0]],
-16    reset_xform_op_properties=True,
-17)
-```
-
-Play the simulation.
-Then, open a new tab in the Script Editor window (Tab > Add Tab menu) and execute the following code to set the DOF positions for each articulation.
-
-```python
- 1
- 2from isaacsim.core.experimental.prims import Articulation
- 3
- 4# Wrap the existing Franka robots while the simulation is playing
- 5articulations = Articulation("/World/Franka_.*")
- 6
- 7# Set the joint positions for each articulation
- 8articulations.set_dof_position_targets(
- 9    [
-10        [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 0.0, 0.0],
-11        [-1.5, -1.5, -1.5, -1.5, -1.5, -1.5, -1.5, 0.04, 0.04],
-12    ]
-13)
-14
-```
-
-## DOF Control
-
-Note
-
-The following snippets should only be run once on a new stage that has the Franka robot at the `/Franka` prim path,
-and while the simulation is playing.
-
-Prepare the scene:
-
-1. Add a Franka robot to the stage via the Create > Robots > Franka Emika Panda Arm menu.
-2. Play the simulation.
-
-Warning
-
-The snippets are disparate examples, running them out of order may have unintended consequences.
-The resulting movements may not respect the robot’s kinematic limitations.
-
-Make sure there is a Franka robot at the `/Franka` prim path and that the simulation is playing.
-Then, open the Script Editor window (Window > Script Editor menu) and run the following snippets.
-
-### Query Articulation
-
-```python
- 1from isaacsim.core.experimental.prims import Articulation
- 2
- 3articulation = Articulation("/Franka")
- 4# Get articulation information
- 5print("DOF count:", articulation.num_dofs)
- 6print("DOF names:", articulation.dof_names)
- 7print("DOF paths:", articulation.dof_paths)
- 8print("DOF types:", articulation.dof_types)
- 9print("Link count:", articulation.num_links)
-10print("Link names:", articulation.link_names)
-11print("Link paths:", articulation.link_paths)
-```
-
-### Read DOF States
-
-```python
-1from isaacsim.core.experimental.prims import Articulation
-2
-3articulation = Articulation("/Franka")
-4# Get all DOF states
-5print("DOF positions:", articulation.get_dof_positions())
-6print("DOF velocities:", articulation.get_dof_velocities())
-7print("DOF efforts:", articulation.get_dof_efforts())
-```
-
-### DOF Position Control
-
-```python
-1import numpy as np
-2from isaacsim.core.experimental.prims import Articulation
-3
-4articulation = Articulation("/Franka")
-5# Set all DOF positions to random values between -1 and 1
-6articulation.set_dof_position_targets(np.random.rand(9) * 2 - 1)
-```
-
-### Single DOF Position Control
-
-```python
-1from isaacsim.core.experimental.prims import Articulation
-2
-3articulation = Articulation("/Franka")
-4# Set the 'panda_finger_joint1' DOF position to 0.04.
-5# The 'panda_finger_joint2' will mimic the value, as they are linked
-6articulation.set_dof_position_targets(0.04, dof_indices=articulation.get_dof_indices("panda_finger_joint1"))
-```
-
-### DOF Velocity Control
-
-```python
-1import numpy as np
-2from isaacsim.core.experimental.prims import Articulation
-3
-4articulation = Articulation("/Franka")
-5# Switch to velocity control mode
-6articulation.switch_dof_control_mode("velocity")
-7# Set all DOF velocities to random values between -10 and 10
-8articulation.set_dof_velocity_targets(10 * (np.random.rand(9) * 2 - 1))
-```
-
-### Single DOF Velocity Control
-
-```python
-1from isaacsim.core.experimental.prims import Articulation
-2
-3articulation = Articulation("/Franka")
-4# Switch to velocity control mode
-5articulation.switch_dof_control_mode("velocity")
-6# Set the 'panda_joint4' DOF velocity to 0.25
-7articulation.set_dof_velocity_targets(0.25, dof_indices=articulation.get_dof_indices("panda_joint4"))
-```
-
-### DOF Effort Control
-
-```python
-1import numpy as np
-2from isaacsim.core.experimental.prims import Articulation
-3
-4articulation = Articulation("/Franka")
-5# Switch to effort control mode
-6articulation.switch_dof_control_mode("effort")
-7# Set all DOF efforts to random values between -100 and 100
-8articulation.set_dof_efforts(100 * (np.random.rand(9) * 2 - 1))
-```
-
-On this page
-
-* [Wrapping Articulations](#wrapping-articulations)
-* [DOF Control](#dof-control)
-  + [Query Articulation](#query-articulation)
-  + [Read DOF States](#read-dof-states)
-  + [DOF Position Control](#dof-position-control)
-  + [Single DOF Position Control](#single-dof-position-control)
-  + [DOF Velocity Control](#dof-velocity-control)
-  + [Single DOF Velocity Control](#single-dof-velocity-control)
-  + [DOF Effort Control](#dof-effort-control)
-
----
-
-### Util Snippets
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/util_snippets.html
-
-* [Python Scripting and Tutorials](index.html)
-* Util Snippets
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Util Snippets
-
-## Simple Async Task
-
-```python
-import asyncio
-
-import omni
-
-# Async task that pauses simulation once the incoming task is complete
-async def pause_sim(task):
-    done, pending = await asyncio.wait({task})
-    if task in done:
-        print("Waited until next frame, pausing")
-        omni.timeline.get_timeline_interface().pause()
-
-# Start simulation, then wait a frame and run the pause_sim task
-omni.timeline.get_timeline_interface().play()
-task = asyncio.ensure_future(omni.kit.app.get_app().next_update_async())
-asyncio.ensure_future(pause_sim(task))
-```
-
-## Get Camera Parameters
-
-The below script show how to get the camera parameters associated with a viewport.
-
-```python
-import math
-
-import omni
-from omni.syntheticdata import helpers
-
-stage = omni.usd.get_context().get_stage()
-viewport_api = omni.kit.viewport.utility.get_active_viewport()
-# Set viewport resolution, changes will occur on next frame
-viewport_api.set_texture_resolution((512, 512))
-# get resolution
-width, height = viewport_api.get_texture_resolution()
-aspect_ratio = width / height
-# get camera prim attached to viewport
-camera = stage.GetPrimAtPath(viewport_api.get_active_camera())
-focal_length = camera.GetAttribute("focalLength").Get()
-horiz_aperture = camera.GetAttribute("horizontalAperture").Get()
-vert_aperture = camera.GetAttribute("verticalAperture").Get()
-# Pixels are square so we can also do:
-# vert_aperture = height / width * horiz_aperture
-near, far = camera.GetAttribute("clippingRange").Get()
-fov = 2 * math.atan(horiz_aperture / (2 * focal_length))
-# helper to compute projection matrix
-proj_mat = helpers.get_projection_matrix(fov, aspect_ratio, near, far)
-
-# compute focal point and center
-focal_x = height * focal_length / vert_aperture
-focal_y = width * focal_length / horiz_aperture
-center_x = height * 0.5
-center_y = width * 0.5
-```
-
-## Rendering
-
-There are three primary APIs you should use when making frequent updates to large amounts of geometry: `UsdGeom.Points`,
-`UsdGeom.PointInstancer`, and `DebugDraw`. The different advantages and limitations of each of these methods are explained
-below, and can help guide you on which method to use.
-
-### UsdGeom.Points
-
-Use the `UsdGeom.Points` API when the geometry needs to interact with the renderer.
-The `UsdGeom.Points` API is the most efficient method to render large amounts of point geometry.
-
-> ```python
-> import random
->
-> import omni.usd
-> from pxr import UsdGeom
->
->
-> class Example:
->     def create(self):
->         # Create Point List
->         N = 500
->         self.point_list = [
->             (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0)) for _ in range(N)
->         ]
->         self.sizes = [0.05 for _ in range(N)]
->
->         points_path = "/World/Points"
->         stage = omni.usd.get_context().get_stage()
->         self.points = UsdGeom.Points.Define(stage, points_path)
->         self.points.CreatePointsAttr().Set(self.point_list)
->         self.points.CreateWidthsAttr().Set(self.sizes)
->         self.points.CreateDisplayColorPrimvar("constant").Set([(1, 0, 1)])
->
->     def update(self):
->         # modify the point list
->         for i in range(len(self.point_list)):
->             self.point_list[i] = (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0))
->         # update the points
->         self.points.GetPointsAttr().Set(self.point_list)
->
->
-> import asyncio
->
-> import omni
->
-> example = Example()
-> example.create()
->
->
-> async def update_points():
->     # Update 10 times, waiting 10 frames between each update
->     for _ in range(10):
->         for _ in range(10):
->             await omni.kit.app.get_app().next_update_async()
->         example.update()
->
->
-> asyncio.ensure_future(update_points())
-> ```
-
-### UsdGeom.PointInstancer
-
-Use the `UsdGeom.PointInstancer` API when the geometry needs to interact with the physics scene.
-The `UsdGeom.PointInstancer` API lets you efficiently replicate an instance of a prim — with all of its USD properties —
-and update all instances with a list of positions, colors, and sizes.
-
-See the [PointInstancer Reference](https://openusd.org/release/api/class_usd_geom_point_instancer.html) for more information regarding the PointInstancer API.
-
-Below are code snippets for how to create and update geometry with `UsdGeom.PointInstancer`:
-
-> ```python
-> import random
->
-> import omni.usd
-> from pxr import Gf, UsdGeom
->
->
-> class Example:
->     def create(self):
->         # Create Point List
->         N = 500
->         scale = 0.05
->         self.point_list = [
->             (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0)) for _ in range(N)
->         ]
->         self.colors = [(1, 1, 1, 1) for _ in range(N)]
->         self.sizes = [(1.0, 1.0, 1.0) for _ in range(N)]
->
->         # Set up Geometry to be Instanced
->         cube_path = "/World/Cube"
->         stage = omni.usd.get_context().get_stage()
->         cube = UsdGeom.Cube(stage.DefinePrim(cube_path, "Cube"))
->         cube.AddScaleOp().Set(Gf.Vec3d(1, 1, 1) * scale)
->         cube.CreateDisplayColorPrimvar().Set([(0, 1, 1)])
->         # Set up Point Instancer
->
->         instance_path = "/World/PointInstancer"
->         self.point_instancer = UsdGeom.PointInstancer(stage.DefinePrim(instance_path, "PointInstancer"))
->         # Create & Set the Positions Attribute
->         self.positions_attr = self.point_instancer.CreatePositionsAttr()
->         self.positions_attr.Set(self.point_list)
->         self.scale_attr = self.point_instancer.CreateScalesAttr()
->         self.scale_attr.Set(self.sizes)
->         # Set the Instanced Geometry
->         self.point_instancer.CreatePrototypesRel().SetTargets([cube.GetPath()])
->
->         self.proto_indices_attr = self.point_instancer.CreateProtoIndicesAttr()
->         self.proto_indices_attr.Set([0] * len(self.point_list))
->
->     def update(self):
->         # modify the point list
->         for i in range(len(self.point_list)):
->             self.point_list[i] = (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0))
->         # update the points
->         self.positions_attr.Set(self.point_list)
->
->
-> import asyncio
->
-> import omni
->
-> example = Example()
-> example.create()
->
->
-> async def update_points():
->     # Update 10 times, waiting 10 frames between each update
->     for _ in range(10):
->         for _ in range(10):
->             await omni.kit.app.get_app().next_update_async()
->         example.update()
->
->
-> asyncio.ensure_future(update_points())
-> ```
-
-### DebugDraw
-
-The [Debug Drawing Extension API](../utilities/debugging/ext_isaacsim_util_debug_draw.html#isaac-debug-draw) API is useful for purely visualizing geometry in the Viewport. Geometry drawn with the `debug_draw_interface`
-cannot be rendered and does not interact with the physics scene. However, it is the most performance-efficient method of visualizing geometry.
-
-> See the [API documentation](../py/docs/extsbuild/isaacsim.util.debug_draw/docs/index.html) for complete usage information.
-
-Below are code snippets for how to create and update geometry visualed with `DebugDraw`:
-
-> ```python
-> import random
->
-> from isaacsim.util.debug_draw import _debug_draw
->
->
-> class Example:
->     def create(self):
->         self.draw = _debug_draw.acquire_debug_draw_interface()
->         N = 500
->         self.point_list = [
->             (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0)) for _ in range(N)
->         ]
->         self.color_list = [(random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1), 1) for _ in range(N)]
->         self.size_list = [10.0 for _ in range(N)]
->
->     def update(self):
->         # modify the point list
->         for i in range(len(self.point_list)):
->             self.point_list[i] = (random.uniform(-2.0, 2.0), random.uniform(-0.1, 0.1), random.uniform(-1.0, 1.0))
->
->         # draw the points
->         self.draw.clear_points()
->         self.draw.draw_points(self.point_list, self.color_list, self.size_list)
->
->
-> import asyncio
->
-> import omni
->
-> example = Example()
-> example.create()
->
->
-> async def update_points():
->     # Update 10 times, waiting 10 frames between each update
->     for _ in range(10):
->         for _ in range(10):
->             await omni.kit.app.get_app().next_update_async()
->         example.update()
->
->
-> asyncio.ensure_future(update_points())
-> ```
-
-### Rendering Frame Delay
-
-The default rendering pipeline in the app experiences have upto 3 frames in flight to be rendered, which results in higher FPS since the simulation is not blocked until the latest state is rendered completely.
-
-For applications that need the rendered data to correspond to the latest simulation state with no delay, the following experience file should be used `apps/omni.isaac.sim.zero_delay.python.kit`. Below is an example of how to use the experience file in a standlone workflow.
-
-```python
-import os
-
-from isaacsim import SimulationApp
-
-SimulationApp({"headless": True}, experience=f"{os.environ['EXP_PATH']}/isaacsim.exp.base.zero_delay.kit")
-```
-
-Alternatively, if you would like to use the specific settings instead, you can set them with extra\_args as well:
-
-```python
-from isaacsim import SimulationApp
-
-SimulationApp(
-    {
-        "headless": True,
-        "extra_args": [
-            "--/app/hydraEngine/waitIdle=1",
-            "--/app/updateOrder/checkForHydraRenderComplete=1000",
-            "--/exts/isaacsim.ros2.bridge/publish_multithreading_disabled=1",
-        ],
-    },
-)
-```
-
-On this page
-
-* [Simple Async Task](#simple-async-task)
-* [Get Camera Parameters](#get-camera-parameters)
-* [Rendering](#rendering)
-  + [UsdGeom.Points](#usdgeom-points)
-  + [UsdGeom.PointInstancer](#usdgeom-pointinstancer)
-  + [DebugDraw](#debugdraw)
-  + [Rendering Frame Delay](#rendering-frame-delay)
 
 ---
 

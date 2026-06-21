@@ -2,7 +2,7 @@
 
 > OmniGraph 自定义节点（C++/Python/IPC）+ Robot Simulation 核心（Articulation Controller, Gripper）
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:58 UTC
+> 最后组装: 2026-06-21 14:14 UTC
 > 来源页数: 13
 
 ---
@@ -26,63 +26,1289 @@
 ---
 
 
-## Robot Simulation
+## OmniGraph
 
-### Robot Simulation Index
+### OmniGraph Index
 
 > 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/index.html
 
-* Robot Simulation
+* OmniGraph
 
 [Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
 
-# Robot Simulation
+# OmniGraph
 
-Note
+OmniGraph is Omniverse’s visual programming framework. It provides a graph framework that connects functions from multiple systems inside Omniverse. It is also a compute framework that allows for highly customized nodes so that you can integrate your own functionality into Omniverse and automatically harness the efficient computation backend.
 
-We are introducing a new [Motion Generation (Experimental)](../motion_generation/index.html) API which aims to package all Isaac Sim control algorithms
-(wheeled robots, manipulators, humanoids) under a single framework. This new API provides a flexible controller composition
-system and simplifies building collision world models from your USD stage. This extension is documented under
-the [Robot Motion (Experimental)](../robot_motion_experimental/index.html) section.
+Inside NVIDIA Isaac Sim, OmniGraph is the main engine for the Replicators, ROS 2 bridge, sensor access, controllers, external input/output devices, UI, and much more.
 
-The Robot Simulation section provides information on tools that you will need to move a robot. The lowest level of control is joint control. For the next level up, we separated the controllers by the robot types, for they represent the three types of controllers we provide in Isaac Sim:
+To access OmniGraph’s editor, go to **Window > Graph Editors > Action Graph**.
 
-* **Wheeled Robots**: use controllers that are based on universal formulas and require very few robot-specific parameters as inputs.
-* **Manipulators**: use controllers that are based on complex optimization, therefore the same robot performing the same task could use many variety of controllers, each with a different optimization method. They often require the robot models in the optimization process.
-* **Policy Controlled Robots**: uses controllers that are trained using reinforcement learning. They also has a much looser definition “controllers”, for they can have task and path planners embedded as well.
+* [OmniGraph Interface](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/interface.html "(in Omniverse Extensions)")
+* [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)")
+* [Commonly Used OmniGraph Shortcuts](omnigraph_shortcuts.html)
+* [Custom Python Nodes](omnigraph_custom_python_nodes.html)
+* [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html)
+* [Building Custom IPC OmniGraph Nodes](omnigraph_custom_ipc_nodes.html)
+* [Additional Resources](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)")
 
-## Joint Level Control
+## Tutorials
 
-* [Articulation Controller](articulation_controller.html)
-
-## Wheeled Robots
-
-* [Mobile Robot Controllers](mobile_robot_controllers.html)
-
-## Manipulators
-
-* [Motion Generation (Deprecated)](../manipulators/motion_generation_overview.html)
-* [Surface Gripper Extension](ext_isaacsim_robot_surface_gripper.html)
-* [Grasp Editor](grasp_editor.html)
-
-## Policy Controlled Robots
-
-* [Reinforcement Learning Policies Examples in Isaac Sim](ext_isaacsim_robot_policy_example.html)
-
-### Tips and Deep Dives
-
-* [Robot Simulation Tips](robot_simulation_tips.html)
-* [Useful Links](robot_simulation_core_concepts.html)
+* [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)")
+* [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html)
+* [OmniGraph via Python Scripting Tutorial](omnigraph_scripting.html)
 
 On this page
 
-* [Joint Level Control](#joint-level-control)
-* [Wheeled Robots](#wheeled-robots)
-* [Manipulators](#manipulators)
-* [Policy Controlled Robots](#policy-controlled-robots)
-  + [Tips and Deep Dives](#tips-and-deep-dives)
+* [Tutorials](#tutorials)
 
 ---
+
+### OmniGraph Tutorial
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_tutorial.html
+
+* [OmniGraph](index.html)
+* Isaac Sim OmniGraph Tutorial
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Isaac Sim OmniGraph Tutorial
+
+This tutorial introduces you to the world of visual programming via OmniGraph.
+We highly recommend that you also read [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)"), because it is a key component in Omniverse Kit.
+
+## Learning Objectives
+
+This tutorial aims to
+
+* walk you through building an action graph to control a robot in Isaac Sim, specifically, the Jetbot.
+* show you how to use the OmniGraph shortcuts to generate a differential controller graph for the Jetbot.
+
+## Build the Graph
+
+Let’s build an action graph to control a robot in Isaac Sim the Jetbot.
+
+### Setting Up the Stage
+
+1. On a new stage, start by right clicking and selecting **create > Physics > Ground Plane**.
+2. In the Content Browser, navigate to `Isaac Sim/Robots/NVIDIA/Jetbot/jetbot.usd`.
+3. Click and drag `jetbot.usd` onto the stage.
+4. Position the JetBot just above the ground plane.
+5. When completed, verify that the JetBot is under `/World/jetbot` in the context tree and that the stage looks similar to:
+
+Jetbot on the stage
+
+Note
+
+Click play! Validate that the JetBot falls and lands on the stage. Click stop before continuing.
+
+Depending on your default render settings, the camera of the JetBot may have a placeholder mesh (it looks like a gray television camera).
+To hide these meshes, click on the  icon in the viewport and select **Show By Type –> Cameras**.
+
+### Building the Graph
+
+1. Select **Window > Graph Editors > Action Graph** from the dropdown menu at the top of the editor.
+   The Graph Editor appears in the same pane as the Content browser.
+2. Click **New Action Graph** to open an empty graph.
+3. Type `controller` in the search bar of the graph editor.
+4. Drag an `Articulation Controller` and a `Differential Controller` onto the graph.
+
+The `Articulation Controller` applies driver commands (in the form of force, position, or velocity) to the specified joints
+of any prim with an articulation root.
+
+To tell the controller which robot it’s going to control:
+
+1. Select the `Articulation Controller` node in the graph and open up the property pane.
+2. You can either:
+
+   * Click **usePath** and Type in the path to the robot */World/jetbot* in **robotPath**
+
+     **OR**
+   * Click **Add Targets** near the top of the pane for `input:targetPrim` and select **JetBot** in the pop up window.
+
+The `Differential Controller` computes drive commands for a two wheeled robot given some target linear and angular velocity. Like the
+`Articulation Controller`, it also needs to be configured.
+
+1. Select the `Differential Controller` node in the graph.
+2. In the properties pane, set the `wheelDistance` to 0.1125, the `wheelRadius` to 0.03, and `maxAngularSpeed` to 0.2.
+
+The `Articulation Controller` also needs to know which joints to articulate. It expects this information in the form of a list of tokens or index values. Each joint in a robot has a name and the JetBot has exactly two. Verify this by examining the JetBot in the stage context tree. Within `/World/jetbot/chassis`
+are two revolute physics joints named `left_wheel_joint` and `right_wheel_joint`.
+
+Stage Tree
+
+1. Type `token` into the search bar of the graph editor.
+2. Add two `Constant Token` nodes to the graph.
+3. Select one and set it’s value to `left_wheel_joint` in the properties pane.
+4. Repeat this for the other constant token node, but set the value to `right_wheel_joint`.
+5. Type `make array` into the search bar of the graph editor.
+6. Add a `Make Array` node to the graph.
+7. Select the `Make Array` node and click on the `+` icon in the `inputs` section of the property pane menu to add a second input.
+8. Set the `arraySize` to 2 and set the input type to `token[]` from the dropdown menu in the same pane.
+9. Connect the constant token nodes to `input0` and `input1` of the `Make Array` node, and then the output of that node to the `Joint Names` input of the `Articulation Controller` node.
+
+The last node is the event node.
+
+1. Search for `playback` in the search bar of the graph editor.
+2. Add an `On Playback Tick` node to the graph. This node emits an execution event for every frame, but only while the simulation is playing.
+3. Connect the `Tick` output of the `On Playback Tick` node to the `Exec In` input of both controller nodes.
+4. Connect the `Velocity Command` output of the differential controller to the `Velocity Command` input of the articulation controller.
+5. Validate that the graph looks similar to:
+
+Simple differential control for the JetBot
+
+1. Press the play button.
+2. Select the `Differential Controller` node in the graph.
+3. Click and drag on either the angular or linear velocity values in the properties pane to change it’s value (or just click and type in the desired value).
+
+Note
+
+Explore the available OmniGraph nodes and try to setup a graph to control the JetBot with the keyboard. The graph
+below is an example graph for controlling the JetBot with a keyboard.
+
+Keyboard control Action graph for the JetBot
+
+## OmniGraph Shortcuts
+
+Putting the graph from scratch can be tedious, especially when you have to iterate. We made some shortcuts for frequently used graphs, so that within a couple clicks, you can generate a complex graph with multiple nodes and connections. They can be found under `Tools -> Robotics -> OmniGraph Controllers`, and the instructions for them are in [Commonly Used OmniGraph Shortcuts](omnigraph_shortcuts.html#isaac-sim-app-tutorial-advanced-omnigraph-shortcuts).
+
+To use the Differential Controller graph from the menu shortcut:
+
+1. Delete (or Disable if that is an option) any previous OmniGraphs that controls the Jetbot.
+2. Go to the Menu bar and click on **Tools -> Robotics -> OmniGraph Controllers -> Differential Controller**.
+3. You are prompted for the necessary parameters.
+4. Add “/World/jetbot” to `Articulation Root`, set the **distance between wheels** to 0.1125, and the **wheel radius** to 0.03.
+5. Given JetBot only has two controllable joints, you can leave the rest of the fields empty.
+6. Turn **Use Keyboard Control (WASD)** on.
+7. Click **OK** to generate the graph. You can open the generated graph under `/Graph/differential_controller`.
+8. Press **Play** to start simulation.
+9. Verify that you can move the JetBot using the WASD keys on the keyboard.
+
+## Summary
+
+This tutorial covered:
+
+* Basic concepts of OmniGraph
+* Setting up a stage with a robot
+* Using OmniGraph to construct interfaces to a robot
+* Using the OmniGraph shortcuts to generate differential controller graph
+
+### Further Learning
+
+* More in-depth concepts in [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)")
+* More details about all the OmniGraph shortcuts [Commonly Used OmniGraph Shortcuts](omnigraph_shortcuts.html#isaac-sim-app-tutorial-advanced-omnigraph-shortcuts)
+* Examples for composing OmniGraph via Python scripting: [OmniGraph via Python Scripting Tutorial](omnigraph_scripting.html#isaac-sim-app-tutorial-advanced-omnigraph-scripting)
+* Examples for writing custom Python nodes: [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes)
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Build the Graph](#build-the-graph)
+  + [Setting Up the Stage](#setting-up-the-stage)
+  + [Building the Graph](#building-the-graph)
+* [OmniGraph Shortcuts](#omnigraph-shortcuts)
+* [Summary](#summary)
+  + [Further Learning](#further-learning)
+
+---
+
+### OmniGraph Scripting
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_scripting.html
+
+* [OmniGraph](index.html)
+* OmniGraph via Python Scripting Tutorial
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# OmniGraph via Python Scripting Tutorial
+
+While OmniGraph is intended to be a visual scripting tool, it does have Python scripting interfaces. This tutorial will give some examples of how to script an action graph using Python.
+
+## Learning Objectives
+
+This tutorial will
+
+* walk you through examples of scripting an OmniGraph using purely Python APIs
+* introduce the basic concepts and frequently used parameters in OmniGraphs and showcase them using scripted examples
+
+## Getting Started
+
+**Prerequisites**
+
+* Review the GUI Tutorial series, especially [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph) and [Omniverse Script Editor](../development_tools/omniverse_script_editor.html#isaac-sim-app-omniverse-script-editor) prior to beginning this tutorial.
+* Review the Core API Tutorial series, especially [Hello World](../core_api_tutorials/tutorial_core_hello_world.html#isaac-sim-app-tutorial-core-hello-world) to become familiar with the extension workflow via Python, as well as the Python Standalone workflow.
+
+## Code Snippets
+
+### Creating a Graph
+
+First let’s build a simple action graph that prints “Hello World” to the console on every simulation frame.
+
+1. Open ‘Window > Script Editor’ and paste the following code:
+
+   > ```python
+   > import omni.graph.core as og
+   >
+   > keys = og.Controller.Keys
+   > graph_handle, list_of_nodes, _, _ = og.Controller.edit(
+   >     {"graph_path": "/action_graph", "evaluator_name": "execution"},
+   >     {
+   >         keys.CREATE_NODES: [("tick", "omni.graph.action.OnTick"), ("print", "omni.graph.ui_nodes.PrintText")],
+   >         keys.SET_VALUES: [
+   >             ("print.inputs:text", "Hello World"),
+   >             (
+   >                 "print.inputs:logLevel",
+   >                 "Warning",
+   >             ),  # setting the log level to warning so we can see the printout in terminal
+   >         ],
+   >         keys.CONNECT: [("tick.outputs:tick", "print.inputs:execIn")],
+   >     },
+   > )
+   > ```
+2. Press ‘Run’ to execute the script. You should see a new prim `/action_graph` created on the Stage tree.
+3. Expand the prim on stage, the nodes “tick” and “print” should be listed under the graph. These nodes can be accessed just like any other prim on the stage.
+4. Press “play” to start the simulation. You should see “Hello World” printed to the console on every frame.
+5. Open graph editor by going to Window > Graph Editors > Action Graph.
+6. With the newly created graph highlighted on the Stage tree on the right, open the graph by clicking on the icon for ‘Edit Action Graph’ in the graph editor window. You should see two nodes connected with each other by a line.
+
+### Editing a Graph
+
+Once a graph has been created, there are specific APIs to manipulate the graph’s terms.
+
+**Getting and Setting Attribute Values**
+
+Open another tab in the Script Editor, paste the snippet below, and run.
+
+```python
+import omni.graph.core as og
+
+# get existing value from an attribute
+existing_text = og.Controller.attribute("/action_graph/print.inputs:text").get()
+print("Existing Text: ", existing_text)
+
+# set new value
+og.Controller.attribute("/action_graph/print.inputs:text").set("New Texts to print")
+```
+
+This will change the value in the “Print Text” node from “Hello World” to “New Texts to print”. But this affect won’t take place until the first tick through the graph. So when you press ‘Run’ in the script editor, the graph has yet to be ticked, so it should fetch the current value from the node, and print out a single string of “Existing Text: Hello World” in the Script Editor’s console (as well as the terminal if you are using that, or the main Omniverse’s console if you include “Info” to be printed).
+
+Now press ‘Play’ and start the simulation. It should now print, at the rate of one string per tick, the updated text “New Texts to print”, in the terminal or the main Omniverse console (though not the Script Editor’s console).
+
+**Adding Nodes and Connections**
+
+Open a third tab in the Script Editor to add nodes and make more connections to an existing graph.
+
+```python
+import omni.graph.core as og
+
+og.Controller.create_node("/action_graph/new_node_name", "omni.graph.nodes.ConstantString")
+og.Controller.attribute("/action_graph/new_node_name.inputs:value").set("This is a new node")
+og.Controller.connect("/action_graph/new_node_name.inputs:value", "/action_graph/print.inputs:text")
+```
+
+A new node named “new\_node\_name” will be created and connected to the “Print Text” node. If you have the graph editor (Window > Graph Editors > Action Graph) open, you can see that there are now three nodes connected to each other instead of two.
+
+### Graph Execution
+
+By default, the graph is evaluated on every frame. You can change this behavior by setting the graph to evaluate only when you call it.
+
+You can also trigger each graph explicitly by making execute only when you call it. To do this, there is a special parameter called “pipeline\_stage” where you can set the graph to execute “On Demand”. Most of the times we want to set this variable during the creation of the graph:
+
+1. Delete the previous graph by selecting it on the stage tree and pressing ‘Delete’ key.
+2. Open a new tab in the Script Editor and paste the following code
+
+   > ```python
+   > import omni.graph.core as og
+   >
+   > keys = og.Controller.Keys
+   > demand_graph_handle, _, _, _ = og.Controller.edit(
+   >     {
+   >         "graph_path": "/ondemand_graph",
+   >         "evaluator_name": "execution",
+   >         "pipeline_stage": og.GraphPipelineStage.GRAPH_PIPELINE_STAGE_ONDEMAND,
+   >     },
+   >     {
+   >         keys.CREATE_NODES: [("tick", "omni.graph.action.OnTick"), ("print", "omni.graph.ui_nodes.PrintText")],
+   >         keys.SET_VALUES: [("print.inputs:text", "On Demand Graph"), ("print.inputs:logLevel", "Warning")],
+   >         keys.CONNECT: [("tick.outputs:tick", "print.inputs:execIn")],
+   >     },
+   > )
+   > ```
+3. Press ‘Run’ in the Script Editor. A new graph `/ondemand_graph` will be created.
+4. Start simulation by press “play”, nothing should be printed from this graph because we did not explicitly call to evaluate it.
+5. To manually trigger a graph, open another tab, and paste in `demand_graph_handle.evaluate()`
+6. Make sure simulation is still running. Click ‘Run’ in the Script Editor. You should see “On Demand Graph” printed to the console once.
+
+Alternatively, you can also set it for an existing graph by `demand_graph_handle.change_pipeline_stage(og.GraphPipelineStage.GRAPH_PIPELINE_STAGE_ONDEMAND)`
+
+A more in-depth example of attaching graphs to physics callbacks and/or rendering callbacks can be found in standalone\_examples/api/isaacsim.core.experimental.api/omnigraph\_triggers.py
+
+## Summary
+
+In this tutorial, we introduced scripting OmniGraph via Python.
+
+### Further Reading
+
+For more Python Scripting API in [OmniGraph APIs](https://docs.omniverse.nvidia.com/kit/docs/omni.graph/latest/omni.graph.core.html)
+
+On this page
+
+* [Learning Objectives](#learning-objectives)
+* [Getting Started](#getting-started)
+* [Code Snippets](#code-snippets)
+  + [Creating a Graph](#creating-a-graph)
+  + [Editing a Graph](#editing-a-graph)
+  + [Graph Execution](#graph-execution)
+* [Summary](#summary)
+  + [Further Reading](#further-reading)
+
+---
+
+### Custom Python Nodes
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_python_nodes.html
+
+* [OmniGraph](index.html)
+* Custom Python Nodes
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Custom Python Nodes
+
+There already exist a large number of default nodes that comes with Isaac Sim. You can find the definitions and descriptions for them in either the [OmniGraph Node Library](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/node-library/node-library.html "(in Omniverse Extensions)") or [API Documentation](../reference_python_api.html#isaac-sim-python-manual). If those prove to be insufficient, you can write your own and integrate them into Isaac Sim.
+
+A node is defined by two files, an .ogn file, which is a JSON file that defines the structure of the node, including its inputs, outputs, and parameters. Either a Python file or a C++ file can be used to define its function. Here we will focus on Python nodes.
+
+## Node Files
+
+All OmniGraph Node files starts with “Ogn” as a prefix. This is expected by the parser.
+
+### Node Definition (.ogn)
+
+The .ogn file is a JSON file that defines the structure of the node, including its inputs, outputs, and parameters. Here is an example of a simple node definition:
+
+```python
+ 1{
+ 2 "NodeName": {
+ 3     "version": 1,
+ 4     "categories": "examples",
+ 5     "description": ["Minimum Example"],
+ 6     "language": "python",
+ 7     "metadata": {
+ 8         "uiName": "minimum example"
+ 9     },
+10     "inputs": {
+11                        "execIn": {
+12             "description": "the trigger input that starts the node",
+13             "type": "execution",
+14         },
+15                        "value_input": {
+16             "type": "double",
+17             "description": "a number",
+18             "default": 0.0,
+19          },
+20     },
+21     "outputs": {
+22         "output_bool": {
+23             "type": "bool",
+24             "description": "let output be a boolean",
+25          }
+26      }
+27   }
+28}
+```
+
+A note about the input “execIn”. This is a special input that is used to trigger the node. This trigger is only relevant in an Action Graph, where you must explicitly trigger the node to run, such as on a physics tick, or a stage event, like opening and closing a stage. In a Push Graph, the node will run automatically at every frame and the ‘execIn’ input is not necessary.
+
+### Function Definition
+
+Here’s a minimum example of a Python node that takes an input number and outputs a boolean value based on whether the input is greater than 0:
+
+```python
+class OgnNodeName:
+    @staticmethod
+    def compute(db):
+        db.outputs.out = bool(db.inputs.value_input > 0.0)
+        return True
+```
+
+Notes:
+
+* the class name must match the name of the node in the .ogn file, and the file name must match the class name.
+* the “compute” function is what the ‘execIn’ input triggers. It takes a single argument, the database, which contains the inputs and outputs of the node. The function should return True if the node ran successfully, and False if it failed.
+* this node has no internal state, which means all data that passes through it is gone the next tick. If you need to store data between ticks, you can use the “internal state” to store it.
+
+## Using the Custom Node
+
+You can simply insert your custom node’s `.py` and `.ogn` files into any of extensions that already have a directory that contains the `.py` and `.ogn` files for existing nodes and thereby avoid creating your own extension that way.
+
+You can also create your own extension and insert the files there. (link to the new template generator)
+
+## Isaac Sim Nodes as Examples
+
+You are welcome to dig into the code behind some of our existing OmniGraph nodes to find examples of how to structure a node, or even modify them to suite your own need. To find the backend `.py` and `.ogn` files for a particular node. Hover your mouse over the node in the editor window, a tooltip window will appear and the name of the extension will be written in the parentheses. You can then navigate to the extensions’s folder that contains the backend scripts for the nodes by going to `exts/isaacsim.<ext_name>/isaacsim/<ext_name>/ogn/python/nodes/`.
+
+Not all of the nodes are written in Python, some have C++ backends, so if you won’t necessarily see a corresponding `.py` and `.ogn` files for all the nodes on the list. Note that if you found a folder with a list of `Ogn<node_name>Database.py`, this is NOT the directory that contains the Python description of the node.
+
+On this page
+
+* [Node Files](#node-files)
+  + [Node Definition (.ogn)](#node-definition-ogn)
+  + [Function Definition](#function-definition)
+* [Using the Custom Node](#using-the-custom-node)
+* [Isaac Sim Nodes as Examples](#isaac-sim-nodes-as-examples)
+
+---
+
+### Custom C++ Nodes
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_cpp_nodes.html
+
+* [OmniGraph](index.html)
+* Custom C++ Nodes
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Custom C++ Nodes
+
+For C++ nodes, the [Node Definition (.ogn)](omnigraph_custom_python_nodes.html#isaac-sim-omnigraph-ogn-file) is the same as the one used for Custom Python Nodes.
+
+Examples of how to include OmniGraph nodes can be found in the extension template’s [GitHub repo](https://github.com/NVIDIA-Omniverse/kit-extension-template-cpp/tree/main/source/extensions/omni.example.cpp.omnigraph_node).
+
+To use the custom C++ nodes, you will need also build your custom C++ extension. Follow [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html) for the detailed instructions.
+
+---
+
+### Custom IPC Nodes
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_ipc_nodes.html
+
+* [OmniGraph](index.html)
+* Building Custom IPC OmniGraph Nodes
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Building Custom IPC OmniGraph Nodes
+
+This guide explains how to build OmniGraph nodes for inter-process communication (IPC) in Isaac Sim. It covers the node schema, transport lifecycle with `BaseResetNode`, non-blocking I/O inside `compute`, and how to add your transport library as a dependency. The OmniGraph patterns apply regardless of the IPC stack that you use. The working example is `isaacsim.examples.ipc`, a clock-send and step-receive node pair over BSD sockets in C++ and Python. The tutorial starts by scaffolding a new extension with the CLI template so you have a working build skeleton before writing any IPC code.
+
+Note
+
+This workflow requires a **source checkout** of the [Isaac Sim](https://github.com/isaac-sim/IsaacSim) repository. It is not supported with the pip packages or the binary release. Clone the GitHub repository before you begin.
+
+Note
+
+All commands in this tutorial are run from the **Isaac Sim repository root** (the directory that contains `build.sh`/`build.bat` and `repo.sh`/`repo.bat`).
+
+## Before You Start
+
+**Prerequisites**:
+
+* **Custom C++ extensions** — [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html).
+* **OmniGraph** — [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)") and [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)").
+* **Custom nodes** — [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes) and [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html#isaac-sim-app-tutorial-advanced-omnigraph-custom-cpp-nodes).
+
+Optional: [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph), if you are new to the Action Graph editor.
+
+See also
+
+[ROS 2 Python Custom OmniGraph Node](../ros2_tutorials/tutorial_ros2_custom_omnigraph_node_python.html#isaac-sim-app-ros2-custom-omnigraph-node-python) for a complete Python node
+example. ROS 2 context, but the `internal_state()` factory,
+`BaseResetNode`, `db.per_instance_state`, and
+`og.ExecutionAttributeState.ENABLED` patterns are identical for any IPC
+node.
+
+## Scaffold Your Extension
+
+Before writing IPC code, create the extension skeleton with the CLI template:
+
+Linux
+
+```python
+./repo.sh template new
+```
+
+Windows
+
+```python
+.\repo.bat template new
+```
+
+When prompted, select **Isaac Sim OmniGraph Node Extension**. You will be asked for:
+
+* `extension_name` Dotted identifier, for example `isaacsim.my.ipc.nodes`.
+* `title` Human-readable name shown in the Extensions window.
+* `description` Short summary.
+* `category` Used to group your nodes in the Action Graph node library (for example `Simulation`).
+
+The template creates the full extension skeleton under `source/extensions/<extension_name>/`:
+
+```python
+source/extensions/<extension_name>/
+├── config/extension.toml          ← metadata, dependencies, test entries
+├── nodes/
+│   ├── OgnExampleCpp.ogn          ← rename/replace with your IPC node schema
+│   └── OgnExampleCpp.cpp          ← rename/replace with your IPC node implementation
+├── plugins/<extension_name>/
+│   └── PluginInterface.cpp        ← Carbonite plugin + OGN registration (keep as-is)
+├── bindings/<extension_name>/
+│   └── Bindings.cpp               ← pybind11 bindings; acquires the Carbonite interface (keep as-is)
+├── include/<extension_name>/
+│   └── IExampleNodes.h            ← Carbonite interface (keep as-is)
+├── python/nodes/
+│   ├── OgnExamplePython.ogn       ← rename/replace with your Python node schema
+│   └── OgnExamplePython.py        ← rename/replace with your Python Node Implementation
+├── python/impl/extension.py       ← calls acquire_example_ipc_interface() on startup to load the plugin
+├── python/tests/                  ← test modules go here
+└── premake5.lua                   ← build configuration
+```
+
+The build step is required before the extension loads in Isaac Sim — it compiles the C++ plugin and generates the OmniGraph database files that register your nodes. Run it now:
+
+Linux
+
+```python
+./build.sh
+```
+
+Windows
+
+```python
+.\build.bat
+```
+
+The generated nodes — **Example C++ Node** (`OgnExampleCpp`) and **Example Python Node** (`OgnExamplePython`) — are placeholder stubs that double an input value. The display names in the Action Graph library come from the `uiName` field in each `.ogn` file, not the file name. Rename or replace them with your actual IPC node(s) as you work through the sections below.
+
+Try it: verify your scaffold
+
+After the build completes above, confirm the scaffold registers its placeholder nodes:
+
+1. Launch the repo-built Isaac Sim — not a separately installed Isaac Sim:
+
+   Linux
+
+   ```python
+   ./_build/linux-x86_64/release/isaac-sim.sh
+   ```
+
+   Windows
+
+   ```python
+   .\_build\windows-x86_64\release\isaac-sim.bat
+   ```
+2. Open **Window → Extensions**, search for your extension name (for example `isaacsim.my.ipc.nodes`), and enable it.
+3. Open **Window → Graph Editors → Action Graph** and search for `Example C++ Node` and `Example Python Node` in the node library. These names match the `uiName` fields in the scaffold’s `.ogn` files.
+
+If both nodes appear, the scaffold is wired correctly. Proceed to [Design and Implement Your Nodes](#design-and-implement-your-nodes) to replace the placeholders.
+
+If the nodes do not appear, check the following:
+
+* The build (`./build.sh` on Linux, `.\build.bat` on Windows) completed without errors. Nodes are not registered until the C++ plugin is compiled and the OmniGraph database files are generated by the build.
+* You launched the repo-built Isaac Sim (`./_build/linux-x86_64/release/isaac-sim.sh` or `.\_build\windows-x86_64\release\isaac-sim.bat`). A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension.
+* The extension is enabled (green toggle) in **Window → Extensions**. If it was enabled before the build ran, disable and re-enable it.
+* After any `.ogn` schema or code change, the build must be re-run and Isaac Sim restarted before updated nodes appear.
+
+## Add Your Transport Library
+
+Before writing node code, wire in the library that provides your IPC and serialization. The generated `config/extension.toml` and `premake5.lua` are already in place. The sections below show where to add entries.
+
+### Python
+
+Isaac Sim ships a pip archive (`omni.isaac.core_archive` and related extensions) that pre-bundles many common packages, including NumPy and SciPy. If your library is already in that archive you can import it directly with no extra configuration.
+
+If the package is not yet bundled, declare it in `config/extension.toml`, for example:
+
+```python
+[python.pipapi]
+requirements = ["pyzmq>=25", "grpcio"]  # replace with your actual packages
+use_online_index = true
+```
+
+Isaac Sim resolves these at extension startup. `use_online_index = true` must be set. If it is omitted or set to `false`, `omni.kit.pipapi` logs a warning and skips the `requirements` list entirely.
+
+### C++
+
+Prebuilt native libraries go through packman. These steps follow the same pattern described in the [Kit Extension C++ template documentation](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html):
+
+1. **Declare the dependency.** Add your library to `deps/ext-deps.packman.xml`. It is the designated file for extension-specific dependencies (separate from the Kit SDK deps). The unpacked tree typically lands under `_build/target-deps/<libname>/`:
+
+   ```python
+   <project toolsVersion="5.0">
+     <dependency name="mylib" linkPath="../_build/target-deps/mylib">
+       <package name="mylib" version="1.2.3" />
+     </dependency>
+   </project>
+   ```
+2. **Update ``premake5.lua``.** Point to the include and library directories and add the link:
+
+   ```python
+   includedirs { "%{target_deps}/mylib/include" }
+   libdirs     { "%{target_deps}/mylib/lib/%{platform}" }
+   links       { "mylib" }
+   ```
+3. **Shared libraries at runtime.** If the library ships as a `.so` / `.dll`, either bundle it beside the extension plugin or list it under `[native.library]` in `extension.toml` so Kit’s loader finds it.
+
+The sample extension uses only standard BSD socket APIs and has no additional native library entries beyond the plugin itself.
+
+## Design and Implement Your Nodes
+
+### Design Principle
+
+Keep IPC nodes thin. They should only handle **serialization and transport**. Simulation data reads (joint positions, sensor data, simulation time) belong in upstream built-in nodes wired into the graph before your IPC node. Downstream processing or command writes belong in other nodes after it. This keeps `compute` fast and makes the graph layout self-documenting.
+
+### What Every IPC Node Requires
+
+Every custom IPC node requires the same six things, regardless of transport:
+
+* **Node schema** (`.ogn` file) — declare inputs (URI, config), outputs (data, `execOut`), and state. Refer to the sample `.ogn` files under `nodes/` in `isaacsim.examples.ipc` as a reference.
+* `BaseResetNode` subclass — holds per-instance state (sockets, buffers, handles). Implement `reset()` (C++) or `custom_reset()` (Python) to tear down the transport when the timeline stops or inputs change.
+* `compute(db)` with a lifecycle split:
+
+  > + Detect input changes (URI, config) → call reset and teardown
+  > + Try to open the transport if not ready → return early on failure (retry next evaluation)
+  > + Do non-blocking I/O (send or try-receive)
+  > + Write `db.outputs` and fire `execOut`
+* **Non-blocking I/O** — never block indefinitely in `compute`. Use try-receive, timeouts, or offload slow paths to a worker thread (refer to [Performance Considerations](#performance-considerations)).
+* **Fire** `execOut` at the end of `compute` to signal downstream nodes that the transport operation is complete and/or new data is ready. You control when to fire it. For example, fire on every evaluation, only on successful send, or only when a full message has been received.
+* **Your transport library** — add it as a dependency (refer to [Add Your Transport Library](#add-your-transport-library) above) and replace the TCP helpers with your stack’s API.
+
+### OGN Schema Quick Reference
+
+Each `.ogn` file is a single JSON object keyed by the node’s registered type
+name. The minimum schema for a Python IPC node looks like this:
+
+```python
+{
+    "MyNodeName": {
+        "version": 1,
+        "language": "Python",
+        "description": "One-line description shown in the node library.",
+        "metadata": { "uiName": "My Node Display Name" },
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "myCategory",
+        "inputs": {
+            "execIn":  { "type": "execution", "description": "Trigger." },
+            "uri":     { "type": "string",    "description": "...", "default": "tcp://127.0.0.1:5550" },
+            "myValue": { "type": "double",    "description": "...", "default": 0.0 }
+        },
+        "outputs": {
+            "execOut":  { "type": "execution", "description": "Output execution port." },
+            "myTokens": { "type": "token[]",   "description": "Array of token outputs." }
+        }
+    }
+}
+```
+
+Common scalar types: `"string"`, `"double"`, `"float"`, `"int"`,
+`"uint"`, `"bool"`, `"execution"`. Array variants append `[]`:
+`"double[]"`, `"float[]"`, `"token[]"`, etc. The `"default"` key is
+required for non-execution scalar inputs; use `[]` for array inputs.
+
+`categoryDefinitions` is a path relative to the `nodes/` directory that
+points to a JSON file mapping category keys to human-readable display strings:
+
+```python
+{
+    "categoryDefinitions": {
+        "myCategory": "My node group label in the Action Graph library"
+    }
+}
+```
+
+### C++ Node Implementation
+
+`BaseResetNode` is declared in `isaacsim.core.includes`. This extension is a compile-time only dependency, do **not** add it to `[dependencies]` in `extension.toml`. Instead, add the header path in `premake5.lua`:
+
+```python
+includedirs { "%{root}/source/extensions/isaacsim.core.includes/include" }
+```
+
+Then include the header in your `.cpp` file:
+
+```python
+#include <isaacsim/core/includes/BaseResetNode.h>
+```
+
+Derive your per-instance node class from `isaacsim::core::includes::BaseResetNode`. That base subscribes to the timeline stop event and calls your `reset()` so transport handles are not left open after simulation stops.
+
+Replace the generated `OgnExampleCpp` stub with a class like this (refer to `OgnSimpleSendSimulationClockCpp.cpp` in `isaacsim.examples.ipc` for TCP implementation):
+
+```python
+#include <isaacsim/core/includes/BaseResetNode.h>
+
+#include <OgnMyIpcNodeCppDatabase.h>
+#include <memory>
+#include <string>
+
+using isaacsim::core::includes::BaseResetNode;
+
+class OgnMyIpcNodeCpp : public BaseResetNode
+{
+public:
+    static bool compute(OgnMyIpcNodeCppDatabase& db)
+    {
+        auto& state = db.perInstanceState<OgnMyIpcNodeCpp>();
+
+        // Detect input changes (e.g. URI) and reset transport.
+        const std::string uriIn(db.inputs.uri());
+        if (state.m_handle && state.m_handle->getUri() != uriIn)
+        {
+            state.reset();
+        }
+
+        const bool success = state.ensureOpenAndTransfer(db);
+        // Fire execOut unconditionally (send nodes). For receive nodes, fire only when
+        // a complete message arrives (i.e. only when success == true).
+        db.outputs.execOut() = omni::graph::core::kExecutionAttributeStateEnabled;
+        return success;
+    }
+
+    static void releaseInstance(NodeObj const& nodeObj, GraphInstanceID instanceId)
+    {
+        auto& state = OgnMyIpcNodeCppDatabase::sPerInstanceState<OgnMyIpcNodeCpp>(nodeObj, instanceId);
+        state.reset();
+    }
+
+    void reset() override
+    {
+        if (m_handle)
+        {
+            m_handle->close();
+            m_handle.reset();
+        }
+    }
+
+private:
+    bool isOpen() const
+    {
+        return m_handle && m_handle->isOpen();
+    }
+
+    void tryOpen(OgnMyIpcNodeCppDatabase& db)
+    {
+        // Open transport from db.inputs (e.g. URI, config).
+        // m_handle = std::make_unique<MyTransportHandle>(std::string(db.inputs.uri()));
+    }
+
+    bool transfer(OgnMyIpcNodeCppDatabase& db)
+    {
+        // Non-blocking send or try-receive; write db.outputs on success.
+        // See Performance Considerations for time-budget guidance.
+        return false; // replace with actual transfer
+    }
+
+    bool ensureOpenAndTransfer(OgnMyIpcNodeCppDatabase& db)
+    {
+        if (!isOpen())
+        {
+            tryOpen(db);
+            if (!isOpen())
+                return false;
+        }
+        return transfer(db);
+    }
+
+    std::unique_ptr<MyTransportHandle> m_handle; // replace with your transport type
+};
+
+REGISTER_OGN_NODE()
+```
+
+Note
+
+The generated `python/impl/extension.py` calls `acquire_example_ipc_interface()` in
+`on_startup()`. This is what triggers the Carbonite plugin to load and run
+`INITIALIZE_OGN_NODES()`, registering your C++ nodes. If your nodes do not appear in the
+Action Graph library, verify that `extension.py` is calling the acquire function and that
+`PluginInterface.cpp` does **not** contain a `CARB_PLUGIN_IMPL_DEPS` line, because that macro
+can prevent the plugin from loading.
+
+### Python Node Implementation
+
+`BaseResetNode` is provided by the `isaacsim.core.nodes` extension. Add it as a dependency in `config/extension.toml` and import it in your node file:
+
+```python
+[dependencies]
+"isaacsim.core.nodes" = {}
+```
+
+```python
+import omni.graph.core as og
+from isaacsim.core.nodes import BaseResetNode
+```
+
+Put per-instance data in a small class that subclasses `BaseResetNode`. Pass `initialize=False` to `super().__init__`, if you lazy-open sockets in `compute`, as the samples do. Without it, `BaseResetNode.__init__` calls `custom_reset()` immediately during construction, before your instance attributes (such as, `self.sock = None`) are set, raising `AttributeError`. Implement `custom_reset()` to close sockets and clear buffers. `custom_reset()` runs on timeline stop and mirrors the C++ `reset()`.
+
+Replace the generated `OgnExamplePython` stub with a class like this (refer to `OgnSimpleSendSimulationClockPy.py` in `isaacsim.examples.ipc` for a full TCP implementation):
+
+```python
+import omni.graph.core as og
+from isaacsim.core.nodes import BaseResetNode
+
+class OgnMyIpcNodePyState(BaseResetNode):
+    """Per-instance state for the template IPC node."""
+
+    def __init__(self) -> None:
+        # Declare all attributes BEFORE calling super().__init__,
+        # because BaseResetNode.__init__ calls custom_reset() immediately.
+        self.handle = None  # replace with your transport handle
+        self.uri = ""
+        super().__init__(initialize=False)
+
+    def custom_reset(self) -> None:
+        """Reset transport state when timeline or inputs change."""
+        # Called on timeline stop and when inputs change.
+        if self.handle is not None:
+            self.handle.close()
+            self.handle = None
+        self.uri = ""
+
+class OgnMyIpcNodePy:
+    """Template OmniGraph node for custom IPC transports."""
+
+    @staticmethod
+    def internal_state() -> OgnMyIpcNodePyState:
+        """Create per-instance state for the node."""
+        return OgnMyIpcNodePyState()
+
+    @staticmethod
+    def compute(db: object) -> bool:
+        """Evaluate one non-blocking IPC transfer step."""
+        state = db.per_instance_state
+
+        uri = db.inputs.uri
+        if state.handle is not None and state.uri != uri:
+            state.custom_reset()
+
+        if state.handle is None:
+            # Open transport from inputs (e.g. URI, config).
+            # state.handle = open_my_transport(uri)
+            # state.uri = uri
+            # Fire execOut even on failure so downstream nodes keep running.
+            db.outputs.execOut = og.ExecutionAttributeState.ENABLED
+            return False
+
+        # Non-blocking send or try-receive; write db.outputs on success.
+        # See Performance Considerations for time-budget guidance.
+        success = False  # replace with actual transfer
+
+        # For send nodes: fire execOut every tick.
+        # For receive nodes: fire execOut only when a full message arrives.
+        if success:
+            db.outputs.execOut = og.ExecutionAttributeState.ENABLED
+        return success
+```
+
+Try it: implement and build your node
+
+Adapt your scaffolded extension to a minimal IPC sender:
+
+1. **Update the OGN schema.** In `nodes/OgnExampleCpp.ogn` (or `OgnExamplePython.ogn`), rename the node and add a `uri` string input (default `"127.0.0.1:9000"`) and `execIn`/`execOut` execution ports.
+2. **Replace the implementation.** Copy the template above into `OgnExampleCpp.cpp` (or `OgnExamplePython.py`), rename classes to match, and fill in a no-op `transfer()` that always returns `true`.
+3. **Rebuild:** `./build.sh` (Linux) or `.\build.bat` (Windows).
+4. **Restart Isaac Sim** by closing and relaunching `./_build/linux-x86_64/release/isaac-sim.sh` (Linux) or `.\_build\windows-x86_64\release\isaac-sim.bat` (Windows).
+5. **Verify:** enable your extension in Isaac Sim and confirm the renamed node appears in the Action Graph library under its new `uiName`.
+
+For a complete TCP implementation of the same pattern, study `OgnSimpleSendSimulationClockCpp.cpp` (or the Python equivalent) in `source/extensions/isaacsim.examples.ipc/`.
+
+For Python-only extensions (no C++ plugin), omit `project_ext_plugin`, `project_ext_bindings`, and all `includedirs` / `links` entries from `premake5.lua`. Keep `add_ogn_dependencies` (processes `.ogn` files and generates `*Database.py` modules) and the `repo_build.prebuild_link` block:
+
+```python
+local ext = get_current_extension_info()
+local ogn = get_ogn_project_information(ext, "myorg/my/ipc/nodes")
+project_ext(ext)
+
+add_ogn_dependencies(ogn, { "python/nodes" })
+
+repo_build.prebuild_copy {
+    { "python/__init__.py",  ogn.python_target_path },
+    { "python/extension.py", ogn.python_target_path },
+}
+
+repo_build.prebuild_link {
+    { "python/nodes",  ogn.python_target_path .. "/nodes" },
+    { "python/tests",  ogn.python_target_path .. "/tests" },
+}
+```
+
+### Sample Extension Reference
+
+Source: `source/extensions/isaacsim.examples.ipc/`.
+
+| Registered type name | Implementation | Role |
+| --- | --- | --- |
+| `SimpleSendSimulationClockCpp` / `SimpleSendSimulationClockPy` | C++ / Python | Forwards the simulation clock to an external process on each evaluation. Connects as a TCP client to `uri` (`host:port`). Input: `simulationTime` (`double`, seconds; connect from `IsaacReadSimulationTime`). Encodes the value as nanoseconds in an 8-byte signed int64 (little-endian) and sends it. Fires `execOut` on every evaluation. |
+| `SimpleReceiveExternalStepCpp` / `SimpleReceiveExternalStepPy` | C++ / Python | Receives a step counter from an external process and exposes it to downstream nodes. Binds as a TCP server on `uri` and accepts one client. Outputs a `step` (uint32). Fires `execOut` only when a complete 4-byte message arrives. Partial reads are buffered across evaluations. |
+
+In graphs, the full path is typically `isaacsim.examples.ipc.<TypeName>` (refer to the extension’s `config/extension.toml`).
+
+C++ and Python follow the same sequence in `compute`. They only differ by name and state wiring. For example, `reset()` compared to `custom_reset()`, and C++ `state` from the OGN database compared to Python `internal_state()`.
+
+```python
+compute(db)
+     │
+     ├─► uri (or relevant inputs) changed? ──yes──► teardown transport
+     │                    C++: state.reset()    Python: custom_reset()
+     ▼
+try open: connect or listen / accept
+     │         (retry next eval if not ready)
+     ▼
+transport ready? ──no──► return false
+     │    (recv: often "no full message yet")
+     yes
+     ▼
+framed try-send / try-recv  (see Performance Considerations for time budget)
+     │
+     ▼
+write db.outputs and set execOut
+     │
+     ▼
+return true/false  (per node type / sample rules)
+```
+
+## Use Your Nodes in Isaac Sim
+
+### Enable Your Extension and Find Your Nodes
+
+Note
+
+If you have not yet replaced the scaffold placeholders, you can follow the steps below using `isaacsim.examples.ipc` as a stand-in — it ships with Isaac Sim and has fully working nodes ready to enable and find. Repeat the steps with your own extension name once you have implemented and built your nodes.
+
+The build (`./build.sh` on Linux, `.\build.bat` on Windows) compiles your extension and places the output under `_build/<platform>/release/exts/<extension_name>/` (`linux-x86_64` or `windows-x86_64` depending on host). Isaac Sim launched from the same repo automatically searches that directory, so no additional path configuration is needed.
+
+Note
+
+Always launch Isaac Sim from the repo build. A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension. After each build run, restart Isaac Sim — a loaded C++ plugin cannot be hot-swapped.
+
+Launch (or restart) Isaac Sim from the repo build:
+
+Linux
+
+```python
+./_build/linux-x86_64/release/isaac-sim.sh
+```
+
+Windows
+
+```python
+.\_build\windows-x86_64\release\isaac-sim.bat
+```
+
+Then enable your extension:
+
+1. Open **Window > Extensions**.
+2. Search for your extension name (for example `isaacsim.my.ipc.nodes`) and enable it.
+
+Your nodes then appear in the Action Graph node library under the category you chose during scaffolding. Search by the `uiName` value defined in your `.ogn` file (for the scaffold defaults: `Example C++ Node` and `Example Python Node`).
+
+### Building an Example Graph
+
+The steps below build the sample graph for `tcp_tutorial_playback_bridge.py` using the reference nodes from `isaacsim.examples.ipc`. Use it to verify the end-to-end IPC pattern before wiring in your own nodes.
+
+1. Enable the sample extension. **Open Window > Extensions**, search for `isaacsim.examples.ipc`, and enable IPC OmniGraph Node Examples.
+2. Open the Action Graph editor. **Window > Graph Editors > Action Graph**.
+3. Place the tutorial nodes. Under Isaac Examples in the node library, add Receive External Step and Send Simulation Clock. Use the search box to add On Playback Tick and Isaac Read Simulation Time from `isaacsim.core.nodes`. Either C++ or Python node pair works with the bridge script.
+4. Wire the graph.
+
+   Execution chain:
+
+   * On Playback Tick `execOut` → Receive External Step `execIn`
+   * Receive External Step `execOut` → Send Simulation Clock `execIn`
+
+   Data:
+
+   * Isaac Read Simulation Time `simulationTime` → Send Simulation Clock `simulationTime`
+
+   The default `uri` values are `127.0.0.1:9001` on the receive node and `127.0.0.1:9000` on the send node.
+5. **Start playback.** Click the **Play** button in the toolbar (or press **Space**) to begin the simulation.
+
+General Action Graph UI is covered in [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph) and in the OmniGraph documentation linked in [Before You Start](#before-you-start).
+
+After the graph is wired and playback is running, Receive External Step listens on its URI, the bridge script connects and sends the first step token, and Send Simulation Clock reports the current simulation time back to the script after each tick. The script drives the timing loop and Isaac Sim advances one tick per received step.
+
+Try it: run the bridge with your own node
+
+Once the reference graph works end-to-end with `isaacsim.examples.ipc` nodes, substitute your custom node:
+
+1. In the graph, delete the `SimpleSendSimulationClock` node.
+2. Add your renamed node from the exercise above.
+3. Wire it the same way: Receive External Step `execOut` → your node `execIn`, and Isaac Read Simulation Time `simulationTime` → your node `simulationTime`.
+4. Run the bridge script. Because `transfer()` is still a stub that returns `true` without sending data, the script will connect but receive no clock output — that is expected. This confirms that your extension loads, enables, and participates in the graph.
+5. To complete the implementation, add the actual send logic to `transfer()`. Use `OgnSimpleSendSimulationClockCpp.cpp` (or the Python equivalent) in `source/extensions/isaacsim.examples.ipc/` as a reference.
+
+### External Python Playback Bridge
+
+The `tcp_tutorial_playback_bridge.py` script demonstrates a complete roundtrip. It listens for the eight-byte clock that the Send node emits, connects to the Receive node’s listen port, primes one step, then for each frame reads the clock and sends back the next step so the next `OnPlaybackTick` can fire.
+
+The script only uses the Python standard library (`socket`, `struct`, `argparse`) and has no Isaac Sim or third-party dependencies. Run it from the repo root with any system `python3`:
+
+```python
+python3 source/extensions/isaacsim.examples.ipc/python/scripts/tcp_tutorial_playback_bridge.py
+```
+
+Pass `--help` to see `--clock-host`, `--clock-port`, `--step-host`, `--step-port`, and `--max-frames` options.
+
+Warning
+
+The script binds a TCP listener on `127.0.0.1`. For real deployments, bind only to loopback unless you intentionally expose a port. Open interfaces can increase attack surface. Treat any IPC bridge like a network service, where authentication, TLS or equivalent, and firewall rules are your responsibility.
+
+## Performance Considerations
+
+**Stay within your frame budget.**
+
+> OmniGraph evaluates `compute` on paths that must stay responsive relative to simulation, UI, and other graphs. The usual failure mode is unpredictably long work and is not “synchronous” I/O by itself. Waiting on a slow peer, large copies, contended locks, or RPC that can stall for many milliseconds may cause performance issues.
+
+**Small, fast paths are often fine.**
+
+> A tiny, fixed-size, fire-and-forget operation in `compute` (the tutorial’s eight byte clock send once the socket is connected) can stay on the graph thread if it consistently completes within your per-node budget at the target frame rate. The same applies to other stacks when you have measured the path and it does not wait on back-pressure from the remote side.
+
+**When to use workers, queues, or async APIs.**
+
+> * If a call can block for an unknown duration (request/response, readiness waits, large payloads, or anything that can exceed your per-node budget), run that IPC on a worker thread. Use callbacks that enqueue results, and keep `compute` to non-blocking dequeue and writing `db.outputs`.
+> * For inbound data, try-receive (as in the tutorial’s step node) avoids waiting indefinitely when the external process does not send on your schedule.
+> * **Async or callback-based I/O:** Drive network or IPC on a worker thread, push decoded messages into a thread-safe queue, and let `compute` only dequeue (non-blocking) and write `db.outputs`.
+> * **Deferred completion:** Post work from `compute` without waiting for the reply. A background thread enqueues results for a later evaluation.
+
+**Structured messages vs fixed bytes.**
+
+> The fixed-size framing in the tutorial is for clarity. A production bridge typically uses your library’s message format (IDL-generated types, JSON, or another schema). You still decide when to send, how to parse inbound data, and how to keep each `compute` within budget.
+
+**Large messages (camera frames, point clouds).**
+
+> Single-shot calls that move multi-megabyte payloads can stress memory and scheduling. Use streaming APIs, explicit back-pressure (drop or skip frames on a slow consumer), or shared-memory and zero-copy paths outside OmniGraph, with the node passing only handles or small metadata.
+
+## Built-In Nodes for Data in and Out
+
+Besides `isaacsim.examples.ipc`, several extensions register OmniGraph nodes that read simulation state or drive simulation inside Isaac Sim, without acting as a general-purpose bridge to another process. The table highlights types that often sit next to custom IPC nodes in a bridge graph.
+
+Before designing your custom node’s inputs and outputs, check the `.ogn` of the built-in nodes you plan to connect to—their output attribute names and types determine what your node needs to consume or produce.
+
+Common built-in OmniGraph nodes for bridge-style graphs
+
+| Goal | Node (registered type) | Extension | Key inputs / outputs (abbrev.) |
+| --- | --- | --- | --- |
+| Read joint positions / velocities (and efforts) for publishing | `IsaacArticulationState` | `isaacsim.core.nodes` | In: `robotPath` or `targetPrim`, optional `jointNames` / `jointIndices`. Out: `jointPositions`, `jointVelocities` (`double[]`), `jointNames` (`token[]`), plus measured effort arrays. |
+| Alternative joint state (physics sensor path) | `isaacsim.sensors.physics.IsaacReadJointState` | `isaacsim.sensors.physics.nodes` | In: `prim` (articulation root). Out: `jointPositions`, `jointVelocities`, `jointEfforts`, `jointNames`, `execOut`, etc. |
+| Apply joint position / velocity / effort commands | `IsaacArticulationController` | `isaacsim.core.nodes` | In: same robot targeting as above; `positionCommand`, `velocityCommand`, `effortCommand` (`double[]`). Angular units are radians at the controller API. |
+| Simulation tick / gating | `OnPhysicsStep`, `IsaacSimulationGate`, `IsaacReadSimulationTime`, … | `isaacsim.core.nodes` | Use to pace state reads and command writes consistently (exact attributes vary by node). |
+| Camera / viewport render product path (setup only) | `IsaacGetViewportRenderProduct`, `IsaacCreateRenderProduct`, `IsaacAttachHydraTexture`, `IsaacSetCameraOnRenderProduct` | `isaacsim.core.nodes` | Mostly paths and targets (`renderProductPath`, `renderProductPrim`). Pixels require a separate readback step. Refer to [Camera and Render Products](#camera-and-render-products). |
+
+Other read extensions you can chain before a custom sender:
+
+* `isaacsim.sensors.physics.nodes` — IMU, contact, effort, etc., backed by `isaacsim.sensors.experimental.physics`.
+* `isaacsim.sensors.physx` — for example Isaac Read Lidar Beams, Isaac Read Lidar Point Cloud, Isaac Read Light Beam Sensor.
+* `isaacsim.sensors.rtx.nodes` — for example Isaac Extract RTX Sensor Point Cloud.
+
+For IPC with external applications (topics, services, or other runtimes), use dedicated bridge extensions rather than treating the nodes in the table above as a transport layer. Examples include `isaacsim.ros2.nodes` (ROS 2) or `isaacsim.ucx.nodes` (UCX). Those extensions play the same role as the TCP tutorial nodes, not the sensor-read nodes in the table.
+
+**Reference implementations in this repository.**
+
+> The `source/extensions/` directory contains full IPC bridge implementations
+> you can study when you outgrow the TCP tutorial. Two stacks are available:
+>
+> > * **ROS 2**: `isaacsim.ros2.nodes`, `isaacsim.ros2.bridge`, and related
+> >   packages.
+> > * **UCX**: `isaacsim.ucx.nodes`, `isaacsim.ucx.core`,
+> >   `isaacsim.ucx.bridge`.
+>
+> Each stack shows how a complete bridge is laid out: `extension.toml`
+> dependencies, native plugins, C++ and Python OmniGraph nodes, and transport
+> backends.
+
+Use the OmniGraph node library in the Kit docs to search by name: [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)").
+
+## Camera and Render Products
+
+Getting raw RGB pixels into a custom IPC node requires more than a plain `uchar[]` OGN input. Imagery typically flows through a Replicator pipeline or a render product chain before reaching any IPC encoder, not a single wire in the graph editor. The key steps are:
+
+> 1. Set up a render product (`IsaacCreateRenderProduct` or `IsaacGetViewportRenderProduct`) and attach a camera.
+> 2. Feed the render product into a readback mechanism either a:
+>
+>    * Replicator annotator (host-friendly NumPy arrays)
+>    * Hydra texture chain (GPU handles through `IsaacAttachHydraTexture`)
+> 3. Pass the resulting CPU-addressable bytes or arrays into your IPC encoder node.
+
+The `isaacsim.ros2.bridge` extension’s camera helper node is a concrete reference for how this pipeline is assembled. The ROS 2 camera publisher wires a render product to host readback and then to IPC. Browsing that source is the fastest way to understand the pattern before building your own.
+
+Refer to [Performance Considerations](#performance-considerations) before passing large buffers through `compute`. Camera frames are a common source of frame-budget overruns.
+
+## Testing Your OmniGraph Node Implementation
+
+Python integration tests for OmniGraph nodes can build Action Graphs at runtime
+using `og.Controller.edit`, wire nodes together programmatically, drive the
+timeline, and assert on output attribute values. Useful areas to cover:
+
+* **Correct outputs**: Given known inputs, the node produces the expected
+  `db.outputs` values.
+* **execOut timing**: The node fires `execOut` only under the intended
+  conditions. For send nodes, this means every evaluation. For receive nodes,
+  this means only on data receipt.
+* **Reset behavior**: Changing a URI input or stopping the timeline closes the
+  transport, and a subsequent evaluation reopens it cleanly.
+* **Edge cases**: Partial messages, peer disconnect, and malformed data from the
+  external process.
+
+For C++ helpers (parsing, encoding, and endianness), unit tests can run outside
+Isaac Sim through a native test library such as doctest, wired in
+`premake5.lua` and referenced from `extension.toml`.
+
+Point `[[test]]` entries in your `extension.toml` at your test modules. The
+generated test driver is typically
+`_build/<platform>/<config>/tests/tests-<your.extension.id>.sh`. For a
+scaffolded extension, tests go in `python/tests/` (already created by the
+template).
+
+For examples of the patterns above (async tests, `OnImpulseEvent`, free-port
+helpers, and timeline control), refer to
+`source/extensions/isaacsim.examples.ipc/python/tests/`.
+
+On this page
+
+* [Before You Start](#before-you-start)
+* [Scaffold Your Extension](#scaffold-your-extension)
+* [Add Your Transport Library](#add-your-transport-library)
+  + [Python](#python)
+  + [C++](#c)
+* [Design and Implement Your Nodes](#design-and-implement-your-nodes)
+  + [Design Principle](#design-principle)
+  + [What Every IPC Node Requires](#what-every-ipc-node-requires)
+  + [OGN Schema Quick Reference](#ogn-schema-quick-reference)
+  + [C++ Node Implementation](#c-node-implementation)
+  + [Python Node Implementation](#python-node-implementation)
+  + [Sample Extension Reference](#sample-extension-reference)
+* [Use Your Nodes in Isaac Sim](#use-your-nodes-in-isaac-sim-short)
+  + [Enable Your Extension and Find Your Nodes](#enable-your-extension-and-find-your-nodes)
+  + [Building an Example Graph](#building-an-example-graph)
+  + [External Python Playback Bridge](#external-python-playback-bridge)
+* [Performance Considerations](#performance-considerations)
+* [Built-In Nodes for Data in and Out](#built-in-nodes-for-data-in-and-out)
+* [Camera and Render Products](#camera-and-render-products)
+* [Testing Your OmniGraph Node Implementation](#testing-your-omnigraph-node-implementation)
+
+---
+
+### OmniGraph Shortcuts
+
+> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_shortcuts.html
+
+* [OmniGraph](index.html)
+* Commonly Used OmniGraph Shortcuts
+
+[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
+
+# Commonly Used OmniGraph Shortcuts
+
+Isaac Sim has shortcuts for populating some of the most commonly used OmniGraphs. They can be found under **Tools > Robotics > OmniGraph Controllers**. After selecting the graph you want to create, you are prompted to provide a minimal set of parameters to populate the graph.
+
+The shortcuts are:
+
+[Controller Graphs](#omnigraph-shortcuts-controller-graphs)
+
+* Joint Position Controller
+* Joint Velocity Controller
+* Differential Controller
+* Open Loop Gripper Controller
+
+For information on how to use ROS Graphs, go to each of the relevant [ROS 2 Tutorials (Linux and Windows)](../ros2_tutorials/index.html#isaac-ros2-tutorials-page).
+
+Note
+
+* *No* validation is done to detect a graph with the same tasks or that controls the same robot. You must ensure that your graphs are unique in the scene.
+* These are just shortcuts to create the graph. You can always modify the graph after it’s created to suit your needs.
+
+To use Python scripting to create these graphs:
+
+> 1. Click on the icon next to **Python Script for Graph Generation** on the bottom of the popup window.
+>    It takes you to the Python script used to generate the graphs for the given shortcut.
+> 2. `make_graph()` is where the creation occurs. The relevant commands may or may not all be in one continuous block depending on how the shortcut is setup.
+
+## Controller Graphs
+
+The controller shortcuts for moving the robots are:
+
+* Articulation (Joint Position and Velocity) Controllers
+* Differential Drive Controller
+* Gripper Controllers
+
+### Articulation Controllers
+
+Both Position and Velocity Controllers issue commands directly to each joint in the articulation.
+
+* **Robot Prim**: The parent prim of the robot.
+* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called “/Graph/{type}\_controller”. If a graph already exist in the path given, it’ll find the next available path by appending a number to the end of that path.
+* **Add to Existing Graph** (optional): Default to False. If checked, it’ll add the nodes to an existing graph and use an existing tick node if there exist one, but will add new controller nodes regardless of existing ones.
+
+#### Use the Articulation Controller
+
+To use the controller to move the robot:
+
+1. Highlight the **JointCommandArray** node under the newly created graph.
+2. Press *play* to start the simulation.
+3. Move the robot by changing the values in the **JointCommandArray** node in the Property Tab.
+
+If you had initial targets for position or velocity saved as part of the USD, it immediately moves towards those targets when you press **play**.
+
+### Differential Controller
+
+The Differential Controller takes in linear and angular velocities and converts them to individual wheel velocities.
+
+* **Robot Prim**: The Robot Prim.
+* **Graph Path**: The path to the graph generated. By default, it is under an independent tree called “/Graph/{type}\_controller”. If a graph already exist in the path given, it finds the next available path by appending a number to the end of that path.
+* **Wheel Radius**: The radius of the wheel in meters.
+* **Distance between wheels**: The distance between the two wheels in meters.
+* **Left/Right Joint Names** (optional): Names of the joints that control the left and right wheels.
+* **Left/Right Joint Index** (optional): The index of the joints that control the left and right wheels in the articulation chain.
+* **Use Keyboard Control** (optional): Default to none. If checked, it also populates the graph that receives WASD as keyboard inputs to move the robot forward, backward, spin left, and spin right.
+* **Add to Existing Graph** (optional): Defaults to False. If checked, it adds the nodes to an existing graph and uses an existing tick node if there is one, but will add new controller nodes regardless of existing ones.
+
+#### Use the Differential Controller
+
+* In some robots, there are only two controllable joints, so you do not have to specify joint names or indices. For robots with multiple actuated joints in an articulation chain, you must specify either the names or the indices of the joints that control the left and right wheels. List the left wheel before the right wheel so the order matches the Differential Controller output.
+* If you did not include the WASD keyboard control in the graph, you can always test the controller by manually changing the “Desired Angular Velocity” and “Desired Linear Velocity” in the **DifferentialController** node under the newly created graph.
+
+* If you are using the WASD Keyboard control, there are two scaling values used to scale the binary input from the keyboard to a linear velocity and an angular velocity that make sense for the vehicle’s size. The values are inside the nodes “ScaleLinear” and “ScaleAngular” respectively. You can print the output of the “DifferentialController” node to see relative affects of the scaling values. You want to tune them so that the rotating commands results in similar magnitude changes in the wheels’ velocities as the forward and backward commands.
+
+* If you are using Isaac Sim Assets, the default values of the wheel radius and distance between wheels can be found on the bottom of the page for Wheeled Robots in [Robot Assets](../assets/usd_assets_robots.html#isaac-assets-robots)
+
+### Gripper Controller
+
+The Gripper Controller works for any end-effector that has only one-degree of actuation per finger. This includes all parallel jaw grippers, as well as any multi-finger, multi-DOF-per-finger hands where each finger has only one degree of actuation.
+
+* **Parent Robot**: The robot that contains the gripper. This could be the gripper itself, or if the gripper is part of an arm, this could be the prim for the entire manipulator.
+* **Gripper Root**: The prim that contains all the gripper joints.
+* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called “/Graph/{type}\_controller”. If a graph already exists in the path given, it finds the next available path by appending a number to the end of that path.
+* **Gripper Speed**: The speed at which the gripper closes or opens in meters (or radian) per second.
+* **Gripper Joint Names**: The names of the joints that control the gripper fingers. List them all out separated by commas.
+* **Open/Close Position Limit** (optional): The joint position that’s considered fully open. Unit: meter (prismatic) or radian (revolute). If left blank, it defaults to the joint limits inside the asset’s USD file.
+* **Use Keyboard Control** (optional): Default to none. If checked, it populates the graph that receives “O”,”C”, and “N” as keyboard inputs to open, close, and stop the gripper.
+* **Add to Existing Graph** (optional): Defaults to False. If checked, it adds the nodes to an existing graph and uses an existing tick node if one exists, but will add new controller nodes regardless of existing ones.
+
+#### Use the Gripper Controller
+
+If no joint limits are given, the gripper defaults to the joint limits inside the asset’s USD file. If the Open Position Limit and Close Position Limit are flipped, the gripper controller automatically corrects for it. The controller makes the assumption that the joint limits for opened position is greater than closed position. So if it is the opposite for your gripper, you would have to either adjust your definition of open and close or modify the Python script accordingly.
+
+* Only uniform speed and same joint limits are supported using the shortcut. If you want variable speed or different joint limits for each of the fingers, you can modify the graph by adding arrays for the speed and joint limit inputs.
+* If the articulation chain you are working with contains both an arm and a gripper and you wish to control the arm using the Articulcation Position Controller and the Gripper Controller for the gripper separately:
+
+  1. Remove the joints that control the gripper from the arm controller graph.
+  2. Validate that there is no conflict between the two graphs.
+
+On this page
+
+* [Controller Graphs](#controller-graphs)
+  + [Articulation Controllers](#articulation-controllers)
+    - [Use the Articulation Controller](#use-the-articulation-controller)
+  + [Differential Controller](#differential-controller)
+    - [Use the Differential Controller](#use-the-differential-controller)
+  + [Gripper Controller](#gripper-controller)
+    - [Use the Gripper Controller](#use-the-gripper-controller)
+
+---
+
+
+## Robot Simulation
 
 ### Robot Simulation Index
 
@@ -1773,1252 +2999,6 @@ On this page
 * [Policies Files](#policies-files)
 * [API Documentation](#api-documentation)
 * [Standalone Examples](#standalone-examples)
-
----
-
-
-## OmniGraph
-
-### OmniGraph Tutorial
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_tutorial.html
-
-* [OmniGraph](index.html)
-* Isaac Sim OmniGraph Tutorial
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Isaac Sim OmniGraph Tutorial
-
-This tutorial introduces you to the world of visual programming via OmniGraph.
-We highly recommend that you also read [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)"), because it is a key component in Omniverse Kit.
-
-## Learning Objectives
-
-This tutorial aims to
-
-* walk you through building an action graph to control a robot in Isaac Sim, specifically, the Jetbot.
-* show you how to use the OmniGraph shortcuts to generate a differential controller graph for the Jetbot.
-
-## Build the Graph
-
-Let’s build an action graph to control a robot in Isaac Sim the Jetbot.
-
-### Setting Up the Stage
-
-1. On a new stage, start by right clicking and selecting **create > Physics > Ground Plane**.
-2. In the Content Browser, navigate to `Isaac Sim/Robots/NVIDIA/Jetbot/jetbot.usd`.
-3. Click and drag `jetbot.usd` onto the stage.
-4. Position the JetBot just above the ground plane.
-5. When completed, verify that the JetBot is under `/World/jetbot` in the context tree and that the stage looks similar to:
-
-Jetbot on the stage
-
-Note
-
-Click play! Validate that the JetBot falls and lands on the stage. Click stop before continuing.
-
-Depending on your default render settings, the camera of the JetBot may have a placeholder mesh (it looks like a gray television camera).
-To hide these meshes, click on the  icon in the viewport and select **Show By Type –> Cameras**.
-
-### Building the Graph
-
-1. Select **Window > Graph Editors > Action Graph** from the dropdown menu at the top of the editor.
-   The Graph Editor appears in the same pane as the Content browser.
-2. Click **New Action Graph** to open an empty graph.
-3. Type `controller` in the search bar of the graph editor.
-4. Drag an `Articulation Controller` and a `Differential Controller` onto the graph.
-
-The `Articulation Controller` applies driver commands (in the form of force, position, or velocity) to the specified joints
-of any prim with an articulation root.
-
-To tell the controller which robot it’s going to control:
-
-1. Select the `Articulation Controller` node in the graph and open up the property pane.
-2. You can either:
-
-   * Click **usePath** and Type in the path to the robot */World/jetbot* in **robotPath**
-
-     **OR**
-   * Click **Add Targets** near the top of the pane for `input:targetPrim` and select **JetBot** in the pop up window.
-
-The `Differential Controller` computes drive commands for a two wheeled robot given some target linear and angular velocity. Like the
-`Articulation Controller`, it also needs to be configured.
-
-1. Select the `Differential Controller` node in the graph.
-2. In the properties pane, set the `wheelDistance` to 0.1125, the `wheelRadius` to 0.03, and `maxAngularSpeed` to 0.2.
-
-The `Articulation Controller` also needs to know which joints to articulate. It expects this information in the form of a list of tokens or index values. Each joint in a robot has a name and the JetBot has exactly two. Verify this by examining the JetBot in the stage context tree. Within `/World/jetbot/chassis`
-are two revolute physics joints named `left_wheel_joint` and `right_wheel_joint`.
-
-Stage Tree
-
-1. Type `token` into the search bar of the graph editor.
-2. Add two `Constant Token` nodes to the graph.
-3. Select one and set it’s value to `left_wheel_joint` in the properties pane.
-4. Repeat this for the other constant token node, but set the value to `right_wheel_joint`.
-5. Type `make array` into the search bar of the graph editor.
-6. Add a `Make Array` node to the graph.
-7. Select the `Make Array` node and click on the `+` icon in the `inputs` section of the property pane menu to add a second input.
-8. Set the `arraySize` to 2 and set the input type to `token[]` from the dropdown menu in the same pane.
-9. Connect the constant token nodes to `input0` and `input1` of the `Make Array` node, and then the output of that node to the `Joint Names` input of the `Articulation Controller` node.
-
-The last node is the event node.
-
-1. Search for `playback` in the search bar of the graph editor.
-2. Add an `On Playback Tick` node to the graph. This node emits an execution event for every frame, but only while the simulation is playing.
-3. Connect the `Tick` output of the `On Playback Tick` node to the `Exec In` input of both controller nodes.
-4. Connect the `Velocity Command` output of the differential controller to the `Velocity Command` input of the articulation controller.
-5. Validate that the graph looks similar to:
-
-Simple differential control for the JetBot
-
-1. Press the play button.
-2. Select the `Differential Controller` node in the graph.
-3. Click and drag on either the angular or linear velocity values in the properties pane to change it’s value (or just click and type in the desired value).
-
-Note
-
-Explore the available OmniGraph nodes and try to setup a graph to control the JetBot with the keyboard. The graph
-below is an example graph for controlling the JetBot with a keyboard.
-
-Keyboard control Action graph for the JetBot
-
-## OmniGraph Shortcuts
-
-Putting the graph from scratch can be tedious, especially when you have to iterate. We made some shortcuts for frequently used graphs, so that within a couple clicks, you can generate a complex graph with multiple nodes and connections. They can be found under `Tools -> Robotics -> OmniGraph Controllers`, and the instructions for them are in [Commonly Used OmniGraph Shortcuts](omnigraph_shortcuts.html#isaac-sim-app-tutorial-advanced-omnigraph-shortcuts).
-
-To use the Differential Controller graph from the menu shortcut:
-
-1. Delete (or Disable if that is an option) any previous OmniGraphs that controls the Jetbot.
-2. Go to the Menu bar and click on **Tools -> Robotics -> OmniGraph Controllers -> Differential Controller**.
-3. You are prompted for the necessary parameters.
-4. Add “/World/jetbot” to `Articulation Root`, set the **distance between wheels** to 0.1125, and the **wheel radius** to 0.03.
-5. Given JetBot only has two controllable joints, you can leave the rest of the fields empty.
-6. Turn **Use Keyboard Control (WASD)** on.
-7. Click **OK** to generate the graph. You can open the generated graph under `/Graph/differential_controller`.
-8. Press **Play** to start simulation.
-9. Verify that you can move the JetBot using the WASD keys on the keyboard.
-
-## Summary
-
-This tutorial covered:
-
-* Basic concepts of OmniGraph
-* Setting up a stage with a robot
-* Using OmniGraph to construct interfaces to a robot
-* Using the OmniGraph shortcuts to generate differential controller graph
-
-### Further Learning
-
-* More in-depth concepts in [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)")
-* More details about all the OmniGraph shortcuts [Commonly Used OmniGraph Shortcuts](omnigraph_shortcuts.html#isaac-sim-app-tutorial-advanced-omnigraph-shortcuts)
-* Examples for composing OmniGraph via Python scripting: [OmniGraph via Python Scripting Tutorial](omnigraph_scripting.html#isaac-sim-app-tutorial-advanced-omnigraph-scripting)
-* Examples for writing custom Python nodes: [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes)
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Build the Graph](#build-the-graph)
-  + [Setting Up the Stage](#setting-up-the-stage)
-  + [Building the Graph](#building-the-graph)
-* [OmniGraph Shortcuts](#omnigraph-shortcuts)
-* [Summary](#summary)
-  + [Further Learning](#further-learning)
-
----
-
-### OmniGraph Scripting
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_scripting.html
-
-* [OmniGraph](index.html)
-* OmniGraph via Python Scripting Tutorial
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# OmniGraph via Python Scripting Tutorial
-
-While OmniGraph is intended to be a visual scripting tool, it does have Python scripting interfaces. This tutorial will give some examples of how to script an action graph using Python.
-
-## Learning Objectives
-
-This tutorial will
-
-* walk you through examples of scripting an OmniGraph using purely Python APIs
-* introduce the basic concepts and frequently used parameters in OmniGraphs and showcase them using scripted examples
-
-## Getting Started
-
-**Prerequisites**
-
-* Review the GUI Tutorial series, especially [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph) and [Omniverse Script Editor](../development_tools/omniverse_script_editor.html#isaac-sim-app-omniverse-script-editor) prior to beginning this tutorial.
-* Review the Core API Tutorial series, especially [Hello World](../core_api_tutorials/tutorial_core_hello_world.html#isaac-sim-app-tutorial-core-hello-world) to become familiar with the extension workflow via Python, as well as the Python Standalone workflow.
-
-## Code Snippets
-
-### Creating a Graph
-
-First let’s build a simple action graph that prints “Hello World” to the console on every simulation frame.
-
-1. Open ‘Window > Script Editor’ and paste the following code:
-
-   > ```python
-   > import omni.graph.core as og
-   >
-   > keys = og.Controller.Keys
-   > graph_handle, list_of_nodes, _, _ = og.Controller.edit(
-   >     {"graph_path": "/action_graph", "evaluator_name": "execution"},
-   >     {
-   >         keys.CREATE_NODES: [("tick", "omni.graph.action.OnTick"), ("print", "omni.graph.ui_nodes.PrintText")],
-   >         keys.SET_VALUES: [
-   >             ("print.inputs:text", "Hello World"),
-   >             (
-   >                 "print.inputs:logLevel",
-   >                 "Warning",
-   >             ),  # setting the log level to warning so we can see the printout in terminal
-   >         ],
-   >         keys.CONNECT: [("tick.outputs:tick", "print.inputs:execIn")],
-   >     },
-   > )
-   > ```
-2. Press ‘Run’ to execute the script. You should see a new prim `/action_graph` created on the Stage tree.
-3. Expand the prim on stage, the nodes “tick” and “print” should be listed under the graph. These nodes can be accessed just like any other prim on the stage.
-4. Press “play” to start the simulation. You should see “Hello World” printed to the console on every frame.
-5. Open graph editor by going to Window > Graph Editors > Action Graph.
-6. With the newly created graph highlighted on the Stage tree on the right, open the graph by clicking on the icon for ‘Edit Action Graph’ in the graph editor window. You should see two nodes connected with each other by a line.
-
-### Editing a Graph
-
-Once a graph has been created, there are specific APIs to manipulate the graph’s terms.
-
-**Getting and Setting Attribute Values**
-
-Open another tab in the Script Editor, paste the snippet below, and run.
-
-```python
-import omni.graph.core as og
-
-# get existing value from an attribute
-existing_text = og.Controller.attribute("/action_graph/print.inputs:text").get()
-print("Existing Text: ", existing_text)
-
-# set new value
-og.Controller.attribute("/action_graph/print.inputs:text").set("New Texts to print")
-```
-
-This will change the value in the “Print Text” node from “Hello World” to “New Texts to print”. But this affect won’t take place until the first tick through the graph. So when you press ‘Run’ in the script editor, the graph has yet to be ticked, so it should fetch the current value from the node, and print out a single string of “Existing Text: Hello World” in the Script Editor’s console (as well as the terminal if you are using that, or the main Omniverse’s console if you include “Info” to be printed).
-
-Now press ‘Play’ and start the simulation. It should now print, at the rate of one string per tick, the updated text “New Texts to print”, in the terminal or the main Omniverse console (though not the Script Editor’s console).
-
-**Adding Nodes and Connections**
-
-Open a third tab in the Script Editor to add nodes and make more connections to an existing graph.
-
-```python
-import omni.graph.core as og
-
-og.Controller.create_node("/action_graph/new_node_name", "omni.graph.nodes.ConstantString")
-og.Controller.attribute("/action_graph/new_node_name.inputs:value").set("This is a new node")
-og.Controller.connect("/action_graph/new_node_name.inputs:value", "/action_graph/print.inputs:text")
-```
-
-A new node named “new\_node\_name” will be created and connected to the “Print Text” node. If you have the graph editor (Window > Graph Editors > Action Graph) open, you can see that there are now three nodes connected to each other instead of two.
-
-### Graph Execution
-
-By default, the graph is evaluated on every frame. You can change this behavior by setting the graph to evaluate only when you call it.
-
-You can also trigger each graph explicitly by making execute only when you call it. To do this, there is a special parameter called “pipeline\_stage” where you can set the graph to execute “On Demand”. Most of the times we want to set this variable during the creation of the graph:
-
-1. Delete the previous graph by selecting it on the stage tree and pressing ‘Delete’ key.
-2. Open a new tab in the Script Editor and paste the following code
-
-   > ```python
-   > import omni.graph.core as og
-   >
-   > keys = og.Controller.Keys
-   > demand_graph_handle, _, _, _ = og.Controller.edit(
-   >     {
-   >         "graph_path": "/ondemand_graph",
-   >         "evaluator_name": "execution",
-   >         "pipeline_stage": og.GraphPipelineStage.GRAPH_PIPELINE_STAGE_ONDEMAND,
-   >     },
-   >     {
-   >         keys.CREATE_NODES: [("tick", "omni.graph.action.OnTick"), ("print", "omni.graph.ui_nodes.PrintText")],
-   >         keys.SET_VALUES: [("print.inputs:text", "On Demand Graph"), ("print.inputs:logLevel", "Warning")],
-   >         keys.CONNECT: [("tick.outputs:tick", "print.inputs:execIn")],
-   >     },
-   > )
-   > ```
-3. Press ‘Run’ in the Script Editor. A new graph `/ondemand_graph` will be created.
-4. Start simulation by press “play”, nothing should be printed from this graph because we did not explicitly call to evaluate it.
-5. To manually trigger a graph, open another tab, and paste in `demand_graph_handle.evaluate()`
-6. Make sure simulation is still running. Click ‘Run’ in the Script Editor. You should see “On Demand Graph” printed to the console once.
-
-Alternatively, you can also set it for an existing graph by `demand_graph_handle.change_pipeline_stage(og.GraphPipelineStage.GRAPH_PIPELINE_STAGE_ONDEMAND)`
-
-A more in-depth example of attaching graphs to physics callbacks and/or rendering callbacks can be found in standalone\_examples/api/isaacsim.core.experimental.api/omnigraph\_triggers.py
-
-## Summary
-
-In this tutorial, we introduced scripting OmniGraph via Python.
-
-### Further Reading
-
-For more Python Scripting API in [OmniGraph APIs](https://docs.omniverse.nvidia.com/kit/docs/omni.graph/latest/omni.graph.core.html)
-
-On this page
-
-* [Learning Objectives](#learning-objectives)
-* [Getting Started](#getting-started)
-* [Code Snippets](#code-snippets)
-  + [Creating a Graph](#creating-a-graph)
-  + [Editing a Graph](#editing-a-graph)
-  + [Graph Execution](#graph-execution)
-* [Summary](#summary)
-  + [Further Reading](#further-reading)
-
----
-
-### Custom Python Nodes
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_python_nodes.html
-
-* [OmniGraph](index.html)
-* Custom Python Nodes
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Custom Python Nodes
-
-There already exist a large number of default nodes that comes with Isaac Sim. You can find the definitions and descriptions for them in either the [OmniGraph Node Library](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/node-library/node-library.html "(in Omniverse Extensions)") or [API Documentation](../reference_python_api.html#isaac-sim-python-manual). If those prove to be insufficient, you can write your own and integrate them into Isaac Sim.
-
-A node is defined by two files, an .ogn file, which is a JSON file that defines the structure of the node, including its inputs, outputs, and parameters. Either a Python file or a C++ file can be used to define its function. Here we will focus on Python nodes.
-
-## Node Files
-
-All OmniGraph Node files starts with “Ogn” as a prefix. This is expected by the parser.
-
-### Node Definition (.ogn)
-
-The .ogn file is a JSON file that defines the structure of the node, including its inputs, outputs, and parameters. Here is an example of a simple node definition:
-
-```python
- 1{
- 2 "NodeName": {
- 3     "version": 1,
- 4     "categories": "examples",
- 5     "description": ["Minimum Example"],
- 6     "language": "python",
- 7     "metadata": {
- 8         "uiName": "minimum example"
- 9     },
-10     "inputs": {
-11                        "execIn": {
-12             "description": "the trigger input that starts the node",
-13             "type": "execution",
-14         },
-15                        "value_input": {
-16             "type": "double",
-17             "description": "a number",
-18             "default": 0.0,
-19          },
-20     },
-21     "outputs": {
-22         "output_bool": {
-23             "type": "bool",
-24             "description": "let output be a boolean",
-25          }
-26      }
-27   }
-28}
-```
-
-A note about the input “execIn”. This is a special input that is used to trigger the node. This trigger is only relevant in an Action Graph, where you must explicitly trigger the node to run, such as on a physics tick, or a stage event, like opening and closing a stage. In a Push Graph, the node will run automatically at every frame and the ‘execIn’ input is not necessary.
-
-### Function Definition
-
-Here’s a minimum example of a Python node that takes an input number and outputs a boolean value based on whether the input is greater than 0:
-
-```python
-class OgnNodeName:
-    @staticmethod
-    def compute(db):
-        db.outputs.out = bool(db.inputs.value_input > 0.0)
-        return True
-```
-
-Notes:
-
-* the class name must match the name of the node in the .ogn file, and the file name must match the class name.
-* the “compute” function is what the ‘execIn’ input triggers. It takes a single argument, the database, which contains the inputs and outputs of the node. The function should return True if the node ran successfully, and False if it failed.
-* this node has no internal state, which means all data that passes through it is gone the next tick. If you need to store data between ticks, you can use the “internal state” to store it.
-
-## Using the Custom Node
-
-You can simply insert your custom node’s `.py` and `.ogn` files into any of extensions that already have a directory that contains the `.py` and `.ogn` files for existing nodes and thereby avoid creating your own extension that way.
-
-You can also create your own extension and insert the files there. (link to the new template generator)
-
-## Isaac Sim Nodes as Examples
-
-You are welcome to dig into the code behind some of our existing OmniGraph nodes to find examples of how to structure a node, or even modify them to suite your own need. To find the backend `.py` and `.ogn` files for a particular node. Hover your mouse over the node in the editor window, a tooltip window will appear and the name of the extension will be written in the parentheses. You can then navigate to the extensions’s folder that contains the backend scripts for the nodes by going to `exts/isaacsim.<ext_name>/isaacsim/<ext_name>/ogn/python/nodes/`.
-
-Not all of the nodes are written in Python, some have C++ backends, so if you won’t necessarily see a corresponding `.py` and `.ogn` files for all the nodes on the list. Note that if you found a folder with a list of `Ogn<node_name>Database.py`, this is NOT the directory that contains the Python description of the node.
-
-On this page
-
-* [Node Files](#node-files)
-  + [Node Definition (.ogn)](#node-definition-ogn)
-  + [Function Definition](#function-definition)
-* [Using the Custom Node](#using-the-custom-node)
-* [Isaac Sim Nodes as Examples](#isaac-sim-nodes-as-examples)
-
----
-
-### Custom C++ Nodes
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_cpp_nodes.html
-
-* [OmniGraph](index.html)
-* Custom C++ Nodes
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Custom C++ Nodes
-
-For C++ nodes, the [Node Definition (.ogn)](omnigraph_custom_python_nodes.html#isaac-sim-omnigraph-ogn-file) is the same as the one used for Custom Python Nodes.
-
-Examples of how to include OmniGraph nodes can be found in the extension template’s [GitHub repo](https://github.com/NVIDIA-Omniverse/kit-extension-template-cpp/tree/main/source/extensions/omni.example.cpp.omnigraph_node).
-
-To use the custom C++ nodes, you will need also build your custom C++ extension. Follow [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html) for the detailed instructions.
-
----
-
-### Custom IPC Nodes
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_ipc_nodes.html
-
-* [OmniGraph](index.html)
-* Building Custom IPC OmniGraph Nodes
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Building Custom IPC OmniGraph Nodes
-
-This guide explains how to build OmniGraph nodes for inter-process communication (IPC) in Isaac Sim. It covers the node schema, transport lifecycle with `BaseResetNode`, non-blocking I/O inside `compute`, and how to add your transport library as a dependency. The OmniGraph patterns apply regardless of the IPC stack that you use. The working example is `isaacsim.examples.ipc`, a clock-send and step-receive node pair over BSD sockets in C++ and Python. The tutorial starts by scaffolding a new extension with the CLI template so you have a working build skeleton before writing any IPC code.
-
-Note
-
-This workflow requires a **source checkout** of the [Isaac Sim](https://github.com/isaac-sim/IsaacSim) repository. It is not supported with the pip packages or the binary release. Clone the GitHub repository before you begin.
-
-Note
-
-All commands in this tutorial are run from the **Isaac Sim repository root** (the directory that contains `build.sh`/`build.bat` and `repo.sh`/`repo.bat`).
-
-## Before You Start
-
-**Prerequisites**:
-
-* **Custom C++ extensions** — [Kit C++ Extension Template](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html).
-* **OmniGraph** — [OmniGraph Core Concepts](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/getting-started/core_concepts.html "(in Omniverse Extensions)") and [Basic OmniGraph Tutorial](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph/tutorials/gentle_intro.html "(in Omniverse Extensions)").
-* **Custom nodes** — [Custom Python Nodes](omnigraph_custom_python_nodes.html#isaac-sim-app-omnigraph-custom-python-nodes) and [Custom C++ Nodes](omnigraph_custom_cpp_nodes.html#isaac-sim-app-tutorial-advanced-omnigraph-custom-cpp-nodes).
-
-Optional: [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph), if you are new to the Action Graph editor.
-
-See also
-
-[ROS 2 Python Custom OmniGraph Node](../ros2_tutorials/tutorial_ros2_custom_omnigraph_node_python.html#isaac-sim-app-ros2-custom-omnigraph-node-python) for a complete Python node
-example. ROS 2 context, but the `internal_state()` factory,
-`BaseResetNode`, `db.per_instance_state`, and
-`og.ExecutionAttributeState.ENABLED` patterns are identical for any IPC
-node.
-
-## Scaffold Your Extension
-
-Before writing IPC code, create the extension skeleton with the CLI template:
-
-Linux
-
-```python
-./repo.sh template new
-```
-
-Windows
-
-```python
-.\repo.bat template new
-```
-
-When prompted, select **Isaac Sim OmniGraph Node Extension**. You will be asked for:
-
-* `extension_name` Dotted identifier, for example `isaacsim.my.ipc.nodes`.
-* `title` Human-readable name shown in the Extensions window.
-* `description` Short summary.
-* `category` Used to group your nodes in the Action Graph node library (for example `Simulation`).
-
-The template creates the full extension skeleton under `source/extensions/<extension_name>/`:
-
-```python
-source/extensions/<extension_name>/
-├── config/extension.toml          ← metadata, dependencies, test entries
-├── nodes/
-│   ├── OgnExampleCpp.ogn          ← rename/replace with your IPC node schema
-│   └── OgnExampleCpp.cpp          ← rename/replace with your IPC node implementation
-├── plugins/<extension_name>/
-│   └── PluginInterface.cpp        ← Carbonite plugin + OGN registration (keep as-is)
-├── bindings/<extension_name>/
-│   └── Bindings.cpp               ← pybind11 bindings; acquires the Carbonite interface (keep as-is)
-├── include/<extension_name>/
-│   └── IExampleNodes.h            ← Carbonite interface (keep as-is)
-├── python/nodes/
-│   ├── OgnExamplePython.ogn       ← rename/replace with your Python node schema
-│   └── OgnExamplePython.py        ← rename/replace with your Python Node Implementation
-├── python/impl/extension.py       ← calls acquire_example_ipc_interface() on startup to load the plugin
-├── python/tests/                  ← test modules go here
-└── premake5.lua                   ← build configuration
-```
-
-The build step is required before the extension loads in Isaac Sim — it compiles the C++ plugin and generates the OmniGraph database files that register your nodes. Run it now:
-
-Linux
-
-```python
-./build.sh
-```
-
-Windows
-
-```python
-.\build.bat
-```
-
-The generated nodes — **Example C++ Node** (`OgnExampleCpp`) and **Example Python Node** (`OgnExamplePython`) — are placeholder stubs that double an input value. The display names in the Action Graph library come from the `uiName` field in each `.ogn` file, not the file name. Rename or replace them with your actual IPC node(s) as you work through the sections below.
-
-Try it: verify your scaffold
-
-After the build completes above, confirm the scaffold registers its placeholder nodes:
-
-1. Launch the repo-built Isaac Sim — not a separately installed Isaac Sim:
-
-   Linux
-
-   ```python
-   ./_build/linux-x86_64/release/isaac-sim.sh
-   ```
-
-   Windows
-
-   ```python
-   .\_build\windows-x86_64\release\isaac-sim.bat
-   ```
-2. Open **Window → Extensions**, search for your extension name (for example `isaacsim.my.ipc.nodes`), and enable it.
-3. Open **Window → Graph Editors → Action Graph** and search for `Example C++ Node` and `Example Python Node` in the node library. These names match the `uiName` fields in the scaffold’s `.ogn` files.
-
-If both nodes appear, the scaffold is wired correctly. Proceed to [Design and Implement Your Nodes](#design-and-implement-your-nodes) to replace the placeholders.
-
-If the nodes do not appear, check the following:
-
-* The build (`./build.sh` on Linux, `.\build.bat` on Windows) completed without errors. Nodes are not registered until the C++ plugin is compiled and the OmniGraph database files are generated by the build.
-* You launched the repo-built Isaac Sim (`./_build/linux-x86_64/release/isaac-sim.sh` or `.\_build\windows-x86_64\release\isaac-sim.bat`). A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension.
-* The extension is enabled (green toggle) in **Window → Extensions**. If it was enabled before the build ran, disable and re-enable it.
-* After any `.ogn` schema or code change, the build must be re-run and Isaac Sim restarted before updated nodes appear.
-
-## Add Your Transport Library
-
-Before writing node code, wire in the library that provides your IPC and serialization. The generated `config/extension.toml` and `premake5.lua` are already in place. The sections below show where to add entries.
-
-### Python
-
-Isaac Sim ships a pip archive (`omni.isaac.core_archive` and related extensions) that pre-bundles many common packages, including NumPy and SciPy. If your library is already in that archive you can import it directly with no extra configuration.
-
-If the package is not yet bundled, declare it in `config/extension.toml`, for example:
-
-```python
-[python.pipapi]
-requirements = ["pyzmq>=25", "grpcio"]  # replace with your actual packages
-use_online_index = true
-```
-
-Isaac Sim resolves these at extension startup. `use_online_index = true` must be set. If it is omitted or set to `false`, `omni.kit.pipapi` logs a warning and skips the `requirements` list entirely.
-
-### C++
-
-Prebuilt native libraries go through packman. These steps follow the same pattern described in the [Kit Extension C++ template documentation](https://docs.omniverse.nvidia.com/kit/docs/kit-extension-template-cpp/latest/index.html):
-
-1. **Declare the dependency.** Add your library to `deps/ext-deps.packman.xml`. It is the designated file for extension-specific dependencies (separate from the Kit SDK deps). The unpacked tree typically lands under `_build/target-deps/<libname>/`:
-
-   ```python
-   <project toolsVersion="5.0">
-     <dependency name="mylib" linkPath="../_build/target-deps/mylib">
-       <package name="mylib" version="1.2.3" />
-     </dependency>
-   </project>
-   ```
-2. **Update ``premake5.lua``.** Point to the include and library directories and add the link:
-
-   ```python
-   includedirs { "%{target_deps}/mylib/include" }
-   libdirs     { "%{target_deps}/mylib/lib/%{platform}" }
-   links       { "mylib" }
-   ```
-3. **Shared libraries at runtime.** If the library ships as a `.so` / `.dll`, either bundle it beside the extension plugin or list it under `[native.library]` in `extension.toml` so Kit’s loader finds it.
-
-The sample extension uses only standard BSD socket APIs and has no additional native library entries beyond the plugin itself.
-
-## Design and Implement Your Nodes
-
-### Design Principle
-
-Keep IPC nodes thin. They should only handle **serialization and transport**. Simulation data reads (joint positions, sensor data, simulation time) belong in upstream built-in nodes wired into the graph before your IPC node. Downstream processing or command writes belong in other nodes after it. This keeps `compute` fast and makes the graph layout self-documenting.
-
-### What Every IPC Node Requires
-
-Every custom IPC node requires the same six things, regardless of transport:
-
-* **Node schema** (`.ogn` file) — declare inputs (URI, config), outputs (data, `execOut`), and state. Refer to the sample `.ogn` files under `nodes/` in `isaacsim.examples.ipc` as a reference.
-* `BaseResetNode` subclass — holds per-instance state (sockets, buffers, handles). Implement `reset()` (C++) or `custom_reset()` (Python) to tear down the transport when the timeline stops or inputs change.
-* `compute(db)` with a lifecycle split:
-
-  > + Detect input changes (URI, config) → call reset and teardown
-  > + Try to open the transport if not ready → return early on failure (retry next evaluation)
-  > + Do non-blocking I/O (send or try-receive)
-  > + Write `db.outputs` and fire `execOut`
-* **Non-blocking I/O** — never block indefinitely in `compute`. Use try-receive, timeouts, or offload slow paths to a worker thread (refer to [Performance Considerations](#performance-considerations)).
-* **Fire** `execOut` at the end of `compute` to signal downstream nodes that the transport operation is complete and/or new data is ready. You control when to fire it. For example, fire on every evaluation, only on successful send, or only when a full message has been received.
-* **Your transport library** — add it as a dependency (refer to [Add Your Transport Library](#add-your-transport-library) above) and replace the TCP helpers with your stack’s API.
-
-### OGN Schema Quick Reference
-
-Each `.ogn` file is a single JSON object keyed by the node’s registered type
-name. The minimum schema for a Python IPC node looks like this:
-
-```python
-{
-    "MyNodeName": {
-        "version": 1,
-        "language": "Python",
-        "description": "One-line description shown in the node library.",
-        "metadata": { "uiName": "My Node Display Name" },
-        "categoryDefinitions": "config/CategoryDefinition.json",
-        "categories": "myCategory",
-        "inputs": {
-            "execIn":  { "type": "execution", "description": "Trigger." },
-            "uri":     { "type": "string",    "description": "...", "default": "tcp://127.0.0.1:5550" },
-            "myValue": { "type": "double",    "description": "...", "default": 0.0 }
-        },
-        "outputs": {
-            "execOut":  { "type": "execution", "description": "Output execution port." },
-            "myTokens": { "type": "token[]",   "description": "Array of token outputs." }
-        }
-    }
-}
-```
-
-Common scalar types: `"string"`, `"double"`, `"float"`, `"int"`,
-`"uint"`, `"bool"`, `"execution"`. Array variants append `[]`:
-`"double[]"`, `"float[]"`, `"token[]"`, etc. The `"default"` key is
-required for non-execution scalar inputs; use `[]` for array inputs.
-
-`categoryDefinitions` is a path relative to the `nodes/` directory that
-points to a JSON file mapping category keys to human-readable display strings:
-
-```python
-{
-    "categoryDefinitions": {
-        "myCategory": "My node group label in the Action Graph library"
-    }
-}
-```
-
-### C++ Node Implementation
-
-`BaseResetNode` is declared in `isaacsim.core.includes`. This extension is a compile-time only dependency, do **not** add it to `[dependencies]` in `extension.toml`. Instead, add the header path in `premake5.lua`:
-
-```python
-includedirs { "%{root}/source/extensions/isaacsim.core.includes/include" }
-```
-
-Then include the header in your `.cpp` file:
-
-```python
-#include <isaacsim/core/includes/BaseResetNode.h>
-```
-
-Derive your per-instance node class from `isaacsim::core::includes::BaseResetNode`. That base subscribes to the timeline stop event and calls your `reset()` so transport handles are not left open after simulation stops.
-
-Replace the generated `OgnExampleCpp` stub with a class like this (refer to `OgnSimpleSendSimulationClockCpp.cpp` in `isaacsim.examples.ipc` for TCP implementation):
-
-```python
-#include <isaacsim/core/includes/BaseResetNode.h>
-
-#include <OgnMyIpcNodeCppDatabase.h>
-#include <memory>
-#include <string>
-
-using isaacsim::core::includes::BaseResetNode;
-
-class OgnMyIpcNodeCpp : public BaseResetNode
-{
-public:
-    static bool compute(OgnMyIpcNodeCppDatabase& db)
-    {
-        auto& state = db.perInstanceState<OgnMyIpcNodeCpp>();
-
-        // Detect input changes (e.g. URI) and reset transport.
-        const std::string uriIn(db.inputs.uri());
-        if (state.m_handle && state.m_handle->getUri() != uriIn)
-        {
-            state.reset();
-        }
-
-        const bool success = state.ensureOpenAndTransfer(db);
-        // Fire execOut unconditionally (send nodes). For receive nodes, fire only when
-        // a complete message arrives (i.e. only when success == true).
-        db.outputs.execOut() = omni::graph::core::kExecutionAttributeStateEnabled;
-        return success;
-    }
-
-    static void releaseInstance(NodeObj const& nodeObj, GraphInstanceID instanceId)
-    {
-        auto& state = OgnMyIpcNodeCppDatabase::sPerInstanceState<OgnMyIpcNodeCpp>(nodeObj, instanceId);
-        state.reset();
-    }
-
-    void reset() override
-    {
-        if (m_handle)
-        {
-            m_handle->close();
-            m_handle.reset();
-        }
-    }
-
-private:
-    bool isOpen() const
-    {
-        return m_handle && m_handle->isOpen();
-    }
-
-    void tryOpen(OgnMyIpcNodeCppDatabase& db)
-    {
-        // Open transport from db.inputs (e.g. URI, config).
-        // m_handle = std::make_unique<MyTransportHandle>(std::string(db.inputs.uri()));
-    }
-
-    bool transfer(OgnMyIpcNodeCppDatabase& db)
-    {
-        // Non-blocking send or try-receive; write db.outputs on success.
-        // See Performance Considerations for time-budget guidance.
-        return false; // replace with actual transfer
-    }
-
-    bool ensureOpenAndTransfer(OgnMyIpcNodeCppDatabase& db)
-    {
-        if (!isOpen())
-        {
-            tryOpen(db);
-            if (!isOpen())
-                return false;
-        }
-        return transfer(db);
-    }
-
-    std::unique_ptr<MyTransportHandle> m_handle; // replace with your transport type
-};
-
-REGISTER_OGN_NODE()
-```
-
-Note
-
-The generated `python/impl/extension.py` calls `acquire_example_ipc_interface()` in
-`on_startup()`. This is what triggers the Carbonite plugin to load and run
-`INITIALIZE_OGN_NODES()`, registering your C++ nodes. If your nodes do not appear in the
-Action Graph library, verify that `extension.py` is calling the acquire function and that
-`PluginInterface.cpp` does **not** contain a `CARB_PLUGIN_IMPL_DEPS` line, because that macro
-can prevent the plugin from loading.
-
-### Python Node Implementation
-
-`BaseResetNode` is provided by the `isaacsim.core.nodes` extension. Add it as a dependency in `config/extension.toml` and import it in your node file:
-
-```python
-[dependencies]
-"isaacsim.core.nodes" = {}
-```
-
-```python
-import omni.graph.core as og
-from isaacsim.core.nodes import BaseResetNode
-```
-
-Put per-instance data in a small class that subclasses `BaseResetNode`. Pass `initialize=False` to `super().__init__`, if you lazy-open sockets in `compute`, as the samples do. Without it, `BaseResetNode.__init__` calls `custom_reset()` immediately during construction, before your instance attributes (such as, `self.sock = None`) are set, raising `AttributeError`. Implement `custom_reset()` to close sockets and clear buffers. `custom_reset()` runs on timeline stop and mirrors the C++ `reset()`.
-
-Replace the generated `OgnExamplePython` stub with a class like this (refer to `OgnSimpleSendSimulationClockPy.py` in `isaacsim.examples.ipc` for a full TCP implementation):
-
-```python
-import omni.graph.core as og
-from isaacsim.core.nodes import BaseResetNode
-
-class OgnMyIpcNodePyState(BaseResetNode):
-    """Per-instance state for the template IPC node."""
-
-    def __init__(self) -> None:
-        # Declare all attributes BEFORE calling super().__init__,
-        # because BaseResetNode.__init__ calls custom_reset() immediately.
-        self.handle = None  # replace with your transport handle
-        self.uri = ""
-        super().__init__(initialize=False)
-
-    def custom_reset(self) -> None:
-        """Reset transport state when timeline or inputs change."""
-        # Called on timeline stop and when inputs change.
-        if self.handle is not None:
-            self.handle.close()
-            self.handle = None
-        self.uri = ""
-
-class OgnMyIpcNodePy:
-    """Template OmniGraph node for custom IPC transports."""
-
-    @staticmethod
-    def internal_state() -> OgnMyIpcNodePyState:
-        """Create per-instance state for the node."""
-        return OgnMyIpcNodePyState()
-
-    @staticmethod
-    def compute(db: object) -> bool:
-        """Evaluate one non-blocking IPC transfer step."""
-        state = db.per_instance_state
-
-        uri = db.inputs.uri
-        if state.handle is not None and state.uri != uri:
-            state.custom_reset()
-
-        if state.handle is None:
-            # Open transport from inputs (e.g. URI, config).
-            # state.handle = open_my_transport(uri)
-            # state.uri = uri
-            # Fire execOut even on failure so downstream nodes keep running.
-            db.outputs.execOut = og.ExecutionAttributeState.ENABLED
-            return False
-
-        # Non-blocking send or try-receive; write db.outputs on success.
-        # See Performance Considerations for time-budget guidance.
-        success = False  # replace with actual transfer
-
-        # For send nodes: fire execOut every tick.
-        # For receive nodes: fire execOut only when a full message arrives.
-        if success:
-            db.outputs.execOut = og.ExecutionAttributeState.ENABLED
-        return success
-```
-
-Try it: implement and build your node
-
-Adapt your scaffolded extension to a minimal IPC sender:
-
-1. **Update the OGN schema.** In `nodes/OgnExampleCpp.ogn` (or `OgnExamplePython.ogn`), rename the node and add a `uri` string input (default `"127.0.0.1:9000"`) and `execIn`/`execOut` execution ports.
-2. **Replace the implementation.** Copy the template above into `OgnExampleCpp.cpp` (or `OgnExamplePython.py`), rename classes to match, and fill in a no-op `transfer()` that always returns `true`.
-3. **Rebuild:** `./build.sh` (Linux) or `.\build.bat` (Windows).
-4. **Restart Isaac Sim** by closing and relaunching `./_build/linux-x86_64/release/isaac-sim.sh` (Linux) or `.\_build\windows-x86_64\release\isaac-sim.bat` (Windows).
-5. **Verify:** enable your extension in Isaac Sim and confirm the renamed node appears in the Action Graph library under its new `uiName`.
-
-For a complete TCP implementation of the same pattern, study `OgnSimpleSendSimulationClockCpp.cpp` (or the Python equivalent) in `source/extensions/isaacsim.examples.ipc/`.
-
-For Python-only extensions (no C++ plugin), omit `project_ext_plugin`, `project_ext_bindings`, and all `includedirs` / `links` entries from `premake5.lua`. Keep `add_ogn_dependencies` (processes `.ogn` files and generates `*Database.py` modules) and the `repo_build.prebuild_link` block:
-
-```python
-local ext = get_current_extension_info()
-local ogn = get_ogn_project_information(ext, "myorg/my/ipc/nodes")
-project_ext(ext)
-
-add_ogn_dependencies(ogn, { "python/nodes" })
-
-repo_build.prebuild_copy {
-    { "python/__init__.py",  ogn.python_target_path },
-    { "python/extension.py", ogn.python_target_path },
-}
-
-repo_build.prebuild_link {
-    { "python/nodes",  ogn.python_target_path .. "/nodes" },
-    { "python/tests",  ogn.python_target_path .. "/tests" },
-}
-```
-
-### Sample Extension Reference
-
-Source: `source/extensions/isaacsim.examples.ipc/`.
-
-| Registered type name | Implementation | Role |
-| --- | --- | --- |
-| `SimpleSendSimulationClockCpp` / `SimpleSendSimulationClockPy` | C++ / Python | Forwards the simulation clock to an external process on each evaluation. Connects as a TCP client to `uri` (`host:port`). Input: `simulationTime` (`double`, seconds; connect from `IsaacReadSimulationTime`). Encodes the value as nanoseconds in an 8-byte signed int64 (little-endian) and sends it. Fires `execOut` on every evaluation. |
-| `SimpleReceiveExternalStepCpp` / `SimpleReceiveExternalStepPy` | C++ / Python | Receives a step counter from an external process and exposes it to downstream nodes. Binds as a TCP server on `uri` and accepts one client. Outputs a `step` (uint32). Fires `execOut` only when a complete 4-byte message arrives. Partial reads are buffered across evaluations. |
-
-In graphs, the full path is typically `isaacsim.examples.ipc.<TypeName>` (refer to the extension’s `config/extension.toml`).
-
-C++ and Python follow the same sequence in `compute`. They only differ by name and state wiring. For example, `reset()` compared to `custom_reset()`, and C++ `state` from the OGN database compared to Python `internal_state()`.
-
-```python
-compute(db)
-     │
-     ├─► uri (or relevant inputs) changed? ──yes──► teardown transport
-     │                    C++: state.reset()    Python: custom_reset()
-     ▼
-try open: connect or listen / accept
-     │         (retry next eval if not ready)
-     ▼
-transport ready? ──no──► return false
-     │    (recv: often "no full message yet")
-     yes
-     ▼
-framed try-send / try-recv  (see Performance Considerations for time budget)
-     │
-     ▼
-write db.outputs and set execOut
-     │
-     ▼
-return true/false  (per node type / sample rules)
-```
-
-## Use Your Nodes in Isaac Sim
-
-### Enable Your Extension and Find Your Nodes
-
-Note
-
-If you have not yet replaced the scaffold placeholders, you can follow the steps below using `isaacsim.examples.ipc` as a stand-in — it ships with Isaac Sim and has fully working nodes ready to enable and find. Repeat the steps with your own extension name once you have implemented and built your nodes.
-
-The build (`./build.sh` on Linux, `.\build.bat` on Windows) compiles your extension and places the output under `_build/<platform>/release/exts/<extension_name>/` (`linux-x86_64` or `windows-x86_64` depending on host). Isaac Sim launched from the same repo automatically searches that directory, so no additional path configuration is needed.
-
-Note
-
-Always launch Isaac Sim from the repo build. A separately installed Isaac Sim does not search the repository `exts/` directory and will not find your extension. After each build run, restart Isaac Sim — a loaded C++ plugin cannot be hot-swapped.
-
-Launch (or restart) Isaac Sim from the repo build:
-
-Linux
-
-```python
-./_build/linux-x86_64/release/isaac-sim.sh
-```
-
-Windows
-
-```python
-.\_build\windows-x86_64\release\isaac-sim.bat
-```
-
-Then enable your extension:
-
-1. Open **Window > Extensions**.
-2. Search for your extension name (for example `isaacsim.my.ipc.nodes`) and enable it.
-
-Your nodes then appear in the Action Graph node library under the category you chose during scaffolding. Search by the `uiName` value defined in your `.ogn` file (for the scaffold defaults: `Example C++ Node` and `Example Python Node`).
-
-### Building an Example Graph
-
-The steps below build the sample graph for `tcp_tutorial_playback_bridge.py` using the reference nodes from `isaacsim.examples.ipc`. Use it to verify the end-to-end IPC pattern before wiring in your own nodes.
-
-1. Enable the sample extension. **Open Window > Extensions**, search for `isaacsim.examples.ipc`, and enable IPC OmniGraph Node Examples.
-2. Open the Action Graph editor. **Window > Graph Editors > Action Graph**.
-3. Place the tutorial nodes. Under Isaac Examples in the node library, add Receive External Step and Send Simulation Clock. Use the search box to add On Playback Tick and Isaac Read Simulation Time from `isaacsim.core.nodes`. Either C++ or Python node pair works with the bridge script.
-4. Wire the graph.
-
-   Execution chain:
-
-   * On Playback Tick `execOut` → Receive External Step `execIn`
-   * Receive External Step `execOut` → Send Simulation Clock `execIn`
-
-   Data:
-
-   * Isaac Read Simulation Time `simulationTime` → Send Simulation Clock `simulationTime`
-
-   The default `uri` values are `127.0.0.1:9001` on the receive node and `127.0.0.1:9000` on the send node.
-5. **Start playback.** Click the **Play** button in the toolbar (or press **Space**) to begin the simulation.
-
-General Action Graph UI is covered in [Isaac Sim OmniGraph Tutorial](omnigraph_tutorial.html#isaac-sim-app-tutorial-gui-omnigraph) and in the OmniGraph documentation linked in [Before You Start](#before-you-start).
-
-After the graph is wired and playback is running, Receive External Step listens on its URI, the bridge script connects and sends the first step token, and Send Simulation Clock reports the current simulation time back to the script after each tick. The script drives the timing loop and Isaac Sim advances one tick per received step.
-
-Try it: run the bridge with your own node
-
-Once the reference graph works end-to-end with `isaacsim.examples.ipc` nodes, substitute your custom node:
-
-1. In the graph, delete the `SimpleSendSimulationClock` node.
-2. Add your renamed node from the exercise above.
-3. Wire it the same way: Receive External Step `execOut` → your node `execIn`, and Isaac Read Simulation Time `simulationTime` → your node `simulationTime`.
-4. Run the bridge script. Because `transfer()` is still a stub that returns `true` without sending data, the script will connect but receive no clock output — that is expected. This confirms that your extension loads, enables, and participates in the graph.
-5. To complete the implementation, add the actual send logic to `transfer()`. Use `OgnSimpleSendSimulationClockCpp.cpp` (or the Python equivalent) in `source/extensions/isaacsim.examples.ipc/` as a reference.
-
-### External Python Playback Bridge
-
-The `tcp_tutorial_playback_bridge.py` script demonstrates a complete roundtrip. It listens for the eight-byte clock that the Send node emits, connects to the Receive node’s listen port, primes one step, then for each frame reads the clock and sends back the next step so the next `OnPlaybackTick` can fire.
-
-The script only uses the Python standard library (`socket`, `struct`, `argparse`) and has no Isaac Sim or third-party dependencies. Run it from the repo root with any system `python3`:
-
-```python
-python3 source/extensions/isaacsim.examples.ipc/python/scripts/tcp_tutorial_playback_bridge.py
-```
-
-Pass `--help` to see `--clock-host`, `--clock-port`, `--step-host`, `--step-port`, and `--max-frames` options.
-
-Warning
-
-The script binds a TCP listener on `127.0.0.1`. For real deployments, bind only to loopback unless you intentionally expose a port. Open interfaces can increase attack surface. Treat any IPC bridge like a network service, where authentication, TLS or equivalent, and firewall rules are your responsibility.
-
-## Performance Considerations
-
-**Stay within your frame budget.**
-
-> OmniGraph evaluates `compute` on paths that must stay responsive relative to simulation, UI, and other graphs. The usual failure mode is unpredictably long work and is not “synchronous” I/O by itself. Waiting on a slow peer, large copies, contended locks, or RPC that can stall for many milliseconds may cause performance issues.
-
-**Small, fast paths are often fine.**
-
-> A tiny, fixed-size, fire-and-forget operation in `compute` (the tutorial’s eight byte clock send once the socket is connected) can stay on the graph thread if it consistently completes within your per-node budget at the target frame rate. The same applies to other stacks when you have measured the path and it does not wait on back-pressure from the remote side.
-
-**When to use workers, queues, or async APIs.**
-
-> * If a call can block for an unknown duration (request/response, readiness waits, large payloads, or anything that can exceed your per-node budget), run that IPC on a worker thread. Use callbacks that enqueue results, and keep `compute` to non-blocking dequeue and writing `db.outputs`.
-> * For inbound data, try-receive (as in the tutorial’s step node) avoids waiting indefinitely when the external process does not send on your schedule.
-> * **Async or callback-based I/O:** Drive network or IPC on a worker thread, push decoded messages into a thread-safe queue, and let `compute` only dequeue (non-blocking) and write `db.outputs`.
-> * **Deferred completion:** Post work from `compute` without waiting for the reply. A background thread enqueues results for a later evaluation.
-
-**Structured messages vs fixed bytes.**
-
-> The fixed-size framing in the tutorial is for clarity. A production bridge typically uses your library’s message format (IDL-generated types, JSON, or another schema). You still decide when to send, how to parse inbound data, and how to keep each `compute` within budget.
-
-**Large messages (camera frames, point clouds).**
-
-> Single-shot calls that move multi-megabyte payloads can stress memory and scheduling. Use streaming APIs, explicit back-pressure (drop or skip frames on a slow consumer), or shared-memory and zero-copy paths outside OmniGraph, with the node passing only handles or small metadata.
-
-## Built-In Nodes for Data in and Out
-
-Besides `isaacsim.examples.ipc`, several extensions register OmniGraph nodes that read simulation state or drive simulation inside Isaac Sim, without acting as a general-purpose bridge to another process. The table highlights types that often sit next to custom IPC nodes in a bridge graph.
-
-Before designing your custom node’s inputs and outputs, check the `.ogn` of the built-in nodes you plan to connect to—their output attribute names and types determine what your node needs to consume or produce.
-
-Common built-in OmniGraph nodes for bridge-style graphs
-
-| Goal | Node (registered type) | Extension | Key inputs / outputs (abbrev.) |
-| --- | --- | --- | --- |
-| Read joint positions / velocities (and efforts) for publishing | `IsaacArticulationState` | `isaacsim.core.nodes` | In: `robotPath` or `targetPrim`, optional `jointNames` / `jointIndices`. Out: `jointPositions`, `jointVelocities` (`double[]`), `jointNames` (`token[]`), plus measured effort arrays. |
-| Alternative joint state (physics sensor path) | `isaacsim.sensors.physics.IsaacReadJointState` | `isaacsim.sensors.physics.nodes` | In: `prim` (articulation root). Out: `jointPositions`, `jointVelocities`, `jointEfforts`, `jointNames`, `execOut`, etc. |
-| Apply joint position / velocity / effort commands | `IsaacArticulationController` | `isaacsim.core.nodes` | In: same robot targeting as above; `positionCommand`, `velocityCommand`, `effortCommand` (`double[]`). Angular units are radians at the controller API. |
-| Simulation tick / gating | `OnPhysicsStep`, `IsaacSimulationGate`, `IsaacReadSimulationTime`, … | `isaacsim.core.nodes` | Use to pace state reads and command writes consistently (exact attributes vary by node). |
-| Camera / viewport render product path (setup only) | `IsaacGetViewportRenderProduct`, `IsaacCreateRenderProduct`, `IsaacAttachHydraTexture`, `IsaacSetCameraOnRenderProduct` | `isaacsim.core.nodes` | Mostly paths and targets (`renderProductPath`, `renderProductPrim`). Pixels require a separate readback step. Refer to [Camera and Render Products](#camera-and-render-products). |
-
-Other read extensions you can chain before a custom sender:
-
-* `isaacsim.sensors.physics.nodes` — IMU, contact, effort, etc., backed by `isaacsim.sensors.experimental.physics`.
-* `isaacsim.sensors.physx` — for example Isaac Read Lidar Beams, Isaac Read Lidar Point Cloud, Isaac Read Light Beam Sensor.
-* `isaacsim.sensors.rtx.nodes` — for example Isaac Extract RTX Sensor Point Cloud.
-
-For IPC with external applications (topics, services, or other runtimes), use dedicated bridge extensions rather than treating the nodes in the table above as a transport layer. Examples include `isaacsim.ros2.nodes` (ROS 2) or `isaacsim.ucx.nodes` (UCX). Those extensions play the same role as the TCP tutorial nodes, not the sensor-read nodes in the table.
-
-**Reference implementations in this repository.**
-
-> The `source/extensions/` directory contains full IPC bridge implementations
-> you can study when you outgrow the TCP tutorial. Two stacks are available:
->
-> > * **ROS 2**: `isaacsim.ros2.nodes`, `isaacsim.ros2.bridge`, and related
-> >   packages.
-> > * **UCX**: `isaacsim.ucx.nodes`, `isaacsim.ucx.core`,
-> >   `isaacsim.ucx.bridge`.
->
-> Each stack shows how a complete bridge is laid out: `extension.toml`
-> dependencies, native plugins, C++ and Python OmniGraph nodes, and transport
-> backends.
-
-Use the OmniGraph node library in the Kit docs to search by name: [OmniGraph](https://docs.omniverse.nvidia.com/extensions/latest/ext_omnigraph.html "(in Omniverse Extensions)").
-
-## Camera and Render Products
-
-Getting raw RGB pixels into a custom IPC node requires more than a plain `uchar[]` OGN input. Imagery typically flows through a Replicator pipeline or a render product chain before reaching any IPC encoder, not a single wire in the graph editor. The key steps are:
-
-> 1. Set up a render product (`IsaacCreateRenderProduct` or `IsaacGetViewportRenderProduct`) and attach a camera.
-> 2. Feed the render product into a readback mechanism either a:
->
->    * Replicator annotator (host-friendly NumPy arrays)
->    * Hydra texture chain (GPU handles through `IsaacAttachHydraTexture`)
-> 3. Pass the resulting CPU-addressable bytes or arrays into your IPC encoder node.
-
-The `isaacsim.ros2.bridge` extension’s camera helper node is a concrete reference for how this pipeline is assembled. The ROS 2 camera publisher wires a render product to host readback and then to IPC. Browsing that source is the fastest way to understand the pattern before building your own.
-
-Refer to [Performance Considerations](#performance-considerations) before passing large buffers through `compute`. Camera frames are a common source of frame-budget overruns.
-
-## Testing Your OmniGraph Node Implementation
-
-Python integration tests for OmniGraph nodes can build Action Graphs at runtime
-using `og.Controller.edit`, wire nodes together programmatically, drive the
-timeline, and assert on output attribute values. Useful areas to cover:
-
-* **Correct outputs**: Given known inputs, the node produces the expected
-  `db.outputs` values.
-* **execOut timing**: The node fires `execOut` only under the intended
-  conditions. For send nodes, this means every evaluation. For receive nodes,
-  this means only on data receipt.
-* **Reset behavior**: Changing a URI input or stopping the timeline closes the
-  transport, and a subsequent evaluation reopens it cleanly.
-* **Edge cases**: Partial messages, peer disconnect, and malformed data from the
-  external process.
-
-For C++ helpers (parsing, encoding, and endianness), unit tests can run outside
-Isaac Sim through a native test library such as doctest, wired in
-`premake5.lua` and referenced from `extension.toml`.
-
-Point `[[test]]` entries in your `extension.toml` at your test modules. The
-generated test driver is typically
-`_build/<platform>/<config>/tests/tests-<your.extension.id>.sh`. For a
-scaffolded extension, tests go in `python/tests/` (already created by the
-template).
-
-For examples of the patterns above (async tests, `OnImpulseEvent`, free-port
-helpers, and timeline control), refer to
-`source/extensions/isaacsim.examples.ipc/python/tests/`.
-
-On this page
-
-* [Before You Start](#before-you-start)
-* [Scaffold Your Extension](#scaffold-your-extension)
-* [Add Your Transport Library](#add-your-transport-library)
-  + [Python](#python)
-  + [C++](#c)
-* [Design and Implement Your Nodes](#design-and-implement-your-nodes)
-  + [Design Principle](#design-principle)
-  + [What Every IPC Node Requires](#what-every-ipc-node-requires)
-  + [OGN Schema Quick Reference](#ogn-schema-quick-reference)
-  + [C++ Node Implementation](#c-node-implementation)
-  + [Python Node Implementation](#python-node-implementation)
-  + [Sample Extension Reference](#sample-extension-reference)
-* [Use Your Nodes in Isaac Sim](#use-your-nodes-in-isaac-sim-short)
-  + [Enable Your Extension and Find Your Nodes](#enable-your-extension-and-find-your-nodes)
-  + [Building an Example Graph](#building-an-example-graph)
-  + [External Python Playback Bridge](#external-python-playback-bridge)
-* [Performance Considerations](#performance-considerations)
-* [Built-In Nodes for Data in and Out](#built-in-nodes-for-data-in-and-out)
-* [Camera and Render Products](#camera-and-render-products)
-* [Testing Your OmniGraph Node Implementation](#testing-your-omnigraph-node-implementation)
-
----
-
-### OmniGraph Shortcuts
-
-> 来源: https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_shortcuts.html
-
-* [OmniGraph](index.html)
-* Commonly Used OmniGraph Shortcuts
-
-[Is this page helpful?](https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5)
-
-# Commonly Used OmniGraph Shortcuts
-
-Isaac Sim has shortcuts for populating some of the most commonly used OmniGraphs. They can be found under **Tools > Robotics > OmniGraph Controllers**. After selecting the graph you want to create, you are prompted to provide a minimal set of parameters to populate the graph.
-
-The shortcuts are:
-
-[Controller Graphs](#omnigraph-shortcuts-controller-graphs)
-
-* Joint Position Controller
-* Joint Velocity Controller
-* Differential Controller
-* Open Loop Gripper Controller
-
-For information on how to use ROS Graphs, go to each of the relevant [ROS 2 Tutorials (Linux and Windows)](../ros2_tutorials/index.html#isaac-ros2-tutorials-page).
-
-Note
-
-* *No* validation is done to detect a graph with the same tasks or that controls the same robot. You must ensure that your graphs are unique in the scene.
-* These are just shortcuts to create the graph. You can always modify the graph after it’s created to suit your needs.
-
-To use Python scripting to create these graphs:
-
-> 1. Click on the icon next to **Python Script for Graph Generation** on the bottom of the popup window.
->    It takes you to the Python script used to generate the graphs for the given shortcut.
-> 2. `make_graph()` is where the creation occurs. The relevant commands may or may not all be in one continuous block depending on how the shortcut is setup.
-
-## Controller Graphs
-
-The controller shortcuts for moving the robots are:
-
-* Articulation (Joint Position and Velocity) Controllers
-* Differential Drive Controller
-* Gripper Controllers
-
-### Articulation Controllers
-
-Both Position and Velocity Controllers issue commands directly to each joint in the articulation.
-
-* **Robot Prim**: The parent prim of the robot.
-* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called “/Graph/{type}\_controller”. If a graph already exist in the path given, it’ll find the next available path by appending a number to the end of that path.
-* **Add to Existing Graph** (optional): Default to False. If checked, it’ll add the nodes to an existing graph and use an existing tick node if there exist one, but will add new controller nodes regardless of existing ones.
-
-#### Use the Articulation Controller
-
-To use the controller to move the robot:
-
-1. Highlight the **JointCommandArray** node under the newly created graph.
-2. Press *play* to start the simulation.
-3. Move the robot by changing the values in the **JointCommandArray** node in the Property Tab.
-
-If you had initial targets for position or velocity saved as part of the USD, it immediately moves towards those targets when you press **play**.
-
-### Differential Controller
-
-The Differential Controller takes in linear and angular velocities and converts them to individual wheel velocities.
-
-* **Robot Prim**: The Robot Prim.
-* **Graph Path**: The path to the graph generated. By default, it is under an independent tree called “/Graph/{type}\_controller”. If a graph already exist in the path given, it finds the next available path by appending a number to the end of that path.
-* **Wheel Radius**: The radius of the wheel in meters.
-* **Distance between wheels**: The distance between the two wheels in meters.
-* **Left/Right Joint Names** (optional): Names of the joints that control the left and right wheels.
-* **Left/Right Joint Index** (optional): The index of the joints that control the left and right wheels in the articulation chain.
-* **Use Keyboard Control** (optional): Default to none. If checked, it also populates the graph that receives WASD as keyboard inputs to move the robot forward, backward, spin left, and spin right.
-* **Add to Existing Graph** (optional): Defaults to False. If checked, it adds the nodes to an existing graph and uses an existing tick node if there is one, but will add new controller nodes regardless of existing ones.
-
-#### Use the Differential Controller
-
-* In some robots, there are only two controllable joints, so you do not have to specify joint names or indices. For robots with multiple actuated joints in an articulation chain, you must specify either the names or the indices of the joints that control the left and right wheels. List the left wheel before the right wheel so the order matches the Differential Controller output.
-* If you did not include the WASD keyboard control in the graph, you can always test the controller by manually changing the “Desired Angular Velocity” and “Desired Linear Velocity” in the **DifferentialController** node under the newly created graph.
-
-* If you are using the WASD Keyboard control, there are two scaling values used to scale the binary input from the keyboard to a linear velocity and an angular velocity that make sense for the vehicle’s size. The values are inside the nodes “ScaleLinear” and “ScaleAngular” respectively. You can print the output of the “DifferentialController” node to see relative affects of the scaling values. You want to tune them so that the rotating commands results in similar magnitude changes in the wheels’ velocities as the forward and backward commands.
-
-* If you are using Isaac Sim Assets, the default values of the wheel radius and distance between wheels can be found on the bottom of the page for Wheeled Robots in [Robot Assets](../assets/usd_assets_robots.html#isaac-assets-robots)
-
-### Gripper Controller
-
-The Gripper Controller works for any end-effector that has only one-degree of actuation per finger. This includes all parallel jaw grippers, as well as any multi-finger, multi-DOF-per-finger hands where each finger has only one degree of actuation.
-
-* **Parent Robot**: The robot that contains the gripper. This could be the gripper itself, or if the gripper is part of an arm, this could be the prim for the entire manipulator.
-* **Gripper Root**: The prim that contains all the gripper joints.
-* **Graph Path**: The path to the graph generated. It is default to be under an independent tree called “/Graph/{type}\_controller”. If a graph already exists in the path given, it finds the next available path by appending a number to the end of that path.
-* **Gripper Speed**: The speed at which the gripper closes or opens in meters (or radian) per second.
-* **Gripper Joint Names**: The names of the joints that control the gripper fingers. List them all out separated by commas.
-* **Open/Close Position Limit** (optional): The joint position that’s considered fully open. Unit: meter (prismatic) or radian (revolute). If left blank, it defaults to the joint limits inside the asset’s USD file.
-* **Use Keyboard Control** (optional): Default to none. If checked, it populates the graph that receives “O”,”C”, and “N” as keyboard inputs to open, close, and stop the gripper.
-* **Add to Existing Graph** (optional): Defaults to False. If checked, it adds the nodes to an existing graph and uses an existing tick node if one exists, but will add new controller nodes regardless of existing ones.
-
-#### Use the Gripper Controller
-
-If no joint limits are given, the gripper defaults to the joint limits inside the asset’s USD file. If the Open Position Limit and Close Position Limit are flipped, the gripper controller automatically corrects for it. The controller makes the assumption that the joint limits for opened position is greater than closed position. So if it is the opposite for your gripper, you would have to either adjust your definition of open and close or modify the Python script accordingly.
-
-* Only uniform speed and same joint limits are supported using the shortcut. If you want variable speed or different joint limits for each of the fingers, you can modify the graph by adding arrays for the speed and joint limit inputs.
-* If the articulation chain you are working with contains both an arm and a gripper and you wish to control the arm using the Articulcation Position Controller and the Gripper Controller for the gripper separately:
-
-  1. Remove the joints that control the gripper from the arm controller graph.
-  2. Validate that there is no conflict between the two graphs.
-
-On this page
-
-* [Controller Graphs](#controller-graphs)
-  + [Articulation Controllers](#articulation-controllers)
-    - [Use the Articulation Controller](#use-the-articulation-controller)
-  + [Differential Controller](#differential-controller)
-    - [Use the Differential Controller](#use-the-differential-controller)
-  + [Gripper Controller](#gripper-controller)
-    - [Use the Gripper Controller](#use-the-gripper-controller)
 
 ---
 

@@ -67,14 +67,30 @@ REMOVE_SELECTORS = [
 
 # ── 工具函数 ──────────────────────────────────────────────────────────────────
 
-def url_to_filepath(url: str) -> str:
-    """将 URL 转为安全的文件路径 slug"""
-    # 去掉域名和 scheme
-    path = url.split("/")[-1] if "/" in url else url
-    path = path.replace(".html", "").replace(".htm", "")
-    # 清理不安全字符
-    path = re.sub(r"[^a-zA-Z0-9_\-.]", "_", path)
-    return path
+def url_to_slug(url: str) -> str:
+    """将 URL 转为安全的 slug（取 path 最后 3 段避免冲突）
+
+    Examples:
+      .../latest/replicator_tutorials/index.html
+      → replicator_tutorials__index
+
+      .../latest/isaacsim.core.experimental.prims/config/python_api.html
+      → isaacsim.core.experimental.prims__config__python_api
+
+      .../py/source/extensions/isaacsim.sensors.experimental.rtx/docs/index.html
+      → isaacsim.sensors.experimental.rtx__docs__index
+    """
+    from urllib.parse import urlparse
+    parsed = urlparse(url)
+    # Split path, drop empty segments and "latest" (version prefix)
+    parts = [p for p in parsed.path.split('/') if p and p != 'latest']
+    if parts:
+        parts[-1] = parts[-1].replace('.html', '').replace('.htm', '')
+    # Take up to last 3 segments, join with __
+    take = min(3, len(parts))
+    slug = '__'.join(parts[-take:])
+    # Final safety: strip any non-alphanumeric except _ . -
+    return re.sub(r'[^a-zA-Z0-9_\-.]', '_', slug)
 
 
 def compute_checksum(text: str) -> str:
@@ -323,7 +339,7 @@ def collect_module(manifest: dict, cache: dict, incremental: bool = False,
 
     for page in pages:
         url = page["full_url"]
-        slug = url_to_filepath(url)
+        slug = url_to_slug(url)
         raw_path = module_dir / f"{slug}.md"
         cache_key = url
 
@@ -459,7 +475,7 @@ def assemble_module(manifest: dict) -> Path:
     sections = {}  # section -> [(title, content)]
 
     for page in pages:
-        slug = url_to_filepath(page["full_url"])
+        slug = url_to_slug(page["full_url"])
         raw_path = module_dir / f"{slug}.md"
 
         if not raw_path.exists():
