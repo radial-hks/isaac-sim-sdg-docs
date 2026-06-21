@@ -518,8 +518,8 @@ def main():
     for manifest in manifests:
         assemble_module(manifest)
 
-    # 生成索引
-    generate_index(load_manifests())
+    # NOTE: 00_统一学习路径.md 为手动维护文档，不再自动生成
+    # generate_index(load_manifests())
 
     print(f"\n✅ Pipeline 完成!")
     print(f"   输出目录: {OUTPUT_DIR}")
