@@ -2,8 +2,8 @@
 
 > SimReady + Replicator + Domain Randomization 完整参考
 > Isaac Sim 版本: 6.0
-> 最后更新: 2026-06-21 12:49 UTC
-> 总页数: 173
+> 最后更新: 2026-06-21 13:06 UTC
+> 总页数: 262
 
 ---
 
@@ -141,6 +141,107 @@
 - [Reference Architecture (re-fetch for Sim2Real context)](https://docs.isaacsim.omniverse.nvidia.com/latest/introduction/reference_architecture.html)
 - [Robot Simulation Core Concepts](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/robot_simulation_core_concepts.html)
 
+### 07_Robot_Setup.md
+**机器人配置工具与实战教程** — Robot Setup 工具链（Wizard/Poser/Inspector/GainTuner）+ 配置实战教程 (32 页)
+
+- [Robot Setup Index](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/index.html)
+- [Assemble Robots](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/assemble_robots.html)
+- [Asset Transformer](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transformer.html)
+- [Asset Transformer API](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transformer_api.html)
+- [Asset Transformer Rules](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transformer_rules.html)
+- [Asset Transformer Tutorials](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_transformer_tutorials.html)
+- [Asset Validation](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/asset_validation.html)
+- [Editing Tools](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/editing_tools.html)
+- [Collision Detector](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/ext_isaacsim_robot_setup_collision_detector.html)
+- [Gain Tuner](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/ext_isaacsim_robot_setup_gain_tuner.html)
+- [Merge Mesh Utility](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/ext_isaacsim_util_merge_mesh.html)
+- [Inspector Tools](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/inspector_tools.html)
+- [Joint Inspector](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/joint_inspector.html)
+- [Robot Inspector](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/robot_inspector.html)
+- [Robot Poser](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/robot_poser.html)
+- [Robot Wizard](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/robot_wizard.html)
+- [Robot Wizard Tutorials](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/robot_wizard_tutorials.html)
+- [Robot Setup Troubleshooting](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup/troubleshooting.html)
+- [Setup Tutorials Index](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/index.html)
+- [Joint Tuning](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/joint_tuning.html)
+- [Optimizing Asset](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/optimizing_asset.html)
+- [Rig Closed Loop Structures](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig_closed_loop_structures.html)
+- [Rig Mobile Robot](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/rig_mobile_robot.html)
+- [Configure Manipulator](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_configure_manipulator.html)
+- [Generate Robot Config](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_generate_robot_config.html)
+- [GUI Camera Sensors](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_gui_camera_sensors.html)
+- [GUI Simple Robot](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_gui_simple_robot.html)
+- [Import & Assemble Manipulator](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_import_assemble_manipulator.html)
+- [Intro: Assemble Robot](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_intro_assemble_robot.html)
+- [Intro: Environment Setup](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_intro_environment_setup.html)
+- [Pick-Place Example](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_pickplace_example.html)
+- [Rig Legged Robot](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_setup_tutorials/tutorial_rig_legged_robot.html)
+
+### 08_OmniGraph_and_Robot_Sim.md
+**OmniGraph 深度教程 + Robot Simulation** — OmniGraph 自定义节点（C++/Python/IPC）+ Robot Simulation 核心（Articulation Controller, Gripper） (13 页)
+
+- [OmniGraph Index](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/index.html)
+- [OmniGraph Tutorial](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_tutorial.html)
+- [OmniGraph Scripting](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_scripting.html)
+- [Custom Python Nodes](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_python_nodes.html)
+- [Custom C++ Nodes](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_cpp_nodes.html)
+- [Custom IPC Nodes](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_custom_ipc_nodes.html)
+- [OmniGraph Shortcuts](https://docs.isaacsim.omniverse.nvidia.com/latest/omnigraph/omnigraph_shortcuts.html)
+- [Robot Simulation Index](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/index.html)
+- [Articulation Controller](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/articulation_controller.html)
+- [Mobile Robot Controllers](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/mobile_robot_controllers.html)
+- [Surface Gripper](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/ext_isaacsim_robot_surface_gripper.html)
+- [Grasp Editor](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/grasp_editor.html)
+- [Policy Example](https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/ext_isaacsim_robot_policy_example.html)
+
+### 09_Manipulators_Sensors_USDTuning.md
+**进阶可选项：机械臂运动 + 详细传感器 + USD 调优** — Manipulators motion planning + Physics/RTX sensors + OpenUSD tuning (按需采集) (44 页)
+
+- [Manipulators Concepts](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/index.html)
+- [Kinematics Solver](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/kinematics_solver.html)
+- [Lula RRT](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/lula_rrt.html)
+- [Motion Gen API](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/motion_gen_api.html)
+- [Motion Policy](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/motion_policy.html)
+- [Path Planner](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/path_planner.html)
+- [RMPflow](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/rmpflow.html)
+- [RMPflow Tuning](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/rmpflow_tuning_guide.html)
+- [Trajectory Interface](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/concepts/trajectory_interface.html)
+- [Configure RMPflow Denso](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_configure_rmpflow_denso.html)
+- [cuRobo](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_curobo.html)
+- [Lula Kinematics](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_lula_kinematics.html)
+- [Lula RRT Tutorial](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_lula_rrt.html)
+- [Lula Trajectory Generator](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_lula_trajectory_generator.html)
+- [RMPflow Tutorial](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_rmpflow.html)
+- [Robot Description Editor](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/manipulators_robot_description_editor.html)
+- [Motion Generation Overview](https://docs.isaacsim.omniverse.nvidia.com/latest/manipulators/motion_generation_overview.html)
+- [Camera Structured Light](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_camera_structured_light.html)
+- [Physics Sensors Index](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics.html)
+- [Articulation Force](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics_articulation_force.html)
+- [Contact Sensor](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics_contact.html)
+- [Effort Sensor](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics_effort.html)
+- [IMU](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics_imu.html)
+- [Joint State](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics_joint_state.html)
+- [Raycast Sensor](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physics_raycast.html)
+- [PhysX Sensors Index](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physx.html)
+- [PhysX Generic](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physx_generic.html)
+- [PhysX Lidar](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physx_lidar.html)
+- [PhysX Lightbeam](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physx_lightbeam.html)
+- [PhysX Proximity](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_physx_proximity.html)
+- [RTX Sensors Index](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_rtx.html)
+- [RTX Acoustic](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_rtx_acoustic.html)
+- [RTX Custom](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_rtx_custom.html)
+- [RTX Lidar](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_rtx_lidar.html)
+- [RTX Materials](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_rtx_materials.html)
+- [RTX Radar](https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_rtx_radar.html)
+- [OpenUSD Tuning Index](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/index.html)
+- [Tutorial 01: Setup](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_01_setup.html)
+- [Tutorial 02: Asset Structure](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_02_asset_structure.html)
+- [Tutorial 03: Inspect Asset](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_03_inspect_asset.html)
+- [Tutorial 04: Collider Pairs](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_04_collider_pairs.html)
+- [Tutorial 05: Joint Drive Tuning](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_05_joint_drive_tuning.html)
+- [Tutorial 06: Joint Gains Tuning](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_06_joint_gains_tuning.html)
+- [Tutorial 07: Practice](https://docs.isaacsim.omniverse.nvidia.com/latest/openusd_tuning_tutorials/tutorial_07_practice.html)
+
 ### 11_Replicator_Core.md
 **Replicator Core** — Replicator 引擎核心概念、入门教程、模块化脚本 (10 页)
 
@@ -261,6 +362,9 @@ Isaac_Sim_SDG_Component/
 │   ├── 04-headless-deploy.json
 │   ├── 05-python-api-quickref.json
 │   ├── 06-sim2real-ue5.json
+│   ├── 07-robot-setup.json
+│   ├── 08-omnigraph-robot-sim.json
+│   ├── 09-advanced-optionals.json
 │   ├── 01-replicator-core.json
 │   ├── 02-sdg-workflows.json
 │   ├── 03-replicator-agent.json
@@ -276,6 +380,9 @@ Isaac_Sim_SDG_Component/
 │   ├── 04_Headless_and_Deploy.md
 │   ├── 05_Python_API_Quickref.md
 │   ├── 06_Sim2Real_and_UE5.md
+│   ├── 07_Robot_Setup.md
+│   ├── 08_OmniGraph_and_Robot_Sim.md
+│   ├── 09_Manipulators_Sensors_USDTuning.md
 │   ├── 11_Replicator_Core.md
 │   ├── 12_SDG_Workflows.md
 │   ├── 13_Replicator_Agent.md

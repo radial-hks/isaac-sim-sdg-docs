@@ -1,0 +1,24 @@
+{
+  "module": "08-omnigraph-robot-sim",
+  "title": "OmniGraph 深度教程 + Robot Simulation",
+  "description": "OmniGraph 自定义节点（C++/Python/IPC）+ Robot Simulation 核心（Articulation Controller, Gripper）",
+  "output": "output/08_OmniGraph_and_Robot_Sim.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {"url": "/omnigraph/index.html", "title": "OmniGraph Index", "section": "OmniGraph"},
+    {"url": "/omnigraph/omnigraph_tutorial.html", "title": "OmniGraph Tutorial", "section": "OmniGraph"},
+    {"url": "/omnigraph/omnigraph_scripting.html", "title": "OmniGraph Scripting", "section": "OmniGraph"},
+    {"url": "/omnigraph/omnigraph_custom_python_nodes.html", "title": "Custom Python Nodes", "section": "OmniGraph"},
+    {"url": "/omnigraph/omnigraph_custom_cpp_nodes.html", "title": "Custom C++ Nodes", "section": "OmniGraph"},
+    {"url": "/omnigraph/omnigraph_custom_ipc_nodes.html", "title": "Custom IPC Nodes", "section": "OmniGraph"},
+    {"url": "/omnigraph/omnigraph_shortcuts.html", "title": "OmniGraph Shortcuts", "section": "OmniGraph"},
+
+    {"url": "/robot_simulation/index.html", "title": "Robot Simulation Index", "section": "Robot Simulation"},
+    {"url": "/robot_simulation/articulation_controller.html", "title": "Articulation Controller", "section": "Robot Simulation"},
+    {"url": "/robot_simulation/mobile_robot_controllers.html", "title": "Mobile Robot Controllers", "section": "Robot Simulation"},
+    {"url": "/robot_simulation/ext_isaacsim_robot_surface_gripper.html", "title": "Surface Gripper", "section": "Robot Simulation"},
+    {"url": "/robot_simulation/grasp_editor.html", "title": "Grasp Editor", "section": "Robot Simulation"},
+    {"url": "/robot_simulation/ext_isaacsim_robot_policy_example.html", "title": "Policy Example", "section": "Robot Simulation"}
+  ]
+}
