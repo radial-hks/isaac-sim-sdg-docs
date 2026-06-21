@@ -1,0 +1,19 @@
+{
+  "module": "02-sdg-workflows",
+  "title": "SDG Workflows",
+  "description": "合成数据生成工作流：Object-Based / Scene-Based / Grab / Mobility / Teleop",
+  "output": "output/02_SDG_Workflows.md",
+  "isaac_version": "6.0",
+  "base_url": "https://docs.isaacsim.omniverse.nvidia.com/latest",
+  "pages": [
+    {"url": "/synthetic_data_generation/index.html", "title": "SDG Index", "section": "SDG"},
+    {"url": "/replicator_tutorials/tutorial_replicator_sdg_workflows.html", "title": "SDG Workflows", "section": "SDG"},
+    {"url": "/replicator_tutorials/tutorial_replicator_object_based_sdg.html", "title": "Object-Based SDG", "section": "SDG"},
+    {"url": "/replicator_tutorials/tutorial_replicator_scene_based_sdg.html", "title": "Scene-Based SDG", "section": "SDG"},
+    {"url": "/synthetic_data_generation/tutorial_replicator_grasping_sdg.html", "title": "Grasping SDG", "section": "SDG"},
+    {"url": "/synthetic_data_generation/tutorial_replicator_mobility_gen.html", "title": "Mobility Gen", "section": "SDG"},
+    {"url": "/synthetic_data_generation/tutorial_replicator_teleop_sdg.html", "title": "Teleop SDG", "section": "SDG"},
+    {"url": "/replicator_tutorials/tutorial_replicator_amr_navigation.html", "title": "AMR Navigation", "section": "SDG"},
+    {"url": "/replicator_tutorials/tutorial_replicator_ur10_palletizing.html", "title": "UR10 Palletizing", "section": "SDG"}
+  ]
+}
