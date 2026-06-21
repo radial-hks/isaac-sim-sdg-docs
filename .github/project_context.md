@@ -72,3 +72,6 @@ Commit: push: 初始化推送到 GitHub
 Commit: Unknown
 Files changed: 1
 - .github/project_context.md
+
+> **Note**: This project uses project-context-injection skill for cross-Agent state sharing.
+
