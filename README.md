@@ -68,6 +68,13 @@ isaac-sim-sdg-docs/
     └── compare_coverage.py          # 覆盖率详细对比
 ```
 
+| 文档 | 说明 |
+|------|------|
+| README.md | 本文件 |
+| PROJECT_WORKFLOW.md | 项目工作流手册 (采集/迭代/Agent 集成/故障恢复) |
+| COVERAGE_ANALYSIS.md | 覆盖率决策分析 (为什么采/没采某个模块) |
+```
+
 ## 用法
 
 ```bash
