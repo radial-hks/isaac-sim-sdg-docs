@@ -2,7 +2,7 @@
 
 > 相机/传感器配置 + RTX 标注器 + Writer 输出格式
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 9
 
 ---
@@ -288,7 +288,7 @@ The pipeline stages, in order, are described below.
 
 The camera sensor rig is a collection of camera sensors that are attached to a single prim. It can be assembled from the individual sensors, that are either created manually or derived from the calibration parameters.
 
-This will be a short discussion on how we created a digital twin of the RealSenseâ¢ Depth Camera D455. The USD for the camera can be found in the content folder as: `/Isaac/Sensors/RealSense/D455/rsd455.usd`.
+This will be a short discussion on how we created a digital twin of the RealSense™ Depth Camera D455. The USD for the camera can be found in the content folder as: `/Isaac/Sensors/RealSense/D455/rsd455.usd`.
 
 There are three visual sensors, and one IMU sensor on the RealSense. Their placement relative to the camera origin was taken from the layout diagram in
 the [TechSpec document](https://www.intelrealsense.com/wp-content/uploads/2023/07/Intel-RealSense-D400-Series-Datasheet-July-2023.pdf) from [Intel’s web site](https://www.intelrealsense.com/depth-camera-d455/).
@@ -297,7 +297,7 @@ Most camera parameters were also found in the TechSpec, for example, the USD par
 is the Diagonal Field of View. However, some parameters, like the `focusDistance` were estimated by comparing real output and informed guesses.
 
 The `horizontalAperture` and `verticalAperture` in that example are derived from the technical specification. From the TechSpec, the left, right, and color sensors are listed as a OmniVision Technologies OV9782, and
-the [Tech Spec](https://www.ovt.com/products/ov09782-ga4a/) for that sensor lists the image area as 3896 x 2453 Âµm. We used that as the aperture sizes.
+the [Tech Spec](https://www.ovt.com/products/ov09782-ga4a/) for that sensor lists the image area as 3896 x 2453 µm. We used that as the aperture sizes.
 
 The resolution for the depth and color cameras are 1280 x 800, but it’s up to you to attach a render product of that size to the outputs.
 

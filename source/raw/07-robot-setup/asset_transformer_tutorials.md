@@ -56,20 +56,20 @@ This tutorial demonstrates how to transform a robot USD asset into the recommend
 
 ```python
 output_directory/
-âââ payloads/
-â   âââ base.usd
-â   âââ robot.usda
-â   âââ geometries.usd
-â   âââ instances.usda
-â   âââ materials.usda
-â   âââ Textures/
-â   â   âââ ...
-â   âââ Physics/
-â       âââ physics.usda
-â       âââ physx.usda
-â       âââ mujoco.usda
-âââ <asset_name>.usda          (interface layer)
-âââ transform_report.json
+├── payloads/
+│   ├── base.usd
+│   ├── robot.usda
+│   ├── geometries.usd
+│   ├── instances.usda
+│   ├── materials.usda
+│   ├── Textures/
+│   │   └── ...
+│   └── Physics/
+│       ├── physics.usda
+│       ├── physx.usda
+│       └── mujoco.usda
+├── <asset_name>.usda          (interface layer)
+└── transform_report.json
 ```
 
 1. Inspect the robot prim structure, and verify that all meshes are now added through a reference, and the former looks scope is now empty, since all materials are now added to the materials.usda layer, and added through the meshes.

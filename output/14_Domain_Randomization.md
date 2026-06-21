@@ -2,7 +2,7 @@
 
 > Replicator Object API 随机化器 + Domain Randomization OGN 节点
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 15
 
 ---
@@ -2003,12 +2003,12 @@ On this page
 
 # Chat IRO: Natural Language Interface for Isaac Sim Replicator Object
 
-Vision-language and scene-generation workflows often require users to handâwrite
+Vision-language and scene-generation workflows often require users to hand‑write
 YAML configuration files for [Isaacsim.replicator.object](../tutorial_replicator_object.html#isaac-sim-app-tutorial-replicator-object) (IRO).
-This can be errorâprone and slow, especially for complex layouts, harmonizers,
+This can be error‑prone and slow, especially for complex layouts, harmonizers,
 physics setups, and camera rigs.
 
-`Chat IRO` is a naturalâlanguage interface that converts plain English
+`Chat IRO` is a natural‑language interface that converts plain English
 descriptions into executable IRO YAML configurations and runs them directly
 inside Isaac Sim. It sits on top of the IRO extension and automates
 configuration authoring, validation, and execution.
@@ -2016,7 +2016,7 @@ configuration authoring, validation, and execution.
 Chat IRO has the following features:
 
 * Convert English descriptions into IRO YAML scenes.
-* Use a RetrievalâAugmented Generation (RAG) system with thousands of
+* Use a Retrieval‑Augmented Generation (RAG) system with thousands of
   production YAML examples to improve correctness and reuse best practices.
 * Validate generated YAML for syntax and common structural issues before
   execution.
@@ -2027,7 +2027,7 @@ Chat IRO has the following features:
 
 Chat IRO uses the following workflow to generate scenes:
 
-1. You type a naturalâlanguage request such as
+1. You type a natural‑language request such as
    `Create a scene with 10 random size and color cubes` into the
    Chat IRO window.
 2. The extension optionally queries its RAG index of existing IRO YAML files
@@ -2037,7 +2037,7 @@ Chat IRO uses the following workflow to generate scenes:
 4. Chat IRO validates the YAML, fixes common issues, and executes it through
    IRO to create or update the scene.
 5. The resulting synthetic scene is rendered in the viewport. You can
-   iteratively refine the configuration by sending followâup prompts.
+   iteratively refine the configuration by sending follow‑up prompts.
 
 ### Prerequisites
 
@@ -2104,7 +2104,7 @@ Once the extension is enabled:
    * From the menu bar, select **Window > Chat IRO**.
    * A dockable Chat IRO panel opens, typically on the right side of the
      viewport.
-2. Select a model from the **Model** dropâdown menu. Verified working models include:
+2. Select a model from the **Model** drop‑down menu. Verified working models include:
 
    * `meta/llama-4-maverick-17b-128e-instruct` (recommended, 256K context, default)
    * `qwen/qwen3-next-80b-a3b-instruct` (128K+ context)
@@ -2136,7 +2136,7 @@ To create and preview scenes using the Chat IRO panel:
 4. Inspect the viewport to verify that the generated scene matches the
    requested behavior (object counts, colors, positioning, lighting, and
    camera placement).
-5. Refine the scene with followâup prompts that modify the existing
+5. Refine the scene with follow‑up prompts that modify the existing
    configuration. For example:
 
    ```python
@@ -2154,7 +2154,7 @@ To create and preview scenes using the Chat IRO panel:
 ### Generating New IRO Scenes
 
 Chat IRO is optimized for generating complete IRO scenes from concise,
-wellâspecified prompts. Good prompts include:
+well‑specified prompts. Good prompts include:
 
 * `Create 20 purple cubes arranged in a circular formation with radius 900 at Y = 50.`
 * `Pack 8 cubes and 6 spheres scaled 1.2x into a bin sized (300, 400, 500) at (5, 0, 0).`
@@ -2318,9 +2318,9 @@ onto a ground plane
 
 Note
 
-Complex mathematical layouts (for example, circular or gridâbased
+Complex mathematical layouts (for example, circular or grid‑based
 arrangements) may require a few iterations. If object placement does not
-match expectations, use a followâup prompt that focuses only on correcting
+match expectations, use a follow‑up prompt that focuses only on correcting
 the formulas or spacing.
 
 #### Using Existing USD Scenes
@@ -2395,9 +2395,9 @@ All Chat IRO outputs are organized in:
 
 ```python
 ~/Documents/ChatIRO_Results/
-âââ config_files/              # YAML configuration files
-âââ simulation_results/        # IRO simulation outputs
-âââ .cache/                    # Temporary files (hidden)
+├── config_files/              # YAML configuration files
+├── simulation_results/        # IRO simulation outputs
+└── .cache/                    # Temporary files (hidden)
 ```
 
 * The `config_files/` directory contains YAML files that define scenes.
@@ -2436,7 +2436,7 @@ Advanced users can also configure the default output directory in the
 Chat IRO extension settings or via the Python APIs that ship with the
 extension.
 
-#### NaturalâLanguage File Commands
+#### Natural‑Language File Commands
 
 Chat IRO understands simple text commands for loading, saving, and running
 configurations:
@@ -2470,8 +2470,8 @@ depending on your environment and configuration.
 
 ### Chat IRO RAG Configuration
 
-Chat IRO includes a RetrievalâAugmented Generation system that provides deep
-knowledge of existing IRO scenes and bestâpractice configurations.
+Chat IRO includes a Retrieval‑Augmented Generation system that provides deep
+knowledge of existing IRO scenes and best‑practice configurations.
 
 The behavior of the RAG system can be customized in `extension.toml`:
 
@@ -2480,25 +2480,25 @@ The behavior of the RAG system can be customized in `extension.toml`:
 enable_rag = true                  # Enable/disable RAG (default: true)
 rag_top_k = 15                     # Number of documents to retrieve
 rag_max_tokens = 8000              # Maximum tokens for RAG context
-enable_multi_query_rag = true      # Enable multiâquery decomposition
-max_sub_queries = 3                # Maximum number of subâqueries
+enable_multi_query_rag = true      # Enable multi‑query decomposition
+max_sub_queries = 3                # Maximum number of sub‑queries
 
-# Optional crossâencoder reranking
+# Optional cross‑encoder reranking
 enable_rag_reranking = false
 reranker_model = "BAAI/bge-reranker-large"
 ```
 
 When enabled, RAG allows Chat IRO to:
 
-* Break complex prompts into multiple focused subâqueries.
+* Break complex prompts into multiple focused sub‑queries.
 * Retrieve relevant YAML snippets for geometry, harmonizers, and cameras.
-* Merge and rerank results to provide higherâquality configurations.
+* Merge and rerank results to provide higher‑quality configurations.
 
 Note
 
-Enabling crossâencoder reranking typically improves retrieval accuracy by
+Enabling cross‑encoder reranking typically improves retrieval accuracy by
 10–30% at the cost of additional latency (around 100–200 ms per request).
-For simple prompts or lowâlatency environments, keep
+For simple prompts or low‑latency environments, keep
 `enable_rag_reranking = false`.
 
 ### Best Practices
@@ -2553,7 +2553,7 @@ Common issues and remedies:
 * Action:
 
   + Ask Chat IRO to fix the YAML syntax.
-  + Simplify the prompt and ensure that you request a single, selfâcontained
+  + Simplify the prompt and ensure that you request a single, self‑contained
     configuration.
 
 **Slow responses**
@@ -2571,7 +2571,7 @@ produce inconsistent configurations.
 
 To reset the conversation:
 
-* Click the \(+\) button in the upperâleft corner of the Chat IRO window to
+* Click the \(+\) button in the upper‑left corner of the Chat IRO window to
   start a new session.
 * Optionally restart Isaac Sim if behavior remains inconsistent.
 * Begin the new session with a clear instruction such as:
@@ -2597,7 +2597,7 @@ On this page
   + [Managing Output Files and Directories](#managing-output-files-and-directories)
     - [Default Output Location](#default-output-location)
     - [Changing the Output Directory](#changing-the-output-directory)
-    - [NaturalâLanguage File Commands](#naturallanguage-file-commands)
+    - [Natural‑Language File Commands](#naturallanguage-file-commands)
   + [Chat IRO RAG Configuration](#chat-iro-rag-configuration)
   + [Best Practices](#best-practices)
   + [Troubleshooting](#troubleshooting)

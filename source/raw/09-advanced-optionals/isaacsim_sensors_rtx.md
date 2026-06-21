@@ -255,7 +255,7 @@ RTX sensors require an NVIDIA RTX GPU with ray tracing support. Performance scal
 
 * [RTX Lidar Sensors](../ros2_tutorials/tutorial_ros2_rtx_lidar.html#isaac-sim-app-tutorial-ros2-rtx-lidar) - Publishing RTX Lidar data to ROS2
 * [RTX Radar Sensors](../ros2_tutorials/tutorial_ros2_rtx_radar.html#isaac-sim-app-tutorial-ros2-rtx-radar) - Publishing RTX Radar data to ROS2
-* [Multi-Tick Rendering](isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-rendering) - Multi-tick rendering and 5.x â 6.0 migration
+* [Multi-Tick Rendering](isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-rendering) - Multi-tick rendering and 5.x → 6.0 migration
 * [Debug Drawing Extension API](../utilities/debugging/ext_isaacsim_util_debug_draw.html#isaac-debug-draw) - Visualizing point clouds and geometry
 * [Util Snippets](../python_scripting/util_snippets.html#isaac-sim-app-util-snippets) - Rendering and visualization utilities
 

@@ -2,7 +2,7 @@
 
 > SimReady 物理资产库 + USD 资产总览 + 物理引擎基础
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 11
 
 ---
@@ -4003,7 +4003,7 @@ configurations you plan to deploy. Browse them by sensor category below.
 
 **Nova Carter**
 
-Powered by the [Nova Orinâ¢](https://developer.nvidia.com/isaac/nova-orin) sensor and compute architecture, Nova Carter is a complete robotics development platform that accelerates the development and deployment of next-generation Autonomous Mobile Robots (AMRs).
+Powered by the [Nova Orin™](https://developer.nvidia.com/isaac/nova-orin) sensor and compute architecture, Nova Carter is a complete robotics development platform that accelerates the development and deployment of next-generation Autonomous Mobile Robots (AMRs).
 
 Nova Carter is being used as a reference platform for both Isaac AMR and Isaac ROS software, enabling real-world and simulation-based development. Nova Carter robots may be purchased from [Segway Robotics](https://robotics.segway.com/nova-carter).
 
@@ -4497,12 +4497,12 @@ On this page
 
 # Physics
 
-On a high-level, simulations with Omniverseâ¢ Physics work as follows:
+On a high-level, simulations with Omniverse™ Physics work as follows:
 
 * The USD Physics schema of robot and environment assets are parsed and corresponding simulation objects are created in the selected physics backend.
 * Then, for each discrete-time step of the simulation, Physics advances the simulation objects given their current state and additional inputs such as, for example, control-policy torques.
 * The updated state is written back to USD by default, where the state can be further processed by the user, a reinforcement-learning policy, or other extensions such as the Omniverse RTX Renderer.
-* Omniverseâ¢ Physics propagates runtime changes to physics parameters in USD to the physics objects.
+* Omniverse™ Physics propagates runtime changes to physics parameters in USD to the physics objects.
 
 Isaac Sim supports multiple physics backends: the default PhysX SDK backend and the experimental Newton backend.
 
@@ -4540,7 +4540,7 @@ Isaac Sim supports multiple physics backends: the default PhysX SDK backend and 
     - [Robot Simulation Example](newton_physics.html#robot-simulation-example)
   + [Asset Compatibility](newton_physics.html#asset-compatibility)
   + [Additional Resources](newton_physics.html#additional-resources)
-* [Omniverseâ¢ Physics and PhysX SDK Limitations](physics_resources.html)
+* [Omniverse™ Physics and PhysX SDK Limitations](physics_resources.html)
 
 ## Tools
 
@@ -4552,7 +4552,7 @@ Isaac Sim supports multiple physics backends: the default PhysX SDK backend and 
 
 ## Additional Resources
 
-* Omniverseâ¢ Physics [core documentation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html "(in Omni Physics)") and [programming guide](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html)
+* Omniverse™ Physics [core documentation](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html "(in Omni Physics)") and [programming guide](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html)
 * [USD Physics Schemas](https://openusd.org/release/api/usd_physics_page_front.html) and PhysX SDK-engine-specific [Physx Schemas](https://docs.omniverse.nvidia.com/kit/docs/omni_usd_schema_physics/latest/annotated.html)
 * Explore further Omniverse [simulation extensions](https://docs.omniverse.nvidia.com/extensions/latest/ext_simulation.html#simoverview "(in Omniverse Extensions)").
 * [PhysX SDK](https://nvidia-omniverse.github.io/PhysX/physx/5.4.2/index.html)

@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:40:07"
 
 # Tutorial 3: Articulate a Basic Robot
 
-NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverseâ¢ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
+NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverse™ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
 
 You will rig a basic “robot” with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
 

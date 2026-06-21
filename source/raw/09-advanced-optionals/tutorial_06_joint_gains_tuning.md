@@ -34,7 +34,7 @@ In this tutorial, you will:
 
 Position control in Isaac Sim uses stiffness and damping:
 
-**Force = (Stiffness Ã delta\_position) + (Damping Ã delta\_velocity)**
+**Force = (Stiffness × delta\_position) + (Damping × delta\_velocity)**
 
 * **Stiffness** — Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
 * **Damping** — Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
@@ -83,7 +83,7 @@ In the **module\_4\_end-checkpoint\_2** file, the finger joints already have sti
 
 1. In **Test Gains Settings**, enable the **Test** checkbox for `right_thumb_1_joint` and `right_thumb_2_joint`.
 
-1. Set **Step Function** min and max so the thumb moves through a useful range: set `right_thumb_1_joint` **Step Min** to **10Â°** and **Step Max** to **60Â°**, and set `right_thumb_2_joint` **Step Min** to **5Â°** and **Step Max** to **20Â°**. Increase **Duration** to **2.0** so the joints can reach their targets within their maximum velocity limits.
+1. Set **Step Function** min and max so the thumb moves through a useful range: set `right_thumb_1_joint` **Step Min** to **10°** and **Step Max** to **60°**, and set `right_thumb_2_joint` **Step Min** to **5°** and **Step Max** to **20°**. Increase **Duration** to **2.0** so the joints can reach their targets within their maximum velocity limits.
 
 Tip
 

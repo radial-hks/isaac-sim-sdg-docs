@@ -1,50 +1,93 @@
 #!/usr/bin/env python3
-"""Check for remaining mojibake in active raw files (fixed paths)."""
-import os
+"""Check generated docs and raw pages for mojibake artifacts."""
+from __future__ import annotations
+
+from dataclasses import dataclass
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
-raw_dir = BASE / "source" / "raw"
 
-active_modules = [
-    "01-concepts", "02-fundamentals-dev", "03-extension-dev",
-    "04-headless-deploy", "05-python-api-quickref", "06-sim2real-ue5",
-    "07-robot-setup", "08-omnigraph-robot-sim", "09-advanced-optionals"
-]
+MOJIBAKE_PATTERNS = (
+    "\u00e2\u0080\u0099",  # right single quote
+    "\u00e2\u0080\u0094",  # em dash
+    "\u00e2\u0080\u009c",  # left double quote
+    "\u00e2\u0080\u009d",  # right double quote
+    "\u00e2\u0080\u0098",  # left single quote
+    "\u00e2\u0080\u0091",  # non-breaking hyphen
+    "\u00e2\u0080\u0093",  # en dash
+    "\u00e2\u0080\u00a6",  # ellipsis
+    "\u00e2\u0084\u00a2",  # trademark
+    "\u00e2\u0086\u0090",  # left arrow
+    "\u00e2\u0086\u0092",  # right arrow
+    "\u00e2\u0088\u0092",  # minus sign
+    "\u00e2\u008c\u0098",  # command key
+    "\u00e2\u0094",        # box drawing prefix
+    "\u00e2\u0096",        # block/triangle prefix
+    "\u00e2",              # any remaining UTF-8 double-encoding lead byte
+    "\u00c2",              # Latin-1 artifact prefix
+    "\u00c3",              # Latin-1 artifact prefix
+    "\ufffd",              # replacement character
+)
 
-text_patterns = [
-    '\u00e2\u0080\u0099', '\u00e2\u0080\u0094', '\u00e2\u0080\u009c',
-    '\u00e2\u0080\u009d', '\u00e2\u0080\u0098', '\u00e2\u0080\u0093',
-]
 
-total = 0
-affected_files = {}
-for module_dir in sorted(os.listdir(raw_dir)):
-    if module_dir not in active_modules:
-        continue
-    mpath = raw_dir / module_dir
-    if not mpath.is_dir():
-        continue
-    for f in sorted(os.listdir(mpath)):
-        if not f.endswith('.md'):
-            continue
-        fpath = mpath / f
+@dataclass(frozen=True)
+class MojibakeFinding:
+    path: Path
+    count: int
+
+
+def iter_markdown_files(base: Path) -> list[Path]:
+    roots = [base / "source" / "raw", base / "output"]
+    files: list[Path] = []
+    for root in roots:
+        if root.exists():
+            files.extend(sorted(root.rglob("*.md")))
+    return files
+
+
+def count_mojibake(text: str) -> int:
+    count = 0
+    remaining = text
+    for pattern in sorted(MOJIBAKE_PATTERNS, key=len, reverse=True):
+        pattern_count = remaining.count(pattern)
+        if pattern_count:
+            count += pattern_count
+            remaining = remaining.replace(pattern, "")
+    return count
+
+
+def find_mojibake(base: Path = BASE) -> list[MojibakeFinding]:
+    findings: list[MojibakeFinding] = []
+    for path in iter_markdown_files(base):
         try:
-            content = fpath.read_text(encoding='utf-8')
-        except Exception:
+            content = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            findings.append(MojibakeFinding(path, 1))
             continue
-        count = sum(content.count(p) for p in text_patterns)
-        if count > 0:
-            affected_files[str(fpath)] = count
-            total += count
+        count = count_mojibake(content)
+        if count:
+            findings.append(MojibakeFinding(path, count))
+    return findings
 
-print(f"Active modules checked: {len(active_modules)}")
-print(f"Files with mojibake: {len(affected_files)}")
-print(f"Total mojibake occurrences: {total}")
 
-if affected_files:
-    print("\nTop 20 affected:")
-    for fpath, count in sorted(affected_files.items(), key=lambda x: -x[1])[:20]:
-        print(f"  {count:6d}  {fpath}")
-else:
+def main() -> int:
+    findings = find_mojibake(BASE)
+    total = sum(finding.count for finding in findings)
+
+    print("Checked roots: source/raw, output")
+    print(f"Files with mojibake: {len(findings)}")
+    print(f"Total mojibake occurrences: {total}")
+
+    if findings:
+        print("\nTop 20 affected:")
+        for finding in sorted(findings, key=lambda item: -item.count)[:20]:
+            rel_path = finding.path.relative_to(BASE)
+            print(f"  {finding.count:6d}  {rel_path}")
+        return 1
+
     print("\nAll clean - no mojibake found")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

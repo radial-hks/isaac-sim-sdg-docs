@@ -72,15 +72,15 @@ After these steps, the mimic joints in your Inspire Hand model will behave as a 
 
 The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturer’s grip force and the distance from joint to fingertip so the sim matches the real hand’s capability.
 
-**Torque = Force Ã Distance**
+**Torque = Force × Distance**
 
 For the palm finger, max force is 10 N. The distance between `right_little_1_joint` and the tip of the little finger is 0.045 m + 0.039 m.
 
-**Little finger:** Torque = 10 Ã (0.045 + 0.039) = 0.84 Nm
+**Little finger:** Torque = 10 × (0.045 + 0.039) = 0.84 Nm
 
 There are two joints in the mimic chain, so multiply by 2:
 
-**Little finger max drive force:** 0.84 Ã 2 = 1.68 Nm
+**Little finger max drive force:** 0.84 × 2 = 1.68 Nm
 
 1. Max Force drive parameters are a neutral physics attribute, so author on the **physics.usda** layer. In the **Layer** tab, expand the **physx.usda** layer.
 
@@ -118,7 +118,7 @@ A checkpoint file with drive limits for all 6 joints derived using the same proc
 This tutorial covered:
 
 * Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding compliance—setting you up for clean gain tuning in Tutorial 6.
-* **Computing and setting max joint torque** from Inspire Hand specs (force Ã distance, then Ã 2 for the mimic chain) so the hand’s grip capability matches the real robot.
+* **Computing and setting max joint torque** from Inspire Hand specs (force × distance, then × 2 for the mimic chain) so the hand’s grip capability matches the real robot.
 * Setting **max joint velocity** from specs (260 deg/s) so motion is realistic and the simulation stays stable.
 
 ### Next Steps

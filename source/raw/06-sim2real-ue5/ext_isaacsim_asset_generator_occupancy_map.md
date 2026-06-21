@@ -62,7 +62,7 @@ The user interface is composed of two parts, the configuration window (named *Oc
 The following steps show how to create and visualize an occupancy map of a certain scene:
 
 > 1. Create a new Cone shape (**Create > Shape > Cone** menu) and add the physics Collision property to it (right click and **Add > Physics > Collider Preset**, or in the *Property* panel).
-> 2. Translate the shape 0.3 meters in the X-axis and orient it 90Âº in the X-axis Euler angles by modifying its *Transform* in the *Property* panel.
+> 2. Translate the shape 0.3 meters in the X-axis and orient it 90º in the X-axis Euler angles by modifying its *Transform* in the *Property* panel.
 > 3. Click on the **Tools > Robotics > Occupancy Map** menu to open the *Occupancy Map* window docked to the *Property* panel.
 > 4. Set the Occupancy Map’s Origin Z-axis value to 0.1 meters to map the area at that height
 > 5. Click on **CALCULATE** followed by **VISUALIZE IMAGE**. The *Occupancy Map Visualization* window will appear as shown in the image in the next subsection.

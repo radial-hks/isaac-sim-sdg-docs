@@ -2,7 +2,7 @@
 
 > 数字孪生、Sim2Real 概念框架 + Isaac Sim ↔ UE5 概念映射
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 15
 
 ---
@@ -1264,7 +1264,7 @@ The user interface is composed of two parts, the configuration window (named *Oc
 The following steps show how to create and visualize an occupancy map of a certain scene:
 
 > 1. Create a new Cone shape (**Create > Shape > Cone** menu) and add the physics Collision property to it (right click and **Add > Physics > Collider Preset**, or in the *Property* panel).
-> 2. Translate the shape 0.3 meters in the X-axis and orient it 90Âº in the X-axis Euler angles by modifying its *Transform* in the *Property* panel.
+> 2. Translate the shape 0.3 meters in the X-axis and orient it 90º in the X-axis Euler angles by modifying its *Transform* in the *Property* panel.
 > 3. Click on the **Tools > Robotics > Occupancy Map** menu to open the *Occupancy Map* window docked to the *Property* panel.
 > 4. Set the Occupancy Map’s Origin Z-axis value to 0.1 meters to map the area at that height
 > 5. Click on **CALCULATE** followed by **VISUALIZE IMAGE**. The *Occupancy Map Visualization* window will appear as shown in the image in the next subsection.
@@ -2513,7 +2513,7 @@ To properly simulate real world situations, you must have physics characteristic
 After importing the required assets into Isaac Sim, make sure they have appropriate
 Physics for accurate simulations. Some asset importers like the URDF and Onshape Importer carry over
 most Physics parameters and configurations, for the rest of the imported assets adding
-physics before proceeding would be necessary. The [NVIDIA Omniverseâ¢ Physics simulation
+physics before proceeding would be necessary. The [NVIDIA Omniverse™ Physics simulation
 extension](https://docs.omniverse.nvidia.com/extensions/latest/ext_physics.html#physics-core)
 is powered by the NVIDIA PhysX SDK. It supports Rigid Body Simulation,
 Character Control, Deformable Body Simulation, Particle Simulation, and Articulations. The

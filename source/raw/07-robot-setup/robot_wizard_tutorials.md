@@ -121,12 +121,12 @@ There is still a vestigial `/World` prim on stage, for now, you can manually mov
 
 ```python
 robot_root_folder/
-âââ configurations/
-â   âââ <robot-name>_robot.usd
-â   âââ <robot-name>_physics.usd
-â   âââ <robot-name>_robot.usd
-âââ <robot-name>.usd
-âââ stage_copy.usd
+├── configurations/
+│   └── <robot-name>_robot.usd
+│   └── <robot-name>_physics.usd
+│   └── <robot-name>_robot.usd
+└── <robot-name>.usd
+└── stage_copy.usd
 ```
 
 **APIs applied**:
@@ -135,22 +135,22 @@ The APIs applied can be found by selecting the prim on stage and examining the p
 
 ```python
 robot_prim (RobotAPI)
-âââ link1 (RigidBodyAPI, LinkAPI)
-â   âââ visual
-â   âââ collider
-â       âââ <mesh>  (ColliderAPI)
-âââ link2 (RigidBodyAPI, LinkAPI)
-â   âââ visual
-â   âââ collider
-â       âââ <mesh>  (ColliderAPI)
-âââ link3 (RigidBodyAPI, LinkAPI)
-â   âââ visual
-â   âââ collider
-â       âââ <mesh>  (ColliderAPI)
-âââ Joints
-â   âââ fixed_joint (JointAPI, ArticulationRootAPI)
-â   âââ slider_joint (JointAPI, DriveAPI, JointStateAPI)
-â   âââ rotate_joint (JointAPI, DriveAPI, JointStateAPI)
+├── link1 (RigidBodyAPI, LinkAPI)
+│   └── visual
+│   ├── collider
+│       └── <mesh>  (ColliderAPI)
+├── link2 (RigidBodyAPI, LinkAPI)
+│   └── visual
+│   ├── collider
+│       └── <mesh>  (ColliderAPI)
+├── link3 (RigidBodyAPI, LinkAPI)
+│   └── visual
+│   ├── collider
+│       └── <mesh>  (ColliderAPI)
+├── Joints
+│   └── fixed_joint (JointAPI, ArticulationRootAPI)
+│   └── slider_joint (JointAPI, DriveAPI, JointStateAPI)
+│   └── rotate_joint (JointAPI, DriveAPI, JointStateAPI)
 ```
 
 ## Next Steps

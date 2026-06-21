@@ -39,13 +39,13 @@ Follow these steps to launch an AWS EC2 instance:
 
 Linux Instance
 
-**NVIDIA Isaac Simâ¢ Development Workstation (Linux)**
+**NVIDIA Isaac Sim™ Development Workstation (Linux)**
 
 * This will create an EC2 instance based on Ubuntu.
 
 Windows Instance
 
-**NVIDIA Isaac Simâ¢ Development Workstation (Windows)**
+**NVIDIA Isaac Sim™ Development Workstation (Windows)**
 
 * This will create an EC2 instance based on Windows Server.
 

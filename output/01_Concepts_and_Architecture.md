@@ -2,7 +2,7 @@
 
 > Isaac Sim 架构总览、核心概念、工作流、UI、资产结构、OpenUSD 基础
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 20
 
 ---
@@ -147,7 +147,7 @@ To properly simulate real world situations, you must have physics characteristic
 After importing the required assets into Isaac Sim, make sure they have appropriate
 Physics for accurate simulations. Some asset importers like the URDF and Onshape Importer carry over
 most Physics parameters and configurations, for the rest of the imported assets adding
-physics before proceeding would be necessary. The [NVIDIA Omniverseâ¢ Physics simulation
+physics before proceeding would be necessary. The [NVIDIA Omniverse™ Physics simulation
 extension](https://docs.omniverse.nvidia.com/extensions/latest/ext_physics.html#physics-core)
 is powered by the NVIDIA PhysX SDK. It supports Rigid Body Simulation,
 Character Control, Deformable Body Simulation, Particle Simulation, and Articulations. The
@@ -493,7 +493,7 @@ On this page
 
 # User Interface Reference
 
-[NVIDIA Omniverseâ¢ Isaac Sim](../index.html#isaac-sim-app-overview) is built on [NVIDIA Omniverse](https://docs.omniverse.nvidia.com/) platform, so it shares the same UI elements as many Omniverse apps.
+[NVIDIA Omniverse™ Isaac Sim](../index.html#isaac-sim-app-overview) is built on [NVIDIA Omniverse](https://docs.omniverse.nvidia.com/) platform, so it shares the same UI elements as many Omniverse apps.
 
 ## Opening Page
 
@@ -2528,7 +2528,7 @@ The first collapsible section binds each scalar [Robot API](#isaac-sim-robot-sch
 | **Robot Type** | Drop-down with **(Other)** entry | Selecting **(Other)** appends a side text field for typing a custom token; selecting any predefined value clears the override. |
 | **Source** | Text field | URL or reference to the original asset. |
 | **Version** | Text field | Semantic version string. |
-| **Changelog** | Inline editable list with **+** and **â** buttons | New entries are prepended; each entry exposes a remove button. The full list is written back as a USD string array. |
+| **Changelog** | Inline editable list with **+** and **−** buttons | New entries are prepended; each entry exposes a remove button. The full list is written back as a USD string array. |
 
 ## Robot Joints and Robot Links
 
@@ -3228,9 +3228,9 @@ Live Sync mode enables real-time “live” editing of shared files on a Nucleus
 
 ### [Omniverse Kit](#id10)
 
-NVIDIA Omniverseâ¢ Kit is a toolkit for building native Omniverse applications and microservices. It is built on a base framework known as Carbonite that provides a wide variety of functionality through a set of light-weight plugins. Carbonite plugins are all authored with C interfaces for persistent ABI compatibility. A Python interpreter is provided for scripting and customization.
+NVIDIA Omniverse™ Kit is a toolkit for building native Omniverse applications and microservices. It is built on a base framework known as Carbonite that provides a wide variety of functionality through a set of light-weight plugins. Carbonite plugins are all authored with C interfaces for persistent ABI compatibility. A Python interpreter is provided for scripting and customization.
 
-NVIDIA Omniverseâ¢ Kit exposes much of its functionality through Python bindings. This provides an API that can be used to write new extensions to Omniverse Kit or new experiences for Omniverse.
+NVIDIA Omniverse™ Kit exposes much of its functionality through Python bindings. This provides an API that can be used to write new extensions to Omniverse Kit or new experiences for Omniverse.
 
 * For a more in-depth look at developing in Kit, see the [Kit Programming Manual](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/guide/kit_overview.html "(in Omniverse Kit)").
 
@@ -3242,7 +3242,7 @@ The NVIDIA Omniverse Launcher is your first step into the Omniverse. It provides
 
 ### [Omniverse USD Composer](#id12)
 
-NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
+NVIDIA Omniverse™ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverse™ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
 
 ### [Carbonite (carb)](#id13)
 
@@ -3264,7 +3264,7 @@ Extensions are plug-ins to Omniverse Kit that extend its capabilities. They are 
 
 ### [Omniverse Connect](#id17)
 
-Connectors are extensions and additional software layers on top of the open-source USD distribution that allow DCC tools and compute services to communicate easily with each other through the Omniverse Nucleus DB. Those extensions and additions are collectively known as NVIDIA Omniverseâ¢ Connect.
+Connectors are extensions and additional software layers on top of the open-source USD distribution that allow DCC tools and compute services to communicate easily with each other through the Omniverse Nucleus DB. Those extensions and additions are collectively known as NVIDIA Omniverse™ Connect.
 
 ## [USD](#id18)
 
@@ -3345,7 +3345,7 @@ Immutable historical file versions. Checkpoints are used for version control and
 ## [PhysX](#id30)
 
 NVIDIA PhysX is a scalable multi-platform physics simulation solution.
-The NVIDIA Omniverseâ¢ Physics simulation extension is powered by the NVIDIA PhysX SDK, and includes
+The NVIDIA Omniverse™ Physics simulation extension is powered by the NVIDIA PhysX SDK, and includes
 Rigid Body Simulation, Articulations, Deformable-Body Simulation, and Character Controller.
 
 * See [Physics Core](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html "(in Omni Physics)") for more details.

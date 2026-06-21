@@ -93,11 +93,11 @@ To set up the OmniGraph to collect readings from this sensor:
    * Set `inputs:doTransform` to **False**. The read node already provides world-space beam origins and endpoints; applying an additional transform will produce incorrect visualization.
 4. Connect the nodes with **all five** required connections:
 
-   * **On Playback Tick** `outputs:tick` â **Isaac Read Physics Raycast Sensor** `inputs:execIn`
-   * **Isaac Read Physics Raycast Sensor** `outputs:execOut` â **Debug Draw RayCast** `inputs:exec`
-   * **Isaac Read Physics Raycast Sensor** `outputs:beamOrigins` â **Debug Draw RayCast** `inputs:beamOrigins`
-   * **Isaac Read Physics Raycast Sensor** `outputs:beamEndPoints` â **Debug Draw RayCast** `inputs:beamEndPoints`
-   * **Isaac Read Physics Raycast Sensor** `outputs:numRays` â **Debug Draw RayCast** `inputs:numRays`
+   * **On Playback Tick** `outputs:tick` → **Isaac Read Physics Raycast Sensor** `inputs:execIn`
+   * **Isaac Read Physics Raycast Sensor** `outputs:execOut` → **Debug Draw RayCast** `inputs:exec`
+   * **Isaac Read Physics Raycast Sensor** `outputs:beamOrigins` → **Debug Draw RayCast** `inputs:beamOrigins`
+   * **Isaac Read Physics Raycast Sensor** `outputs:beamEndPoints` → **Debug Draw RayCast** `inputs:beamEndPoints`
+   * **Isaac Read Physics Raycast Sensor** `outputs:numRays` → **Debug Draw RayCast** `inputs:numRays`
 
    Important
 
@@ -143,7 +143,7 @@ Key differences from a naive setup that may cause visualization to fail:
 
 * **``doTransform`` must be False**: The read node outputs world-space coordinates. The Debug Draw node’s `doTransform` input applies an additional matrix transform by default, which displaces the rays to incorrect positions.
 * **``numRays`` must be connected**: Without this, the draw node doesn’t know how many rays to render and defaults to zero.
-* **Execution chain must be complete**: `execIn` â `execOut` â `exec` ensures the draw node fires after the read node has populated its outputs.
+* **Execution chain must be complete**: `execIn` → `execOut` → `exec` ensures the draw node fires after the read node has populated its outputs.
 
 ## Standalone Python
 

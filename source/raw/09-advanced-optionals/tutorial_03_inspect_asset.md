@@ -56,11 +56,11 @@ In the viewport, the Inspire Hand should now have gizmos identifying the locatio
 
 ## Module 2.2: Robot Inspector (hierarchy and session masking)
 
-With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link â joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
+With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link → joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
 
 1. Open **Window > Robot Inspector**. The window docks next to *Stage* by default.
 2. In the robot list, select the entry for the **Inspire Hand**.
-3. Set the hierarchy mode to **Tree** (default): parent link â joint â child link.
+3. Set the hierarchy mode to **Tree** (default): parent link → joint → child link.
 4. Optionally switch to **Flat** (all links, then all joints) or **MuJoCo** (base-rooted body tree) to compare layouts; the same underlying articulation can be shown in three different ways.
 
 The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayer—they are **not** saved to your USD files. That is useful for quick isolation during debugging.

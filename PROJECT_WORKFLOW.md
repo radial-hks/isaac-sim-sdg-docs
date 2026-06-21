@@ -15,7 +15,7 @@
 - 机器人配置与仿真 (45 pages)
 - 进阶：机械臂运动 + 传感器 + USD 调优 (44 pages)
 
-**当前覆盖率**: 58% (229/385 pages, 未采集的 156 页主要是 ROS2/Legal/Migration 等明确排除模块)
+**当前覆盖率**: 58% (225/385 pages, 未采集的 160 页主要是 ROS2/Legal/Migration 等明确排除模块)
 
 ## 2. 数据流
 
@@ -717,6 +717,8 @@ PYEOF
 | `collect.py` | 采集 + 组装 | 每次更新 |
 | `scripts/check_coverage.py` | 检查覆盖率 | 每周 |
 | `scripts/compare_coverage.py` | 对比已采集 vs 目标 URL | 按需 |
+| `scripts/check_mojibake.py` | 检查 raw/output 中的提取乱码 | 每次采集后 |
+| `scripts/repair_mojibake.py` | 修复既有 Markdown 中的已知乱码模式 | 按需 |
 | `scripts/coverage_analysis.md` | 覆盖率分析报告 | 按需 |
 
 ## 11. 常见问题

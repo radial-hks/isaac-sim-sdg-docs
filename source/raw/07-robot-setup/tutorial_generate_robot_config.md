@@ -179,11 +179,11 @@ The pick-and-place tutorial scripts and the `load_cumotion_robot` API expect all
 
 ```python
 /path/to/robot/config/
-âââ robot.urdf
-âââ robot.xrdf
-âââ rmp_flow.yaml
-âââ meshes/
-    âââ ...
+├── robot.urdf
+├── robot.xrdf
+├── rmp_flow.yaml
+└── meshes/
+    └── ...
 ```
 
 Pass this directory to the tutorial scripts with `--xrdf-dir /path/to/robot/config`. For a full description of these files and how they are used by cuMotion, see the [Robot Configuration Files](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) section of the cuMotion tutorial.

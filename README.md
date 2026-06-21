@@ -1,18 +1,18 @@
 # Isaac Sim SDG Docs
 
 > Isaac Sim 6.0 合成数据生成 (SDG) 离线知识库
-> 15 模块 · 225 页 · 58% 覆盖率 · 自动化采集 + 迭代更新
+> 16 模块 · 225 覆盖页 · 58% 覆盖率 · 自动化采集 + 迭代更新
 
 ## 状态
 
 | 指标 | 值 |
 |------|-----|
-| 采集页面 | 254 raw → 225 unique (去重后) |
+| 采集页面 | 235 raw → 229 unique URL → 225 covered |
 | 覆盖率 | 225 / 385 (Isaac Sim 主文档站) = **58%** |
-| 模块数 | 15 个 (manifests/) |
-| 输出体积 | ~3.1 MB (output/) |
+| 模块数 | 16 个 (manifests/) |
+| 输出体积 | ~5.0 MB (output/) |
 | Isaac Sim 版本 | 6.0 |
-| 最后更新 | 2026-06-22 |
+| 最后更新 | 2026-06-21 |
 
 ## 目录结构
 
@@ -65,7 +65,9 @@ isaac-sim-sdg-docs/
 │
 └── scripts/                         # 辅助脚本
     ├── check_coverage.py            # 覆盖率检查
-    └── compare_coverage.py          # 覆盖率详细对比
+    ├── compare_coverage.py          # 覆盖率详细对比
+    ├── check_mojibake.py            # 乱码质量检查
+    └── repair_mojibake.py           # 既有 Markdown 乱码修复
 ```
 
 | 文档 | 说明 |
@@ -98,6 +100,9 @@ uv run python collect.py --assemble-only
 
 # 检查覆盖率
 python3 scripts/check_coverage.py
+
+# 检查提取乱码
+python3 scripts/check_mojibake.py
 ```
 
 ## 学习入口

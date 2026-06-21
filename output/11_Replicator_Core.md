@@ -2,7 +2,7 @@
 
 > Replicator 引擎核心概念、入门教程、模块化脚本
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 10
 
 ---
@@ -143,7 +143,7 @@ Before starting with these examples, ensure you have:
 
 * Basic understanding of Python programming
 * Familiarity with USD (Universal Scene Description) concepts
-* Access to NVIDIA Omniverseâ¢ Isaac Sim
+* Access to NVIDIA Omniverse™ Isaac Sim
 * Sufficient disk space for data capture (varies based on resolution and number of frames)
 * GPU with sufficient memory for rendering (recommended: 8GB+)
 

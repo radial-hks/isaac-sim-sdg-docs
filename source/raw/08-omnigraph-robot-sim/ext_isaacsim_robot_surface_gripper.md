@@ -271,7 +271,7 @@ suction_joint_path = f"{ee_link_path}/surface_gripper/suction_joint"
 # Create a SurfaceGripper prim under ee_link using the convenience function.
 gripper_prim = create_surface_gripper(stage, ee_link_path)
 
-# **Attachment Points** â suction_joint
+# **Attachment Points** → suction_joint
 attachment_points_rel = gripper_prim.GetRelationship(robot_schema.Relations.ATTACHMENT_POINTS.name)
 attachment_points_rel.SetTargets([Sdf.Path(suction_joint_path)])
 

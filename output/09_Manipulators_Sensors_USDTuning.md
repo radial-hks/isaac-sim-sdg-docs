@@ -2,7 +2,7 @@
 
 > Manipulators motion planning + Physics/RTX sensors + OpenUSD tuning (按需采集)
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 44
 
 ---
@@ -595,11 +595,11 @@ In the viewport, the Inspire Hand should now have gizmos identifying the locatio
 
 ## Module 2.2: Robot Inspector (hierarchy and session masking)
 
-With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link â joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
+With joint gizmos visible in the viewport, the [Robot Inspector Window](../robot_setup/robot_inspector.html#isaac-sim-robot-inspector-window) gives you the same articulation as a structured **link → joint** tree—often easier to scan than hunting only under `/Physics` when payloads and scopes spread prims across layers.
 
 1. Open **Window > Robot Inspector**. The window docks next to *Stage* by default.
 2. In the robot list, select the entry for the **Inspire Hand**.
-3. Set the hierarchy mode to **Tree** (default): parent link â joint â child link.
+3. Set the hierarchy mode to **Tree** (default): parent link → joint → child link.
 4. Optionally switch to **Flat** (all links, then all joints) or **MuJoCo** (base-rooted body tree) to compare layouts; the same underlying articulation can be shown in three different ways.
 
 The **Deactivate**, **Bypass**, and **Anchor** columns apply **transient** opinions on a dedicated session sublayer—they are **not** saved to your USD files. That is useful for quick isolation during debugging.
@@ -961,15 +961,15 @@ After these steps, the mimic joints in your Inspire Hand model will behave as a 
 
 The maximum drive force (torque for revolute joints) caps how much force the finger can apply at the contact. Too low and the hand cannot hold the specified load; too high and you risk unrealistic forces or instability. We derive the value from the manufacturer’s grip force and the distance from joint to fingertip so the sim matches the real hand’s capability.
 
-**Torque = Force Ã Distance**
+**Torque = Force × Distance**
 
 For the palm finger, max force is 10 N. The distance between `right_little_1_joint` and the tip of the little finger is 0.045 m + 0.039 m.
 
-**Little finger:** Torque = 10 Ã (0.045 + 0.039) = 0.84 Nm
+**Little finger:** Torque = 10 × (0.045 + 0.039) = 0.84 Nm
 
 There are two joints in the mimic chain, so multiply by 2:
 
-**Little finger max drive force:** 0.84 Ã 2 = 1.68 Nm
+**Little finger max drive force:** 0.84 × 2 = 1.68 Nm
 
 1. Max Force drive parameters are a neutral physics attribute, so author on the **physics.usda** layer. In the **Layer** tab, expand the **physx.usda** layer.
 
@@ -1007,7 +1007,7 @@ A checkpoint file with drive limits for all 6 joints derived using the same proc
 This tutorial covered:
 
 * Configuring **mimic joints** as non-compliant so the solver enforces the finger kinematics without adding compliance—setting you up for clean gain tuning in Tutorial 6.
-* **Computing and setting max joint torque** from Inspire Hand specs (force Ã distance, then Ã 2 for the mimic chain) so the hand’s grip capability matches the real robot.
+* **Computing and setting max joint torque** from Inspire Hand specs (force × distance, then × 2 for the mimic chain) so the hand’s grip capability matches the real robot.
 * Setting **max joint velocity** from specs (260 deg/s) so motion is realistic and the simulation stays stable.
 
 ### Next Steps
@@ -1057,7 +1057,7 @@ In this tutorial, you will:
 
 Position control in Isaac Sim uses stiffness and damping:
 
-**Force = (Stiffness Ã delta\_position) + (Damping Ã delta\_velocity)**
+**Force = (Stiffness × delta\_position) + (Damping × delta\_velocity)**
 
 * **Stiffness** — Like a spring; force proportional to distance from target. Higher stiffness pulls the joint toward the target more strongly.
 * **Damping** — Like a shock absorber; force proportional to velocity. Higher damping reduces oscillation and overshoot.
@@ -1106,7 +1106,7 @@ In the **module\_4\_end-checkpoint\_2** file, the finger joints already have sti
 
 1. In **Test Gains Settings**, enable the **Test** checkbox for `right_thumb_1_joint` and `right_thumb_2_joint`.
 
-1. Set **Step Function** min and max so the thumb moves through a useful range: set `right_thumb_1_joint` **Step Min** to **10Â°** and **Step Max** to **60Â°**, and set `right_thumb_2_joint` **Step Min** to **5Â°** and **Step Max** to **20Â°**. Increase **Duration** to **2.0** so the joints can reach their targets within their maximum velocity limits.
+1. Set **Step Function** min and max so the thumb moves through a useful range: set `right_thumb_1_joint` **Step Min** to **10°** and **Step Max** to **60°**, and set `right_thumb_2_joint` **Step Min** to **5°** and **Step Max** to **20°**. Increase **Duration** to **2.0** so the joints can reach their targets within their maximum velocity limits.
 
 Tip
 
@@ -5737,11 +5737,11 @@ To set up the OmniGraph to collect readings from this sensor:
    * Set `inputs:doTransform` to **False**. The read node already provides world-space beam origins and endpoints; applying an additional transform will produce incorrect visualization.
 4. Connect the nodes with **all five** required connections:
 
-   * **On Playback Tick** `outputs:tick` â **Isaac Read Physics Raycast Sensor** `inputs:execIn`
-   * **Isaac Read Physics Raycast Sensor** `outputs:execOut` â **Debug Draw RayCast** `inputs:exec`
-   * **Isaac Read Physics Raycast Sensor** `outputs:beamOrigins` â **Debug Draw RayCast** `inputs:beamOrigins`
-   * **Isaac Read Physics Raycast Sensor** `outputs:beamEndPoints` â **Debug Draw RayCast** `inputs:beamEndPoints`
-   * **Isaac Read Physics Raycast Sensor** `outputs:numRays` â **Debug Draw RayCast** `inputs:numRays`
+   * **On Playback Tick** `outputs:tick` → **Isaac Read Physics Raycast Sensor** `inputs:execIn`
+   * **Isaac Read Physics Raycast Sensor** `outputs:execOut` → **Debug Draw RayCast** `inputs:exec`
+   * **Isaac Read Physics Raycast Sensor** `outputs:beamOrigins` → **Debug Draw RayCast** `inputs:beamOrigins`
+   * **Isaac Read Physics Raycast Sensor** `outputs:beamEndPoints` → **Debug Draw RayCast** `inputs:beamEndPoints`
+   * **Isaac Read Physics Raycast Sensor** `outputs:numRays` → **Debug Draw RayCast** `inputs:numRays`
 
    Important
 
@@ -5787,7 +5787,7 @@ Key differences from a naive setup that may cause visualization to fail:
 
 * **``doTransform`` must be False**: The read node outputs world-space coordinates. The Debug Draw node’s `doTransform` input applies an additional matrix transform by default, which displaces the rays to incorrect positions.
 * **``numRays`` must be connected**: Without this, the draw node doesn’t know how many rays to render and defaults to zero.
-* **Execution chain must be complete**: `execIn` â `execOut` â `exec` ensures the draw node fires after the read node has populated its outputs.
+* **Execution chain must be complete**: `execIn` → `execOut` → `exec` ensures the draw node fires after the read node has populated its outputs.
 
 ## Standalone Python
 
@@ -6947,7 +6947,7 @@ RTX sensors require an NVIDIA RTX GPU with ray tracing support. Performance scal
 
 * [RTX Lidar Sensors](../ros2_tutorials/tutorial_ros2_rtx_lidar.html#isaac-sim-app-tutorial-ros2-rtx-lidar) - Publishing RTX Lidar data to ROS2
 * [RTX Radar Sensors](../ros2_tutorials/tutorial_ros2_rtx_radar.html#isaac-sim-app-tutorial-ros2-rtx-radar) - Publishing RTX Radar data to ROS2
-* [Multi-Tick Rendering](isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-rendering) - Multi-tick rendering and 5.x â 6.0 migration
+* [Multi-Tick Rendering](isaacsim_sensors_multitick_rendering.html#isaac-sim-sensors-multitick-rendering) - Multi-tick rendering and 5.x → 6.0 migration
 * [Debug Drawing Extension API](../utilities/debugging/ext_isaacsim_util_debug_draw.html#isaac-debug-draw) - Visualizing point clouds and geometry
 * [Util Snippets](../python_scripting/util_snippets.html#isaac-sim-app-util-snippets) - Rendering and visualization utilities
 

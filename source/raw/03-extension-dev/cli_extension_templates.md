@@ -67,14 +67,14 @@ Generated structure:
 
 ```python
 source/extensions/isaacsim.my.extension/
-âââ config/extension.toml
-âââ data/icon.png, preview.png
-âââ docs/Overview.md, CHANGELOG.md
-âââ isaacsim/my/extension/
-â   âââ __init__.py
-â   âââ extension.py
-â   âââ tests/__init__.py, test_extension.py
-âââ premake5.lua
+├── config/extension.toml
+├── data/icon.png, preview.png
+├── docs/Overview.md, CHANGELOG.md
+├── isaacsim/my/extension/
+│   ├── __init__.py
+│   ├── extension.py
+│   └── tests/__init__.py, test_extension.py
+└── premake5.lua
 ```
 
 **Key files to modify:**
@@ -101,16 +101,16 @@ Generated structure:
 
 ```python
 source/extensions/isaacsim.my.example/
-âââ config/extension.toml
-âââ data/icon.png, preview.png
-âââ docs/Overview.md, CHANGELOG.md
-âââ isaacsim/my/example/
-â   âââ __init__.py
-â   âââ extension.py   â Examples Browser registration
-â   âââ scenario.py    â BaseSample with physics callbacks
-â   âââ ui.py          â BaseSampleUITemplate with custom controls
-â   âââ tests/__init__.py, test_extension.py
-âââ premake5.lua
+├── config/extension.toml
+├── data/icon.png, preview.png
+├── docs/Overview.md, CHANGELOG.md
+├── isaacsim/my/example/
+│   ├── __init__.py
+│   ├── extension.py   ← Examples Browser registration
+│   ├── scenario.py    ← BaseSample with physics callbacks
+│   ├── ui.py          ← BaseSampleUITemplate with custom controls
+│   └── tests/__init__.py, test_extension.py
+└── premake5.lua
 ```
 
 **Key files to modify:**
@@ -128,17 +128,17 @@ Generated structure:
 
 ```python
 source/extensions/isaacsim.my.extension/
-âââ config/extension.toml
-âââ data/icon.png, preview.png
-âââ docs/api.rst, Overview.md, CHANGELOG.md
-âââ include/isaacsim/my/extension/IExample.h       â Carbonite interface
-âââ plugins/isaacsim.my.extension/ExamplePlugin.cpp â Plugin implementation
-âââ bindings/isaacsim.my.extension/Bindings.cpp     â pybind11 bindings
-âââ python/
-â   âââ __init__.py
-â   âââ impl/__init__.py, extension.py
-â   âââ tests/__init__.py, test_extension.py
-âââ premake5.lua
+├── config/extension.toml
+├── data/icon.png, preview.png
+├── docs/api.rst, Overview.md, CHANGELOG.md
+├── include/isaacsim/my/extension/IExample.h       ← Carbonite interface
+├── plugins/isaacsim.my.extension/ExamplePlugin.cpp ← Plugin implementation
+├── bindings/isaacsim.my.extension/Bindings.cpp     ← pybind11 bindings
+├── python/
+│   ├── __init__.py
+│   ├── impl/__init__.py, extension.py
+│   └── tests/__init__.py, test_extension.py
+└── premake5.lua
 ```
 
 The `binding_module` variable controls the pybind11 module name (e.g., `my_extension` produces `_my_extension.so`).
@@ -166,29 +166,29 @@ Generated structure:
 
 ```python
 source/extensions/isaacsim.my.nodes/
-âââ config/extension.toml
-âââ data/icon.png, preview.png
-âââ docs/api.rst, Overview.md, CHANGELOG.md
-âââ include/isaacsim/my/nodes/IExampleNodes.h          â Carbonite interface
-âââ nodes/
-â   âââ OgnExampleCpp.ogn, OgnExampleCpp.cpp           â C++ OGN node
-â   âââ config/CategoryDefinition.json
-â   âââ icons/isaac-sim.svg
-âââ plugins/isaacsim.my.nodes/PluginInterface.cpp       â Plugin with OGN macros
-âââ bindings/isaacsim.my.nodes/Bindings.cpp             â pybind11 bindings
-âââ python/
-â   âââ __init__.py
-â   âââ impl/__init__.py, extension.py
-â   âââ nodes/
-â   â   âââ OgnExamplePython.ogn, OgnExamplePython.py   â Python OGN node
-â   â   âââ config/CategoryDefinition.json
-â   â   âââ icons/isaac-sim.svg
-â   âââ tests/__init__.py, test_extension.py
-âââ premake5.lua
+├── config/extension.toml
+├── data/icon.png, preview.png
+├── docs/api.rst, Overview.md, CHANGELOG.md
+├── include/isaacsim/my/nodes/IExampleNodes.h          ← Carbonite interface
+├── nodes/
+│   ├── OgnExampleCpp.ogn, OgnExampleCpp.cpp           ← C++ OGN node
+│   ├── config/CategoryDefinition.json
+│   └── icons/isaac-sim.svg
+├── plugins/isaacsim.my.nodes/PluginInterface.cpp       ← Plugin with OGN macros
+├── bindings/isaacsim.my.nodes/Bindings.cpp             ← pybind11 bindings
+├── python/
+│   ├── __init__.py
+│   ├── impl/__init__.py, extension.py
+│   ├── nodes/
+│   │   ├── OgnExamplePython.ogn, OgnExamplePython.py   ← Python OGN node
+│   │   ├── config/CategoryDefinition.json
+│   │   └── icons/isaac-sim.svg
+│   └── tests/__init__.py, test_extension.py
+└── premake5.lua
 ```
 
 Unlike the C++ template, the OGN template does not use a separate `binding_module` variable. The OGN build system
-automatically derives the bindings module name from the extension name (e.g., `isaacsim.my.nodes` â
+automatically derives the bindings module name from the extension name (e.g., `isaacsim.my.nodes` →
 `_isaacsim_my_nodes`).
 
 **Key files to modify:**
@@ -306,7 +306,7 @@ Open `source/extensions/isaacsim.my.hello/isaacsim/my/hello/extension.py` and mo
 
 ### Verifying UI, C++, and OmniGraph extensions
 
-The verification flow is the same for every template (build â run startup test â launch and check
+The verification flow is the same for every template (build → run startup test → launch and check
 in the **Extensions Manager**); the additional checks below confirm the template-specific surfaces.
 
 **UI extension**
@@ -442,7 +442,7 @@ All templates share a common set of variables:
 | `version` | User input | Semantic version (e.g., `0.1.0`) |
 | `description` | User input | Short description of the extension |
 | `category` | User input | Extension category (e.g., `Simulation`, `Sensors`) |
-| `binding_module` | User input (C++ only) | pybind11 module name (e.g., `my_extension` â `_my_extension.so`) |
+| `binding_module` | User input (C++ only) | pybind11 module name (e.g., `my_extension` → `_my_extension.so`) |
 | `python_module` | Auto-derived | Same as `extension_name` |
 | `python_module_path` | Auto-derived | Dots replaced with slashes (e.g., `isaacsim/sensors/lidar`) |
 | `python_module_toplevel` | Auto-derived | First segment of `extension_name` (e.g., `isaacsim`) |

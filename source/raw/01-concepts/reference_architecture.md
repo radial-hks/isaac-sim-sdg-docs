@@ -115,7 +115,7 @@ To properly simulate real world situations, you must have physics characteristic
 After importing the required assets into Isaac Sim, make sure they have appropriate
 Physics for accurate simulations. Some asset importers like the URDF and Onshape Importer carry over
 most Physics parameters and configurations, for the rest of the imported assets adding
-physics before proceeding would be necessary. The [NVIDIA Omniverseâ¢ Physics simulation
+physics before proceeding would be necessary. The [NVIDIA Omniverse™ Physics simulation
 extension](https://docs.omniverse.nvidia.com/extensions/latest/ext_physics.html#physics-core)
 is powered by the NVIDIA PhysX SDK. It supports Rigid Body Simulation,
 Character Control, Deformable Body Simulation, Particle Simulation, and Articulations. The

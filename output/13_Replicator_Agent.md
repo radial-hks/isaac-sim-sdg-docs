@@ -2,7 +2,7 @@
 
 > Replicator Agent 配置 + Behavior Tree Gen + 自定义 Writer
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 14
 
 ---
@@ -230,21 +230,21 @@ The exact layout depends on the writer that is active (refer to [Writer Configur
 
 ```python
 <output_dir>/
-âââ <render_product_or_camera_subfolder>/
-â   âââ rgb/                          # one file per captured frame
-â   â   âââ rgb_0030.png
-â   â   âââ rgb_0031.png
-â   â   âââ ...
-â   âââ camera_params/                # camera intrinsics and pose per frame
-â   â   âââ camera_params_0030.json
-â   â   âââ ...
-â   âââ object_detection.json         # consolidated bounding boxes, skeleton data,
-â   â                                 # and per-actor action data.
-â   âââ ...                           # one folder per additional annotator that
-â                                     # was enabled (semantic_segmentation,
-â                                     # instance_segmentation, distance_to_camera,
-â                                     # normals, motion_vectors, ...)
-âââ ...
+├── <render_product_or_camera_subfolder>/
+│   ├── rgb/                          # one file per captured frame
+│   │   ├── rgb_0030.png
+│   │   ├── rgb_0031.png
+│   │   └── ...
+│   ├── camera_params/                # camera intrinsics and pose per frame
+│   │   ├── camera_params_0030.json
+│   │   └── ...
+│   ├── object_detection.json         # consolidated bounding boxes, skeleton data,
+│   │                                 # and per-actor action data.
+│   └── ...                           # one folder per additional annotator that
+│                                     # was enabled (semantic_segmentation,
+│                                     # instance_segmentation, distance_to_camera,
+│                                     # normals, motion_vectors, ...)
+└── ...
 ```
 
 ## API Usage

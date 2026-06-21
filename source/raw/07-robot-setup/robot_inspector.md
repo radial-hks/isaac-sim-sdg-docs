@@ -27,7 +27,7 @@ A mode selector at the top of the window controls how the robot hierarchy is dis
 | Mode | Description |
 | --- | --- |
 | **Flat** | Links and joints are listed as two flat scopes (`Links`, `Joints`) under each robot, ordered as they appear in the schema relationships. Useful for quickly reviewing the complete lists. |
-| **Tree** (default) | Parent link â joint â child link chain. Matches the kinematic traversal order and is the most natural representation for articulated robots. |
+| **Tree** (default) | Parent link → joint → child link chain. Matches the kinematic traversal order and is the most natural representation for articulated robots. |
 | **MuJoCo** | Tree rooted at the base link. Each link’s children appear first, and the joint connecting the link to its own parent appears as the last child entry. Mirrors the body-centric layout used by MuJoCo MJCF files. |
 
 |  |  |  |
@@ -81,7 +81,7 @@ from isaacsim.robot.schema.ui.utils import HierarchyMode, generate_robot_hierarc
 | Value | Description |
 | --- | --- |
 | `HierarchyMode.FLAT` | Links under a `Links` scope and joints under a `Joints` scope, in schema relationship order. |
-| `HierarchyMode.LINKED` | Parent link â joint â child link chain (default). |
+| `HierarchyMode.LINKED` | Parent link → joint → child link chain (default). |
 | `HierarchyMode.MUJOCO` | Tree rooted at the base link. Child links appear first under each link; the joint connecting the link to its parent appears as the last child entry. |
 
 ## Hierarchy Stage Generation

@@ -98,9 +98,9 @@ Live Sync mode enables real-time “live” editing of shared files on a Nucleus
 
 ### [Omniverse Kit](#id10)
 
-NVIDIA Omniverseâ¢ Kit is a toolkit for building native Omniverse applications and microservices. It is built on a base framework known as Carbonite that provides a wide variety of functionality through a set of light-weight plugins. Carbonite plugins are all authored with C interfaces for persistent ABI compatibility. A Python interpreter is provided for scripting and customization.
+NVIDIA Omniverse™ Kit is a toolkit for building native Omniverse applications and microservices. It is built on a base framework known as Carbonite that provides a wide variety of functionality through a set of light-weight plugins. Carbonite plugins are all authored with C interfaces for persistent ABI compatibility. A Python interpreter is provided for scripting and customization.
 
-NVIDIA Omniverseâ¢ Kit exposes much of its functionality through Python bindings. This provides an API that can be used to write new extensions to Omniverse Kit or new experiences for Omniverse.
+NVIDIA Omniverse™ Kit exposes much of its functionality through Python bindings. This provides an API that can be used to write new extensions to Omniverse Kit or new experiences for Omniverse.
 
 * For a more in-depth look at developing in Kit, see the [Kit Programming Manual](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/guide/kit_overview.html "(in Omniverse Kit)").
 
@@ -112,7 +112,7 @@ The NVIDIA Omniverse Launcher is your first step into the Omniverse. It provides
 
 ### [Omniverse USD Composer](#id12)
 
-NVIDIA Omniverseâ¢ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverseâ¢ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
+NVIDIA Omniverse™ USD Composer was an Omniverse app for world-building that allows users to assemble, light, simulate and render large scale scenes. It is built using NVIDIA Omniverse™ Kit. The Scene Description and in-memory model is based on Pixar’s USD. USD Composer takes advantage of the advanced workflows of USD like Layers, Variants, Instancing and much more.
 
 ### [Carbonite (carb)](#id13)
 
@@ -134,7 +134,7 @@ Extensions are plug-ins to Omniverse Kit that extend its capabilities. They are 
 
 ### [Omniverse Connect](#id17)
 
-Connectors are extensions and additional software layers on top of the open-source USD distribution that allow DCC tools and compute services to communicate easily with each other through the Omniverse Nucleus DB. Those extensions and additions are collectively known as NVIDIA Omniverseâ¢ Connect.
+Connectors are extensions and additional software layers on top of the open-source USD distribution that allow DCC tools and compute services to communicate easily with each other through the Omniverse Nucleus DB. Those extensions and additions are collectively known as NVIDIA Omniverse™ Connect.
 
 ## [USD](#id18)
 
@@ -215,7 +215,7 @@ Immutable historical file versions. Checkpoints are used for version control and
 ## [PhysX](#id30)
 
 NVIDIA PhysX is a scalable multi-platform physics simulation solution.
-The NVIDIA Omniverseâ¢ Physics simulation extension is powered by the NVIDIA PhysX SDK, and includes
+The NVIDIA Omniverse™ Physics simulation extension is powered by the NVIDIA PhysX SDK, and includes
 Rigid Body Simulation, Articulations, Deformable-Body Simulation, and Character Controller.
 
 * See [Physics Core](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/latest/index.html "(in Omni Physics)") for more details.

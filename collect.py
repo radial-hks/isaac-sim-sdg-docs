@@ -4,9 +4,10 @@ Isaac Sim SDG 文档采集与组装 Pipeline
 
 用法:
   uv run python collect.py                     # 全量采集 + 组装
-  uv run python collect.py --incremental       # 增量更新（只抓 checksum 变化的）
+    uv run python collect.py --incremental       # 增量更新（HEAD 检查 Last-Modified）
   uv run python collect.py --module 01-replicator-core  # 只处理指定模块
   uv run python collect.py --assemble-only     # 跳过采集，只组装已有 raw
+    uv run python collect.py --force             # 忽略缓存，强制重抓
   uv run python collect.py --dry-run           # 试运行
 
 前置条件:
@@ -102,6 +103,31 @@ _MOJIBAKE_MAP = {
     "\u00e2\u0080\u00a6": "\u2026",   # …
     # per mille (U+2030 = E2 80 B0 -> â€° in CP1252)
     "\u00e2\u0080\u00b0": "\u2030",   # ‰
+    # trademark sign (U+2122 = E2 84 A2 -> â¢)
+    "\u00e2\u0084\u00a2": "\u2122",   # ™
+    # right arrow (U+2192 = E2 86 92 -> â)
+    "\u00e2\u0086\u0092": "\u2192",   # →
+    # left arrow (U+2190 = E2 86 90 -> â)
+    "\u00e2\u0086\u0090": "\u2190",   # ←
+    # minus sign (U+2212 = E2 88 92 -> â)
+    "\u00e2\u0088\u0092": "\u2212",   # −
+    # command key (U+2318 = E2 8C 98 -> â)
+    "\u00e2\u008c\u0098": "\u2318",   # ⌘
+    # non-breaking hyphen (U+2011 = E2 80 91 -> â)
+    "\u00e2\u0080\u0091": "\u2011",   # ‑
+    # black triangles used in diagrams
+    "\u00e2\u0096\u00ba": "\u25ba",   # ►
+    "\u00e2\u0096\u00bc": "\u25bc",   # ▼
+    # box drawing characters commonly found in extracted tree diagrams
+    "\u00e2\u0094\u009c": "\u251c",   # ├
+    "\u00e2\u0094\u0080": "\u2500",   # ─
+    "\u00e2\u0094\u0094": "\u2514",   # └
+    "\u00e2\u0094\u0082": "\u2502",   # │
+    # Latin-1/UTF-8 artifacts
+    "\u00c2\u00b0": "\u00b0",         # °
+    "\u00c2\u00ba": "\u00ba",         # º
+    "\u00c2\u00b5": "\u00b5",         # µ
+    "\u00c3\u0097": "\u00d7",         # ×
 }
 
 
@@ -281,7 +307,8 @@ def collect_module(manifest: dict, cache: dict, incremental: bool = False,
     module_name = manifest["module"]
     pages = manifest.get("pages", [])
     module_dir = RAW_DIR / module_name
-    module_dir.mkdir(parents=True, exist_ok=True)
+    if not dry_run:
+        module_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"\n{'='*60}")
     print(f"模块: {manifest['title']} ({len(pages)} 页)")
@@ -582,6 +609,12 @@ def main():
         print(f"代理: {PROXY}")
     print()
 
+    if args.assemble_only and args.dry_run:
+        print("[dry-run] assemble-only 模式不会写入 output 文件。")
+        for manifest in manifests:
+            print(f"  将组装: {manifest['output']}")
+        return
+
     # 加载缓存
     cache = load_cache()
 
@@ -598,7 +631,8 @@ def main():
                 total_results[k] += results.get(k, 0)
 
         elapsed = time.time() - start_time
-        save_cache(cache)
+        if not args.dry_run:
+            save_cache(cache)
 
         print(f"\n{'='*60}")
         print(f"采集完成 ({elapsed:.1f}s)")

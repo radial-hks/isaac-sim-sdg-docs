@@ -2,7 +2,7 @@
 
 > 合成数据生成工作流：Object-Based / Scene-Based / Grab / Mobility / Teleop
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 9
 
 ---
@@ -6542,7 +6542,7 @@ The target prim must be a rigid body. To control an articulated gripper with the
 * **Target Rot** (one row with **X**, **Y**, and **Z** combos) — per-axis local rotation offset in 90-degree increments (-180, -90, 0, +90, +180). Different grippers and end effectors have different local-frame conventions; these offsets align the controlled body so that its forward axis matches the VR controller pointing direction. For example, a gripper whose local Z points sideways instead of forward can be corrected with a 90-degree Y offset. Adjustable during **Play** and saved in teleop profiles.
 * **Pos Kp / Kd** — position proportional and derivative gains. Higher **Kp** makes the body snap to the target faster; **Kd** damps oscillations.
 * **Rot Kp / Kd** — orientation proportional and derivative gains. Same principle as position gains, applied to rotational tracking.
-* **Enable** / **Disable** — arms or disarms the controller for the next **Play**. Status transitions: *Configured* â *Standby* â *Active* (on Play).
+* **Enable** / **Disable** — arms or disarms the controller for the next **Play**. Status transitions: *Configured* → *Standby* → *Active* (on Play).
 * **Clear** — destroys the controller resources while keeping the prim path.
 
 ### IK Controller
@@ -6733,29 +6733,29 @@ Each session produces one HDF5 file with one group per episode. Datasets are pre
 
 ```python
 <file>.hdf5                             # one file per open_session()
-âââ @schema_version, @created_at, manifest/, ...  # file-level attrs + manifest
-âââ @stage_snapshot                     # optional, set by Export Scene
-âââ episodes/
-    âââ episode_00000/                  # @episode_index, @started_at, @ended_at,
-    â   â                               # @num_frames, @success (optional),
-    â   â                               # @user_metadata (optional, JSON)
-    â   âââ meta/time/
-    â   â   âââ sim_time            (N,)     float64
-    â   â   âââ physics_step        (N,)     int64
-    â   â   âââ wall_time           (N,)     float64
-    â   âââ state/<name>/                  # articulation, xform, or rigid body (UI naming)
-    â   â   âââ positions           (N, L, 3)  float32   # articulation: per-link world position
-    â   â   âââ orientations        (N, L, 4)  float32   # articulation: per-link wxyz
-    â   â   âââ position            (N, 3)     float32   # xform / rigid body
-    â   â   âââ orientation         (N, 4)     float32   # wxyz
-    â   âââ teleop/                        # present when a live TeleopManager is active
-    â       âââ <side>/{trigger, squeeze, thumbstick_x, thumbstick_y}     (N,)    float32
-    â       âââ <side>/{primary_click, secondary_click, thumbstick_click} (N,)    uint8
-    â       âââ <side>/aim_position          (N, 3)  float32   # record_aim_pose=True
-    â       âââ <side>/aim_orientation       (N, 4)  float32   # wxyz
-    â       âââ head/{position, orientation} (N, 3 | 4)  float32   # record_head_pose=True
-    âââ episode_00001/ ...
-    âââ episode_00002/ ...
+├── @schema_version, @created_at, manifest/, ...  # file-level attrs + manifest
+├── @stage_snapshot                     # optional, set by Export Scene
+└── episodes/
+    ├── episode_00000/                  # @episode_index, @started_at, @ended_at,
+    │   │                               # @num_frames, @success (optional),
+    │   │                               # @user_metadata (optional, JSON)
+    │   ├── meta/time/
+    │   │   ├── sim_time            (N,)     float64
+    │   │   ├── physics_step        (N,)     int64
+    │   │   └── wall_time           (N,)     float64
+    │   ├── state/<name>/                  # articulation, xform, or rigid body (UI naming)
+    │   │   ├── positions           (N, L, 3)  float32   # articulation: per-link world position
+    │   │   ├── orientations        (N, L, 4)  float32   # articulation: per-link wxyz
+    │   │   ├── position            (N, 3)     float32   # xform / rigid body
+    │   │   └── orientation         (N, 4)     float32   # wxyz
+    │   └── teleop/                        # present when a live TeleopManager is active
+    │       ├── <side>/{trigger, squeeze, thumbstick_x, thumbstick_y}     (N,)    float32
+    │       ├── <side>/{primary_click, secondary_click, thumbstick_click} (N,)    uint8
+    │       ├── <side>/aim_position          (N, 3)  float32   # record_aim_pose=True
+    │       ├── <side>/aim_orientation       (N, 4)  float32   # wxyz
+    │       └── head/{position, orientation} (N, 3 | 4)  float32   # record_head_pose=True
+    ├── episode_00001/ ...
+    └── episode_00002/ ...
 ```
 
 For articulations, `L` is the number of recorded links (the articulation root plus every `UsdGeom.Xformable` descendant). The link list is frozen on **Open Session** and stored in the manifest so the replayer binds to the same prim set. There are no DOF, velocity, or drive-target channels: every gripper-drive joint is reproduced through its child link’s recorded world pose, so replaying open / closed grippers works without running any teleop logic.

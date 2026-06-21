@@ -2,7 +2,7 @@
 
 > Robot Setup 工具链（Wizard/Poser/Inspector/GainTuner）+ 配置实战教程
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 32
 
 ---
@@ -1285,11 +1285,11 @@ The pick-and-place tutorial scripts and the `load_cumotion_robot` API expect all
 
 ```python
 /path/to/robot/config/
-âââ robot.urdf
-âââ robot.xrdf
-âââ rmp_flow.yaml
-âââ meshes/
-    âââ ...
+├── robot.urdf
+├── robot.xrdf
+├── rmp_flow.yaml
+└── meshes/
+    └── ...
 ```
 
 Pass this directory to the tutorial scripts with `--xrdf-dir /path/to/robot/config`. For a full description of these files and how they are used by cuMotion, see the [Robot Configuration Files](../cumotion/tutorial_robot_configuration.html#isaac-sim-cumotion-tutorial-robot-configuration) section of the cuMotion tutorial.
@@ -1511,7 +1511,7 @@ On this page
 
 # Tutorial 3: Articulate a Basic Robot
 
-NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverseâ¢ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
+NVIDIA Isaac Sim’s GUI interface features are the same ones used in NVIDIA Omniverse™ USD Composer, an application dedicated to world-building. This tutorial focuses on the GUI functions that are most relevant to robotic uses. For more sophisticated general world creation, see [Omniverse Composer](https://docs.omniverse.nvidia.com/composer/latest/index.html "(in Omniverse USD Composer)").
 
 You will rig a basic “robot” with three links and two revolute joints to introduce the concepts of joints and articulations. You take the objects that were added to the stage in [Tutorial 2: Assemble a Simple Robot](tutorial_intro_assemble_robot.html#isaac-sim-app-tutorial-intro-assemble-robot) and turn them into a mock mobile robot with a rectangular body and two cylindrical wheels.
 
@@ -4918,7 +4918,7 @@ Converts MJCF actuator and joint attributes to PhysX drive and joint schemas. Th
 **Execution Logic**:
 
 1. **Actuator Conversion**: For each `MjcActuator` prim, reads `gainPrm`, `biasPrm`, `gainType`, `biasType`, and `forceRange` attributes. Converts position-control (kp/kd) and velocity-control (kd) patterns to `DriveAPI` stiffness and damping.
-2. **Joint Conversion**: For each revolute/prismatic joint, converts MJCF-specific attributes (`frictionloss` â `PhysxJointAPI.jointFriction`, `armature` â `PhysxJointAPI.armature`, `ref` â `DriveAPI.targetPosition`).
+2. **Joint Conversion**: For each revolute/prismatic joint, converts MJCF-specific attributes (`frictionloss` → `PhysxJointAPI.jointFriction`, `armature` → `PhysxJointAPI.armature`, `ref` → `DriveAPI.targetPosition`).
 
 Mimic joints are left as `NewtonMimicAPI` on the joint prim and consumed directly by the runtime; no equivalent `PhysxMimicJointAPI` is authored.
 
@@ -4933,9 +4933,9 @@ Converts URDF joint attributes to both MJCF actuators and PhysX joint schemas. T
 **Execution Logic**:
 
 1. **Physics Scope Creation**: Ensures a `Physics` scope exists under the default prim for actuator prims.
-2. **URDF to PhysX Conversion**: For each revolute/prismatic joint, converts URDF attributes (`effort` â `DriveAPI.maxForce`, `velocity` â `PhysxJointAPI.maxJointVelocity`, `damping` â `DriveAPI.damping`, `friction` â `PhysxJointAPI.jointFriction`, `calibration` â `DriveAPI.targetPosition`).
+2. **URDF to PhysX Conversion**: For each revolute/prismatic joint, converts URDF attributes (`effort` → `DriveAPI.maxForce`, `velocity` → `PhysxJointAPI.maxJointVelocity`, `damping` → `DriveAPI.damping`, `friction` → `PhysxJointAPI.jointFriction`, `calibration` → `DriveAPI.targetPosition`).
 3. **MjcActuator Creation**: Creates `MjcActuator` prims with `gainPrm`/`biasPrm` arrays derived from drive stiffness and damping for position or velocity control modes.
-4. **PhysX to MJC Conversion**: Converts PhysX joint attributes back to MJCF attributes (`targetPosition` â `mjc:ref`, `jointFriction` â `mjc:frictionloss`, `armature` â `mjc:armature`).
+4. **PhysX to MJC Conversion**: Converts PhysX joint attributes back to MJCF attributes (`targetPosition` → `mjc:ref`, `jointFriction` → `mjc:frictionloss`, `armature` → `mjc:armature`).
 
 Mimic joints are left as `NewtonMimicAPI` on the joint prim and consumed directly by the runtime; no equivalent `PhysxMimicJointAPI` is authored.
 
@@ -5042,20 +5042,20 @@ This tutorial demonstrates how to transform a robot USD asset into the recommend
 
 ```python
 output_directory/
-âââ payloads/
-â   âââ base.usd
-â   âââ robot.usda
-â   âââ geometries.usd
-â   âââ instances.usda
-â   âââ materials.usda
-â   âââ Textures/
-â   â   âââ ...
-â   âââ Physics/
-â       âââ physics.usda
-â       âââ physx.usda
-â       âââ mujoco.usda
-âââ <asset_name>.usda          (interface layer)
-âââ transform_report.json
+├── payloads/
+│   ├── base.usd
+│   ├── robot.usda
+│   ├── geometries.usd
+│   ├── instances.usda
+│   ├── materials.usda
+│   ├── Textures/
+│   │   └── ...
+│   └── Physics/
+│       ├── physics.usda
+│       ├── physx.usda
+│       └── mujoco.usda
+├── <asset_name>.usda          (interface layer)
+└── transform_report.json
 ```
 
 1. Inspect the robot prim structure, and verify that all meshes are now added through a reference, and the former looks scope is now empty, since all materials are now added to the materials.usda layer, and added through the meshes.
@@ -6641,7 +6641,7 @@ A mode selector at the top of the window controls how the robot hierarchy is dis
 | Mode | Description |
 | --- | --- |
 | **Flat** | Links and joints are listed as two flat scopes (`Links`, `Joints`) under each robot, ordered as they appear in the schema relationships. Useful for quickly reviewing the complete lists. |
-| **Tree** (default) | Parent link â joint â child link chain. Matches the kinematic traversal order and is the most natural representation for articulated robots. |
+| **Tree** (default) | Parent link → joint → child link chain. Matches the kinematic traversal order and is the most natural representation for articulated robots. |
 | **MuJoCo** | Tree rooted at the base link. Each link’s children appear first, and the joint connecting the link to its own parent appears as the last child entry. Mirrors the body-centric layout used by MuJoCo MJCF files. |
 
 |  |  |  |
@@ -6695,7 +6695,7 @@ from isaacsim.robot.schema.ui.utils import HierarchyMode, generate_robot_hierarc
 | Value | Description |
 | --- | --- |
 | `HierarchyMode.FLAT` | Links under a `Links` scope and joints under a `Joints` scope, in schema relationship order. |
-| `HierarchyMode.LINKED` | Parent link â joint â child link chain (default). |
+| `HierarchyMode.LINKED` | Parent link → joint → child link chain (default). |
 | `HierarchyMode.MUJOCO` | Tree rooted at the base link. Child links appear first under each link; the joint connecting the link to its parent appears as the last child entry. |
 
 ## Hierarchy Stage Generation
@@ -7234,12 +7234,12 @@ There is still a vestigial `/World` prim on stage, for now, you can manually mov
 
 ```python
 robot_root_folder/
-âââ configurations/
-â   âââ <robot-name>_robot.usd
-â   âââ <robot-name>_physics.usd
-â   âââ <robot-name>_robot.usd
-âââ <robot-name>.usd
-âââ stage_copy.usd
+├── configurations/
+│   └── <robot-name>_robot.usd
+│   └── <robot-name>_physics.usd
+│   └── <robot-name>_robot.usd
+└── <robot-name>.usd
+└── stage_copy.usd
 ```
 
 **APIs applied**:
@@ -7248,22 +7248,22 @@ The APIs applied can be found by selecting the prim on stage and examining the p
 
 ```python
 robot_prim (RobotAPI)
-âââ link1 (RigidBodyAPI, LinkAPI)
-â   âââ visual
-â   âââ collider
-â       âââ <mesh>  (ColliderAPI)
-âââ link2 (RigidBodyAPI, LinkAPI)
-â   âââ visual
-â   âââ collider
-â       âââ <mesh>  (ColliderAPI)
-âââ link3 (RigidBodyAPI, LinkAPI)
-â   âââ visual
-â   âââ collider
-â       âââ <mesh>  (ColliderAPI)
-âââ Joints
-â   âââ fixed_joint (JointAPI, ArticulationRootAPI)
-â   âââ slider_joint (JointAPI, DriveAPI, JointStateAPI)
-â   âââ rotate_joint (JointAPI, DriveAPI, JointStateAPI)
+├── link1 (RigidBodyAPI, LinkAPI)
+│   └── visual
+│   ├── collider
+│       └── <mesh>  (ColliderAPI)
+├── link2 (RigidBodyAPI, LinkAPI)
+│   └── visual
+│   ├── collider
+│       └── <mesh>  (ColliderAPI)
+├── link3 (RigidBodyAPI, LinkAPI)
+│   └── visual
+│   ├── collider
+│       └── <mesh>  (ColliderAPI)
+├── Joints
+│   └── fixed_joint (JointAPI, ArticulationRootAPI)
+│   └── slider_joint (JointAPI, DriveAPI, JointStateAPI)
+│   └── rotate_joint (JointAPI, DriveAPI, JointStateAPI)
 ```
 
 ## Next Steps

@@ -2,7 +2,7 @@
 
 > 无头模式运行、容器化、云端部署、远程可视化
 > Isaac Sim 版本: 6.0
-> 最后组装: 2026-06-21 13:40 UTC
+> 最后组装: 2026-06-21 13:58 UTC
 > 来源页数: 8
 
 ---
@@ -743,7 +743,7 @@ Note
 
   > + Open the DMG file then click and drag the **Isaac Sim WebRTC Streaming Client** app to the **Applications** folder icon to install.
   > + When streaming Isaac Sim app, use `Ctrl+C` and `Ctrl+V` to copy and paste respectively within the streamed app.
-  > + To copy from host to client, use `âC` and `Ctrl+V`.
+  > + To copy from host to client, use `⌘C` and `Ctrl+V`.
 * To reload the connection, click **Reload** in the **View** menu. This may be useful if you see a blank screen after some time.
 
 ## Web-Based Streaming Client (Docker Compose)
@@ -934,13 +934,13 @@ Follow these steps to launch an AWS EC2 instance:
 
 Linux Instance
 
-**NVIDIA Isaac Simâ¢ Development Workstation (Linux)**
+**NVIDIA Isaac Sim™ Development Workstation (Linux)**
 
 * This will create an EC2 instance based on Ubuntu.
 
 Windows Instance
 
-**NVIDIA Isaac Simâ¢ Development Workstation (Windows)**
+**NVIDIA Isaac Sim™ Development Workstation (Windows)**
 
 * This will create an EC2 instance based on Windows Server.
 

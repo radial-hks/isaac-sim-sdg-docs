@@ -208,7 +208,7 @@ The first collapsible section binds each scalar [Robot API](#isaac-sim-robot-sch
 | **Robot Type** | Drop-down with **(Other)** entry | Selecting **(Other)** appends a side text field for typing a custom token; selecting any predefined value clears the override. |
 | **Source** | Text field | URL or reference to the original asset. |
 | **Version** | Text field | Semantic version string. |
-| **Changelog** | Inline editable list with **+** and **â** buttons | New entries are prepended; each entry exposes a remove button. The full list is written back as a USD string array. |
+| **Changelog** | Inline editable list with **+** and **−** buttons | New entries are prepended; each entry exposes a remove button. The full list is written back as a USD string array. |
 
 ## Robot Joints and Robot Links
 

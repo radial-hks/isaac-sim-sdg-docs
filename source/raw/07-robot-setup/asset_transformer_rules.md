@@ -387,7 +387,7 @@ Converts MJCF actuator and joint attributes to PhysX drive and joint schemas. Th
 **Execution Logic**:
 
 1. **Actuator Conversion**: For each `MjcActuator` prim, reads `gainPrm`, `biasPrm`, `gainType`, `biasType`, and `forceRange` attributes. Converts position-control (kp/kd) and velocity-control (kd) patterns to `DriveAPI` stiffness and damping.
-2. **Joint Conversion**: For each revolute/prismatic joint, converts MJCF-specific attributes (`frictionloss` â `PhysxJointAPI.jointFriction`, `armature` â `PhysxJointAPI.armature`, `ref` â `DriveAPI.targetPosition`).
+2. **Joint Conversion**: For each revolute/prismatic joint, converts MJCF-specific attributes (`frictionloss` → `PhysxJointAPI.jointFriction`, `armature` → `PhysxJointAPI.armature`, `ref` → `DriveAPI.targetPosition`).
 
 Mimic joints are left as `NewtonMimicAPI` on the joint prim and consumed directly by the runtime; no equivalent `PhysxMimicJointAPI` is authored.
 
@@ -402,9 +402,9 @@ Converts URDF joint attributes to both MJCF actuators and PhysX joint schemas. T
 **Execution Logic**:
 
 1. **Physics Scope Creation**: Ensures a `Physics` scope exists under the default prim for actuator prims.
-2. **URDF to PhysX Conversion**: For each revolute/prismatic joint, converts URDF attributes (`effort` â `DriveAPI.maxForce`, `velocity` â `PhysxJointAPI.maxJointVelocity`, `damping` â `DriveAPI.damping`, `friction` â `PhysxJointAPI.jointFriction`, `calibration` â `DriveAPI.targetPosition`).
+2. **URDF to PhysX Conversion**: For each revolute/prismatic joint, converts URDF attributes (`effort` → `DriveAPI.maxForce`, `velocity` → `PhysxJointAPI.maxJointVelocity`, `damping` → `DriveAPI.damping`, `friction` → `PhysxJointAPI.jointFriction`, `calibration` → `DriveAPI.targetPosition`).
 3. **MjcActuator Creation**: Creates `MjcActuator` prims with `gainPrm`/`biasPrm` arrays derived from drive stiffness and damping for position or velocity control modes.
-4. **PhysX to MJC Conversion**: Converts PhysX joint attributes back to MJCF attributes (`targetPosition` â `mjc:ref`, `jointFriction` â `mjc:frictionloss`, `armature` â `mjc:armature`).
+4. **PhysX to MJC Conversion**: Converts PhysX joint attributes back to MJCF attributes (`targetPosition` → `mjc:ref`, `jointFriction` → `mjc:frictionloss`, `armature` → `mjc:armature`).
 
 Mimic joints are left as `NewtonMimicAPI` on the joint prim and consumed directly by the runtime; no equivalent `PhysxMimicJointAPI` is authored.
 

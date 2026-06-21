@@ -15,7 +15,7 @@ fetched: "2026-06-21T13:39:54"
 
 # Hello World
 
-[NVIDIA Omniverseâ¢ Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/kit-architecture.html "(in Omniverse Developer Guide)"), the toolkit that NVIDIA Isaac Sim uses to build its applications, provides a Python interpreter for scripting. This means every single GUI command, as well as many additional functions are available as Python APIs. However, the learning curve for interfacing with Omniverse Kit using Pixar’s USD Python API is steep and steps are frequently tedious. Therefore we’ve provided a set of APIs that are designed to be used in robotics applications, APIs that abstract away the complexity of USD APIs and merge multiple steps into one for frequently performed tasks.
+[NVIDIA Omniverse™ Kit](https://docs.omniverse.nvidia.com/dev-guide/latest/kit-architecture.html "(in Omniverse Developer Guide)"), the toolkit that NVIDIA Isaac Sim uses to build its applications, provides a Python interpreter for scripting. This means every single GUI command, as well as many additional functions are available as Python APIs. However, the learning curve for interfacing with Omniverse Kit using Pixar’s USD Python API is steep and steps are frequently tedious. Therefore we’ve provided a set of APIs that are designed to be used in robotics applications, APIs that abstract away the complexity of USD APIs and merge multiple steps into one for frequently performed tasks.
 
 In this tutorial, we will present the concepts of Core APIs and how to use them. We will start with adding a cube to an empty stage, and we’ll build upon it to create a scene with multiple robots executing multiple tasks simultaneously, as seen below.
 
