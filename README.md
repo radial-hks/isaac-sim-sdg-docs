@@ -7,10 +7,10 @@
 
 | 指标 | 值 |
 |------|-----|
-| 采集页面 | 235 raw → 229 unique URL → 225 covered |
-| 覆盖率 | 225 / 385 (Isaac Sim 主文档站) = **58%** |
+| 采集页面 | 262 raw → 256 unique URL → 232 covered |
+| 覆盖率 | 232 / 385 (Isaac Sim 主文档站) = **60%** |
 | 模块数 | 16 个 (manifests/) |
-| 输出体积 | ~5.0 MB (output/) |
+| 输出体积 | ~3.7 MB (output/) |
 | Isaac Sim 版本 | 6.0 |
 | 最后更新 | 2026-06-21 |
 
@@ -49,7 +49,7 @@ isaac-sim-sdg-docs/
 │   ├── 02_Development_Fundamentals.md     # 180K
 │   ├── 03_Extension_Development.md        # 77K
 │   ├── 04_Headless_and_Deploy.md          # 81K
-│   ├── 05_Python_API_Quickref.md          # 1.8M
+│   ├── 05_Python_API_Quickref.md          # 540K
 │   ├── 06_Sim2Real_and_UE5.md             # 137K
 │   ├── 07_Robot_Setup.md                  # 411K
 │   ├── 08_OmniGraph_and_Robot_Sim.md      # 156K
@@ -75,7 +75,6 @@ isaac-sim-sdg-docs/
 | README.md | 本文件 |
 | PROJECT_WORKFLOW.md | 项目工作流手册 (采集/迭代/Agent 集成/故障恢复) |
 | COVERAGE_ANALYSIS.md | 覆盖率决策分析 (为什么采/没采某个模块) |
-```
 
 ## 用法
 
